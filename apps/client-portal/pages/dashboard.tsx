@@ -115,7 +115,7 @@ export default function Dashboard() {
             Welcome back! 👋
           </h1>
           <p className="text-gray-400">
-            Here's what needs your attention today
+            Here&apos;s what needs your attention today
           </p>
         </div>
 

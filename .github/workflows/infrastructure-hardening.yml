@@ -81,11 +81,12 @@ jobs:
       run: |
         echo "👥 Testing client portal routes..."
 
-        # Test client billing portal (should require auth, expect 401/403)
+        # Test client billing portal (should require auth, expect 401/403/307)
+        # 307 = redirect to login page, which is also valid auth protection
         response=$(curl -s -o /dev/null -w "%{http_code}" \
           "$PRODUCTION_URL/api/client/billing/portal")
-        if [[ "$response" == "401" || "$response" == "403" ]]; then
-          echo "✅ Client billing portal auth protection working"
+        if [[ "$response" == "401" || "$response" == "403" || "$response" == "307" ]]; then
+          echo "✅ Client billing portal auth protection working (got $response)"
         else
           echo "❌ Client billing portal auth issue (got $response)"
           exit 1
