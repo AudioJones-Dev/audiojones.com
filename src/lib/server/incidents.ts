@@ -752,7 +752,7 @@ export function formatIncidentNotificationForSlack(data: IncidentNotificationDat
   const priorityEmoji = priorityEmojis[incident.priority as keyof typeof priorityEmojis] || '📢';
 
   let changeText = '';
-  let changeFields = [];
+  const changeFields = [];
 
   switch (change_type) {
     case 'status_change':

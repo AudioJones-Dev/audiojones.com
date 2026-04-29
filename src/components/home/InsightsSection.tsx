@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export default function InsightsSection() {
   return (
     <section
@@ -24,12 +26,12 @@ export default function InsightsSection() {
               AI, podcasting, and AEO strategies we're using with clients right now.
             </p>
           </div>
-          <a 
-            href="/insights" 
+          <Link
+            href="/insights"
             className="inline-flex items-center rounded-full border border-white/15 bg-black/30 px-5 py-2 text-sm font-semibold text-white hover:border-white/70 transition-all"
           >
             View all insights
-          </a>
+          </Link>
         </div>
 
         <div className="grid gap-6 md:grid-cols-3">
@@ -49,12 +51,12 @@ export default function InsightsSection() {
               <p className="text-gray-300 text-sm flex-1">
                 A step-by-step approach to launching a video-first show for South Florida audiences.
               </p>
-              <a 
-                href="/blog/miami-podcast-playbook" 
+              <Link
+                href="/blog/miami-podcast-playbook"
                 className="inline-flex items-center mt-1 rounded-full bg-gradient-to-r from-[#FF4500] to-[#FFD700] px-4 py-2 text-sm font-semibold text-black shadow-md hover:opacity-90 transition-all"
               >
                 Open Playbook →
-              </a>
+              </Link>
             </div>
           </article>
 
@@ -74,12 +76,12 @@ export default function InsightsSection() {
               <p className="text-gray-300 text-sm flex-1">
                 Use automation and AI to turn episodes into multi-channel lead gen.
               </p>
-              <a 
-                href="/blog/ai-powered-content-marketing" 
+              <Link
+                href="/blog/ai-powered-content-marketing"
                 className="inline-flex items-center mt-1 rounded-full bg-gradient-to-r from-[#FF4500] to-[#FFD700] px-4 py-2 text-sm font-semibold text-black shadow-md hover:opacity-90 transition-all"
               >
                 Open Playbook →
-              </a>
+              </Link>
             </div>
           </article>
 
@@ -99,12 +101,12 @@ export default function InsightsSection() {
               <p className="text-gray-300 text-sm flex-1">
                 Position yourself for Miami search, zero-click results, and branded queries.
               </p>
-              <a 
-                href="/blog/miami-aeo-framework" 
+              <Link
+                href="/blog/miami-aeo-framework"
                 className="inline-flex items-center mt-1 rounded-full bg-gradient-to-r from-[#FF4500] to-[#FFD700] px-4 py-2 text-sm font-semibold text-black shadow-md hover:opacity-90 transition-all"
               >
                 Open Playbook →
-              </a>
+              </Link>
             </div>
           </article>
         </div>

@@ -51,7 +51,10 @@ jobs:
           cache: 'pnpm'
 
       - name: Install dependencies
-        run: pnpm install --no-frozen-lockfile
+        run: pnpm install --frozen-lockfile
+
+      - name: Type check
+        run: pnpm exec tsc --noEmit
 
       - name: Build
         run: pnpm build
@@ -69,16 +72,23 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           WHOP_API_KEY: ${{ secrets.WHOP_API_KEY }}
           STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
-          MAILERLITE_API_KEY: ${{ secrets.MAILERLITE_API_KEY }}
-          MAILERLITE_GROUP_ID: placeholder
-          N8N_WEBHOOK_URL: https://placeholder.com
           NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY }}
           STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
-          WHOP_WEBHOOK_SECRET: placeholder
           NEXT_PUBLIC_WHOP_APP_ID: ${{ secrets.NEXT_PUBLIC_WHOP_APP_ID }}
+          MAILERLITE_API_KEY: ${{ secrets.MAILERLITE_API_KEY }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          IMAGEKIT_ENDPOINT: ${{ secrets.IMAGEKIT_ENDPOINT }}
+          IMAGEKIT_PUBLIC_KEY: ${{ secrets.IMAGEKIT_PUBLIC_KEY }}
+          IMAGEKIT_PRIVATE_KEY: ${{ secrets.IMAGEKIT_PRIVATE_KEY }}
+          LEAD_FORM_SECRET: ${{ secrets.LEAD_FORM_SECRET }}
+          IP_HASH_SALT: ${{ secrets.IP_HASH_SALT }}
+          LEAD_NOTIFICATION_EMAIL: ${{ secrets.LEAD_NOTIFICATION_EMAIL }}
+          FROM_EMAIL: ${{ secrets.FROM_EMAIL }}
+          CRM_WEBHOOK_URL: ${{ secrets.CRM_WEBHOOK_URL }}
+          MAILERLITE_GROUP_ID: placeholder
+          N8N_WEBHOOK_URL: https://placeholder.com
+          WHOP_WEBHOOK_SECRET: placeholder
           NEXT_PUBLIC_WHOP_COMPANY_ID: placeholder
           NEXT_PUBLIC_WHOP_AGENT_USER_ID: placeholder
           API_BASE_URL: https://audiojones.com
-          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-

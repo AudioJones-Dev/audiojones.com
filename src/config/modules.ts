@@ -132,7 +132,7 @@ export function getModulesByPersona(persona: Persona): ModuleConfig[] {
  * Get gradient CSS class string for a module
  */
 export function getModuleGradient(id: ModuleId): string {
-  const module = getModuleById(id);
-  if (!module) return "from-[#FF4500] to-[#FFD700]";
-  return `from-[${module.gradient.from}] to-[${module.gradient.to}]`;
+  const mod = getModuleById(id);
+  if (!mod) return "from-[#FF4500] to-[#FFD700]";
+  return `from-[${mod.gradient.from}] to-[${mod.gradient.to}]`;
 }

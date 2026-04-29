@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import ServiceTile from './ServiceTile';
 
 interface ArtistHubService {
@@ -123,12 +124,12 @@ export default function ArtistHubLayout() {
             >
               Client Portal
             </a>
-            <a
+            <Link
               href="/"
               className="border border-gray-300 hover:border-gray-400 text-gray-700 font-semibold py-3 px-8 rounded-lg transition-colors duration-200"
             >
               Back to Home
-            </a>
+            </Link>
           </div>
         </div>
       </section>

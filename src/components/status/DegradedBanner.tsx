@@ -1,6 +1,6 @@
 /**
  * Degraded Service Banner Component
- * 
+ *
  * Shows contextual banners when system is degraded or experiencing outages.
  * Can be dismissed per-session using localStorage.
  */

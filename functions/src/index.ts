@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import * as admin from "firebase-admin";
 import * as f from "firebase-functions";
 import Stripe from "stripe";

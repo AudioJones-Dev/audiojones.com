@@ -3,7 +3,7 @@ import Link from "next/link";
 import { getModuleById } from "@/config/modules";
 import { portalLinks, getBookingUrl } from "@/config/links";
 
-const module = getModuleById("marketing-automation")!;
+const pageModule = getModuleById("marketing-automation")!;
 
 export const metadata: Metadata = {
   title: "Marketing Automation System | Audio Jones",
@@ -26,19 +26,19 @@ export default function MarketingAutomationSystemPage() {
 
             {/* Main Headline */}
             <h1 className="text-5xl md:text-7xl font-bold mb-6">
-              <span className={`bg-gradient-to-r from-[${module.gradient.from}] to-[${module.gradient.to}] bg-clip-text text-transparent`}>
-                {module.name}
+              <span className={`bg-gradient-to-r from-[${pageModule.gradient.from}] to-[${pageModule.gradient.to}] bg-clip-text text-transparent`}>
+                {pageModule.name}
               </span>
             </h1>
             
             <p className="text-xl md:text-2xl text-white/80 mb-8">
-              {module.tagline}
+              {pageModule.tagline}
             </p>
 
             {/* Description */}
             <div className="max-w-3xl mx-auto">
               <p className="text-lg text-white/70 leading-relaxed">
-                {module.shortDescription}
+                {pageModule.shortDescription}
               </p>
             </div>
           </div>

@@ -5,6 +5,7 @@
  * No authentication required - safe for public consumption.
  */
 
+import Link from 'next/link';
 import { fetchPublicIncidents, getSystemStatus, getRecentIncidents } from '@/lib/publicIncidents';
 import StatusWidget, { StatusBar } from '@/components/status/StatusWidget';
 import { IncidentFeedItem } from '@/types/incidents';
@@ -152,12 +153,12 @@ export default async function StatusPage() {
             >
               Contact Support
             </a>
-            <a 
-              href="/" 
+            <Link
+              href="/"
               className="text-blue-400 hover:text-blue-300 transition-colors"
             >
               Return to Main Site
-            </a>
+            </Link>
           </div>
         </div>
       </div>

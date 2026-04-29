@@ -26,21 +26,15 @@ jobs:
       - name: Run lint
         run: pnpm lint
 
-      - name: Build project
-        run: pnpm build
-        env:
-          NEXT_PUBLIC_SITE_URL: https://audiojones.com
-          FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
-          FIREBASE_CLIENT_EMAIL: ${{ secrets.FIREBASE_CLIENT_EMAIL }}
-          FIREBASE_PRIVATE_KEY: ${{ secrets.FIREBASE_PRIVATE_KEY }}
-
       - name: Type check
         run: pnpm exec tsc --noEmit
+
+      - name: Build workspace packages
+        run: pnpm packages:build
 
       - name: Test Firebase Admin import
         run: |
           echo "Testing Firebase Admin consolidation..."
-          # Ensure no duplicate Firebase Admin initializations
           if grep -r "initializeApp.*credential" src/ --exclude-dir=node_modules; then
             echo "❌ Found duplicate Firebase Admin initialization!"
             exit 1
@@ -50,7 +44,6 @@ jobs:
       - name: Test admin auth centralization
         run: |
           echo "Testing admin authentication centralization..."
-          # Ensure no inline admin-key header checks remain
           if grep -r "headers\.get.*admin-key.*process\.env" src/app/api/admin/ --exclude-dir=node_modules; then
             echo "❌ Found duplicate admin authentication code!"
             exit 1

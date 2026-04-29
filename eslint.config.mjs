@@ -27,6 +27,8 @@ const eslintConfig = defineConfig([
     "functions/**",
     "test/**",
     "packages/**/dist/**",
+    // Generated Firebase DataConnect files (CommonJS output):
+    "src/dataconnect-generated/**",
   ]),
   {
     rules: {

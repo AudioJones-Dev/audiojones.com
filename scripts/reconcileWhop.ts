@@ -66,8 +66,8 @@ interface BillingDiff {
   whop_id?: string;
   firestore_id?: string;
   description: string;
-  expected_value?: any;
-  actual_value?: any;
+  expected_value?: unknown;
+  actual_value?: unknown;
   customer_email?: string;
   created_at: string;
   resolved?: boolean;

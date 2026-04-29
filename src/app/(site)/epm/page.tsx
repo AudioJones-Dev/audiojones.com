@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import EpmHero from '@/components/pages/EPM/EpmHero';
 import EpmExplainer from '@/components/pages/EPM/EpmExplainer';
 import EpmFlow from '@/components/pages/EPM/EpmFlow';
@@ -176,12 +177,12 @@ export default function EpmPage() {
             >
               Join Waitlist
             </a>
-            <a
+            <Link
               href="/"
               className="border border-white text-white font-semibold py-3 px-8 rounded-lg hover:bg-white hover:text-[#FF4500] transition-colors duration-200"
             >
               Back to Home
-            </a>
+            </Link>
           </div>
         </div>
       </section>

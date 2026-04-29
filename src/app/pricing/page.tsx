@@ -1,5 +1,6 @@
 /* app/pricing/page.tsx */
 
+import Link from 'next/link';
 import { getAllServices, applyMarketRules } from '@/lib/getPricing';
 
 export default function PricingPage() {
@@ -66,7 +67,7 @@ export default function PricingPage() {
             {/* breadcrumb */}
             <nav aria-label="Breadcrumb" className="mb-4">
               <ol className="flex items-center justify-center gap-2 text-sm text-white/50">
-                <li><a href="/" className="hover:text-white">Home</a></li>
+                <li><Link href="/" className="hover:text-white">Home</Link></li>
                 <li>/</li>
                 <li className="text-white">Pricing</li>
               </ol>

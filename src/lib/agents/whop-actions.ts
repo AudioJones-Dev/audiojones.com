@@ -138,7 +138,7 @@ export const customerSupportAgent: AgentAction = {
   execute: async ({ customer_email, issue_type, experience_id }) => {
     const whopClient = getWhopClient();
     
-    let resolution: any = {
+    const resolution: any = {
       issue_type,
       customer_email,
       resolved: false,

@@ -114,10 +114,10 @@ export default function SystemsPage() {
                     {/* Mapped Modules */}
                     <div className="space-y-1">
                       {stage.modules.map((moduleId) => {
-                        const module = modules.find((m) => m.id === moduleId);
-                        return module ? (
+                        const mod = modules.find((m) => m.id === moduleId);
+                        return mod ? (
                           <div key={moduleId} className="text-xs text-white/50">
-                            {module.icon} {module.name}
+                            {mod.icon} {mod.name}
                           </div>
                         ) : null;
                       })}

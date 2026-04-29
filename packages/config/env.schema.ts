@@ -67,7 +67,7 @@ export function validateEnv(env: Record<string, string | undefined>): Env {
     if (process.env.NODE_ENV === "production" && process.env.NEXT_PHASE === "phase-production-build") {
       console.warn("⚠️ Build mode: Environment validation failed but continuing...");
       // Return partial env with defaults
-      return env as any;
+      return env as unknown as Env;
     }
     
     process.exit(1);

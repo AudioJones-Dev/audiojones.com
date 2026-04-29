@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import Link from "next/link";
 import { Metadata } from "next";
 
 export const dynamic = 'force-dynamic';
@@ -78,9 +79,9 @@ export default async function DocsIndex() {
       <div className="border-t border-gray-200 pt-6">
         <div className="flex items-center justify-between text-sm text-gray-500">
           <span>Total modules: {files.length}</span>
-          <a href="/" className="text-[#FF4500] hover:text-[#E03D00] transition-colors">
+          <Link href="/" className="text-[#FF4500] hover:text-[#E03D00] transition-colors">
             ← Back to Home
-          </a>
+          </Link>
         </div>
       </div>
     </main>

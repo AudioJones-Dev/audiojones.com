@@ -15,7 +15,7 @@ export async function GET(req: NextRequest) {
     const limit = Math.min(parseInt(searchParams.get('limit') || '25'), 100);
 
     const db = getDb();
-    let query = db.collection('status_webhook_deliveries')
+    const query = db.collection('status_webhook_deliveries')
       .orderBy('created_at', 'desc')
       .limit(limit);
 

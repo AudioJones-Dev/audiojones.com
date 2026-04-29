@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
     // Legacy format compatibility
     const body: WhopWebhookData = {
       event: event.type,
-      data: event.data
+      data: event.data as WhopWebhookData['data']
     };
 
     const email = body?.data?.email;

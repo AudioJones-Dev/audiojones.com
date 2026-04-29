@@ -5,34 +5,36 @@ on:
   pull_request:
     branches: [ main ]
 
-env:
-  PNPM_VERSION: 10.30.3
-
 jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Activate pnpm
+        run: corepack prepare pnpm@10.30.3 --activate
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          
+          node-version: '22'
+          cache: 'pnpm'
+
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
-        with:
-          version: ${{ env.PNPM_VERSION }}
-          
+
       - name: Install Doppler CLI
         uses: dopplerhq/cli-action@v2
-        
+
       - name: Get pnpm store directory
         shell: bash
         run: |
           echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
-          
+
       - name: Setup pnpm cache
         uses: actions/cache@v4
         with:
@@ -40,21 +42,25 @@ jobs:
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
-            
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-        
+
       - name: Build packages
         run: pnpm packages:build
         env:
           DOPPLER_TOKEN: ${{ secrets.DOPPLER_TOKEN }}
-        
+
       - name: Lint
         run: pnpm lint
-        
+
       - name: Environment validation
-        if: ${{ secrets.DOPPLER_TOKEN != '' }}
-        run: doppler run -- pnpm env:check
+        run: |
+          if [ -n "$DOPPLER_TOKEN" ]; then
+            doppler run -- pnpm env:check
+          else
+            echo "DOPPLER_TOKEN not configured — skipping env:check on this run"
+          fi
         env:
           DOPPLER_TOKEN: ${{ secrets.DOPPLER_TOKEN }}
 
@@ -65,28 +71,33 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Activate pnpm
+        run: corepack prepare pnpm@10.30.3 --activate
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          
+          node-version: '22'
+          cache: 'pnpm'
+
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
-        with:
-          version: ${{ env.PNPM_VERSION }}
-          
+
       - name: Install Doppler CLI
         uses: dopplerhq/cli-action@v2
-        
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-        
+
       - name: Build packages
         run: pnpm packages:build
         env:
           DOPPLER_TOKEN: ${{ secrets.DOPPLER_TOKEN }}
-        
+
       - name: Build application
         run: doppler run -- pnpm build
         env:
@@ -99,31 +110,36 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Activate pnpm
+        run: corepack prepare pnpm@10.30.3 --activate
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          
+          node-version: '22'
+          cache: 'pnpm'
+
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
-        with:
-          version: ${{ env.PNPM_VERSION }}
-          
+
       - name: Install Doppler CLI
         uses: dopplerhq/cli-action@v2
-        
+
       - name: Install Vercel CLI
         run: pnpm install -g vercel
-        
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-        
+
       - name: Build packages
         run: pnpm packages:build
         env:
           DOPPLER_TOKEN: ${{ secrets.DOPPLER_TOKEN }}
-        
+
       - name: Deploy to Vercel
         run: doppler run -- vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }} --yes
         env:
