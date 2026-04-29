@@ -53,10 +53,24 @@ export function getFirestoreDb() {
   return admin.firestore(getAdminApp());
 }
 
-/** 
- * Lazy Firestore DB accessor - replaces the eager `db` export
- * Use this instead of importing `db` directly
- */
-export function getDb() {
-  return getFirestoreDb();
+let cachedDb: admin.firestore.Firestore | null = null;
+function resolveDb(): admin.firestore.Firestore {
+  if (!cachedDb) cachedDb = getFirestoreDb();
+  return cachedDb;
+}
+
+// Proxy defers Firestore + credential resolution until a property is actually
+// read. Holding a reference (e.g. `this.db = getDb()` in a singleton
+// constructor) does not initialize Firebase Admin, so Next.js page-data
+// collection at build time does not require server-side Firebase env vars.
+const dbProxy = new Proxy({} as admin.firestore.Firestore, {
+  get(_target, prop) {
+    const db = resolveDb();
+    const value = (db as unknown as Record<string | symbol, unknown>)[prop];
+    return typeof value === 'function' ? (value as Function).bind(db) : value;
+  },
+});
+
+export function getDb(): admin.firestore.Firestore {
+  return dbProxy;
 }
