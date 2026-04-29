@@ -12,6 +12,9 @@ import { backupDREngine } from '@/lib/backup/BackupDREngine';
 import { getDb } from '@/lib/server/firebaseAdmin';
 import { BackupEngine } from '@/lib/server/backup/backupEngine';
 
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+
 export async function POST(request: NextRequest) {
   try {
     requireAdmin(request);

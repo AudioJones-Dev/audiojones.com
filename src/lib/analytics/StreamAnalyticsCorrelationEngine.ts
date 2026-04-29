@@ -130,16 +130,15 @@ interface StreamCorrelationMetrics {
 
 export class StreamAnalyticsCorrelationEngine {
   private static instance: StreamAnalyticsCorrelationEngine;
-  private db: FirebaseFirestore.Firestore;
   private eventStreaming: typeof eventStreamingEngine;
   private analytics: typeof advancedAnalyticsEngine;
   private models: typeof modelLifecycleEngine;
-  
+
   private activeCorrelations: Map<string, CorrelationPattern> = new Map();
   private correlationBuffer: Map<string, CorrelationInsight[]> = new Map();
   private traceIndex: Map<string, StreamTrace[]> = new Map();
   private modelInferenceIndex: Map<string, ModelInferenceEvent[]> = new Map();
-  
+
   private metrics: StreamCorrelationMetrics = {
     total_correlations: 0,
     active_patterns: 0,
@@ -151,12 +150,17 @@ export class StreamAnalyticsCorrelationEngine {
     event_correlations: 0,
   };
 
+  // Lazy Firestore accessor — defers credential resolution until first request,
+  // so module-level singleton construction never blows up the Next.js build.
+  private get db(): FirebaseFirestore.Firestore {
+    return getDb();
+  }
+
   private constructor() {
-    this.db = getDb();
     this.eventStreaming = eventStreamingEngine;
     this.analytics = advancedAnalyticsEngine;
     this.models = modelLifecycleEngine;
-    
+
     console.log('🔗 Initializing Stream Analytics Correlation Engine...');
     this.initializeCorrelationEngine();
     console.log('📊 Stream Analytics Correlation Engine initialized successfully');

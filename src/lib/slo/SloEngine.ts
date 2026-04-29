@@ -51,7 +51,11 @@ export interface SloBurnAlert {
 }
 
 export class SloEngine {
-  private db = getDb();
+  // Lazy Firestore accessor — class-field initializer would otherwise resolve
+  // Firebase credentials at module load and break the Next.js build.
+  private get db(): FirebaseFirestore.Firestore {
+    return getDb();
+  }
 
   /**
    * Record an SLO metric measurement

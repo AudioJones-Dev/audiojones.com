@@ -9,6 +9,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import { requireAdmin } from '@/lib/server/requireAdmin';
 import modelLifecycleEngine from '@/lib/ai/ModelLifecycleEngine';
 
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+
 export async function GET(request: NextRequest) {
   try {
     await requireAdmin(request);

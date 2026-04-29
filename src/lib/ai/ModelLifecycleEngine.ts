@@ -135,15 +135,18 @@ interface ModelLifecycleEvent {
 
 export class ModelLifecycleEngine {
   private static instance: ModelLifecycleEngine;
-  private db: FirebaseFirestore.Firestore;
   private eventStreaming: typeof eventStreamingEngine;
   private manifestPath: string;
 
+  // Lazy Firestore accessor — see StreamAnalyticsCorrelationEngine for rationale.
+  private get db(): FirebaseFirestore.Firestore {
+    return getDb();
+  }
+
   private constructor() {
-    this.db = getDb();
     this.eventStreaming = eventStreamingEngine;
     this.manifestPath = path.join(process.cwd(), 'src/lib/ai/models/manifest.json');
-    
+
     console.log('🤖 Initializing Model Lifecycle Engine...');
     this.initializeLifecycleMonitoring();
     console.log('📊 Model Lifecycle Engine initialized successfully');
