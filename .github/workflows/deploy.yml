@@ -53,6 +53,7 @@ jobs:
         run: pnpm lint
         
       - name: Environment validation
+        if: ${{ secrets.DOPPLER_TOKEN != '' }}
         run: doppler run -- pnpm env:check
         env:
           DOPPLER_TOKEN: ${{ secrets.DOPPLER_TOKEN }}
