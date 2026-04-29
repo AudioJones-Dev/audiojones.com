@@ -42,7 +42,10 @@ export interface SloCreditSummary {
 }
 
 export class SLOCreditEngine {
-  private db = getDb();
+  // Lazy Firestore accessor — see SloEngine for rationale.
+  private get db(): FirebaseFirestore.Firestore {
+    return getDb();
+  }
 
   /**
    * Get default SLO credit rules

@@ -10,9 +10,20 @@ import { getDb } from '@/lib/server/firebaseAdmin';
 import { EventPublisher, WebhookEventHandler } from '@/lib/streaming/EventIntegrations';
 import Stripe from 'stripe';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
-  apiVersion: '2025-10-29.clover',
-});
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+
+// Stripe SDK init is deferred to request time so the build's page-data
+// collection doesn't blow up when STRIPE_SECRET_KEY is unset (e.g. CI build).
+let _stripe: Stripe | null = null;
+function getStripe(): Stripe {
+  if (!_stripe) {
+    _stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
+      apiVersion: '2025-10-29.clover',
+    });
+  }
+  return _stripe;
+}
 
 export async function POST(request: NextRequest) {
   console.log('💳 Stripe webhook received with event streaming integration');
@@ -29,7 +40,7 @@ export async function POST(request: NextRequest) {
 
   try {
     // Verify webhook signature (existing logic)
-    const event = stripe.webhooks.constructEvent(
+    const event = getStripe().webhooks.constructEvent(
       body,
       signature,
       process.env.STRIPE_WEBHOOK_SECRET || ''

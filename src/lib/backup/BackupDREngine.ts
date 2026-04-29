@@ -62,7 +62,11 @@ export interface BackupMetrics {
 }
 
 export class BackupDREngine {
-  private db = getDb();
+  // Lazy Firestore accessor — class-field initializers run at construction
+  // and would throw at module-load time when env vars aren't yet bound.
+  private get db(): FirebaseFirestore.Firestore {
+    return getDb();
+  }
   private storage: Storage;
   private defaultConfig: BackupConfig;
 

@@ -6,7 +6,7 @@ on:
     branches: [ main ]
 
 env:
-  PNPM_VERSION: 9
+  PNPM_VERSION: 10.30.3
 
 jobs:
   validate:
@@ -53,6 +53,7 @@ jobs:
         run: pnpm lint
         
       - name: Environment validation
+        if: ${{ secrets.DOPPLER_TOKEN != '' }}
         run: doppler run -- pnpm env:check
         env:
           DOPPLER_TOKEN: ${{ secrets.DOPPLER_TOKEN }}

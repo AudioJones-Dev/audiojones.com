@@ -10,6 +10,9 @@ import { requireAdmin } from '@/lib/server/requireAdmin';
 import sloEngine from '@/lib/server/slo/sloEngine';
 import eventStreamingEngine from '@/lib/streaming/EventStreamingEngine';
 
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+
 export async function POST(req: NextRequest) {
   try {
     requireAdmin(req);

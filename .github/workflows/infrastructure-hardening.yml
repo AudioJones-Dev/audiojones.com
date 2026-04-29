@@ -17,19 +17,13 @@ jobs:
   route-testing:
     name: Critical Route Testing
     runs-on: ubuntu-latest
-    
+    # Skip when ADMIN_API_KEY isn't available (fork PRs, fresh repos) — the
+    # curl-based tests would all 401 without it and produce noise.
+    if: ${{ secrets.ADMIN_API_KEY != '' }}
+
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
-
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20'
-        cache: 'npm'
-
-    - name: Install dependencies
-      run: npm ci
 
     - name: Test Core Platform Routes
       run: |
@@ -149,10 +143,22 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
+    - name: Enable Corepack
+      run: corepack enable
+
+    - name: Activate pnpm
+      run: corepack prepare pnpm@10.30.3 --activate
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 22
+        cache: 'pnpm'
+
     - name: Run Security Audit
       run: |
         echo "🔒 Running security audit..."
-        npm audit --audit-level high
+        pnpm audit --audit-level high
         echo "✅ Security audit completed"
 
     - name: Test Authentication Endpoints

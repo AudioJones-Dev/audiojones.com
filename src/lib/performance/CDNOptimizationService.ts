@@ -6,6 +6,7 @@
  */
 
 import eventStreamingEngine from '@/lib/streaming/EventStreamingEngine';
+import { lazySingleton } from '@/lib/server/lazySingleton';
 
 interface CDNEdgeLocation {
   id: string;
@@ -680,6 +681,6 @@ class CDNOptimizationService {
   }
 }
 
-// Export singleton instance
-const cdnOptimizationService = CDNOptimizationService.getInstance();
+// Lazy singleton — see lazySingleton.ts for rationale.
+const cdnOptimizationService = lazySingleton(() => CDNOptimizationService.getInstance());
 export default cdnOptimizationService;
