@@ -17,9 +17,6 @@ jobs:
   route-testing:
     name: Critical Route Testing
     runs-on: ubuntu-latest
-    # Skip when ADMIN_API_KEY isn't available (fork PRs, fresh repos) — the
-    # curl-based tests would all 401 without it and produce noise.
-    if: ${{ secrets.ADMIN_API_KEY != '' }}
 
     steps:
     - name: Checkout repository
