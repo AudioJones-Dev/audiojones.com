@@ -6,6 +6,7 @@
  */
 
 import { getDb } from '@/lib/server/firebaseAdmin';
+import { lazySingleton } from '@/lib/server/lazySingleton';
 import eventStreamingEngine from '@/lib/streaming/EventStreamingEngine';
 import fs from 'fs/promises';
 import path from 'path';
@@ -481,6 +482,6 @@ export class ModelLifecycleEngine {
   }
 }
 
-// Export singleton instance
-const modelLifecycleEngine = ModelLifecycleEngine.getInstance();
+// Lazy singleton — see lazySingleton.ts for rationale.
+const modelLifecycleEngine = lazySingleton(() => ModelLifecycleEngine.getInstance());
 export default modelLifecycleEngine;

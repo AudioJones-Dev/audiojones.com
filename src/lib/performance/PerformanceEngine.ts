@@ -14,6 +14,7 @@
  */
 
 import { getDb } from '@/lib/server/firebaseAdmin';
+import { lazySingleton } from '@/lib/server/lazySingleton';
 import eventStreamingEngine from '@/lib/streaming/EventStreamingEngine';
 
 interface CacheEntry {
@@ -732,6 +733,6 @@ class PerformanceEngine {
   }
 }
 
-// Export singleton instance
-const performanceEngine = PerformanceEngine.getInstance();
+// Lazy singleton — see lazySingleton.ts for rationale.
+const performanceEngine = lazySingleton(() => PerformanceEngine.getInstance());
 export default performanceEngine;

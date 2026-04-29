@@ -17,6 +17,7 @@
  */
 
 import { getDb } from '@/lib/server/firebaseAdmin';
+import { lazySingleton } from '@/lib/server/lazySingleton';
 import eventStreamingEngine from '@/lib/streaming/EventStreamingEngine';
 
 interface SecurityThreat {
@@ -907,9 +908,12 @@ class SecurityEngine {
   }
 }
 
-// Initialize and export singleton
-console.log('🔒 Initializing Enterprise Security & Compliance Engine...');
-const securityEngine = SecurityEngine.getInstance();
-console.log('✅ Enterprise Security & Compliance Engine initialized successfully');
+// Lazy singleton — see lazySingleton.ts for rationale.
+const securityEngine = lazySingleton(() => {
+  console.log('🔒 Initializing Enterprise Security & Compliance Engine...');
+  const inst = SecurityEngine.getInstance();
+  console.log('✅ Enterprise Security & Compliance Engine initialized successfully');
+  return inst;
+});
 
 export default securityEngine;

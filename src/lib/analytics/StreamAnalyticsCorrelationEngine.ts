@@ -14,6 +14,7 @@
  */
 
 import { getDb } from '@/lib/server/firebaseAdmin';
+import { lazySingleton } from '@/lib/server/lazySingleton';
 import eventStreamingEngine from '@/lib/streaming/EventStreamingEngine';
 import advancedAnalyticsEngine from '@/lib/analytics/AdvancedAnalyticsEngine';
 import modelLifecycleEngine from '@/lib/ai/ModelLifecycleEngine';
@@ -576,6 +577,6 @@ export class StreamAnalyticsCorrelationEngine {
   }
 }
 
-// Export singleton instance
-const streamAnalyticsCorrelationEngine = StreamAnalyticsCorrelationEngine.getInstance();
+// Lazy singleton — see lazySingleton.ts for rationale.
+const streamAnalyticsCorrelationEngine = lazySingleton(() => StreamAnalyticsCorrelationEngine.getInstance());
 export default streamAnalyticsCorrelationEngine;

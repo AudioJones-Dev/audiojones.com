@@ -6,6 +6,7 @@
  */
 
 import { getDb } from '@/lib/server/firebaseAdmin';
+import { lazySingleton } from '@/lib/server/lazySingleton';
 import eventStreamingEngine from '@/lib/streaming/EventStreamingEngine';
 import aiOperationsEngine from '@/lib/ai/AIOperationsEngine';
 
@@ -667,6 +668,6 @@ export class SelfHealingEngine {
   }
 }
 
-// Export singleton instance
-const selfHealingEngine = SelfHealingEngine.getInstance();
+// Lazy singleton — see lazySingleton.ts for rationale.
+const selfHealingEngine = lazySingleton(() => SelfHealingEngine.getInstance());
 export default selfHealingEngine;

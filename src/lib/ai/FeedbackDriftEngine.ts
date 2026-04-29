@@ -6,6 +6,7 @@
  */
 
 import { getDb } from '@/lib/server/firebaseAdmin';
+import { lazySingleton } from '@/lib/server/lazySingleton';
 import eventStreamingEngine from '@/lib/streaming/EventStreamingEngine';
 import modelLifecycleEngine from './ModelLifecycleEngine';
 
@@ -578,6 +579,6 @@ export class FeedbackDriftEngine {
   }
 }
 
-// Export singleton instance
-const feedbackDriftEngine = FeedbackDriftEngine.getInstance();
+// Lazy singleton — see lazySingleton.ts for rationale.
+const feedbackDriftEngine = lazySingleton(() => FeedbackDriftEngine.getInstance());
 export default feedbackDriftEngine;

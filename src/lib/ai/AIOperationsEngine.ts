@@ -6,6 +6,7 @@
  */
 
 import { getDb } from '@/lib/server/firebaseAdmin';
+import { lazySingleton } from '@/lib/server/lazySingleton';
 import eventStreamingEngine from '@/lib/streaming/EventStreamingEngine';
 
 interface PredictionModel {
@@ -687,6 +688,6 @@ export class AIOperationsEngine {
   }
 }
 
-// Export singleton instance
-const aiOperationsEngine = AIOperationsEngine.getInstance();
+// Lazy singleton — see lazySingleton.ts for rationale.
+const aiOperationsEngine = lazySingleton(() => AIOperationsEngine.getInstance());
 export default aiOperationsEngine;
