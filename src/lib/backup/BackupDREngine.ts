@@ -394,23 +394,23 @@ export class BackupDREngine {
       .orderBy('started_at', 'desc')
       .get();
 
-    const backups = allBackupsSnapshot.docs.map(doc => doc.data() as BackupJob);
+    const backups = allBackupsSnapshot.docs.map((doc: any) => doc.data() as BackupJob);
     
     const total_backups = backups.length;
-    const successful_backups = backups.filter(b => b.status === 'completed').length;
-    const failed_backups = backups.filter(b => b.status === 'failed').length;
+    const successful_backups = backups.filter((b: any) => b.status === 'completed').length;
+    const failed_backups = backups.filter((b: any) => b.status === 'failed').length;
     
     const last_backup_date = backups.length > 0 ? backups[0].started_at : null;
     
-    const completedBackups = backups.filter(b => b.status === 'completed' && b.backup_size_bytes);
+    const completedBackups = backups.filter((b: any) => b.status === 'completed' && b.backup_size_bytes);
     const average_backup_size = completedBackups.length > 0
-      ? completedBackups.reduce((sum, b) => sum + (b.backup_size_bytes || 0), 0) / completedBackups.length
+      ? completedBackups.reduce((sum: any, b: any) => sum + (b.backup_size_bytes || 0), 0) / completedBackups.length
       : 0;
 
     // Calculate retention compliance
     const cutoffDate = new Date();
     cutoffDate.setDate(cutoffDate.getDate() - this.defaultConfig.retention_days);
-    const recentBackups = backups.filter(b => b.started_at > cutoffDate);
+    const recentBackups = backups.filter((b: any) => b.started_at > cutoffDate);
     const retention_compliance = total_backups > 0 ? (recentBackups.length / total_backups) * 100 : 100;
 
     return {

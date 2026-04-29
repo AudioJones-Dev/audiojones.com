@@ -33,7 +33,7 @@ export async function GET(req: NextRequest) {
 
     // Get event type breakdown
     const eventTypes: { [key: string]: number } = {};
-    eventsSnapshot.docs.forEach(doc => {
+    eventsSnapshot.docs.forEach((doc: any) => {
       const data = doc.data();
       const eventType = data.event_type || "unknown";
       eventTypes[eventType] = (eventTypes[eventType] || 0) + 1;
@@ -41,7 +41,7 @@ export async function GET(req: NextRequest) {
 
     // Get customer status breakdown
     const customerStatuses: { [key: string]: number } = {};
-    customersSnapshot.docs.forEach(doc => {
+    customersSnapshot.docs.forEach((doc: any) => {
       const data = doc.data();
       const status = data.status || "unknown";
       customerStatuses[status] = (customerStatuses[status] || 0) + 1;

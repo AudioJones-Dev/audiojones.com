@@ -21,7 +21,7 @@ export async function GET(req: NextRequest) {
 
     const snapshot = await query.get();
     
-    let items = snapshot.docs.map(doc => {
+    let items = snapshot.docs.map((doc: any) => {
       const data = doc.data();
       const statusCode = data.status_code || data.statusCode || 0;
       
@@ -40,7 +40,7 @@ export async function GET(req: NextRequest) {
 
     // Apply status filter after mapping
     if (statusFilter === 'failed') {
-      items = items.filter(item => item.status === 'failed');
+      items = items.filter((item: any) => item.status === 'failed');
     }
 
     return NextResponse.json({

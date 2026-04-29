@@ -20,7 +20,7 @@ export function useAuth() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsub = onAuthStateChanged(auth, async (u) => {
+    const unsub = onAuthStateChanged(auth, async (u: any) => {
       if (u) {
         // Get fresh token to access custom claims
         const tokenResult = await u.getIdTokenResult();

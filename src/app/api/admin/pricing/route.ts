@@ -14,7 +14,7 @@ export async function GET(req: NextRequest) {
       .get();
 
     const skus: any[] = [];
-    snapshot.forEach((doc) => {
+    snapshot.forEach((doc: any) => {
       skus.push({
         id: doc.id,
         ...doc.data(),

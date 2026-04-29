@@ -40,7 +40,7 @@ export async function GET(request: NextRequest) {
           .limit(50)
           .get();
 
-        const organizations = orgsSnapshot.docs.map(doc => ({
+        const organizations = orgsSnapshot.docs.map((doc: any) => ({
           id: doc.id,
           ...doc.data()
         }));
@@ -74,7 +74,7 @@ export async function GET(request: NextRequest) {
           .where('status', '==', 'active')
           .get();
 
-        const members = membersSnapshot.docs.map(doc => ({
+        const members = membersSnapshot.docs.map((doc: any) => ({
           id: doc.id,
           ...doc.data()
         }));
@@ -86,7 +86,7 @@ export async function GET(request: NextRequest) {
           .where('status', '==', 'active')
           .get();
 
-        const apiKeys = apiKeysSnapshot.docs.map(doc => ({
+        const apiKeys = apiKeysSnapshot.docs.map((doc: any) => ({
           id: doc.id,
           ...doc.data()
         }));
@@ -119,7 +119,7 @@ export async function GET(request: NextRequest) {
           .orderBy('joined_at', 'desc')
           .get();
 
-        const members = membersSnapshot.docs.map(doc => ({
+        const members = membersSnapshot.docs.map((doc: any) => ({
           id: doc.id,
           ...doc.data()
         }));
@@ -148,7 +148,7 @@ export async function GET(request: NextRequest) {
           .orderBy('created_at', 'desc')
           .get();
 
-        const apiKeys = apiKeysSnapshot.docs.map(doc => ({
+        const apiKeys = apiKeysSnapshot.docs.map((doc: any) => ({
           id: doc.id,
           ...doc.data()
         }));
@@ -181,7 +181,7 @@ export async function GET(request: NextRequest) {
             .get();
         }
 
-        const auditLog = auditSnapshot.docs.map(doc => ({
+        const auditLog = auditSnapshot.docs.map((doc: any) => ({
           id: doc.id,
           ...doc.data()
         }));

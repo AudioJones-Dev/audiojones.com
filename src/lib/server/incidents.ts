@@ -408,7 +408,7 @@ export async function getIncidentWithAlerts(incidentId: string): Promise<{
         const alertsQuery = getDb().collection('alerts').where('__name__', 'in', alertIds);
         const alertsSnapshot = await alertsQuery.get();
         
-        alertsSnapshot.forEach(doc => {
+        alertsSnapshot.forEach((doc: any) => {
           alerts.push({
             id: doc.id,
             ...doc.data()
@@ -455,7 +455,7 @@ export async function listIncidents(options: {
 
     const snapshot = await query.get();
     
-    return snapshot.docs.map(doc => ({
+    return snapshot.docs.map((doc: any) => ({
       id: doc.id,
       ...doc.data()
     })) as Incident[];
@@ -640,7 +640,7 @@ export async function getIncidentSubscribers(incidentId: string): Promise<Incide
 
     const snapshot = await query.get();
     
-    return snapshot.docs.map(doc => doc.data() as IncidentSubscription);
+    return snapshot.docs.map((doc: any) => doc.data() as IncidentSubscription);
 
   } catch (error) {
     console.error(`❌ Failed to get subscribers for incident ${incidentId}:`, error);
@@ -701,7 +701,7 @@ export async function getUserIncidentSubscriptions(subscriber: string): Promise<
 
     const snapshot = await query.get();
     
-    return snapshot.docs.map(doc => doc.data() as IncidentSubscription);
+    return snapshot.docs.map((doc: any) => doc.data() as IncidentSubscription);
 
   } catch (error) {
     console.error(`❌ Failed to get subscriptions for user ${subscriber}:`, error);

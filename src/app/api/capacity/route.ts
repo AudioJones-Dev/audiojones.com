@@ -91,7 +91,7 @@ export async function GET(request: NextRequest) {
       .where('status', 'in', activeStatuses)
       .get();
 
-    const contracts: ClientContract[] = contractsSnapshot.docs.map(doc => ({
+    const contracts: ClientContract[] = contractsSnapshot.docs.map((doc: any) => ({
       id: doc.id,
       ...doc.data()
     } as ClientContract));

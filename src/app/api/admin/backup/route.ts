@@ -263,7 +263,7 @@ async function getBackupDashboard() {
     .limit(10)
     .get();
 
-  const recent_backups = recentBackupsSnapshot.docs.map(doc => ({
+  const recent_backups = recentBackupsSnapshot.docs.map((doc: any) => ({
     id: doc.id,
     ...doc.data(),
     started_at: doc.data().started_at?.toDate?.()?.toISOString(),
@@ -277,7 +277,7 @@ async function getBackupDashboard() {
     .limit(5)
     .get();
 
-  const recent_restores = recentRestoresSnapshot.docs.map(doc => ({
+  const recent_restores = recentRestoresSnapshot.docs.map((doc: any) => ({
     id: doc.id,
     ...doc.data(),
     started_at: doc.data().started_at?.toDate?.()?.toISOString(),
@@ -316,7 +316,7 @@ async function getBackupJobs(searchParams: URLSearchParams) {
 
   const snapshot = await query.limit(limit).get();
   
-  const jobs = snapshot.docs.map(doc => ({
+  const jobs = snapshot.docs.map((doc: any) => ({
     id: doc.id,
     ...doc.data(),
     started_at: doc.data().started_at?.toDate?.()?.toISOString(),
@@ -343,7 +343,7 @@ async function getRestoreJobs(searchParams: URLSearchParams) {
 
   const snapshot = await query.limit(limit).get();
   
-  const jobs = snapshot.docs.map(doc => ({
+  const jobs = snapshot.docs.map((doc: any) => ({
     id: doc.id,
     ...doc.data(),
     started_at: doc.data().started_at?.toDate?.()?.toISOString(),

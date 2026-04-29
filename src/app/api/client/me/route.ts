@@ -29,7 +29,7 @@ export async function GET(request: NextRequest) {
       .limit(10)
       .get();
 
-    const events = eventsQuery.docs.map(doc => ({
+    const events = eventsQuery.docs.map((doc: any) => ({
       id: doc.id,
       ...doc.data(),
     }));

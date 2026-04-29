@@ -20,7 +20,7 @@ export async function GET(req: NextRequest) {
     ]);
 
     // Process data with defensive programming
-    const customers = customersSnapshot.docs.map(doc => {
+    const customers = customersSnapshot.docs.map((doc: any) => {
       const data = doc.data();
       return {
         id: doc.id,
@@ -37,7 +37,7 @@ export async function GET(req: NextRequest) {
       };
     });
 
-    const events = eventsSnapshot.docs.map(doc => {
+    const events = eventsSnapshot.docs.map((doc: any) => {
       const data = doc.data();
       return {
         id: doc.id,
@@ -55,7 +55,7 @@ export async function GET(req: NextRequest) {
       };
     });
 
-    const alerts = alertsSnapshot.docs.map(doc => {
+    const alerts = alertsSnapshot.docs.map((doc: any) => {
       const data = doc.data();
       return {
         id: doc.id,

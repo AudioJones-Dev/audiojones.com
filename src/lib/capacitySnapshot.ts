@@ -83,7 +83,7 @@ export async function getCapacityHistory(
       .orderBy('snapshot_date', 'desc')
       .get();
     
-    const history = snapshot.docs.map(doc => ({
+    const history = snapshot.docs.map((doc: any) => ({
       ...doc.data()
     })) as CapacitySnapshot[];
     

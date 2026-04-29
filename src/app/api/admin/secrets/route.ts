@@ -235,7 +235,7 @@ export async function GET(request: NextRequest) {
           .limit(10)
           .get();
 
-        const recentActivity = recentActivityQuery.docs.map(doc => ({
+        const recentActivity = recentActivityQuery.docs.map((doc: any) => ({
           id: doc.id,
           ...doc.data(),
           timestamp: doc.data().timestamp.toDate().toISOString()
@@ -261,7 +261,7 @@ export async function GET(request: NextRequest) {
 
       case 'secrets':
         const secretsQuery = await db.collection('secret_configs').get();
-        const secrets = secretsQuery.docs.map(doc => ({
+        const secrets = secretsQuery.docs.map((doc: any) => ({
           name: doc.id,
           ...doc.data(),
           created_at: doc.data().created_at?.toDate().toISOString(),
@@ -274,7 +274,7 @@ export async function GET(request: NextRequest) {
 
         return NextResponse.json({
           success: true,
-          secrets: secrets.sort((a, b) => (a.days_until_rotation || 0) - (b.days_until_rotation || 0)),
+          secrets: secrets.sort((a: any, b: any) => (a.days_until_rotation || 0) - (b.days_until_rotation || 0)),
           total_count: secrets.length
         });
 
@@ -292,7 +292,7 @@ export async function GET(request: NextRequest) {
         }
 
         const jobsSnapshot = await jobsQuery.get();
-        const jobs = jobsSnapshot.docs.map(doc => {
+        const jobs = jobsSnapshot.docs.map((doc: any) => {
           const data = doc.data();
           return {
             id: doc.id,
@@ -330,7 +330,7 @@ export async function GET(request: NextRequest) {
         }
 
         const auditSnapshot = await auditQuery.get();
-        const auditLogs = auditSnapshot.docs.map(doc => ({
+        const auditLogs = auditSnapshot.docs.map((doc: any) => ({
           id: doc.id,
           ...doc.data(),
           timestamp: doc.data().timestamp.toDate().toISOString()

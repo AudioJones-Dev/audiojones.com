@@ -679,14 +679,14 @@ export class SecretsRotationEngine {
 
     let avgRotationTime = 0;
     if (!completedQuery.empty) {
-      const durations = completedQuery.docs.map(doc => {
+      const durations = completedQuery.docs.map((doc: any) => {
         const job = doc.data() as SecretRotationJob;
         if (job.completed_at && job.started_at) {
           return (job.completed_at.getTime() - job.started_at.getTime()) / (1000 * 60);
         }
         return 0;
       });
-      avgRotationTime = durations.reduce((sum, duration) => sum + duration, 0) / durations.length;
+      avgRotationTime = durations.reduce((sum: any, duration: any) => sum + duration, 0) / durations.length;
     }
 
     // Count dual-accept active
@@ -727,7 +727,7 @@ export class SecretsRotationEngine {
       .where('next_rotation_due', '<=', now)
       .get();
 
-    const overdueSecrets = overdueQuery.docs.map(doc => doc.id);
+    const overdueSecrets = overdueQuery.docs.map((doc: any) => doc.id);
 
     if (overdueSecrets.length > 0) {
       console.log(`⚠️ Found ${overdueSecrets.length} secrets due for rotation:`, overdueSecrets);

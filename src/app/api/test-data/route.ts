@@ -6,14 +6,14 @@ export async function GET() {
   try {
     // Check customers
     const customersSnapshot = await getDb().collection("customers").limit(5).get();
-    const customers = customersSnapshot.docs.map(doc => ({
+    const customers = customersSnapshot.docs.map((doc: any) => ({
       id: doc.id,
       ...doc.data()
     }));
 
     // Check events  
     const eventsSnapshot = await getDb().collection("subscription_events").limit(5).get();
-    const events = eventsSnapshot.docs.map(doc => ({
+    const events = eventsSnapshot.docs.map((doc: any) => ({
       id: doc.id,
       ...doc.data()
     }));

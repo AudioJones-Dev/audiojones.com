@@ -629,20 +629,20 @@ export class SecretsRotationEngine {
     // Get configurations
     const configsSnapshot = await this.db.collection('secret_configurations').get();
     const totalSecrets = configsSnapshot.size;
-    const activeSecrets = configsSnapshot.docs.filter(doc => doc.data().active).length;
+    const activeSecrets = configsSnapshot.docs.filter((doc: any) => doc.data().active).length;
 
     // Get recent rotations
     const rotationsSnapshot = await this.db.collection('secret_rotations')
       .where('started_at', '>=', thirtyDaysAgo)
       .get();
 
-    const rotations = rotationsSnapshot.docs.map(doc => doc.data() as SecretRotationExecution);
-    const successfulRotations = rotations.filter(r => r.status === 'completed').length;
-    const failedRotations = rotations.filter(r => r.status === 'failed').length;
+    const rotations = rotationsSnapshot.docs.map((doc: any) => doc.data() as SecretRotationExecution);
+    const successfulRotations = rotations.filter((r: any) => r.status === 'completed').length;
+    const failedRotations = rotations.filter((r: any) => r.status === 'failed').length;
     const rotationSuccessRate = rotations.length > 0 ? (successfulRotations / rotations.length) * 100 : 0;
 
     const avgDuration = rotations.length > 0 
-      ? rotations.reduce((sum, r) => sum + (r.duration_ms || 0), 0) / rotations.length / 60000
+      ? rotations.reduce((sum: any, r: any) => sum + (r.duration_ms || 0), 0) / rotations.length / 60000
       : 0;
 
     return {

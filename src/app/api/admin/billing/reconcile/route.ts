@@ -63,7 +63,7 @@ export async function GET(req: NextRequest) {
       .limit(100)
       .get();
 
-    const diffs = recentDiffsSnapshot.docs.map(doc => ({
+    const diffs = recentDiffsSnapshot.docs.map((doc: any) => ({
       id: doc.id,
       ...doc.data()
     })) as Array<{

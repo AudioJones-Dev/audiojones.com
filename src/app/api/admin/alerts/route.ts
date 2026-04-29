@@ -33,7 +33,7 @@ export async function GET(req: NextRequest) {
     const snapshot = await query.get();
     const alerts: any[] = [];
 
-    snapshot.forEach((doc) => {
+    snapshot.forEach((doc: any) => {
       alerts.push({
         id: doc.id,
         ...doc.data(),
@@ -51,7 +51,7 @@ export async function GET(req: NextRequest) {
       info: 0,
     };
 
-    statsSnapshot.forEach((doc) => {
+    statsSnapshot.forEach((doc: any) => {
       const data = doc.data();
       if (data.status === 'active') stats.active++;
       if (data.status === 'dismissed') stats.dismissed++;

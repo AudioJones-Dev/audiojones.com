@@ -604,7 +604,7 @@ export class FeatureFlagsEngine {
     }
 
     const metricsSnapshot = await query.get();
-    return metricsSnapshot.docs.map(doc => {
+    return metricsSnapshot.docs.map((doc: any) => {
       const data = doc.data();
       return {
         id: doc.id,
@@ -623,7 +623,7 @@ export class FeatureFlagsEngine {
       .orderBy('created_at', 'desc')
       .get();
 
-    return flagsSnapshot.docs.map(doc => ({
+    return flagsSnapshot.docs.map((doc: any) => ({
       id: doc.id,
       ...doc.data()
     })) as FeatureFlag[];
@@ -849,7 +849,7 @@ export class FeatureFlagsEngine {
     };
 
     // Log evaluation (async, don't wait)
-    db.collection('feature_flag_evaluations').add(evaluation).catch(error => {
+    db.collection('feature_flag_evaluations').add(evaluation).catch((error: any) => {
       console.error('Failed to log feature flag evaluation:', error);
     });
 
@@ -857,7 +857,7 @@ export class FeatureFlagsEngine {
     db.collection('feature_flags').doc(flag.id).update({
       'metadata.total_evaluations': FieldValue.increment(1),
       'metadata.last_evaluation': new Date()
-    }).catch(error => {
+    }).catch((error: any) => {
       console.error('Failed to update feature flag metadata:', error);
     });
   }

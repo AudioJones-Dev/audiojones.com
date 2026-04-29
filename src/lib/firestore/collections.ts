@@ -62,7 +62,7 @@ export async function getCustomers(limit = 100): Promise<Customer[]> {
       .limit(limit)
       .get();
 
-    return snapshot.docs.map(doc => ({
+    return snapshot.docs.map((doc: any) => ({
       id: doc.id,
       ...doc.data()
     })) as Customer[];
@@ -84,7 +84,7 @@ export async function getSubscriptionEvents(limit = 50): Promise<SubscriptionEve
       .limit(limit)
       .get();
 
-    return snapshot.docs.map(doc => ({
+    return snapshot.docs.map((doc: any) => ({
       id: doc.id,
       ...doc.data()
     })) as SubscriptionEvent[];
@@ -107,8 +107,8 @@ export async function getDashboardStats(): Promise<DashboardStats> {
       db.collection('subscription_events').get()
     ]);
 
-    const customers = customersSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })) as Customer[];
-    const allEvents = eventsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })) as SubscriptionEvent[];
+    const customers = customersSnapshot.docs.map((doc: any) => ({ id: doc.id, ...doc.data() })) as Customer[];
+    const allEvents = eventsSnapshot.docs.map((doc: any) => ({ id: doc.id, ...doc.data() })) as SubscriptionEvent[];
 
     // Calculate metrics
     const totalCustomers = customers.length;

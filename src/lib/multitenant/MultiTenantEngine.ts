@@ -320,7 +320,7 @@ export class MultiTenantEngine {
     const member: Omit<OrganizationMember, 'id'> = {
       org_id: orgId,
       user_id: userId,
-      email: email,
+      email: email!,
       role,
       permissions: rolePermissions[role],
       joined_at: new Date(),
@@ -573,7 +573,7 @@ export class MultiTenantEngine {
     const orgsSnapshot = await db.collection('organizations').get();
     const totalOrgs = orgsSnapshot.size;
     
-    const activeOrgs = orgsSnapshot.docs.filter(doc => {
+    const activeOrgs = orgsSnapshot.docs.filter((doc: any) => {
       const org = doc.data();
       return org.subscription?.status === 'active';
     }).length;
@@ -591,7 +591,7 @@ export class MultiTenantEngine {
 
     // Calculate data usage (simplified)
     let dataUsageTotal = 0;
-    orgsSnapshot.docs.forEach(doc => {
+    orgsSnapshot.docs.forEach((doc: any) => {
       const org = doc.data();
       dataUsageTotal += org.metadata?.data_usage_bytes || 0;
     });
@@ -605,19 +605,19 @@ export class MultiTenantEngine {
       .get();
 
     let apiRequests24h = 0;
-    recentApiRequestsQuery.docs.forEach(doc => {
+    recentApiRequestsQuery.docs.forEach((doc: any) => {
       const apiKey = doc.data();
       apiRequests24h += apiKey.usage_stats?.requests_today || 0;
     });
 
     // Get top organizations by activity
     const topOrgsByActivity = orgsSnapshot.docs
-      .map(doc => ({
+      .map((doc: any) => ({
         org_id: doc.id,
         name: doc.data().name,
         activity_score: doc.data().metadata?.total_users * 10 + doc.data().metadata?.total_api_keys * 5
       }))
-      .sort((a, b) => b.activity_score - a.activity_score)
+      .sort((a: any, b: any) => b.activity_score - a.activity_score)
       .slice(0, 5);
 
     return {

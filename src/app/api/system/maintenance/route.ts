@@ -63,7 +63,7 @@ export async function POST(request: NextRequest) {
 
       if (!oldEventsQuery.empty) {
         const batch = db.batch();
-        oldEventsQuery.docs.forEach(doc => {
+        oldEventsQuery.docs.forEach((doc: any) => {
           batch.delete(doc.ref);
         });
         await batch.commit();
@@ -107,7 +107,7 @@ export async function POST(request: NextRequest) {
 
       if (!oldEventsQuery.empty) {
         const batch = db.batch();
-        oldEventsQuery.docs.forEach(doc => {
+        oldEventsQuery.docs.forEach((doc: any) => {
           batch.delete(doc.ref);
         });
         await batch.commit();
@@ -152,7 +152,7 @@ export async function POST(request: NextRequest) {
 
       if (!oldAlertsQuery.empty) {
         const batch = db.batch();
-        oldAlertsQuery.docs.forEach(doc => {
+        oldAlertsQuery.docs.forEach((doc: any) => {
           batch.delete(doc.ref);
         });
         await batch.commit();

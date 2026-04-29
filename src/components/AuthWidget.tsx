@@ -13,7 +13,7 @@ export default function AuthWidget() {
   const { show } = useToast();
 
   useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (u) => {
+    const unsub = onAuthStateChanged(auth, (u: any) => {
       setUser(u);
       setLoading(false);
     });

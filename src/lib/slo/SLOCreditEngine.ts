@@ -117,7 +117,7 @@ export class SLOCreditEngine {
       .where('enabled', '==', true)
       .get();
 
-    return snapshot.docs.map(doc => ({
+    return snapshot.docs.map((doc: any) => ({
       ...doc.data(),
       created_at: doc.data().created_at?.toDate(),
     })) as SLOCreditRule[];
@@ -264,7 +264,7 @@ export class SLOCreditEngine {
       .where('month_year', '==', monthYear)
       .get();
 
-    return snapshot.docs.reduce((sum, doc) => sum + (doc.data().credit_amount || 0), 0);
+    return snapshot.docs.reduce((sum: any, doc: any) => sum + (doc.data().credit_amount || 0), 0);
   }
 
   /**
@@ -321,7 +321,7 @@ export class SLOCreditEngine {
       .get();
 
     const current_month_credits = monthCreditsSnapshot.docs.reduce(
-      (sum, doc) => sum + (doc.data().credit_amount || 0), 
+      (sum: any, doc: any) => sum + (doc.data().credit_amount || 0), 
       0
     );
 
@@ -332,13 +332,13 @@ export class SLOCreditEngine {
       .get();
 
     const credits_this_week = weekCreditsSnapshot.docs.reduce(
-      (sum, doc) => sum + (doc.data().credit_amount || 0), 
+      (sum: any, doc: any) => sum + (doc.data().credit_amount || 0), 
       0
     );
 
     // Total clients credited this month
     const total_clients_credited = new Set(
-      monthCreditsSnapshot.docs.map(doc => doc.data().client_id)
+      monthCreditsSnapshot.docs.map((doc: any) => doc.data().client_id)
     ).size;
 
     // Active rules
@@ -356,7 +356,7 @@ export class SLOCreditEngine {
       .limit(10)
       .get();
 
-    const recent_applications = recentSnapshot.docs.map(doc => ({
+    const recent_applications = recentSnapshot.docs.map((doc: any) => ({
       id: doc.id,
       ...doc.data(),
       applied_at: doc.data().applied_at?.toDate?.()?.toISOString(),

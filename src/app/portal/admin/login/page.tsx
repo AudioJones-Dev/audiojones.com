@@ -13,7 +13,7 @@ export default function AdminLoginPage() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (user) => {
+    const unsub = onAuthStateChanged(auth, (user: any) => {
       if (user) {
         router.replace("/portal/admin");
       }

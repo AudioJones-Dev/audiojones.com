@@ -148,7 +148,7 @@ export async function cleanupExpiredAlerts(): Promise<number> {
     const batch = db.batch();
     let count = 0;
 
-    snapshot.docs.forEach((doc) => {
+    snapshot.docs.forEach((doc: any) => {
       batch.update(doc.ref, {
         status: 'dismissed',
         dismissed_at: now,

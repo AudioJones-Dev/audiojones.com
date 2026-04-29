@@ -65,7 +65,7 @@ export async function computeSLOBurn(slo: SLO, firestoreDb = getDb()): Promise<S
     // Count bad events (alerts that impact the SLO)
     let badEvents = 0;
     
-    alertsSnapshot.forEach(doc => {
+    alertsSnapshot.forEach((doc: any) => {
       const alert = doc.data();
       
       // Count as bad event if:

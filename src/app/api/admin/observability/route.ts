@@ -112,7 +112,7 @@ async function getSystemMetrics(): Promise<NextResponse> {
       .where('timestamp', '>=', oneDayAgo.getTime())
       .get();
 
-    const totalRequests = requestsSnapshot.docs.reduce((sum, doc) => {
+    const totalRequests = requestsSnapshot.docs.reduce((sum: any, doc: any) => {
       return sum + (doc.data().value || 0);
     }, 0);
 
@@ -125,7 +125,7 @@ async function getSystemMetrics(): Promise<NextResponse> {
       .get();
 
     const avgResponseTime = responseTimeSnapshot.docs.length > 0 
-      ? responseTimeSnapshot.docs.reduce((sum, doc) => sum + doc.data().value, 0) / responseTimeSnapshot.docs.length
+      ? responseTimeSnapshot.docs.reduce((sum: any, doc: any) => sum + doc.data().value, 0) / responseTimeSnapshot.docs.length
       : 0;
 
     // Get error rate
@@ -155,7 +155,7 @@ async function getSystemMetrics(): Promise<NextResponse> {
       .where('timestamp', '>=', oneDayAgo.getTime())
       .get();
 
-    const webhookEvents = webhookSnapshot.docs.reduce((sum, doc) => sum + doc.data().value, 0);
+    const webhookEvents = webhookSnapshot.docs.reduce((sum: any, doc: any) => sum + doc.data().value, 0);
 
     // Get database operations
     const dbOpsSnapshot = await db.collection('performance_metrics')
@@ -163,7 +163,7 @@ async function getSystemMetrics(): Promise<NextResponse> {
       .where('timestamp', '>=', oneDayAgo.getTime())
       .get();
 
-    const databaseOps = dbOpsSnapshot.docs.reduce((sum, doc) => sum + doc.data().value, 0);
+    const databaseOps = dbOpsSnapshot.docs.reduce((sum: any, doc: any) => sum + doc.data().value, 0);
 
     // Get feature flag evaluations
     const ffSnapshot = await db.collection('performance_metrics')
@@ -171,7 +171,7 @@ async function getSystemMetrics(): Promise<NextResponse> {
       .where('timestamp', '>=', oneDayAgo.getTime())
       .get();
 
-    const featureFlagEvals = ffSnapshot.docs.reduce((sum, doc) => sum + doc.data().value, 0);
+    const featureFlagEvals = ffSnapshot.docs.reduce((sum: any, doc: any) => sum + doc.data().value, 0);
 
     // Get top operations
     const operationsSnapshot = await db.collection('trace_events')
@@ -180,7 +180,7 @@ async function getSystemMetrics(): Promise<NextResponse> {
 
     const operationStats = new Map<string, { count: number; totalDuration: number; errors: number }>();
 
-    operationsSnapshot.docs.forEach(doc => {
+    operationsSnapshot.docs.forEach((doc: any) => {
       const data = doc.data();
       const operation = data.operationName;
       const duration = data.duration || 0;
@@ -213,7 +213,7 @@ async function getSystemMetrics(): Promise<NextResponse> {
       .limit(10)
       .get();
 
-    const recentErrors = recentErrorsSnapshot.docs.map(doc => {
+    const recentErrors = recentErrorsSnapshot.docs.map((doc: any) => {
       const data = doc.data();
       return {
         timestamp: data.startTime,

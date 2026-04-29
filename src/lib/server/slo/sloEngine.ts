@@ -220,7 +220,7 @@ class SLOEngine {
     }
 
     const slosSnapshot = await slosQuery.get();
-    const slos = slosSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as SLODefinition));
+    const slos = slosSnapshot.docs.map((doc: any) => ({ id: doc.id, ...doc.data() } as SLODefinition));
 
     // Add default SLOs if no custom ones exist
     if (slos.length === 0 && !organizationId) {
@@ -299,7 +299,7 @@ class SLOEngine {
 
     const snapshot = await query.get();
     
-    return snapshot.docs.map(doc => {
+    return snapshot.docs.map((doc: any) => {
       const data = doc.data();
       const timestamp = data[config.timestamp_field || 'timestamp'];
       
@@ -552,7 +552,7 @@ class SLOEngine {
       .get();
 
     const monthlyCreditsTotal = monthlyCreditsQuery.docs
-      .reduce((sum, doc) => sum + (doc.data().amount || 0), 0);
+      .reduce((sum: any, doc: any) => sum + (doc.data().amount || 0), 0);
 
     if (monthlyCreditsTotal >= slo.credit_policy.max_credits_per_month) {
       console.log(`Monthly credit limit reached for SLO ${slo.id}`);
@@ -645,7 +645,7 @@ class SLOEngine {
     }
 
     const slosSnapshot = await slosQuery.get();
-    const slos = slosSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as SLODefinition));
+    const slos = slosSnapshot.docs.map((doc: any) => ({ id: doc.id, ...doc.data() } as SLODefinition));
 
     // Add default SLOs if no custom ones
     if (slos.length === 0 && !organizationId) {
@@ -669,11 +669,11 @@ class SLOEngine {
       .get();
     
     const creditsThisMonth = creditsQuery.docs
-      .reduce((sum, doc) => sum + (doc.data().amount || 0), 0);
+      .reduce((sum: any, doc: any) => sum + (doc.data().amount || 0), 0);
 
     // Calculate overall health and performance data
     const sloPerformance = await Promise.all(
-      slos.map(async (slo) => {
+      slos.map(async (slo: any) => {
         try {
           const burnRate = await this.computeSLOBurn(slo.id);
           return {

@@ -300,7 +300,7 @@ export class AdvancedAnalyticsEngine {
 
       // Process results
       const rawData: AnalyticsMetric[] = [];
-      snapshot.forEach(doc => {
+      snapshot.forEach((doc: any) => {
         rawData.push(doc.data() as AnalyticsMetric);
       });
 
@@ -364,7 +364,7 @@ export class AdvancedAnalyticsEngine {
         .get();
 
       const metrics: AnalyticsMetric[] = [];
-      snapshot.forEach(doc => {
+      snapshot.forEach((doc: any) => {
         metrics.push(doc.data() as AnalyticsMetric);
       });
 
@@ -496,7 +496,7 @@ export class AdvancedAnalyticsEngine {
         .get();
 
       const metrics: AnalyticsMetric[] = [];
-      snapshot.forEach(doc => {
+      snapshot.forEach((doc: any) => {
         metrics.push(doc.data() as AnalyticsMetric);
       });
 
@@ -721,7 +721,7 @@ export class AdvancedAnalyticsEngine {
       .get();
 
     const alerts: AnalyticsAlert[] = [];
-    snapshot.forEach(doc => {
+    snapshot.forEach((doc: any) => {
       alerts.push(doc.data() as AnalyticsAlert);
     });
 

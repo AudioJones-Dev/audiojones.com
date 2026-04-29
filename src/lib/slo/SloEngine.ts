@@ -109,7 +109,7 @@ export class SloEngine {
       .where('service_id', '==', service_id)
       .get();
 
-    return querySnapshot.docs.map(doc => ({
+    return querySnapshot.docs.map((doc: any) => ({
       ...doc.data(),
     })) as SloTarget[];
   }
@@ -134,9 +134,9 @@ export class SloEngine {
       .orderBy('timestamp', 'desc')
       .get();
 
-    const measurements = querySnapshot.docs.map(doc => doc.data());
+    const measurements = querySnapshot.docs.map((doc: any) => doc.data());
     const total_measurements = measurements.length;
-    const successful_measurements = measurements.filter(m => m.success).length;
+    const successful_measurements = measurements.filter((m: any) => m.success).length;
     
     if (total_measurements === 0) {
       return { success_rate: 100, total_measurements: 0, burn_rate: 0 };
@@ -370,7 +370,7 @@ export class SloEngine {
       .get();
 
     const total_credits_applied = creditsSnapshot.docs.reduce(
-      (sum, doc) => sum + (doc.data().credit_amount || 0), 
+      (sum: any, doc: any) => sum + (doc.data().credit_amount || 0), 
       0
     );
 
@@ -384,7 +384,7 @@ export class SloEngine {
     // Services monitored
     const targetsSnapshot = await this.db.collection('slo_targets').get();
     const services_monitored = new Set(
-      targetsSnapshot.docs.map(doc => doc.data().service_id)
+      targetsSnapshot.docs.map((doc: any) => doc.data().service_id)
     ).size;
 
     return {

@@ -337,7 +337,7 @@ export class BackupEngine {
         const snapshot = await this.db.collection(collectionName).get();
         const documents: any[] = [];
         
-        snapshot.forEach(doc => {
+        snapshot.forEach((doc: any) => {
           documents.push({
             id: doc.id,
             data: doc.data(),
@@ -437,7 +437,7 @@ export class BackupEngine {
 
   private async getAllCollections(): Promise<string[]> {
     const collections = await this.db.listCollections();
-    return collections.map(col => col.id);
+    return collections.map((col: any) => col.id);
   }
 
   private async getEncryptionKey(keyId?: string): Promise<string> {
@@ -597,24 +597,24 @@ export class BackupEngine {
     // Get configurations
     const configsSnapshot = await this.db.collection('backup_configurations').get();
     const totalConfigurations = configsSnapshot.size;
-    const activeConfigurations = configsSnapshot.docs.filter(doc => doc.data().active).length;
+    const activeConfigurations = configsSnapshot.docs.filter((doc: any) => doc.data().active).length;
 
     // Get recent executions
     const executionsSnapshot = await this.db.collection('backup_executions')
       .where('started_at', '>=', oneDayAgo)
       .get();
 
-    const executions = executionsSnapshot.docs.map(doc => doc.data() as BackupExecution);
-    const successfulBackups24h = executions.filter(e => e.status === 'completed').length;
-    const failedBackups24h = executions.filter(e => e.status === 'failed').length;
+    const executions = executionsSnapshot.docs.map((doc: any) => doc.data() as BackupExecution);
+    const successfulBackups24h = executions.filter((e: any) => e.status === 'completed').length;
+    const failedBackups24h = executions.filter((e: any) => e.status === 'failed').length;
 
     // Calculate success rate for last 7 days
     const weekExecutionsSnapshot = await this.db.collection('backup_executions')
       .where('started_at', '>=', sevenDaysAgo)
       .get();
 
-    const weekExecutions = weekExecutionsSnapshot.docs.map(doc => doc.data() as BackupExecution);
-    const weekSuccessful = weekExecutions.filter(e => e.status === 'completed').length;
+    const weekExecutions = weekExecutionsSnapshot.docs.map((doc: any) => doc.data() as BackupExecution);
+    const weekSuccessful = weekExecutions.filter((e: any) => e.status === 'completed').length;
     const backupSuccessRate7d = weekExecutions.length > 0 ? (weekSuccessful / weekExecutions.length) * 100 : 0;
 
     return {
@@ -626,7 +626,7 @@ export class BackupEngine {
       oldest_backup_age_days: 0,
       newest_backup_age_hours: 0,
       average_backup_duration_minutes: executions.length > 0 
-        ? executions.reduce((sum, e) => sum + (e.duration_ms || 0), 0) / executions.length / 60000
+        ? executions.reduce((sum: any, e: any) => sum + (e.duration_ms || 0), 0) / executions.length / 60000
         : 0,
       backup_success_rate_7d: backupSuccessRate7d,
       recovery_tests_passed_30d: 0, // Would need to implement recovery tests

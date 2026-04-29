@@ -44,12 +44,12 @@ export async function GET(req: NextRequest) {
     // Combine results and dedupe by document ID
     const allFailureDocs = new Map();
     
-    failedVerificationSnapshot.docs.forEach(doc => {
+    failedVerificationSnapshot.docs.forEach((doc: any) => {
       allFailureDocs.set(doc.id, doc);
     });
     
     if (errorEventsSnapshot?.docs) {
-      errorEventsSnapshot.docs.forEach(doc => {
+      errorEventsSnapshot.docs.forEach((doc: any) => {
         allFailureDocs.set(doc.id, doc);
       });
     }

@@ -81,7 +81,7 @@ export async function getAllWebhookTargets(): Promise<StatusWebhookTarget[]> {
       .orderBy('created_at', 'desc')
       .get();
 
-    return snapshot.docs.map(doc => ({
+    return snapshot.docs.map((doc: any) => ({
       ...doc.data() as StatusWebhookTarget,
       id: doc.id,
     }));
