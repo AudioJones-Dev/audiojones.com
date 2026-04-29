@@ -6,6 +6,7 @@
  */
 
 import { getDb } from '@/lib/server/firebaseAdmin';
+import { lazySingleton } from '@/lib/server/lazySingleton';
 import eventStreamingEngine from '@/lib/streaming/EventStreamingEngine';
 import fs from 'fs/promises';
 import path from 'path';
@@ -135,15 +136,18 @@ interface ModelLifecycleEvent {
 
 export class ModelLifecycleEngine {
   private static instance: ModelLifecycleEngine;
-  private db: FirebaseFirestore.Firestore;
   private eventStreaming: typeof eventStreamingEngine;
   private manifestPath: string;
 
+  // Lazy Firestore accessor — see StreamAnalyticsCorrelationEngine for rationale.
+  private get db(): FirebaseFirestore.Firestore {
+    return getDb();
+  }
+
   private constructor() {
-    this.db = getDb();
     this.eventStreaming = eventStreamingEngine;
     this.manifestPath = path.join(process.cwd(), 'src/lib/ai/models/manifest.json');
-    
+
     console.log('🤖 Initializing Model Lifecycle Engine...');
     this.initializeLifecycleMonitoring();
     console.log('📊 Model Lifecycle Engine initialized successfully');
@@ -478,6 +482,6 @@ export class ModelLifecycleEngine {
   }
 }
 
-// Export singleton instance
-const modelLifecycleEngine = ModelLifecycleEngine.getInstance();
+// Lazy singleton — see lazySingleton.ts for rationale.
+const modelLifecycleEngine = lazySingleton(() => ModelLifecycleEngine.getInstance());
 export default modelLifecycleEngine;

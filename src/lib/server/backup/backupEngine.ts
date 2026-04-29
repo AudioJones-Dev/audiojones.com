@@ -27,18 +27,21 @@ const gunzip = promisify(zlib.gunzip);
 export class BackupEngine {
   private static instance: BackupEngine;
   private storage: Storage;
-  private db: FirebaseFirestore.Firestore;
   private eventStreaming: typeof eventStreamingEngine;
   private defaultConfigurations: BackupConfiguration[];
+
+  // Lazy Firestore accessor — see StreamAnalyticsCorrelationEngine for rationale.
+  private get db(): FirebaseFirestore.Firestore {
+    return getDb();
+  }
 
   private constructor() {
     this.storage = new Storage({
       projectId: process.env.GOOGLE_CLOUD_PROJECT,
     });
-    this.db = getDb();
     this.eventStreaming = eventStreamingEngine;
     this.defaultConfigurations = this.createDefaultConfigurations();
-    
+
     console.log('🔄 Initializing Backup & DR Engine...');
     this.initializeDefaultConfigurations();
     console.log('💾 Backup & DR Engine initialized successfully');

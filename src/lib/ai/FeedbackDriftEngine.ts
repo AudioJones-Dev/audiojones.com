@@ -6,6 +6,7 @@
  */
 
 import { getDb } from '@/lib/server/firebaseAdmin';
+import { lazySingleton } from '@/lib/server/lazySingleton';
 import eventStreamingEngine from '@/lib/streaming/EventStreamingEngine';
 import modelLifecycleEngine from './ModelLifecycleEngine';
 
@@ -104,16 +105,19 @@ interface MonitoringInsight {
 
 export class FeedbackDriftEngine {
   private static instance: FeedbackDriftEngine;
-  private db: FirebaseFirestore.Firestore;
   private eventStreaming: typeof eventStreamingEngine;
   private modelLifecycle: typeof modelLifecycleEngine;
   private monitoringIntervals: Map<string, NodeJS.Timeout> = new Map();
 
+  // Lazy Firestore accessor — see StreamAnalyticsCorrelationEngine for rationale.
+  private get db(): FirebaseFirestore.Firestore {
+    return getDb();
+  }
+
   private constructor() {
-    this.db = getDb();
     this.eventStreaming = eventStreamingEngine;
     this.modelLifecycle = modelLifecycleEngine;
-    
+
     console.log('🔍 Initializing Feedback & Drift Monitoring Engine...');
     this.initializeMonitoring();
     console.log('📊 Feedback & Drift Monitoring Engine initialized successfully');
@@ -575,6 +579,6 @@ export class FeedbackDriftEngine {
   }
 }
 
-// Export singleton instance
-const feedbackDriftEngine = FeedbackDriftEngine.getInstance();
+// Lazy singleton — see lazySingleton.ts for rationale.
+const feedbackDriftEngine = lazySingleton(() => FeedbackDriftEngine.getInstance());
 export default feedbackDriftEngine;

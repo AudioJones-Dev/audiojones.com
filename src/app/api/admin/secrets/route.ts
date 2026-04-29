@@ -9,6 +9,9 @@ import { secretsRotationEngine } from '@/lib/secrets/SecretsRotationEngine';
 import { getDb } from '@/lib/server/firebaseAdmin';
 import { SecretsRotationEngine } from '@/lib/server/secrets/secretsEngine';
 
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+
 export async function POST(request: NextRequest) {
   try {
     await requireAdmin(request);

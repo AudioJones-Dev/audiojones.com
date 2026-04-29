@@ -15,6 +15,7 @@
  */
 
 import { getDb } from '@/lib/server/firebaseAdmin';
+import { lazySingleton } from '@/lib/server/lazySingleton';
 
 interface StreamEvent {
   id: string;
@@ -663,6 +664,8 @@ class EventStreamingEngine {
   }
 }
 
-// Export singleton instance
-const eventStreamingEngine = EventStreamingEngine.getInstance();
+// Lazy singleton — construction is deferred to first method call so module
+// evaluation during Next.js page-data collection doesn't trigger Firebase /
+// setInterval / publishEvent side-effects with no env vars bound.
+const eventStreamingEngine = lazySingleton(() => EventStreamingEngine.getInstance());
 export default eventStreamingEngine;

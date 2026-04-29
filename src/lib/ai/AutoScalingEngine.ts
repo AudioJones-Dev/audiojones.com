@@ -6,6 +6,7 @@
  */
 
 import { getDb } from '@/lib/server/firebaseAdmin';
+import { lazySingleton } from '@/lib/server/lazySingleton';
 import eventStreamingEngine from '@/lib/streaming/EventStreamingEngine';
 import aiOperationsEngine from '@/lib/ai/AIOperationsEngine';
 
@@ -684,6 +685,6 @@ export class AutoScalingEngine {
   }
 }
 
-// Export singleton instance
-const autoScalingEngine = AutoScalingEngine.getInstance();
+// Lazy singleton — see lazySingleton.ts for rationale.
+const autoScalingEngine = lazySingleton(() => AutoScalingEngine.getInstance());
 export default autoScalingEngine;

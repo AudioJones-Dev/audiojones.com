@@ -20,17 +20,20 @@ import {
 
 export class SecretsRotationEngine {
   private static instance: SecretsRotationEngine;
-  private db: FirebaseFirestore.Firestore;
   private eventStreaming: typeof eventStreamingEngine;
   private defaultConfigurations: SecretConfiguration[];
   private defaultPolicies: SecretRotationPolicy[];
 
+  // Lazy Firestore accessor — see StreamAnalyticsCorrelationEngine for rationale.
+  private get db(): FirebaseFirestore.Firestore {
+    return getDb();
+  }
+
   private constructor() {
-    this.db = getDb();
     this.eventStreaming = eventStreamingEngine;
     this.defaultConfigurations = this.createDefaultConfigurations();
     this.defaultPolicies = this.createDefaultPolicies();
-    
+
     console.log('🔄 Initializing Secrets Rotation Engine...');
     this.initializeDefaultConfigurations();
     console.log('🔐 Secrets Rotation Engine initialized successfully');

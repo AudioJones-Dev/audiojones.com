@@ -6,6 +6,7 @@
  */
 
 import { getDb } from '@/lib/server/firebaseAdmin';
+import { lazySingleton } from '@/lib/server/lazySingleton';
 import eventStreamingEngine from '@/lib/streaming/EventStreamingEngine';
 import {
   SLODefinition,
@@ -746,9 +747,12 @@ class SLOEngine {
   }
 }
 
-// Initialize and export singleton
-console.log('📊 Initializing SLO Engine...');
-const sloEngine = SLOEngine.getInstance();
-console.log('✅ SLO Engine initialized successfully');
+// Lazy singleton — see lazySingleton.ts for rationale.
+const sloEngine = lazySingleton(() => {
+  console.log('📊 Initializing SLO Engine...');
+  const inst = SLOEngine.getInstance();
+  console.log('✅ SLO Engine initialized successfully');
+  return inst;
+});
 
 export default sloEngine;

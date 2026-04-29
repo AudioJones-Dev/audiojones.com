@@ -9,6 +9,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import { requireAdmin } from '@/lib/server/requireAdmin';
 import streamAnalyticsCorrelationEngine from '@/lib/analytics/StreamAnalyticsCorrelationEngine';
 
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+
 export async function GET(request: NextRequest) {
   try {
     await requireAdmin(request);
