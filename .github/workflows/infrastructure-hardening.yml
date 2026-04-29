@@ -17,6 +17,7 @@ jobs:
   route-testing:
     name: Critical Route Testing
     runs-on: ubuntu-latest
+    if: ${{ secrets.ADMIN_API_KEY != '' }}
     
     steps:
     - name: Checkout repository
