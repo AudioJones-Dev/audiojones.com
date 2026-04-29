@@ -339,7 +339,7 @@ export async function POST(request: NextRequest) {
         if (apiKeyData) {
           // Update organization metadata
           await db.collection('organizations').doc(apiKeyData.org_id).update({
-            'metadata.total_api_keys': (await import('firebase-admin/firestore')).FieldValue.increment(-1),
+            'metadata.total_api_keys': (await import('@/lib/legacy-stubs')).FieldValue.increment(-1),
             updated_at: new Date()
           });
 
@@ -461,7 +461,7 @@ export async function POST(request: NextRequest) {
 
         // Update organization metadata
         await db.collection('organizations').doc(memberData.org_id).update({
-          'metadata.total_users': (await import('firebase-admin/firestore')).FieldValue.increment(-1),
+          'metadata.total_users': (await import('@/lib/legacy-stubs')).FieldValue.increment(-1),
           updated_at: new Date()
         });
 

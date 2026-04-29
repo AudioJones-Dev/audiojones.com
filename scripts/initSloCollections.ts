@@ -6,7 +6,7 @@
  */
 
 import { getDb } from '../src/lib/server/firebaseAdmin';
-import { FieldValue } from 'firebase-admin/firestore';
+import { FieldValue } from "@/lib/legacy-stubs";
 
 async function initializeCollections() {
   console.log('🔄 Initializing Firestore collections for SLO Credit System...\n');

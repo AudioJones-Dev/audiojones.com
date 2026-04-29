@@ -1,6 +1,6 @@
 // src/lib/alerts.ts
-import { getApps, initializeApp, cert } from "firebase-admin/app";
-import { getFirestore } from "firebase-admin/firestore";
+import { getApps, initializeApp, cert } from "@/lib/legacy-stubs";
+import { getFirestore } from "@/lib/legacy-stubs";
 
 interface AlertOptions {
   title: string;

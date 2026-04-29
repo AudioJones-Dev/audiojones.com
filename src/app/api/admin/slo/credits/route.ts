@@ -10,7 +10,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { requireAdmin } from '@/lib/server/requireAdmin';
 import { sloCreditEngine } from '@/lib/slo/SLOCreditEngine';
 import { getDb } from '@/lib/server/firebaseAdmin';
-import { FieldValue } from 'firebase-admin/firestore';
+import { FieldValue } from "@/lib/legacy-stubs";
 
 export async function POST(request: NextRequest) {
   try {

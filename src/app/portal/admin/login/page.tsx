@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { auth, googleProvider } from "@/lib/firebase/client";
-import { onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup } from "@/lib/legacy-stubs";
 
 export default function AdminLoginPage() {
   const router = useRouter();

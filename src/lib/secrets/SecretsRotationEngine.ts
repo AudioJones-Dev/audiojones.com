@@ -6,7 +6,7 @@
 import { getDb, getAdminAuth } from '@/lib/server/firebaseAdmin';
 import { SecretManagerServiceClient } from '@google-cloud/secret-manager';
 import crypto from 'crypto';
-import { FieldValue } from 'firebase-admin/firestore';
+import { FieldValue } from "@/lib/legacy-stubs";
 
 interface SecretConfig {
   name: string;

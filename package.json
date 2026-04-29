@@ -43,6 +43,8 @@
         "multitenant:test": "tsx scripts/testMultiTenant.ts",
         "multitenant:metrics": "tsx scripts/testMultiTenant.ts metrics",
         "lint:api-imports": "eslint \"src/app/api/**/route.ts\"",
+        "typecheck": "tsc --noEmit",
+        "check:no-firebase": "tsx scripts/check-no-firebase.ts",
         "vercel:patch-win": "powershell -ExecutionPolicy Bypass -File scripts/patch-vercel-next-win.ps1",
         "build:prod": "pnpm vercel:patch-win && npx vercel build --prod",
         "deploy:prod": "pnpm vercel:patch-win && npx vercel --prod"
@@ -50,7 +52,6 @@
     "dependencies": {
         "@aj/config": "workspace:*",
         "@aj/whop": "workspace:*",
-        "@dataconnect/generated": "file:src/dataconnect-generated",
         "@google-cloud/secret-manager": "^5.6.0",
         "@google-cloud/storage": "^7.17.3",
         "@neondatabase/neon-js": "0.2.0-beta.1",
@@ -60,8 +61,6 @@
         "@whop/sdk": "^0.0.6",
         "clsx": "^2.1.1",
         "discord-interactions": "^4.4.0",
-        "firebase": "^12.4.0",
-        "firebase-admin": "^13.5.0",
         "imagekit": "^6.0.0",
         "lucide-react": "^0.546.0",
         "next": "16.2.3",

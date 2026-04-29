@@ -3,10 +3,10 @@
  * Automated Firestore export/restore with GCS backup and staging restore capabilities
  */
 
-import { getFirestore } from 'firebase-admin/firestore';
+import { getFirestore } from "@/lib/legacy-stubs";
 import { Storage } from '@google-cloud/storage';
 import { getDb } from '@/lib/server/firebaseAdmin';
-import { FieldValue } from 'firebase-admin/firestore';
+import { FieldValue } from "@/lib/legacy-stubs";
 
 export interface BackupConfig {
   projectId: string;

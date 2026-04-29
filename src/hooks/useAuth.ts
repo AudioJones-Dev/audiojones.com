@@ -2,12 +2,15 @@
 
 import { useEffect, useState } from "react";
 import { auth } from "@/lib/firebase/client";
-import { onAuthStateChanged, type User } from "firebase/auth";
+import { onAuthStateChanged, type User } from "@/lib/legacy-stubs";
 
-interface AuthUser extends User {
+interface AuthUser extends Partial<User> {
+  uid: string;
+  email?: string | null;
   customClaims?: {
     admin?: boolean;
     role?: string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     [key: string]: any;
   };
 }

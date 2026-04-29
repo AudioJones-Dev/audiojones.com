@@ -10,8 +10,9 @@ import {
   OAuthProvider,
   signInWithPopup,
   sendPasswordResetEmail,
-} from "firebase/auth";
-import { setDoc, doc } from "firebase/firestore";
+  setDoc,
+  doc,
+} from "@/lib/legacy-stubs";
 import { auth, db } from "@/lib/firebase/client";
 
 export default function AuthForm({ mode }: { mode: "login" | "register" }) {

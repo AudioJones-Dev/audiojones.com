@@ -8,7 +8,7 @@
  */
 
 import { getDb } from '@/lib/server/firebaseAdmin';
-import { FieldValue } from 'firebase-admin/firestore';
+import { FieldValue } from "@/lib/legacy-stubs";
 
 export interface WebhookDeliveryAttempt {
   event_id: string;

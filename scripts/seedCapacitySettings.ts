@@ -9,8 +9,8 @@
  * Usage: npm run seed:capacity
  */
 
-import { getFirestore } from 'firebase-admin/firestore';
-import admin from 'firebase-admin';
+import { getFirestore } from "@/lib/legacy-stubs";
+import admin from "@/lib/legacy-stubs";
 
 // Initialize Firebase Admin directly in the script
 if (!admin.apps.length) {

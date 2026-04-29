@@ -3,16 +3,21 @@ export const EnvSchema = z.object({
     // Core app environment
     NODE_ENV: z.enum(["development", "test", "production"]).default("development"),
     NEXT_PUBLIC_SITE_URL: z.string().url(),
-    // Firebase configuration
-    NEXT_PUBLIC_FIREBASE_API_KEY: z.string().min(1).optional(),
-    NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN: z.string().min(1).optional(),
-    NEXT_PUBLIC_FIREBASE_PROJECT_ID: z.string().min(1).optional(),
-    NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET: z.string().min(1).optional(),
-    NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID: z.string().min(1).optional(),
-    NEXT_PUBLIC_FIREBASE_APP_ID: z.string().min(1).optional(),
-    FIREBASE_ADMIN_PRIVATE_KEY: z.string().min(1).optional(),
-    FIREBASE_ADMIN_CLIENT_EMAIL: z.string().email().optional(),
-    FIREBASE_ADMIN_PROJECT_ID: z.string().min(1).optional(),
+    // Database — NeonDB (Postgres)
+    DATABASE_URL: z.string().min(1).optional(),
+    // Email — Resend
+    RESEND_API_KEY: z.string().min(1).optional(),
+    RESEND_FROM_EMAIL: z.string().email().optional(),
+    LEAD_NOTIFICATION_EMAIL: z.string().email().optional(),
+    FROM_EMAIL: z.string().optional(),
+    // Sanity CMS
+    NEXT_PUBLIC_SANITY_PROJECT_ID: z.string().min(1).optional(),
+    NEXT_PUBLIC_SANITY_DATASET: z.string().min(1).optional(),
+    SANITY_API_READ_TOKEN: z.string().min(1).optional(),
+    // Supabase — only used if auth/storage/realtime is required
+    NEXT_PUBLIC_SUPABASE_URL: z.string().url().optional(),
+    NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string().min(1).optional(),
+    SUPABASE_SERVICE_ROLE_KEY: z.string().min(1).optional(),
     // Whop integration
     WHOP_API_KEY: z.string().min(1).optional(),
     NEXT_PUBLIC_WHOP_APP_ID: z.string().min(1).optional(),
@@ -24,8 +29,13 @@ export const EnvSchema = z.object({
     // MailerLite integration
     MAILERLITE_API_KEY: z.string().min(1).optional(),
     MAILERLITE_GROUP_ID: z.string().min(1).optional(),
-    // N8N automation
+    // n8n automation (optional — lead capture continues if n8n fails)
     N8N_WEBHOOK_URL: z.string().url().optional(),
+    N8N_LEAD_WEBHOOK_URL: z.string().url().optional(),
+    CRM_WEBHOOK_URL: z.string().url().optional(),
+    // Applied Intelligence diagnostic
+    LEAD_FORM_SECRET: z.string().min(1).optional(),
+    IP_HASH_SALT: z.string().min(1).optional(),
     // Stripe payments
     STRIPE_SECRET_KEY: z.string().min(1).optional(),
     NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: z.string().min(1).optional(),

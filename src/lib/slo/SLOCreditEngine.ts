@@ -7,7 +7,7 @@
 import { getDb } from '@/lib/server/firebaseAdmin';
 import { computeMultipleSLOBurns } from '@/lib/server/slo';
 import { DEFAULT_SLOS } from '@/lib/server/defaultSLOs';
-import { FieldValue } from 'firebase-admin/firestore';
+import { FieldValue } from "@/lib/legacy-stubs";
 
 export interface SLOCreditRule {
   slo_id: string;

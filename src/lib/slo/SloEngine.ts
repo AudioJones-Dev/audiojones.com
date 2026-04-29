@@ -4,7 +4,7 @@
  */
 
 import { getDb } from '@/lib/server/firebaseAdmin';
-import { FieldValue } from 'firebase-admin/firestore';
+import { FieldValue } from "@/lib/legacy-stubs";
 
 export interface SloMetric {
   service_id: string;

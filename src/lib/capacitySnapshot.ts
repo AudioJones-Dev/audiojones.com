@@ -6,7 +6,7 @@
  */
 
 import 'server-only';
-import { Firestore } from 'firebase-admin/firestore';
+import { Firestore } from "@/lib/legacy-stubs";
 import type { CapacitySnapshot, ForecastResponse } from '@/types/capacity';
 
 /**

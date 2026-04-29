@@ -1,5 +1,5 @@
 import { NextRequest } from 'next/server';
-import { getFirestore, FieldValue } from 'firebase-admin/firestore';
+import { getFirestore, FieldValue } from "@/lib/legacy-stubs";
 import { requireAdmin } from '@/lib/server/requireAdmin';
 
 /**
