@@ -1,82 +1,129 @@
 import Link from "next/link";
-import NewsletterForm from "@/components/NewsletterForm";
-import BuildStamp from "@/components/BuildStamp";
+import Image from "next/image";
+
+const PRIMARY_NAV = [
+  { label: "Applied Intelligence", href: "/applied-intelligence" },
+  { label: "Frameworks", href: "/frameworks" },
+  { label: "Insights", href: "/insights" },
+  { label: "Diagnostic", href: "/applied-intelligence/diagnostic" },
+];
+
+const LEGAL_NAV = [
+  { label: "Privacy", href: "/privacy-policy" },
+  { label: "Terms", href: "/terms-of-service" },
+  { label: "Cookies", href: "/cookie-policy" },
+];
+
+const SOCIAL = [
+  // TODO: integration deferred — confirm canonical URLs before publishing.
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/audiojones" },
+  { label: "YouTube", href: "https://www.youtube.com/@audiojones" },
+  { label: "X", href: "https://x.com/audiojones" },
+];
 
 export default function Footer() {
   return (
-    <footer className="bg-black border-t border-white/10 text-white/80 pt-16 mt-24">
-      <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-5 gap-10 px-6">
-        <div>
-          <h4 className="font-bold mb-3 text-white">Company</h4>
-          <ul className="space-y-2 text-sm">
-            <li><Link href="/about">About</Link></li>
-            <li><Link href="/contact">Contact</Link></li>
-            <li><Link href="/careers">Careers</Link></li>
-          </ul>
-        </div>
-        <div>
-          <h4 className="font-bold mb-3 text-white">Services</h4>
-          <ul className="space-y-2 text-sm">
-            <li>AI Brand Systems</li>
-            <li>Podcast Production</li>
-            <li>Marketing Automation</li>
-            <li>Creator Coaching</li>
-          </ul>
-        </div>
-        <div>
-          <h4 className="font-bold mb-3 text-white">Resources</h4>
-          <ul className="space-y-2 text-sm">
-            <li><Link href="/insights">Insights</Link></li>
-            <li><Link href="/studio">Studio Tour</Link></li>
-            <li><Link href="/newsletter">Newsletter</Link></li>
-            <li><Link href="/free-audit">Free AI Audit</Link></li>
-          </ul>
-        </div>
-        <div>
-          <h4 className="font-bold mb-3 text-white">Connect</h4>
-          <ul className="space-y-2 text-sm">
-            <li><a href="https://www.youtube.com/@audiojones" target="_blank">YouTube</a></li>
-            <li><a href="https://www.instagram.com/audiojones" target="_blank">Instagram</a></li>
-            <li><a href="https://www.linkedin.com/in/audiojones" target="_blank">LinkedIn</a></li>
-            <li><a href="https://x.com/audiojones" target="_blank">X (Twitter)</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4 className="font-bold mb-3 text-white">Legal</h4>
-          <ul className="space-y-2 text-sm">
-            <li><Link href="/privacy-policy">Privacy Policy</Link></li>
-            <li><Link href="/terms-of-service">Terms of Service</Link></li>
-            <li><Link href="/cancellation-policy">Cancellation Policy</Link></li>
-            <li><Link href="/cookie-policy">Cookie Policy</Link></li>
-            <li><Link href="/studio-policy">Studio Policy</Link></li>
-          </ul>
-        </div>
-      </div>
+    <footer
+      role="contentinfo"
+      className="border-t border-[var(--line-2)] bg-bg-0"
+    >
+      <div className="mx-auto max-w-[1280px] px-5 py-16 sm:px-8 sm:py-20">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
+          {/* Brand block */}
+          <div className="lg:col-span-5">
+            <Link
+              href="/"
+              className="inline-flex items-center"
+              aria-label="Audio Jones — home"
+            >
+              <Image
+                src="/assets/logos/audiojones-workmark-white.png"
+                alt=""
+                width={160}
+                height={32}
+                className="h-7 w-auto"
+              />
+            </Link>
+            <p className="mt-6 max-w-md t-lead text-fg-1">
+              Applied Intelligence Systems for founder-led businesses.
+            </p>
+            <p className="mt-3 max-w-md t-small text-fg-3">
+              Audio Jones is the operating brand of AJ Digital LLC. Founder-led businesses, $250K–$5M.
+            </p>
+          </div>
 
-      <NewsletterForm />
+          {/* Site nav */}
+          <div className="lg:col-span-3">
+            <h2 className="t-label text-aj-gold">Site</h2>
+            <ul className="mt-5 space-y-3">
+              {PRIMARY_NAV.map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    className="t-body text-fg-1 transition-colors hover:text-fg-0"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-      <div className="text-center text-xs text-white/50 mt-8 pb-10">
-        {/* Disclaimer */}
-        <div className="max-w-4xl mx-auto mb-6 text-white/40">
-          <p className="mb-3">
-            <strong>Disclaimer:</strong> Audio Jones (AJ Digital LLC) provides marketing, automation, and
-            creative services for informational and educational purposes. We make no guarantees of specific
-            financial or ranking outcomes. Results vary based on client effort, competition, and market
-            conditions.
-          </p>
-          <p>
-            All operations are governed by Florida law. In-person sessions occur inside Circle House Studios,
-            13700 NW 1st Ave, Miami, FL 33168.
-          </p>
+          {/* Connect */}
+          <div className="lg:col-span-2">
+            <h2 className="t-label text-aj-gold">Connect</h2>
+            <ul className="mt-5 space-y-3">
+              {SOCIAL.map((s) => (
+                <li key={s.label}>
+                  <a
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="t-body text-fg-1 transition-colors hover:text-fg-0"
+                  >
+                    {s.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Legal */}
+          <div className="lg:col-span-2">
+            <h2 className="t-label text-aj-gold">Legal</h2>
+            <ul className="mt-5 space-y-3">
+              {LEGAL_NAV.map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    className="t-body text-fg-1 transition-colors hover:text-fg-0"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+              <li>
+                <Link
+                  href="/sitemap.xml"
+                  className="t-small text-fg-3 transition-colors hover:text-fg-0"
+                >
+                  Site map
+                </Link>
+              </li>
+            </ul>
+          </div>
         </div>
-        
-        {/* Copyright */}
-        <div>© {new Date().getFullYear()} AJ DIGITAL LLC · Audio Jones · All Rights Reserved.</div>
-        <div className="mt-2">
-          <BuildStamp />
+
+        <div className="mt-16 flex flex-col items-start justify-between gap-4 border-t border-[var(--line-2)] pt-8 sm:flex-row sm:items-center">
+          <p className="t-small text-fg-3">
+            © {new Date().getFullYear()} AJ Digital LLC · Audio Jones · All rights reserved.
+          </p>
+          <p className="t-small text-fg-3">
+            Audio Jones (AJ Digital LLC) provides marketing, automation, and creative
+            services for informational and educational purposes. Results vary.
+          </p>
         </div>
       </div>
     </footer>
   );
 }
-
