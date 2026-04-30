@@ -432,7 +432,7 @@ export class FeedbackDriftEngine {
       .limit(limit)
       .get();
 
-    return snapshot.docs.map(doc => ({
+    return snapshot.docs.map((doc: any) => ({
       ...doc.data(),
       created_at: doc.data().created_at
     })) as MonitoringInsight[];
@@ -554,7 +554,7 @@ export class FeedbackDriftEngine {
     let positiveCount = 0;
     let negativeCount = 0;
 
-    recentFeedback.docs.forEach(doc => {
+    recentFeedback.docs.forEach((doc: any) => {
       const feedback = doc.data();
       if (feedback.feedback_type === 'thumbs_up' || (typeof feedback.feedback_value === 'number' && feedback.feedback_value > 3)) {
         positiveCount++;

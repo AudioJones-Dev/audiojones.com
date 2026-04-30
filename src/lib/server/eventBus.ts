@@ -249,7 +249,7 @@ export async function getRecentEvents(
     }
 
     const snapshot = await query.get();
-    return snapshot.docs.map(doc => doc.data() as EventBusEvent);
+    return snapshot.docs.map((doc: any) => doc.data() as EventBusEvent);
     
   } catch (error) {
     console.error('Failed to get recent events:', error);
@@ -278,7 +278,7 @@ export async function getEventBusStats(): Promise<{
       .limit(1000)
       .get();
 
-    const events = snapshot.docs.map(doc => doc.data() as EventBusEvent);
+    const events = snapshot.docs.map((doc: any) => doc.data() as EventBusEvent);
     
     // Calculate statistics
     const eventsByType: Record<string, number> = {};

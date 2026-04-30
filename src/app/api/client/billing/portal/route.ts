@@ -1,5 +1,5 @@
 import { NextRequest } from 'next/server';
-import { getFirestore } from 'firebase-admin/firestore';
+import { getFirestore } from "@/lib/legacy-stubs";
 import { requireClient, AuthError, createAuthErrorResponse } from '@/lib/server/requireClient';
 import { sendAlertNotification } from '@/lib/server/notify';
 

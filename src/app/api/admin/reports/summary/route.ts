@@ -53,33 +53,33 @@ export async function GET(req: NextRequest) {
     ]);
 
     // Process customers data
-    const customers = customersSnapshot.docs.map(doc => doc.data());
-    const activeCustomers = customers.filter(c => c.status && c.status === 'active');
-    const pausedCustomers = customers.filter(c => c.status && c.status === 'paused');
-    const canceledCustomers = customers.filter(c => c.status && c.status === 'canceled');
+    const customers = customersSnapshot.docs.map((doc: any) => doc.data());
+    const activeCustomers = customers.filter((c: any) => c.status && c.status === 'active');
+    const pausedCustomers = customers.filter((c: any) => c.status && c.status === 'paused');
+    const canceledCustomers = customers.filter((c: any) => c.status && c.status === 'canceled');
 
     // Process events data
-    const events = eventsSnapshot.docs.map(doc => doc.data());
-    const eventsByType = events.reduce((acc: any, event) => {
+    const events = eventsSnapshot.docs.map((doc: any) => doc.data());
+    const eventsByType = events.reduce((acc: any, event: any) => {
       const eventType = event.event_type || 'unknown';
       acc[eventType] = (acc[eventType] || 0) + 1;
       return acc;
     }, {});
 
     // Process pricing data
-    const pricingSkus = pricingSnapshot.docs.map(doc => doc.data());
-    const activePricingSkus = pricingSkus.filter(sku => sku.active === true);
+    const pricingSkus = pricingSnapshot.docs.map((doc: any) => doc.data());
+    const activePricingSkus = pricingSkus.filter((sku: any) => sku.active === true);
     
     // Calculate revenue by SKU (approximate)
-    const revenueByService = activeCustomers.reduce((acc: any, customer) => {
+    const revenueByService = activeCustomers.reduce((acc: any, customer: any) => {
       const service = customer.service_name || 'unknown';
       acc[service] = (acc[service] || 0) + 1;
       return acc;
     }, {});
 
     // Process alerts data
-    const alerts = alertsSnapshot.docs.map(doc => doc.data());
-    const alertsByType = alerts.reduce((acc: any, alert) => {
+    const alerts = alertsSnapshot.docs.map((doc: any) => doc.data());
+    const alertsByType = alerts.reduce((acc: any, alert: any) => {
       const alertType = alert.type || 'unknown';
       acc[alertType] = (acc[alertType] || 0) + 1;
       return acc;
@@ -90,7 +90,7 @@ export async function GET(req: NextRequest) {
     const churnRate = totalCustomers > 0 ? (canceledCustomers.length / totalCustomers) * 100 : 0;
 
     // Daily/weekly/monthly grouping
-    const eventsTimeline = events.reduce((acc: any, event) => {
+    const eventsTimeline = events.reduce((acc: any, event: any) => {
       if (!event.timestamp) return acc;
       const date = new Date(event.timestamp);
       let groupKey: string;

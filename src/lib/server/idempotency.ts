@@ -128,7 +128,7 @@ export async function cleanupExpiredRecords(batchSize: number = 100): Promise<nu
     }
     
     const batch = db.batch();
-    expiredQuery.docs.forEach(doc => {
+    expiredQuery.docs.forEach((doc: any) => {
       batch.delete(doc.ref);
     });
     
@@ -174,7 +174,7 @@ export async function getIdempotencyStats(): Promise<{
     let expiredCount = 0;
     let activeCount = 0;
     
-    allRecords.docs.forEach(doc => {
+    allRecords.docs.forEach((doc: any) => {
       const data = doc.data() as IdempotencyRecord;
       const expiresAt = new Date(data.expires_at);
       

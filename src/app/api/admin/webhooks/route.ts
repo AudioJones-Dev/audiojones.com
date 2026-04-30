@@ -26,7 +26,7 @@ export async function GET(req: NextRequest) {
 
     const snapshot = await query.get();
     
-    const events = snapshot.docs.map(doc => ({
+    const events = snapshot.docs.map((doc: any) => ({
       id: doc.id,
       ...doc.data(),
       // Add replay status indicators

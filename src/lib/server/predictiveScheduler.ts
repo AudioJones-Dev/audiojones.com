@@ -170,7 +170,7 @@ async function loadRecentSnapshots(count: number): Promise<CapacitySnapshot[]> {
       .get();
 
     const snapshots: CapacitySnapshot[] = [];
-    query.forEach(doc => {
+    query.forEach((doc: any) => {
       const data = doc.data();
       snapshots.push({
         snapshot_date: data.snapshot_date,

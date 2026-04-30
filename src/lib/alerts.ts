@@ -1,6 +1,6 @@
 // src/lib/alerts.ts
-import { getApps, initializeApp, cert } from "firebase-admin/app";
-import { getFirestore } from "firebase-admin/firestore";
+import { getApps, initializeApp, cert } from "@/lib/legacy-stubs";
+import { getFirestore } from "@/lib/legacy-stubs";
 
 interface AlertOptions {
   title: string;
@@ -148,7 +148,7 @@ export async function cleanupExpiredAlerts(): Promise<number> {
     const batch = db.batch();
     let count = 0;
 
-    snapshot.docs.forEach((doc) => {
+    snapshot.docs.forEach((doc: any) => {
       batch.update(doc.ref, {
         status: 'dismissed',
         dismissed_at: now,

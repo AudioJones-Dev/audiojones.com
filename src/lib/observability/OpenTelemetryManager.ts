@@ -437,7 +437,7 @@ export class InternalObservabilityManager {
         .get();
 
       const batch = db.batch();
-      oldTraces.forEach(doc => {
+      oldTraces.forEach((doc: any) => {
         batch.delete(doc.ref);
       });
 
@@ -448,7 +448,7 @@ export class InternalObservabilityManager {
         .limit(100)
         .get();
 
-      oldMetrics.forEach(doc => {
+      oldMetrics.forEach((doc: any) => {
         batch.delete(doc.ref);
       });
 

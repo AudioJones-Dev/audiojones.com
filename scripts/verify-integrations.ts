@@ -3,8 +3,11 @@
 /**
  * Audio Jones - Integration Verification Script
  * ----------------------------------------------
- * Checks connectivity for Firebase, ImageKit, Stripe, and MailerLite.
+ * Checks connectivity for NeonDB, ImageKit, Stripe, and MailerLite.
  * Uses read-only API calls. Never logs sensitive keys.
+ *
+ * Firebase has been intentionally removed — see
+ * docs/architecture/stack-decision.md.
  */
 
 import dotenv from "dotenv";
@@ -20,22 +23,17 @@ type ServiceStatus = {
   message: string;
 };
 
-async function verifyFirebase(): Promise<ServiceStatus> {
+async function verifyNeon(): Promise<ServiceStatus> {
   try {
-    const projectId = process.env.FIREBASE_PROJECT_ID;
-    if (!projectId) throw new Error("Missing FIREBASE_PROJECT_ID");
-    // Lazy import firebase-admin to avoid requiring credentials unless configured
-    const admin = await import("firebase-admin");
-    if (!admin.apps.length) {
-      admin.initializeApp({
-        projectId,
-        credential: admin.credential.applicationDefault(),
-      });
-    }
-    const apps = admin.apps;
-    return { name: "Firebase", ok: true, message: `Connected (${apps.length} app)` };
+    const url = process.env.DATABASE_URL;
+    if (!url) throw new Error("Missing DATABASE_URL");
+    const { neon } = await import("@neondatabase/serverless");
+    const sql = neon(url);
+    const rows = (await sql`SELECT 1 AS ok`) as Array<{ ok: number }>;
+    if (rows[0]?.ok !== 1) throw new Error("Unexpected response from Neon");
+    return { name: "NeonDB", ok: true, message: "Authenticated" };
   } catch (err: any) {
-    return { name: "Firebase", ok: false, message: err.message };
+    return { name: "NeonDB", ok: false, message: err.message };
   }
 }
 
@@ -86,7 +84,7 @@ async function verifyMailerLite(): Promise<ServiceStatus> {
 
 async function main() {
   const checks = [
-    verifyFirebase(),
+    verifyNeon(),
     verifyImageKit(),
     verifyStripe(),
     verifyMailerLite(),

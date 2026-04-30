@@ -6,7 +6,7 @@
  */
 
 import 'server-only';
-import { Firestore } from 'firebase-admin/firestore';
+import { Firestore } from "@/lib/legacy-stubs";
 import type { CapacitySnapshot, ForecastResponse } from '@/types/capacity';
 
 /**
@@ -83,7 +83,7 @@ export async function getCapacityHistory(
       .orderBy('snapshot_date', 'desc')
       .get();
     
-    const history = snapshot.docs.map(doc => ({
+    const history = snapshot.docs.map((doc: any) => ({
       ...doc.data()
     })) as CapacitySnapshot[];
     

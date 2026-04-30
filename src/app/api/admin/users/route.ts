@@ -30,7 +30,7 @@ export async function GET(req: NextRequest) {
 
   try {
     const list = await adminAuth().listUsers(50);
-    const users = list.users.map(u => ({
+    const users = list.users.map((u: any) => ({
       uid: u.uid,
       email: u.email ?? null,
       disabled: u.disabled,

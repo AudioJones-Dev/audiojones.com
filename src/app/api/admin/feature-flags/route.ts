@@ -116,7 +116,7 @@ export async function GET(request: NextRequest) {
           .limit(50)
           .get();
 
-        const evaluations = evaluationsSnapshot.docs.map(doc => ({
+        const evaluations = evaluationsSnapshot.docs.map((doc: any) => ({
           id: doc.id,
           ...doc.data()
         }));
@@ -166,7 +166,7 @@ export async function GET(request: NextRequest) {
             .get();
         }
 
-        const auditLog = auditSnapshot.docs.map(doc => ({
+        const auditLog = auditSnapshot.docs.map((doc: any) => ({
           id: doc.id,
           ...doc.data()
         }));

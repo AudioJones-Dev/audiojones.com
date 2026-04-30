@@ -3,30 +3,30 @@ export interface WhopClient {
     users: {
         getUser: (params: {
             userId: string;
-        }) => Promise<any>;
-        getCurrentUser: () => Promise<any>;
+        }) => Promise<unknown>;
+        getCurrentUser: () => Promise<unknown>;
     };
     payments: {
         list: (params?: {
             company_id?: string;
             limit?: number;
             page?: number;
-        }) => Promise<any>;
-        get: (paymentId: string) => Promise<any>;
+        }) => Promise<unknown>;
+        get: (paymentId: string) => Promise<unknown>;
     };
     subscriptions: {
         list: (params?: {
             company_id?: string;
             limit?: number;
             page?: number;
-        }) => Promise<any>;
-        get: (subscriptionId: string) => Promise<any>;
+        }) => Promise<unknown>;
+        get: (subscriptionId: string) => Promise<unknown>;
     };
     access: {
         checkIfUserHasAccessToExperience: (params: {
             experienceId: string;
             userId: string;
-        }) => Promise<any>;
+        }) => Promise<unknown>;
     };
     notifications: {
         create: (params: {
@@ -35,20 +35,20 @@ export interface WhopClient {
             title: string;
             content: string;
             rest_path?: string;
-        }) => Promise<any>;
+        }) => Promise<unknown>;
     };
     forumPosts: {
         create: (params: {
             experience_id: string;
             content: string;
             pinned?: boolean;
-        }) => Promise<any>;
+        }) => Promise<unknown>;
     };
     messages: {
         create: (params: {
             channel_id: string;
             content: string;
-        }) => Promise<any>;
+        }) => Promise<unknown>;
     };
     verifyUserToken: (headers: Headers) => Promise<{
         userId: string;
@@ -58,7 +58,7 @@ export declare function getWhopClient(): WhopClient;
 export declare function verifyWhopSignature(rawBody: string, signature: string): void;
 export type WhopWebhookEvent = {
     type: string;
-    data: any;
+    data: unknown;
     created_at: string;
     id: string;
 };

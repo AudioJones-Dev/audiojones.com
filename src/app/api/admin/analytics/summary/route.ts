@@ -1,5 +1,5 @@
 import { NextRequest } from 'next/server';
-import { getFirestore } from 'firebase-admin/firestore';
+import { getFirestore } from "@/lib/legacy-stubs";
 import { requireAdmin } from '@/lib/server/requireAdmin';
 import { AdminCustomer, safeDocCast } from '@/types/admin';
 
@@ -54,7 +54,7 @@ export async function GET(request: NextRequest) {
 
     // Get all customers
     const customersSnapshot = await db.collection('customers').get();
-    const customers = customersSnapshot.docs.map(doc => 
+    const customers = customersSnapshot.docs.map((doc: any) => 
       safeDocCast<AdminCustomer>(doc, {
         status: 'unknown',
         created_at: new Date().toISOString(),
@@ -73,7 +73,7 @@ export async function GET(request: NextRequest) {
     const tierDistribution: Record<string, number> = {};
     const serviceDistribution: Record<string, number> = {};
 
-    customers.forEach(customer => {
+    customers.forEach((customer: any) => {
       // Count active vs inactive (basic heuristic: customers with status 'active')
       if (customer.status === 'active') {
         activeSubscriptions++;

@@ -8,7 +8,7 @@
  */
 
 import { getDb } from '@/lib/server/firebaseAdmin';
-import { FieldValue } from 'firebase-admin/firestore';
+import { FieldValue } from "@/lib/legacy-stubs";
 
 export interface WebhookDeliveryAttempt {
   event_id: string;
@@ -116,7 +116,7 @@ export async function getPendingWebhookRetries(limit: number = 25): Promise<{
       .limit(limit)
       .get();
 
-    return snapshot.docs.map(doc => ({
+    return snapshot.docs.map((doc: any) => ({
       id: doc.id,
       data: doc.data() as WebhookQueueItem,
     }));
@@ -182,7 +182,7 @@ export async function getRecentWebhookDeliveries(limit: number = 50): Promise<We
       .limit(limit)
       .get();
 
-    return snapshot.docs.map(doc => doc.data() as WebhookDeliveryAttempt);
+    return snapshot.docs.map((doc: any) => doc.data() as WebhookDeliveryAttempt);
 
   } catch (error) {
     console.error('Failed to get recent webhook deliveries:', error);

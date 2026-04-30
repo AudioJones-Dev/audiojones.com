@@ -1,5 +1,5 @@
 import { NextRequest } from 'next/server';
-import { getFirestore } from 'firebase-admin/firestore';
+import { getFirestore } from "@/lib/legacy-stubs";
 import { requireClient, AuthError, createAuthErrorResponse } from '@/lib/server/requireClient';
 
 export async function GET(request: NextRequest) {
@@ -29,7 +29,7 @@ export async function GET(request: NextRequest) {
       .limit(10)
       .get();
 
-    const events = eventsQuery.docs.map(doc => ({
+    const events = eventsQuery.docs.map((doc: any) => ({
       id: doc.id,
       ...doc.data(),
     }));

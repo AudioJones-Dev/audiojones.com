@@ -1,115 +1,57 @@
-import { initializeApp, getApps, getApp, type FirebaseApp } from "firebase/app";
-import { getAuth, GoogleAuthProvider } from "firebase/auth";
-import { getStorage } from "firebase/storage";
-import { getFirestore } from "firebase/firestore";
-import { getFunctions } from "firebase/functions";
+// Firebase has been intentionally removed from audiojones.com.
+// This module remains as a no-op shim so legacy admin/auth components still
+// type-check. Every accessor throws when actually used at runtime — see
+// docs/architecture/stack-decision.md for the approved replacement stack.
+//
+// Components that previously authenticated via Firebase Auth should be
+// reworked against Supabase Auth (only if auth is genuinely required) before
+// being re-enabled.
 
-const firebaseConfig = {
-  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
-  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
-};
+import {
+  getAuth,
+  getStorage,
+  getFunctions,
+  getFirestore,
+  GoogleAuthProvider,
+  type FirebaseApp,
+} from "@/lib/legacy-stubs";
 
-let firebaseApp: FirebaseApp | null = null;
+let _googleProvider: GoogleAuthProvider | null = null;
 
-function createFirebaseApp(): FirebaseApp {
-  if (firebaseApp) return firebaseApp;
-  
-  // During build time, environment variables might not be available
-  // This is expected and we should not fail the build
-  if (typeof window === 'undefined' && !firebaseConfig.apiKey) {
-    console.warn('[Firebase] Client configuration not available during build time - this is expected');
-    // Return a mock app during build that will be replaced at runtime
-    return {} as FirebaseApp;
-  }
-  
-  if (!firebaseConfig.apiKey) {
-    throw new Error("Missing Firebase env vars - check your NEXT_PUBLIC_FIREBASE_* environment variables");
-  }
-  
-  firebaseApp = getApps().length ? getApp() : initializeApp(firebaseConfig);
-  return firebaseApp;
+export function getFirebaseApp(): FirebaseApp {
+  throw new Error(
+    "Firebase has been removed from audiojones.com. See docs/architecture/stack-decision.md.",
+  );
 }
 
-// Lazy initialization - only create when accessed
-let _auth: any = null;
-let _storage: any = null;
-let _functions: any = null;
-let _db: any = null;
-let _googleProvider: any = null;
-
-export const getFirebaseApp = () => createFirebaseApp();
-
-export const auth = new Proxy({} as any, {
-  get(target, prop) {
-    if (!_auth) {
-      try {
-        const app = createFirebaseApp();
-        // During build time, app might be a mock object
-        if (typeof window === 'undefined' && !firebaseConfig.apiKey) {
-          return {}; // Return empty object during build
-        }
-        _auth = getAuth(app);
-      } catch (error) {
-        console.warn('[Firebase] Auth initialization failed:', error);
-        return {}; // Return empty object on error
-      }
-    }
-    return _auth[prop];
-  }
+const handler = (label: string): ProxyHandler<object> => ({
+  get(_target, prop) {
+    if (prop === "then") return undefined;
+    throw new Error(
+      `Firebase has been removed from audiojones.com (accessed ${label}.${String(prop)}). See docs/architecture/stack-decision.md.`,
+    );
+  },
 });
 
-export const storage = new Proxy({} as any, {
-  get(target, prop) {
-    if (!_storage) {
-      const app = createFirebaseApp();
-      // During build time, app might be a mock object
-      if (typeof window === 'undefined' && !firebaseConfig.apiKey) {
-        return {}; // Return empty object during build
-      }
-      _storage = getStorage(app);
-    }
-    return _storage[prop];
-  }
-});
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const auth: any = new Proxy({}, handler("auth"));
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const storage: any = new Proxy({}, handler("storage"));
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const functions: any = new Proxy({}, handler("functions"));
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const db: any = new Proxy({}, handler("db"));
 
-export const functions = new Proxy({} as any, {
-  get(target, prop) {
-    if (!_functions) {
-      const app = createFirebaseApp();
-      // During build time, app might be a mock object
-      if (typeof window === 'undefined' && !firebaseConfig.apiKey) {
-        return {}; // Return empty object during build
-      }
-      _functions = getFunctions(app);
-    }
-    return _functions[prop];
-  }
-});
-
-export const db = new Proxy({} as any, {
-  get(target, prop) {
-    if (!_db) {
-      const app = createFirebaseApp();
-      // During build time, app might be a mock object
-      if (typeof window === 'undefined' && !firebaseConfig.apiKey) {
-        return {}; // Return empty object during build
-      }
-      _db = getFirestore(app);
-    }
-    return _db[prop];
-  }
-});
-
-export const googleProvider = new Proxy({} as any, {
-  get(target, prop) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const googleProvider: any = new Proxy({}, {
+  get(_target, prop) {
     if (!_googleProvider) {
+      // GoogleAuthProvider construction throws via the legacy-stubs shim.
       _googleProvider = new GoogleAuthProvider();
     }
-    return _googleProvider[prop];
-  }
+    return (_googleProvider as unknown as Record<string | symbol, unknown>)[prop];
+  },
 });
+
+// Keep the original named accessors used to be present.
+export { getAuth, getStorage, getFunctions, getFirestore, GoogleAuthProvider };

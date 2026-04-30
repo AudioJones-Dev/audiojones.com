@@ -59,7 +59,7 @@ export function serializeIncidentForFeed(
     // Extract affected components if available
     if (data.affected_components && Array.isArray(data.affected_components)) {
       incident.affected_components = data.affected_components
-        .filter(component => typeof component === 'string')
+        .filter((component: any) => typeof component === 'string')
         .slice(0, 10); // Limit to 10 components max
     }
 

@@ -1,62 +1,31 @@
-// src/lib/server/firebaseAdmin.ts
-import 'server-only';
+// Firebase has been intentionally removed from audiojones.com.
+// This module is a no-op shim kept so admin/portal tooling that has not yet
+// been migrated to NeonDB / Supabase still type-checks. Any call into one of
+// these accessors throws at runtime — see docs/architecture/stack-decision.md.
+import "server-only";
+import {
+  auth as adminAuthFn,
+  firestore as adminFirestoreFn,
+  initializeApp as initializeAdminApp,
+  type App,
+} from "@/lib/legacy-stubs";
 
-import * as admin from 'firebase-admin';
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type FirebaseAdminApp = any;
 
-let adminApp: admin.app.App | null = null;
-
-/**
- * Cached credential loader - only loads env vars when actually needed
- */
-function loadFirebaseCredentials() {
-  const projectId = process.env.FIREBASE_PROJECT_ID;
-  const clientEmail = process.env.FIREBASE_CLIENT_EMAIL;
-  const privateKey = process.env.FIREBASE_PRIVATE_KEY;
-
-  if (!projectId || !clientEmail || !privateKey) {
-    throw new Error(`Missing Firebase credentials. Required env vars: FIREBASE_PROJECT_ID, FIREBASE_CLIENT_EMAIL, FIREBASE_PRIVATE_KEY`);
-  }
-
-  // Vercel stores newlines as \n; convert to real newlines
-  return {
-    projectId,
-    clientEmail,
-    privateKey: privateKey.replace(/\\n/g, '\n')
-  };
+export function getAdminApp(): FirebaseAdminApp {
+  return initializeAdminApp() as never;
 }
 
-/** Get (singleton) Firebase Admin app for server code */
-export function getAdminApp(): admin.app.App {
-  if (!adminApp) {
-    if (!admin.apps.length) {
-      const credentials = loadFirebaseCredentials();
-      adminApp = admin.initializeApp({
-        credential: admin.credential.cert(credentials),
-      });
-    } else {
-      adminApp = admin.apps[0];
-    }
-  }
-  return adminApp!;
+export function adminAuth(): ReturnType<typeof adminAuthFn> {
+  return adminAuthFn();
 }
-
-/** Firebase Admin Auth accessor (server only) */
-export function adminAuth() {
-  return getAdminApp().auth();
-}
-
-/** Back-compat alias for existing imports */
 export const getAdminAuth = adminAuth;
 
-/** Firebase Admin Firestore accessor (server only) */
-export function getFirestoreDb() {
-  return admin.firestore(getAdminApp());
+export function getFirestoreDb(): ReturnType<typeof adminFirestoreFn> {
+  return adminFirestoreFn();
 }
 
-/** 
- * Lazy Firestore DB accessor - replaces the eager `db` export
- * Use this instead of importing `db` directly
- */
-export function getDb() {
-  return getFirestoreDb();
-}
+export const getDb = getFirestoreDb;
+
+export type { App };

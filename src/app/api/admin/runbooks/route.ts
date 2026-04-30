@@ -78,7 +78,7 @@ export async function GET(req: NextRequest) {
     
     const snapshot = await query.get();
     
-    const runbooks = snapshot.docs.map(doc => ({
+    const runbooks = snapshot.docs.map((doc: any) => ({
       id: doc.id,
       ...doc.data()
     })) as Runbook[];

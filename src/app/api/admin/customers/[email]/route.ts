@@ -35,7 +35,7 @@ export async function GET(
         .limit(50) // Limit to recent 50 events
         .get();
 
-      events = eventsSnapshot.docs.map(doc => ({
+      events = eventsSnapshot.docs.map((doc: any) => ({
         id: doc.id,
         ...doc.data()
       }));
@@ -54,7 +54,7 @@ export async function GET(
         .orderBy("created_at", "desc")
         .get();
 
-      notes = notesSnapshot.docs.map(doc => ({
+      notes = notesSnapshot.docs.map((doc: any) => ({
         id: doc.id,
         ...doc.data()
       }));

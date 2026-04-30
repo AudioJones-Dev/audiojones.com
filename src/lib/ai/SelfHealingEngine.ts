@@ -584,7 +584,7 @@ export class SelfHealingEngine {
         .limit(limit)
         .get();
 
-      return snapshot.docs.map(doc => doc.data() as HealingExecution);
+      return snapshot.docs.map((doc: any) => doc.data() as HealingExecution);
     } catch (error) {
       console.error('❌ Failed to get healing history:', error);
       return [];

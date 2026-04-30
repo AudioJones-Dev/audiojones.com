@@ -31,14 +31,14 @@ export async function GET(req: NextRequest) {
 
     const snapshot = await query.get();
     
-    const auditLogs = snapshot.docs.map(doc => ({
+    const auditLogs = snapshot.docs.map((doc: any) => ({
       id: doc.id,
       ...doc.data()
     }));
 
     // Get summary stats
     const statsSnapshot = await getDb().collection('admin_audit_log').get();
-    const allLogs = statsSnapshot.docs.map(doc => doc.data());
+    const allLogs = statsSnapshot.docs.map((doc: any) => doc.data());
     
     const actionCounts = allLogs.reduce((acc: any, log: any) => {
       acc[log.action] = (acc[log.action] || 0) + 1;
@@ -46,7 +46,7 @@ export async function GET(req: NextRequest) {
     }, {});
 
     const recentActivity = allLogs
-      .filter(log => {
+      .filter((log: any) => {
         const logDate = new Date(log.created_at);
         const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
         return logDate > oneDayAgo;

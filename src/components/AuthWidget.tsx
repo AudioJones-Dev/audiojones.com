@@ -3,15 +3,17 @@
 import { useEffect, useState } from "react";
 import { auth, googleProvider } from "@/lib/firebase/client";
 import { useToast } from "@/components/Toast";
-import { signInWithPopup, signOut, onAuthStateChanged, User } from "firebase/auth";
+import { signInWithPopup, signOut, onAuthStateChanged, type User } from "@/lib/legacy-stubs";
+
+type AuthUser = User & { photoURL?: string | null; displayName?: string | null };
 
 export default function AuthWidget() {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<AuthUser | null>(null);
   const [loading, setLoading] = useState(true);
   const { show } = useToast();
 
   useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (u) => {
+    const unsub = onAuthStateChanged(auth, (u: any) => {
       setUser(u);
       setLoading(false);
     });

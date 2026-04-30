@@ -9,7 +9,7 @@
  */
 
 import { getDb } from '@/lib/server/firebaseAdmin';
-import { FieldValue } from 'firebase-admin/firestore';
+import { FieldValue } from "@/lib/legacy-stubs";
 
 export interface StatusWebhookTarget {
   id?: string;
@@ -81,7 +81,7 @@ export async function getAllWebhookTargets(): Promise<StatusWebhookTarget[]> {
       .orderBy('created_at', 'desc')
       .get();
 
-    return snapshot.docs.map(doc => ({
+    return snapshot.docs.map((doc: any) => ({
       ...doc.data() as StatusWebhookTarget,
       id: doc.id,
     }));

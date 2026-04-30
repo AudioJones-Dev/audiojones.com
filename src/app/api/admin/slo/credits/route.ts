@@ -10,7 +10,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { requireAdmin } from '@/lib/server/requireAdmin';
 import { sloCreditEngine } from '@/lib/slo/SLOCreditEngine';
 import { getDb } from '@/lib/server/firebaseAdmin';
-import { FieldValue } from 'firebase-admin/firestore';
+import { FieldValue } from "@/lib/legacy-stubs";
 
 export async function POST(request: NextRequest) {
   try {
@@ -303,7 +303,7 @@ async function getCreditApplications(searchParams: URLSearchParams) {
 
   const snapshot = await query.limit(limit).get();
   
-  const applications = snapshot.docs.map(doc => ({
+  const applications = snapshot.docs.map((doc: any) => ({
     id: doc.id,
     ...doc.data(),
     applied_at: doc.data().applied_at?.toDate?.()?.toISOString(),
@@ -335,7 +335,7 @@ async function getClientCredits(searchParams: URLSearchParams) {
     .orderBy('applied_at', 'desc')
     .get();
 
-  const credits = snapshot.docs.map(doc => ({
+  const credits = snapshot.docs.map((doc: any) => ({
     id: doc.id,
     ...doc.data(),
     applied_at: doc.data().applied_at?.toDate?.()?.toISOString(),
@@ -367,7 +367,7 @@ async function getMonthlyCreditsForClient(clientId: string, monthYear: string): 
     .where('month_year', '==', monthYear)
     .get();
 
-  return snapshot.docs.reduce((sum, doc) => sum + (doc.data().credit_amount || 0), 0);
+  return snapshot.docs.reduce((sum: any, doc: any) => sum + (doc.data().credit_amount || 0), 0);
 }
 
 async function getCreditRule(sloId: string): Promise<{

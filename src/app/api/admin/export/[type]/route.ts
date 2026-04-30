@@ -38,7 +38,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ type
     switch (type) {
       case 'customers':
         const customersSnapshot = await getDb().collection('customers').limit(limit).get();
-        data = customersSnapshot.docs.map(doc => ({
+        data = customersSnapshot.docs.map((doc: any) => ({
           email: doc.id,
           ...doc.data(),
           document_id: doc.id
@@ -58,7 +58,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ type
         }
         
         const eventsSnapshot = await eventsQuery.get();
-        data = eventsSnapshot.docs.map(doc => ({
+        data = eventsSnapshot.docs.map((doc: any) => ({
           id: doc.id,
           ...doc.data()
         }));
@@ -69,10 +69,10 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ type
       case 'revenue':
         // Get customers grouped by service and tier for revenue analysis
         const revenueSnapshot = await getDb().collection('customers').get();
-        const customers = revenueSnapshot.docs.map(doc => doc.data());
+        const customers = revenueSnapshot.docs.map((doc: any) => doc.data());
         
         // Group by service and tier
-        const revenueData = customers.reduce((acc: any[], customer) => {
+        const revenueData = customers.reduce((acc: any[], customer: any) => {
           acc.push({
             customer_email: customer.email,
             service_name: customer.service_name || 'unknown',
@@ -92,7 +92,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ type
 
       case 'pricing':
         const pricingSnapshot = await getDb().collection('pricing_skus').get();
-        data = pricingSnapshot.docs.map(doc => ({
+        data = pricingSnapshot.docs.map((doc: any) => ({
           id: doc.id,
           ...doc.data()
         }));
@@ -102,7 +102,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ type
 
       case 'audit':
         const auditSnapshot = await getDb().collection('admin_audit_log').orderBy('created_at', 'desc').limit(limit).get();
-        data = auditSnapshot.docs.map(doc => ({
+        data = auditSnapshot.docs.map((doc: any) => ({
           id: doc.id,
           ...doc.data(),
           payload: JSON.stringify(doc.data().payload || {})

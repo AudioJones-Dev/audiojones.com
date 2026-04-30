@@ -546,7 +546,7 @@ export class StreamAnalyticsCorrelationEngine {
       .limit(limit)
       .get();
 
-    return snapshot.docs.map(doc => ({
+    return snapshot.docs.map((doc: any) => ({
       ...doc.data(),
       created_at: doc.data().created_at.toDate().getTime(),
       expires_at: doc.data().expires_at.toDate().getTime()

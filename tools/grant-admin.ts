@@ -1,23 +1,24 @@
-import 'dotenv/config';
-import { getAdminApp } from '../src/lib/server/firebaseAdmin';
-import { getAuth } from 'firebase-admin/auth';
+// tools/grant-admin.ts
+//
+// Firebase Auth has been removed from audiojones.com. This script previously
+// stamped Firebase custom claims to elevate users; the equivalent operation
+// against the new stack will be a row in NeonDB or a Supabase Auth claim. Until
+// that admin model is finalized, the script exits with guidance instead of
+// silently failing.
 
 async function main() {
   const email = process.argv[2];
   if (!email) {
-    console.error('Usage: tsx tools/grant-admin.ts <email>');
+    console.error("Usage: tsx tools/grant-admin.ts <email>");
     process.exit(1);
   }
 
-  const auth = getAuth(getAdminApp());
-  const user = await auth.getUserByEmail(email);
-  const oldClaims = user.customClaims || {};
-  await auth.setCustomUserClaims(user.uid, { ...oldClaims, admin: true });
-
-  console.log(`✅ Set admin=true on uid=${user.uid} (${email})`);
+  console.error(
+    `Cannot grant admin to ${email}: Firebase Auth has been removed from audiojones.com.\n` +
+      "See docs/architecture/stack-decision.md. The replacement admin model is being\n" +
+      "implemented against NeonDB / Supabase Auth.",
+  );
+  process.exit(2);
 }
 
-main().catch((e) => {
-  console.error('❌ Failed to grant admin:', e);
-  process.exit(1);
-});
+main();

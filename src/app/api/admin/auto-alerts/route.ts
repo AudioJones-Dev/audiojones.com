@@ -1,5 +1,5 @@
 import { NextRequest } from 'next/server';
-import { getFirestore } from 'firebase-admin/firestore';
+import { getFirestore } from "@/lib/legacy-stubs";
 import { requireAdmin } from '@/lib/server/requireAdmin';
 
 /**
@@ -115,7 +115,7 @@ export async function POST(request: NextRequest) {
       let totalPaymentEvents = 0;
       let failedPaymentEvents = 0;
 
-      paymentEventsSnapshot.docs.forEach(doc => {
+      paymentEventsSnapshot.docs.forEach((doc: any) => {
         const data = doc.data();
         if (data.event_type?.includes('payment') || data.event_type?.includes('invoice')) {
           totalPaymentEvents++;

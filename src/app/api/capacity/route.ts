@@ -1,5 +1,5 @@
 import { NextRequest } from 'next/server';
-import { getFirestore } from 'firebase-admin/firestore';
+import { getFirestore } from "@/lib/legacy-stubs";
 import { getDb } from '@/lib/server/firebaseAdmin';
 import { deriveHoursFromPlan, isWithinWindow } from '@/lib/capacity';
 
@@ -91,7 +91,7 @@ export async function GET(request: NextRequest) {
       .where('status', 'in', activeStatuses)
       .get();
 
-    const contracts: ClientContract[] = contractsSnapshot.docs.map(doc => ({
+    const contracts: ClientContract[] = contractsSnapshot.docs.map((doc: any) => ({
       id: doc.id,
       ...doc.data()
     } as ClientContract));
