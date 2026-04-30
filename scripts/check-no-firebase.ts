@@ -28,6 +28,7 @@ const SKIP_DIRS = new Set<string>([
   "coverage",
   ".vercel",
   ".turbo",
+  ".claude",
   "packages/config/dist",
   "src/dataconnect-generated",
   "dataconnect",
