@@ -42,3 +42,6 @@ next-env.d.ts
 audiojones.com/
 
 .env.vercel.*
+
+# Claude Code worktree management directory (per-session, never commit)
+.claude/
