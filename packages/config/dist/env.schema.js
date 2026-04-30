@@ -6,16 +6,20 @@ export const EnvSchema = z.object({
     // Database — NeonDB (Postgres)
     DATABASE_URL: z.string().min(1).optional(),
     // Email — Resend
+    // Format validators are deliberately loose here — Doppler may store values
+    // like `Audio Jones <noreply@audiojones.com>` for FROM_EMAIL, and we don't
+    // want validateEnv to fail at module load over format quirks. The actual
+    // mail send still validates the recipient at request time.
     RESEND_API_KEY: z.string().min(1).optional(),
-    RESEND_FROM_EMAIL: z.string().email().optional(),
-    LEAD_NOTIFICATION_EMAIL: z.string().email().optional(),
+    RESEND_FROM_EMAIL: z.string().min(1).optional(),
+    LEAD_NOTIFICATION_EMAIL: z.string().min(1).optional(),
     FROM_EMAIL: z.string().optional(),
     // Sanity CMS
     NEXT_PUBLIC_SANITY_PROJECT_ID: z.string().min(1).optional(),
     NEXT_PUBLIC_SANITY_DATASET: z.string().min(1).optional(),
     SANITY_API_READ_TOKEN: z.string().min(1).optional(),
     // Supabase — only used if auth/storage/realtime is required
-    NEXT_PUBLIC_SUPABASE_URL: z.string().url().optional(),
+    NEXT_PUBLIC_SUPABASE_URL: z.string().min(1).optional(),
     NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string().min(1).optional(),
     SUPABASE_SERVICE_ROLE_KEY: z.string().min(1).optional(),
     // Whop integration
@@ -29,10 +33,12 @@ export const EnvSchema = z.object({
     // MailerLite integration
     MAILERLITE_API_KEY: z.string().min(1).optional(),
     MAILERLITE_GROUP_ID: z.string().min(1).optional(),
-    // n8n automation (optional — lead capture continues if n8n fails)
-    N8N_WEBHOOK_URL: z.string().url().optional(),
-    N8N_LEAD_WEBHOOK_URL: z.string().url().optional(),
-    CRM_WEBHOOK_URL: z.string().url().optional(),
+    // n8n automation (optional — lead capture continues if n8n fails).
+    // Loose validation: the runtime fetch fails fast on a bad URL, and we'd
+    // rather not block module-load on a typo in Doppler.
+    N8N_WEBHOOK_URL: z.string().min(1).optional(),
+    N8N_LEAD_WEBHOOK_URL: z.string().min(1).optional(),
+    CRM_WEBHOOK_URL: z.string().min(1).optional(),
     // Applied Intelligence diagnostic
     LEAD_FORM_SECRET: z.string().min(1).optional(),
     IP_HASH_SALT: z.string().min(1).optional(),
