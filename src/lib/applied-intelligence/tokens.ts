@@ -63,9 +63,11 @@ export const aiColors = {
   warning: "#FACC15",
   danger: "#EF4444",
 
-  // Legacy aliases (kept until call sites migrate)
+  // Legacy aliases (kept until call sites migrate).
+  // NOTE: `surface` is no longer aliased here — it conflicts with the
+  // canonical light-split `surface` above (#F5F5F5). Old call sites
+  // that wanted the dark card surface should use `bg2` ("#0B1020").
   background: "#05070F",
-  surface: "#0B1020",
   surfaceAlt: "#101827",
   primary: "#3B5BFF",
   primaryBright: "#3B5BFF",
