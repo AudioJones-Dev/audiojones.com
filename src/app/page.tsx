@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 import {
   HeroAllSignal,
+  TrustedByStrip,
   ProblemReframeSplit,
+  SignalNoiseModel,
+  MAPAttributionSection,
   SystemModelLoop,
-  FrameworksDuo,
+  ICPFilterSection,
   ProcessPipeline,
   ProofStats,
   InsightsPreview,
@@ -34,13 +37,37 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <>
+      {/* 1. Hero */}
       <HeroAllSignal />
+
+      {/* 2. Trusted-by strip */}
+      <TrustedByStrip />
+
+      {/* 3. Problem Reframe */}
       <ProblemReframeSplit />
+
+      {/* 4. Signal vs Noise Model */}
+      <SignalNoiseModel />
+
+      {/* 5. M.A.P Attribution Framework */}
+      <MAPAttributionSection />
+
+      {/* 6. Applied Intelligence Systems */}
       <SystemModelLoop />
-      <FrameworksDuo />
+
+      {/* 7. ICP Filter */}
+      <ICPFilterSection />
+
+      {/* 8. Process */}
       <ProcessPipeline />
+
+      {/* 9. Proof / Metrics */}
       <ProofStats />
+
+      {/* 10. Insights Preview */}
       <InsightsPreview />
+
+      {/* 11. Final Diagnostic CTA */}
       <DiagnosticCTA />
     </>
   );

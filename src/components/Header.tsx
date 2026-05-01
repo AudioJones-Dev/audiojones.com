@@ -6,9 +6,10 @@ import { useState, useEffect } from "react";
 import { ButtonLink } from "@/components/ui/Button";
 
 const NAV = [
-  { label: "Applied Intelligence", href: "/applied-intelligence" },
+  { label: "AI", href: "/applied-intelligence" },
   { label: "Frameworks", href: "/frameworks" },
   { label: "Insights", href: "/insights" },
+  { label: "Diagnostic", href: "/applied-intelligence/diagnostic" },
 ];
 
 export default function Header() {
@@ -72,7 +73,7 @@ export default function Header() {
             variant="primary"
             size="md"
           >
-            Request diagnostic
+            Book Diagnostic
           </ButtonLink>
         </div>
 
@@ -113,7 +114,7 @@ export default function Header() {
                 size="lg"
                 className="w-full"
               >
-                Request diagnostic
+                Book Diagnostic
               </ButtonLink>
             </li>
           </ul>

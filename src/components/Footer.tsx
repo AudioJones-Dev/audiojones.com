@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 const PRIMARY_NAV = [
-  { label: "Applied Intelligence", href: "/applied-intelligence" },
+  { label: "AI", href: "/applied-intelligence" },
   { label: "Frameworks", href: "/frameworks" },
   { label: "Insights", href: "/insights" },
   { label: "Diagnostic", href: "/applied-intelligence/diagnostic" },
@@ -118,9 +118,10 @@ export default function Footer() {
           <p className="t-small text-fg-3">
             © {new Date().getFullYear()} AJ Digital LLC · Audio Jones · All rights reserved.
           </p>
-          <p className="t-small text-fg-3">
-            Audio Jones (AJ Digital LLC) provides marketing, automation, and creative
-            services for informational and educational purposes. Results vary.
+          <p className="t-small text-fg-3 max-w-xl">
+            Audio Jones provides strategic, creative, and systems consulting for
+            informational and educational purposes. No specific financial, ranking,
+            or operational result is guaranteed.
           </p>
         </div>
       </div>

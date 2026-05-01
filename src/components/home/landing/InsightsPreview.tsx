@@ -3,34 +3,34 @@ import { Eyebrow } from "@/components/ui/Eyebrow";
 
 const insights = [
   {
-    q: "Why does AI fail in most small businesses?",
-    a: "AI doesn't fail because the tools are bad. It fails because it's applied to a broken system. Automation amplifies dysfunction.",
+    q: "Why do most AI projects fail in small businesses?",
+    a: "Because the systems underneath them are undefined. Automation applied to a broken system accelerates dysfunction — it does not fix it.",
     href: "/insights/why-ai-fails-most-companies",
   },
   {
     q: "What is signal vs noise in business?",
-    a: "Signal is causal information that improves judgment. Noise is activity, vanity metrics, and complexity that obscures what matters.",
+    a: "Signal is the information that predicts outcomes. Noise is everything that creates false confidence without improving decisions.",
     href: "/insights/signal-vs-noise-business",
   },
   {
-    q: "How do I identify my real growth bottleneck?",
-    a: "Stop measuring activity. Map the system. The bottleneck is almost never where the symptoms surface — it's upstream.",
-    href: "/insights/applied-intelligence-systems",
+    q: "What is the M.A.P Attribution Framework?",
+    a: "A decision model for identifying meaningful, actionable, and profitable inputs. If a metric fails any leg of M.A.P, it should not drive strategy.",
+    href: "/frameworks/map-attribution",
   },
   {
-    q: "Why is last-click attribution lying to you?",
-    a: "Last-click is a correlation model dressed up as causation. It rewards the channel that closes — not the channel that caused.",
+    q: "How do you know which marketing channel works?",
+    a: "You need attribution that identifies cause, not just correlation. Last-click rewards the closer — not the channel that created the decision.",
     href: "/insights/marketing-attribution-causal-identification",
   },
   {
-    q: "What is an Applied Intelligence System?",
-    a: "A business operating system that integrates human judgment, data signals, AI tooling, and feedback into a closed causal loop.",
+    q: "What is Applied Intelligence?",
+    a: "The integration of human judgment, data signals, and feedback loops into a repeatable operating system. Not a tool. A system.",
     href: "/insights/applied-intelligence-systems",
   },
   {
-    q: "Why founders plateau at $1M revenue.",
-    a: "It isn't the market. It's cognitive load. The founder runs out of working memory before the business runs out of demand.",
-    href: "/insights/signal-vs-noise-business",
+    q: "Why is AI not the first step?",
+    a: "Because automation only scales what already exists. If the system is broken, AI scales the dysfunction. Signal clarity comes first.",
+    href: "/insights/why-ai-fails-most-companies",
   },
 ];
 
@@ -45,11 +45,11 @@ export default function InsightsPreview() {
           <div className="max-w-3xl">
             <Eyebrow>Insights</Eyebrow>
             <h2 className="mt-4 t-h1 text-balance">
-              The questions founders are actually asking.
+              Structured answers for founders building with AI.
             </h2>
             <p className="mt-5 t-lead text-fg-2">
-              Direct answers, framework-backed. Built to be cited — by you, by
-              your team, by the AI search engines indexing this page.
+              Each insight is designed to answer the questions founders ask
+              when growth, AI, and systems stop making sense.
             </p>
           </div>
           <Link

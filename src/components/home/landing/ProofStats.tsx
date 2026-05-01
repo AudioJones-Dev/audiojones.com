@@ -1,9 +1,10 @@
 import { Eyebrow } from "@/components/ui/Eyebrow";
 
 const stats = [
-  { metric: "CAC", direction: "↓", value: "−38%", label: "Customer acquisition cost" },
-  { metric: "Conversion", direction: "↑", value: "+62%", label: "Qualified-lead-to-call rate" },
-  { metric: "Pipeline", direction: "↑", value: "+2.4×", label: "Sourced pipeline per quarter" },
+  { metric: "CAC Reduction", direction: "↓", value: "37%", label: "Customer acquisition cost" },
+  { metric: "Pipeline Growth", direction: "↑", value: "28%", label: "Qualified pipeline per quarter" },
+  { metric: "Conversion Rate", direction: "↑", value: "42%", label: "Lead-to-call conversion rate" },
+  { metric: "Decision Clarity", direction: "↑", value: "1 map", label: "One signal map, one model" },
 ];
 
 /**
@@ -19,9 +20,9 @@ export default function ProofStats() {
     >
       <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
         <div className="mb-14 max-w-3xl">
-          <Eyebrow>Proof</Eyebrow>
+          <Eyebrow>Proof / Metrics</Eyebrow>
           <h2 className="mt-4 t-h1 text-balance">
-            Before the system. After the system.
+            From fragmented activity to measurable signal.
           </h2>
           <p className="mt-5 t-lead text-fg-2">
             Numbers from in-flight engagements. Names withheld until publication
@@ -39,9 +40,10 @@ export default function ProofStats() {
             <h3 className="mt-3 t-h3">Activity without leverage</h3>
             <ChaoticChart className="mt-6 h-40 w-full" />
             <ul className="mt-6 space-y-2 t-small text-fg-2">
-              <li>· Six dashboards. Zero shared model.</li>
-              <li>· Last-click attribution. Inflated channel ROI.</li>
-              <li>· Ops bottleneck owned by founder context-switching.</li>
+              <li>· Inconsistent pipeline with unclear drivers</li>
+              <li>· Unclear attribution — last-click theatre</li>
+              <li>· Disconnected tools, no operating model</li>
+              <li>· Founder as the bottleneck for every decision</li>
             </ul>
           </article>
 
@@ -55,30 +57,45 @@ export default function ProofStats() {
             <h3 className="mt-3 t-h3">Causal system, compounding outcomes</h3>
             <CleanChart className="mt-6 h-40 w-full" />
             <ul className="mt-6 space-y-2 t-small text-ink-muted">
-              <li>· One signal map. One operating model.</li>
-              <li>· Attribution as identification — not correlation.</li>
-              <li>· Founder time freed. Decision quality up.</li>
+              <li>· Clearer decision inputs, revenue-linked metrics</li>
+              <li>· Attribution as identification — not correlation</li>
+              <li>· Systemized execution, diagnostic-ready growth loop</li>
+              <li>· Founder freed from operations, focused on signal</li>
             </ul>
           </article>
         </div>
 
         {/* Stat strip */}
-        <dl className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-3">
+        <dl className="mt-12 grid grid-cols-2 gap-4 lg:grid-cols-4">
           {stats.map((s) => (
             <div
               key={s.metric}
               className="rounded-[var(--r-card)] border border-[var(--line-2)] bg-bg-2 p-7"
             >
               <dt className="t-label text-aj-gold">
-                {s.metric} {s.direction}
+                {s.metric}
               </dt>
-              <dd className="mt-3 t-display-lg" style={{ fontSize: "44px" }}>
-                {s.value}
+              <dd
+                className="mt-3 font-bold text-fg-0"
+                style={{
+                  fontFamily: "var(--font-headline)",
+                  fontSize: "clamp(32px,4vw,44px)",
+                  lineHeight: 1,
+                  letterSpacing: "-0.03em",
+                }}
+              >
+                {s.direction}&thinsp;{s.value}
               </dd>
               <p className="mt-2 t-small text-fg-2">{s.label}</p>
             </div>
           ))}
         </dl>
+
+        {/* Disclaimer */}
+        <p className="mt-6 t-small text-fg-3 text-center max-w-2xl mx-auto leading-relaxed">
+          Representative system outcomes. Actual results depend on
+          implementation, offer, market, and operational maturity.
+        </p>
       </div>
     </section>
   );

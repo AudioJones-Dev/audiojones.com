@@ -26,43 +26,49 @@ export default function DiagnosticCTA() {
 
       <div className="mx-auto max-w-[960px] px-5 sm:px-8 text-center">
         <Eyebrow>Apply</Eyebrow>
-        <h2 className="mt-4 t-display-lg text-balance" style={{ fontSize: "60px" }}>
+        <h2
+          className="mt-4 text-fg-0 text-balance"
+          style={{
+            fontFamily: "var(--font-headline)",
+            fontSize: "clamp(40px,6vw,64px)",
+            fontWeight: 700,
+            lineHeight: 1.0,
+            letterSpacing: "-0.035em",
+          }}
+        >
           Stop guessing what works.
         </h2>
-        <p className="mt-5 t-lead text-fg-1">
-          Identify what actually drives your business. Request a strategic
-          diagnostic and get a constraint map, signal audit, and 30–45 day plan.
+        <p
+          className="mt-4 text-fg-2 max-w-[56ch] mx-auto"
+          style={{
+            fontFamily: "var(--font-accent)",
+            fontSize: "20px",
+            fontWeight: 500,
+            lineHeight: 1.5,
+            letterSpacing: "-0.01em",
+          }}
+        >
+          Identify what is actually driving your business.
+        </p>
+        <p className="mt-4 t-body text-fg-2 max-w-2xl mx-auto">
+          The diagnostic shows whether your business has a signal problem, a
+          systems problem, an attribution problem, or an AI readiness problem.
         </p>
 
-        {/* Inline preview field — visual scaffolding only; routes user to the
-            real 6-step diagnostic on submit / button click. No data captured. */}
-        <form
-          action="/applied-intelligence/diagnostic"
-          method="get"
-          className="mx-auto mt-10 flex max-w-2xl flex-col gap-3 sm:flex-row"
-          aria-label="Open the strategic diagnostic"
-        >
-          <label htmlFor="diag-email" className="sr-only">
-            Email
-          </label>
-          <input
-            id="diag-email"
-            name="email"
-            type="email"
-            inputMode="email"
-            placeholder="you@company.com"
-            className="flex-1 rounded-[var(--r-sm)] border border-[var(--line-2)] bg-bg-2 px-5 py-3 t-body text-fg-0 placeholder:text-fg-3 focus:border-aj-blue-bright focus:outline-none focus:ring-0"
-          />
+        <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
           <ButtonLink
             href="/applied-intelligence/diagnostic"
             variant="primary"
             size="lg"
           >
-            Request diagnostic
+            Start Diagnostic →
           </ButtonLink>
-        </form>
-        <p className="mt-4 t-small text-fg-3">
-          Free fit review. No spam. Reviewed personally by Audio Jones.
+          <ButtonLink href="/frameworks" variant="secondary" size="lg">
+            See Frameworks
+          </ButtonLink>
+        </div>
+        <p className="mt-6 t-small text-fg-3">
+          Free fit review. No commitment. Reviewed personally by Audio Jones.
         </p>
       </div>
     </section>

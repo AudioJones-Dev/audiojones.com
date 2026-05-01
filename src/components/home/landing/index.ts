@@ -1,7 +1,10 @@
 export { default as HeroAllSignal } from "./HeroAllSignal";
+export { default as TrustedByStrip } from "./TrustedByStrip";
 export { default as ProblemReframeSplit } from "./ProblemReframeSplit";
+export { default as SignalNoiseModel } from "./SignalNoiseModel";
+export { default as MAPAttributionSection } from "./MAPAttributionSection";
 export { default as SystemModelLoop } from "./SystemModelLoop";
-export { default as FrameworksDuo } from "./FrameworksDuo";
+export { default as ICPFilterSection } from "./ICPFilterSection";
 export { default as ProcessPipeline } from "./ProcessPipeline";
 export { default as ProofStats } from "./ProofStats";
 export { default as InsightsPreview } from "./InsightsPreview";

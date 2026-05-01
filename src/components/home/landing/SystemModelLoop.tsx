@@ -31,13 +31,14 @@ export default function SystemModelLoop() {
     >
       <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
         <div className="mb-14 max-w-3xl">
-          <Eyebrow>The System Model</Eyebrow>
+          <Eyebrow>Applied Intelligence Systems</Eyebrow>
           <h2 className="mt-4 t-h1 text-balance">
-            Applied Intelligence is a closed loop, not a tool stack.
+            AI only works when the system is ready.
           </h2>
           <p className="mt-5 t-lead text-fg-2">
-            Input. Process. Output. Feedback. The whole thing has to compound,
-            or you&apos;re just adding entropy.
+            Automation applied to broken systems accelerates dysfunction.
+            Applied Intelligence Systems align human judgment, data signals,
+            and feedback loops before automation scales the work.
           </p>
         </div>
 

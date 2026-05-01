@@ -4,25 +4,25 @@ const steps = [
   {
     n: "01",
     label: "Diagnose",
-    desc: "Map the existing system. Surface noise, gaps, and false signals.",
+    desc: "Find the real constraint. Map the existing system — surface noise, gaps, and false signals before touching tools.",
     active: false,
   },
   {
     n: "02",
-    label: "Identify Constraint",
-    desc: "Find the single highest-leverage bottleneck. Name it.",
+    label: "Attribute",
+    desc: "Identify what is actually creating outcomes. Apply M.A.P. Filter every metric through meaningful, actionable, profitable.",
     active: true,
   },
   {
     n: "03",
-    label: "Design System",
-    desc: "Architect the operating model — signal → process → output → feedback.",
+    label: "Design",
+    desc: "Build the system around the signal. Architect the operating model — signal → process → output → feedback.",
     active: false,
   },
   {
     n: "04",
     label: "Deploy",
-    desc: "Ship it. Instrument it. Compound the loop.",
+    desc: "Turn the system into repeatable execution. Instrument everything. Compound the loop.",
     active: false,
   },
 ];
@@ -35,13 +35,13 @@ export default function ProcessPipeline() {
     >
       <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
         <div className="mb-14 max-w-3xl">
-          <Eyebrow>Process</Eyebrow>
+          <Eyebrow>The Process</Eyebrow>
           <h2 className="mt-4 t-h1 text-balance">
-            Four steps. No tool list.
+            Diagnose. Design. Deploy.
           </h2>
           <p className="mt-5 t-lead text-fg-2">
-            Diagnose. Identify the constraint. Design the system. Deploy. Repeat
-            until the loop is causal.
+            Four steps. No tool list. Each phase builds on the last until the
+            loop is causal and the system compounds on its own.
           </p>
         </div>
 
