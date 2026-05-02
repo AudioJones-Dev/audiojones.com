@@ -10,8 +10,7 @@ import { ButtonLink } from "@/components/ui/Button";
  *  3. Center transition noise PNG (desktop)
  *  4. "ALL SIGNAL" live typography (behind portrait)
  *  5. Portrait transparent cutout (responsive)
- *  6. Signal node reticle PNG (inside portrait container)
- *  7. System diagram PNG (right side)
+ *  6. System diagram PNG (right side)
  *  8. Metrics strip (live text, lower right)
  *  9. Left content block (headline / copy / CTAs)
  *
@@ -24,9 +23,6 @@ import { ButtonLink } from "@/components/ui/Button";
  *  noise left mobile  → noise-layer/hero-noise-left-dense-mobile-transparent.png
  *  noise center desktop → noise-layer/hero-noise-transition-center-transparent.png.png
  *  noise center tablet  → noise-layer/hero-noise-transition-center-tablet-transparent.png
- *  signal node desktop → signal-node/hero-signal-node-reticle-transparent.png.png
- *  signal node tablet  → signal-node/hero-signal-node-reticle-tablet-transparent.png.png
- *  signal node mobile  → signal-node/hero-signal-node-reticle--mobile-transparent.png.png
  *  system diagram desktop → system-diagram/hero-system-diagram-transparent.png.png
  *  system diagram tablet  → system-diagram/hero-system-diagram-tablet-transparent.png.png
  *  system diagram mobile  → system-diagram/hero-system-diagram-mobile-transparent.png.png
@@ -308,33 +304,10 @@ export default function HeroAllSignal() {
             className="object-contain object-bottom"
             sizes="(max-width: 1280px) 40vw, 600px"
           />
-          {/* Signal node reticle — over chest */}
-          <div
-            aria-hidden
-            style={{
-              position: "absolute",
-              top: "58%",
-              left: "50%",
-              width: "260px",
-              height: "160px",
-              transform: "translate(-50%, -50%)",
-              zIndex: 4,
-            }}
-          >
-            <div style={{ position: "relative", width: "100%", height: "100%" }}>
-              <Image
-                src={`${ASSET}/signal-node/hero-signal-node-reticle-transparent.png.png`}
-                alt=""
-                fill
-                className="object-contain"
-                sizes="260px"
-              />
-            </div>
-          </div>
         </div>
       </div>
 
-      {/* ── 5 + 6. Portrait + Signal node — tablet ── */}
+      {/* ── 5. Portrait — tablet ── */}
       <div
         className="hidden md:block lg:hidden"
         style={{
@@ -358,29 +331,6 @@ export default function HeroAllSignal() {
             className="object-contain object-bottom"
             sizes="50vw"
           />
-          {/* Tablet signal node */}
-          <div
-            aria-hidden
-            style={{
-              position: "absolute",
-              top: "58%",
-              left: "50%",
-              width: "200px",
-              height: "120px",
-              transform: "translate(-50%, -50%)",
-              zIndex: 4,
-            }}
-          >
-            <div style={{ position: "relative", width: "100%", height: "100%" }}>
-              <Image
-                src={`${ASSET}/signal-node/hero-signal-node-reticle-tablet-transparent.png.png`}
-                alt=""
-                fill
-                className="object-contain"
-                sizes="200px"
-              />
-            </div>
-          </div>
         </div>
       </div>
 
@@ -677,29 +627,6 @@ export default function HeroAllSignal() {
             className="object-contain object-bottom"
             sizes="100vw"
           />
-          {/* Mobile signal node */}
-          <div
-            aria-hidden
-            style={{
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              width: "140px",
-              height: "88px",
-              transform: "translate(-50%, -50%)",
-              zIndex: 4,
-            }}
-          >
-            <div style={{ position: "relative", width: "100%", height: "100%" }}>
-              <Image
-                src={`${ASSET}/signal-node/hero-signal-node-reticle--mobile-transparent.png.png`}
-                alt=""
-                fill
-                className="object-contain"
-                sizes="140px"
-              />
-            </div>
-          </div>
         </div>
       </div>
 
