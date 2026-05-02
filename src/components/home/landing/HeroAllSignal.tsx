@@ -1,43 +1,109 @@
 import Image from "next/image";
 import { ButtonLink } from "@/components/ui/Button";
 
+/**
+ * HeroAllSignal — layered editorial-tech composition.
+ *
+ * Layer stack (bottom → top):
+ *  1. CSS gradient background split (dark left / light right)
+ *  2. Left dense noise PNG (responsive)
+ *  3. Center transition noise PNG (desktop)
+ *  4. "ALL SIGNAL" live typography (behind portrait)
+ *  5. Portrait transparent cutout (responsive)
+ *  6. Signal node reticle PNG (inside portrait container)
+ *  7. System diagram PNG (right side)
+ *  8. Metrics strip (live text, lower right)
+ *  9. Left content block (headline / copy / CTAs)
+ *
+ * Asset path mapping (actual filenames on disk):
+ *  portrait desktop  → portrait/portraithero-portrait-audiojones-transparent.png.png
+ *  portrait tablet   → portrait/portraithero-portrait-tablet-audiojones-transparent.png.png
+ *  portrait mobile   → portrait/portraithero-portrait-audiojones-mobile-transparent.png.png
+ *  noise left desktop → noise-layer/hero-noise-left-dense-transparent.png.png
+ *  noise left tablet  → noise-layer/hero-noise-left-dense-tablet-transparent.png
+ *  noise left mobile  → noise-layer/hero-noise-left-dense-mobile-transparent.png
+ *  noise center desktop → noise-layer/hero-noise-transition-center-transparent.png.png
+ *  noise center tablet  → noise-layer/hero-noise-transition-center-tablet-transparent.png
+ *  signal node desktop → signal-node/hero-signal-node-reticle-transparent.png.png
+ *  signal node tablet  → signal-node/hero-signal-node-reticle-tablet-transparent.png.png
+ *  signal node mobile  → signal-node/hero-signal-node-reticle--mobile-transparent.png.png
+ *  system diagram desktop → system-diagram/hero-system-diagram-transparent.png.png
+ *  system diagram tablet  → system-diagram/hero-system-diagram-tablet-transparent.png.png
+ *  system diagram mobile  → system-diagram/hero-system-diagram-mobile-transparent.png.png
+ */
+
+const ASSET = "/assets/Homepage/02-hero-all-signal";
+
 const METRICS = [
-  { value: "37%", direction: "↓", label: "CAC Reduction" },
-  { value: "28%", direction: "↑", label: "Pipeline Growth" },
-  { value: "42%", direction: "↑", label: "Conversion Rate" },
+  { pct: "37%", dir: "↓", label: "CAC Reduction" },
+  { pct: "28%", dir: "↑", label: "Pipeline Growth" },
+  { pct: "42%", dir: "↑", label: "Conversion Rate" },
 ];
 
-/**
- * Hero — editorial-tech composition using real asset layers.
- *
- * Visual logic per brief:
- *   LEFT  = noise / confusion / fragmented data (dark bg, noise layer PNG)
- *   CENTER = human judgment / signal processor (transparent portrait cutout + signal node reticle)
- *   RIGHT = clarity / system / outcomes (light bg, system diagram PNG)
- *
- * Asset layers (all transparent PNG):
- *   - Noise layer  → /assets/Homepage/02-hero-all-signal/noise-layer/
- *   - Portrait     → /assets/Homepage/02-hero-all-signal/portrait/
- *   - Signal node  → /assets/Homepage/02-hero-all-signal/signal-node/
- *   - System diag  → /assets/Homepage/02-hero-all-signal/system-diagram/
- */
 export default function HeroAllSignal() {
   return (
     <section
       id="hero"
-      className="relative isolate overflow-hidden flex flex-col"
-      style={{ minHeight: "92vh" }}
+      aria-label="Hero"
+      style={{
+        position: "relative",
+        minHeight: "calc(100vh - 80px)",
+        overflow: "hidden",
+        display: "flex",
+        flexDirection: "column",
+      }}
     >
-      {/* ── Split background ── */}
-      <div aria-hidden className="absolute inset-0 -z-30 flex pointer-events-none">
-        <div className="w-full lg:w-1/2 bg-[#05070F]" />
-        <div className="hidden lg:block lg:w-1/2 bg-[#F5F5F5]" />
-      </div>
+      {/* ── 1. Background: CSS gradient split ── */}
+      <div
+        aria-hidden
+        style={{
+          position: "absolute",
+          inset: 0,
+          zIndex: 0,
+          // mobile: mostly dark
+          background: "#05070F",
+        }}
+        className="lg:hidden"
+      />
+      {/* Desktop gradient split: dark 0–40%, light 40–100% */}
+      <div
+        aria-hidden
+        style={{
+          position: "absolute",
+          inset: 0,
+          zIndex: 0,
+          background:
+            "linear-gradient(to right, #05070F 0%, #05070F 40%, #F0F0F0 40%, #F5F5F5 100%)",
+        }}
+        className="hidden lg:block"
+      />
+      {/* Tablet: dark 0–48%, light 48–100% */}
+      <div
+        aria-hidden
+        style={{
+          position: "absolute",
+          inset: 0,
+          zIndex: 0,
+          background:
+            "linear-gradient(to right, #05070F 0%, #05070F 48%, #F0F0F0 48%, #F5F5F5 100%)",
+        }}
+        className="hidden md:block lg:hidden"
+      />
 
-      {/* ── Dark-side grid texture ── */}
+      {/* ── Grid texture on dark side ── */}
       <svg
         aria-hidden
-        className="absolute left-0 top-0 -z-20 h-full w-full lg:w-1/2 opacity-[0.04] pointer-events-none"
+        style={{
+          position: "absolute",
+          left: 0,
+          top: 0,
+          width: "46%",
+          height: "100%",
+          opacity: 0.04,
+          zIndex: 1,
+          pointerEvents: "none",
+        }}
+        className="hidden lg:block"
         preserveAspectRatio="none"
         viewBox="0 0 640 800"
       >
@@ -49,297 +115,686 @@ export default function HeroAllSignal() {
         <rect width="100%" height="100%" fill="url(#hg)" />
       </svg>
 
-      {/* ── Noise layer — mobile (< 640px) ── */}
+      {/* ── 2. Noise layer — mobile ── */}
       <div
         aria-hidden
-        className="block sm:hidden absolute left-0 top-0 -z-10 h-full w-full pointer-events-none"
+        className="block md:hidden"
+        style={{
+          position: "absolute",
+          inset: 0,
+          zIndex: 1,
+          opacity: 0.45,
+          pointerEvents: "none",
+        }}
       >
-        <Image
-          src="/assets/Homepage/02-hero-all-signal/noise-layer/hero-noise-left-dense-mobile-transparent.png"
-          alt=""
-          fill
-          className="object-cover object-left-top"
-          sizes="100vw"
-        />
-      </div>
-
-      {/* ── Noise layer — tablet (640px–1023px) ── */}
-      <div
-        aria-hidden
-        className="hidden sm:block lg:hidden absolute left-0 top-0 -z-10 h-full w-full pointer-events-none"
-      >
-        <Image
-          src="/assets/Homepage/02-hero-all-signal/noise-layer/hero-noise-left-dense-tablet-transparent.png"
-          alt=""
-          fill
-          className="object-cover object-left-top"
-          sizes="100vw"
-        />
-      </div>
-
-      {/* ── Noise layer — desktop (1024px+) ── */}
-      <div
-        aria-hidden
-        className="hidden lg:block absolute left-0 top-0 -z-10 h-full w-1/2 pointer-events-none"
-      >
-        <Image
-          src="/assets/Homepage/02-hero-all-signal/noise-layer/hero-noise-left-dense-transparent.png.png"
-          alt=""
-          fill
-          className="object-cover object-left-top"
-          sizes="50vw"
-        />
-      </div>
-
-      {/* ── Center transition gradient (dark → light boundary) ── */}
-      <div
-        aria-hidden
-        className="hidden lg:block absolute top-0 -z-10 h-full pointer-events-none"
-        style={{ left: "40%", width: "20%" }}
-      >
-        <Image
-          src="/assets/Homepage/02-hero-all-signal/noise-layer/hero-noise-transition-center-transparent.png.png"
-          alt=""
-          fill
-          className="object-cover object-center"
-          sizes="20vw"
-        />
-      </div>
-
-      {/* ── "ALL SIGNAL" mega background typography ── */}
-      <div
-        aria-hidden
-        className="absolute inset-0 -z-10 flex items-center justify-center pointer-events-none overflow-hidden select-none"
-      >
-        <span
-          className="whitespace-nowrap font-bold tracking-tighter"
-          style={{
-            fontFamily: "var(--font-headline)",
-            fontSize: "clamp(80px, 14vw, 200px)",
-            lineHeight: 1,
-            letterSpacing: "-0.045em",
-          }}
-        >
-          <span style={{ color: "#111111", opacity: 0.07 }}>ALL </span>
-          <span style={{ color: "#FF4500", opacity: 0.15 }}>SIGNAL</span>
-        </span>
-      </div>
-
-      {/* ── Main content grid ── */}
-      <div className="mx-auto w-full max-w-[1280px] px-5 sm:px-8 flex-1 grid grid-cols-12 gap-x-6 lg:gap-x-8 items-end">
-
-        {/* LEFT — copy zone */}
-        <div className="col-span-12 lg:col-span-5 flex flex-col justify-center py-32 lg:py-40">
-          <span
-            className="inline-block font-semibold uppercase text-aj-gold mb-5"
-            style={{
-              fontFamily: "var(--font-body)",
-              fontSize: "11px",
-              letterSpacing: "0.22em",
-            }}
-          >
-            Applied Intelligence Systems
-          </span>
-
-          <h1
-            className="font-bold text-fg-0 text-balance"
-            style={{
-              fontFamily: "var(--font-headline)",
-              fontSize: "clamp(34px, 4.2vw, 54px)",
-              lineHeight: 1.05,
-              letterSpacing: "-0.03em",
-            }}
-          >
-            You don&apos;t have an AI problem.
-            <br />
-            <span style={{ color: "#FF4500" }}>You have a signal problem.</span>
-          </h1>
-
-          <p
-            className="mt-6 text-fg-2 max-w-[50ch]"
-            style={{
-              fontFamily: "var(--font-accent)",
-              fontSize: "18px",
-              lineHeight: 1.55,
-              fontWeight: 500,
-            }}
-          >
-            I help founder-led businesses identify what actually creates outcomes
-            and build systems to scale it.
-          </p>
-
-          <div className="mt-10 flex flex-wrap items-center gap-4">
-            <ButtonLink
-              href="/applied-intelligence/diagnostic"
-              variant="glow"
-            >
-              Book Your Diagnostic
-            </ButtonLink>
-            <ButtonLink href="#system-model" variant="system-glow">
-              See the System
-            </ButtonLink>
-          </div>
+        <div style={{ position: "relative", width: "100%", height: "100%" }}>
+          <Image
+            src={`${ASSET}/noise-layer/hero-noise-left-dense-mobile-transparent.png`}
+            alt=""
+            fill
+            className="object-cover object-left-top"
+            sizes="100vw"
+          />
         </div>
+      </div>
 
-        {/* CENTER — founder portrait (transparent cutout) */}
-        <div className="hidden lg:flex lg:col-span-4 relative items-end justify-center h-full">
-          {/* Signal node reticle — desktop */}
+      {/* ── 2. Noise layer — tablet ── */}
+      <div
+        aria-hidden
+        className="hidden md:block lg:hidden"
+        style={{
+          position: "absolute",
+          inset: 0,
+          zIndex: 1,
+          opacity: 0.6,
+          pointerEvents: "none",
+        }}
+      >
+        <div style={{ position: "relative", width: "100%", height: "100%" }}>
+          <Image
+            src={`${ASSET}/noise-layer/hero-noise-left-dense-tablet-transparent.png`}
+            alt=""
+            fill
+            className="object-cover object-left-top"
+            sizes="100vw"
+          />
+        </div>
+      </div>
+
+      {/* ── 2. Noise layer — desktop (left dense) ── */}
+      <div
+        aria-hidden
+        className="hidden lg:block"
+        style={{
+          position: "absolute",
+          left: 0,
+          top: 0,
+          width: "46%",
+          height: "100%",
+          zIndex: 1,
+          opacity: 0.82,
+          pointerEvents: "none",
+        }}
+      >
+        <div style={{ position: "relative", width: "100%", height: "100%" }}>
+          <Image
+            src={`${ASSET}/noise-layer/hero-noise-left-dense-transparent.png.png`}
+            alt=""
+            fill
+            className="object-cover object-left-top"
+            sizes="46vw"
+          />
+        </div>
+      </div>
+
+      {/* ── 3. Noise layer — desktop center transition ── */}
+      <div
+        aria-hidden
+        className="hidden lg:block"
+        style={{
+          position: "absolute",
+          left: "30%",
+          top: 0,
+          width: "26%",
+          height: "100%",
+          zIndex: 1,
+          opacity: 0.7,
+          pointerEvents: "none",
+        }}
+      >
+        <div style={{ position: "relative", width: "100%", height: "100%" }}>
+          <Image
+            src={`${ASSET}/noise-layer/hero-noise-transition-center-transparent.png.png`}
+            alt=""
+            fill
+            className="object-cover object-center"
+            sizes="26vw"
+          />
+        </div>
+      </div>
+
+      {/* ── 4. "ALL SIGNAL" live mega typography ── */}
+      {/* Desktop: positioned right of center, behind portrait */}
+      <div
+        aria-hidden
+        className="hidden lg:block"
+        style={{
+          position: "absolute",
+          top: "18%",
+          left: "34%",
+          zIndex: 2,
+          whiteSpace: "nowrap",
+          userSelect: "none",
+          pointerEvents: "none",
+          lineHeight: 0.82,
+          letterSpacing: "-0.045em",
+          fontFamily: "var(--font-headline)",
+          fontWeight: 700,
+          fontSize: "clamp(5.5rem, 11.5vw, 14rem)",
+        }}
+      >
+        <span style={{ color: "#000000", opacity: 0.80 }}>ALL </span>
+        <span style={{ color: "#FF4500" }}>SIGNAL</span>
+      </div>
+
+      {/* Tablet ALL SIGNAL */}
+      <div
+        aria-hidden
+        className="hidden md:block lg:hidden"
+        style={{
+          position: "absolute",
+          top: "12%",
+          left: "38%",
+          zIndex: 2,
+          whiteSpace: "nowrap",
+          userSelect: "none",
+          pointerEvents: "none",
+          lineHeight: 0.82,
+          letterSpacing: "-0.04em",
+          fontFamily: "var(--font-headline)",
+          fontWeight: 700,
+          fontSize: "clamp(4rem, 9vw, 8rem)",
+        }}
+      >
+        <span style={{ color: "#000000", opacity: 0.72 }}>ALL </span>
+        <span style={{ color: "#FF4500" }}>SIGNAL</span>
+      </div>
+
+      {/* Mobile ALL SIGNAL — behind portrait, smaller */}
+      <div
+        aria-hidden
+        className="block md:hidden"
+        style={{
+          position: "absolute",
+          top: "24%",
+          left: "50%",
+          transform: "translateX(-50%)",
+          zIndex: 2,
+          whiteSpace: "nowrap",
+          userSelect: "none",
+          pointerEvents: "none",
+          lineHeight: 0.82,
+          letterSpacing: "-0.04em",
+          fontFamily: "var(--font-headline)",
+          fontWeight: 700,
+          fontSize: "clamp(3rem, 14vw, 5rem)",
+        }}
+      >
+        <span style={{ color: "#111", opacity: 0.55 }}>ALL </span>
+        <span style={{ color: "#FF4500", opacity: 0.65 }}>SIGNAL</span>
+      </div>
+
+      {/* ── 5 + 6. Portrait + Signal node — desktop ── */}
+      <div
+        className="hidden lg:block"
+        style={{
+          position: "absolute",
+          bottom: 0,
+          left: "50%",
+          transform: "translateX(-52%)",
+          width: "40vw",
+          maxWidth: "600px",
+          height: "90vh",
+          maxHeight: "860px",
+          zIndex: 3,
+        }}
+      >
+        <div style={{ position: "relative", width: "100%", height: "100%" }}>
+          <Image
+            src={`${ASSET}/portrait/portraithero-portrait-audiojones-transparent.png.png`}
+            alt="Audio Jones"
+            fill
+            priority
+            className="object-contain object-bottom"
+            sizes="(max-width: 1280px) 40vw, 600px"
+          />
+          {/* Signal node reticle — over chest */}
           <div
-            aria-label="Signal node"
-            className="absolute z-20 w-full"
+            aria-hidden
             style={{
-              bottom: "32%",
+              position: "absolute",
+              top: "58%",
               left: "50%",
-              transform: "translateX(-50%)",
-              maxWidth: "200px",
-              height: "120px",
+              width: "260px",
+              height: "160px",
+              transform: "translate(-50%, -50%)",
+              zIndex: 4,
             }}
           >
-            <Image
-              src="/assets/Homepage/02-hero-all-signal/signal-node/hero-signal-node-reticle-transparent.png.png"
-              alt=""
-              fill
-              className="object-contain"
-              sizes="200px"
-            />
-          </div>
-
-          {/* Portrait — transparent PNG cutout */}
-          <div
-            className="relative w-full"
-            style={{ height: "680px" }}
-          >
-            <Image
-              src="/assets/Homepage/02-hero-all-signal/portrait/portraithero-portrait-audiojones-transparent.png.png"
-              alt="Tyrone Nelms, founder — Audio Jones"
-              fill
-              priority
-              className="object-contain object-bottom"
-              sizes="(max-width: 1280px) 33vw, 400px"
-            />
-          </div>
-        </div>
-
-        {/* RIGHT — system diagram PNG on light surface */}
-        <div className="hidden lg:flex lg:col-span-3 items-center justify-center h-full pb-16">
-          <div className="relative w-full" style={{ height: "420px" }}>
-            <Image
-              src="/assets/Homepage/02-hero-all-signal/system-diagram/hero-system-diagram-transparent.png.png"
-              alt="Applied Intelligence System loop: Input → Process → Output → Feedback"
-              fill
-              className="object-contain object-center"
-              sizes="(max-width: 1280px) 25vw, 300px"
-            />
-          </div>
-        </div>
-      </div>
-
-      {/* ── Mobile portrait (below copy, above metrics) ── */}
-      <div className="block sm:hidden relative w-full" style={{ height: "320px" }}>
-        {/* Mobile signal node reticle */}
-        <div
-          aria-hidden
-          className="absolute z-10"
-          style={{
-            top: "35%",
-            left: "50%",
-            transform: "translateX(-50%)",
-            width: "100px",
-            height: "60px",
-          }}
-        >
-          <Image
-            src="/assets/Homepage/02-hero-all-signal/signal-node/hero-signal-node-reticle--mobile-transparent.png.png"
-            alt=""
-            fill
-            className="object-contain"
-            sizes="100px"
-          />
-        </div>
-        <Image
-          src="/assets/Homepage/02-hero-all-signal/portrait/portraithero-portrait-audiojones-transparent.png.png"
-          alt="Tyrone Nelms, founder — Audio Jones"
-          fill
-          className="object-contain object-bottom"
-          sizes="100vw"
-        />
-      </div>
-
-      {/* ── Tablet portrait strip (640px–1023px) ── */}
-      <div
-        className="hidden sm:block lg:hidden relative w-full mx-auto"
-        style={{ height: "400px", maxWidth: "480px" }}
-      >
-        {/* Tablet signal node reticle */}
-        <div
-          aria-hidden
-          className="absolute z-10"
-          style={{
-            top: "30%",
-            left: "50%",
-            transform: "translateX(-50%)",
-            width: "140px",
-            height: "80px",
-          }}
-        >
-          <Image
-            src="/assets/Homepage/02-hero-all-signal/signal-node/hero-signal-node-reticle-tablet-transparent.png.png"
-            alt=""
-            fill
-            className="object-contain"
-            sizes="140px"
-          />
-        </div>
-        <Image
-          src="/assets/Homepage/02-hero-all-signal/portrait/portraithero-portrait-audiojones-transparent.png.png"
-          alt="Tyrone Nelms, founder — Audio Jones"
-          fill
-          className="object-contain object-bottom"
-          sizes="480px"
-        />
-      </div>
-
-      {/* ── Metrics strip ── */}
-      <div className="relative z-10 border-t border-[rgba(255,255,255,0.08)] bg-[rgba(5,7,15,0.88)] backdrop-blur-md">
-        <div className="mx-auto max-w-[1280px] px-5 sm:px-8 py-5 flex flex-wrap gap-8 sm:gap-12 items-center">
-          {METRICS.map((m) => (
-            <div key={m.label} className="flex flex-col gap-0.5">
-              <span
-                className="font-bold text-aj-orange"
-                style={{
-                  fontFamily: "var(--font-headline)",
-                  fontSize: "26px",
-                  lineHeight: 1,
-                  letterSpacing: "-0.02em",
-                }}
-              >
-                {m.direction}&thinsp;{m.value}
-              </span>
-              <span
-                className="text-fg-3 uppercase tracking-widest"
-                style={{
-                  fontFamily: "var(--font-body)",
-                  fontSize: "10px",
-                  letterSpacing: "0.14em",
-                }}
-              >
-                {m.label}
-              </span>
+            <div style={{ position: "relative", width: "100%", height: "100%" }}>
+              <Image
+                src={`${ASSET}/signal-node/hero-signal-node-reticle-transparent.png.png`}
+                alt=""
+                fill
+                className="object-contain"
+                sizes="260px"
+              />
             </div>
-          ))}
-          <div className="ml-auto hidden sm:block">
+          </div>
+        </div>
+      </div>
+
+      {/* ── 5 + 6. Portrait + Signal node — tablet ── */}
+      <div
+        className="hidden md:block lg:hidden"
+        style={{
+          position: "absolute",
+          bottom: 0,
+          left: "54%",
+          transform: "translateX(-50%)",
+          width: "50vw",
+          maxWidth: "520px",
+          height: "78vh",
+          maxHeight: "700px",
+          zIndex: 3,
+        }}
+      >
+        <div style={{ position: "relative", width: "100%", height: "100%" }}>
+          <Image
+            src={`${ASSET}/portrait/portraithero-portrait-tablet-audiojones-transparent.png.png`}
+            alt="Audio Jones"
+            fill
+            priority
+            className="object-contain object-bottom"
+            sizes="50vw"
+          />
+          {/* Tablet signal node */}
+          <div
+            aria-hidden
+            style={{
+              position: "absolute",
+              top: "58%",
+              left: "50%",
+              width: "200px",
+              height: "120px",
+              transform: "translate(-50%, -50%)",
+              zIndex: 4,
+            }}
+          >
+            <div style={{ position: "relative", width: "100%", height: "100%" }}>
+              <Image
+                src={`${ASSET}/signal-node/hero-signal-node-reticle-tablet-transparent.png.png`}
+                alt=""
+                fill
+                className="object-contain"
+                sizes="200px"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ── 7. System diagram — desktop ── */}
+      <div
+        className="hidden lg:block"
+        style={{
+          position: "absolute",
+          right: "3.5rem",
+          top: "38%",
+          width: "30vw",
+          maxWidth: "500px",
+          height: "160px",
+          zIndex: 5,
+        }}
+      >
+        <div style={{ position: "relative", width: "100%", height: "100%" }}>
+          <Image
+            src={`${ASSET}/system-diagram/hero-system-diagram-transparent.png.png`}
+            alt="Applied Intelligence loop: Input → Process → Output → Feedback"
+            fill
+            className="object-contain object-right"
+            sizes="(max-width: 1280px) 30vw, 500px"
+          />
+        </div>
+      </div>
+
+      {/* ── 7. System diagram — tablet ── */}
+      <div
+        className="hidden md:block lg:hidden"
+        style={{
+          position: "absolute",
+          right: "1.5rem",
+          bottom: "18%",
+          width: "42vw",
+          maxWidth: "380px",
+          height: "120px",
+          zIndex: 5,
+        }}
+      >
+        <div style={{ position: "relative", width: "100%", height: "100%" }}>
+          <Image
+            src={`${ASSET}/system-diagram/hero-system-diagram-tablet-transparent.png.png`}
+            alt="Applied Intelligence loop"
+            fill
+            className="object-contain object-right"
+            sizes="42vw"
+          />
+        </div>
+      </div>
+
+      {/* ── 8. Metrics strip — desktop (live text, dark card) ── */}
+      <div
+        className="hidden lg:block"
+        style={{
+          position: "absolute",
+          right: "3.5rem",
+          bottom: "10%",
+          zIndex: 6,
+          display: "flex",
+          alignItems: "center",
+          gap: "0",
+          background: "rgba(8, 10, 20, 0.92)",
+          border: "1px solid rgba(255,255,255,0.08)",
+          borderRadius: "10px",
+          padding: "14px 20px",
+          backdropFilter: "blur(8px)",
+          boxShadow: "0 8px 32px rgba(0,0,0,0.4)",
+        }}
+      >
+        {METRICS.map((m, i) => (
+          <div
+            key={m.label}
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "3px",
+              padding: "0 18px",
+              borderLeft: i > 0 ? "1px solid rgba(255,255,255,0.10)" : "none",
+            }}
+          >
             <span
-              className="font-bold text-fg-0 opacity-[0.12] tracking-tighter"
               style={{
                 fontFamily: "var(--font-headline)",
                 fontSize: "22px",
-                letterSpacing: "-0.03em",
+                fontWeight: 700,
+                lineHeight: 1,
+                letterSpacing: "-0.02em",
+                color: "#FF4500",
               }}
             >
-              ALL SIGNAL
+              {m.dir}&thinsp;{m.pct}
+            </span>
+            <span
+              style={{
+                fontFamily: "var(--font-body)",
+                fontSize: "10px",
+                letterSpacing: "0.12em",
+                textTransform: "uppercase",
+                color: "rgba(255,255,255,0.55)",
+              }}
+            >
+              {m.label}
             </span>
           </div>
+        ))}
+      </div>
+
+      {/* ── 9. Left content block — desktop ── */}
+      <div
+        className="hidden lg:flex"
+        style={{
+          position: "absolute",
+          top: "16%",
+          left: "3.5rem",
+          width: "35vw",
+          maxWidth: "520px",
+          zIndex: 9,
+          flexDirection: "column",
+          gap: 0,
+        }}
+      >
+        <span
+          style={{
+            fontFamily: "var(--font-body)",
+            fontSize: "11px",
+            fontWeight: 600,
+            letterSpacing: "0.22em",
+            textTransform: "uppercase",
+            color: "#C8A96A",
+            marginBottom: "20px",
+            display: "block",
+          }}
+        >
+          Applied Intelligence Systems
+        </span>
+
+        <h1
+          style={{
+            fontFamily: "var(--font-headline)",
+            fontSize: "clamp(2.4rem, 3.8vw, 4.4rem)",
+            fontWeight: 700,
+            lineHeight: 1.0,
+            letterSpacing: "-0.03em",
+            color: "#FFFFFF",
+            margin: 0,
+          }}
+        >
+          You don&apos;t have<br />an AI problem.
+          <br />
+          <span style={{ color: "#FF4500" }}>
+            You have a<br />signal problem.
+          </span>
+        </h1>
+
+        <p
+          style={{
+            fontFamily: "var(--font-accent)",
+            fontSize: "17px",
+            fontWeight: 500,
+            lineHeight: 1.55,
+            color: "rgba(255,255,255,0.72)",
+            marginTop: "20px",
+            maxWidth: "42ch",
+          }}
+        >
+          I help founder-led businesses identify what actually
+          creates outcomes and build systems to scale it.
+        </p>
+
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            alignItems: "center",
+            gap: "12px",
+            marginTop: "28px",
+          }}
+        >
+          <ButtonLink href="/applied-intelligence/diagnostic" variant="glow">
+            Book Your Diagnostic
+          </ButtonLink>
+          <ButtonLink href="#system-model" variant="system-glow">
+            See the System
+          </ButtonLink>
         </div>
+
+        {/* Sub-label */}
+        <p
+          style={{
+            fontFamily: "var(--font-body)",
+            fontSize: "10px",
+            letterSpacing: "0.14em",
+            textTransform: "uppercase",
+            color: "rgba(255,255,255,0.28)",
+            marginTop: "32px",
+          }}
+        >
+          ↓ Data to Decisions &nbsp;·&nbsp; Clarity creates leverage.
+        </p>
+      </div>
+
+      {/* ── Mobile / tablet content block (stacked flow) ── */}
+      <div
+        className="flex lg:hidden flex-col"
+        style={{
+          position: "relative",
+          zIndex: 9,
+          padding: "96px 1.25rem 0",
+          flex: 1,
+        }}
+      >
+        <span
+          style={{
+            fontFamily: "var(--font-body)",
+            fontSize: "10px",
+            fontWeight: 600,
+            letterSpacing: "0.22em",
+            textTransform: "uppercase",
+            color: "#C8A96A",
+            marginBottom: "16px",
+            display: "block",
+          }}
+        >
+          Applied Intelligence Systems
+        </span>
+
+        <h1
+          style={{
+            fontFamily: "var(--font-headline)",
+            fontSize: "clamp(2.2rem, 8vw, 3.6rem)",
+            fontWeight: 700,
+            lineHeight: 1.0,
+            letterSpacing: "-0.03em",
+            color: "#FFFFFF",
+            margin: 0,
+            maxWidth: "16ch",
+          }}
+        >
+          You don&apos;t have an AI problem.
+          <br />
+          <span style={{ color: "#FF4500" }}>You have a signal problem.</span>
+        </h1>
+
+        <p
+          style={{
+            fontFamily: "var(--font-accent)",
+            fontSize: "16px",
+            fontWeight: 500,
+            lineHeight: 1.55,
+            color: "rgba(255,255,255,0.72)",
+            marginTop: "16px",
+            maxWidth: "44ch",
+          }}
+        >
+          I help founder-led businesses identify what actually
+          creates outcomes and build systems to scale it.
+        </p>
+
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            gap: "10px",
+            marginTop: "24px",
+          }}
+        >
+          <ButtonLink href="/applied-intelligence/diagnostic" variant="glow">
+            Book Your Diagnostic
+          </ButtonLink>
+          <ButtonLink href="#system-model" variant="system-glow">
+            See the System
+          </ButtonLink>
+        </div>
+      </div>
+
+      {/* ── Mobile portrait strip ── */}
+      <div
+        className="block md:hidden"
+        style={{
+          position: "relative",
+          width: "100%",
+          height: "52vw",
+          maxHeight: "360px",
+          marginTop: "24px",
+          zIndex: 3,
+        }}
+      >
+        <div style={{ position: "relative", width: "100%", height: "100%" }}>
+          <Image
+            src={`${ASSET}/portrait/portraithero-portrait-audiojones-mobile-transparent.png.png`}
+            alt="Audio Jones"
+            fill
+            className="object-contain object-bottom"
+            sizes="100vw"
+          />
+          {/* Mobile signal node */}
+          <div
+            aria-hidden
+            style={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              width: "140px",
+              height: "88px",
+              transform: "translate(-50%, -50%)",
+              zIndex: 4,
+            }}
+          >
+            <div style={{ position: "relative", width: "100%", height: "100%" }}>
+              <Image
+                src={`${ASSET}/signal-node/hero-signal-node-reticle--mobile-transparent.png.png`}
+                alt=""
+                fill
+                className="object-contain"
+                sizes="140px"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ── Mobile metrics strip (flow) ── */}
+      <div
+        className="flex md:hidden"
+        style={{
+          position: "relative",
+          zIndex: 6,
+          background: "rgba(8, 10, 20, 0.92)",
+          borderTop: "1px solid rgba(255,255,255,0.08)",
+          justifyContent: "space-around",
+          padding: "14px 12px",
+          marginTop: "auto",
+        }}
+      >
+        {METRICS.map((m) => (
+          <div key={m.label} style={{ display: "flex", flexDirection: "column", gap: "3px", textAlign: "center" }}>
+            <span
+              style={{
+                fontFamily: "var(--font-headline)",
+                fontSize: "20px",
+                fontWeight: 700,
+                lineHeight: 1,
+                letterSpacing: "-0.02em",
+                color: "#FF4500",
+              }}
+            >
+              {m.dir}&thinsp;{m.pct}
+            </span>
+            <span
+              style={{
+                fontFamily: "var(--font-body)",
+                fontSize: "9px",
+                letterSpacing: "0.10em",
+                textTransform: "uppercase",
+                color: "rgba(255,255,255,0.5)",
+              }}
+            >
+              {m.label}
+            </span>
+          </div>
+        ))}
+      </div>
+
+      {/* ── Tablet metrics strip (flow, below portrait) ── */}
+      <div
+        className="hidden md:flex lg:hidden"
+        style={{
+          position: "relative",
+          zIndex: 6,
+          background: "rgba(8, 10, 20, 0.85)",
+          borderTop: "1px solid rgba(255,255,255,0.08)",
+          justifyContent: "space-around",
+          padding: "14px 2rem",
+          marginTop: "auto",
+        }}
+      >
+        {METRICS.map((m, i) => (
+          <div
+            key={m.label}
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "3px",
+              textAlign: "center",
+              padding: "0 16px",
+              borderLeft: i > 0 ? "1px solid rgba(255,255,255,0.1)" : "none",
+            }}
+          >
+            <span
+              style={{
+                fontFamily: "var(--font-headline)",
+                fontSize: "22px",
+                fontWeight: 700,
+                lineHeight: 1,
+                letterSpacing: "-0.02em",
+                color: "#FF4500",
+              }}
+            >
+              {m.dir}&thinsp;{m.pct}
+            </span>
+            <span
+              style={{
+                fontFamily: "var(--font-body)",
+                fontSize: "10px",
+                letterSpacing: "0.12em",
+                textTransform: "uppercase",
+                color: "rgba(255,255,255,0.5)",
+              }}
+            >
+              {m.label}
+            </span>
+          </div>
+        ))}
       </div>
     </section>
   );
