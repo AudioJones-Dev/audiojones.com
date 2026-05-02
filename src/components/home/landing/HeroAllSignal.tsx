@@ -301,7 +301,7 @@ export default function HeroAllSignal() {
       >
         <div style={{ position: "relative", width: "100%", height: "100%" }}>
           <Image
-            src={`${ASSET}/portrait/portraithero-portrait-audiojones-transparent.png.png`}
+            src={`${ASSET}/portrait/portraithero-portrait-audiojones-transparent.png`}
             alt="Audio Jones"
             fill
             priority
