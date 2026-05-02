@@ -103,12 +103,12 @@ export default function MAPAttributionSection() {
                 />
               )}
 
-              {/* Letter badge */}
+              {/* Letter badge — full circle per Figma reference */}
               <div
-                className="inline-flex h-12 w-12 items-center justify-center rounded-xl mb-6"
+                className="inline-flex h-12 w-12 items-center justify-center rounded-full mb-6"
                 style={{
                   background: `${card.accentColor}18`,
-                  border: `1.5px solid ${card.accentColor}50`,
+                  border: `1.5px solid ${card.accentColor}60`,
                 }}
               >
                 <span
@@ -182,8 +182,4 @@ export default function MAPAttributionSection() {
           >
             Read the full M.A.P framework <span aria-hidden>→</span>
           </Link>
-        </div>
-      </div>
-    </section>
-  );
-}
+        </di

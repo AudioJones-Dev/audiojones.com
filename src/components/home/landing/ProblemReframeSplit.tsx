@@ -1,3 +1,4 @@
+import { ButtonLink } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 
 const noiseBullets = [
@@ -41,45 +42,56 @@ export default function ProblemReframeSplit() {
           >
             <Eyebrow tone="muted">Noise</Eyebrow>
             <h3 className="mt-3 t-h3">Activity scaled — without leverage</h3>
-            <ul className="mt-6 space-y-4">
+            <ul className="mt-5 space-y-3">
               {noiseBullets.map((b) => (
-                <li
-                  key={b}
-                  className="flex items-start gap-3 t-body text-fg-1"
-                >
+                <li key={b} className="flex items-start gap-3">
                   <span
                     aria-hidden
-                    className="mt-2 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-aj-orange opacity-70"
-                  />
-                  {b}
+                    className="mt-[7px] inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full border border-[var(--line-gold)] text-fg-3"
+                    style={{ fontSize: "9px" }}
+                  >
+                    ✕
+                  </span>
+                  <span className="t-small text-fg-2 leading-[1.6]">{b}</span>
                 </li>
               ))}
             </ul>
-            <NoiseDashboardSketch className="mt-8" />
+            <NoiseDashboard className="mt-8" />
           </article>
 
           {/* SYSTEM side */}
           <article
-            className="relative rounded-[var(--r-card)] border border-[var(--line-blue)] bg-[rgba(59,91,255,0.06)] p-8 sm:p-10"
+            className="relative rounded-[var(--r-card)] border border-[var(--line-blue)] bg-[rgba(59,91,255,0.05)] p-8 sm:p-10"
             aria-label="System side"
+            style={{ boxShadow: "0 0 48px -12px rgba(59,91,255,0.18)" }}
           >
+            <div
+              aria-hidden
+              className="absolute top-6 right-6 h-2 w-2 rounded-full bg-aj-blue-bright"
+              style={{ boxShadow: "0 0 8px 2px rgba(59,91,255,0.5)" }}
+            />
             <Eyebrow tone="blue">System</Eyebrow>
             <h3 className="mt-3 t-h3">Signal extracted — outcomes compound</h3>
-            <ul className="mt-6 space-y-4">
+            <ul className="mt-5 space-y-3">
               {systemBullets.map((b) => (
-                <li
-                  key={b}
-                  className="flex items-start gap-3 t-body text-fg-1"
-                >
+                <li key={b} className="flex items-start gap-3">
                   <span
                     aria-hidden
-                    className="mt-2 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-aj-blue-bright"
-                  />
-                  {b}
+                    className="mt-[7px] inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full border border-[var(--line-blue)] text-aj-blue-bright"
+                    style={{ fontSize: "9px" }}
+                  >
+                    ✓
+                  </span>
+                  <span className="t-small text-fg-1 leading-[1.6]">{b}</span>
                 </li>
               ))}
             </ul>
-            <SystemDashboardSketch className="mt-8" />
+            <SystemDashboard className="mt-8" />
+            <div className="mt-6 pt-5 border-t border-[var(--line-blue)]">
+              <ButtonLink href="/applied-intelligence/diagnostic" variant="glow">
+                Run the Diagnostic
+              </ButtonLink>
+            </div>
           </article>
         </div>
       </div>
@@ -87,77 +99,17 @@ export default function ProblemReframeSplit() {
   );
 }
 
-function NoiseDashboardSketch({ className }: { className?: string }) {
-  // Chaotic line + scattered bars — sketches a noisy dashboard
-  const path =
-    "M0,40 L10,30 L20,38 L30,12 L40,42 L50,22 L60,46 L70,18 L80,38 L90,8 L100,32";
-  const bars = [22, 34, 12, 40, 28, 18, 36, 14, 32, 24, 38, 16];
+/* ────────────────────────────────────────────
+   Noise Dashboard — fragmented, chaotic, misaligned
+   ──────────────────────────────────────────── */
+function NoiseDashboard({ className }: { className?: string }) {
   return (
-    <svg
+    <div
       aria-hidden
-      viewBox="0 0 100 60"
-      preserveAspectRatio="none"
-      className={`h-24 w-full ${className ?? ""}`}
+      className={`rounded-[var(--r-lg)] border border-[var(--line-1)] bg-bg-3 overflow-hidden ${className ?? ""}`}
     >
-      <path
-        d={path}
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="0.6"
-        className="text-aj-orange"
-        opacity="0.8"
-      />
-      {bars.map((h, i) => (
-        <rect
-          key={i}
-          x={i * 8 + 1}
-          y={60 - h}
-          width="3"
-          height={h}
-          fill="currentColor"
-          opacity="0.35"
-          className="text-fg-2"
-        />
-      ))}
-    </svg>
-  );
-}
-
-function SystemDashboardSketch({ className }: { className?: string }) {
-  // Smooth upward curve with a thin trendline + small marker dots
-  const curve =
-    "M0,50 C20,46 30,42 50,32 C70,22 80,18 100,8";
-  const markers = [
-    { x: 12, y: 47 },
-    { x: 32, y: 40 },
-    { x: 54, y: 30 },
-    { x: 76, y: 19 },
-    { x: 96, y: 10 },
-  ];
-  return (
-    <svg
-      aria-hidden
-      viewBox="0 0 100 60"
-      preserveAspectRatio="none"
-      className={`h-24 w-full ${className ?? ""}`}
-    >
-      <path
-        d={curve}
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="0.8"
-        className="text-aj-blue-bright"
-      />
-      {markers.map((m, i) => (
-        <circle
-          key={i}
-          cx={m.x}
-          cy={m.y}
-          r="1.4"
-          fill="currentColor"
-          className="text-aj-blue-bright"
-        />
-      ))}
-    </svg>
-  );
-}
+      {/* Header bar */}
+      <div className="flex items-center justify-between px-4 py-2.5 border-b border-[var(--line-1)]">
+        <div className="flex items-center gap-2">
+          <div className="h-2 w-2 rounded-full bg-aj-orange opacity-60" />
+          <span style={{ fontFamily: "var(--font-body)", fontSize: "9px", letterSpacing: "0.12em", textTransform: "uppercase", col

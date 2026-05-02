@@ -4,22 +4,42 @@ const layers = [
   {
     n: "01",
     label: "Input",
-    desc: "Customer behavior, sales conversations, attribution data, founder intuition.",
+    desc: "Raw data enters the system.",
+    bullets: [
+      "Customer behavior signals",
+      "Sales conversation patterns",
+      "Attribution & founder intuition",
+    ],
   },
   {
     n: "02",
     label: "Process",
-    desc: "Signal vs noise filtering, M.A.P attribution, system mapping.",
+    desc: "Noise removed, signal identified.",
+    bullets: [
+      "Signal vs noise filtering",
+      "M.A.P attribution scoring",
+      "Constraint mapping",
+    ],
   },
   {
     n: "03",
     label: "Output",
-    desc: "Decisions, workflows, AI augmentation, deployed campaigns.",
+    desc: "Clarity drives execution.",
+    bullets: [
+      "Prioritized decisions",
+      "AI-augmented workflows",
+      "Deployed campaigns",
+    ],
   },
   {
     n: "04",
     label: "Feedback",
-    desc: "Outcome data flows back. The system updates its own predictive model.",
+    desc: "Outcomes update the model.",
+    bullets: [
+      "Revenue-linked validation",
+      "Predictive model refinement",
+      "Loop compounds over time",
+    ],
   },
 ];
 
@@ -54,6 +74,19 @@ export default function SystemModelLoop() {
                 <div className="t-mono text-aj-gold">{l.n}</div>
                 <div className="mt-2 t-h4">{l.label}</div>
                 <p className="mt-2 t-small text-fg-2">{l.desc}</p>
+                <ul className="mt-3 space-y-1.5">
+                  {l.bullets.map((b) => (
+                    <li key={b} className="flex items-start gap-2">
+                      <span
+                        aria-hidden
+                        className="mt-[5px] inline-block h-1 w-1 shrink-0 rounded-full bg-aj-blue-bright opacity-70"
+                      />
+                      <span className="text-fg-3" style={{ fontFamily: "var(--font-body)", fontSize: "11px", lineHeight: 1.5 }}>
+                        {b}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             ))}
           </div>
@@ -99,42 +132,4 @@ function LoopSVG({ className }: { className?: string }) {
         { cx: 480, label: "Output" },
         { cx: 660, label: "Feedback" },
       ].map((n, i) => (
-        <g key={n.label}>
-          <circle
-            cx={n.cx}
-            cy="100"
-            r="22"
-            fill="rgba(11,16,32,0.95)"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            className={
-              i === 1 ? "text-aj-blue-bright" : "text-aj-blue-bright opacity-50"
-            }
-          />
-          {/* Pulse on Process */}
-          {i === 1 && (
-            <circle
-              cx={n.cx}
-              cy="100"
-              r="4"
-              fill="currentColor"
-              className="text-aj-blue-bright"
-            />
-          )}
-          <text
-            x={n.cx}
-            y="148"
-            textAnchor="middle"
-            fontSize="11"
-            fontFamily="ui-monospace, monospace"
-            letterSpacing="0.16em"
-            fill="currentColor"
-            className="text-aj-gold"
-          >
-            {n.label.toUpperCase()}
-          </text>
-        </g>
-      ))}
-    </svg>
-  );
-}
+    
