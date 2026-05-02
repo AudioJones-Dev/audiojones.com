@@ -1,0 +1,372 @@
+{
+  "base_path": "/public/assets/homepage/",
+  "sections": {
+    "00-shared": {
+      "logos": [
+        "audiojones-logo-mark-orange.svg",
+        "audiojones-wordmark-white.png",
+        "audiojones-wordmark-black.png",
+        "audiojones-favicon.png"
+      ],
+      "icons": [
+        "icon-arrow-up-right.svg",
+        "icon-input-dots.svg",
+        "icon-process-chip.svg",
+        "icon-output-target.svg",
+        "icon-feedback-loop.svg",
+        "icon-check-blue.svg",
+        "icon-x-gold.svg",
+        "icon-signal-node.svg"
+      ],
+      "textures": [
+        "texture-dark-grid-noise.png",
+        "texture-digital-particles-left.png",
+        "texture-system-dots-subtle.png",
+        "texture-light-system-grid.png"
+      ]
+    },
+    "01-header-navigation": {
+      "logos": [
+        "header-audiojones-logo-white.png",
+        "header-audiojones-logo-black.png",
+        "header-audiojones-mark-orange.svg"
+      ],
+      "references": [
+        "header-navigation-reference.png"
+      ]
+    },
+    "02-hero-all-signal": {
+      "backgrounds": [
+        "hero-bg-split-dark-light-clean.png",
+        "hero-bg-split-no-text.png",
+        "hero-bg-desktop-atmosphere.png",
+        "hero-bg-tablet-atmosphere.png",
+        "hero-bg-mobile-atmosphere.png"
+      ],
+      "noise-layer": [
+        "hero-noise-left-transparent.png",
+        "hero-noise-left-dense-transparent.png",
+        "hero-noise-left-soft-transparent.png",
+        "hero-noise-transition-center-transparent.png"
+      ],
+      "portrait": [
+        "hero-portrait-audiojones-transparent.png",
+        "hero-portrait-audiojones-desktop.png",
+        "hero-portrait-audiojones-tablet.png",
+        "hero-portrait-audiojones-mobile.png"
+      ],
+      "signal-node": [
+        "hero-signal-node-glow-transparent.png",
+        "hero-signal-node-reticle-transparent.png",
+        "hero-signal-node-small.svg",
+        "hero-signal-node-css-reference.png"
+      ],
+      "system-diagram": [
+        "hero-system-diagram-transparent.png",
+        "hero-system-diagram-desktop.svg",
+        "hero-system-diagram-mobile.svg",
+        "hero-system-diagram-icons-only.svg"
+      ],
+      "metrics-strip": [
+        "hero-metrics-strip-dark.png",
+        "hero-metrics-strip-transparent.png",
+        "hero-metrics-strip-mobile.png"
+      ],
+      "references": [
+        "hero-reference-full.png",
+        "hero-reference-with-new-portrait.png",
+        "hero-layer-stack-reference.png"
+      ]
+    },
+    "03-trusted-by-strip": {
+      "background": [
+        "trusted-strip-bg-dark.png",
+        "trusted-strip-bg-dark-subtle-grid.png",
+        "trusted-strip-bg-gradient-edge.png"
+      ],
+      "logos": [
+        "trusted-logo-01.svg",
+        "trusted-logo-02.svg",
+        "trusted-logo-03.svg",
+        "trusted-logo-04.svg",
+        "trusted-logo-05.svg",
+        "trusted-logo-06.svg",
+        "trusted-logo-07.svg",
+        "trusted-logo-08.svg"
+      ],
+      "references": [
+        "trusted-by-strip-mock.png"
+      ]
+    },
+    "04-problem-reframe": {
+      "backgrounds": [
+        "problem-bg-dark-noise.png",
+        "problem-bg-left-fragmented.png",
+        "problem-bg-right-system-grid.png"
+      ],
+      "comparison-visual": [
+        "problem-noise-vs-signal-panel.png",
+        "problem-chaotic-dashboard.png",
+        "problem-clean-decision-system.png",
+        "problem-from-noise-to-signal-divider.svg"
+      ],
+      "icons": [
+        "problem-icon-tools.svg",
+        "problem-icon-vanity-metrics.svg",
+        "problem-icon-disconnected-workflows.svg",
+        "problem-icon-misattribution.svg"
+      ],
+      "references": [
+        "problem-reframe-section-mock.png"
+      ]
+    },
+    "05-signal-vs-noise-model": {
+      "backgrounds": [
+        "signal-model-bg-dark-grid.png",
+        "signal-model-bg-particle-field.png",
+        "signal-model-bg-subtle-blue-glow.png"
+      ],
+      "cards": [
+        "signal-model-card-noise.png",
+        "signal-model-card-acceptable-noise.png",
+        "signal-model-card-signal.png"
+      ],
+      "diagrams": [
+        "signal-model-three-column-diagram.svg",
+        "signal-model-flow-line.svg",
+        "signal-model-80-20-line.svg"
+      ],
+      "icons": [
+        "signal-model-icon-noise.svg",
+        "signal-model-icon-acceptable-noise.svg",
+        "signal-model-icon-signal.svg"
+      ],
+      "references": [
+        "signal-vs-noise-model-mock.png"
+      ]
+    },
+    "06-map-attribution-framework": {
+      "backgrounds": [
+        "map-bg-dark-noise-subtle.png",
+        "map-bg-gold-particles.png",
+        "map-bg-system-lines.png"
+      ],
+      "cards": [
+        "map-card-meaningful.png",
+        "map-card-actionable.png",
+        "map-card-profitable.png"
+      ],
+      "diagrams": [
+        "map-framework-three-card-line.svg",
+        "map-framework-triangle.svg",
+        "map-framework-score-meter.svg"
+      ],
+      "icons": [
+        "map-icon-meaningful.svg",
+        "map-icon-actionable.svg",
+        "map-icon-profitable.svg"
+      ],
+      "references": [
+        "map-attribution-section-mock.png"
+      ]
+    },
+    "07-applied-intelligence-systems": {
+      "backgrounds": [
+        "ais-bg-dark-system-grid.png",
+        "ais-bg-blue-flow-lines.png",
+        "ais-bg-subtle-orange-node.png"
+      ],
+      "system-loop": [
+        "ais-loop-input-process-output-feedback.svg",
+        "ais-loop-desktop.png",
+        "ais-loop-mobile.png",
+        "ais-loop-transparent.png"
+      ],
+      "icons": [
+        "ais-icon-input.svg",
+        "ais-icon-process.svg",
+        "ais-icon-output.svg",
+        "ais-icon-feedback.svg"
+      ],
+      "references": [
+        "applied-intelligence-systems-mock.png"
+      ]
+    },
+    "08-icp-filter": {
+      "backgrounds": [
+        "icp-bg-dark.png",
+        "icp-bg-blue-right-glow.png",
+        "icp-bg-gold-left-noise.png"
+      ],
+      "cards": [
+        "icp-card-not-for-you.png",
+        "icp-card-for-you.png",
+        "icp-card-comparison-layout.png"
+      ],
+      "icons": [
+        "icp-icon-x-gold.svg",
+        "icp-icon-check-blue.svg",
+        "icp-icon-founder.svg",
+        "icp-icon-system.svg"
+      ],
+      "references": [
+        "icp-filter-section-mock.png"
+      ]
+    },
+    "09-process-pipeline": {
+      "backgrounds": [
+        "process-bg-dark-grid.png",
+        "process-bg-dotted-system-map.png",
+        "process-bg-blue-connection-lines.png"
+      ],
+      "cards": [
+        "process-card-01-diagnose.png",
+        "process-card-02-attribute.png",
+        "process-card-03-design.png",
+        "process-card-04-deploy.png"
+      ],
+      "diagrams": [
+        "process-horizontal-pipeline.svg",
+        "process-connection-line.svg",
+        "process-step-nodes.svg"
+      ],
+      "icons": [
+        "process-icon-diagnose.svg",
+        "process-icon-attribute.svg",
+        "process-icon-design.svg",
+        "process-icon-deploy.svg"
+      ],
+      "references": [
+        "process-pipeline-section-mock.png"
+      ]
+    },
+    "10-proof-metrics": {
+      "backgrounds": [
+        "proof-bg-dark.png",
+        "proof-bg-before-noise.png",
+        "proof-bg-after-light-panel.png"
+      ],
+      "before-after": [
+        "proof-before-panel.png",
+        "proof-after-panel.png",
+        "proof-before-after-split.png",
+        "proof-transition-arrow.svg"
+      ],
+      "metrics": [
+        "proof-metric-cac-reduction.png",
+        "proof-metric-pipeline-growth.png",
+        "proof-metric-conversion-rate.png",
+        "proof-metric-decision-clarity.png"
+      ],
+      "charts": [
+        "proof-chart-growth-line.svg",
+        "proof-chart-cac-down.svg",
+        "proof-chart-conversion-up.svg"
+      ],
+      "references": [
+        "proof-metrics-section-mock.png"
+      ]
+    },
+    "11-insights-preview": {
+      "backgrounds": [
+        "insights-bg-dark.png",
+        "insights-bg-card-grid.png",
+        "insights-bg-subtle-gold-labels.png"
+      ],
+      "cards": [
+        "insights-card-01-ai-failure.png",
+        "insights-card-02-signal-vs-noise.png",
+        "insights-card-03-map-framework.png",
+        "insights-card-04-marketing-channel.png",
+        "insights-card-05-applied-intelligence.png",
+        "insights-card-06-ai-first-step.png"
+      ],
+      "references": [
+        "insights-preview-section-mock.png"
+      ]
+    },
+    "12-final-diagnostic-cta": {
+      "backgrounds": [
+        "cta-bg-dark-panel.png",
+        "cta-bg-signal-particle-field.png",
+        "cta-bg-blue-glow-frame.png",
+        "cta-bg-transparent-signal-burst.png"
+      ],
+      "signal-visual": [
+        "cta-signal-burst-transparent.png",
+        "cta-signal-node-center.svg",
+        "cta-signal-crosshair-transparent.png"
+      ],
+      "buttons": [
+        "cta-button-primary-orange.png",
+        "cta-button-secondary-outline.png"
+      ],
+      "references": [
+        "final-diagnostic-cta-section-mock.png"
+      ]
+    },
+    "13-footer": {
+      "backgrounds": [
+        "footer-bg-dark.png",
+        "footer-bg-hairline-grid.png"
+      ],
+      "logos": [
+        "footer-audiojones-wordmark-white.png",
+        "footer-audiojones-mark-orange.svg"
+      ],
+      "references": [
+        "footer-section-reference.png"
+      ]
+    },
+    "14-diagnostic-page": {
+      "backgrounds": [
+        "diagnostic-bg-dark.png",
+        "diagnostic-bg-form-panel.png",
+        "diagnostic-bg-signal-grid.png"
+      ],
+      "form-ui": [
+        "diagnostic-step-01-business-snapshot.png",
+        "diagnostic-step-02-growth-constraint.png",
+        "diagnostic-step-03-current-systems.png",
+        "diagnostic-step-04-ai-usage.png",
+        "diagnostic-step-05-submit.png",
+        "diagnostic-progress-bar.svg"
+      ],
+      "result-states": [
+        "diagnostic-result-hot.png",
+        "diagnostic-result-warm.png",
+        "diagnostic-result-cold.png"
+      ],
+      "references": [
+        "diagnostic-page-reference.png"
+      ]
+    },
+    "99-archive-reference": {
+      "hero": [
+        "old-hero-reference-v1.png",
+        "old-hero-reference-v2.png",
+        "old-hero-layered-reference.png"
+      ],
+      "generated-mocks": [
+        "mock-problem-reframe.png",
+        "mock-signal-vs-noise.png",
+        "mock-map-attribution.png",
+        "mock-applied-intelligence.png",
+        "mock-icp-filter.png",
+        "mock-process.png",
+        "mock-proof.png",
+        "mock-insights.png",
+        "mock-final-cta.png"
+      ],
+      "notes": [
+        "asset-decisions.md"
+      ]
+    }
+  },
+  "rules": {
+    "references": "visual guidance only",
+    "backgrounds": "atmosphere only",
+    "text": "live code for SEO/AEO",
+    "hero_all_signal": "live typography, not image"
+  }
+}

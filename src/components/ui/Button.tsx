@@ -1,8 +1,8 @@
 import * as React from "react";
 import Link from "next/link";
 
-type Variant = "primary" | "secondary" | "ghost";
-type Size = "md" | "lg";
+type Variant = "primary" | "secondary" | "ghost" | "glow" | "system-glow";
+type Size = "sm" | "md" | "lg";
 
 type CommonProps = {
   variant?: Variant;
@@ -19,7 +19,23 @@ type AsLinkProps = CommonProps & {
   external?: boolean;
 };
 
-function styles(variant: Variant, size: Size, extra?: string) {
+/**
+ * Glow variants use plain CSS classes (.btn-glow / .btn-glow-sys)
+ * defined in globals.css — they must not be mixed with the Tailwind
+ * base stack or the shadow/color cascade breaks.
+ *
+ * Tailwind variants (primary / secondary / ghost) keep their own base.
+ */
+function isGlowVariant(v: Variant): v is "glow" | "system-glow" {
+  return v === "glow" || v === "system-glow";
+}
+
+function glowClass(variant: "glow" | "system-glow", extra?: string) {
+  const base = variant === "glow" ? "btn-glow" : "btn-glow-sys";
+  return [base, extra].filter(Boolean).join(" ");
+}
+
+function twStyles(variant: Exclude<Variant, "glow" | "system-glow">, size: Size, extra?: string) {
   const base =
     "inline-flex items-center justify-center gap-2 font-body font-medium tracking-tight " +
     "rounded-md select-none whitespace-nowrap " +
@@ -29,11 +45,12 @@ function styles(variant: Variant, size: Size, extra?: string) {
     "active:translate-y-px disabled:opacity-50 disabled:pointer-events-none";
 
   const sizeMap: Record<Size, string> = {
+    sm: "h-8 px-4 text-[13px]",
     md: "h-10 px-5 text-[15px]",
     lg: "h-12 px-7 text-[16px]",
   };
 
-  const variantMap: Record<Variant, string> = {
+  const variantMap: Record<Exclude<Variant, "glow" | "system-glow">, string> = {
     primary:
       "bg-aj-blue-bright text-white shadow-[0_10px_40px_-10px_rgba(59,91,255,0.7)] hover:opacity-90",
     secondary:
@@ -52,8 +69,12 @@ export function Button({
   children,
   ...rest
 }: AsButtonProps) {
+  const cls = isGlowVariant(variant)
+    ? glowClass(variant, className)
+    : twStyles(variant, size, className);
+
   return (
-    <button className={styles(variant, size, className)} {...rest}>
+    <button className={cls} {...rest}>
       {children}
     </button>
   );
@@ -67,7 +88,10 @@ export function ButtonLink({
   href,
   external,
 }: AsLinkProps) {
-  const cls = styles(variant, size, className);
+  const cls = isGlowVariant(variant)
+    ? glowClass(variant, className)
+    : twStyles(variant, size, className);
+
   if (external || /^https?:\/\//.test(href)) {
     return (
       <a className={cls} href={href} target="_blank" rel="noopener noreferrer">

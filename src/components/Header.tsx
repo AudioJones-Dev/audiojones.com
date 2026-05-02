@@ -70,8 +70,7 @@ export default function Header() {
         <div className="hidden md:block">
           <ButtonLink
             href="/applied-intelligence/diagnostic"
-            variant="primary"
-            size="md"
+            variant="glow"
           >
             Book Diagnostic
           </ButtonLink>
@@ -110,8 +109,7 @@ export default function Header() {
             <li className="pt-4">
               <ButtonLink
                 href="/applied-intelligence/diagnostic"
-                variant="primary"
-                size="lg"
+                variant="glow"
                 className="w-full"
               >
                 Book Diagnostic

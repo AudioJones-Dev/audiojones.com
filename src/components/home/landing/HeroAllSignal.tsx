@@ -8,15 +8,18 @@ const METRICS = [
 ];
 
 /**
- * Hero — editorial-tech composition.
+ * Hero — editorial-tech composition using real asset layers.
  *
  * Visual logic per brief:
- *   LEFT  = noise / confusion / fragmented data (dark bg, particles, copy)
- *   CENTER = human judgment / signal processor (founder portrait b&w, signal node)
- *   RIGHT = clarity / system / outcomes (light bg, INPUT→PROCESS→OUTPUT→FEEDBACK)
+ *   LEFT  = noise / confusion / fragmented data (dark bg, noise layer PNG)
+ *   CENTER = human judgment / signal processor (transparent portrait cutout + signal node reticle)
+ *   RIGHT = clarity / system / outcomes (light bg, system diagram PNG)
  *
- * "ALL SIGNAL" in Space Grotesk Bold spans full width behind the subject.
- * Metrics strip anchors the bottom edge.
+ * Asset layers (all transparent PNG):
+ *   - Noise layer  → /assets/Homepage/02-hero-all-signal/noise-layer/
+ *   - Portrait     → /assets/Homepage/02-hero-all-signal/portrait/
+ *   - Signal node  → /assets/Homepage/02-hero-all-signal/signal-node/
+ *   - System diag  → /assets/Homepage/02-hero-all-signal/system-diagram/
  */
 export default function HeroAllSignal() {
   return (
@@ -46,12 +49,61 @@ export default function HeroAllSignal() {
         <rect width="100%" height="100%" fill="url(#hg)" />
       </svg>
 
-      {/* ── Left noise / particle field ── */}
+      {/* ── Noise layer — mobile (< 640px) ── */}
       <div
         aria-hidden
-        className="absolute left-0 top-0 -z-10 h-full w-full lg:w-1/2 overflow-hidden pointer-events-none"
+        className="block sm:hidden absolute left-0 top-0 -z-10 h-full w-full pointer-events-none"
       >
-        <NoiseField />
+        <Image
+          src="/assets/Homepage/02-hero-all-signal/noise-layer/hero-noise-left-dense-mobile-transparent.png"
+          alt=""
+          fill
+          className="object-cover object-left-top"
+          sizes="100vw"
+        />
+      </div>
+
+      {/* ── Noise layer — tablet (640px–1023px) ── */}
+      <div
+        aria-hidden
+        className="hidden sm:block lg:hidden absolute left-0 top-0 -z-10 h-full w-full pointer-events-none"
+      >
+        <Image
+          src="/assets/Homepage/02-hero-all-signal/noise-layer/hero-noise-left-dense-tablet-transparent.png"
+          alt=""
+          fill
+          className="object-cover object-left-top"
+          sizes="100vw"
+        />
+      </div>
+
+      {/* ── Noise layer — desktop (1024px+) ── */}
+      <div
+        aria-hidden
+        className="hidden lg:block absolute left-0 top-0 -z-10 h-full w-1/2 pointer-events-none"
+      >
+        <Image
+          src="/assets/Homepage/02-hero-all-signal/noise-layer/hero-noise-left-dense-transparent.png.png"
+          alt=""
+          fill
+          className="object-cover object-left-top"
+          sizes="50vw"
+        />
+      </div>
+
+      {/* ── Center transition gradient (dark → light boundary) ── */}
+      <div
+        aria-hidden
+        className="hidden lg:block absolute top-0 -z-10 h-full pointer-events-none"
+        style={{ left: "40%", width: "20%" }}
+      >
+        <Image
+          src="/assets/Homepage/02-hero-all-signal/noise-layer/hero-noise-transition-center-transparent.png.png"
+          alt=""
+          fill
+          className="object-cover object-center"
+          sizes="20vw"
+        />
       </div>
 
       {/* ── "ALL SIGNAL" mega background typography ── */}
@@ -116,69 +168,135 @@ export default function HeroAllSignal() {
             and build systems to scale it.
           </p>
 
-          <div className="mt-10 flex flex-wrap items-center gap-3">
+          <div className="mt-10 flex flex-wrap items-center gap-4">
             <ButtonLink
               href="/applied-intelligence/diagnostic"
-              variant="primary"
-              size="lg"
+              variant="glow"
             >
               Book Your Diagnostic
             </ButtonLink>
-            <ButtonLink href="#system-model" variant="secondary" size="lg">
+            <ButtonLink href="#system-model" variant="system-glow">
               See the System
             </ButtonLink>
           </div>
         </div>
 
-        {/* CENTER — founder portrait */}
+        {/* CENTER — founder portrait (transparent cutout) */}
         <div className="hidden lg:flex lg:col-span-4 relative items-end justify-center h-full">
-          {/* Orange signal node — chest level */}
+          {/* Signal node reticle — desktop */}
           <div
             aria-label="Signal node"
-            className="absolute z-20"
+            className="absolute z-20 w-full"
             style={{
-              bottom: "38%",
+              bottom: "32%",
               left: "50%",
-              transform: "translateX(-50%) translateX(8px)",
-              width: "10px",
-              height: "10px",
-              borderRadius: "50%",
-              background: "#FF4500",
-              boxShadow:
-                "0 0 0 3px rgba(255,69,0,0.25), 0 0 16px 6px rgba(255,69,0,0.18), 0 0 32px 14px rgba(255,69,0,0.08)",
+              transform: "translateX(-50%)",
+              maxWidth: "200px",
+              height: "120px",
             }}
-          />
-          {/* Thin blue border — frame accent */}
-          <div
-            aria-hidden
-            className="absolute inset-x-0 bottom-0 z-10 border-l border-r border-[rgba(59,91,255,0.2)]"
-            style={{ height: "85%", borderRadius: "8px 8px 0 0" }}
-          />
-          <div
-            className="relative w-full"
-            style={{ height: "620px" }}
           >
             <Image
-              src="/assets/audio-jones-hero.webp"
+              src="/assets/Homepage/02-hero-all-signal/signal-node/hero-signal-node-reticle-transparent.png.png"
+              alt=""
+              fill
+              className="object-contain"
+              sizes="200px"
+            />
+          </div>
+
+          {/* Portrait — transparent PNG cutout */}
+          <div
+            className="relative w-full"
+            style={{ height: "680px" }}
+          >
+            <Image
+              src="/assets/Homepage/02-hero-all-signal/portrait/portraithero-portrait-audiojones-transparent.png.png"
               alt="Tyrone Nelms, founder — Audio Jones"
               fill
               priority
-              className="object-cover object-top"
-              style={{
-                filter: "grayscale(100%) contrast(1.08)",
-                maskImage:
-                  "linear-gradient(to bottom, black 55%, transparent 100%)",
-                WebkitMaskImage:
-                  "linear-gradient(to bottom, black 55%, transparent 100%)",
-              }}
+              className="object-contain object-bottom"
+              sizes="(max-width: 1280px) 33vw, 400px"
             />
           </div>
         </div>
 
-        {/* RIGHT — system diagram on light surface */}
+        {/* RIGHT — system diagram PNG on light surface */}
         <div className="hidden lg:flex lg:col-span-3 items-center justify-center h-full pb-16">
-          <SystemDiagramHero />
+          <div className="relative w-full" style={{ height: "420px" }}>
+            <Image
+              src="/assets/Homepage/02-hero-all-signal/system-diagram/hero-system-diagram-transparent.png.png"
+              alt="Applied Intelligence System loop: Input → Process → Output → Feedback"
+              fill
+              className="object-contain object-center"
+              sizes="(max-width: 1280px) 25vw, 300px"
+            />
+          </div>
         </div>
+      </div>
+
+      {/* ── Mobile portrait (below copy, above metrics) ── */}
+      <div className="block sm:hidden relative w-full" style={{ height: "320px" }}>
+        {/* Mobile signal node reticle */}
+        <div
+          aria-hidden
+          className="absolute z-10"
+          style={{
+            top: "35%",
+            left: "50%",
+            transform: "translateX(-50%)",
+            width: "100px",
+            height: "60px",
+          }}
+        >
+          <Image
+            src="/assets/Homepage/02-hero-all-signal/signal-node/hero-signal-node-reticle--mobile-transparent.png.png"
+            alt=""
+            fill
+            className="object-contain"
+            sizes="100px"
+          />
+        </div>
+        <Image
+          src="/assets/Homepage/02-hero-all-signal/portrait/portraithero-portrait-audiojones-transparent.png.png"
+          alt="Tyrone Nelms, founder — Audio Jones"
+          fill
+          className="object-contain object-bottom"
+          sizes="100vw"
+        />
+      </div>
+
+      {/* ── Tablet portrait strip (640px–1023px) ── */}
+      <div
+        className="hidden sm:block lg:hidden relative w-full mx-auto"
+        style={{ height: "400px", maxWidth: "480px" }}
+      >
+        {/* Tablet signal node reticle */}
+        <div
+          aria-hidden
+          className="absolute z-10"
+          style={{
+            top: "30%",
+            left: "50%",
+            transform: "translateX(-50%)",
+            width: "140px",
+            height: "80px",
+          }}
+        >
+          <Image
+            src="/assets/Homepage/02-hero-all-signal/signal-node/hero-signal-node-reticle-tablet-transparent.png.png"
+            alt=""
+            fill
+            className="object-contain"
+            sizes="140px"
+          />
+        </div>
+        <Image
+          src="/assets/Homepage/02-hero-all-signal/portrait/portraithero-portrait-audiojones-transparent.png.png"
+          alt="Tyrone Nelms, founder — Audio Jones"
+          fill
+          className="object-contain object-bottom"
+          sizes="480px"
+        />
       </div>
 
       {/* ── Metrics strip ── */}
@@ -224,182 +342,5 @@ export default function HeroAllSignal() {
         </div>
       </div>
     </section>
-  );
-}
-
-/* ─────────────── Noise field — left dark zone ─────────────── */
-
-function NoiseField() {
-  // Deterministic scatter — no hydration mismatch
-  const dots = Array.from({ length: 48 }, (_, i) => ({
-    x: ((i * 41) % 90) + 5,
-    y: ((i * 59 + 13) % 90) + 5,
-    r: ((i * 17) % 5) + 1,
-    o: (((i * 7) % 55) + 15) / 100,
-  }));
-  const frags = Array.from({ length: 8 }, (_, i) => ({
-    x: ((i * 73) % 80) + 5,
-    y: ((i * 31 + 7) % 75) + 10,
-    w: ((i * 23) % 20) + 8,
-    h: ((i * 11) % 6) + 2,
-    o: (((i * 13) % 25) + 8) / 100,
-  }));
-  const lines = Array.from({ length: 10 }, (_, i) => ({
-    x1: ((i * 47) % 80) + 5,
-    y1: ((i * 31 + 11) % 80) + 5,
-    x2: ((i * 47 + 20) % 90) + 5,
-    y2: ((i * 53 + 7) % 85) + 5,
-    o: (((i * 11) % 25) + 8) / 100,
-  }));
-
-  return (
-    <svg
-      aria-hidden
-      viewBox="0 0 100 100"
-      preserveAspectRatio="xMidYMid slice"
-      className="h-full w-full"
-    >
-      {/* Scattered fragment blocks (glitch UI) */}
-      {frags.map((f, i) => (
-        <rect
-          key={`f${i}`}
-          x={f.x}
-          y={f.y}
-          width={f.w}
-          height={f.h}
-          rx="0.5"
-          fill="none"
-          stroke="#FF4500"
-          strokeWidth="0.25"
-          opacity={f.o}
-        />
-      ))}
-      {/* Diagonal connector lines */}
-      {lines.map((l, i) => (
-        <line
-          key={`l${i}`}
-          x1={l.x1}
-          y1={l.y1}
-          x2={l.x2}
-          y2={l.y2}
-          stroke="#94A3B8"
-          strokeWidth="0.15"
-          opacity={l.o}
-        />
-      ))}
-      {/* Particle dots */}
-      {dots.map((d, i) => (
-        <circle
-          key={`d${i}`}
-          cx={d.x}
-          cy={d.y}
-          r={d.r * 0.35}
-          fill="#94A3B8"
-          opacity={d.o}
-        />
-      ))}
-    </svg>
-  );
-}
-
-/* ─────────────── System diagram — right light zone ─────────────── */
-
-function SystemDiagramHero() {
-  const nodes = [
-    { label: "INPUT", sub: "signals, data, behavior" },
-    { label: "PROCESS", sub: "intelligence layer", active: true },
-    { label: "OUTPUT", sub: "actions, systems, content" },
-    { label: "FEEDBACK", sub: "measurement, refinement" },
-  ];
-
-  return (
-    <div className="flex flex-col items-center gap-0 w-full max-w-[200px]">
-      {nodes.map((n, i) => (
-        <div key={n.label} className="flex flex-col items-center w-full">
-          <div
-            className="w-full rounded-lg px-3 py-3 flex flex-col items-center"
-            style={{
-              background: n.active ? "rgba(59,91,255,0.08)" : "rgba(11,16,32,0.04)",
-              border: n.active
-                ? "1px solid rgba(59,91,255,0.5)"
-                : "1px solid rgba(17,17,17,0.14)",
-            }}
-          >
-            <span
-              className="font-mono font-semibold tracking-widest"
-              style={{
-                fontFamily: "ui-monospace, monospace",
-                fontSize: "9px",
-                letterSpacing: "0.2em",
-                color: n.active ? "#3B5BFF" : "#C8A96A",
-              }}
-            >
-              {n.label}
-            </span>
-            <span
-              className="mt-1 text-center"
-              style={{
-                fontFamily: "var(--font-body)",
-                fontSize: "10px",
-                color: n.active ? "#1E2A3A" : "#64748B",
-                lineHeight: 1.3,
-              }}
-            >
-              {n.sub}
-            </span>
-            {n.active && (
-              <div
-                aria-hidden
-                className="mt-2 rounded-full"
-                style={{
-                  width: "6px",
-                  height: "6px",
-                  background: "#3B5BFF",
-                  boxShadow: "0 0 8px 3px rgba(59,91,255,0.4)",
-                }}
-              />
-            )}
-          </div>
-          {i < nodes.length - 1 && (
-            <div
-              aria-hidden
-              style={{
-                width: "1px",
-                height: "20px",
-                background: "linear-gradient(to bottom, rgba(59,91,255,0.4), rgba(59,91,255,0.15))",
-              }}
-            />
-          )}
-        </div>
-      ))}
-      {/* Feedback loop arc */}
-      <svg
-        aria-hidden
-        viewBox="0 0 80 40"
-        className="w-full mt-1"
-        style={{ height: "28px" }}
-      >
-        <path
-          d="M40 4 Q75 4 75 20 Q75 38 40 38 Q8 38 8 20 Q8 4 40 4"
-          fill="none"
-          stroke="rgba(59,91,255,0.25)"
-          strokeWidth="0.8"
-          strokeDasharray="3 2"
-        />
-        <text
-          x="40"
-          y="23"
-          textAnchor="middle"
-          style={{
-            fontFamily: "ui-monospace, monospace",
-            fontSize: "5px",
-            fill: "#64748B",
-            letterSpacing: "0.1em",
-          }}
-        >
-          LOOP
-        </text>
-      </svg>
-    </div>
   );
 }

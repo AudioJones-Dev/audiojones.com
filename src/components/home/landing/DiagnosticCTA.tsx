@@ -58,12 +58,11 @@ export default function DiagnosticCTA() {
         <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
           <ButtonLink
             href="/applied-intelligence/diagnostic"
-            variant="primary"
-            size="lg"
+            variant="glow"
           >
             Start Diagnostic →
           </ButtonLink>
-          <ButtonLink href="/frameworks" variant="secondary" size="lg">
+          <ButtonLink href="/frameworks" variant="system-glow">
             See Frameworks
           </ButtonLink>
         </div>

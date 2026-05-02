@@ -97,8 +97,7 @@ export default function ICPFilterSection() {
             <div className="mt-8 pt-6 border-t border-[var(--line-blue)]">
               <ButtonLink
                 href="/applied-intelligence/diagnostic"
-                variant="primary"
-                size="lg"
+                variant="glow"
               >
                 Take the Diagnostic
               </ButtonLink>
