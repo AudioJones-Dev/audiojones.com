@@ -103,7 +103,7 @@ export default function HeroAllSignal() {
         style={{
           position: "absolute",
           top: "8%",
-          left: "30%",
+          left: "37%",
           zIndex: 2,
           whiteSpace: "nowrap",
           userSelect: "none",
@@ -129,7 +129,7 @@ export default function HeroAllSignal() {
         style={{
           position: "absolute",
           top: "8%",
-          left: "28%",
+          left: "35%",
           zIndex: 2,
           whiteSpace: "nowrap",
           userSelect: "none",
