@@ -327,7 +327,8 @@ export default function SystemModelLoop() {
   return (
     <section
       id="system-model"
-      className="relative overflow-hidden border-t border-[var(--line-2)] bg-[#05070F] py-24 sm:py-32"
+      className="relative overflow-hidden border-t border-[var(--line-2)] py-24 sm:py-32"
+      style={{ background: "#05070F" }}
     >
       {/* ── Background image ── */}
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-20">
@@ -341,23 +342,13 @@ export default function SystemModelLoop() {
         />
       </div>
 
-      {/* ── Dark overlay — edges only, open in the middle to show the image ── */}
+      {/* ── Thin vignette — barely-there, just enough to ground the edges ── */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 -z-10"
         style={{
           background:
-            "linear-gradient(180deg, rgba(5,7,15,0.60) 0%, rgba(5,7,15,0.18) 35%, rgba(5,7,15,0.18) 65%, rgba(5,7,15,0.72) 100%)",
-        }}
-      />
-
-      {/* ── Left-edge fade so text stays readable ── */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10"
-        style={{
-          background:
-            "linear-gradient(90deg, rgba(5,7,15,0.65) 0%, transparent 40%)",
+            "radial-gradient(ellipse 110% 100% at 50% 50%, transparent 40%, rgba(5,7,15,0.55) 100%)",
         }}
       />
 
