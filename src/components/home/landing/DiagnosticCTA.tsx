@@ -60,7 +60,7 @@ export default function DiagnosticCTA() {
             href="/applied-intelligence/diagnostic"
             variant="glow"
           >
-            Start Diagnostic →
+            Book Your Diagnostic
           </ButtonLink>
           <ButtonLink href="/frameworks" variant="system-glow">
             See Frameworks

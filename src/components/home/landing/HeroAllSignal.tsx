@@ -96,21 +96,26 @@ export default function HeroAllSignal() {
         </div>
       </div>
 
-      {/* ── 2. "ALL SIGNAL" mega typography — desktop >= 1024px ── */}
+      {/* ── 2. "ALL SIGNAL" mega typography — desktop >= 1024px ──
+           Asymmetric editorial bleed is intentional, but the prior
+           `left: 37%` + `clamp(... 22rem)` + `nowrap` clipped too much
+           on 1024–1280px viewports. Pulled `left` left and capped the
+           upper-bound font-size to keep the first ~70% reliably visible
+           across the desktop range while preserving the bleed feel. ── */}
       <div
         aria-hidden
         className="hidden lg:block"
         style={{
           position: "absolute",
           top: "8%",
-          left: "37%",
+          left: "30%",
           zIndex: 2,
           whiteSpace: "nowrap",
           userSelect: "none",
           pointerEvents: "none",
           fontFamily: "var(--font-headline)",
           fontWeight: 700,
-          fontSize: "clamp(10rem, 18vw, 22rem)",
+          fontSize: "clamp(8rem, 14vw, 18rem)",
           lineHeight: 0.78,
           letterSpacing: "-0.08em",
           textTransform: "uppercase",
@@ -129,14 +134,14 @@ export default function HeroAllSignal() {
         style={{
           position: "absolute",
           top: "8%",
-          left: "35%",
+          left: "28%",
           zIndex: 2,
           whiteSpace: "nowrap",
           userSelect: "none",
           pointerEvents: "none",
           fontFamily: "var(--font-headline)",
           fontWeight: 700,
-          fontSize: "clamp(5rem, 11vw, 10rem)",
+          fontSize: "clamp(4.5rem, 9.5vw, 8.5rem)",
           lineHeight: 0.78,
           letterSpacing: "-0.07em",
           textTransform: "uppercase",
@@ -291,7 +296,14 @@ export default function HeroAllSignal() {
           Applied Intelligence Systems
         </span>
 
-        <h1
+        {/* Desktop heading — same content as the canonical mobile <h1>
+            below, but emitted as role="heading" aria-level="1" so the
+            DOM contains a single <h1> tag (mobile is the canonical one
+            for SEO under mobile-first indexing). Screen readers still
+            announce it as a level-1 heading on desktop viewports. */}
+        <div
+          role="heading"
+          aria-level={1}
           style={{
             fontFamily: "var(--font-headline)",
             fontSize: "clamp(2.4rem, 3.8vw, 4.4rem)",
@@ -307,7 +319,7 @@ export default function HeroAllSignal() {
           <span style={{ color: "#FF4500" }}>
             You have a<br />signal problem.
           </span>
-        </h1>
+        </div>
 
         <p
           style={{

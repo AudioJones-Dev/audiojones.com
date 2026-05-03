@@ -428,6 +428,40 @@ html, body {
   }
 }
 
+/* ---------- ATMOSPHERIC GLOW UTILITIES (Wave-1.6) ----------
+   Repeated radial-gradient patterns extracted from the homepage
+   landing components. Use these on absolutely-positioned aria-hidden
+   wrappers; pair with `pointer-events-none` so they never intercept
+   input. Saturation mirrors the design system (Signal orange / system
+   blue / metric gold) at the muted opacity used across the brand. */
+.bg-glow-blue {
+  background: radial-gradient(
+    ellipse 65% 55% at 70% 50%,
+    rgba(59, 91, 255, 0.09),
+    transparent 70%
+  );
+}
+.bg-glow-orange {
+  background: radial-gradient(
+    ellipse 65% 55% at 30% 50%,
+    rgba(255, 69, 0, 0.09),
+    transparent 70%
+  );
+}
+.bg-glow-gold {
+  background: radial-gradient(
+    ellipse 60% 50% at 15% 80%,
+    rgba(200, 169, 106, 0.05),
+    transparent 65%
+  );
+}
+.bg-grid-fine {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
 /* ---------- LEGACY UTILITIES (deprecated; preserved so legacy
    marketing-surface routes don't visually regress while the
    redesign rolls out wave-by-wave) ---------- */
@@ -521,6 +555,8 @@ html, body {
   /* mobile-first size */
   font-size: 14px;
   padding: 0.82em 2em;
+  /* iOS 44pt minimum touch target — must hold across all viewports */
+  min-height: 44px;
 }
 
 /* reflection under button */

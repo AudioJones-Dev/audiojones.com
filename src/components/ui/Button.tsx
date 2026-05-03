@@ -44,9 +44,12 @@ function twStyles(variant: Exclude<Variant, "glow" | "system-glow">, size: Size,
     "focus-visible:outline-none focus-visible:[box-shadow:0_0_0_2px_var(--aj-blue-bright)] " +
     "active:translate-y-px disabled:opacity-50 disabled:pointer-events-none";
 
+  // Heights satisfy iOS 44pt minimum touch-target on `md` and `lg`.
+  // `sm` (32px) is reserved for inline link-styled affordances inside
+  // dense UI surfaces (admin tables, breadcrumbs) — never on mobile CTAs.
   const sizeMap: Record<Size, string> = {
     sm: "h-8 px-4 text-[13px]",
-    md: "h-10 px-5 text-[15px]",
+    md: "h-11 px-6 text-[15px]",
     lg: "h-12 px-7 text-[16px]",
   };
 

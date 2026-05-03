@@ -54,7 +54,7 @@ export default function Footer() {
 
           {/* Site nav */}
           <div className="lg:col-span-3">
-            <h2 className="t-label text-aj-gold">Site</h2>
+            <h3 className="t-label text-aj-gold">Site</h3>
             <ul className="mt-5 space-y-3">
               {PRIMARY_NAV.map((item) => (
                 <li key={item.href}>
@@ -71,7 +71,7 @@ export default function Footer() {
 
           {/* Connect */}
           <div className="lg:col-span-2">
-            <h2 className="t-label text-aj-gold">Connect</h2>
+            <h3 className="t-label text-aj-gold">Connect</h3>
             <ul className="mt-5 space-y-3">
               {SOCIAL.map((s) => (
                 <li key={s.label}>
@@ -90,7 +90,7 @@ export default function Footer() {
 
           {/* Legal */}
           <div className="lg:col-span-2">
-            <h2 className="t-label text-aj-gold">Legal</h2>
+            <h3 className="t-label text-aj-gold">Legal</h3>
             <ul className="mt-5 space-y-3">
               {LEGAL_NAV.map((item) => (
                 <li key={item.href}>

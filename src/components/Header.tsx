@@ -73,7 +73,7 @@ export default function Header() {
             href="/applied-intelligence/diagnostic"
             variant="glow"
           >
-            Book Diagnostic
+            Book Your Diagnostic
           </ButtonLink>
         </div>
 
@@ -113,7 +113,7 @@ export default function Header() {
                 variant="glow"
                 className="w-full"
               >
-                Book Diagnostic
+                Book Your Diagnostic
               </ButtonLink>
             </li>
           </ul>

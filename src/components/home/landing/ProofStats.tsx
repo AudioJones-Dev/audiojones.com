@@ -206,31 +206,33 @@ export default function ProofStats() {
             </ul>
           </article>
 
-          {/* AFTER */}
+          {/* AFTER — opt-in light surface ("clarity layer" per design.md).
+               `data-surface="light"` rebinds the surface/text vars to the
+               canonical paper/ink tokens (see globals.css §Light split).
+               Keeps the canonical token contract intact instead of
+               hardcoding a one-off light hex. */}
           <article
+            data-surface="light"
             aria-label="After: Causal system, compounding outcomes"
-            className="flex flex-col rounded-3xl p-8 sm:p-10"
+            className="flex flex-col rounded-3xl p-8 sm:p-10 bg-paper text-ink"
             style={{
-              background: "#F4F6FB",
-              border: "1px solid rgba(59,91,255,0.18)",
+              border: "1px solid var(--border-light)",
               boxShadow:
                 "0 0 0 1px rgba(59,91,255,0.06), 0 24px 80px rgba(59,91,255,0.10)",
               minHeight: "420px",
             }}
           >
             <span
+              className="t-label"
               style={{
-                fontFamily: "var(--font-body)",
                 fontSize: "9px",
-                fontWeight: 700,
                 letterSpacing: "0.20em",
-                textTransform: "uppercase",
                 color: "#3B5BFF",
               }}
             >
               After
             </span>
-            <h3 className="mt-3 t-h3" style={{ color: "#0B0F1A" }}>
+            <h3 className="mt-3 t-h3 text-ink">
               Causal system, compounding outcomes
             </h3>
 
@@ -247,10 +249,7 @@ export default function ProofStats() {
               <CleanChart />
             </div>
 
-            <ul
-              className="mt-6 flex-1 space-y-2 t-small"
-              style={{ color: "rgba(11,15,26,0.60)" }}
-            >
+            <ul className="mt-6 flex-1 space-y-2 t-small text-ink-muted">
               <li>· Clearer decision inputs, revenue-linked metrics</li>
               <li>· Attribution as identification — not correlation</li>
               <li>· Systemized execution, diagnostic-ready growth loop</li>
