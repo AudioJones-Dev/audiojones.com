@@ -163,7 +163,17 @@ export default function DiagnosticForm() {
   }
 
   return (
-    <div className="rounded-2xl border border-white/10 bg-[#0B1020] p-6 sm:p-10">
+    <div
+      style={{
+        background:
+          "linear-gradient(#0B0F1A, #0B0F1A) padding-box, linear-gradient(145deg, transparent 28%, rgba(255,69,0,0.95), rgba(59,91,255,0.9) 68%, rgba(200,169,106,0.75)) border-box",
+        border: "1px solid transparent",
+        borderRadius: "24px",
+        boxShadow:
+          "0 24px 80px rgba(0,0,0,0.35), 0 0 48px rgba(59,91,255,0.08), 0 0 32px rgba(255,69,0,0.06)",
+      }}
+      className="p-6 sm:p-10"
+    >
       <ol className="mb-8 grid grid-cols-2 gap-2 text-xs uppercase tracking-wider text-slate-400 sm:grid-cols-6">
         {STEPS.map((label, i) => (
           <li
@@ -214,7 +224,7 @@ export default function DiagnosticForm() {
           type="button"
           onClick={() => setStep((s) => Math.max(0, s - 1))}
           disabled={step === 0 || submitting}
-          className="rounded-md border border-white/15 px-5 py-2.5 text-sm font-semibold text-white transition hover:border-white/30 hover:bg-white/5 disabled:opacity-40"
+          className="rounded-md border border-white/15 px-5 py-2.5 text-sm font-semibold text-white transition hover:border-[#C8A96A]/50 hover:bg-white/5 disabled:opacity-40"
         >
           Back
         </button>
@@ -223,7 +233,7 @@ export default function DiagnosticForm() {
             type="button"
             onClick={() => setStep((s) => Math.min(STEPS.length - 1, s + 1))}
             disabled={!canAdvance}
-            className="rounded-md bg-[#3B5BFF] px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-[#5B7AFF] disabled:opacity-40"
+            className="rounded-md bg-[#3B5BFF] px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-[#FF4500] disabled:opacity-40"
           >
             Continue
           </button>
@@ -232,7 +242,7 @@ export default function DiagnosticForm() {
             type="button"
             onClick={submit}
             disabled={!canAdvance || submitting}
-            className="rounded-md bg-[#3B5BFF] px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-[#5B7AFF] disabled:opacity-40"
+            className="rounded-md bg-[#3B5BFF] px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-[#FF4500] disabled:opacity-40"
           >
             {submitting ? "Submitting…" : "Submit diagnostic"}
           </button>
@@ -268,7 +278,7 @@ function Field({
 }
 
 const inputCls =
-  "w-full rounded-md border border-white/10 bg-[#05070F] px-3 py-2.5 text-sm text-white outline-none transition focus:border-[#3B5BFF]";
+  "w-full rounded-md border border-white/10 bg-[#05070F] px-3 py-2.5 text-sm text-white outline-none transition focus:border-[#FF4500] focus:ring-2 focus:ring-[#FF4500]/10";
 
 function Step1({ state, update }: StepProps) {
   return (
