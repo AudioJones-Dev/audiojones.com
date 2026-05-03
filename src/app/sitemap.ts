@@ -3,7 +3,7 @@ import { FRAMEWORKS } from "@/content/frameworks";
 import { INSIGHTS } from "@/content/insights";
 import { siteConfig } from "@/lib/site";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = siteConfig.url;
   const now = new Date();
 
@@ -41,10 +41,29 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.75,
   }));
 
-  // ── TODO: Sanity blog post routes ─────────────────────────────────────────
-  // When Sanity is wired, fetch published posts and map to:
-  //   { url: `${base}/blog/${post.slug.current}`, lastModified: post.updatedAt, ... }
-  // Guard with: if (!process.env.NEXT_PUBLIC_SANITY_PROJECT_ID) return []
+  // ── Dynamic Sanity blog post routes ──────────────────────────────────────
+  // Only fetched when NEXT_PUBLIC_SANITY_PROJECT_ID is configured.
+  // If Sanity is not connected, /blog is still in staticRoutes above — no crash.
+  let blogPostRoutes: MetadataRoute.Sitemap = [];
+  if (process.env.NEXT_PUBLIC_SANITY_PROJECT_ID) {
+    try {
+      const { safeFetch } = await import("@/lib/sanity/client");
+      const { SITEMAP_POSTS_QUERY } = await import("@/lib/sanity/queries");
+      const posts = await safeFetch<Array<{ slug: string; lastModified?: string }>>(
+        SITEMAP_POSTS_QUERY
+      );
+      if (posts) {
+        blogPostRoutes = posts.map((p) => ({
+          url: `${base}/blog/${p.slug}`,
+          lastModified: p.lastModified ? new Date(p.lastModified) : now,
+          changeFrequency: "weekly",
+          priority: 0.75,
+        }));
+      }
+    } catch {
+      // Sanity fetch failed — degrade gracefully, sitemap still generates
+    }
+  }
 
-  return [...staticRoutes, ...frameworkRoutes, ...insightRoutes];
+  return [...staticRoutes, ...frameworkRoutes, ...insightRoutes, ...blogPostRoutes];
 }

@@ -9,6 +9,7 @@ const NAV = [
   { label: "AI", href: "/applied-intelligence" },
   { label: "Frameworks", href: "/frameworks" },
   { label: "Insights", href: "/insights" },
+  { label: "Blog", href: "/blog" },
   { label: "Diagnostic", href: "/applied-intelligence/diagnostic" },
 ];
 

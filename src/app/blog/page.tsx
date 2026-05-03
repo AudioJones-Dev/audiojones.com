@@ -1,265 +1,291 @@
-// Blog Listing Page - Public interface for Audio Jones blog
-import { Metadata } from 'next';
-import Link from 'next/link';
-import { PILLARS, formatPillarForDisplay, PillarType } from '@/lib/models/blog';
-import IKImage from '@/components/IKImage';
+import type { Metadata } from "next";
+import Link from "next/link";
+import { safeFetch, isSanityConfigured } from "@/lib/sanity/client";
+import { FEATURED_POSTS_QUERY, ALL_POSTS_QUERY } from "@/lib/sanity/queries";
+import type { PostStub } from "@/lib/sanity/types";
+import { ButtonLink } from "@/components/ui/Button";
+import { Eyebrow } from "@/components/ui/Eyebrow";
+
+// ─── Metadata ─────────────────────────────────────────────────────────────────
 
 export const metadata: Metadata = {
-  title: 'Blog | Audio Jones',
+  title: "Blog | Audio Jones",
   description:
-    'Applied Intelligence, signal systems, M.A.P Attribution, and AI-readiness insights for founder-led businesses. The Audio Jones knowledge base.',
-  keywords: ['Applied Intelligence', 'signal vs noise', 'MAP attribution', 'AI readiness', 'founder-led business', 'Audio Jones'],
+    "Applied Intelligence, signal systems, M.A.P Attribution, and AI-readiness insights for founder-led businesses. The Audio Jones knowledge base.",
   alternates: {
-    canonical: 'https://audiojones.com/blog',
+    canonical: "https://audiojones.com/blog",
   },
   openGraph: {
-    title: 'Blog | Audio Jones',
+    title: "Blog | Audio Jones",
     description:
-      'Applied Intelligence, signal systems, M.A.P Attribution, and AI-readiness insights for founder-led businesses.',
-    url: 'https://audiojones.com/blog',
-    siteName: 'Audio Jones',
-    type: 'website',
-    images: [{ url: '/assets/og/audio-jones-og.jpg', width: 1200, height: 630, alt: 'Audio Jones Blog' }],
+      "Applied Intelligence, signal systems, M.A.P Attribution, and AI-readiness insights for founder-led businesses.",
+    url: "https://audiojones.com/blog",
+    siteName: "Audio Jones",
+    type: "website",
+    images: [{ url: "/assets/og/audio-jones-og.jpg", width: 1200, height: 630, alt: "Audio Jones Blog" }],
   },
   twitter: {
-    card: 'summary_large_image',
-    title: 'Blog | Audio Jones',
+    card: "summary_large_image",
+    title: "Blog | Audio Jones",
     description:
-      'Applied Intelligence, signal systems, M.A.P Attribution, and AI-readiness insights for founder-led businesses.',
-    images: ['/assets/og/audio-jones-og.jpg'],
+      "Applied Intelligence, signal systems, M.A.P Attribution, and AI-readiness insights for founder-led businesses.",
+    images: ["/assets/og/audio-jones-og.jpg"],
   },
 };
 
-interface BlogPost {
-  id: string;
-  title: string;
-  slug: string;
-  pillar: PillarType;
-  seoDescription: string;
-  ogImage?: string;
-  readingTime: number;
-  publishedAt: string;
-  keyTakeaways: string[];
-  ctaType: string;
-  ctaHeadline: string;
-  ctaDescription: string;
-  ctaLink: string;
-  contentPerformance?: {
-    views: number;
-    engagementTime: number;
-    socialShares: number;
-    performanceScore: number;
-  };
-}
+// ─── Static topic cluster config ──────────────────────────────────────────────
+// These render as navigation + empty-state cards regardless of Sanity content.
 
-interface BlogPageProps {
-  searchParams: {
-    pillar?: string;
-    page?: string;
-  };
-}
+const TOPIC_CLUSTERS = [
+  {
+    slug: "applied-intelligence-systems",
+    label: "Applied Intelligence Systems",
+    description: "How to identify signal, build operating leverage, and create systems that compound.",
+    accent: "#3B5BFF",
+    icon: "◈",
+  },
+  {
+    slug: "signal-vs-noise",
+    label: "Signal vs Noise",
+    description: "Causal vs vanity metrics. Separating what creates revenue from what consumes attention.",
+    accent: "#FF4500",
+    icon: "◎",
+  },
+  {
+    slug: "map-attribution",
+    label: "M.A.P Attribution",
+    description: "Meaningful. Actionable. Profitable. How to identify what actually drives your growth.",
+    accent: "#C8A96A",
+    icon: "⬡",
+  },
+  {
+    slug: "why-ai-fails",
+    label: "Why AI Fails",
+    description: "AI fails before it starts — when automation precedes systems, processes, and signal.",
+    accent: "#94A3B8",
+    icon: "⊗",
+  },
+  {
+    slug: "ai-readiness",
+    label: "AI Readiness for Founder-Led Businesses",
+    description: "The diagnostic framework for knowing whether your business is ready for AI.",
+    accent: "#10B981",
+    icon: "◉",
+  },
+] as const;
 
-// TODO: Replace with Data Connect query
-async function getBlogPosts(pillar?: string, page: number = 1): Promise<{ posts: BlogPost[]; total: number }> {
-  // Mock data for now - will be replaced with Data Connect query
-  const mockPosts: BlogPost[] = [
-    {
-      id: '1',
-      title: 'AI Marketing Automation: The Audio Jones Framework for Predictable Growth',
-      slug: 'ai-marketing-automation-framework',
-      pillar: 'ai',
-      seoDescription: 'Discover how Audio Jones uses AI marketing automation to deliver predictable growth for creators and entrepreneurs. Learn the EPM framework and practical implementation strategies.',
-      ogImage: '/assets/blog/ai-marketing-automation.jpg',
-      readingTime: 8,
-      publishedAt: '2024-11-01T10:00:00Z',
-      keyTakeaways: [
-        'AI automation reduces manual marketing tasks by 75%',
-        'EPM framework drives 3x higher conversion rates',
-        'Predictable growth through systematic approaches'
-      ],
-      ctaType: 'newsletter',
-      ctaHeadline: 'Get Weekly AI Marketing Insights',
-      ctaDescription: 'Join 5,000+ operators getting Audio Jones\' latest AI marketing strategies.',
-      ctaLink: '/newsletter',
-      contentPerformance: {
-        views: 2450,
-        engagementTime: 320,
-        socialShares: 89,
-        performanceScore: 0.87
-      }
-    },
-    {
-      id: '2',
-      title: 'Creator Economy 2024: Miami Perspective on Monetization Strategies',
-      slug: 'creator-economy-monetization-strategies',
-      pillar: 'podcast-news',
-      seoDescription: 'Audio Jones breaks down the latest creator economy trends and monetization strategies from a Miami operator perspective. Actionable insights for creators and entrepreneurs.',
-      readingTime: 6,
-      publishedAt: '2024-10-30T14:00:00Z',
-      keyTakeaways: [
-        'Creator economy now worth $104B globally',
-        'Miami creators leading in Web3 adoption',
-        'Diversified revenue streams reduce platform risk'
-      ],
-      ctaType: 'podcast',
-      ctaHeadline: 'Listen to Audio Jones Podcast',
-      ctaDescription: 'Get deeper insights on creator economy trends and strategies.',
-      ctaLink: '/podcast',
-      contentPerformance: {
-        views: 1890,
-        engagementTime: 280,
-        socialShares: 124,
-        performanceScore: 0.78
-      }
-    },
-    {
-      id: '3',
-      title: 'SEO vs AEO: Why Answer Engine Optimization Dominates in 2024',
-      slug: 'seo-vs-aeo-answer-engine-optimization',
-      pillar: 'marketing',
-      seoDescription: 'Learn why Answer Engine Optimization (AEO) is replacing traditional SEO strategies. Audio Jones shares practical AEO implementation tactics for modern marketers.',
-      readingTime: 7,
-      publishedAt: '2024-10-28T09:00:00Z',
-      keyTakeaways: [
-        'AEO drives 45% more qualified traffic than SEO',
-        'Answer-first content strategy improves conversions',
-        'Voice search optimization becomes critical'
-      ],
-      ctaType: 'services',
-      ctaHeadline: 'Scale Your AEO Strategy',
-      ctaDescription: 'Work with Audio Jones to implement AEO for predictable growth.',
-      ctaLink: '/services',
-      contentPerformance: {
-        views: 3100,
-        engagementTime: 410,
-        socialShares: 67,
-        performanceScore: 0.92
-      }
-    }
-  ];
+// ─── Component ────────────────────────────────────────────────────────────────
 
-  // Filter by pillar if specified
-  const filteredPosts = pillar 
-    ? mockPosts.filter(post => post.pillar === pillar)
-    : mockPosts;
+export default async function BlogPage() {
+  // Fetch from Sanity if configured — fail silently to empty state if not
+  const [featured, all] = await Promise.all([
+    safeFetch<PostStub[]>(FEATURED_POSTS_QUERY),
+    safeFetch<PostStub[]>(ALL_POSTS_QUERY),
+  ]);
 
-  return {
-    posts: filteredPosts,
-    total: filteredPosts.length
-  };
-}
-
-export default async function BlogPage({ searchParams }: BlogPageProps) {
-  const currentPillar = searchParams.pillar as PillarType | undefined;
-  const currentPage = parseInt(searchParams.page || '1');
-  
-  const { posts, total } = await getBlogPosts(currentPillar, currentPage);
+  const hasPosts = Array.isArray(all) && all.length > 0;
+  const featuredPosts = featured ?? [];
+  const latestPosts = all ?? [];
 
   return (
-    <div className="min-h-screen bg-black text-white">
-      {/* Header */}
-      <section className="py-20 bg-gradient-to-br from-black via-gray-900 to-black">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
-            <h1 className="text-5xl lg:text-6xl font-bold mb-6">
-              Audio Jones <span className="text-[#FF4500]">Blog</span>
-            </h1>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Operator insights on AI marketing, automation, and predictable growth. 
-              Miami-forward perspective on the creator economy and business development.
-            </p>
-          </div>
+    <div
+      className="min-h-screen"
+      style={{ background: "#05070F" }}
+    >
+      {/* ── Hero ── */}
+      <section className="border-b border-[var(--line-2)] py-24 sm:py-32">
+        <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
+          <Eyebrow>Knowledge Base</Eyebrow>
+          <h1
+            className="mt-4 text-balance"
+            style={{
+              fontFamily: "var(--font-headline)",
+              fontSize: "clamp(2.4rem, 5vw, 4.2rem)",
+              fontWeight: 700,
+              lineHeight: 1.0,
+              letterSpacing: "-0.03em",
+              color: "#FFFFFF",
+            }}
+          >
+            Applied Intelligence,<br />
+            <span style={{ color: "#FF4500" }}>documented.</span>
+          </h1>
+          <p
+            className="mt-5 max-w-2xl"
+            style={{
+              fontFamily: "var(--font-accent)",
+              fontSize: "18px",
+              lineHeight: 1.6,
+              color: "rgba(255,255,255,0.65)",
+            }}
+          >
+            The Audio Jones blog documents Applied Intelligence Systems, signal strategy,
+            M.A.P Attribution, and AI-readiness for founder-led businesses.
+          </p>
+        </div>
+      </section>
 
-          {/* Pillar Filter */}
-          <div className="flex flex-wrap justify-center gap-4 mb-12">
-            <Link
-              href="/blog"
-              className={`px-6 py-3 rounded-full transition-colors ${
-                !currentPillar 
-                  ? 'bg-[#FF4500] text-white' 
-                  : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
-              }`}
-            >
-              All Posts
-            </Link>
-            {Object.entries(PILLARS).map(([key, config]) => (
+      {/* ── Topic cluster rail ── */}
+      <section className="border-b border-[var(--line-2)] py-16">
+        <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
+          <p
+            className="mb-8"
+            style={{
+              fontFamily: "var(--font-body)",
+              fontSize: "9px",
+              fontWeight: 700,
+              letterSpacing: "0.22em",
+              textTransform: "uppercase",
+              color: "rgba(255,255,255,0.35)",
+            }}
+          >
+            Topic Clusters
+          </p>
+
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+            {TOPIC_CLUSTERS.map((cluster) => (
               <Link
-                key={key}
-                href={`/blog?pillar=${key}`}
-                className={`px-6 py-3 rounded-full transition-colors ${
-                  currentPillar === key
-                    ? 'text-white'
-                    : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
-                }`}
+                key={cluster.slug}
+                href={`/blog/topic/${cluster.slug}`}
+                className="group flex flex-col rounded-2xl p-5 transition-all duration-200"
                 style={{
-                  backgroundColor: currentPillar === key ? config.color : undefined
+                  background: "rgba(10,14,28,0.72)",
+                  border: `1px solid ${cluster.accent}22`,
+                  borderTop: `2px solid ${cluster.accent}`,
                 }}
               >
-                {config.label}
+                <span
+                  className="mb-3 text-2xl"
+                  style={{ color: cluster.accent }}
+                  aria-hidden
+                >
+                  {cluster.icon}
+                </span>
+                <span
+                  className="mb-2 font-semibold leading-snug"
+                  style={{
+                    fontFamily: "var(--font-headline)",
+                    fontSize: "14px",
+                    color: "#FFFFFF",
+                    letterSpacing: "-0.01em",
+                  }}
+                >
+                  {cluster.label}
+                </span>
+                <span
+                  style={{
+                    fontFamily: "var(--font-body)",
+                    fontSize: "12px",
+                    color: "rgba(255,255,255,0.45)",
+                    lineHeight: 1.5,
+                  }}
+                >
+                  {cluster.description}
+                </span>
+                <span
+                  className="mt-auto pt-4"
+                  style={{
+                    fontFamily: "var(--font-body)",
+                    fontSize: "11px",
+                    color: cluster.accent,
+                    letterSpacing: "0.08em",
+                  }}
+                >
+                  Explore →
+                </span>
               </Link>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Blog Posts Grid */}
-      <section className="py-20">
-        <div className="container mx-auto px-6">
-          {posts.length === 0 ? (
-            <div className="text-center py-20">
-              <h2 className="text-2xl font-bold text-gray-400 mb-4">
-                No posts found
-              </h2>
-              <p className="text-gray-500">
-                {currentPillar 
-                  ? `No posts available for ${formatPillarForDisplay(currentPillar)} yet.`
-                  : 'No blog posts available yet.'
-                }
-              </p>
-            </div>
-          ) : (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {posts.map((post) => (
-                <BlogPostCard key={post.id} post={post} />
-              ))}
-            </div>
+      {hasPosts ? (
+        <>
+          {/* ── Featured posts ── */}
+          {featuredPosts.length > 0 && (
+            <section className="border-b border-[var(--line-2)] py-20">
+              <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
+                <Eyebrow>Featured</Eyebrow>
+                <div className="mt-8 grid gap-6 lg:grid-cols-3">
+                  {featuredPosts.map((post) => (
+                    <PostCard key={post._id} post={post} featured />
+                  ))}
+                </div>
+              </div>
+            </section>
           )}
 
-          {/* Load More / Pagination */}
-          {posts.length > 0 && (
-            <div className="text-center mt-16">
-              <button className="bg-[#FF4500] text-white px-8 py-4 rounded-lg font-semibold hover:bg-[#FF4500]/90 transition-colors">
-                Load More Posts
-              </button>
+          {/* ── Latest posts ── */}
+          <section className="py-20">
+            <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
+              <Eyebrow>Latest</Eyebrow>
+              <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {latestPosts.map((post) => (
+                  <PostCard key={post._id} post={post} />
+                ))}
+              </div>
             </div>
-          )}
-        </div>
-      </section>
+          </section>
+        </>
+      ) : (
+        <EmptyState configured={isSanityConfigured} />
+      )}
 
-      {/* Newsletter CTA */}
-      <section className="py-20 bg-gray-900/50">
-        <div className="container mx-auto px-6">
-          <div className="bg-gradient-to-r from-[#FF4500]/10 to-[#FFD700]/10 border border-[#FF4500]/20 rounded-2xl p-12 text-center">
-            <h2 className="text-3xl lg:text-4xl font-bold mb-6">
-              Get Audio Jones <span className="text-[#FF4500]">Weekly Insights</span>
+      {/* ── Framework CTA ── */}
+      <section className="border-t border-[var(--line-2)] py-20">
+        <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
+          <div
+            className="rounded-3xl p-10 sm:p-14"
+            style={{
+              background: "linear-gradient(135deg, rgba(59,91,255,0.08) 0%, rgba(255,69,0,0.06) 100%)",
+              border: "1px solid rgba(255,255,255,0.07)",
+            }}
+          >
+            <p
+              style={{
+                fontFamily: "var(--font-body)",
+                fontSize: "10px",
+                fontWeight: 700,
+                letterSpacing: "0.22em",
+                textTransform: "uppercase",
+                color: "#C8A96A",
+                marginBottom: "16px",
+              }}
+            >
+              Continue the signal path
+            </p>
+            <h2
+              style={{
+                fontFamily: "var(--font-headline)",
+                fontSize: "clamp(1.6rem, 3vw, 2.6rem)",
+                fontWeight: 700,
+                letterSpacing: "-0.03em",
+                color: "#FFFFFF",
+                marginBottom: "12px",
+              }}
+            >
+              From insight to operating system.
             </h2>
-            <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-              Join 5,000+ operators getting weekly insights on AI marketing, automation, 
-              and predictable growth strategies. Miami-forward perspective delivered to your inbox.
+            <p
+              style={{
+                fontFamily: "var(--font-accent)",
+                fontSize: "16px",
+                color: "rgba(255,255,255,0.60)",
+                marginBottom: "28px",
+                maxWidth: "52ch",
+              }}
+            >
+              The blog documents the thinking. The frameworks and diagnostic
+              are where it becomes a system for your business.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-              <input
-                type="email"
-                placeholder="Your email address"
-                className="flex-1 px-6 py-4 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-[#FF4500] focus:outline-none"
-              />
-              <button className="bg-[#FF4500] text-white px-8 py-4 rounded-lg font-semibold hover:bg-[#FF4500]/90 transition-colors whitespace-nowrap">
-                Subscribe
-              </button>
+            <div className="flex flex-wrap gap-3">
+              <ButtonLink href="/frameworks" variant="system-glow">
+                Explore Frameworks
+              </ButtonLink>
+              <ButtonLink href="/applied-intelligence/diagnostic" variant="glow">
+                Book Diagnostic
+              </ButtonLink>
             </div>
-            <p className="text-sm text-gray-400 mt-4">
-              No spam. Unsubscribe anytime. Powered by Audio Jones AI systems.
-            </p>
           </div>
         </div>
       </section>
@@ -267,86 +293,161 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
   );
 }
 
-// Blog Post Card Component
-function BlogPostCard({ post }: { post: BlogPost }) {
-  const pillarConfig = PILLARS[post.pillar];
-  
+// ─── Sub-components ───────────────────────────────────────────────────────────
+
+function PostCard({ post, featured = false }: { post: PostStub; featured?: boolean }) {
+  const cluster = post.topicCluster;
+
   return (
-    <article className="bg-gray-900/50 border border-gray-800 rounded-xl overflow-hidden hover:border-[#FF4500]/30 transition-all duration-300 group">
-      {/* Featured Image */}
-      {post.ogImage && (
-        <div className="aspect-[16/9] overflow-hidden">
-          <IKImage
-            src={post.ogImage}
-            alt={post.title}
-            width={400}
-            height={225}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-          />
-        </div>
+    <article
+      className="group flex flex-col rounded-2xl overflow-hidden transition-all duration-200"
+      style={{
+        background: "rgba(10,14,28,0.72)",
+        border: "1px solid rgba(255,255,255,0.06)",
+      }}
+    >
+      {/* Cover image placeholder */}
+      {post.coverImage?.url ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={post.coverImage.url}
+          alt={post.coverImage.alt ?? post.title}
+          className="aspect-[16/9] w-full object-cover"
+        />
+      ) : (
+        <div
+          className="aspect-[16/9] w-full"
+          style={{ background: "rgba(59,91,255,0.06)", borderBottom: "1px solid rgba(255,255,255,0.05)" }}
+          aria-hidden
+        />
       )}
 
-      <div className="p-6">
-        {/* Pillar Badge & Meta */}
-        <div className="flex items-center justify-between mb-4">
+      <div className="flex flex-1 flex-col p-6">
+        {cluster && (
           <span
-            className="px-3 py-1 rounded-full text-xs font-semibold text-white"
-            style={{ backgroundColor: pillarConfig.color }}
+            className="mb-3 inline-block"
+            style={{
+              fontFamily: "var(--font-body)",
+              fontSize: "9px",
+              fontWeight: 700,
+              letterSpacing: "0.18em",
+              textTransform: "uppercase",
+              color: "#3B5BFF",
+            }}
           >
-            {pillarConfig.label}
+            {cluster.title}
           </span>
-          <div className="flex items-center gap-4 text-sm text-gray-400">
-            <span>{post.readingTime} min read</span>
-            {post.contentPerformance && (
-              <span>{post.contentPerformance.views.toLocaleString()} views</span>
-            )}
-          </div>
-        </div>
+        )}
 
-        {/* Title & Description */}
-        <Link href={`/blog/${post.slug}`} className="group">
-          <h2 className="text-xl font-bold mb-3 group-hover:text-[#FF4500] transition-colors line-clamp-2">
+        <Link href={`/blog/${post.slug.current}`} className="flex-1">
+          <h2
+            className="mb-3 leading-snug transition-colors group-hover:text-[#FF4500]"
+            style={{
+              fontFamily: "var(--font-headline)",
+              fontSize: featured ? "20px" : "17px",
+              fontWeight: 700,
+              letterSpacing: "-0.02em",
+              color: "#FFFFFF",
+            }}
+          >
             {post.title}
           </h2>
         </Link>
-        
-        <p className="text-gray-300 mb-4 line-clamp-3">
-          {post.seoDescription}
-        </p>
 
-        {/* Key Takeaways */}
-        {post.keyTakeaways.length > 0 && (
-          <div className="mb-4">
-            <h3 className="text-sm font-semibold text-[#FFD700] mb-2">Key Takeaways:</h3>
-            <ul className="space-y-1">
-              {post.keyTakeaways.slice(0, 2).map((takeaway, index) => (
-                <li key={index} className="text-sm text-gray-400 flex items-start">
-                  <span className="text-[#FF4500] mr-2">•</span>
-                  {takeaway}
-                </li>
-              ))}
-            </ul>
-          </div>
+        {post.excerpt && (
+          <p
+            className="mb-4 line-clamp-3"
+            style={{
+              fontFamily: "var(--font-body)",
+              fontSize: "13px",
+              color: "rgba(255,255,255,0.50)",
+              lineHeight: 1.6,
+            }}
+          >
+            {post.excerpt}
+          </p>
         )}
 
-        {/* Footer */}
-        <div className="flex items-center justify-between pt-4 border-t border-gray-800">
-          <div className="text-sm text-gray-400">
-            {new Date(post.publishedAt).toLocaleDateString('en-US', {
-              month: 'short',
-              day: 'numeric',
-              year: 'numeric'
-            })}
-          </div>
-          
-          <Link 
-            href={`/blog/${post.slug}`}
-            className="text-[#FF4500] hover:text-[#FF4500]/80 transition-colors text-sm font-semibold"
+        <div className="mt-auto flex items-center justify-between pt-4" style={{ borderTop: "1px solid rgba(255,255,255,0.05)" }}>
+          {post.publishedAt && (
+            <time
+              dateTime={post.publishedAt}
+              style={{ fontFamily: "var(--font-body)", fontSize: "11px", color: "rgba(255,255,255,0.30)" }}
+            >
+              {new Date(post.publishedAt).toLocaleDateString("en-US", {
+                month: "short",
+                day: "numeric",
+                year: "numeric",
+              })}
+            </time>
+          )}
+          <Link
+            href={`/blog/${post.slug.current}`}
+            style={{ fontFamily: "var(--font-body)", fontSize: "11px", color: "#FF4500", letterSpacing: "0.08em" }}
           >
-            Read More →
+            Read →
           </Link>
         </div>
       </div>
     </article>
+  );
+}
+
+function EmptyState({ configured }: { configured: boolean }) {
+  return (
+    <section className="py-24">
+      <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
+        <div className="mx-auto max-w-2xl text-center">
+          <p
+            className="mb-4"
+            style={{
+              fontFamily: "var(--font-body)",
+              fontSize: "9px",
+              fontWeight: 700,
+              letterSpacing: "0.22em",
+              textTransform: "uppercase",
+              color: "rgba(255,255,255,0.25)",
+            }}
+          >
+            {configured ? "No posts published yet" : "Content system initializing"}
+          </p>
+          <h2
+            style={{
+              fontFamily: "var(--font-headline)",
+              fontSize: "clamp(1.8rem, 3vw, 2.8rem)",
+              fontWeight: 700,
+              letterSpacing: "-0.03em",
+              color: "#FFFFFF",
+              marginBottom: "16px",
+            }}
+          >
+            The Audio Jones knowledge base<br />
+            <span style={{ color: "#FF4500" }}>is being structured.</span>
+          </h2>
+          <p
+            style={{
+              fontFamily: "var(--font-accent)",
+              fontSize: "16px",
+              color: "rgba(255,255,255,0.50)",
+              lineHeight: 1.6,
+              marginBottom: "32px",
+            }}
+          >
+            Articles on Applied Intelligence Systems, signal strategy, M.A.P Attribution,
+            and AI-readiness are being written and structured into topic clusters.
+          </p>
+          <p
+            style={{
+              fontFamily: "var(--font-body)",
+              fontSize: "12px",
+              color: "rgba(255,255,255,0.25)",
+              letterSpacing: "0.08em",
+            }}
+          >
+            Explore the topic clusters above to see what&apos;s coming.
+          </p>
+        </div>
+      </div>
+    </section>
   );
 }
