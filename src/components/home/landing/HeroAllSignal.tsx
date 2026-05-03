@@ -5,27 +5,19 @@ import { ButtonLink } from "@/components/ui/Button";
  * HeroAllSignal — layered editorial-tech composition.
  *
  * Layer stack (bottom → top):
- *  1. CSS gradient background split (dark left / light right)
- *  2. Left dense noise PNG (responsive)
- *  3. Center transition noise PNG (desktop)
- *  4. "ALL SIGNAL" live typography (behind portrait)
- *  5. Portrait transparent cutout (responsive)
- *  6. System diagram PNG (right side)
- *  8. Metrics strip (live text, lower right)
- *  9. Left content block (headline / copy / CTAs)
+ *  1. Background PNG — dark noise left / clean system right (responsive)
+ *  2. "ALL SIGNAL" live typography (behind portrait)
+ *  3. Portrait transparent cutout (responsive)
+ *  4. Metrics strip (live text, lower right)
+ *  5. Left content block (headline / copy / CTAs)
  *
- * Asset path mapping (actual filenames on disk):
- *  portrait desktop  → portrait/portraithero-portrait-audiojones-transparent.png.png
- *  portrait tablet   → portrait/portraithero-portrait-tablet-audiojones-transparent.png.png
- *  portrait mobile   → portrait/portraithero-portrait-audiojones-mobile-transparent.png.png
- *  noise left desktop → noise-layer/hero-noise-left-dense-transparent.png.png
- *  noise left tablet  → noise-layer/hero-noise-left-dense-tablet-transparent.png
- *  noise left mobile  → noise-layer/hero-noise-left-dense-mobile-transparent.png
- *  noise center desktop → noise-layer/hero-noise-transition-center-transparent.png.png
- *  noise center tablet  → noise-layer/hero-noise-transition-center-tablet-transparent.png
- *  system diagram desktop → system-diagram/hero-system-diagram-transparent.png.png
- *  system diagram tablet  → system-diagram/hero-system-diagram-tablet-transparent.png.png
- *  system diagram mobile  → system-diagram/hero-system-diagram-mobile-transparent.png.png
+ * Asset path mapping:
+ *  background desktop → backgrounds/hero-bg-split-dark-light-system-desktop.png
+ *  background tablet  → backgrounds/hero-bg-split-dark-light-system-tablet.png
+ *  background mobile  → backgrounds/hero-bg-split-dark-light-system-mobile.png
+ *  portrait desktop   → portrait/portraithero-portrait-audiojones-transparent.png
+ *  portrait tablet    → portrait/portraithero-portrait-tablet-audiojones-transparent.png.png
+ *  portrait mobile    → portrait/portraithero-portrait-audiojones-mobile-transparent.png.png
  */
 
 const ASSET = "/assets/Homepage/02-hero-all-signal";
@@ -49,167 +41,61 @@ export default function HeroAllSignal() {
         flexDirection: "column",
       }}
     >
-      {/* ── 1. Background: CSS gradient split ── */}
-      <div
-        aria-hidden
-        style={{
-          position: "absolute",
-          inset: 0,
-          zIndex: 0,
-          // mobile: mostly dark
-          background: "#05070F",
-        }}
-        className="lg:hidden"
-      />
-      {/* Desktop gradient split: dark 0–40%, light 40–100% */}
-      <div
-        aria-hidden
-        style={{
-          position: "absolute",
-          inset: 0,
-          zIndex: 0,
-          background:
-            "linear-gradient(to right, #05070F 0%, #05070F 40%, #F0F0F0 40%, #F5F5F5 100%)",
-        }}
-        className="hidden lg:block"
-      />
-      {/* Tablet: dark 0–48%, light 48–100% */}
-      <div
-        aria-hidden
-        style={{
-          position: "absolute",
-          inset: 0,
-          zIndex: 0,
-          background:
-            "linear-gradient(to right, #05070F 0%, #05070F 48%, #F0F0F0 48%, #F5F5F5 100%)",
-        }}
-        className="hidden md:block lg:hidden"
-      />
-
-      {/* ── Grid texture on dark side ── */}
-      <svg
-        aria-hidden
-        style={{
-          position: "absolute",
-          left: 0,
-          top: 0,
-          width: "46%",
-          height: "100%",
-          opacity: 0.04,
-          zIndex: 1,
-          pointerEvents: "none",
-        }}
-        className="hidden lg:block"
-        preserveAspectRatio="none"
-        viewBox="0 0 640 800"
-      >
-        <defs>
-          <pattern id="hg" width="64" height="64" patternUnits="userSpaceOnUse">
-            <path d="M 64 0 L 0 0 0 64" fill="none" stroke="white" strokeWidth="0.5" />
-          </pattern>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#hg)" />
-      </svg>
-
-      {/* ── 2. Noise layer — mobile ── */}
+      {/* ── 1. Background — mobile ── */}
       <div
         aria-hidden
         className="block md:hidden"
-        style={{
-          position: "absolute",
-          inset: 0,
-          zIndex: 1,
-          opacity: 0.45,
-          pointerEvents: "none",
-        }}
+        style={{ position: "absolute", inset: 0, zIndex: 0 }}
       >
         <div style={{ position: "relative", width: "100%", height: "100%" }}>
           <Image
-            src={`${ASSET}/noise-layer/hero-noise-left-dense-mobile-transparent.png`}
+            src={`${ASSET}/backgrounds/hero-bg-split-dark-light-system-mobile.png`}
             alt=""
             fill
-            className="object-cover object-left-top"
+            priority
+            className="object-cover object-top"
             sizes="100vw"
           />
         </div>
       </div>
 
-      {/* ── 2. Noise layer — tablet ── */}
+      {/* ── 1. Background — tablet ── */}
       <div
         aria-hidden
         className="hidden md:block lg:hidden"
-        style={{
-          position: "absolute",
-          inset: 0,
-          zIndex: 1,
-          opacity: 0.6,
-          pointerEvents: "none",
-        }}
+        style={{ position: "absolute", inset: 0, zIndex: 0 }}
       >
         <div style={{ position: "relative", width: "100%", height: "100%" }}>
           <Image
-            src={`${ASSET}/noise-layer/hero-noise-left-dense-tablet-transparent.png`}
+            src={`${ASSET}/backgrounds/hero-bg-split-dark-light-system-tablet.png`}
             alt=""
             fill
-            className="object-cover object-left-top"
+            priority
+            className="object-cover object-top"
             sizes="100vw"
           />
         </div>
       </div>
 
-      {/* ── 2. Noise layer — desktop (left dense) ── */}
+      {/* ── 1. Background — desktop ── */}
       <div
         aria-hidden
         className="hidden lg:block"
-        style={{
-          position: "absolute",
-          left: 0,
-          top: 0,
-          width: "46%",
-          height: "100%",
-          zIndex: 1,
-          opacity: 0.82,
-          pointerEvents: "none",
-        }}
+        style={{ position: "absolute", inset: 0, zIndex: 0 }}
       >
         <div style={{ position: "relative", width: "100%", height: "100%" }}>
           <Image
-            src={`${ASSET}/noise-layer/hero-noise-left-dense-transparent.png.png`}
+            src={`${ASSET}/backgrounds/hero-bg-split-dark-light-system-desktop.png`}
             alt=""
             fill
-            className="object-cover object-left-top"
-            sizes="46vw"
+            priority
+            className="object-cover"
+            sizes="100vw"
           />
         </div>
       </div>
 
-      {/* ── 3. Noise layer — desktop center transition ── */}
-      <div
-        aria-hidden
-        className="hidden lg:block"
-        style={{
-          position: "absolute",
-          left: "30%",
-          top: 0,
-          width: "26%",
-          height: "100%",
-          zIndex: 1,
-          opacity: 0.7,
-          pointerEvents: "none",
-        }}
-      >
-        <div style={{ position: "relative", width: "100%", height: "100%" }}>
-          <Image
-            src={`${ASSET}/noise-layer/hero-noise-transition-center-transparent.png.png`}
-            alt=""
-            fill
-            className="object-cover object-center"
-            sizes="26vw"
-          />
-        </div>
-      </div>
-
-      {/* ── 4. "ALL SIGNAL" live mega typography ── */}
+      {/* ── 2. "ALL SIGNAL" live mega typography ── */}
       {/* Desktop: positioned right of center, behind portrait */}
       <div
         aria-hidden
@@ -280,7 +166,7 @@ export default function HeroAllSignal() {
         <span style={{ color: "#FF4500", opacity: 0.65 }}>SIGNAL</span>
       </div>
 
-      {/* ── 5 + 6. Portrait + Signal node — desktop ── */}
+      {/* ── 3. Portrait — desktop ── */}
       <div
         className="hidden lg:block"
         style={{
@@ -307,7 +193,7 @@ export default function HeroAllSignal() {
         </div>
       </div>
 
-      {/* ── 5. Portrait — tablet ── */}
+      {/* ── 3. Portrait — tablet ── */}
       <div
         className="hidden md:block lg:hidden"
         style={{
@@ -334,55 +220,7 @@ export default function HeroAllSignal() {
         </div>
       </div>
 
-      {/* ── 7. System diagram — desktop ── */}
-      <div
-        className="hidden lg:block"
-        style={{
-          position: "absolute",
-          right: "3.5rem",
-          top: "38%",
-          width: "30vw",
-          maxWidth: "500px",
-          height: "160px",
-          zIndex: 5,
-        }}
-      >
-        <div style={{ position: "relative", width: "100%", height: "100%" }}>
-          <Image
-            src={`${ASSET}/system-diagram/hero-system-diagram-transparent.png.png`}
-            alt="Applied Intelligence loop: Input → Process → Output → Feedback"
-            fill
-            className="object-contain object-right"
-            sizes="(max-width: 1280px) 30vw, 500px"
-          />
-        </div>
-      </div>
-
-      {/* ── 7. System diagram — tablet ── */}
-      <div
-        className="hidden md:block lg:hidden"
-        style={{
-          position: "absolute",
-          right: "1.5rem",
-          bottom: "18%",
-          width: "42vw",
-          maxWidth: "380px",
-          height: "120px",
-          zIndex: 5,
-        }}
-      >
-        <div style={{ position: "relative", width: "100%", height: "100%" }}>
-          <Image
-            src={`${ASSET}/system-diagram/hero-system-diagram-tablet-transparent.png.png`}
-            alt="Applied Intelligence loop"
-            fill
-            className="object-contain object-right"
-            sizes="42vw"
-          />
-        </div>
-      </div>
-
-      {/* ── 8. Metrics strip — desktop (live text, dark card) ── */}
+      {/* ── 4. Metrics strip — desktop (live text, dark card) ── */}
       <div
         className="hidden lg:block"
         style={{
@@ -439,7 +277,7 @@ export default function HeroAllSignal() {
         ))}
       </div>
 
-      {/* ── 9. Left content block — desktop ── */}
+      {/* ── 5. Left content block — desktop ── */}
       <div
         className="hidden lg:flex"
         style={{
