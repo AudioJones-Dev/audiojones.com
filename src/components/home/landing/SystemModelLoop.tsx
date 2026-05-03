@@ -4,7 +4,7 @@ import { Eyebrow } from "@/components/ui/Eyebrow";
 // ─── Asset ───────────────────────────────────────────────────────────────────
 
 const BG =
-  "/assets/Homepage/07-applied-intelligence-systems/backgrounds/ais-bg-system-readiness-desktop.png";
+  "/assets/Homepage/07-applied-intelligence-systems/backgrounds/applied-intelligence-systems-background.png";
 
 // ─── Stage data ──────────────────────────────────────────────────────────────
 
@@ -336,46 +336,28 @@ export default function SystemModelLoop() {
           alt=""
           fill
           className="object-cover object-center"
-          style={{ opacity: 0.58 }}
+          style={{ opacity: 0.88 }}
           sizes="100vw"
         />
       </div>
 
-      {/* ── Dark overlay gradient ── */}
+      {/* ── Dark overlay — edges only, open in the middle to show the image ── */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 -z-10"
         style={{
           background:
-            "linear-gradient(180deg, rgba(5,7,15,0.82), rgba(5,7,15,0.56) 42%, rgba(5,7,15,0.88))",
+            "linear-gradient(180deg, rgba(5,7,15,0.60) 0%, rgba(5,7,15,0.18) 35%, rgba(5,7,15,0.18) 65%, rgba(5,7,15,0.72) 100%)",
         }}
       />
 
-      {/* ── Orange bloom — top right ── */}
+      {/* ── Left-edge fade so text stays readable ── */}
       <div
         aria-hidden
-        className="pointer-events-none absolute -z-10"
+        className="pointer-events-none absolute inset-0 -z-10"
         style={{
-          top: "-8%",
-          right: "-6%",
-          width: "46%",
-          height: "56%",
           background:
-            "radial-gradient(ellipse 70% 60% at 88% 12%, rgba(255,69,0,0.13), transparent 70%)",
-        }}
-      />
-
-      {/* ── Blue glow — Process node region ── */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -z-10"
-        style={{
-          top: "30%",
-          left: "18%",
-          width: "44%",
-          height: "55%",
-          background:
-            "radial-gradient(ellipse 60% 50% at 50% 50%, rgba(59,91,255,0.08), transparent 70%)",
+            "linear-gradient(90deg, rgba(5,7,15,0.65) 0%, transparent 40%)",
         }}
       />
 
@@ -398,8 +380,9 @@ export default function SystemModelLoop() {
         <div
           className="relative rounded-[var(--r-panel)] border border-[var(--line-2)] p-8 sm:p-12"
           style={{
-            background: "rgba(7,11,24,0.76)",
-            backdropFilter: "blur(10px)",
+            background: "rgba(5,8,20,0.52)",
+            backdropFilter: "blur(18px)",
+            boxShadow: "0 0 0 1px rgba(59,91,255,0.12), inset 0 1px 0 rgba(255,255,255,0.04)",
           }}
         >
           {/* Inner blue glow — Process node zone */}
