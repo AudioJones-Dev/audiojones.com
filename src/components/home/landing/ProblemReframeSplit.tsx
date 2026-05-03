@@ -49,32 +49,32 @@ export default function ProblemReframeSplit() {
         />
       </div>
 
-      {/* ── Restrained orange glow — lower right ── */}
+      {/* ── Orange glow — lower center/right ── */}
       <div
         aria-hidden
         className="pointer-events-none absolute"
         style={{
           zIndex: 0,
-          bottom: "-10%",
-          right: "-5%",
-          width: "40%",
-          height: "55%",
+          bottom: "-8%",
+          right: "8%",
+          width: "46%",
+          height: "52%",
           background:
-            "radial-gradient(ellipse at 80% 80%, rgba(255,69,0,0.07), transparent 65%)",
+            "radial-gradient(ellipse at 70% 85%, rgba(255,69,0,0.09), transparent 62%)",
         }}
       />
-      {/* ── Faint blue glow — upper right ── */}
+      {/* ── Blue glow — behind/right of System card ── */}
       <div
         aria-hidden
-        className="pointer-events-none absolute"
+        className="pointer-events-none absolute hidden lg:block"
         style={{
           zIndex: 0,
-          top: "-8%",
-          right: "0%",
-          width: "30%",
-          height: "40%",
+          top: "20%",
+          right: "-4%",
+          width: "38%",
+          height: "65%",
           background:
-            "radial-gradient(ellipse at 80% 20%, rgba(59,91,255,0.07), transparent 65%)",
+            "radial-gradient(ellipse at 85% 40%, rgba(59,91,255,0.11), transparent 60%)",
         }}
       />
 
@@ -97,16 +97,45 @@ export default function ProblemReframeSplit() {
             Most companies misdiagnose stalled growth as a marketing or AI
             problem. Underneath, the architecture is leaking signal.
           </p>
-          {/* Orange accent rule */}
+          {/* Signal-path rule */}
           <div
             className="mt-6"
             style={{
-              width: "48px",
-              height: "2px",
+              width: "56px",
+              height: "1.5px",
               background:
-                "linear-gradient(to right, #FF4500, rgba(255,69,0,0))",
+                "linear-gradient(to right, #FF4500 0%, rgba(255,69,0,0.5) 60%, rgba(255,69,0,0) 100%)",
               borderRadius: "1px",
+              boxShadow: "0 0 6px 1px rgba(255,69,0,0.28)",
             }}
+          />
+        </div>
+
+        {/* ── Transition cue — desktop only ── */}
+        <div
+          aria-hidden
+          className="mb-4 hidden items-center gap-3 lg:flex"
+        >
+          <div
+            className="h-px flex-1"
+            style={{ background: "rgba(200,169,106,0.14)" }}
+          />
+          <span
+            style={{
+              fontFamily: "var(--font-body)",
+              fontSize: "9px",
+              letterSpacing: "0.20em",
+              textTransform: "uppercase",
+              color: "rgba(255,255,255,0.28)",
+            }}
+          >
+            Misattribution{" "}
+            <span style={{ color: "#FF4500", opacity: 0.7 }}>→</span>{" "}
+            Attribution
+          </span>
+          <div
+            className="h-px flex-1"
+            style={{ background: "rgba(59,91,255,0.18)" }}
           />
         </div>
 
@@ -116,8 +145,8 @@ export default function ProblemReframeSplit() {
             aria-label="Noise side"
             className="relative flex flex-col overflow-hidden rounded-[var(--r-card)]"
             style={{
-              background: "rgba(8,10,20,0.72)",
-              border: "1px solid rgba(255,255,255,0.07)",
+              background: "rgba(7,9,18,0.78)",
+              border: "1px solid rgba(200,169,106,0.18)",
               backdropFilter: "blur(12px)",
             }}
           >
@@ -168,10 +197,10 @@ export default function ProblemReframeSplit() {
             className="relative flex flex-col overflow-hidden rounded-[var(--r-card)]"
             style={{
               background: "rgba(8,12,28,0.82)",
-              border: "1px solid rgba(59,91,255,0.20)",
+              border: "1px solid rgba(59,91,255,0.45)",
               backdropFilter: "blur(12px)",
               boxShadow:
-                "0 0 60px -12px rgba(59,91,255,0.16), 0 0 30px -8px rgba(255,69,0,0.06)",
+                "0 0 56px -10px rgba(59,91,255,0.22), 0 0 28px -8px rgba(255,69,0,0.07), inset 0 0 0 1px rgba(59,91,255,0.08)",
             }}
           >
             {/* Blue→orange top edge */}
@@ -189,7 +218,8 @@ export default function ProblemReframeSplit() {
               className="absolute right-6 top-6 h-2 w-2 rounded-full"
               style={{
                 background: "#3B5BFF",
-                boxShadow: "0 0 8px 2px rgba(59,91,255,0.5)",
+                boxShadow:
+                  "0 0 0 3px rgba(59,91,255,0.12), 0 0 10px 2px rgba(59,91,255,0.45)",
               }}
             />
             <div className="p-8 sm:p-10">
