@@ -42,3 +42,14 @@ next-env.d.ts
 audiojones.com/
 
 .env.vercel.*
+
+# Claude Code worktree management directory (per-session, never commit)
+.claude/
+
+# Local CLI capture output and dev scratch (never commit).
+# Caught a bunch of these in the W1.6 sweep — preventing recurrence.
+*_out.txt
+*_err.txt
+_tmp_*
+deploy.bat
+deploy*.bat

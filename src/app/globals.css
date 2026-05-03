@@ -1,65 +1,494 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-  --aj-orange: #FF4500;
-  --aj-blue: #00A4FF;
-  --aj-dark: #1E2A3A;
-  --aj-light: #F5F5F5;
+/* ============================================================
+   Audio Jones — Canonical Design Tokens
+   Single source of truth. Mirrors `colors_and_type.css` from
+   the brand-folder design system, adapted for Tailwind v4 +
+   Next.js App Router.
+
+   Brand: Audio Jones (AJ Digital LLC) — Applied Intelligence
+   Systems Partner for founder-led businesses ($250K–$5M).
+
+   Reference: docs/design.md
+   ============================================================ */
+
+/* ---------- FONTS (self-hosted, /public/fonts) ---------- */
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("/fonts/SpaceGrotesk-Regular.ttf") format("truetype");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("/fonts/SpaceGrotesk-Medium.ttf") format("truetype");
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("/fonts/SpaceGrotesk-SemiBold.ttf") format("truetype");
+  font-weight: 600; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("/fonts/SpaceGrotesk-Bold.ttf") format("truetype");
+  font-weight: 700; font-style: normal; font-display: swap;
 }
 
+@font-face {
+  font-family: "Sora";
+  src: url("/fonts/Sora-Regular.ttf") format("truetype");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Sora";
+  src: url("/fonts/Sora-Medium.ttf") format("truetype");
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Sora";
+  src: url("/fonts/Sora-SemiBold.ttf") format("truetype");
+  font-weight: 600; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Sora";
+  src: url("/fonts/Sora-Bold.ttf") format("truetype");
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter-Regular.ttf") format("truetype");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter-Italic.ttf") format("truetype");
+  font-weight: 400; font-style: italic; font-display: swap;
+}
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter-Medium.ttf") format("truetype");
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter-SemiBold.ttf") format("truetype");
+  font-weight: 600; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter-Bold.ttf") format("truetype");
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+
+/* ---------- TOKENS ---------- */
+:root {
+  /* Brand palette */
+  --aj-orange:       #FF4500;   /* primary accent — emphasis only */
+  --aj-orange-soft:  #FF6A30;
+  --aj-blue:         #0088CC;   /* secondary — intelligence / system layer */
+  --aj-blue-bright:  #3B5BFF;   /* component-level blue used in code */
+  --aj-gold:         #C8A96A;   /* eyebrows / metric labels */
+
+  /* Surfaces — dark (default) */
+  --bg-0:   #05070F;            /* page */
+  --bg-1:   #0B0F1A;            /* alt section */
+  --bg-2:   #0B1020;            /* card */
+  --bg-3:   #101827;            /* elevated card / table head */
+  --bg-4:   #1A2234;            /* hover surface */
+
+  /* Surfaces — light split (paired clarity layer; opt-in via `.surface-light`).
+     Dark remains the primary identity; light is the "clarity/system" contrast
+     used on the hero's right-hand system diagram, comparison panels, the
+     /results/* tier pages, etc. Do NOT convert whole site to light. */
+  --paper:        #F8FAFC;
+  --surface:      #F5F5F5;
+  --surface-soft: #EEF2F6;
+  --ink:          #111111;
+  --ink-muted:    #4B5563;
+  --border-light: rgba(17,17,17,0.10);
+
+  /* Legacy aliases (kept until call sites migrate) */
+  --bg-light-0: var(--paper);
+  --bg-light-1: var(--surface);
+  --bg-light-2: var(--surface-soft);
+
+  /* Text — dark */
+  --fg-0:   #FFFFFF;
+  --fg-1:   #E5E7EB;
+  --fg-2:   #94A3B8;
+  --fg-3:   #64748B;
+
+  /* Text — light (legacy aliases pinned to canonical ink tokens) */
+  --fg-light-0: var(--ink);
+  --fg-light-1: #1E2A3A;
+  --fg-light-2: var(--ink-muted);
+
+  /* Borders (carry meaning — see docs/design.md) */
+  --line-1: rgba(255,255,255,0.06);
+  --line-2: rgba(255,255,255,0.10);
+  --line-3: rgba(255,255,255,0.18);
+  --line-blue: rgba(59,91,255,0.40);
+  --line-gold: rgba(200,169,106,0.40);
+
+  /* Semantic aliases */
+  --signal:   var(--aj-orange);
+  --system:   var(--aj-blue-bright);
+  --metric:   var(--aj-gold);
+  --success:  #22C55E;
+  --warning:  #FACC15;
+  --danger:   #EF4444;
+
+  /* Brand identity aliases (canonical names) */
+  --orange-primary:  var(--aj-orange);
+  --blue-system:     var(--aj-blue);
+  --dark-primary:    var(--bg-0);
+  --dark-secondary:  var(--bg-1);
+
+  /* Type families */
+  --font-headline: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-accent:   "Sora", ui-sans-serif, system-ui, sans-serif;
+  --font-body:     "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono:     ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  /* Type scale (desktop) */
+  --fs-display-xl: 96px;
+  --fs-display-lg: 72px;
+  --fs-h1: 60px;
+  --fs-h2: 44px;
+  --fs-h3: 32px;
+  --fs-h4: 24px;
+  --fs-lead: 22px;
+  --fs-body-lg: 18px;
+  --fs-body: 16px;
+  --fs-small: 14px;
+  --fs-label: 12px;
+
+  /* Spacing scale */
+  --sp-xs:  4px;
+  --sp-sm:  8px;
+  --sp-md:  16px;
+  --sp-lg:  24px;
+  --sp-xl:  32px;
+  --sp-2xl: 48px;
+  --sp-3xl: 64px;
+  --sp-4xl: 96px;
+  --sp-5xl: 128px;
+
+  /* Radii */
+  --r-sm: 6px;
+  --r-md: 10px;
+  --r-lg: 16px;
+  --r-card: 20px;
+  --r-panel: 24px;
+  --r-pill: 9999px;
+
+  /* Layout */
+  --page-max: 1280px;
+  --copy-max: 720px;
+  --hero-max: 780px;
+  --gutter-desktop: 32px;
+  --gutter-tablet:  24px;
+  --gutter-mobile:  20px;
+
+  /* Shadows */
+  --shadow-glow-blue: 0 10px 40px -10px rgba(59,91,255,0.7);
+  --shadow-glow-orange: 0 10px 40px -10px rgba(255,69,0,0.5);
+  --shadow-card: inset 0 1px 0 rgba(255,255,255,0.04), 0 30px 80px -40px rgba(0,0,0,0.6);
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 120ms;
+  --dur-base: 180ms;
+  --dur-slow: 320ms;
+
+  /* Layout aliases used by Tailwind theme */
+  --background: var(--bg-0);
+  --foreground: var(--fg-1);
+}
+
+/* ---------- TAILWIND v4 THEME BRIDGE ---------- */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+
+  --color-aj-orange: var(--aj-orange);
+  --color-aj-orange-soft: var(--aj-orange-soft);
+  --color-aj-blue: var(--aj-blue);
+  --color-aj-blue-bright: var(--aj-blue-bright);
+  --color-aj-gold: var(--aj-gold);
+
+  --color-bg-0: var(--bg-0);
+  --color-bg-1: var(--bg-1);
+  --color-bg-2: var(--bg-2);
+  --color-bg-3: var(--bg-3);
+  --color-bg-4: var(--bg-4);
+
+  --color-bg-light-0: var(--bg-light-0);
+  --color-bg-light-1: var(--bg-light-1);
+  --color-bg-light-2: var(--bg-light-2);
+
+  --color-fg-0: var(--fg-0);
+  --color-fg-1: var(--fg-1);
+  --color-fg-2: var(--fg-2);
+  --color-fg-3: var(--fg-3);
+
+  --color-fg-light-0: var(--fg-light-0);
+  --color-fg-light-1: var(--fg-light-1);
+  --color-fg-light-2: var(--fg-light-2);
+
+  /* Canonical light-split tokens */
+  --color-paper:        var(--paper);
+  --color-surface:      var(--surface);
+  --color-surface-soft: var(--surface-soft);
+  --color-ink:          var(--ink);
+  --color-ink-muted:    var(--ink-muted);
+
+  /* Brand identity aliases */
+  --color-orange-primary: var(--orange-primary);
+  --color-blue-system:    var(--blue-system);
+  --color-dark-primary:   var(--dark-primary);
+  --color-dark-secondary: var(--dark-secondary);
+
+  --color-signal: var(--signal);
+  --color-system: var(--system);
+  --color-metric: var(--metric);
+
+  --font-headline: var(--font-headline);
+  --font-accent: var(--font-accent);
+  --font-body: var(--font-body);
+  --font-mono: var(--font-mono);
 }
 
-@media (prefers-color-scheme: dark) {
+/* ---------- BASE ---------- */
+html, body {
+  background: var(--bg-0);
+  color: var(--fg-1);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ---------- OPT-IN LIGHT SECTIONS ----------
+   Wrap a section/diagram in `<section class="surface-light">` (or
+   `<div data-surface="light">`) to flip just that subtree to the
+   light clarity layer. Default remains dark. No prefers-color-scheme
+   switching — light is a deliberate composition tool, not a theme. */
+.surface-light,
+[data-surface="light"] {
+  background: var(--paper);
+  color: var(--ink);
+  --bg-0: var(--paper);
+  --bg-1: var(--surface);
+  --bg-2: var(--surface);
+  --bg-3: var(--surface-soft);
+  --bg-4: var(--surface-soft);
+  --fg-0: var(--ink);
+  --fg-1: var(--ink);
+  --fg-2: var(--ink-muted);
+  --fg-3: var(--ink-muted);
+  --line-1: var(--border-light);
+  --line-2: var(--border-light);
+  --line-3: rgba(17,17,17,0.18);
+}
+.surface-light .t-display-xl,
+.surface-light .t-display-lg,
+.surface-light .t-h1,
+.surface-light .t-h2,
+.surface-light .t-h3,
+.surface-light .t-h4,
+[data-surface="light"] .t-display-xl,
+[data-surface="light"] .t-display-lg,
+[data-surface="light"] .t-h1,
+[data-surface="light"] .t-h2,
+[data-surface="light"] .t-h3,
+[data-surface="light"] .t-h4 {
+  color: var(--ink);
+}
+.surface-light .t-lead,
+.surface-light .t-body,
+.surface-light .t-body-lg,
+[data-surface="light"] .t-lead,
+[data-surface="light"] .t-body,
+[data-surface="light"] .t-body-lg {
+  color: var(--ink);
+}
+.surface-light .t-small,
+[data-surface="light"] .t-small {
+  color: var(--ink-muted);
+}
+
+/* ---------- SEMANTIC TYPOGRAPHY ---------- */
+.t-display-xl {
+  font-family: var(--font-headline);
+  font-size: var(--fs-display-xl);
+  font-weight: 700;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  color: var(--fg-0);
+}
+.t-display-lg {
+  font-family: var(--font-headline);
+  font-size: var(--fs-display-lg);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.035em;
+  color: var(--fg-0);
+}
+.t-h1 {
+  font-family: var(--font-headline);
+  font-size: var(--fs-h1);
+  font-weight: 700;
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+  color: var(--fg-0);
+}
+.t-h2 {
+  font-family: var(--font-headline);
+  font-size: var(--fs-h2);
+  font-weight: 650;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  color: var(--fg-0);
+}
+.t-h3 {
+  font-family: var(--font-headline);
+  font-size: var(--fs-h3);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--fg-0);
+}
+.t-h4 {
+  font-family: var(--font-accent);
+  font-size: var(--fs-h4);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--fg-0);
+}
+.t-lead {
+  font-family: var(--font-accent);
+  font-size: var(--fs-lead);
+  font-weight: 500;
+  line-height: 1.45;
+  letter-spacing: -0.01em;
+  color: var(--fg-1);
+}
+.t-body-lg {
+  font-family: var(--font-body);
+  font-size: var(--fs-body-lg);
+  font-weight: 400;
+  line-height: 1.65;
+  color: var(--fg-1);
+}
+.t-body {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--fg-1);
+}
+.t-small {
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  line-height: 1.5;
+  color: var(--fg-2);
+}
+.t-label {
+  font-family: var(--font-body);
+  font-size: var(--fs-label);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--metric);
+}
+.t-mono {
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  letter-spacing: 0.02em;
+  color: var(--fg-2);
+}
+
+/* Mobile scale overrides */
+@media (max-width: 640px) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --fs-display-xl: 54px;
+    --fs-display-lg: 46px;
+    --fs-h1: 42px;
+    --fs-h2: 34px;
+    --fs-h3: 26px;
+    --fs-h4: 22px;
+    --fs-lead: 19px;
+    --fs-body-lg: 17px;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ---------- ATMOSPHERIC GLOW UTILITIES (Wave-1.6) ----------
+   Repeated radial-gradient patterns extracted from the homepage
+   landing components. Use these on absolutely-positioned aria-hidden
+   wrappers; pair with `pointer-events-none` so they never intercept
+   input. Saturation mirrors the design system (Signal orange / system
+   blue / metric gold) at the muted opacity used across the brand. */
+.bg-glow-blue {
+  background: radial-gradient(
+    ellipse 65% 55% at 70% 50%,
+    rgba(59, 91, 255, 0.09),
+    transparent 70%
+  );
+}
+.bg-glow-orange {
+  background: radial-gradient(
+    ellipse 65% 55% at 30% 50%,
+    rgba(255, 69, 0, 0.09),
+    transparent 70%
+  );
+}
+.bg-glow-gold {
+  background: radial-gradient(
+    ellipse 60% 50% at 15% 80%,
+    rgba(200, 169, 106, 0.05),
+    transparent 65%
+  );
+}
+.bg-grid-fine {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 64px 64px;
 }
 
-/* Utilities */
+/* ---------- LEGACY UTILITIES (deprecated; preserved so legacy
+   marketing-surface routes don't visually regress while the
+   redesign rolls out wave-by-wave) ---------- */
 .gradient-bg {
   background: linear-gradient(90deg, #FF4500, #FFD700);
 }
-
-/* Gradient text utility */
 .gradient-text {
   background: linear-gradient(135deg, #FF4500, #FFD700);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
-
-/* Marquee scroll animation for brand logos */
 @keyframes scroll-x {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
-
 .animate-scroll {
   animation: scroll-x 30s linear infinite;
 }
 
-/* Base */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   min-height: 44px;
   padding: 0.875rem 2rem;
-  border-radius: 8px; /* 6–8px max */
+  border-radius: 8px;
   font-family: "Oswald", ui-sans-serif, system-ui, sans-serif;
   font-weight: 700;
   letter-spacing: 0.12em;
@@ -72,41 +501,173 @@ body {
   transition: opacity 180ms ease, border-color 180ms ease, color 180ms ease, background-color 180ms ease, transform 80ms ease;
   outline: none;
 }
-
 .btn:focus-visible {
-  box-shadow: 0 0 0 2px var(--aj-blue), 0 0 0 4px var(--aj-light);
+  box-shadow: 0 0 0 2px var(--aj-blue), 0 0 0 4px var(--bg-light-1);
+}
+.btn:active { transform: translateY(1px); }
+.btn--primary { background: var(--aj-orange); color: #ffffff; }
+.btn--primary:hover { opacity: 0.92; }
+.btn--secondary {
+  background: transparent;
+  color: var(--fg-light-1);
+  border-color: rgba(30, 42, 58, 0.40);
+}
+.btn--secondary:hover { border-color: var(--aj-blue); color: var(--aj-blue); }
+.btn--system {
+  background: transparent;
+  color: var(--fg-1);
+  border-color: rgba(245, 245, 245, 0.28);
+}
+.btn--system:hover { border-color: var(--aj-blue); color: var(--aj-blue); }
+.btn-row { display: flex; gap: 12px; flex-wrap: wrap; }
+
+/* ══════════════════════════════════════════════════════════
+   GLOW BUTTON SYSTEM
+   Two types — both em-based so they scale with context.
+
+   Type 1  .btn-glow       Signal orange  #FF4500  → diagnostic CTAs
+   Type 2  .btn-glow-sys   System blue    #3B5BFF  → framework / secondary CTAs
+
+   Credit: adapted from Uiverse.io / InfinityLoopGames
+   Palette: Audio Jones brand system
+   ══════════════════════════════════════════════════════════ */
+
+/* ── shared base ── */
+.btn-glow,
+.btn-glow-sys {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45em;
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+  position: relative;
+  outline: none;
+  border-style: solid;
+  border-width: 0.18em;
+  border-radius: 0.72em;
+  font-family: var(--font-body);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  transition: color 0.28s ease, background-color 0.28s ease, box-shadow 0.28s ease, transform 0.1s ease;
+  /* mobile-first size */
+  font-size: 14px;
+  padding: 0.82em 2em;
+  /* iOS 44pt minimum touch target — must hold across all viewports */
+  min-height: 44px;
 }
 
-.btn:active {
+/* reflection under button */
+.btn-glow::after,
+.btn-glow-sys::after {
+  pointer-events: none;
+  content: "";
+  position: absolute;
+  top: 120%;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  filter: blur(2em);
+  opacity: 0.65;
+  transform: perspective(1.5em) rotateX(35deg) scale(1, 0.58);
+  border-radius: inherit;
+}
+
+/* active press */
+.btn-glow:active,
+.btn-glow-sys:active {
   transform: translateY(1px);
 }
 
-/* Variants */
-.btn--primary {
-  background: var(--aj-orange);
-  color: #ffffff;
-}
-.btn--primary:hover { opacity: 0.92; }
-
-.btn--secondary {
-  background: transparent;
-  color: var(--aj-dark);
-  border-color: rgba(30, 42, 58, 0.40);
-}
-.btn--secondary:hover {
-  border-color: var(--aj-blue);
-  color: var(--aj-blue);
+/* focus-visible ring */
+.btn-glow:focus-visible,
+.btn-glow-sys:focus-visible {
+  outline: 2px solid rgba(255,255,255,0.6);
+  outline-offset: 3px;
 }
 
-.btn--system {
-  background: transparent;
-  color: var(--aj-light);
-  border-color: rgba(245, 245, 245, 0.28);
+/* ── Type 1 — Signal Orange ── */
+.btn-glow {
+  --_glow:   #FF4500;
+  --_spread: rgba(255, 69, 0, 0.52);
+  --_bg:     #0B1020;
+  color:            var(--_glow);
+  background-color: var(--_bg);
+  border-color:     var(--_glow);
+  box-shadow:
+    0 0 0.75em 0.18em var(--_glow),
+    0 0 3em    0.7em  var(--_spread),
+    inset 0 0 0.55em 0.18em rgba(255, 69, 0, 0.18);
+  text-shadow: 0 0 0.45em var(--_glow);
 }
-.btn--system:hover {
-  border-color: var(--aj-blue);
-  color: var(--aj-blue);
+.btn-glow::after {
+  background-color: var(--_spread);
+}
+.btn-glow:hover {
+  color:            var(--_bg);
+  background-color: var(--_glow);
+  box-shadow:
+    0 0 1em   0.25em var(--_glow),
+    0 0 3.5em 1.8em  var(--_spread),
+    inset 0 0 0.75em 0.25em var(--_glow);
+  text-shadow: none;
+}
+.btn-glow:active {
+  box-shadow:
+    0 0 0.5em 0.18em var(--_glow),
+    0 0 2em   1.4em  var(--_spread),
+    inset 0 0 0.4em 0.18em var(--_glow);
 }
 
-/* Layout helper */
-.btn-row { display: flex; gap: 12px; flex-wrap: wrap; }
+/* ── Type 2 — System Blue ── */
+.btn-glow-sys {
+  --_glow:   #3B5BFF;
+  --_spread: rgba(59, 91, 255, 0.42);
+  --_bg:     #0B1020;
+  color:            var(--_glow);
+  background-color: var(--_bg);
+  border-color:     var(--_glow);
+  box-shadow:
+    0 0 0.75em 0.18em rgba(59, 91, 255, 0.55),
+    0 0 3em    0.7em  var(--_spread),
+    inset 0 0 0.55em 0.18em rgba(59, 91, 255, 0.12);
+  text-shadow: 0 0 0.45em var(--_glow);
+}
+.btn-glow-sys::after {
+  background-color: var(--_spread);
+}
+.btn-glow-sys:hover {
+  color:            var(--_bg);
+  background-color: var(--_glow);
+  box-shadow:
+    0 0 1em   0.25em var(--_glow),
+    0 0 3.5em 1.8em  var(--_spread),
+    inset 0 0 0.75em 0.25em var(--_glow);
+  text-shadow: none;
+}
+.btn-glow-sys:active {
+  box-shadow:
+    0 0 0.5em 0.18em var(--_glow),
+    0 0 2em   1.4em  var(--_spread),
+    inset 0 0 0.4em 0.18em var(--_glow);
+}
+
+/* ── Responsive scaling ── */
+/* tablet */
+@media (min-width: 640px) {
+  .btn-glow,
+  .btn-glow-sys {
+    font-size: 15px;
+    padding: 0.88em 2.4em;
+  }
+}
+/* desktop */
+@media (min-width: 1024px) {
+  .btn-glow,
+  .btn-glow-sys {
+    font-size: 16px;
+    padding: 0.92em 2.75em;
+  }
+}
