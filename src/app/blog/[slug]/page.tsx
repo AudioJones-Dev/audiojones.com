@@ -271,22 +271,32 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
     };
   }
 
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://audiojones.com';
+  const canonicalUrl = `${siteUrl}/blog/${post.slug}`;
+
   return {
     title: post.seoTitle || post.title,
     description: post.seoDescription,
     keywords: post.seoKeywords,
+    alternates: {
+      canonical: canonicalUrl,
+    },
     openGraph: {
-      title: post.title,
+      title: post.seoTitle || post.title,
       description: post.seoDescription,
-      images: post.ogImage ? [post.ogImage] : [],
+      url: canonicalUrl,
+      siteName: 'Audio Jones',
+      images: post.ogImage
+        ? [{ url: post.ogImage, width: 1200, height: 630, alt: post.title }]
+        : [{ url: `${siteUrl}/assets/og/audio-jones-og.jpg`, width: 1200, height: 630, alt: post.title }],
       type: 'article',
       publishedTime: post.publishedAt,
     },
     twitter: {
       card: 'summary_large_image',
-      title: post.title,
+      title: post.seoTitle || post.title,
       description: post.seoDescription,
-      images: post.ogImage ? [post.ogImage] : [],
+      images: post.ogImage ? [post.ogImage] : [`${siteUrl}/assets/og/audio-jones-og.jpg`],
     },
   };
 }

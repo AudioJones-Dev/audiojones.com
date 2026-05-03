@@ -12,6 +12,12 @@ import {
   InsightsPreview,
   DiagnosticCTA,
 } from "@/components/home/landing";
+import JsonLd from "@/components/seo/JsonLd";
+import {
+  organizationJsonLd,
+  personJsonLd,
+  webSiteJsonLd,
+} from "@/lib/seo/schema";
 
 export const metadata: Metadata = {
   title: "Audio Jones — Applied Intelligence Systems for founder-led businesses",
@@ -37,6 +43,11 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <>
+      {/* ── Entity schema — Organization + Person + WebSite ── */}
+      <JsonLd data={organizationJsonLd()} />
+      <JsonLd data={personJsonLd()} />
+      <JsonLd data={webSiteJsonLd()} />
+
       {/* 1. Hero */}
       <HeroAllSignal />
 

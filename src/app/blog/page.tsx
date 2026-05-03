@@ -5,13 +5,28 @@ import { PILLARS, formatPillarForDisplay, PillarType } from '@/lib/models/blog';
 import IKImage from '@/components/IKImage';
 
 export const metadata: Metadata = {
-  title: 'Audio Jones Blog | AI Marketing & Growth Insights',
-  description: 'Get operator insights on AI marketing, automation, and predictable growth strategies from Audio Jones. Miami-forward perspective on creator economy and business development.',
-  keywords: ['AI marketing', 'marketing automation', 'predictable growth', 'Audio Jones', 'creator economy', 'business development'],
+  title: 'Blog | Audio Jones',
+  description:
+    'Applied Intelligence, signal systems, M.A.P Attribution, and AI-readiness insights for founder-led businesses. The Audio Jones knowledge base.',
+  keywords: ['Applied Intelligence', 'signal vs noise', 'MAP attribution', 'AI readiness', 'founder-led business', 'Audio Jones'],
+  alternates: {
+    canonical: 'https://audiojones.com/blog',
+  },
   openGraph: {
-    title: 'Audio Jones Blog | AI Marketing & Growth Insights',
-    description: 'Get operator insights on AI marketing, automation, and predictable growth strategies from Audio Jones.',
-    images: ['/assets/og/blog-og.jpg'],
+    title: 'Blog | Audio Jones',
+    description:
+      'Applied Intelligence, signal systems, M.A.P Attribution, and AI-readiness insights for founder-led businesses.',
+    url: 'https://audiojones.com/blog',
+    siteName: 'Audio Jones',
+    type: 'website',
+    images: [{ url: '/assets/og/audio-jones-og.jpg', width: 1200, height: 630, alt: 'Audio Jones Blog' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Blog | Audio Jones',
+    description:
+      'Applied Intelligence, signal systems, M.A.P Attribution, and AI-readiness insights for founder-led businesses.',
+    images: ['/assets/og/audio-jones-og.jpg'],
   },
 };
 
