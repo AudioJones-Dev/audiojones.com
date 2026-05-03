@@ -147,31 +147,7 @@ export default function HeroAllSignal() {
         <span style={{ color: "#FF4500" }}>SIGNAL</span>
       </div>
 
-      {/* ── 2. "ALL SIGNAL" — mobile ── */}
-      <div
-        aria-hidden
-        className="block md:hidden"
-        style={{
-          position: "absolute",
-          top: "22%",
-          left: "50%",
-          transform: "translateX(-50%) scaleX(0.78)",
-          transformOrigin: "center center",
-          zIndex: 2,
-          whiteSpace: "nowrap",
-          userSelect: "none",
-          pointerEvents: "none",
-          fontFamily: "var(--font-headline)",
-          fontWeight: 700,
-          fontSize: "clamp(3.5rem, 14vw, 5.5rem)",
-          lineHeight: 0.78,
-          letterSpacing: "-0.07em",
-          textTransform: "uppercase",
-        }}
-      >
-        <span style={{ color: "#111", opacity: 0.6 }}>ALL </span>
-        <span style={{ color: "#FF4500", opacity: 0.7 }}>SIGNAL</span>
-      </div>
+      {/* ── 2. "ALL SIGNAL" — mobile — HIDDEN (clutters headline on small screens) ── */}
 
       {/* ── 3. Portrait — desktop ── */}
       <div
@@ -452,27 +428,30 @@ export default function HeroAllSignal() {
         </div>
       </div>
 
-      {/* ── Mobile portrait strip ── */}
+      {/* ── Mobile portrait ── */}
       <div
         className="block md:hidden"
         style={{
           position: "relative",
-          width: "100%",
-          height: "52vw",
-          maxHeight: "360px",
-          marginTop: "24px",
           zIndex: 3,
+          marginTop: "20px",
+          display: "flex",
+          justifyContent: "center",
         }}
       >
-        <div style={{ position: "relative", width: "100%", height: "100%" }}>
-          <Image
-            src={`${ASSET}/portrait/portraithero-portrait-audiojones-mobile-transparent.png.png`}
-            alt="Audio Jones"
-            fill
-            className="object-contain object-bottom"
-            sizes="100vw"
-          />
-        </div>
+        <Image
+          src={`${ASSET}/portrait/hero-portrait-audiojones-mobile-transparent.png`}
+          alt="Audio Jones"
+          width={1200}
+          height={1600}
+          priority
+          style={{
+            width: "82vw",
+            maxWidth: "420px",
+            height: "auto",
+            objectFit: "contain",
+          }}
+        />
       </div>
 
       {/* ── Mobile metrics strip (flow) ── */}
