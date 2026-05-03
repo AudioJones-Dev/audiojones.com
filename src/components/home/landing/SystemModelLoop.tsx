@@ -132,4 +132,42 @@ function LoopSVG({ className }: { className?: string }) {
         { cx: 480, label: "Output" },
         { cx: 660, label: "Feedback" },
       ].map((n, i) => (
-    
+        <g key={n.label}>
+          <circle
+            cx={n.cx}
+            cy="100"
+            r="22"
+            fill="rgba(11,16,32,0.95)"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            className={
+              i === 1 ? "text-aj-blue-bright" : "text-aj-blue-bright opacity-50"
+            }
+          />
+          {/* Pulse on Process */}
+          {i === 1 && (
+            <circle
+              cx={n.cx}
+              cy="100"
+              r="4"
+              fill="currentColor"
+              className="text-aj-blue-bright"
+            />
+          )}
+          <text
+            x={n.cx}
+            y="148"
+            textAnchor="middle"
+            fontSize="11"
+            fontFamily="ui-monospace, monospace"
+            letterSpacing="0.16em"
+            fill="currentColor"
+            className="text-aj-gold"
+          >
+            {n.label.toUpperCase()}
+          </text>
+        </g>
+      ))}
+    </svg>
+  );
+}

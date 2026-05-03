@@ -182,4 +182,8 @@ export default function MAPAttributionSection() {
           >
             Read the full M.A.P framework <span aria-hidden>→</span>
           </Link>
-        </di
+        </div>
+      </div>
+    </section>
+  );
+}
