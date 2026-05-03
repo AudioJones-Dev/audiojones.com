@@ -101,17 +101,17 @@ export default function HeroAllSignal() {
         className="hidden lg:block"
         style={{
           position: "absolute",
-          top: "10%",
-          left: "38%",
+          top: "8%",
+          left: "39%",
           zIndex: 2,
           whiteSpace: "nowrap",
           userSelect: "none",
           pointerEvents: "none",
           fontFamily: "var(--font-headline)",
           fontWeight: 700,
-          fontSize: "clamp(8rem, 16vw, 18rem)",
+          fontSize: "clamp(10rem, 18vw, 22rem)",
           lineHeight: 0.78,
-          letterSpacing: "-0.075em",
+          letterSpacing: "-0.08em",
           textTransform: "uppercase",
           transform: "scaleX(0.78)",
           transformOrigin: "left center",
@@ -178,13 +178,13 @@ export default function HeroAllSignal() {
         className="hidden lg:block"
         style={{
           position: "absolute",
-          bottom: 0,
+          bottom: "-3%",
           left: "50%",
           transform: "translateX(-54%)",
-          width: "62vw",
-          maxWidth: "920px",
-          height: "100vh",
-          maxHeight: "1080px",
+          width: "72vw",
+          maxWidth: "1080px",
+          height: "104vh",
+          maxHeight: "1160px",
           zIndex: 3,
         }}
       >
@@ -195,7 +195,7 @@ export default function HeroAllSignal() {
             fill
             priority
             className="object-contain object-bottom"
-            sizes="(max-width: 1280px) 62vw, 920px"
+            sizes="(max-width: 1280px) 72vw, 1080px"
           />
         </div>
       </div>
