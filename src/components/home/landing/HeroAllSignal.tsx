@@ -6,18 +6,19 @@ import { ButtonLink } from "@/components/ui/Button";
  *
  * Layer stack (bottom → top):
  *  1. Background PNG — dark noise left / clean system right (responsive)
- *  2. "ALL SIGNAL" live typography (behind portrait)
- *  3. Portrait transparent cutout (responsive)
- *  4. Metrics strip (live text, lower right)
- *  5. Left content block (headline / copy / CTAs)
+ *  2. "ALL SIGNAL" live typography (behind portrait) — desktop + tablet only
+ *  3. Portrait transparent cutout — mutually exclusive per breakpoint:
+ *       desktop  >= 1024px → portrait/portraithero-portrait-audiojones-transparent.png
+ *       tablet 768–1023px  → portrait/portraithero-portrait-audiojones-transparent.png (desktop fallback, adjusted size)
+ *       mobile  < 768px    → portrait/hero-portrait-audiojones-mobile-transparent.png
+ *  4. Metrics strip — one per breakpoint, never duplicated
+ *  5. Content block (headline / copy / CTAs)
  *
- * Asset path mapping:
- *  background desktop → backgrounds/hero-bg-split-dark-light-system-desktop.png
- *  background tablet  → backgrounds/hero-bg-split-dark-light-system-tablet.png
- *  background mobile  → backgrounds/hero-bg-split-dark-light-system-mobile.png
- *  portrait desktop   → portrait/portraithero-portrait-audiojones-transparent.png
- *  portrait tablet    → portrait/portraithero-portrait-tablet-audiojones-transparent.png.png
- *  portrait mobile    → portrait/portraithero-portrait-audiojones-mobile-transparent.png.png
+ * ⚠ IMPORTANT — inline style vs Tailwind visibility:
+ *   Inline `display:` values override Tailwind's `hidden` / `md:hidden` / `lg:hidden`
+ *   because inline styles have higher CSS specificity than class-based rules.
+ *   All flex/block display values must go in className, NOT in style={{}}.
+ *   style={{}} may only contain non-display properties (position, zIndex, colors…).
  */
 
 const ASSET = "/assets/Homepage/02-hero-all-signal";
@@ -41,7 +42,7 @@ export default function HeroAllSignal() {
         flexDirection: "column",
       }}
     >
-      {/* ── 1. Background — mobile ── */}
+      {/* ── 1. Background — mobile < 768px ── */}
       <div
         aria-hidden
         className="block md:hidden"
@@ -59,7 +60,7 @@ export default function HeroAllSignal() {
         </div>
       </div>
 
-      {/* ── 1. Background — tablet ── */}
+      {/* ── 1. Background — tablet 768–1023px ── */}
       <div
         aria-hidden
         className="hidden md:block lg:hidden"
@@ -77,7 +78,7 @@ export default function HeroAllSignal() {
         </div>
       </div>
 
-      {/* ── 1. Background — desktop ── */}
+      {/* ── 1. Background — desktop >= 1024px ── */}
       <div
         aria-hidden
         className="hidden lg:block"
@@ -95,7 +96,7 @@ export default function HeroAllSignal() {
         </div>
       </div>
 
-      {/* ── 2. "ALL SIGNAL" live mega typography — desktop ── */}
+      {/* ── 2. "ALL SIGNAL" mega typography — desktop >= 1024px ── */}
       <div
         aria-hidden
         className="hidden lg:block"
@@ -121,7 +122,7 @@ export default function HeroAllSignal() {
         <span style={{ color: "#FF4500" }}>SIGNAL</span>
       </div>
 
-      {/* ── 2. "ALL SIGNAL" — tablet ── */}
+      {/* ── 2. "ALL SIGNAL" — tablet 768–1023px ── */}
       <div
         aria-hidden
         className="hidden md:block lg:hidden"
@@ -149,7 +150,7 @@ export default function HeroAllSignal() {
 
       {/* ── 2. "ALL SIGNAL" — mobile — HIDDEN (clutters headline on small screens) ── */}
 
-      {/* ── 3. Portrait — desktop ── */}
+      {/* ── 3. Portrait — desktop >= 1024px ── */}
       <div
         className="hidden lg:block"
         style={{
@@ -176,7 +177,7 @@ export default function HeroAllSignal() {
         </div>
       </div>
 
-      {/* ── 3. Portrait — tablet ── */}
+      {/* ── 3. Portrait — tablet 768–1023px (desktop asset, adjusted size) ── */}
       <div
         className="hidden md:block lg:hidden"
         style={{
@@ -193,7 +194,7 @@ export default function HeroAllSignal() {
       >
         <div style={{ position: "relative", width: "100%", height: "100%" }}>
           <Image
-            src={`${ASSET}/portrait/portraithero-portrait-tablet-audiojones-transparent.png.png`}
+            src={`${ASSET}/portrait/portraithero-portrait-audiojones-transparent.png`}
             alt="Audio Jones"
             fill
             priority
@@ -203,15 +204,16 @@ export default function HeroAllSignal() {
         </div>
       </div>
 
-      {/* ── 4. Metrics strip — desktop (live text, dark card) ── */}
+      {/* ── 4. Metrics strip — desktop >= 1024px ──
+           NOTE: display value MUST stay in className (hidden lg:flex), NOT in style.
+           An inline display:flex would override the hidden class on mobile. ── */}
       <div
-        className="hidden lg:block"
+        className="hidden lg:flex"
         style={{
           position: "absolute",
           right: "3.5rem",
           bottom: "10%",
           zIndex: 6,
-          display: "flex",
           alignItems: "center",
           gap: "0",
           background: "rgba(8, 10, 20, 0.92)",
@@ -260,7 +262,7 @@ export default function HeroAllSignal() {
         ))}
       </div>
 
-      {/* ── 5. Left content block — desktop ── */}
+      {/* ── 5. Left content block — desktop >= 1024px ── */}
       <div
         className="hidden lg:flex"
         style={{
@@ -354,7 +356,7 @@ export default function HeroAllSignal() {
         </p>
       </div>
 
-      {/* ── Mobile / tablet content block (stacked flow) ── */}
+      {/* ── Mobile / tablet content block — stacked flow < 1024px ── */}
       <div
         className="flex lg:hidden flex-col"
         style={{
@@ -428,15 +430,15 @@ export default function HeroAllSignal() {
         </div>
       </div>
 
-      {/* ── Mobile portrait ── */}
+      {/* ── 3. Portrait — mobile < 768px ──
+           NOTE: display value MUST stay in className (flex md:hidden), NOT in style.
+           An inline display:flex would override the md:hidden class on tablet/desktop. ── */}
       <div
-        className="block md:hidden"
+        className="flex justify-center md:hidden"
         style={{
           position: "relative",
           zIndex: 3,
           marginTop: "20px",
-          display: "flex",
-          justifyContent: "center",
         }}
       >
         <Image
@@ -454,7 +456,7 @@ export default function HeroAllSignal() {
         />
       </div>
 
-      {/* ── Mobile metrics strip (flow) ── */}
+      {/* ── 4. Metrics strip — mobile < 768px ── */}
       <div
         className="flex md:hidden"
         style={{
@@ -496,7 +498,7 @@ export default function HeroAllSignal() {
         ))}
       </div>
 
-      {/* ── Tablet metrics strip (flow, below portrait) ── */}
+      {/* ── 4. Metrics strip — tablet 768–1023px ── */}
       <div
         className="hidden md:flex lg:hidden"
         style={{
