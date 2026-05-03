@@ -327,33 +327,44 @@ export default function SystemModelLoop() {
   return (
     <section
       id="system-model"
-      className="relative overflow-hidden border-t border-[var(--line-2)] py-24 sm:py-32"
-      style={{ background: "#05070F" }}
+      className="overflow-hidden border-t border-[var(--line-2)] py-24 sm:py-32"
+      style={{ position: "relative", background: "#030509" }}
     >
-      {/* ── Background image ── */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 -z-20">
+      {/* ── Layer 1: Background image — z:1 ── */}
+      <div
+        aria-hidden
+        style={{
+          position: "absolute",
+          inset: 0,
+          zIndex: 1,
+          pointerEvents: "none",
+        }}
+      >
         <Image
           src={BG}
           alt=""
           fill
           className="object-cover object-center"
-          style={{ opacity: 0.88 }}
           sizes="100vw"
+          priority
         />
       </div>
 
-      {/* ── Thin vignette — barely-there, just enough to ground the edges ── */}
+      {/* ── Layer 2: Thin vignette for edge grounding — z:2 ── */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10"
         style={{
+          position: "absolute",
+          inset: 0,
+          zIndex: 2,
+          pointerEvents: "none",
           background:
-            "radial-gradient(ellipse 110% 100% at 50% 50%, transparent 40%, rgba(5,7,15,0.55) 100%)",
+            "radial-gradient(ellipse 120% 110% at 50% 50%, transparent 35%, rgba(3,5,9,0.60) 100%)",
         }}
       />
 
-      {/* ── Content ── */}
-      <div className="relative z-10 mx-auto max-w-[1280px] px-5 sm:px-8">
+      {/* ── Content — z:3 ── */}
+      <div style={{ position: "relative", zIndex: 3 }} className="mx-auto max-w-[1280px] px-5 sm:px-8">
         {/* Header */}
         <div className="mb-14 max-w-3xl">
           <Eyebrow>Applied Intelligence Systems</Eyebrow>
