@@ -95,75 +95,82 @@ export default function HeroAllSignal() {
         </div>
       </div>
 
-      {/* ── 2. "ALL SIGNAL" live mega typography ── */}
-      {/* Desktop: positioned right of center, behind portrait */}
+      {/* ── 2. "ALL SIGNAL" live mega typography — desktop ── */}
       <div
         aria-hidden
         className="hidden lg:block"
         style={{
           position: "absolute",
-          top: "18%",
-          left: "34%",
-          zIndex: 2,
-          whiteSpace: "nowrap",
-          userSelect: "none",
-          pointerEvents: "none",
-          lineHeight: 0.82,
-          letterSpacing: "-0.045em",
-          fontFamily: "var(--font-headline)",
-          fontWeight: 700,
-          fontSize: "clamp(5.5rem, 11.5vw, 14rem)",
-        }}
-      >
-        <span style={{ color: "#000000", opacity: 0.80 }}>ALL </span>
-        <span style={{ color: "#FF4500" }}>SIGNAL</span>
-      </div>
-
-      {/* Tablet ALL SIGNAL */}
-      <div
-        aria-hidden
-        className="hidden md:block lg:hidden"
-        style={{
-          position: "absolute",
-          top: "12%",
+          top: "10%",
           left: "38%",
           zIndex: 2,
           whiteSpace: "nowrap",
           userSelect: "none",
           pointerEvents: "none",
-          lineHeight: 0.82,
-          letterSpacing: "-0.04em",
           fontFamily: "var(--font-headline)",
           fontWeight: 700,
-          fontSize: "clamp(4rem, 9vw, 8rem)",
+          fontSize: "clamp(8rem, 16vw, 18rem)",
+          lineHeight: 0.78,
+          letterSpacing: "-0.075em",
+          textTransform: "uppercase",
+          transform: "scaleX(0.78)",
+          transformOrigin: "left center",
         }}
       >
-        <span style={{ color: "#000000", opacity: 0.72 }}>ALL </span>
+        <span style={{ color: "#000000" }}>ALL </span>
         <span style={{ color: "#FF4500" }}>SIGNAL</span>
       </div>
 
-      {/* Mobile ALL SIGNAL — behind portrait, smaller */}
+      {/* ── 2. "ALL SIGNAL" — tablet ── */}
+      <div
+        aria-hidden
+        className="hidden md:block lg:hidden"
+        style={{
+          position: "absolute",
+          top: "8%",
+          left: "36%",
+          zIndex: 2,
+          whiteSpace: "nowrap",
+          userSelect: "none",
+          pointerEvents: "none",
+          fontFamily: "var(--font-headline)",
+          fontWeight: 700,
+          fontSize: "clamp(5rem, 11vw, 10rem)",
+          lineHeight: 0.78,
+          letterSpacing: "-0.07em",
+          textTransform: "uppercase",
+          transform: "scaleX(0.78)",
+          transformOrigin: "left center",
+        }}
+      >
+        <span style={{ color: "#000000" }}>ALL </span>
+        <span style={{ color: "#FF4500" }}>SIGNAL</span>
+      </div>
+
+      {/* ── 2. "ALL SIGNAL" — mobile ── */}
       <div
         aria-hidden
         className="block md:hidden"
         style={{
           position: "absolute",
-          top: "24%",
+          top: "22%",
           left: "50%",
-          transform: "translateX(-50%)",
+          transform: "translateX(-50%) scaleX(0.78)",
+          transformOrigin: "center center",
           zIndex: 2,
           whiteSpace: "nowrap",
           userSelect: "none",
           pointerEvents: "none",
-          lineHeight: 0.82,
-          letterSpacing: "-0.04em",
           fontFamily: "var(--font-headline)",
           fontWeight: 700,
-          fontSize: "clamp(3rem, 14vw, 5rem)",
+          fontSize: "clamp(3.5rem, 14vw, 5.5rem)",
+          lineHeight: 0.78,
+          letterSpacing: "-0.07em",
+          textTransform: "uppercase",
         }}
       >
-        <span style={{ color: "#111", opacity: 0.55 }}>ALL </span>
-        <span style={{ color: "#FF4500", opacity: 0.65 }}>SIGNAL</span>
+        <span style={{ color: "#111", opacity: 0.6 }}>ALL </span>
+        <span style={{ color: "#FF4500", opacity: 0.7 }}>SIGNAL</span>
       </div>
 
       {/* ── 3. Portrait — desktop ── */}
@@ -173,11 +180,11 @@ export default function HeroAllSignal() {
           position: "absolute",
           bottom: 0,
           left: "50%",
-          transform: "translateX(-52%)",
-          width: "40vw",
-          maxWidth: "600px",
-          height: "90vh",
-          maxHeight: "860px",
+          transform: "translateX(-54%)",
+          width: "50vw",
+          maxWidth: "720px",
+          height: "96vh",
+          maxHeight: "940px",
           zIndex: 3,
         }}
       >
@@ -188,7 +195,7 @@ export default function HeroAllSignal() {
             fill
             priority
             className="object-contain object-bottom"
-            sizes="(max-width: 1280px) 40vw, 600px"
+            sizes="(max-width: 1280px) 50vw, 720px"
           />
         </div>
       </div>
