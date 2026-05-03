@@ -8,8 +8,8 @@ import { ButtonLink } from "@/components/ui/Button";
  *  1. Background PNG — dark noise left / clean system right (responsive)
  *  2. "ALL SIGNAL" live typography (behind portrait) — desktop + tablet only
  *  3. Portrait transparent cutout — mutually exclusive per breakpoint:
- *       desktop  >= 1024px → portrait/hero-portrait-audiojones-desktop-transparent.png (1024×1536)
- *       tablet 768–1023px  → portrait/hero-portrait-audiojones-desktop-transparent.png (desktop fallback, adjusted size)
+ *       desktop  >= 1024px → portrait/portraithero-portrait-audiojones-transparent.png (1024×1536)
+ *       tablet 768–1023px  → portrait/portraithero-portrait-audiojones-transparent.png (desktop fallback, adjusted size)
  *       mobile  < 768px    → portrait/hero-portrait-audiojones-mobile-transparent.png  (1200×1600)
  *  4. Metrics strip — one per breakpoint, never duplicated
  *  5. Content block (headline / copy / CTAs)
@@ -167,7 +167,7 @@ export default function HeroAllSignal() {
       >
         <div style={{ position: "relative", width: "100%", height: "100%" }}>
           <Image
-            src={`${ASSET}/portrait/hero-portrait-audiojones-desktop-transparent.png`}
+            src={`${ASSET}/portrait/portraithero-portrait-audiojones-transparent.png`}
             alt="Audio Jones"
             fill
             priority
@@ -194,7 +194,7 @@ export default function HeroAllSignal() {
       >
         <div style={{ position: "relative", width: "100%", height: "100%" }}>
           <Image
-            src={`${ASSET}/portrait/hero-portrait-audiojones-desktop-transparent.png`}
+            src={`${ASSET}/portrait/portraithero-portrait-audiojones-transparent.png`}
             alt="Audio Jones"
             fill
             priority
