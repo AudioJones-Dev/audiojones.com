@@ -181,10 +181,10 @@ export default function HeroAllSignal() {
           bottom: 0,
           left: "50%",
           transform: "translateX(-54%)",
-          width: "50vw",
-          maxWidth: "720px",
-          height: "96vh",
-          maxHeight: "940px",
+          width: "62vw",
+          maxWidth: "920px",
+          height: "100vh",
+          maxHeight: "1080px",
           zIndex: 3,
         }}
       >
@@ -195,7 +195,7 @@ export default function HeroAllSignal() {
             fill
             priority
             className="object-contain object-bottom"
-            sizes="(max-width: 1280px) 50vw, 720px"
+            sizes="(max-width: 1280px) 62vw, 920px"
           />
         </div>
       </div>
