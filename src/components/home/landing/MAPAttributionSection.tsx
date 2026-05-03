@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 
@@ -62,6 +63,28 @@ export default function MAPAttributionSection() {
             Most businesses do not have a marketing problem. They have a
             misattribution problem.
           </p>
+        </div>
+
+        {/* ── Infographic visual — desktop/tablet only ── */}
+        <div className="mb-14 hidden sm:block">
+          <div
+            className="relative mx-auto w-full overflow-hidden rounded-[24px]"
+            style={{
+              maxWidth: "1080px",
+              border: "1px solid rgba(255,255,255,0.08)",
+              boxShadow:
+                "0 0 48px -16px rgba(255,69,0,0.12), 0 0 48px -16px rgba(59,91,255,0.14), 0 8px 40px rgba(0,0,0,0.35)",
+            }}
+          >
+            <Image
+              src="/assets/Homepage/06-map-attribution-framework/references/map-attribution-infographic-reference.png"
+              alt="M.A.P Attribution framework visual showing metric qualification through meaningful, actionable, and profitable filters"
+              width={1672}
+              height={941}
+              className="w-full h-auto"
+              style={{ opacity: 0.95 }}
+            />
+          </div>
         </div>
 
         {/* Three connected cards */}
