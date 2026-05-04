@@ -77,9 +77,9 @@ jobs:
           LEAD_NOTIFICATION_EMAIL: ${{ secrets.LEAD_NOTIFICATION_EMAIL }}
           FROM_EMAIL: ${{ secrets.FROM_EMAIL }}
           CRM_WEBHOOK_URL: ${{ secrets.CRM_WEBHOOK_URL }}
-          MAILERLITE_GROUP_ID: placeholder
-          N8N_WEBHOOK_URL: https://placeholder.com
-          WHOP_WEBHOOK_SECRET: placeholder
-          NEXT_PUBLIC_WHOP_COMPANY_ID: placeholder
-          NEXT_PUBLIC_WHOP_AGENT_USER_ID: placeholder
+          MAILERLITE_GROUP_ID: ci-group-id
+          N8N_WEBHOOK_URL: https://example.com/webhook
+          WHOP_WEBHOOK_SECRET: ci-whop-webhook-secret
+          NEXT_PUBLIC_WHOP_COMPANY_ID: ci-whop-company
+          NEXT_PUBLIC_WHOP_AGENT_USER_ID: ci-whop-agent
           API_BASE_URL: https://audiojones.com
