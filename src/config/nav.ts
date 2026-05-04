@@ -36,6 +36,11 @@ export const mainNav: NavItem[] = [
     })),
   },
   {
+    label: "Workshops",
+    href: "/ai-workshops",
+    description: "Signal OS Workshop: turn AI into a business operating system",
+  },
+  {
     label: "For Creators",
     href: "/creators",
     description: "Tools and systems for artists, podcasters, and creators",
