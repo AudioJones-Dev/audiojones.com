@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import ApplyForm from "@/components/apply/ApplyForm";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import JsonLd from "@/components/seo/JsonLd";
@@ -64,9 +65,36 @@ export default function ApplyPage() {
             </ul>
           </header>
 
-          <ApplyForm />
+          {/* Suspense boundary required because <ApplyForm> uses
+              useSearchParams() — without it, /apply throws a prerender
+              error in Next.js 15+ App Router. The fallback renders a
+              minimal skeleton so the form area isn't empty during the
+              brief client-hydration window. */}
+          <Suspense fallback={<ApplyFormSkeleton />}>
+            <ApplyForm />
+          </Suspense>
         </div>
       </section>
     </>
+  );
+}
+
+function ApplyFormSkeleton() {
+  return (
+    <div
+      aria-hidden
+      className="mx-auto flex w-full max-w-[640px] flex-col gap-12 opacity-50"
+    >
+      {[0, 1, 2, 3].map((i) => (
+        <div key={i} className="flex flex-col gap-5">
+          <div className="h-3 w-32 rounded bg-bg-2" />
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+            <div className="h-11 rounded-md bg-bg-2" />
+            <div className="h-11 rounded-md bg-bg-2" />
+          </div>
+        </div>
+      ))}
+      <div className="h-12 w-48 rounded-md bg-bg-2" />
+    </div>
   );
 }
