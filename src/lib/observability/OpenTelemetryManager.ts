@@ -12,6 +12,7 @@
  * - Memory-efficient batched logging
  * - Enterprise security with organization-level isolation
  */
+import { getDb } from '@/lib/server/firebaseAdmin';
 
 // Type definitions for our internal tracing system
 export interface TraceSpan {
