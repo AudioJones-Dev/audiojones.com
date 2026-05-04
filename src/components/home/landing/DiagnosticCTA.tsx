@@ -1,5 +1,7 @@
+import { Suspense } from "react";
 import { ButtonLink } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Eyebrow";
+import NewsletterForm from "@/components/newsletter/NewsletterForm";
 
 /**
  * Section 8 — Diagnostic CTA.
@@ -69,7 +71,39 @@ export default function DiagnosticCTA() {
         <p className="mt-6 t-small text-fg-3">
           Free fit review. No commitment. Reviewed personally by Audio Jones.
         </p>
+
+        {/* ── Quiet divider ── */}
+        <div
+          aria-hidden
+          className="mx-auto mt-16 h-px w-32 bg-gradient-to-r from-transparent via-[var(--line-2)] to-transparent"
+        />
+
+        {/* ── Newsletter — secondary, lower-prominence path ──
+            Suspense required because <NewsletterForm> uses
+            useSearchParams() (App Router constraint, see W1.6/W2 lessons). */}
+        <div className="mx-auto mt-10 max-w-[480px] text-left">
+          <Eyebrow tone="muted">Insights</Eyebrow>
+          <p className="mt-3 t-small text-fg-2">
+            Or subscribe to the next signal — short, framework-driven, no nurture drip.
+          </p>
+          <Suspense fallback={<NewsletterFormSkeleton />}>
+            <NewsletterForm
+              source="homepage-final-cta"
+              className="mt-4"
+            />
+          </Suspense>
+        </div>
       </div>
     </section>
+  );
+}
+
+function NewsletterFormSkeleton() {
+  return (
+    <div aria-hidden className="mt-4 flex flex-col gap-4 opacity-50">
+      <div className="h-10 rounded-md bg-bg-2" />
+      <div className="h-3 w-40 rounded bg-bg-2" />
+      <div className="h-11 w-32 rounded-md bg-bg-2" />
+    </div>
   );
 }

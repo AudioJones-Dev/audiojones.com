@@ -1,5 +1,7 @@
+import { Suspense } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import NewsletterForm from "@/components/newsletter/NewsletterForm";
 
 const PRIMARY_NAV = [
   { label: "AI", href: "/applied-intelligence" },
@@ -114,7 +116,28 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-16 flex flex-col items-start justify-between gap-4 border-t border-[var(--line-2)] pt-8 sm:flex-row sm:items-center">
+        {/* ── Newsletter row — compact inline variant ──
+            Suspense required because <NewsletterForm> uses
+            useSearchParams() (App Router constraint). */}
+        <div className="mt-12 grid grid-cols-1 gap-4 border-t border-[var(--line-2)] pt-8 lg:grid-cols-12 lg:items-center">
+          <div className="lg:col-span-5">
+            <h3 className="t-label text-aj-gold">Subscribe</h3>
+            <p className="mt-3 t-small text-fg-2">
+              The next signal in your inbox. Direct, framework-driven, no nurture drip.
+            </p>
+          </div>
+          <div className="lg:col-span-7">
+            <Suspense fallback={<FooterNewsletterSkeleton />}>
+              <NewsletterForm
+                variant="inline"
+                source="footer"
+                showPendingNotice={false}
+              />
+            </Suspense>
+          </div>
+        </div>
+
+        <div className="mt-12 flex flex-col items-start justify-between gap-4 border-t border-[var(--line-2)] pt-8 sm:flex-row sm:items-center">
           <p className="t-small text-fg-3">
             © {new Date().getFullYear()} AJ Digital LLC · Audio Jones · All rights reserved.
           </p>
@@ -126,5 +149,14 @@ export default function Footer() {
         </div>
       </div>
     </footer>
+  );
+}
+
+function FooterNewsletterSkeleton() {
+  return (
+    <div aria-hidden className="flex flex-col gap-2 opacity-50 sm:flex-row">
+      <div className="h-11 flex-1 rounded-md bg-bg-2" />
+      <div className="h-11 w-full rounded-md bg-bg-2 sm:w-32" />
+    </div>
   );
 }
