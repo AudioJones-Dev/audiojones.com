@@ -67,6 +67,7 @@ export class InternalObservabilityManager {
   private metricsBuffer: PerformanceMetric[] = [];
   private healthBuffer: SystemHealth[] = [];
   private flushInterval: NodeJS.Timeout | null = null;
+  private hasLoggedFirebaseRemoval = false;
   
   // Configuration
   private readonly config = {
@@ -127,6 +128,14 @@ export class InternalObservabilityManager {
 
       console.log('✅ Firebase tracing integration initialized');
     } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      if (message.includes('Firebase has been removed from audiojones.com')) {
+        if (!this.hasLoggedFirebaseRemoval) {
+          console.log('ℹ️ Firebase integration disabled: using legacy stubs by design.');
+          this.hasLoggedFirebaseRemoval = true;
+        }
+        return;
+      }
       console.error('⚠️ Firebase tracing initialization warning:', error);
       // Don't fail initialization if Firebase is unavailable
     }
