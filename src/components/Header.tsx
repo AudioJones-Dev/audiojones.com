@@ -4,13 +4,14 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { ButtonLink } from "@/components/ui/Button";
+import { ctaLinks } from "@/config/links";
 
 const NAV = [
   { label: "AI", href: "/applied-intelligence" },
   { label: "Frameworks", href: "/frameworks" },
   { label: "Insights", href: "/insights" },
   { label: "Blog", href: "/blog" },
-  { label: "Diagnostic", href: "/applied-intelligence/diagnostic" },
+  { label: "Diagnostic", href: ctaLinks.signalDiagnostic },
 ];
 
 export default function Header() {
@@ -57,12 +58,23 @@ export default function Header() {
         <ul className="hidden items-center gap-8 md:flex">
           {NAV.map((item) => (
             <li key={item.href}>
-              <Link
-                href={item.href}
-                className="t-small font-medium text-fg-1 transition-colors hover:text-fg-0"
-              >
-                {item.label}
-              </Link>
+              {item.href.startsWith("http") ? (
+                <a
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="t-small font-medium text-fg-1 transition-colors hover:text-fg-0"
+                >
+                  {item.label}
+                </a>
+              ) : (
+                <Link
+                  href={item.href}
+                  className="t-small font-medium text-fg-1 transition-colors hover:text-fg-0"
+                >
+                  {item.label}
+                </Link>
+              )}
             </li>
           ))}
         </ul>
@@ -70,10 +82,10 @@ export default function Header() {
         {/* Desktop CTA */}
         <div className="hidden md:block">
           <ButtonLink
-            href="/applied-intelligence/diagnostic"
+            href={ctaLinks.signalDiagnostic}
             variant="glow"
           >
-            Book Your Diagnostic
+            Take Signal Diagnostic
           </ButtonLink>
         </div>
 
@@ -98,22 +110,34 @@ export default function Header() {
           <ul className="mx-auto max-w-[1280px] space-y-1 px-5 py-6 sm:px-8">
             {NAV.map((item) => (
               <li key={item.href}>
-                <Link
-                  href={item.href}
-                  className="block rounded-md px-3 py-3 t-body font-medium text-fg-1 hover:bg-bg-2 hover:text-fg-0"
-                  onClick={() => setOpen(false)}
-                >
-                  {item.label}
-                </Link>
+                {item.href.startsWith("http") ? (
+                  <a
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block rounded-md px-3 py-3 t-body font-medium text-fg-1 hover:bg-bg-2 hover:text-fg-0"
+                    onClick={() => setOpen(false)}
+                  >
+                    {item.label}
+                  </a>
+                ) : (
+                  <Link
+                    href={item.href}
+                    className="block rounded-md px-3 py-3 t-body font-medium text-fg-1 hover:bg-bg-2 hover:text-fg-0"
+                    onClick={() => setOpen(false)}
+                  >
+                    {item.label}
+                  </Link>
+                )}
               </li>
             ))}
             <li className="pt-4">
               <ButtonLink
-                href="/applied-intelligence/diagnostic"
+                href={ctaLinks.signalDiagnostic}
                 variant="glow"
                 className="w-full"
               >
-                Book Your Diagnostic
+                Take Signal Diagnostic
               </ButtonLink>
             </li>
           </ul>

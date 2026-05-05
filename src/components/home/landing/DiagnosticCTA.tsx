@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import { ButtonLink } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import NewsletterForm from "@/components/newsletter/NewsletterForm";
+import { ctaLinks } from "@/config/links";
 
 /**
  * Section 8 — Diagnostic CTA.
@@ -59,10 +60,10 @@ export default function DiagnosticCTA() {
 
         <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
           <ButtonLink
-            href="/applied-intelligence/diagnostic"
+            href={ctaLinks.signalDiagnostic}
             variant="glow"
           >
-            Book Your Diagnostic
+            Take Signal Diagnostic
           </ButtonLink>
           <ButtonLink href="/frameworks" variant="system-glow">
             See Frameworks

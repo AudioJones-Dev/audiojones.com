@@ -2,12 +2,13 @@ import { Suspense } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import NewsletterForm from "@/components/newsletter/NewsletterForm";
+import { ctaLinks } from "@/config/links";
 
 const PRIMARY_NAV = [
   { label: "AI", href: "/applied-intelligence" },
   { label: "Frameworks", href: "/frameworks" },
   { label: "Insights", href: "/insights" },
-  { label: "Diagnostic", href: "/applied-intelligence/diagnostic" },
+  { label: "Diagnostic", href: ctaLinks.signalDiagnostic },
 ];
 
 const LEGAL_NAV = [
@@ -60,12 +61,23 @@ export default function Footer() {
             <ul className="mt-5 space-y-3">
               {PRIMARY_NAV.map((item) => (
                 <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    className="t-body text-fg-1 transition-colors hover:text-fg-0"
-                  >
-                    {item.label}
-                  </Link>
+                  {item.href.startsWith("http") ? (
+                    <a
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="t-body text-fg-1 transition-colors hover:text-fg-0"
+                    >
+                      {item.label}
+                    </a>
+                  ) : (
+                    <Link
+                      href={item.href}
+                      className="t-body text-fg-1 transition-colors hover:text-fg-0"
+                    >
+                      {item.label}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>
