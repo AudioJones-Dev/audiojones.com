@@ -9,7 +9,7 @@
         "start": "next start",
         "lint": "eslint",
         "dx:init": "echo 'Setting up Doppler and environment...' && doppler setup --project ajdigital --config dev; doppler secrets download --no-file --format env > .env.development.local",
-        "env:check": "tsx -e \"require('./packages/config/dist/index.js')\" && echo \"\u00e2\u0153\u2026 Environment validation successful\"",
+        "env:check": "tsx -e \"require('./packages/config/dist/index.js')\" && echo \"âœ… Environment validation successful\"",
         "prestart": "tsx -e \"require('./packages/config/dist/index.js')\"",
         "packages:build": "pnpm -r --filter='@aj/*' build",
         "packages:dev": "pnpm -r --filter='@aj/*' dev",
@@ -47,7 +47,8 @@
         "check:no-firebase": "tsx scripts/check-no-firebase.ts",
         "vercel:patch-win": "powershell -ExecutionPolicy Bypass -File scripts/patch-vercel-next-win.ps1",
         "build:prod": "pnpm vercel:patch-win && npx vercel build --prod",
-        "deploy:prod": "pnpm vercel:patch-win && npx vercel --prod"
+        "deploy:prod": "pnpm vercel:patch-win && npx vercel --prod",
+        "release:check": "bash scripts/release-check.sh"
     },
     "dependencies": {
         "@aj/config": "workspace:*",
