@@ -10,11 +10,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getDb } from '@/lib/server/firebaseAdmin';
 import { serializeIncidentsForFeed } from '@/lib/server/incidentFeed';
-import { 
-  handleStatusChange, 
-  getCachedStatus, 
-  updateCachedStatus 
-} from '@/lib/server/statusEvents';
+import { getCachedStatus } from '@/lib/server/statusEvents';
 
 interface SimpleStatusResponse {
   ok: true;
@@ -34,22 +30,28 @@ interface SimpleStatusErrorResponse {
 
 export async function GET(request: NextRequest) {
   try {
-    // Fetch recent incidents to determine status
-    const snapshot = await getDb()
-      .collection('incidents')
-      .orderBy('updated_at', 'desc')
-      .limit(25) // Only need recent incidents for status determination
-      .get();
+    let activeIncidents: Array<{ severity?: string; status?: string }> = [];
 
-    // Serialize incidents using existing helper
-    const incidents = serializeIncidentsForFeed(snapshot.docs);
-    
-    // Filter to active incidents only
-    const activeIncidents = incidents.filter(incident => 
-      incident.status === 'open' || 
-      incident.status === 'investigating' || 
-      incident.status === 'monitoring'
-    );
+    try {
+      // Fetch recent incidents to determine status
+      const snapshot = await getDb()
+        .collection('incidents')
+        .orderBy('updated_at', 'desc')
+        .limit(25) // Only need recent incidents for status determination
+        .get();
+
+      // Serialize incidents using existing helper
+      const incidents = serializeIncidentsForFeed(snapshot.docs);
+
+      // Filter to active incidents only
+      activeIncidents = incidents.filter(incident =>
+        incident.status === 'open' ||
+        incident.status === 'investigating' ||
+        incident.status === 'monitoring'
+      );
+    } catch (incidentFetchError) {
+      console.warn('Status endpoint incident fetch unavailable, falling back to cached/operational status:', incidentFetchError);
+    }
 
     // Determine overall status
     let overallStatus: 'operational' | 'degraded' | 'outage' = 'operational';
@@ -68,20 +70,16 @@ export async function GET(request: NextRequest) {
       }
     }
 
-    // Check for status changes and trigger webhooks (non-blocking)
+    // Check cached status to improve fallback behavior.
+    // NOTE: This public endpoint intentionally avoids mutating status/event stores.
     const cachedStatus = await getCachedStatus();
-    if (cachedStatus !== overallStatus) {
-      // Trigger status change handling (non-blocking)
-      handleStatusChange(cachedStatus || 'unknown', overallStatus).catch(error => {
-        console.error('Status change handling failed:', error);
-      });
-      
-      // Update cached status (non-blocking)  
-      updateCachedStatus(overallStatus).catch(error => {
-        console.error('Failed to update cached status:', error);
-      });
-    }
 
+    if (
+      activeIncidents.length === 0 &&
+      (cachedStatus === 'operational' || cachedStatus === 'degraded' || cachedStatus === 'outage')
+    ) {
+      overallStatus = cachedStatus;
+    }
     const response: SimpleStatusResponse = {
       ok: true,
       status: overallStatus,

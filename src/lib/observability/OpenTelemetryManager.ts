@@ -12,7 +12,6 @@
  * - Memory-efficient batched logging
  * - Enterprise security with organization-level isolation
  */
-
 import { getDb } from '@/lib/server/firebaseAdmin';
 
 // Type definitions for our internal tracing system
@@ -87,9 +86,6 @@ export class InternalObservabilityManager {
     try {
       console.log('🔍 Initializing Internal Observability System...');
 
-      // Initialize Firebase connection test
-      await this.initializeFirebaseTracing();
-
       // Start metrics flushing
       this.startMetricsFlush();
 
@@ -108,27 +104,6 @@ export class InternalObservabilityManager {
     } catch (error) {
       console.error('❌ Failed to initialize observability system:', error);
       // Don't throw - system should work without observability
-    }
-  }
-
-  /**
-   * Initialize Firebase-specific tracing
-   */
-  private async initializeFirebaseTracing() {
-    try {
-      const db = await getDb();
-      await db.collection('system_monitoring').doc('observability_init').set({
-        initialized_at: new Date(),
-        service_name: 'audiojones-platform',
-        environment: process.env.NODE_ENV || 'development',
-        version: '1.0.0',
-        status: 'active'
-      });
-
-      console.log('✅ Firebase tracing integration initialized');
-    } catch (error) {
-      console.error('⚠️ Firebase tracing initialization warning:', error);
-      // Don't fail initialization if Firebase is unavailable
     }
   }
 
