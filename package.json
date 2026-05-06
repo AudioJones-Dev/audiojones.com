@@ -47,7 +47,8 @@
         "check:no-firebase": "tsx scripts/check-no-firebase.ts",
         "vercel:patch-win": "powershell -ExecutionPolicy Bypass -File scripts/patch-vercel-next-win.ps1",
         "build:prod": "pnpm vercel:patch-win && npx vercel build --prod",
-        "deploy:prod": "pnpm vercel:patch-win && npx vercel --prod"
+        "deploy:prod": "pnpm vercel:patch-win && npx vercel --prod",
+        "release:check": "bash scripts/release-check.sh"
     },
     "dependencies": {
         "@aj/config": "workspace:*",
