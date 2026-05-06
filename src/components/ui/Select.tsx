@@ -31,14 +31,23 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(function Select
     backgroundSize: "12px 8px",
   } as const;
 
+  // Pass value OR defaultValue, never both. Passing both put the native
+  // select into a controlled/uncontrolled limbo that desynced state from
+  // the DOM on mobile Safari (selections registered visually but never
+  // reached parent state — Step 1 of the ROI calculator wouldn't advance
+  // because validation kept reading empty fields).
+  const isControlled = value !== undefined;
+  const valueProps = isControlled
+    ? { value }
+    : { defaultValue: defaultValue ?? (placeholder ? "" : undefined) };
+
   return (
     <select
       ref={ref}
       aria-invalid={invalid || undefined}
       className={[baseClass, borderClass, className].filter(Boolean).join(" ")}
       style={chevron}
-      value={value}
-      defaultValue={defaultValue ?? (placeholder ? "" : undefined)}
+      {...valueProps}
       {...rest}
     >
       {placeholder && (
