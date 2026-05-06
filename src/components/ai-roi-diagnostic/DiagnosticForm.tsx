@@ -560,7 +560,16 @@ export default function DiagnosticForm({
           >
             ← Back
           </Button>
-          <Button type="submit" variant="glow" size="lg">
+          {/* type="button" + explicit onClick — relying on form submit
+              with e.preventDefault was racing native submission on mobile
+              Safari, causing GET /roi-calculator? page reloads that
+              wiped state and recycled the user back to Step 1. */}
+          <Button
+            type="button"
+            variant="glow"
+            size="lg"
+            onClick={goNext}
+          >
             {step === 4 ? "See My Diagnostic" : "Next →"}
           </Button>
         </div>
