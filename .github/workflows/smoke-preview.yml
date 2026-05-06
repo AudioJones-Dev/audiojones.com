@@ -45,6 +45,7 @@ jobs:
       - name: Smoke check preview routes
         env:
           PREVIEW_URL: ${{ steps.preview.outputs.preview_url }}
+          VERCEL_PROTECTION_BYPASS: ${{ secrets.VERCEL_PROTECTION_BYPASS }}
         run: |
           set -euo pipefail
           URLS=(
@@ -54,11 +55,30 @@ jobs:
             "${PREVIEW_URL}/api/public/incidents"
           )
 
+          # Build curl args. The bypass header is only appended when the secret
+          # is configured — keeps the value out of the command line otherwise
+          # and lets unprotected previews work without the secret.
+          curl_args=(-s -o /dev/null -w "%{http_code}" -L)
+          if [ -n "${VERCEL_PROTECTION_BYPASS:-}" ]; then
+            curl_args+=(-H "x-vercel-protection-bypass: ${VERCEL_PROTECTION_BYPASS}")
+          fi
+
+          failed=0
           for url in "${URLS[@]}"; do
-            code="$(curl -s -o /dev/null -w "%{http_code}" -L "$url")"
+            code="$(curl "${curl_args[@]}" "$url")"
             echo "${url} -> ${code}"
             if [ "$code" -lt 200 ] || [ "$code" -ge 400 ]; then
-              echo "FAILED: ${url} returned ${code}"
-              exit 1
+              if [ "$code" = "401" ] && [ -z "${VERCEL_PROTECTION_BYPASS:-}" ]; then
+                echo "FAILED: ${url} returned 401."
+                echo "Preview is protected and VERCEL_PROTECTION_BYPASS is not configured."
+                echo "Add the 'VERCEL_PROTECTION_BYPASS' GitHub Actions secret with a Vercel Deployment Protection bypass token."
+              else
+                echo "FAILED: ${url} returned ${code}"
+              fi
+              failed=1
             fi
           done
+
+          if [ "$failed" -ne 0 ]; then
+            exit 1
+          fi
