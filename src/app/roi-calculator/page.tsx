@@ -66,8 +66,8 @@ export default function RoiCalculatorPage() {
               Find out if AI is actually worth it for your business.
             </h1>
             <p className="mt-5 t-lead text-fg-2">
-              Estimate potential ROI, diagnose readiness, and identify whether
-              to automate now, pilot first, or fix the system before investing.
+              Estimate potential ROI, readiness, and payback period before you
+              invest in automation.
             </p>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
               <ButtonLink href="#diagnostic" variant="glow" size="lg">
@@ -120,8 +120,12 @@ export default function RoiCalculatorPage() {
         </div>
       </section>
 
-      {/* Diagnostic */}
-      <section id="diagnostic" className="bg-bg-0 py-16 sm:py-24">
+      {/* Calculator — anchor target for the hero CTA. scroll-mt accounts for
+          the 80px sticky header so deep links land cleanly below it. */}
+      <section
+        id="diagnostic"
+        className="scroll-mt-24 bg-bg-0 py-16 sm:py-24"
+      >
         <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
           <AiRoiDiagnostic />
         </div>
