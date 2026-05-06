@@ -15,6 +15,7 @@ export const portalLinks = {
 export const ctaLinks = {
   bookSession: "/book", // Internal booking page
   signalDiagnostic: "https://diagnostic.audiojones.com", // Standalone Diagnostic OS
+  roiCalculator: "/roi-calculator", // AI ROI Calculator
   viewServices: "/services", // Services catalog
   viewPricing: "/pricing", // Pricing page
   contactUs: "/contact", // Contact form (if exists)

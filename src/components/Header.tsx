@@ -7,11 +7,10 @@ import { ButtonLink } from "@/components/ui/Button";
 import { ctaLinks } from "@/config/links";
 
 const NAV = [
-  { label: "AI", href: "/applied-intelligence" },
-  { label: "Frameworks", href: "/frameworks" },
+  { label: "Services", href: "/services" },
+  { label: "ROI Calculator", href: ctaLinks.roiCalculator },
   { label: "Insights", href: "/insights" },
-  { label: "Blog", href: "/blog" },
-  { label: "Diagnostic", href: ctaLinks.signalDiagnostic },
+  { label: "Apply", href: "/apply" },
 ];
 
 export default function Header() {
@@ -82,10 +81,10 @@ export default function Header() {
         {/* Desktop CTA */}
         <div className="hidden md:block">
           <ButtonLink
-            href={ctaLinks.signalDiagnostic}
+            href={ctaLinks.roiCalculator}
             variant="glow"
           >
-            Take Signal Diagnostic
+            Calculate Your AI ROI
           </ButtonLink>
         </div>
 
@@ -133,11 +132,11 @@ export default function Header() {
             ))}
             <li className="pt-4">
               <ButtonLink
-                href={ctaLinks.signalDiagnostic}
+                href={ctaLinks.roiCalculator}
                 variant="glow"
                 className="w-full"
               >
-                Take Signal Diagnostic
+                Calculate Your AI ROI
               </ButtonLink>
             </li>
           </ul>
