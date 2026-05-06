@@ -1,3 +1,5 @@
+import { ctaLinks } from "@/config/links";
+
 type WhopPrice = {
   id?: string;
   amount?: number; // cents
@@ -47,6 +49,14 @@ export default async function ServicesPage() {
           <p className="mt-4 text-white/75 max-w-2xl mx-auto">
             AI branding systems, podcast production, and automation packages designed to grow your authority.
           </p>
+          <a
+            href={ctaLinks.signalDiagnostic}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-6 inline-flex h-11 items-center justify-center rounded-full px-6 font-bold text-black bg-gradient-to-r from-[#FF4500] to-[#FFD700] hover:opacity-90 transition"
+          >
+            Find the Right Offer
+          </a>
         </header>
 
         {products.length === 0 ? (
@@ -85,4 +95,3 @@ export default async function ServicesPage() {
     </main>
   );
 }
-

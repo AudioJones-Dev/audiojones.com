@@ -43,13 +43,18 @@ const FAQS = [
   },
 ];
 
-export const metadata: Metadata = buildMetadata({
-  title: "Step 2: The Missing Layer Between AI Hype and Profit | Audio Jones",
-  description:
-    "Step 2 is the missing operating layer between AI capability and measurable business outcomes. Audio Jones helps businesses turn AI hype into applied intelligence, attribution, workflow redesign, and profit.",
-  path: PATH,
-  type: "article",
-});
+export const metadata: Metadata = {
+  ...buildMetadata({
+    title: "Step 2: The Missing Layer Between AI Hype and Profit | Audio Jones",
+    description:
+      "Step 2 is the missing operating layer between AI capability and measurable business outcomes. Audio Jones helps businesses turn AI hype into applied intelligence, attribution, workflow redesign, and profit.",
+    path: PATH,
+    type: "article",
+  }),
+  // Noindex: /step-2 is a funnel/internal route, not a primary SEO target.
+  // It is removed from sitemap.ts. Keep the page live but exclude from crawl index.
+  robots: { index: false, follow: true },
+};
 
 export default function Step2Page() {
   return (
