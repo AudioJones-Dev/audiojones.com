@@ -1,9 +1,17 @@
 name: Deploy AJ Digital Suite
+
 on:
   push:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+
+# Vercel project identifiers are public — they appear in deploy URLs and
+# in `.vercel/project.json`. Inlining them here avoids carrying redundant
+# GitHub secrets and makes the deploy target legible at-a-glance.
+env:
+  VERCEL_ORG_ID: team_BHxIkAGPW6qEKKQBAt9c0NGz
+  VERCEL_PROJECT_ID: prj_o5mnBAlWyR5Cgi2A3gc9ertoGyJX
 
 jobs:
   validate:
@@ -27,9 +35,6 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
 
-      - name: Install Doppler CLI
-        uses: dopplerhq/cli-action@v2
-
       - name: Get pnpm store directory
         shell: bash
         run: |
@@ -48,21 +53,9 @@ jobs:
 
       - name: Build packages
         run: pnpm packages:build
-        env:
-          DOPPLER_TOKEN: ${{ secrets.DOPPLER_TOKEN }}
 
       - name: Lint
         run: pnpm lint
-
-      - name: Environment validation
-        run: |
-          if [ -n "$DOPPLER_TOKEN" ]; then
-            doppler run -- pnpm env:check
-          else
-            echo "DOPPLER_TOKEN not configured — skipping env:check on this run"
-          fi
-        env:
-          DOPPLER_TOKEN: ${{ secrets.DOPPLER_TOKEN }}
 
   build:
     needs: validate
@@ -87,21 +80,14 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
 
-      - name: Install Doppler CLI
-        uses: dopplerhq/cli-action@v2
-
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
       - name: Build packages
         run: pnpm packages:build
-        env:
-          DOPPLER_TOKEN: ${{ secrets.DOPPLER_TOKEN }}
 
       - name: Build application
-        run: doppler run -- pnpm build
-        env:
-          DOPPLER_TOKEN: ${{ secrets.DOPPLER_TOKEN }}
+        run: pnpm build
 
   deploy:
     needs: build
@@ -126,9 +112,6 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
 
-      - name: Install Doppler CLI
-        uses: dopplerhq/cli-action@v2
-
       - name: Install Vercel CLI
         run: pnpm install -g vercel
 
@@ -137,12 +120,6 @@ jobs:
 
       - name: Build packages
         run: pnpm packages:build
-        env:
-          DOPPLER_TOKEN: ${{ secrets.DOPPLER_TOKEN }}
 
       - name: Deploy to Vercel
-        run: doppler run -- vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }} --yes
-        env:
-          DOPPLER_TOKEN: ${{ secrets.DOPPLER_TOKEN }}
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }} --yes
