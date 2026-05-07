@@ -27,9 +27,9 @@ export type NavItem = {
 //     §18.7 Case A.
 //   - "Workshops" / "AI Agents" — pages don't exist yet. Their nav lines
 //     land alongside their respective page PRs.
-//   - "Diagnostic" — the standalone Diagnostic OS at
-//     `https://diagnostic.audiojones.com` is the destination of the
-//     primary header CTA (and many in-page CTAs), not a primary nav slot.
+//   - "Diagnostic" — `/applied-intelligence/diagnostic` is the destination
+//     of the primary header CTA (and many in-page CTAs), not a primary
+//     nav slot.
 //   - "Frameworks" / "Blog" — sub-areas. Frameworks consolidates under
 //     `/insights` (or its own internal-link surface); Blog is being
 //     unified into `/insights` per editorial direction.
