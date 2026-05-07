@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
+import { ctaLinks } from "@/config/links";
 
 type Props = {
   eyebrow: string;
@@ -39,7 +40,7 @@ export default function InsightArticle({
             Take the Applied Intelligence Diagnostic.
           </p>
           <Link
-            href="/applied-intelligence/diagnostic"
+            href={ctaLinks.signalDiagnostic}
             className="mt-4 inline-flex items-center justify-center rounded-md bg-[#3B5BFF] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#5B7AFF]"
           >
             Request Strategic Diagnostic

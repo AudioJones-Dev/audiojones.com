@@ -1,5 +1,6 @@
 import Link from "next/link";
 import MissingMiddleDiagram from "@/components/applied-intelligence/MissingMiddleDiagram";
+import { ctaLinks } from "@/config/links";
 
 export default function Step2Section() {
   return (
@@ -30,7 +31,7 @@ export default function Step2Section() {
             Explore Step 2
           </Link>
           <Link
-            href="/applied-intelligence/diagnostic"
+            href={ctaLinks.signalDiagnostic}
             className="inline-flex items-center justify-center rounded-md border border-white/15 px-6 py-3 text-sm font-semibold text-white transition hover:border-white/30 hover:bg-white/5"
           >
             Work with Audio Jones

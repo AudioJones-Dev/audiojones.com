@@ -5,6 +5,7 @@ import { FEATURED_POSTS_QUERY, ALL_POSTS_QUERY } from "@/lib/sanity/queries";
 import type { PostStub } from "@/lib/sanity/types";
 import { ButtonLink } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Eyebrow";
+import { ctaLinks } from "@/config/links";
 
 // ─── Metadata ─────────────────────────────────────────────────────────────────
 
@@ -282,7 +283,7 @@ export default async function BlogPage() {
               <ButtonLink href="/frameworks" variant="system-glow">
                 Explore Frameworks
               </ButtonLink>
-              <ButtonLink href="/applied-intelligence/diagnostic" variant="glow">
+              <ButtonLink href={ctaLinks.signalDiagnostic} variant="glow">
                 Book Diagnostic
               </ButtonLink>
             </div>

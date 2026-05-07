@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { ButtonLink } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Eyebrow";
+import { ctaLinks } from "@/config/links";
 
 const REFRAME_BG =
   "/assets/Homepage/04-problem-reframe/backgrounds/reframe-bg-dark-structured-desktop.png";
@@ -255,7 +256,7 @@ export default function ProblemReframeSplit() {
                 style={{ borderTop: "1px solid rgba(59,91,255,0.16)" }}
               >
                 <ButtonLink
-                  href="/applied-intelligence/diagnostic"
+                  href={ctaLinks.signalDiagnostic}
                   variant="glow"
                 >
                   Run the Diagnostic

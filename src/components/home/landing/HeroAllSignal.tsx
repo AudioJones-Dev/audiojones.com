@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { ButtonLink } from "@/components/ui/Button";
+import { ctaLinks } from "@/config/links";
 
 /**
  * HeroAllSignal — layered editorial-tech composition.
@@ -345,7 +346,7 @@ export default function HeroAllSignal() {
             marginTop: "28px",
           }}
         >
-          <ButtonLink href="/applied-intelligence/diagnostic" variant="glow">
+          <ButtonLink href={ctaLinks.signalDiagnostic} variant="glow">
             Book Your Diagnostic
           </ButtonLink>
           <ButtonLink href="#system-model" variant="system-glow">
@@ -433,7 +434,7 @@ export default function HeroAllSignal() {
             marginTop: "24px",
           }}
         >
-          <ButtonLink href="/applied-intelligence/diagnostic" variant="glow">
+          <ButtonLink href={ctaLinks.signalDiagnostic} variant="glow">
             Book Your Diagnostic
           </ButtonLink>
           <ButtonLink href="#system-model" variant="system-glow">

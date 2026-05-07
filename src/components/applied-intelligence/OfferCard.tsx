@@ -1,5 +1,6 @@
 import Link from "next/link";
 import SectionShell from "./SectionShell";
+import { ctaLinks } from "@/config/links";
 
 const DELIVERABLES = [
   "Growth constraint analysis",
@@ -28,7 +29,7 @@ export default function OfferCard() {
               another dollar on AI tooling.
             </p>
             <Link
-              href="/applied-intelligence/diagnostic"
+              href={ctaLinks.signalDiagnostic}
               className="mt-8 inline-flex items-center justify-center rounded-md bg-[#3B5BFF] px-6 py-3 text-sm font-semibold text-white shadow-[0_10px_40px_-10px_rgba(59,91,255,0.7)] transition hover:bg-[#5B7AFF]"
             >
               Request Strategic Diagnostic

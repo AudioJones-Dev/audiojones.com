@@ -17,6 +17,7 @@ import {
   personJsonLd,
   webSiteJsonLd,
 } from "@/lib/seo/schema";
+import { ctaLinks } from "@/config/links";
 
 export const metadata: Metadata = buildMetadata({
   title: "Applied Intelligence Systems for Founder-Led Businesses",
@@ -44,7 +45,7 @@ export default function AppliedIntelligencePage() {
         subheadline="Audio Jones helps founder-led businesses identify the causal inputs behind growth, reduce operational noise, and build systems that scale judgment, execution, and profit."
         primaryCta={{
           label: "Request Strategic Diagnostic",
-          href: "/applied-intelligence/diagnostic",
+          href: ctaLinks.signalDiagnostic,
         }}
         secondaryCta={{
           label: "View the System Model",

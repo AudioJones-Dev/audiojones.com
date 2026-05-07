@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { ButtonLink } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Eyebrow";
+import { ctaLinks } from "@/config/links";
 
 // ─── Asset ───────────────────────────────────────────────────────────────────
 
@@ -292,7 +293,7 @@ export default function ICPFilterSection() {
                 Apply for a diagnostic →
               </p>
               <ButtonLink
-                href="/applied-intelligence/diagnostic"
+                href={ctaLinks.signalDiagnostic}
                 variant="glow"
               >
                 Take the Diagnostic
