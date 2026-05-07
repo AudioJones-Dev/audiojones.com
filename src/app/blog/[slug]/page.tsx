@@ -17,6 +17,7 @@ import {
 import { ButtonLink } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { siteConfig } from "@/lib/site";
+import { ctaLinks } from "@/config/links";
 
 // ─── Static params (build-time) ───────────────────────────────────────────────
 
@@ -376,7 +377,7 @@ export default async function BlogPostPage({
             Ready to build your Applied Intelligence System?
           </h2>
           <div className="flex flex-wrap justify-center gap-3">
-            <ButtonLink href="/applied-intelligence/diagnostic" variant="glow">
+            <ButtonLink href={ctaLinks.signalDiagnostic} variant="glow">
               Book Diagnostic
             </ButtonLink>
             <ButtonLink href="/frameworks" variant="system-glow">

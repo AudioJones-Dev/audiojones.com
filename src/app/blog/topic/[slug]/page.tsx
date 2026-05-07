@@ -14,6 +14,7 @@ import { buildMetadata } from "@/lib/seo/metadata";
 import JsonLd from "@/components/seo/JsonLd";
 import { breadcrumbJsonLd } from "@/lib/seo/schema";
 import { siteConfig } from "@/lib/site";
+import { ctaLinks } from "@/config/links";
 
 // ─── Static cluster fallbacks (render even without Sanity) ────────────────────
 
@@ -229,7 +230,7 @@ export default async function TopicClusterPage({
           >
             Ready to build your Applied Intelligence System?
           </h2>
-          <ButtonLink href="/applied-intelligence/diagnostic" variant="glow">
+          <ButtonLink href={ctaLinks.signalDiagnostic} variant="glow">
             Book Your Diagnostic
           </ButtonLink>
         </div>
@@ -245,7 +246,7 @@ function InternalLinks({ slug, accent }: { slug: string; accent: string }) {
     "applied-intelligence-systems": [
       { label: "AIS Framework", href: "/frameworks/applied-intelligence-systems" },
       { label: "Applied Intelligence", href: "/applied-intelligence" },
-      { label: "Book Diagnostic", href: "/applied-intelligence/diagnostic" },
+      { label: "Book Diagnostic", href: ctaLinks.signalDiagnostic },
     ],
     "signal-vs-noise": [
       { label: "Signal vs Noise Framework", href: "/frameworks/signal-vs-noise" },
@@ -257,10 +258,10 @@ function InternalLinks({ slug, accent }: { slug: string; accent: string }) {
     ],
     "why-ai-fails": [
       { label: "Applied Intelligence", href: "/applied-intelligence" },
-      { label: "AI Readiness Diagnostic", href: "/applied-intelligence/diagnostic" },
+      { label: "AI Readiness Diagnostic", href: ctaLinks.signalDiagnostic },
     ],
     "ai-readiness": [
-      { label: "Book Diagnostic", href: "/applied-intelligence/diagnostic" },
+      { label: "Book Diagnostic", href: ctaLinks.signalDiagnostic },
       { label: "Applied Intelligence", href: "/applied-intelligence" },
     ],
   };

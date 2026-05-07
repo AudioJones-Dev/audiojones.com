@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ctaLinks } from "@/config/links";
 
 type Props = {
   headline?: string;
@@ -11,7 +12,7 @@ export default function FinalCTA({
   headline = "Stop scaling noise.",
   body = "Build the system that scales judgment instead.",
   ctaLabel = "Request Strategic Diagnostic",
-  ctaHref = "/applied-intelligence/diagnostic",
+  ctaHref = ctaLinks.signalDiagnostic,
 }: Props) {
   return (
     <section className="border-t border-white/10 bg-[#05070F] py-24">

@@ -12,6 +12,7 @@ import {
   breadcrumbJsonLd,
   faqJsonLd,
 } from "@/lib/seo/schema";
+import { ctaLinks } from "@/config/links";
 
 const PATH = "/step-2";
 
@@ -115,7 +116,7 @@ export default function Step2Page() {
             </Link>
             , workflow redesign, and{" "}
             <Link
-              href="/applied-intelligence/diagnostic"
+              href={ctaLinks.signalDiagnostic}
               className="text-[#3B5BFF] hover:text-[#5B7AFF]"
             >
               AI readiness
@@ -124,7 +125,7 @@ export default function Step2Page() {
           </p>
           <div className="mt-10 flex flex-wrap items-center gap-3">
             <Link
-              href="/applied-intelligence/diagnostic"
+              href={ctaLinks.signalDiagnostic}
               className="inline-flex items-center justify-center rounded-md bg-[#3B5BFF] px-6 py-3 text-sm font-semibold text-white shadow-[0_10px_40px_-10px_rgba(59,91,255,0.7)] transition hover:bg-[#5B7AFF]"
             >
               Build Your Step 2 System
@@ -329,7 +330,7 @@ export default function Step2Page() {
             AI problem. You have a Step 2 problem.
           </p>
           <Link
-            href="/applied-intelligence/diagnostic"
+            href={ctaLinks.signalDiagnostic}
             className="mt-8 inline-flex items-center justify-center rounded-md bg-[#3B5BFF] px-6 py-3 text-sm font-semibold text-white shadow-[0_10px_40px_-10px_rgba(59,91,255,0.7)] transition hover:bg-[#5B7AFF]"
           >
             Build Your Step 2 System
@@ -351,7 +352,7 @@ export default function Step2Page() {
         headline="Stop buying tools. Start building Step 2."
         body="Audio Jones helps founder-led businesses install the missing operating layer between AI capability and measurable outcomes."
         ctaLabel="Build Your Step 2 System"
-        ctaHref="/applied-intelligence/diagnostic"
+        ctaHref={ctaLinks.signalDiagnostic}
       />
     </>
   );
