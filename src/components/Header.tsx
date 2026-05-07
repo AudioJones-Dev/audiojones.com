@@ -5,14 +5,11 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import { ButtonLink } from "@/components/ui/Button";
 import { ctaLinks } from "@/config/links";
+import { mainNav } from "@/config/nav";
 
-const NAV = [
-  { label: "AI", href: "/applied-intelligence" },
-  { label: "Frameworks", href: "/frameworks" },
-  { label: "Insights", href: "/insights" },
-  { label: "Blog", href: "/blog" },
-  { label: "Diagnostic", href: ctaLinks.signalDiagnostic },
-];
+// Single source of truth for primary nav lives in `src/config/nav.ts`.
+// Both Header and Footer import the same `mainNav` constant.
+const NAV = mainNav;
 
 export default function Header() {
   const [open, setOpen] = useState(false);

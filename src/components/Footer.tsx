@@ -2,14 +2,10 @@ import { Suspense } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import NewsletterForm from "@/components/newsletter/NewsletterForm";
-import { ctaLinks } from "@/config/links";
+import { mainNav } from "@/config/nav";
 
-const PRIMARY_NAV = [
-  { label: "AI", href: "/applied-intelligence" },
-  { label: "Frameworks", href: "/frameworks" },
-  { label: "Insights", href: "/insights" },
-  { label: "Diagnostic", href: ctaLinks.signalDiagnostic },
-];
+// Primary nav imported from canonical source — same array Header consumes.
+const PRIMARY_NAV = mainNav;
 
 const LEGAL_NAV = [
   { label: "Privacy", href: "/privacy-policy" },

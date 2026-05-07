@@ -15,43 +15,39 @@ export type NavItem = {
   children?: NavItem[];
 };
 
+// Canonical primary navigation. Consumed by:
+//   - `src/components/Header.tsx`
+//   - `src/components/Footer.tsx`
+//
+// Wordmark = home (no explicit "Home" item, per DESIGN.md §11.6).
+//
+// Items NOT included (intentional):
+//   - "ROI Calculator" — `/roi-calculator` doesn't exist on main yet.
+//     Codex v1 PR adds the line per `docs/codex/roi-calculator-v1-brief.md`
+//     §18.7 Case A.
+//   - "Workshops" / "AI Agents" — pages don't exist yet. Their nav lines
+//     land alongside their respective page PRs.
+//   - "Diagnostic" — the standalone Diagnostic OS at
+//     `https://diagnostic.audiojones.com` is the destination of the
+//     primary header CTA (and many in-page CTAs), not a primary nav slot.
+//   - "Frameworks" / "Blog" — sub-areas. Frameworks consolidates under
+//     `/insights` (or its own internal-link surface); Blog is being
+//     unified into `/insights` per editorial direction.
 export const mainNav: NavItem[] = [
-  {
-    label: "Home",
-    href: "/",
-  },
   {
     label: "Services",
     href: "/services",
-    description: "Explore our service offerings and packages",
+    description: "Service offerings and engagement packages",
   },
   {
-    label: "Systems",
-    href: "/systems",
-    description: "Integrated platform modules",
-    children: modules.map(m => ({
-      label: m.name,
-      href: m.href,
-      description: m.shortDescription,
-    })),
+    label: "Insights",
+    href: "/insights",
+    description: "Pillar essays on Applied Intelligence Systems",
   },
   {
-    label: "For Creators",
-    href: "/creators",
-    description: "Tools and systems for artists, podcasters, and creators",
-  },
-  {
-    label: "For Businesses",
-    href: "/business",
-    description: "Enterprise solutions for consultants, SMBs, and thought leaders",
-  },
-  {
-    label: "Pricing",
-    href: "/pricing",
-  },
-  {
-    label: "About",
-    href: "/about",
+    label: "Apply",
+    href: "/apply",
+    description: "Apply for a strategic engagement",
   },
 ];
 
