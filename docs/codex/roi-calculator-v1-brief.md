@@ -483,6 +483,55 @@ These can be re-imported into v1's `src/lib/roi-calculator/` as-is or copied/ref
 
 PR #47 itself: `https://github.com/AudioJones-Dev/audiojones.com/pull/47` — open in draft as prototype reference. Do not merge it. Do not delete its branch.
 
+### 17.1 Canonical diagnostic CTA destination
+
+The canonical destination for the "Take Signal Diagnostic" CTA — wherever it appears inside ROI Calculator v1 (hero secondary CTA, recommendation card CTA on results, post-email-gate result page, etc.) — is the shared constant:
+
+```ts
+import { ctaLinks } from "@/config/links";
+// → ctaLinks.signalDiagnostic === "https://diagnostic.audiojones.com"
+```
+
+**Use `ctaLinks.signalDiagnostic` exclusively in v1.** Do NOT introduce new references to the legacy internal route `/applied-intelligence/diagnostic`.
+
+The legacy internal route still exists on `main` and is referenced by ~20 pre-existing files (homepage, blog templates, applied-intelligence framework page, step-2 page, etc.). That inconsistency was surfaced during the DESIGN.md implementation audit and is being resolved in a **separate "diagnostic CTA unification" PR** that runs ahead of v1 in the dispatch order. Codex should ignore those legacy references during v1 implementation — they are NOT in v1 scope to touch, and they will be unified to the standalone subdomain by the time v1 ships.
+
+If Codex finds the codebase ambiguous on which destination to use during v1, the answer is unconditionally `ctaLinks.signalDiagnostic`.
+
+### 17.2 How to obtain the reference files (scoring / recommendations / types)
+
+The reference files listed in `§17` (`src/lib/ai-roi-diagnostic/{types,constants,scoring,recommendations,mockLeadCapture}.ts`) **do not exist on `main`.** They live only on the unmerged PR #47 branch (`feat/nav-roi-calculator-2026-05-06`). If Codex branches from `main` to start `feat/roi-calculator-v1-fullstack`, the import paths will fail.
+
+Codex may **selectively** import these files from the PR #47 branch, but only after reviewing the full-stack v1 architecture and confirming they're still appropriate. They were authored against a frontend-only prototype with a localStorage mock — Codex should not assume the lib code's interfaces map cleanly to a backend-persisted v1 without inspection.
+
+**If Codex decides the prototype lib code is still useful**, the import command:
+
+```bash
+git fetch origin feat/nav-roi-calculator-2026-05-06
+git checkout feat/nav-roi-calculator-2026-05-06 -- src/lib/ai-roi-diagnostic
+# Then move + rename to v1's preferred namespace:
+git mv src/lib/ai-roi-diagnostic src/lib/roi-calculator
+```
+
+**Hard rules on what NOT to inherit from PR #47:**
+
+- ❌ **Debug instrumentation** in `DiagnosticForm.tsx` — yellow overlay, `lastClickAt` / `clickCount` / `wasHydrated` / `tick` `useState` hooks, the `console.log("[goNext]")` lines, the `inputFromDom()` defense, the `<script dangerouslySetInnerHTML>` pre-hydration overlay in `layout.tsx`. All of that is diagnostic scaffolding from the iPhone-Safari debugging cycle and is **stashed locally** rather than committed — it should not appear in v1.
+- ❌ **The fragile UI implementation** of `DiagnosticForm.tsx` itself — including the calculator-local `<NativeSelect>` helper added during the PR #47 native-controls rewrite. v1's component layer should be authored fresh against the brief's `§6 native-control requirement` and `§5 UX requirements`, not ported.
+- ❌ **The `<form>` wrapper** the prototype originally used. v1 must use `<div>` + button onClick per `§5.4`.
+
+**What IS safe to selectively import (after review):**
+
+- `types.ts` — type contracts.
+- `constants.ts` — option enum lists + field limits.
+- `scoring.ts` — pure scoring functions (no DOM / React dependency).
+- `recommendations.ts` — recommendation state copy.
+
+**Skip:**
+
+- `mockLeadCapture.ts` — v1 has a real backend (`§8 API route` + `§9 storage adapter`); the localStorage mock is irrelevant.
+
+If Codex prefers to re-author any of these from the brief specs rather than import them, that is also acceptable — the brief contains enough detail to redo the scoring/recommendation contracts cleanly.
+
 ---
 
 ## 18. Decisions confirmed (per PR #48 review)
@@ -521,9 +570,27 @@ v1 does NOT hardwire any CRM, MailerLite list-add, or n8n webhook. The storage a
 
 Acceptable for v1. Protects against casual abuse without blocking legitimate exploration. Tighten later if abuse signals emerge.
 
-### 18.7 Nav update for "ROI Calculator" — **DECIDED: bundle one nav line into v1**
+### 18.7 Nav update for "ROI Calculator" — **DECIDED: depends on nav-consolidation PR ordering**
 
-The route would be undiscoverable from chrome otherwise. Codex adds the "ROI Calculator" item to the `Header.tsx` `NAV` array in the same PR. Keep the change narrow — one nav line, no broader header refactor, no consolidation of the `nav.ts` / `Header.tsx` dual-nav drift (that lives in DESIGN.md §19 future recommendations and stays out of v1).
+The DESIGN.md implementation audit (post PR #48) flagged an existing dual/triple-nav drift between `src/components/Header.tsx`, `src/components/Footer.tsx`, and `src/config/nav.ts`. A **separate "nav consolidation" PR** is dispatched ahead of v1 to consolidate those into a single canonical source. The nav-add for ROI Calculator depends on whether that consolidation has landed:
+
+**Case A — nav consolidation HAS landed before Codex starts v1:**
+
+Add a single line to the canonical nav source (`src/config/nav.ts` or wherever consolidation landed it) between "Services" and "Insights":
+
+```ts
+{ label: "ROI Calculator", href: "/roi-calculator" },
+```
+
+That's the entire nav change — narrow, one line, no broader edits.
+
+**Case B — nav consolidation has NOT landed before Codex starts v1:**
+
+**Stop and surface the conflict to the user.** Do NOT bundle a broader nav restructure into v1's PR. Do NOT add the "ROI Calculator" item to the legacy `Header.tsx` hardcoded `NAV` array (which still has stale labels: AI / Frameworks / Insights / Blog / Diagnostic). Adding the v1 link there now would commit to a 6-item legacy nav that's about to be replaced anyway.
+
+The user will route between waiting for nav consolidation to ship first, or waiving the dependency and accepting a temporary nav state.
+
+**In either case:** v1's PR does NOT change navigation structure beyond at most one nav-line addition. Header / Footer refactor, label updates, "Workshops" / "AI Agents" additions, and dual-nav consolidation are all explicitly out of v1 scope.
 
 ### 18.8 Newsletter env vars — **DECIDED: not required (default approved)**
 
