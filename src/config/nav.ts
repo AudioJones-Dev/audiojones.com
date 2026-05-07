@@ -40,6 +40,11 @@ export const mainNav: NavItem[] = [
     description: "Service offerings and engagement packages",
   },
   {
+    label: "ROI Calculator",
+    href: "/roi-calculator",
+    description: "Estimate AI ROI, readiness, and payback period",
+  },
+  {
     label: "Insights",
     href: "/insights",
     description: "Pillar essays on Applied Intelligence Systems",
