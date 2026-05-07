@@ -552,6 +552,8 @@ When generating UI for AudioJones.com:
 
 ## 19. Future Recommendations
 
+**Per PR #48 review — these are deferred backlog items, NOT v1 scope.** None of these should be pulled into ROI Calculator v1 (`feat/roi-calculator-v1-fullstack`) unless they directly block the calculator. Each should land as its own focused PR after ROI Calculator v1 ships.
+
 Documented for the queue, not for this pass:
 
 - **Consolidate dual nav definition.** Decide whether `Header.tsx` consumes `mainNav` from `src/config/nav.ts` (DRY) or whether the config-side is removed (less indirection). Currently the config is dead code.

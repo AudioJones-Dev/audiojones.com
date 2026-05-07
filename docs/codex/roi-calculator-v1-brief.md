@@ -172,15 +172,23 @@ Between Step 5 submit and full results display:
 
 ## 6. Native-control requirement (non-negotiable for v1)
 
-For every control inside the `#diagnostic` calculator section AND the email gate:
+**Principle:** for ROI Calculator v1, every conversion-critical control inside the `#diagnostic` calculator section and the email gate **defaults to native HTML** unless the equivalent shared component has been proven reliable on real iPhone Safari (production-mode tunnel test). If uncertain, default to native — the prototype proved that "looks fine in dev / Playwright" is not sufficient evidence.
 
-- **Selects:** native `<select>` + `<option>` children. NOT the shared `<Select>` from `src/components/ui/Select.tsx`.
-- **Buttons:** native `<button type="button">`. Use the existing `.btn-glow` CSS class for the primary glow style (defined in `src/app/globals.css`). NOT the shared `<Button>` from `src/components/ui/Button.tsx`.
-- **Number / text inputs:** the shared `<Input>` is fine to reuse OR inline native `<input>` with the same Tailwind classes — your call. (The PR #47 issue was specifically with `<Select>` and `<Button>`, not `<Input>`.)
-- **Form labels / errors:** the shared `<FormField>` is fine.
-- **Checkboxes:** the shared `<Checkbox>` is fine.
+**Required native (no shared-component substitution permitted):**
 
-Hero CTA + value strip + page chrome (header, footer) continue to use shared primitives — those are not lead-capture critical paths.
+- **Selects:** native `<select>` + `<option>` children. Not the shared `<Select>` from `src/components/ui/Select.tsx`. (PR #47 surfaced an iOS-Safari hydration / state-propagation gap with the shared `Select` abstraction that did not reproduce in Playwright Chromium or WebKit emulation.)
+- **Step navigation buttons (Next / Back):** native `<button type="button">` with explicit `onClick={(e) => { e.preventDefault(); e.stopPropagation(); handler(); }}`. Use the existing `.btn-glow` CSS class for the primary glow style (defined in `src/app/globals.css`). Not the shared `<Button>` from `src/components/ui/Button.tsx`.
+- **Email gate submit button:** native `<button type="button">` with the same explicit click handler. Same `.btn-glow` styling.
+
+**Permitted shared-component reuse — only with proof:**
+
+- **Number / text inputs (`<Input>`):** the shared component may be used **only if** verified working on real iPhone Safari in production mode end-to-end. If unverified for this calculator's use, default to native `<input>` with matching Tailwind classes.
+- **Checkboxes (`<Checkbox>`):** same — verified or native.
+- **Form labels / errors (`<FormField>`):** same — verified or replicate inline.
+
+**Heuristic when uncertain:** use native. The cost of a slightly more verbose JSX is far smaller than another iteration of "Playwright passed but iPhone didn't."
+
+**Out of scope of this rule:** hero CTA, value strip, page chrome (header, footer), recommendation card CTAs, restart link. Those are non-lead-capture surfaces and continue to use shared primitives.
 
 ---
 
@@ -450,9 +458,10 @@ These are explicitly NOT in scope. Open separate issues:
 - A/B testing different hero copy variants
 - Multi-language support
 - Calculator analytics dashboard for the agency
-- Integration with HubSpot / Salesforce / other CRMs
-- Webhook delivery to n8n / Zapier
-- PDF export of the result email
+- **Integration with HubSpot / Salesforce / other CRMs** — deferred. v1 must leave **adapter hook seams** in code (per `§9.2 storage adapter pattern` — match `newsletter-storage.ts`'s mock + production wrapper shape) so a future PR can wire a CRM without touching the core calculator flow. Do not hardwire a CRM in v1.
+- **Webhook delivery to n8n / Zapier** — deferred. Same adapter-seam guidance as the CRM item: leave the hook documented in code comments, do not hardwire.
+- **MailerLite list-add on lead capture** — deferred behind the same adapter-seam pattern.
+- **PDF export of the result email** — deferred. v1 ships HTML email + the on-route results page only. PDF can come later if user research validates the demand.
 - A "share my result" social card
 - Workshops-related content
 - Services page deepening
@@ -476,10 +485,46 @@ PR #47 itself: `https://github.com/AudioJones-Dev/audiojones.com/pull/47` — op
 
 ---
 
-## 18. Open questions for the user (surface before starting)
+## 18. Decisions confirmed (per PR #48 review)
 
-1. Should the agency notification email link to a Linear issue / Slack channel / admin portal page? Currently spec says plain email to `LEAD_NOTIFICATION_EMAIL`.
-2. Confirm: the v1 client result email should NOT include the full diagnostic input, only the scores + recommendation? (Privacy default = yes, but worth confirming.)
-3. Confirm: rate limit is 10/hour per IP-hash. Acceptable, or stricter?
-4. Confirm: nav update (add "ROI Calculator" item to Header.tsx NAV) is in scope of v1, or a separate small PR?
-5. Confirm: `MAILERLITE_GROUP_ID` and other newsletter env vars are NOT needed for v1.
+The following clarifications were made during PR #48 review and are **authoritative for v1**. Codex should treat these as locked-in.
+
+### 18.1 Client result email scope — **DECIDED: summary only**
+
+The client-facing result email includes ONLY:
+
+- A short authored summary
+- The 3 score numbers (ROI / Readiness / Priority)
+- Estimated annual ROI + payback period
+- Readiness tier (one line — e.g., "Strong" / "Partial" / "Weak operational readiness")
+- The recommended next action + CTA to `https://diagnostic.audiojones.com`
+
+It does **NOT** include the full diagnostic input. Reason: privacy default; the client doesn't need to receive their own input back; the email should feel authored and scannable, not like a system dump.
+
+### 18.2 Agency notification email scope — **DECIDED: full submitted context**
+
+The agency notification email DOES include the full submitted diagnostic context (input + scores + recommendation + lead metadata + utm/source) needed for follow-up and qualification. Plain email to `LEAD_NOTIFICATION_EMAIL` — no Linear / Slack / admin-portal hop in v1.
+
+### 18.3 Server-side persistence — **DECIDED: full payload stored, curated subset emailed to client**
+
+The full payload (`DiagnosticInput` + `DiagnosticResult` + lead metadata + utm + source) is persisted server-side in `roi_calculator_leads.input` / `result` JSONB columns (per `§9 storage`). The client-facing email is a curated subset (per §18.1). The audit trail is preserved server-side in case the agency needs to look up what the client submitted — but the client email itself stays scannable.
+
+### 18.4 PDF report — **DECIDED: deferred**
+
+No PDF generation in v1. HTML email is the deliverable to the client. The on-route results page (rendered after email-gate submit at `/roi-calculator#diagnostic`) is the primary visual artifact. PDF can come later if user research validates demand. (Documented in `§16 Out of scope`.)
+
+### 18.5 CRM / MailerLite / n8n integrations — **DECIDED: deferred behind adapter hooks**
+
+v1 does NOT hardwire any CRM, MailerLite list-add, or n8n webhook. The storage adapter pattern (per `§9.2` — match the `newsletter-storage.ts` mock + production wrapper shape) leaves room for later wiring. **Codex must document the hook seams in code comments** so a future PR can add an adapter without touching the core calculator flow. (Documented in `§16 Out of scope`.)
+
+### 18.6 Rate limit — **DECIDED: 10/hour per IP-hash + email (default approved)**
+
+Acceptable for v1. Protects against casual abuse without blocking legitimate exploration. Tighten later if abuse signals emerge.
+
+### 18.7 Nav update for "ROI Calculator" — **DECIDED: bundle one nav line into v1**
+
+The route would be undiscoverable from chrome otherwise. Codex adds the "ROI Calculator" item to the `Header.tsx` `NAV` array in the same PR. Keep the change narrow — one nav line, no broader header refactor, no consolidation of the `nav.ts` / `Header.tsx` dual-nav drift (that lives in DESIGN.md §19 future recommendations and stays out of v1).
+
+### 18.8 Newsletter env vars — **DECIDED: not required (default approved)**
+
+`MAILERLITE_GROUP_ID` and other newsletter env vars are NOT required for ROI Calculator v1. Newsletter is a separate concern.
