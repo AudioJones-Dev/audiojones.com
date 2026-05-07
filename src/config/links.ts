@@ -14,7 +14,7 @@ export const portalLinks = {
 
 export const ctaLinks = {
   bookSession: "/book", // Internal booking page
-  signalDiagnostic: "https://diagnostic.audiojones.com", // Standalone Diagnostic OS
+  signalDiagnostic: "/applied-intelligence/diagnostic", // Canonical internal diagnostic flow
   viewServices: "/services", // Services catalog
   viewPricing: "/pricing", // Pricing page
   contactUs: "/contact", // Contact form (if exists)
