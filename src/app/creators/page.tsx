@@ -67,7 +67,7 @@ export default function CreatorsPage() {
                   </li>
                 </ul>
                 <Link
-                  href="/systems/client-delivery"
+                  href="/services"
                   className="text-[#FF4500] hover:text-[#FFD700] font-semibold transition"
                 >
                   Learn More →
@@ -97,7 +97,7 @@ export default function CreatorsPage() {
                   </li>
                 </ul>
                 <Link
-                  href="/systems/marketing-automation"
+                  href="/services"
                   className="text-[#FF4500] hover:text-[#FFD700] font-semibold transition"
                 >
                   Learn More →
@@ -127,7 +127,7 @@ export default function CreatorsPage() {
                   </li>
                 </ul>
                 <Link
-                  href="/systems/data-intelligence"
+                  href="/applied-intelligence"
                   className="text-[#FF4500] hover:text-[#FFD700] font-semibold transition"
                 >
                   Learn More →
@@ -157,7 +157,7 @@ export default function CreatorsPage() {
                   </li>
                 </ul>
                 <Link
-                  href="/systems/ai-optimization"
+                  href="/applied-intelligence"
                   className="text-[#FF4500] hover:text-[#FFD700] font-semibold transition"
                 >
                   Learn More →
