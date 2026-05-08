@@ -1,6 +1,6 @@
 /**
  * Centralized link configuration for Audio Jones platform
- * 
+ *
  * All portal URLs, booking CTAs, and external integrations should reference this file
  */
 
@@ -15,6 +15,7 @@ export const portalLinks = {
 export const ctaLinks = {
   bookSession: "/book", // Internal booking page
   signalDiagnostic: "/applied-intelligence/diagnostic", // Canonical internal diagnostic flow
+  roiCalculator: "/roi-calculator", // Canonical internal ROI calculator flow
   viewServices: "/services", // Services catalog
   viewPricing: "/pricing", // Pricing page
   contactUs: "/contact", // Contact form (if exists)
