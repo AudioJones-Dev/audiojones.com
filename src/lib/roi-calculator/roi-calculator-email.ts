@@ -38,7 +38,10 @@ async function sendResendEmail(payload: { to: string; subject: string; html: str
     body: JSON.stringify({ from, ...payload }),
   });
 
-  if (!response.ok) throw new Error(`Resend returned ${response.status}`);
+  if (!response.ok) {
+    const errBody = await response.text().catch(() => "");
+    throw new Error(`Resend returned ${response.status}${errBody ? `: ${errBody.slice(0, 500)}` : ""}`);
+  }
   return "sent" satisfies RoiEmailStatus;
 }
 
