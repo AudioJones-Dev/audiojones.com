@@ -19,6 +19,15 @@ const nextConfig: NextConfig = {
     NEXT_PUBLIC_ASSET_VERSION: ASSET_VERSION,
     NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA: process.env.VERCEL_GIT_COMMIT_SHA || "",
   },
+  async redirects() {
+    return [
+      { source: "/modules/ai-optimization", destination: "/applied-intelligence", permanent: true },
+      { source: "/modules/client-delivery", destination: "/services", permanent: true },
+      { source: "/modules/data-intelligence", destination: "/applied-intelligence", permanent: true },
+      { source: "/modules/marketing-automation", destination: "/services", permanent: true },
+      { source: "/systems", destination: "/applied-intelligence", permanent: true },
+    ];
+  },
   async headers() {
     return [
       { source: "/", headers: [{ key: "Cache-Control", value: "no-store, must-revalidate" }] },

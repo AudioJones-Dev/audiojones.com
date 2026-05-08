@@ -61,8 +61,6 @@ export const disallowedRoutes = [
   "/portal/",
   "/ops/",
   "/api/",
-  "/systems/",
-  "/modules/",
   "/test-slack",
   "/uploader",
   "/env",

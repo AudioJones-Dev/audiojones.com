@@ -12,8 +12,6 @@ export default function robots(): MetadataRoute.Robots {
           "/portal/",
           "/ops/",
           "/api/",
-          "/systems/",
-          "/modules/",
           "/test-slack",
           "/uploader",
           "/env",
