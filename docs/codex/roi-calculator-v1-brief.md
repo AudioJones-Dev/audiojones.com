@@ -485,18 +485,28 @@ PR #47 itself: `https://github.com/AudioJones-Dev/audiojones.com/pull/47` — op
 
 ### 17.1 Canonical diagnostic CTA destination
 
+> **Updated 2026-05-08 (post PR #53 `f6f9092`):** the canonical value of `ctaLinks.signalDiagnostic` flipped from the standalone subdomain to the internal route. The contract on Codex did **not** change: still always consume the constant, never hardcode either URL. Only the underlying value is different.
+
 The canonical destination for the "Take Signal Diagnostic" CTA — wherever it appears inside ROI Calculator v1 (hero secondary CTA, recommendation card CTA on results, post-email-gate result page, etc.) — is the shared constant:
 
 ```ts
 import { ctaLinks } from "@/config/links";
-// → ctaLinks.signalDiagnostic === "https://diagnostic.audiojones.com"
+// → ctaLinks.signalDiagnostic === "/applied-intelligence/diagnostic"
 ```
 
-**Use `ctaLinks.signalDiagnostic` exclusively in v1.** Do NOT introduce new references to the legacy internal route `/applied-intelligence/diagnostic`.
+**Use `ctaLinks.signalDiagnostic` exclusively in v1.** Do NOT hardcode either `/applied-intelligence/diagnostic` (today's value) or `https://diagnostic.audiojones.com` (the future value) directly — both must flow through the constant so the eventual flip is a one-line change.
 
-The legacy internal route still exists on `main` and is referenced by ~20 pre-existing files (homepage, blog templates, applied-intelligence framework page, step-2 page, etc.). That inconsistency was surfaced during the DESIGN.md implementation audit and is being resolved in a **separate "diagnostic CTA unification" PR** that runs ahead of v1 in the dispatch order. Codex should ignore those legacy references during v1 implementation — they are NOT in v1 scope to touch, and they will be unified to the standalone subdomain by the time v1 ships.
+#### Policy
 
-If Codex finds the codebase ambiguous on which destination to use during v1, the answer is unconditionally `ctaLinks.signalDiagnostic`.
+- **v1 canonical destination:** `/applied-intelligence/diagnostic` (the internal Next.js route on this app). Consumed exclusively via `ctaLinks.signalDiagnostic`.
+- **Future canonical destination:** `https://diagnostic.audiojones.com` (standalone Diagnostic OS app on its own subdomain). The constant will flip back to the subdomain **only after all** of the following are proven live:
+  1. DNS for `diagnostic.audiojones.com` resolves to a deployed host
+  2. Standalone diagnostic app is built and deployed at the subdomain
+  3. SSL certificate is valid
+  4. End-to-end smoke test passes from the subdomain root
+- **Source of policy:** PR #51 (`cc74a12`) unified all CTA references through the constant. PR #53 (`f6f9092`) flipped the constant's value from the unshipped subdomain to the internal route after the subdomain proved not-yet-deployed at v1's ship deadline. The flip is reversible with a 1-line change to `src/config/links.ts` once the subdomain is live.
+
+If Codex finds the codebase ambiguous on which destination to use, the answer is unconditionally `ctaLinks.signalDiagnostic`.
 
 ### 17.2 How to obtain the reference files (scoring / recommendations / types)
 
