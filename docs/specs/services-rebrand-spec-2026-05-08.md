@@ -407,6 +407,8 @@ The `/applied-intelligence`, `/insights`, `/apply`, `/roi-calculator` internal l
 
 ## §10 Open questions for user lock
 
+> ✅ **All 7 open questions resolved at senior-recommendation defaults on 2026-05-08. Codex Phase 1 (copy + IA + token migration) is unblocked once PR #57 merges.**
+
 The following decisions must be locked **before Codex begins implementation**. This spec PR is the lock surface.
 
 ### Q1 — Page title (pick one)
@@ -415,16 +417,29 @@ The following decisions must be locked **before Codex begins implementation**. T
 - [ ] **B: "Operating Systems for Founder-Led Businesses"** — most descriptive, longest
 - [ ] **C: "How We Work With Founders"** — warm, engagement-framed
 
+> **Decided (2026-05-08): Option A — "Applied Intelligence Services"**. Matches the site brand thesis, leverages the existing `/applied-intelligence` route, and aligns with the established framework section vocabulary.
+
 ### Q2 — Hero subhead (pick one)
 
 - [ ] **a:** "We don't sell tools. We build the operating systems founder-led businesses run on — diagnosed first, automated second, measured continuously."
 - [ ] **b:** "Engagements anchored in signal — diagnostic first, applied intelligence buildout second, measurement and durability third. No retainers, no template solutions, no AI theater."
+
+> **Decided (2026-05-08): Option a — tools-vs-systems framing.** Anchors operator language ("We don't sell tools, we build systems") and aligns directly with the brand thesis. Carries the Q1 "Applied Intelligence Services" headline cleanly into the subhead.
 
 ### Q3 — Service buckets (pick approach + count)
 
 - [ ] **Approach 1:** Static buckets only (retire Whop product list display from `/services`; keep Whop API integration for backend / portal / internal use). Static buckets sourced from the audit's recommended IA: AI Business Systems Diagnostic, Applied Intelligence Systems Buildout, AI Agent Workflow Design, Content + Authority Systems, Attribution + Signal Audit. **Pick count: 3 / 4 / 5.**
 - [ ] **Approach 2:** Hybrid — static bucket framing section + Whop product grid below (with §6.3 fallback). User-decided ordering: static-first / Whop-first.
 - [ ] **Approach 3:** Whop products only (retain current Whop-driven bucket grid; reframe per §3 copy direction; no static buckets layer).
+
+> **Decided (2026-05-08): Approach 2 — Hybrid (static-first), 4 buckets.** Static bucket section renders above the Whop product grid; if the Whop API is down, the page still works with the 4 strategic buckets visible. The 4 locked buckets are:
+>
+> 1. **AI Business Systems Diagnostic** (entry point)
+> 2. **Applied Intelligence Systems Buildout** (the core engagement)
+> 3. **AI Agent Workflow Design** (modular tactical work)
+> 4. **Attribution + Signal Audit** (measurement layer)
+>
+> "Content + Authority Systems" from the original audit list is intentionally **not** included in v1 (deferred to a later expansion). Whop products render as supplementary/optional below the 4 strategic buckets per §6.3 fallback rules.
 
 ### Q4 — Section copy (lock 1-2 headlines per section before Codex implements)
 
@@ -446,20 +461,35 @@ For each non-hero section, the user locks the H2 from a 2-candidate proposal. Su
   - **a:** "Start with a diagnostic. Most engagements begin there."
   - **b:** "If you're ready, the diagnostic is the front door."
 
+> **Decided (2026-05-08): Defer per-section H2 copy to Codex** within the locked Q1/Q2/Q3 framing. Codex picks reasonable H2s consistent with "Applied Intelligence Services" + tools-vs-systems framing + the 4 locked buckets; reviewer can refine specific lines in Phase 1's PR. This keeps spec review lighter and lets Codex make tactical wording calls inside the locked strategy.
+
 ### Q5 — Implementation strategy
 
 - [ ] **Path A: Single PR** (recommended if scope is well-defined)
 - [ ] **Path B: Phased PRs** (4 sub-PRs per §8) — and if Path B, parallel Phase 2 + 3 or strictly sequential?
+
+> **Decided (2026-05-08): Path B — phased, sequential.** Four small PRs in order:
+>
+> 1. Phase 1 — copy + IA + token migration
+> 2. Phase 2 — component swaps (after Phase 1 lands)
+> 3. Phase 3 — Whop integration hardening (after Phase 2 lands)
+> 4. Phase 4 — real-device QA + polish (gate before Phase 3 merges)
+>
+> Easier review surface per PR, easier to ship safely, each phase is one small reviewable PR. **Strictly sequential** — no parallel Phase 2 + 3 work in this dispatch.
 
 ### Q6 — Real-device QA gate
 
 - [ ] **Mandatory pre-merge** — Codex implementation PR is held until iPhone Safari production-mode QA passes (recommended, matches PR #52 ROI Calculator pattern)
 - [ ] **Post-merge canary** — implementation PR can merge after Phase 3A passes; iPhone QA happens against production with hotfix-on-failure (faster but risks user-visible regression)
 
+> **Decided (2026-05-08): Mandatory pre-merge.** PR #47's ROI Calculator hydration regression was the source-of-truth lesson — native iPhone Safari is the only authoritative validation for production-mode hydration + interaction. Each phase's PR (especially Phase 1's copy/IA changes and Phase 4's polish) is held until iPhone Safari production-mode QA documents the rendered result. No post-merge canary path.
+
 ### Q7 — Imagery / iconography (default: none, surface to confirm)
 
 - [ ] **Default — no imagery / icons.** Typographic discipline per §11.8. (Recommended for v1.)
 - [ ] Add inline minimal icons (e.g., a single-stroke icon per service bucket). Requires icon system decision; out of scope for v1 unless user explicitly opts in.
+
+> **Decided (2026-05-08): Default — no imagery / icons.** DESIGN.md is restraint-first ("Decoration is a tax on attention" — design-principles §1). Icons can come in v2 if the page reads as too sparse after Phase 4 QA, but the v1 build relies on typographic discipline and structural spacing alone.
 
 ---
 
