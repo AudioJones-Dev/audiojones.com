@@ -11,6 +11,7 @@ const NAV = [
   { label: "Frameworks", href: "/frameworks" },
   { label: "Insights", href: "/insights" },
   { label: "Blog", href: "/blog" },
+  { label: "ROI Calculator", href: "/roi-calculator" },
   { label: "Diagnostic", href: ctaLinks.signalDiagnostic },
 ];
 
