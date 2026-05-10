@@ -11,18 +11,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Rules:
   //  - /step-2   removed — funnel/internal, noindexed at page level
   //  - /podcast  removed — route does not exist
-  //  - /services removed — pending review; add back when confirmed final
-  //  - /blog     added — content hub, crawlable
-  //  - /about    retained — metadata now added at page level
+  //  - /blog     content hub, crawlable
+  //  - /about    metadata now added at page level
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: base,                                        lastModified: now, changeFrequency: "weekly",  priority: 1    },
     { url: `${base}/applied-intelligence`,              lastModified: now, changeFrequency: "weekly",  priority: 0.95 },
     { url: `${base}/applied-intelligence/diagnostic`,  lastModified: now, changeFrequency: "monthly", priority: 0.9  },
+    { url: `${base}/services`,                          lastModified: now, changeFrequency: "weekly",  priority: 0.9  },
+    { url: `${base}/roi-calculator`,                    lastModified: now, changeFrequency: "weekly",  priority: 0.9  },
+    { url: `${base}/apply`,                             lastModified: now, changeFrequency: "monthly", priority: 0.85 },
+    { url: `${base}/pricing`,                           lastModified: now, changeFrequency: "monthly", priority: 0.85 },
     { url: `${base}/frameworks`,                        lastModified: now, changeFrequency: "monthly", priority: 0.85 },
     { url: `${base}/insights`,                          lastModified: now, changeFrequency: "weekly",  priority: 0.85 },
     { url: `${base}/blog`,                              lastModified: now, changeFrequency: "weekly",  priority: 0.85 },
     { url: `${base}/about`,                             lastModified: now, changeFrequency: "monthly", priority: 0.6  },
-    // TODO: Add /pricing once page content is confirmed final for launch
   ];
 
   // ── Dynamic framework routes (from content file) ──────────────────────────

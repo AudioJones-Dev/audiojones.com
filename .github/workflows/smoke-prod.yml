@@ -15,12 +15,18 @@ jobs:
         run: |
           set -e
 
+          # Public marketing surface — these are the routes paid traffic lands on.
+          # /modules/* and /systems are intentionally excluded: they 308-redirect to
+          # current routes and would mask outages on the redirect targets.
           URLS=(
             "https://audiojones.com/"
-            "https://audiojones.com/modules/ai-optimization"
-            "https://audiojones.com/portal/billing"
-            "https://audiojones.com/ops/domains"
-            "https://audiojones.com/status"
+            "https://audiojones.com/applied-intelligence"
+            "https://audiojones.com/services"
+            "https://audiojones.com/roi-calculator"
+            "https://audiojones.com/apply"
+            "https://audiojones.com/pricing"
+            "https://audiojones.com/insights"
+            "https://audiojones.com/blog"
           )
 
           for url in "${URLS[@]}"; do

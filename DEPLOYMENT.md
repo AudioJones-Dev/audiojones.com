@@ -1,130 +1,112 @@
-# 🚀 Audio Jones Deployment Guide
+# Audio Jones — Deployment Guide
 
-## Complete Setup & Security Implementation ✅
+## Stack
 
-This repository now includes enterprise-grade security and ImageKit integration. Everything has been implemented and is ready for production deployment.
-
-## 🔒 Security Features Implemented
-
-### Three-Layer Admin Protection
-1. **Edge Middleware** (`middleware.ts`) - Session cookie verification
-2. **Server Layout** (`src/app/portal/admin/layout.tsx`) - Firebase session + admin claims
-3. **API Guards** - Bearer token validation in protected routes
-
-### Security Components Added
-- ✅ `/not-authorized` page for better UX
-- ✅ `/api/not-authorized` endpoint for consistent 403 responses
-- ✅ Admin claim management script (`tools/set-admin-claim.ts`)
-- ✅ Complete environment configuration
-
-## 🖼 ImageKit Integration
-
-### Smart Fallback System
-- **Development**: Serves images from `/public/assets/` (no ImageKit needed)
-- **Production**: Automatically routes through ImageKit with cache-busting
-
-### Path Mapping
 ```
-/assets/Icons/ → ik.imagekit.io/audiojones/icons/
-/assets/AUDIO JONES WEBSITE IMAGES/ → ik.imagekit.io/audiojones/images/
-/assets/Backgrounds/ → ik.imagekit.io/audiojones/backgrounds/
-/assets/Client Testiomonials/ → ik.imagekit.io/audiojones/testimonials/
+Cloudflare → Vercel + Next.js 16 → Sanity (CMS) + NeonDB (Postgres) + Resend + n8n
 ```
 
-## 🚀 Deployment Steps
+Firebase has been removed from this site. See
+[`docs/architecture/stack-decision.md`](docs/architecture/stack-decision.md).
+The guard `pnpm check:no-firebase` fails the build if Firebase imports or
+`FIREBASE_*` env keys reappear.
 
-### 1. Vercel Environment Variables
+## How a deploy happens
 
-Set these in Vercel Project Settings → Environment Variables:
+Continuous deploy on push to `main` via `.github/workflows/deploy.yml` →
+Vercel. There is no manual `vercel --prod` step in the normal flow. PRs trigger
+Vercel preview deploys; `smoke-preview.yml` then hits the preview URL to
+confirm the marketing surface loads.
+
+| Workflow                         | Trigger                | Purpose                                  |
+| -------------------------------- | ---------------------- | ---------------------------------------- |
+| `ci.yml`                         | PR + push to `main`    | lockfile / typecheck / build             |
+| `deploy.yml`                     | push to `main`         | production deploy to Vercel              |
+| `smoke-preview.yml`              | PR                     | smoke-test the Vercel preview URL        |
+| `smoke-prod.yml`                 | every 30 min           | smoke-test public marketing routes       |
+
+## Vercel environment variables
+
+Set in Vercel Project Settings → Environment Variables (Production scope).
+
+### Required for marketing launch
+
+- `NEXT_PUBLIC_SITE_URL` = `https://audiojones.com`
+- `DATABASE_URL` — Neon Postgres connection string
+- `RESEND_API_KEY`, `RESEND_FROM_EMAIL`, `LEAD_NOTIFICATION_EMAIL`
+- `IP_HASH_SALT`, `LEAD_FORM_SECRET`
+- `IMAGEKIT_ENDPOINT`, `IMAGEKIT_PUBLIC_KEY`, `IMAGEKIT_PRIVATE_KEY`
+- `NEXT_PUBLIC_SANITY_PROJECT_ID`, `NEXT_PUBLIC_SANITY_DATASET`,
+  `NEXT_PUBLIC_SANITY_API_VERSION`, `SANITY_API_READ_TOKEN`
+- `N8N_LEAD_WEBHOOK_URL` (or `CRM_WEBHOOK_URL`)
+
+### Required for commerce / portal
+
+- `STRIPE_SECRET_KEY`, `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`,
+  `STRIPE_WEBHOOK_SECRET`
+- `WHOP_API_KEY`, `NEXT_PUBLIC_WHOP_APP_ID`, `NEXT_PUBLIC_WHOP_COMPANY_ID`,
+  `WHOP_WEBHOOK_SECRET`
+
+### Optional
+
+- `MAILERLITE_API_KEY`, `MAILERLITE_GROUP_ID`
+- `OPENAI_API_KEY`
+- `SENTRY_DSN`, `RELEASE`
+
+See `docs/VERCEL_ENV_SOP.md` for the canonical per-integration matrix.
+
+## Database migrations
+
+Schema lives in `db/migrations/`. Apply against Neon prod **before** promoting
+code that depends on a new table — the storage adapters refuse to fall back to
+the mock provider when `NODE_ENV=production` and `DATABASE_URL` is set.
+
+| File                                     | Owner table                  |
+| ---------------------------------------- | ---------------------------- |
+| `001_applied_intelligence_leads.sql`     | `applied_intelligence_leads` |
+| `002_roi_calculator_leads.sql`           | `roi_calculator_leads`       |
+
+To apply a migration on Neon, paste the SQL into the Neon SQL editor against
+the production branch, or run with any Postgres client:
 
 ```bash
-# ImageKit (Production Only)
-NEXT_PUBLIC_IMAGEKIT_URL=https://ik.imagekit.io/audiojones
-
-# Firebase Admin (Required)
-FIREBASE_CLIENT_EMAIL=your-service-account@audiojoneswebsite.iam.gserviceaccount.com
-FIREBASE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n"
+psql "$DATABASE_URL" -f db/migrations/002_roi_calculator_leads.sql
 ```
 
-### 2. Deploy to Production
+## Pre-launch verification
 
-```powershell
-# Deploy via Vercel
-vercel --prod
+1. `pnpm release:check` runs clean locally (install + no-Firebase guard +
+   build).
+2. Submit a real lead through each capture surface and confirm:
+   - Neon row appears in the matching table
+   - Resend delivers the operator email to `LEAD_NOTIFICATION_EMAIL`
+   - n8n webhook receives the payload (if configured)
 
-# OR deploy via Codex (if using internal tooling)
-npm run repo:commit
-npm run repo:sync
-```
+   | Surface                                   | API endpoint                              | Table                          |
+   | ----------------------------------------- | ----------------------------------------- | ------------------------------ |
+   | `/applied-intelligence/diagnostic`        | `/api/applied-intelligence/leads`         | `applied_intelligence_leads`   |
+   | `/apply`                                  | `/api/applied-intelligence/leads`         | `applied_intelligence_leads`   |
+   | `/roi-calculator`                         | `/api/roi-calculator/lead`                | `roi_calculator_leads`         |
+   | Newsletter forms                          | `/api/newsletter/subscribe`               | (MailerLite — no table)        |
 
-### 3. Set Up Admin User
+3. Verify `https://audiojones.com/sitemap.xml` and `/robots.txt` are 200 and
+   list the routes you intend to drive traffic to.
+4. Confirm the `smoke-prod.yml` cron is green in the Actions tab.
 
-After deployment, grant yourself admin access:
+## Public marketing surface
 
-```powershell
-# Set admin privileges (use your email)
-npx tsx tools/set-admin-claim.ts your-email@domain.com
-```
+| Route                                | Status                         |
+| ------------------------------------ | ------------------------------ |
+| `/`                                  | static (homepage)              |
+| `/applied-intelligence`              | static                         |
+| `/applied-intelligence/diagnostic`   | static                         |
+| `/services`                          | dynamic (Whop catalog)         |
+| `/roi-calculator`                    | static (client-side form)      |
+| `/apply`                             | static                         |
+| `/pricing`                           | static                         |
+| `/insights` + `/insights/[slug]`     | static                         |
+| `/frameworks` + `/frameworks/[slug]` | static                         |
+| `/blog` + `/blog/[slug]`             | static (Sanity-backed)         |
 
-## 🧪 Testing Checklist
-
-### Security Flow Testing
-- [ ] Visit `/portal/admin` logged out → redirects to `/login?next=/portal/admin`
-- [ ] Log in as non-admin user → redirects to `/not-authorized`
-- [ ] Log in as admin user → shows admin interface
-- [ ] API endpoints return 403 for non-admin requests
-
-### ImageKit Testing
-- [ ] Images load in development (from `/public`)
-- [ ] Images load in production (from ImageKit)
-- [ ] Build stamp shows in footer with commit SHA
-- [ ] Network tab shows `ik.imagekit.io` URLs in production
-
-## 🛠 Development Workflow
-
-### Local Development
-```bash
-npm ci                    # Install dependencies
-npm run dev              # Start development server
-```
-
-### Image Management
-```bash
-npm run imagekit:convert  # Convert Image → IKImage
-npm run imagekit:setup   # Check ImageKit status
-```
-
-### Admin Tools
-```bash
-npx tsx tools/set-admin-claim.ts <email>  # Grant admin access
-```
-
-## 📁 Key Files Reference
-
-### Security
-- `middleware.ts` - Edge protection for admin routes
-- `src/app/portal/admin/layout.tsx` - Server-side admin verification
-- `src/app/not-authorized/page.tsx` - Unauthorized access page
-- `tools/set-admin-claim.ts` - Admin privilege management
-
-### ImageKit
-- `src/lib/imagekit.ts` - Smart loader with dev/prod fallback
-- `src/components/IKImage.tsx` - Drop-in Image replacement
-- `src/components/BuildStamp.tsx` - Version info display
-
-### Environment
-- `.env.local` - Development environment variables
-- `functions/.env` - Firebase Functions environment
-
-## 🎯 Production URLs
-
-Once deployed:
-- **Main Site**: `https://audiojones.com`
-- **Portal**: `https://audiojones.com/portal`
-- **Admin**: `https://audiojones.com/portal/admin` (requires admin privileges)
-
-## 📞 Support
-
-All security layers, ImageKit integration, and deployment automation are now in place. The system is production-ready with enterprise-grade security and performance optimization.
-
-**Build Info**: Available in footer via BuildStamp component showing commit SHA and asset version.
+`/portal/*`, `/ops/*`, and admin routes are gated by `middleware.ts` and are
+not part of the public marketing surface.
