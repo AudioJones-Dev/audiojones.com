@@ -39,7 +39,7 @@ const FAQS = [
 ];
 
 export const metadata: Metadata = buildMetadata({
-  title: `${TITLE} in Business | Audio Jones`,
+  title: `${TITLE} in Business`,
   description:
     "Signal vs Noise: the philosophical anchor behind Applied Intelligence. Identify which inputs actually create outcomes, and remove the rest.",
   path: PATH,

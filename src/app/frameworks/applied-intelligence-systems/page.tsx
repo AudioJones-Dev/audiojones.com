@@ -44,7 +44,7 @@ const FAQS = [
 ];
 
 export const metadata: Metadata = buildMetadata({
-  title: `${TITLE} | Audio Jones Framework`,
+  title: `${TITLE} Framework`,
   description: DEFINITION.slice(0, 155),
   path: PATH,
   type: "article",

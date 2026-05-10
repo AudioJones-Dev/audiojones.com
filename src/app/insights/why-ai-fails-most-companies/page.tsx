@@ -36,7 +36,7 @@ const FAQS = [
 ];
 
 export const metadata: Metadata = buildMetadata({
-  title: `${TITLE} | Audio Jones`,
+  title: TITLE,
   description: DESCRIPTION,
   path: PATH,
   type: "article",

@@ -37,7 +37,7 @@ export async function generateMetadata({
 
   if (!post) {
     return {
-      title: "Post Not Found | Audio Jones Blog",
+      title: "Post Not Found",
       description: "The requested article could not be found.",
     };
   }

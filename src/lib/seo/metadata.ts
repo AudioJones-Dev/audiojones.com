@@ -23,21 +23,26 @@ export function buildMetadata({
       : `${SITE_URL}${ogImage}`
     : `${SITE_URL}/assets/og/audio-jones-og.jpg`;
 
+  // Root layout sets `metadata.title.template = "%s | Audio Jones"` which
+  // appends the site name to the head <title>. OpenGraph and Twitter titles
+  // are not templated by Next, so we append the site name here for those.
+  const socialTitle = `${title} | Audio Jones`;
+
   return {
     title,
     description,
     alternates: { canonical: url },
     openGraph: {
-      title,
+      title: socialTitle,
       description,
       url,
       type,
       siteName: "Audio Jones",
-      images: [{ url: image, width: 1200, height: 630, alt: title }],
+      images: [{ url: image, width: 1200, height: 630, alt: socialTitle }],
     },
     twitter: {
       card: "summary_large_image",
-      title,
+      title: socialTitle,
       description,
       images: [image],
     },
