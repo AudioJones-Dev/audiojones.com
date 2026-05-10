@@ -21,11 +21,23 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      // Pre-redesign /modules/* — retired (already redirected pre-existing).
       { source: "/modules/ai-optimization", destination: "/applied-intelligence", permanent: true },
       { source: "/modules/client-delivery", destination: "/services", permanent: true },
       { source: "/modules/data-intelligence", destination: "/applied-intelligence", permanent: true },
       { source: "/modules/marketing-automation", destination: "/services", permanent: true },
+      // /systems index + leaves — retired by 2026-05-10 nav restructure.
       { source: "/systems", destination: "/applied-intelligence", permanent: true },
+      { source: "/systems/ai-optimization", destination: "/applied-intelligence", permanent: true },
+      { source: "/systems/client-delivery", destination: "/services", permanent: true },
+      { source: "/systems/data-intelligence", destination: "/applied-intelligence", permanent: true },
+      { source: "/systems/marketing-automation", destination: "/services", permanent: true },
+      // Pre-redesign legacy marketing pages — retired by 2026-05-10 nav
+      // restructure. Backlinks transfer to the closest semantic replacement.
+      { source: "/book", destination: "/book-a-call", permanent: true },
+      { source: "/business", destination: "/services", permanent: true },
+      { source: "/creators", destination: "/services", permanent: true },
+      { source: "/artisthub", destination: "/services", permanent: true },
     ];
   },
   async headers() {

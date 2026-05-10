@@ -4,8 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { ButtonLink } from "@/components/ui/Button";
-import { ctaLinks } from "@/config/links";
-import { mainNav } from "@/config/nav";
+import { mainNav, headerCtas } from "@/config/nav";
 
 // Single source of truth for primary nav lives in `src/config/nav.ts`.
 // Both Header and Footer import the same `mainNav` constant.
@@ -52,7 +51,7 @@ export default function Header() {
         </Link>
 
         {/* Desktop nav */}
-        <ul className="hidden items-center gap-8 md:flex">
+        <ul className="hidden items-center gap-6 lg:flex">
           {NAV.map((item) => (
             <li key={item.href}>
               {item.href.startsWith("http") ? (
@@ -76,13 +75,13 @@ export default function Header() {
           ))}
         </ul>
 
-        {/* Desktop CTA */}
-        <div className="hidden md:block">
-          <ButtonLink
-            href={ctaLinks.signalDiagnostic}
-            variant="glow"
-          >
-            Take Signal Diagnostic
+        {/* Desktop CTAs — secondary + primary glow per DESIGN.md §11.1 */}
+        <div className="hidden items-center gap-3 lg:flex">
+          <ButtonLink href={headerCtas.diagnostic.href} variant="secondary" size="md">
+            {headerCtas.diagnostic.label}
+          </ButtonLink>
+          <ButtonLink href={headerCtas.bookCall.href} variant="glow">
+            {headerCtas.bookCall.label}
           </ButtonLink>
         </div>
 
@@ -92,7 +91,7 @@ export default function Header() {
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
           aria-controls="primary-nav-mobile"
-          className="rounded-md border border-[var(--line-2)] bg-bg-2 px-3 py-2 t-small text-fg-0 md:hidden"
+          className="rounded-md border border-[var(--line-2)] bg-bg-2 px-3 py-2 t-small text-fg-0 lg:hidden"
         >
           {open ? "Close" : "Menu"}
         </button>
@@ -102,7 +101,7 @@ export default function Header() {
       {open && (
         <div
           id="primary-nav-mobile"
-          className="border-t border-[var(--line-2)] bg-bg-0 md:hidden"
+          className="border-t border-[var(--line-2)] bg-bg-0 lg:hidden"
         >
           <ul className="mx-auto max-w-[1280px] space-y-1 px-5 py-6 sm:px-8">
             {NAV.map((item) => (
@@ -128,13 +127,20 @@ export default function Header() {
                 )}
               </li>
             ))}
-            <li className="pt-4">
+            <li className="flex flex-col gap-3 pt-4">
               <ButtonLink
-                href={ctaLinks.signalDiagnostic}
+                href={headerCtas.diagnostic.href}
+                variant="secondary"
+                className="w-full"
+              >
+                {headerCtas.diagnostic.label}
+              </ButtonLink>
+              <ButtonLink
+                href={headerCtas.bookCall.href}
                 variant="glow"
                 className="w-full"
               >
-                Take Signal Diagnostic
+                {headerCtas.bookCall.label}
               </ButtonLink>
             </li>
           </ul>
