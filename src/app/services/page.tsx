@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ctaLinks } from "@/config/links";
 
 type WhopPrice = {
@@ -58,6 +59,32 @@ export default async function ServicesPage() {
             Find the Right Offer
           </a>
         </header>
+
+        <section className="mb-16 rounded-2xl border border-white/10 bg-white/[0.03] p-8 sm:p-10">
+          <div className="grid gap-6 md:grid-cols-[1.4fr_1fr] md:items-center">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#C8A96A]">
+                Engagement models
+              </p>
+              <h2 className="mt-2 text-2xl sm:text-3xl font-semibold">
+                Most businesses don&rsquo;t have a lead problem. They have a signal problem.
+              </h2>
+              <p className="mt-3 text-white/75 max-w-xl">
+                Two ways to work with Audio Jones — Strategic Build + Growth
+                Operations, or a selective Performance Partnership tied to a
+                single number that matters.
+              </p>
+            </div>
+            <div className="flex md:justify-end">
+              <Link
+                href="/services/growth-models"
+                className="inline-flex h-11 items-center justify-center rounded-full px-6 font-semibold border border-white/20 hover:border-white/40 transition"
+              >
+                Compare Growth Models →
+              </Link>
+            </div>
+          </div>
+        </section>
 
         {products.length === 0 ? (
           <p className="text-center text-white/70">Offers will appear here once Whop products are available.</p>
