@@ -48,7 +48,8 @@
         "vercel:patch-win": "powershell -ExecutionPolicy Bypass -File scripts/patch-vercel-next-win.ps1",
         "build:prod": "pnpm vercel:patch-win && npx vercel build --prod",
         "deploy:prod": "pnpm vercel:patch-win && npx vercel --prod",
-        "release:check": "bash scripts/release-check.sh"
+        "release:check": "bash scripts/release-check.sh",
+        "qa:responsive": "playwright test --config=tests/responsive/playwright.config.ts"
     },
     "dependencies": {
         "@aj/config": "workspace:*",
@@ -77,6 +78,7 @@
         "zod": "^3.23.8"
     },
     "devDependencies": {
+        "@playwright/test": "^1.59.1",
         "@tailwindcss/postcss": "^4",
         "@types/node": "^20",
         "@types/node-fetch": "^2.6.13",

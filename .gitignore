@@ -41,6 +41,11 @@ next-env.d.ts
 .envs/
 audiojones.com/
 
+# Playwright responsive QA harness — manual-run, output is reviewer-only
+/test-results/
+/playwright-report/
+/playwright/.cache/
+
 .env.vercel.*
 
 # Claude Code worktree management directory (per-session, never commit)
