@@ -5,32 +5,30 @@ export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
       {
-        // Allow all legitimate search engine crawlers on public content
+        // Allow all legitimate search engine crawlers on public content.
+        // Retired marketing routes (/book, /business, /creators, /artisthub,
+        // /systems/*, /(site)/*) are intentionally NOT disallowed here — they
+        // 308-redirect to canonical destinations via next.config.ts, and
+        // crawlers must be able to fetch the redirect to transfer link equity
+        // to the new URL. Blocking them would kill the SEO transfer.
         userAgent: "*",
         allow: "/",
         disallow: [
-          "/portal/",
-          "/ops/",
           "/api/",
-          "/test-slack",
-          "/uploader",
+          "/portal/",
+          "/portal/admin/",
+          "/ops/",
           "/env",
           "/not-authorized",
           "/status",
           "/consent-testimonial",
-          "/book",
-          "/business",
-          "/creators",
-          // Legacy artist-hub routes — not part of public nav
-          "/artisthub",
-          "/(site)/artist-hub",
-          "/(site)/epm",
-          // Admin portal — block completely
-          "/portal/admin/",
+          "/test-slack",
+          "/uploader",
+          "/step-2",
         ],
       },
       {
-        // Block GPTBot from entire site unless explicitly opted in later
+        // Block GPTBot from entire site unless explicitly opted in later.
         userAgent: "GPTBot",
         disallow: "/",
       },

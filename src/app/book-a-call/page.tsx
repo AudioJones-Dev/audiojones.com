@@ -1,21 +1,31 @@
 import type { Metadata } from "next";
 import { ButtonLink } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Eyebrow";
+import JsonLd from "@/components/seo/JsonLd";
+import { RelatedLinks } from "@/components/seo/RelatedLinks";
 import { buildMetadata } from "@/lib/seo/metadata";
+import { breadcrumbJsonLd } from "@/lib/seo/schema";
 
 const TITLE = "Book a Call";
 const DESCRIPTION =
   "Schedule a diagnostic call to identify the highest-leverage system opportunity inside your business.";
+const PATH = "/book-a-call";
 
 export const metadata: Metadata = buildMetadata({
   title: TITLE,
   description: DESCRIPTION,
-  path: "/book-a-call",
+  path: PATH,
 });
 
 export default function BookACallPage() {
   return (
     <div className="min-h-screen bg-bg-0">
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", url: "/" },
+          { name: "Book a Call", url: PATH },
+        ])}
+      />
       <section className="border-b border-[var(--line-2)] py-24 sm:py-32">
         <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
           <Eyebrow>Coming soon</Eyebrow>
@@ -36,6 +46,15 @@ export default function BookACallPage() {
           </p>
         </div>
       </section>
+
+      <RelatedLinks
+        items={[
+          { label: "AI Readiness Diagnostic", href: "/ai-readiness-diagnostic", description: "Pre-call self-assessment" },
+          { label: "Services", href: "/services", description: "Engagement options" },
+          { label: "Case Studies", href: "/case-studies", description: "What outcomes look like" },
+          { label: "Apply", href: "/apply", description: "Full intake form" },
+        ]}
+      />
     </div>
   );
 }
