@@ -10,14 +10,14 @@ import { ctaLinks } from "@/config/links";
 // ─── Metadata ─────────────────────────────────────────────────────────────────
 
 export const metadata: Metadata = {
-  title: "Blog | Audio Jones",
+  title: "Blog",
   description:
     "Applied Intelligence, signal systems, M.A.P Attribution, and AI-readiness insights for founder-led businesses. The Audio Jones knowledge base.",
   alternates: {
     canonical: "https://audiojones.com/blog",
   },
   openGraph: {
-    title: "Blog | Audio Jones",
+    title: "Blog",
     description:
       "Applied Intelligence, signal systems, M.A.P Attribution, and AI-readiness insights for founder-led businesses.",
     url: "https://audiojones.com/blog",
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Blog | Audio Jones",
+    title: "Blog",
     description:
       "Applied Intelligence, signal systems, M.A.P Attribution, and AI-readiness insights for founder-led businesses.",
     images: ["/assets/og/audio-jones-og.jpg"],
@@ -35,42 +35,43 @@ export const metadata: Metadata = {
 };
 
 // ─── Static topic cluster config ──────────────────────────────────────────────
-// These render as navigation + empty-state cards regardless of Sanity content.
+// Accent values map to design palette: system blue, signal orange, gold,
+// fg-2 muted, success green. Used as data for per-cluster accenting.
 
 const TOPIC_CLUSTERS = [
   {
     slug: "applied-intelligence-systems",
     label: "Applied Intelligence Systems",
     description: "How to identify signal, build operating leverage, and create systems that compound.",
-    accent: "#3B5BFF",
+    accent: "var(--aj-blue-bright)",
     icon: "◈",
   },
   {
     slug: "signal-vs-noise",
     label: "Signal vs Noise",
     description: "Causal vs vanity metrics. Separating what creates revenue from what consumes attention.",
-    accent: "#FF4500",
+    accent: "var(--aj-orange)",
     icon: "◎",
   },
   {
     slug: "map-attribution",
     label: "M.A.P Attribution",
     description: "Meaningful. Actionable. Profitable. How to identify what actually drives your growth.",
-    accent: "#C8A96A",
+    accent: "var(--aj-gold)",
     icon: "⬡",
   },
   {
     slug: "why-ai-fails",
     label: "Why AI Fails",
     description: "AI fails before it starts — when automation precedes systems, processes, and signal.",
-    accent: "#94A3B8",
+    accent: "var(--fg-2)",
     icon: "⊗",
   },
   {
     slug: "ai-readiness",
     label: "AI Readiness for Founder-Led Businesses",
     description: "The diagnostic framework for knowing whether your business is ready for AI.",
-    accent: "#10B981",
+    accent: "var(--success)",
     icon: "◉",
   },
 ] as const;
@@ -78,7 +79,6 @@ const TOPIC_CLUSTERS = [
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default async function BlogPage() {
-  // Fetch from Sanity if configured — fail silently to empty state if not
   const [featured, all] = await Promise.all([
     safeFetch<PostStub[]>(FEATURED_POSTS_QUERY),
     safeFetch<PostStub[]>(ALL_POSTS_QUERY),
@@ -89,37 +89,16 @@ export default async function BlogPage() {
   const latestPosts = all ?? [];
 
   return (
-    <div
-      className="min-h-screen"
-      style={{ background: "#05070F" }}
-    >
+    <div className="min-h-screen bg-bg-0">
       {/* ── Hero ── */}
       <section className="border-b border-[var(--line-2)] py-24 sm:py-32">
         <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
           <Eyebrow>Knowledge Base</Eyebrow>
-          <h1
-            className="mt-4 text-balance"
-            style={{
-              fontFamily: "var(--font-headline)",
-              fontSize: "clamp(2.4rem, 5vw, 4.2rem)",
-              fontWeight: 700,
-              lineHeight: 1.0,
-              letterSpacing: "-0.03em",
-              color: "#FFFFFF",
-            }}
-          >
+          <h1 className="mt-4 t-h1 text-balance text-fg-0">
             Applied Intelligence,<br />
-            <span style={{ color: "#FF4500" }}>documented.</span>
+            <span className="text-aj-orange">documented.</span>
           </h1>
-          <p
-            className="mt-5 max-w-2xl"
-            style={{
-              fontFamily: "var(--font-accent)",
-              fontSize: "18px",
-              lineHeight: 1.6,
-              color: "rgba(255,255,255,0.65)",
-            }}
-          >
+          <p className="mt-5 t-lead text-fg-2 max-w-2xl">
             The Audio Jones blog documents Applied Intelligence Systems, signal strategy,
             M.A.P Attribution, and AI-readiness for founder-led businesses.
           </p>
@@ -129,31 +108,15 @@ export default async function BlogPage() {
       {/* ── Topic cluster rail ── */}
       <section className="border-b border-[var(--line-2)] py-16">
         <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
-          <p
-            className="mb-8"
-            style={{
-              fontFamily: "var(--font-body)",
-              fontSize: "9px",
-              fontWeight: 700,
-              letterSpacing: "0.22em",
-              textTransform: "uppercase",
-              color: "rgba(255,255,255,0.35)",
-            }}
-          >
-            Topic Clusters
-          </p>
+          <Eyebrow tone="muted" className="mb-8 block">Topic Clusters</Eyebrow>
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
             {TOPIC_CLUSTERS.map((cluster) => (
               <Link
                 key={cluster.slug}
                 href={`/blog/topic/${cluster.slug}`}
-                className="group flex flex-col rounded-2xl p-5 transition-all duration-200"
-                style={{
-                  background: "rgba(10,14,28,0.72)",
-                  border: `1px solid ${cluster.accent}22`,
-                  borderTop: `2px solid ${cluster.accent}`,
-                }}
+                className="group flex flex-col rounded-2xl border border-[var(--line-2)] bg-bg-2 p-5 transition-colors hover:border-[var(--line-3)]"
+                style={{ borderTopColor: cluster.accent, borderTopWidth: "2px" }}
               >
                 <span
                   className="mb-3 text-2xl"
@@ -162,35 +125,11 @@ export default async function BlogPage() {
                 >
                   {cluster.icon}
                 </span>
+                <span className="mb-2 t-h4 text-fg-0">{cluster.label}</span>
+                <span className="t-small text-fg-2">{cluster.description}</span>
                 <span
-                  className="mb-2 font-semibold leading-snug"
-                  style={{
-                    fontFamily: "var(--font-headline)",
-                    fontSize: "14px",
-                    color: "#FFFFFF",
-                    letterSpacing: "-0.01em",
-                  }}
-                >
-                  {cluster.label}
-                </span>
-                <span
-                  style={{
-                    fontFamily: "var(--font-body)",
-                    fontSize: "12px",
-                    color: "rgba(255,255,255,0.45)",
-                    lineHeight: 1.5,
-                  }}
-                >
-                  {cluster.description}
-                </span>
-                <span
-                  className="mt-auto pt-4"
-                  style={{
-                    fontFamily: "var(--font-body)",
-                    fontSize: "11px",
-                    color: cluster.accent,
-                    letterSpacing: "0.08em",
-                  }}
+                  className="mt-auto pt-4 t-label"
+                  style={{ color: cluster.accent }}
                 >
                   Explore →
                 </span>
@@ -235,51 +174,16 @@ export default async function BlogPage() {
       {/* ── Framework CTA ── */}
       <section className="border-t border-[var(--line-2)] py-20">
         <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
-          <div
-            className="rounded-3xl p-10 sm:p-14"
-            style={{
-              background: "linear-gradient(135deg, rgba(59,91,255,0.08) 0%, rgba(255,69,0,0.06) 100%)",
-              border: "1px solid rgba(255,255,255,0.07)",
-            }}
-          >
-            <p
-              style={{
-                fontFamily: "var(--font-body)",
-                fontSize: "10px",
-                fontWeight: 700,
-                letterSpacing: "0.22em",
-                textTransform: "uppercase",
-                color: "#C8A96A",
-                marginBottom: "16px",
-              }}
-            >
-              Continue the signal path
-            </p>
-            <h2
-              style={{
-                fontFamily: "var(--font-headline)",
-                fontSize: "clamp(1.6rem, 3vw, 2.6rem)",
-                fontWeight: 700,
-                letterSpacing: "-0.03em",
-                color: "#FFFFFF",
-                marginBottom: "12px",
-              }}
-            >
+          <div className="rounded-2xl border border-[var(--line-2)] bg-bg-2 p-10 sm:p-14">
+            <Eyebrow>Continue the signal path</Eyebrow>
+            <h2 className="mt-3 t-h2 text-fg-0">
               From insight to operating system.
             </h2>
-            <p
-              style={{
-                fontFamily: "var(--font-accent)",
-                fontSize: "16px",
-                color: "rgba(255,255,255,0.60)",
-                marginBottom: "28px",
-                maxWidth: "52ch",
-              }}
-            >
+            <p className="mt-3 t-body-lg text-fg-2 max-w-[52ch]">
               The blog documents the thinking. The frameworks and diagnostic
               are where it becomes a system for your business.
             </p>
-            <div className="flex flex-wrap gap-3">
+            <div className="mt-7 flex flex-wrap gap-3">
               <ButtonLink href="/frameworks" variant="system-glow">
                 Explore Frameworks
               </ButtonLink>
@@ -300,14 +204,7 @@ function PostCard({ post, featured = false }: { post: PostStub; featured?: boole
   const cluster = post.topicCluster;
 
   return (
-    <article
-      className="group flex flex-col rounded-2xl overflow-hidden transition-all duration-200"
-      style={{
-        background: "rgba(10,14,28,0.72)",
-        border: "1px solid rgba(255,255,255,0.06)",
-      }}
-    >
-      {/* Cover image placeholder */}
+    <article className="group flex flex-col overflow-hidden rounded-2xl border border-[var(--line-2)] bg-bg-2 transition-colors hover:border-[var(--line-3)]">
       {post.coverImage?.url ? (
         // eslint-disable-next-line @next/next/no-img-element
         <img
@@ -317,64 +214,33 @@ function PostCard({ post, featured = false }: { post: PostStub; featured?: boole
         />
       ) : (
         <div
-          className="aspect-[16/9] w-full"
-          style={{ background: "rgba(59,91,255,0.06)", borderBottom: "1px solid rgba(255,255,255,0.05)" }}
+          className="aspect-[16/9] w-full border-b border-[var(--line-1)] bg-bg-3"
           aria-hidden
         />
       )}
 
       <div className="flex flex-1 flex-col p-6">
         {cluster && (
-          <span
-            className="mb-3 inline-block"
-            style={{
-              fontFamily: "var(--font-body)",
-              fontSize: "9px",
-              fontWeight: 700,
-              letterSpacing: "0.18em",
-              textTransform: "uppercase",
-              color: "#3B5BFF",
-            }}
-          >
+          <Eyebrow tone="blue" className="mb-3 block">
             {cluster.title}
-          </span>
+          </Eyebrow>
         )}
 
         <Link href={`/blog/${post.slug.current}`} className="flex-1">
-          <h2
-            className="mb-3 leading-snug transition-colors group-hover:text-[#FF4500]"
-            style={{
-              fontFamily: "var(--font-headline)",
-              fontSize: featured ? "20px" : "17px",
-              fontWeight: 700,
-              letterSpacing: "-0.02em",
-              color: "#FFFFFF",
-            }}
-          >
+          <h2 className={`mb-3 ${featured ? "t-h3" : "t-h4"} text-fg-0 transition-colors group-hover:text-aj-orange`}>
             {post.title}
           </h2>
         </Link>
 
         {post.excerpt && (
-          <p
-            className="mb-4 line-clamp-3"
-            style={{
-              fontFamily: "var(--font-body)",
-              fontSize: "13px",
-              color: "rgba(255,255,255,0.50)",
-              lineHeight: 1.6,
-            }}
-          >
+          <p className="mb-4 t-small text-fg-2 line-clamp-3">
             {post.excerpt}
           </p>
         )}
 
-        <div className="mt-auto flex items-center justify-between pt-4" style={{ borderTop: "1px solid rgba(255,255,255,0.05)" }}>
+        <div className="mt-auto flex items-center justify-between border-t border-[var(--line-1)] pt-4">
           {post.publishedAt && (
-            <time
-              dateTime={post.publishedAt}
-              style={{ fontFamily: "var(--font-body)", fontSize: "11px", color: "rgba(255,255,255,0.30)" }}
-            >
+            <time dateTime={post.publishedAt} className="t-small text-fg-3">
               {new Date(post.publishedAt).toLocaleDateString("en-US", {
                 month: "short",
                 day: "numeric",
@@ -384,7 +250,7 @@ function PostCard({ post, featured = false }: { post: PostStub; featured?: boole
           )}
           <Link
             href={`/blog/${post.slug.current}`}
-            style={{ fontFamily: "var(--font-body)", fontSize: "11px", color: "#FF4500", letterSpacing: "0.08em" }}
+            className="t-label text-aj-orange"
           >
             Read →
           </Link>
@@ -399,52 +265,18 @@ function EmptyState({ configured }: { configured: boolean }) {
     <section className="py-24">
       <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
         <div className="mx-auto max-w-2xl text-center">
-          <p
-            className="mb-4"
-            style={{
-              fontFamily: "var(--font-body)",
-              fontSize: "9px",
-              fontWeight: 700,
-              letterSpacing: "0.22em",
-              textTransform: "uppercase",
-              color: "rgba(255,255,255,0.25)",
-            }}
-          >
+          <Eyebrow tone="muted" className="mb-4 block">
             {configured ? "No posts published yet" : "Content system initializing"}
-          </p>
-          <h2
-            style={{
-              fontFamily: "var(--font-headline)",
-              fontSize: "clamp(1.8rem, 3vw, 2.8rem)",
-              fontWeight: 700,
-              letterSpacing: "-0.03em",
-              color: "#FFFFFF",
-              marginBottom: "16px",
-            }}
-          >
+          </Eyebrow>
+          <h2 className="t-h2 text-fg-0">
             The Audio Jones knowledge base<br />
-            <span style={{ color: "#FF4500" }}>is being structured.</span>
+            <span className="text-aj-orange">is being structured.</span>
           </h2>
-          <p
-            style={{
-              fontFamily: "var(--font-accent)",
-              fontSize: "16px",
-              color: "rgba(255,255,255,0.50)",
-              lineHeight: 1.6,
-              marginBottom: "32px",
-            }}
-          >
+          <p className="mt-4 t-body-lg text-fg-2">
             Articles on Applied Intelligence Systems, signal strategy, M.A.P Attribution,
             and AI-readiness are being written and structured into topic clusters.
           </p>
-          <p
-            style={{
-              fontFamily: "var(--font-body)",
-              fontSize: "12px",
-              color: "rgba(255,255,255,0.25)",
-              letterSpacing: "0.08em",
-            }}
-          >
+          <p className="mt-6 t-small text-fg-3">
             Explore the topic clusters above to see what&apos;s coming.
           </p>
         </div>

@@ -1,29 +1,28 @@
-import Link from 'next/link';
+import Link from "next/link";
+import { ButtonLink } from "@/components/ui/Button";
+import { Eyebrow } from "@/components/ui/Eyebrow";
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen bg-black text-white flex items-center justify-center">
-      <div className="text-center space-y-6 px-6">
-        <div className="space-y-2">
-          <h1 className="text-4xl font-bold text-[#FF4500]">404</h1>
-          <h2 className="text-2xl font-semibold">Page Not Found</h2>
-          <p className="text-gray-400 max-w-md mx-auto">
-            The page you're looking for doesn't exist or has been moved.
+    <div className="min-h-screen bg-bg-0 text-fg-0 flex items-center justify-center">
+      <div className="text-center space-y-6 px-6 max-w-2xl">
+        <div className="space-y-3">
+          <Eyebrow tone="gold">404 — signal lost</Eyebrow>
+          <h1 className="t-h1">Page not found</h1>
+          <p className="t-lead text-fg-2 max-w-md mx-auto">
+            The page you&apos;re looking for doesn&apos;t exist or has been moved.
           </p>
         </div>
-        
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link 
-            href="/" 
-            className="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-[#FF4500] to-[#FFD700] text-black font-semibold rounded-full hover:opacity-90 transition-opacity"
+
+        <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
+          <ButtonLink href="/" variant="glow" size="md">
+            Back to home
+          </ButtonLink>
+          <Link
+            href="/insights"
+            className="inline-flex h-11 items-center justify-center rounded-md border border-[var(--line-2)] px-5 t-body text-fg-1 hover:border-[var(--line-3)] hover:text-fg-0 transition-colors"
           >
-            Back to Home
-          </Link>
-          <Link 
-            href="/portal" 
-            className="inline-flex items-center justify-center px-6 py-3 border border-white/20 text-white font-semibold rounded-full hover:bg-white/10 transition-colors"
-          >
-            Client Portal
+            Browse insights
           </Link>
         </div>
       </div>
