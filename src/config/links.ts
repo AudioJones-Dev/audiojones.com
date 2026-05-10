@@ -13,7 +13,7 @@ export const portalLinks = {
 } as const;
 
 export const ctaLinks = {
-  bookSession: "/book", // Internal booking page
+  bookSession: "/book-a-call", // Internal booking page (2026-05-10 nav restructure)
   signalDiagnostic: "/applied-intelligence/diagnostic", // Canonical internal diagnostic flow
   viewServices: "/services", // Services catalog
   viewPricing: "/pricing", // Pricing page

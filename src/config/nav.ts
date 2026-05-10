@@ -1,6 +1,6 @@
 /**
  * Navigation Configuration for Audio Jones
- * 
+ *
  * Central source of truth for all navigation items across the site.
  * Used by Header, Footer, and any navigation components.
  */
@@ -19,30 +19,29 @@ export type NavItem = {
 //   - `src/components/Header.tsx`
 //   - `src/components/Footer.tsx`
 //
-// Wordmark = home (no explicit "Home" item, per DESIGN.md §11.6).
-//
-// Items NOT included (intentional):
-//   - "ROI Calculator" — `/roi-calculator` doesn't exist on main yet.
-//     Codex v1 PR adds the line per `docs/codex/roi-calculator-v1-brief.md`
-//     §18.7 Case A.
-//   - "Workshops" / "AI Agents" — pages don't exist yet. Their nav lines
-//     land alongside their respective page PRs.
-//   - "Diagnostic" — `/applied-intelligence/diagnostic` is the destination
-//     of the primary header CTA (and many in-page CTAs), not a primary
-//     nav slot.
-//   - "Frameworks" / "Blog" — sub-areas. Frameworks consolidates under
-//     `/insights` (or its own internal-link surface); Blog is being
-//     unified into `/insights` per editorial direction.
+// "Home" is included explicitly per the 2026-05-10 nav restructure brief
+// (overrides DESIGN.md §11.6's wordmark-as-home convention by deliberate
+// product decision).
 export const mainNav: NavItem[] = [
+  {
+    label: "Home",
+    href: "/",
+    description: "Audio Jones — Applied Intelligence Systems",
+  },
+  {
+    label: "Agents",
+    href: "/agents",
+    description: "Production AI agents for founder-led businesses",
+  },
   {
     label: "Services",
     href: "/services",
     description: "Service offerings and engagement packages",
   },
   {
-    label: "ROI Calculator",
-    href: "/roi-calculator",
-    description: "Estimate AI ROI, readiness, and payback period",
+    label: "Case Studies",
+    href: "/case-studies",
+    description: "How operators apply intelligence — in their own words",
   },
   {
     label: "Insights",
@@ -50,11 +49,31 @@ export const mainNav: NavItem[] = [
     description: "Pillar essays on Applied Intelligence Systems",
   },
   {
-    label: "Apply",
-    href: "/apply",
-    description: "Apply for a strategic engagement",
+    label: "ROI Calculator",
+    href: "/roi-calculator",
+    description: "Estimate AI ROI, readiness, and payback period",
+  },
+  {
+    label: "Workshops",
+    href: "/workshops",
+    description: "Operator workshops and live training sessions",
   },
 ];
+
+// Right-side header CTAs. Two slots: a soft (secondary) discovery CTA and a
+// hard (primary glow) booking CTA. DESIGN.md §11.1 says "one signal-glow CTA
+// per major section" — Book a Call carries the glow, Diagnostic is the
+// secondary read-the-room option.
+export const headerCtas = {
+  diagnostic: {
+    label: "AI Readiness Diagnostic",
+    href: "/ai-readiness-diagnostic",
+  },
+  bookCall: {
+    label: "Book a Call",
+    href: "/book-a-call",
+  },
+} as const;
 
 export const portalNav: NavItem[] = [
   {
