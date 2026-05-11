@@ -1,11 +1,11 @@
 ---
 title: "Spec — Services Rebrand v1 (DESIGN.md compliance)"
-status: "draft, awaiting user decision lock"
+status: "amended 2026-05-11 — superseding PR #58 (closed); awaiting fresh implementation PR"
 target_route: "/services"
-target_branch: "feat/services-rebrand-v1 (TBD by Codex)"
+target_branch: "feat/services-rebrand-v1 (TBD by next Codex dispatch)"
 parent_design_doc: "docs/design/DESIGN.md"
 related_audit: "DESIGN.md §17.5 + §16 Anti-Patterns"
-last_updated: "2026-05-08"
+last_updated: "2026-05-11"
 ---
 
 # Spec — Services Rebrand v1
@@ -13,6 +13,28 @@ last_updated: "2026-05-08"
 This spec is a self-contained handoff for the Services page rebrand. **Codex will read this and implement; this PR ships only the spec, no app code.** No prior conversation context required.
 
 The current `src/app/services/page.tsx` is the worst-offending DESIGN.md-drift file on the site. This spec captures audit findings, brand-framing direction, IA, component-level direction, Whop integration strategy, acceptance criteria, phased implementation, and open questions for user lock.
+
+---
+
+> ## ⚠️ 2026-05-11 Amendment — Two policy shifts during implementation
+>
+> The original Phase 1 implementation (PR #58, branch `codex/implement-services-rebrand-phase-1`, head `3f93efa`) was opened 2026-05-08 and **closed without merge on 2026-05-11** after two upstream policy shifts made it cleaner to rewrite than reconcile. Both shifts apply to **this spec going forward** and to any subsequent Services rebrand implementation PR.
+>
+> ### Shift 1 — Nav restructure landed (PR #62, squash `f3751e2`, merged 2026-05-10)
+>
+> The site nav was restructured from the 4-item primary nav this spec was built against to a **7-item primary nav + dual CTAs + 5 placeholder routes**. §11's hard rule *"No nav restructure (PR #50 owns)"* is **superseded** — PR #62 is now the canonical nav, and `src/config/nav.ts` + Header/Footer are the new single source of truth. The fresh Services rebrand must integrate with the post-PR #62 nav rather than restoring the prior structure.
+>
+> ### Shift 2 — Whop integration removed from /services (user direction, 2026-05-08, ratified 2026-05-11)
+>
+> §6 (Whop product integration) is **deprecated in entirety** — the Optional Catalog section, the ISR strategy, the typed `WhopProduct` / `WhopPrice`, and the 3-state fallback all do not apply to v1 anymore. §10 Q3's "Approach 2 — Hybrid (static-first)" lock is revised to **"Approach 1 — Static-only, 4 buckets"**. The 4 locked bucket names are unchanged.
+>
+> Backend Whop infrastructure (lib, API routes, env vars, SDK dependency, webhooks — Tiers 3-7 from the 2026-05-08 Whop audit) **stays dormant on the codebase**. When user is ready to wire Whop back into /services later, restore the relevant section and flip §10 Q3 back to Approach 2.
+>
+> ### What this means for the next implementation PR
+>
+> §§1-5, §7-9, §11-13 of this spec remain authoritative as written. The 6 P1 + 1 P2 audit findings in §2 are still the targets to resolve. The §4 IA shrinks from 6 sections to 5 (omit Optional Whop Catalog; the §4.5 Proof/Signal section that PR #58 also omitted should be **re-included** in the fresh build per the original spec). The locked answers in §10 Q1, Q2, Q4-Q7 carry forward unchanged.
+>
+> See §6 and §10 Q3 below for inline amendment markers.
 
 ---
 
@@ -247,6 +269,14 @@ All headings + body text consume `t-*` utility classes from `globals.css` (lines
 
 ## §6 Whop product integration
 
+> ## ⚠️ Deprecated 2026-05-11
+>
+> The entirety of §6 is deprecated per the top-of-file 2026-05-11 amendment. Whop integration is removed from `/services` for v1. The Optional Catalog section, ISR `revalidate: 3600`, typed `WhopProduct` / `WhopPrice`, and the 3-state fallback all do not apply to the fresh implementation. Codex MUST NOT consume `/api/whop/products` in the rebuilt services page.
+>
+> Backend Whop infrastructure stays dormant on the codebase (per Tier 3-7 of the 2026-05-08 Whop audit) so re-introduction is a render-side change rather than a re-build.
+>
+> Sub-sections §6.1, §6.2, §6.3, §6.4 below are preserved **for historical context only** so the diff stays auditable. Treat as read-only reference.
+
 ### Current state
 
 `src/app/services/page.tsx:18-31` calls `/api/whop/products` via `fetch()` with `cache: "no-store"` and `next: { revalidate: 0 }`. Returns `[]` silently on failure. Renders a blank product grid if no products are returned.
@@ -440,6 +470,8 @@ The following decisions must be locked **before Codex begins implementation**. T
 > 4. **Attribution + Signal Audit** (measurement layer)
 >
 > "Content + Authority Systems" from the original audit list is intentionally **not** included in v1 (deferred to a later expansion). Whop products render as supplementary/optional below the 4 strategic buckets per §6.3 fallback rules.
+
+> **Decided (2026-05-11): Approach revised to Approach 1 — Static-only, 4 buckets.** Per the top-of-file 2026-05-11 amendment, Whop integration is removed from `/services` for v1. The 4 locked buckets above are unchanged. The "Whop products render as supplementary/optional below the 4 strategic buckets per §6.3 fallback rules" clause is **withdrawn** — no Whop products render on `/services` in v1. When user opts to wire Whop back in later, restore the section and flip Q3 back to Approach 2 (or a refined hybrid). Original 2026-05-08 Decided line preserved above for audit trail.
 
 ### Q4 — Section copy (lock 1-2 headlines per section before Codex implements)
 
