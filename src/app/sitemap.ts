@@ -14,6 +14,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Primary nav
     { url: base,                                        lastModified: now, changeFrequency: "weekly",  priority: 1    },
     { url: `${base}/agents`,                            lastModified: now, changeFrequency: "weekly",  priority: 0.9  },
+    { url: `${base}/agents/responseos`,                 lastModified: now, changeFrequency: "weekly",  priority: 0.9  },
     { url: `${base}/services`,                          lastModified: now, changeFrequency: "weekly",  priority: 0.9  },
     { url: `${base}/case-studies`,                      lastModified: now, changeFrequency: "weekly",  priority: 0.9  },
     { url: `${base}/insights`,                          lastModified: now, changeFrequency: "weekly",  priority: 0.85 },

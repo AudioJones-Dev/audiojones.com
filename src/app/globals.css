@@ -83,12 +83,32 @@
 
 /* ---------- TOKENS ---------- */
 :root {
+  /* AUDIOJONES_DESIGN.md implementation aliases */
+  --aj-bg: #05070f;
+  --aj-bg-elevated: #0b1020;
+  --aj-surface: #101827;
+  --aj-surface-2: #151f32;
+  --aj-ink: #f8fafc;
+  --aj-muted: #94a3b8;
+  --aj-border: rgba(148, 163, 184, 0.2);
+  --aj-blue-deep: #0088cc;
+  --aj-amber: #ffc857;
+  --aj-success: #00cc66;
+  --aj-paper: #f5f5f5;
+  --aj-charcoal: #262626;
+  --aj-container: 1200px;
+  --aj-container-wide: 1440px;
+  --aj-gradient-signal: linear-gradient(135deg, #ff4500 0%, #ff6b35 45%, #00a4ff 100%);
+  --aj-gradient-data: linear-gradient(135deg, rgba(0, 164, 255, 0.18), rgba(255, 69, 0, 0.16));
+  --aj-gradient-dark: radial-gradient(circle at top left, rgba(255, 69, 0, 0.22), transparent 32%), radial-gradient(circle at bottom right, rgba(0, 164, 255, 0.18), transparent 30%), #05070f;
+  --aj-gradient-card-border: linear-gradient(135deg, rgba(255, 69, 0, 0.85), rgba(0, 164, 255, 0.65));
+
   /* Brand palette */
   --aj-orange:       #FF4500;   /* primary accent — emphasis only */
   --aj-orange-soft:  #FF6A30;
-  --aj-blue:         #0088CC;   /* secondary — intelligence / system layer */
-  --aj-blue-bright:  #3B5BFF;   /* component-level blue used in code */
-  --aj-gold:         #C8A96A;   /* eyebrows / metric labels */
+  --aj-blue:         #00A4FF;   /* secondary - intelligence / system layer */
+  --aj-blue-bright:  #00A4FF;   /* component-level blue used in code */
+  --aj-gold:         #FFC857;   /* eyebrows / metric labels */
 
   /* Surfaces — dark (default) */
   --bg-0:   #05070F;            /* page */
@@ -462,6 +482,36 @@ html, body {
   background-size: 64px 64px;
 }
 
+.aj-bg-grid-dark {
+  --grid-color: rgba(114, 114, 114, 0.18);
+  background-color: var(--aj-bg);
+  background-image:
+    linear-gradient(0deg, transparent 24%, var(--grid-color) 25%, var(--grid-color) 26%, transparent 27%, transparent 74%, var(--grid-color) 75%, var(--grid-color) 76%, transparent 77%, transparent),
+    linear-gradient(90deg, transparent 24%, var(--grid-color) 25%, var(--grid-color) 26%, transparent 27%, transparent 74%, var(--grid-color) 75%, var(--grid-color) 76%, transparent 77%, transparent);
+  background-size: 55px 55px;
+}
+
+.aj-bg-grid-light {
+  --grid-color: rgba(38, 38, 38, 0.08);
+  background-color: var(--aj-paper);
+  background-image:
+    linear-gradient(0deg, transparent 24%, var(--grid-color) 25%, var(--grid-color) 26%, transparent 27%, transparent 74%, var(--grid-color) 75%, var(--grid-color) 76%, transparent 77%, transparent),
+    linear-gradient(90deg, transparent 24%, var(--grid-color) 25%, var(--grid-color) 26%, transparent 27%, transparent 74%, var(--grid-color) 75%, var(--grid-color) 76%, transparent 77%, transparent);
+  background-size: 55px 55px;
+}
+
+.aj-noise-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.08;
+  mix-blend-mode: screen;
+  background-image:
+    radial-gradient(circle at 12% 18%, rgba(255, 255, 255, 0.18) 0 1px, transparent 1px),
+    radial-gradient(circle at 82% 42%, rgba(255, 255, 255, 0.14) 0 1px, transparent 1px);
+  background-size: 18px 18px, 23px 23px;
+}
+
 /* ---------- LEGACY UTILITIES (deprecated; preserved so legacy
    marketing-surface routes don't visually regress while the
    redesign rolls out wave-by-wave) ---------- */
@@ -669,5 +719,242 @@ html, body {
   .btn-glow-sys {
     font-size: 16px;
     padding: 0.92em 2.75em;
+  }
+}
+
+/* ---------- AUDIOJONES_DESIGN.md component classes ---------- */
+.aj-btn-signal {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: 1px solid rgba(255, 107, 53, 0.75);
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(255, 69, 0, 0.95), rgba(255, 107, 53, 0.78));
+  color: #fff7ed;
+  padding: 0.875rem 1.4rem;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  box-shadow: 0 0 0 1px rgba(255, 69, 0, 0.2), 0 0 24px rgba(255, 69, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.24);
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.24);
+  transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+}
+
+.aj-btn-signal::after {
+  pointer-events: none;
+  content: "";
+  position: absolute;
+  inset: 75% 8% -60%;
+  z-index: -1;
+  background: rgba(255, 69, 0, 0.34);
+  filter: blur(24px);
+  opacity: 0.55;
+  transform: perspective(2rem) rotateX(35deg) scale(1, 0.6);
+}
+
+.aj-btn-signal:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 0 0 1px rgba(255, 69, 0, 0.34), 0 0 34px rgba(255, 69, 0, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.aj-btn-signal:active {
+  transform: translateY(0);
+}
+
+.aj-btn-signal:focus-visible,
+.aj-btn-intel:focus-visible {
+  outline: 2px solid var(--aj-blue);
+  outline-offset: 3px;
+}
+
+.aj-btn-intel {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(0, 164, 255, 0.52);
+  border-radius: 999px;
+  background: rgba(0, 164, 255, 0.08);
+  color: #dff6ff;
+  padding: 0.875rem 1.25rem;
+  font-weight: 700;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transition: border-color 180ms ease, background 180ms ease, transform 180ms ease;
+}
+
+.aj-btn-intel:hover {
+  transform: translateY(-1px);
+  border-color: rgba(0, 164, 255, 0.9);
+  background: rgba(0, 164, 255, 0.14);
+}
+
+.aj-card-signal {
+  position: relative;
+  border-radius: 1.25rem;
+  padding: 1px;
+  background: var(--aj-gradient-card-border);
+  transition: transform 220ms ease, box-shadow 220ms ease;
+}
+
+.aj-card-signal > .aj-card-inner {
+  min-height: 100%;
+  border-radius: calc(1.25rem - 1px);
+  background: linear-gradient(180deg, rgba(16, 24, 39, 0.98), rgba(5, 7, 15, 0.98));
+  padding: 1.5rem;
+}
+
+.aj-card-signal:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 30px rgba(255, 69, 0, 0.18), 0 18px 60px rgba(0, 0, 0, 0.32);
+}
+
+.aj-product-card {
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  border-radius: 1.25rem;
+  background: radial-gradient(circle at top right, rgba(0, 164, 255, 0.12), transparent 32%), rgba(16, 24, 39, 0.86);
+  padding: 1.5rem;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.24);
+}
+
+.aj-proof-card {
+  border: 1px solid rgba(38, 38, 38, 0.1);
+  border-radius: 1.25rem;
+  background: #ffffff;
+  color: #101827;
+  padding: 1.5rem;
+  box-shadow: 0 12px 40px rgba(15, 23, 42, 0.08);
+}
+
+.aj-form-panel {
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  border-radius: 1.5rem;
+  background: radial-gradient(circle at top left, rgba(255, 69, 0, 0.14), transparent 30%), rgba(11, 16, 32, 0.88);
+  padding: clamp(1.25rem, 3vw, 2rem);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.32);
+}
+
+.aj-input {
+  min-height: 48px;
+  width: 100%;
+  border: 1px solid rgba(148, 163, 184, 0.24);
+  border-radius: 0.875rem;
+  background: rgba(5, 7, 15, 0.64);
+  color: var(--aj-ink);
+  padding: 0.875rem 1rem;
+  outline: none;
+  transition: border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
+}
+
+.aj-input:focus {
+  border-color: rgba(0, 164, 255, 0.82);
+  background: rgba(5, 7, 15, 0.88);
+  box-shadow: 0 0 0 3px rgba(0, 164, 255, 0.14);
+}
+
+.aj-radio,
+.aj-check,
+.aj-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--aj-ink);
+  font-size: 0.95rem;
+  font-weight: 650;
+}
+
+.aj-radio input[type="radio"] {
+  appearance: none;
+  position: relative;
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 1px solid rgba(0, 164, 255, 0.64);
+  border-radius: 999px;
+  background: rgba(0, 164, 255, 0.1);
+}
+
+.aj-radio input[type="radio"]::before {
+  content: "";
+  position: absolute;
+  inset: 0.3rem;
+  border-radius: 999px;
+  background: var(--aj-blue);
+  transform: scale(0);
+  transition: transform 150ms ease;
+}
+
+.aj-radio input[type="radio"]:checked::before {
+  transform: scale(1);
+}
+
+.aj-toggle input[type="checkbox"] {
+  appearance: none;
+  position: relative;
+  width: 3.25rem;
+  height: 1.75rem;
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.14);
+}
+
+.aj-toggle input[type="checkbox"]::before {
+  content: "";
+  position: absolute;
+  top: 0.25rem;
+  left: 0.25rem;
+  width: 1.15rem;
+  height: 1.15rem;
+  border-radius: 999px;
+  background: var(--aj-muted);
+  transition: transform 180ms ease, background 180ms ease, box-shadow 180ms ease;
+}
+
+.aj-toggle input[type="checkbox"]:checked {
+  border-color: rgba(255, 69, 0, 0.72);
+  background: rgba(255, 69, 0, 0.18);
+}
+
+.aj-toggle input[type="checkbox"]:checked::before {
+  transform: translateX(1.45rem);
+  background: var(--aj-orange);
+  box-shadow: 0 0 18px rgba(255, 69, 0, 0.42);
+}
+
+.aj-code-block,
+.prose pre {
+  position: relative;
+  overflow: auto;
+  border: 1px solid rgba(0, 164, 255, 0.18);
+  border-radius: 1rem;
+  background: linear-gradient(180deg, rgba(0, 164, 255, 0.06), rgba(255, 69, 0, 0.04)), var(--aj-bg);
+  color: #e2e8f0;
+  padding: 1.25rem;
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.28);
+}
+
+.aj-code-block::before,
+.prose pre::before {
+  content: "SIGNAL OUTPUT";
+  display: block;
+  margin-bottom: 0.75rem;
+  color: var(--aj-blue);
+  font-family: Space Grotesk, Inter, system-ui, sans-serif;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
   }
 }

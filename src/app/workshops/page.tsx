@@ -1,36 +1,92 @@
 import type { Metadata } from "next";
-import { ButtonLink } from "@/components/ui/Button";
-import { Eyebrow } from "@/components/ui/Eyebrow";
+import {
+  DarkSection,
+  FinalCta,
+  LightProofSection,
+  ProductCard,
+  SectionIntro,
+  SignalHero,
+} from "@/components/marketing/DesignSystemSections";
+import { workshops } from "@/data/audiojones-design";
 import { buildMetadata } from "@/lib/seo/metadata";
 
-const TITLE = "Workshops";
 const DESCRIPTION =
-  "Operator workshops and live training sessions for founder-led businesses building Applied Intelligence Systems.";
+  "Operator workshops for founders and teams building AI readiness, revenue recovery, and signal-over-noise business systems.";
 
 export const metadata: Metadata = buildMetadata({
-  title: TITLE,
+  title: "Workshops",
   description: DESCRIPTION,
   path: "/workshops",
 });
 
 export default function WorkshopsPage() {
   return (
-    <div className="min-h-screen bg-bg-0">
-      <section className="border-b border-[var(--line-2)] py-24 sm:py-32">
-        <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
-          <Eyebrow>Coming soon</Eyebrow>
-          <h1 className="mt-4 t-h1 text-balance text-fg-0">{TITLE}</h1>
-          <p className="mt-5 max-w-2xl t-lead text-fg-2">{DESCRIPTION}</p>
-          <div className="mt-10 flex flex-wrap gap-3">
-            <ButtonLink href="/book-a-call" variant="glow">
-              Book a Call
-            </ButtonLink>
-            <ButtonLink href="/roi-calculator" variant="secondary">
-              Calculate Your AI ROI
-            </ButtonLink>
+    <>
+      <SignalHero
+        title="Workshops for operators building real AI systems."
+        description={DESCRIPTION}
+        primaryHref="/book-a-call"
+        primaryLabel="Book a Call"
+        secondaryHref="/ai-readiness-diagnostic"
+        secondaryLabel="Start the Diagnostic"
+        stats={[
+          { metric: "Live", label: "Working sessions built around your operating reality." },
+          { metric: "Systems", label: "Each workshop outputs a map, constraint, and next action." },
+          { metric: "Signal", label: "No generic AI prompts, no tool-first curriculum." },
+        ]}
+      />
+
+      <DarkSection>
+        <SectionIntro
+          label="Workshop Tracks"
+          title="Education that becomes operating infrastructure."
+          description="Each session is designed to help a founder-led team see the system they are already running, then decide what intelligence layer belongs on top of it."
+        />
+        <div className="mt-10 grid gap-6 lg:grid-cols-3">
+          {workshops.map((workshop) => (
+            <ProductCard
+              key={workshop.title}
+              title={workshop.title}
+              description={workshop.description}
+              meta={workshop.format}
+            />
+          ))}
+        </div>
+      </DarkSection>
+
+      <LightProofSection>
+        <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#0088cc]">
+              Working Session Output
+            </p>
+            <h2 className="mt-4 font-accent text-[clamp(2.25rem,4vw,4rem)] font-bold leading-[1.02] tracking-[-0.035em]">
+              The deliverable is a clearer operating decision.
+            </h2>
+          </div>
+          <div className="grid gap-4">
+            {[
+              ["System map", "A visual view of where work enters, moves, stalls, and gets measured."],
+              ["Readiness score", "A practical read on data, process, SOP, ownership, and adoption maturity."],
+              ["Next system", "A prioritized path into diagnostic, ResponseOS, services, or internal implementation."],
+            ].map(([title, copy]) => (
+              <div key={title} className="aj-proof-card">
+                <h3 className="font-accent text-2xl font-bold">{title}</h3>
+                <p className="mt-3 leading-7 text-[#4b5563]">{copy}</p>
+              </div>
+            ))}
           </div>
         </div>
-      </section>
-    </div>
+      </LightProofSection>
+
+      <FinalCta
+        title="Bring the signal into the room."
+        description="Use a workshop when the team needs shared clarity before committing to a systems buildout."
+        primaryLabel="Book a Call"
+        primaryHref="/book-a-call"
+        secondaryLabel="Start the Diagnostic"
+        secondaryHref="/ai-readiness-diagnostic"
+      />
+    </>
   );
 }
