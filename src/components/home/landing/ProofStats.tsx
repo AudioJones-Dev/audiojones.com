@@ -4,7 +4,7 @@ import { Eyebrow } from "@/components/ui/Eyebrow";
 // ─── Asset ───────────────────────────────────────────────────────────────────
 
 const BG =
-  "/assets/Homepage/09-proof-metrics/backgrounds/proof-bg-fragmented-to-signal-desktop.png";
+  "/assets/Homepage/09-proof-metrics/backgrounds/fragmented-to-signal-bg-v2.webp";
 
 // ─── Metric data ─────────────────────────────────────────────────────────────
 
@@ -66,7 +66,7 @@ export default function ProofStats() {
           fill
           className="object-cover object-center"
           sizes="100vw"
-          style={{ opacity: 0.52 }}
+          style={{ opacity: 0.5 }}
         />
       </div>
 
@@ -79,7 +79,7 @@ export default function ProofStats() {
           zIndex: 2,
           pointerEvents: "none",
           background:
-            "linear-gradient(180deg, rgba(5,7,15,0.82) 0%, rgba(5,7,15,0.62) 42%, rgba(5,7,15,0.86) 100%)",
+            "linear-gradient(180deg, rgba(5,7,15,0.86) 0%, rgba(5,7,15,0.66) 42%, rgba(5,7,15,0.9) 100%)",
         }}
       />
 
@@ -171,91 +171,40 @@ export default function ProofStats() {
 
         {/* ── Before / After cards ── */}
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-
-          {/* BEFORE */}
-          <article
-            aria-label="Before: Activity without leverage"
-            className="flex flex-col rounded-3xl p-8 sm:p-10"
-            style={{
-              background:
-                "linear-gradient(180deg, rgba(255,69,0,0.08) 0%, rgba(11,15,26,0.96) 100%)",
-              border: "1px solid rgba(200,169,106,0.30)",
-              backdropFilter: "blur(8px)",
-              minHeight: "420px",
-            }}
-          >
-            <Eyebrow tone="muted">Before</Eyebrow>
-            <h3 className="mt-3 t-h3 text-white">Activity without leverage</h3>
-
-            {/* Chart — fixed-ratio wrapper eliminates skewing */}
-            <div
-              className="relative mt-6 w-full overflow-hidden rounded-xl"
-              style={{
-                aspectRatio: "16 / 7",
-                background: "rgba(5,7,15,0.30)",
-              }}
-            >
-              <ChaoticChart />
-            </div>
-
-            <ul className="mt-6 flex-1 space-y-2 t-small text-fg-2">
-              <li>· Inconsistent pipeline with unclear drivers</li>
-              <li>· Unclear attribution — last-click theatre</li>
-              <li>· Disconnected tools, no operating model</li>
-              <li>· Founder as the bottleneck for every decision</li>
-            </ul>
-          </article>
-
-          {/* AFTER — opt-in light surface ("clarity layer" per design.md).
-               `data-surface="light"` rebinds the surface/text vars to the
-               canonical paper/ink tokens (see globals.css §Light split).
-               Keeps the canonical token contract intact instead of
-               hardcoding a one-off light hex. */}
-          <article
-            data-surface="light"
-            aria-label="After: Causal system, compounding outcomes"
-            className="flex flex-col rounded-3xl p-8 sm:p-10 bg-paper text-ink"
-            style={{
-              border: "1px solid var(--border-light)",
-              boxShadow:
-                "0 0 0 1px rgba(59,91,255,0.06), 0 24px 80px rgba(59,91,255,0.10)",
-              minHeight: "420px",
-            }}
-          >
-            <span
-              className="t-label"
-              style={{
-                fontSize: "9px",
-                letterSpacing: "0.20em",
-                color: "#3B5BFF",
-              }}
-            >
-              After
-            </span>
-            <h3 className="mt-3 t-h3 text-ink">
-              Causal system, compounding outcomes
-            </h3>
-
-            {/* Chart — fixed-ratio wrapper eliminates skewing */}
-            <div
-              className="relative mt-6 w-full overflow-hidden rounded-xl"
-              style={{
-                aspectRatio: "16 / 7",
-                background:
-                  "linear-gradient(180deg, rgba(59,91,255,0.08), rgba(59,91,255,0.02))",
-                border: "1px solid rgba(59,91,255,0.10)",
-              }}
-            >
-              <CleanChart />
-            </div>
-
-            <ul className="mt-6 flex-1 space-y-2 t-small text-ink-muted">
-              <li>· Clearer decision inputs, revenue-linked metrics</li>
-              <li>· Attribution as identification — not correlation</li>
-              <li>· Systemized execution, diagnostic-ready growth loop</li>
-              <li>· Founder freed from operations, focused on signal</li>
-            </ul>
-          </article>
+          <PerfCard
+            kind="before"
+            title="Activity without leverage"
+            statusLabel="Noise"
+            kpis={[
+              { label: "Pipeline Drift", value: "High", trend: "↑ 41%", trendUp: false },
+              { label: "Attribution Conf.", value: "Low", trend: "Last-click", trendUp: false },
+            ]}
+            chart={<ChaoticChart />}
+            range="Pre-engagement baseline"
+            bullets={[
+              "Inconsistent pipeline with unclear drivers",
+              "Unclear attribution — last-click theatre",
+              "Disconnected tools, no operating model",
+              "Founder as the bottleneck for every decision",
+            ]}
+          />
+          <PerfCard
+            kind="after"
+            title="Causal system, compounding outcomes"
+            statusLabel="Signal · Live"
+            kpis={[
+              { label: "CAC", value: "↓ 37%", trend: "vs baseline", trendUp: true },
+              { label: "Conversion", value: "↑ 42%", trend: "lead → call", trendUp: true },
+            ]}
+            chart={<CleanChart />}
+            range="Post-system, in-flight"
+            bullets={[
+              "Clearer decision inputs, revenue-linked metrics",
+              "Attribution as identification — not correlation",
+              "Systemized execution, diagnostic-ready growth loop",
+              "Founder freed from operations, focused on signal",
+            ]}
+          />
         </div>
 
         {/* ── Metric tiles ── */}
@@ -294,17 +243,17 @@ export default function ProofStats() {
               >
                 {s.display}
               </dd>
-              <p
+              <dd
                 className="mt-2"
                 style={{
                   fontFamily: "var(--font-body)",
                   fontSize: "11px",
-                  color: "rgba(255,255,255,0.40)",
+                  color: "rgba(255,255,255,0.62)",
                   lineHeight: 1.5,
                 }}
               >
                 {s.label}
-              </p>
+              </dd>
             </div>
           ))}
         </dl>
@@ -324,6 +273,217 @@ export default function ProofStats() {
         </p>
       </div>
     </section>
+  );
+}
+
+// ─── PerfCard — gradient-bordered analytics card on dark slab ────────────────
+
+type Kpi = {
+  label: string;
+  value: string;
+  trend: string;
+  trendUp: boolean;
+};
+
+type PerfCardProps = {
+  kind: "before" | "after";
+  title: string;
+  statusLabel: string;
+  kpis: readonly [Kpi, Kpi];
+  chart: React.ReactNode;
+  range: string;
+  bullets: readonly string[];
+};
+
+function PerfCard({
+  kind,
+  title,
+  statusLabel,
+  kpis,
+  chart,
+  range,
+  bullets,
+}: PerfCardProps) {
+  const isAfter = kind === "after";
+
+  const ringGradient = isAfter
+    ? "linear-gradient(135deg, var(--aj-blue) 0%, var(--aj-orange) 60%, var(--aj-blue) 100%)"
+    : "linear-gradient(135deg, var(--aj-gold) 0%, var(--aj-orange) 55%, var(--aj-orange-soft) 100%)";
+
+  const iconBg = isAfter
+    ? "linear-gradient(135deg, var(--aj-blue), var(--aj-orange))"
+    : "linear-gradient(135deg, var(--aj-gold), var(--aj-orange))";
+
+  const accent = isAfter ? "var(--aj-blue)" : "var(--aj-orange)";
+
+  const statusDotColor = isAfter ? "var(--aj-success)" : "var(--aj-gold)";
+  const statusFg = isAfter
+    ? "var(--aj-success)"
+    : "var(--aj-gold)";
+  const statusBg = isAfter
+    ? "rgba(0,204,102,0.10)"
+    : "rgba(255,200,87,0.10)";
+
+  return (
+    <article
+      aria-label={`${isAfter ? "After" : "Before"}: ${title}`}
+      className="group relative flex flex-col rounded-2xl p-[1px]"
+      style={{
+        background: ringGradient,
+        boxShadow: isAfter
+          ? "0 24px 80px rgba(0,164,255,0.18), 0 0 0 1px rgba(0,164,255,0.10)"
+          : "0 24px 80px rgba(255,69,0,0.14), 0 0 0 1px rgba(255,69,0,0.10)",
+      }}
+    >
+      <div
+        className="flex h-full flex-col rounded-2xl p-6 sm:p-7"
+        style={{
+          background: "rgba(5,7,15,0.96)",
+        }}
+      >
+        {/* Header */}
+        <div className="flex items-center justify-between gap-3">
+          <div className="flex items-center gap-3">
+            <span
+              aria-hidden
+              className="flex h-9 w-9 items-center justify-center rounded-lg"
+              style={{ background: iconBg }}
+            >
+              {isAfter ? (
+                <svg
+                  className="h-4 w-4 text-white"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+                  />
+                </svg>
+              ) : (
+                <svg
+                  className="h-4 w-4 text-white"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M3 12l3-3 4 4 5-7 6 9"
+                  />
+                </svg>
+              )}
+            </span>
+            <div>
+              <p
+                className="font-mono text-[10px] font-bold uppercase tracking-[0.16em]"
+                style={{ color: accent }}
+              >
+                {isAfter ? "After" : "Before"}
+              </p>
+              <h3 className="mt-1 text-base font-semibold leading-tight text-white sm:text-lg">
+                {title}
+              </h3>
+            </div>
+          </div>
+
+          <span
+            className="flex items-center gap-1.5 rounded-full px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.10em]"
+            style={{ background: statusBg, color: statusFg }}
+          >
+            <span
+              aria-hidden
+              className="h-1.5 w-1.5 rounded-full"
+              style={{ background: statusDotColor }}
+            />
+            {statusLabel}
+          </span>
+        </div>
+
+        {/* KPI tiles */}
+        <div className="mt-5 grid grid-cols-2 gap-3">
+          {kpis.map((k) => (
+            <div
+              key={k.label}
+              className="rounded-lg border p-3"
+              style={{
+                background: "rgba(10,14,28,0.72)",
+                borderColor: "rgba(148,163,184,0.12)",
+              }}
+            >
+              <p className="font-mono text-[10px] font-bold uppercase tracking-[0.12em] text-fg-3">
+                {k.label}
+              </p>
+              <p
+                className="mt-1 font-headline text-xl font-bold leading-none text-white"
+                style={{ letterSpacing: "-0.02em" }}
+              >
+                {k.value}
+              </p>
+              <p
+                className="mt-1 font-mono text-[10px] font-medium"
+                style={{
+                  color: k.trendUp ? "var(--aj-success)" : "var(--aj-gold)",
+                }}
+              >
+                {k.trend}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        {/* Chart */}
+        <div
+          className="relative mt-5 w-full overflow-hidden rounded-lg border"
+          style={{
+            aspectRatio: "16 / 7",
+            background: isAfter
+              ? "linear-gradient(180deg, rgba(0,164,255,0.06), rgba(5,7,15,0.30))"
+              : "rgba(5,7,15,0.40)",
+            borderColor: isAfter
+              ? "rgba(0,164,255,0.14)"
+              : "rgba(255,69,0,0.14)",
+          }}
+        >
+          {chart}
+        </div>
+
+        {/* Bullets */}
+        <ul className="mt-5 flex-1 space-y-1.5">
+          {bullets.map((b) => (
+            <li
+              key={b}
+              className="flex items-start gap-2 text-xs leading-5 text-fg-2 sm:text-sm sm:leading-6"
+            >
+              <span
+                aria-hidden
+                className="mt-[7px] inline-block h-1 w-1 shrink-0 rounded-full"
+                style={{ background: accent, opacity: 0.7 }}
+              />
+              <span>{b}</span>
+            </li>
+          ))}
+        </ul>
+
+        {/* Footer */}
+        <div className="mt-5 flex items-center justify-between border-t border-[rgba(148,163,184,0.10)] pt-4">
+          <span className="font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-fg-3">
+            {range}
+          </span>
+          <span
+            className="font-mono text-[10px] font-bold uppercase tracking-[0.14em]"
+            style={{ color: accent }}
+          >
+            {isAfter ? "Axis: Signal / Revenue" : "Axis: Activity / Outcome"}
+          </span>
+        </div>
+      </div>
+    </article>
   );
 }
 
@@ -360,7 +520,38 @@ function ChaoticChart() {
       aria-hidden
       style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }}
     >
-      {/* Bars */}
+      {[70, 140, 210].map((y) => (
+        <line
+          key={y}
+          x1="0"
+          y1={y}
+          x2="640"
+          y2={y}
+          stroke="#94A3B8"
+          strokeWidth="1"
+          opacity="0.12"
+          vectorEffect="non-scaling-stroke"
+        />
+      ))}
+      {[128, 256, 384, 512].map((x) => (
+        <line
+          key={x}
+          x1={x}
+          y1="0"
+          x2={x}
+          y2="280"
+          stroke="#94A3B8"
+          strokeWidth="1"
+          opacity="0.08"
+          vectorEffect="non-scaling-stroke"
+        />
+      ))}
+      <text x="8" y="22" fill="#94A3B8" opacity=".6" fontFamily="ui-monospace, monospace" fontSize="11">
+        NOISE
+      </text>
+      <text x="570" y="264" fill="#94A3B8" opacity=".6" fontFamily="ui-monospace, monospace" fontSize="11">
+        TIME
+      </text>
       {bars.map((b, i) => (
         <rect
           key={i}
@@ -427,6 +618,25 @@ function CleanChart() {
           vectorEffect="non-scaling-stroke"
         />
       ))}
+      {[128, 256, 384, 512].map((x) => (
+        <line
+          key={x}
+          x1={x}
+          y1="0"
+          x2={x}
+          y2="280"
+          stroke="#3B5BFF"
+          strokeWidth="1"
+          opacity="0.08"
+          vectorEffect="non-scaling-stroke"
+        />
+      ))}
+      <text x="8" y="22" fill="#3B5BFF" opacity=".72" fontFamily="ui-monospace, monospace" fontSize="11">
+        SIGNAL
+      </text>
+      <text x="548" y="264" fill="#3B5BFF" opacity=".72" fontFamily="ui-monospace, monospace" fontSize="11">
+        REVENUE
+      </text>
       {/* Area fill */}
       <path d={area} fill="url(#cleanFill2)" />
       {/* Curve */}

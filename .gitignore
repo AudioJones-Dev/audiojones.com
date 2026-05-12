@@ -46,6 +46,9 @@ audiojones.com/
 # Claude Code worktree management directory (per-session, never commit)
 .claude/
 
+# Codex dev session logs, browser profiles, and audit artifacts (never commit)
+.codex/
+
 # Local CLI capture output and dev scratch (never commit).
 # Caught a bunch of these in the W1.6 sweep — preventing recurrence.
 *_out.txt

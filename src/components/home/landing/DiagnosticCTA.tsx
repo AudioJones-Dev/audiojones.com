@@ -1,8 +1,9 @@
-import { Suspense } from "react";
-import { ButtonLink } from "@/components/ui/Button";
+import Link from "next/link";
+import Image from "next/image";
 import { Eyebrow } from "@/components/ui/Eyebrow";
-import NewsletterForm from "@/components/newsletter/NewsletterForm";
-import { ctaLinks } from "@/config/links";
+
+const CTA_BG =
+  "/assets/Homepage/12-final-diagnostic-cta/backgrounds/final-cta-bg-v2.webp";
 
 /**
  * Section 8 — Diagnostic CTA.
@@ -16,8 +17,19 @@ export default function DiagnosticCTA() {
   return (
     <section
       id="diagnostic"
-      className="relative border-t border-[var(--line-2)] bg-bg-0 py-24 sm:py-32"
+      className="relative overflow-hidden border-t border-[var(--line-2)] bg-bg-0 py-24 sm:py-32"
     >
+      <div aria-hidden className="absolute inset-0 -z-30">
+        <Image
+          src={CTA_BG}
+          alt=""
+          fill
+          className="object-cover object-center"
+          sizes="100vw"
+          style={{ opacity: 0.58 }}
+        />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_42%,rgba(5,7,15,0.34),rgba(5,7,15,0.88)_68%)]" />
+      </div>
       <div
         aria-hidden
         className="absolute inset-x-0 top-0 -z-10 h-px bg-gradient-to-r from-transparent via-aj-blue-bright/40 to-transparent"
@@ -39,7 +51,7 @@ export default function DiagnosticCTA() {
             letterSpacing: "-0.035em",
           }}
         >
-          Stop guessing what works.
+          Build around what actually works.
         </h2>
         <p
           className="mt-4 text-fg-2 max-w-[56ch] mx-auto"
@@ -51,23 +63,21 @@ export default function DiagnosticCTA() {
             letterSpacing: "-0.01em",
           }}
         >
-          Identify what is actually driving your business.
+          Run the diagnostic, identify the signal, and build the system that
+          turns it into measurable growth.
         </p>
         <p className="mt-4 t-body text-fg-2 max-w-2xl mx-auto">
-          The diagnostic shows whether your business has a signal problem, a
-          systems problem, an attribution problem, or an AI readiness problem.
+          Choose the live call path when you are ready to scope the system.
+          Choose the diagnostic path when the leak still needs to be mapped.
         </p>
 
         <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-          <ButtonLink
-            href={ctaLinks.signalDiagnostic}
-            variant="glow"
-          >
-            Take Signal Diagnostic
-          </ButtonLink>
-          <ButtonLink href="/frameworks" variant="system-glow">
-            See Frameworks
-          </ButtonLink>
+          <Link href="/book-a-call" className="aj-btn-signal w-full sm:w-auto">
+            Book a Call
+          </Link>
+          <Link href="/ai-readiness-diagnostic" className="aj-btn-intel w-full sm:w-auto">
+            Start the AI Readiness Diagnostic
+          </Link>
         </div>
         <p className="mt-6 t-small text-fg-3">
           Free fit review. No commitment. Reviewed personally by Audio Jones.
@@ -79,32 +89,16 @@ export default function DiagnosticCTA() {
           className="mx-auto mt-16 h-px w-32 bg-gradient-to-r from-transparent via-[var(--line-2)] to-transparent"
         />
 
-        {/* ── Newsletter — secondary, lower-prominence path ──
-            Suspense required because <NewsletterForm> uses
-            useSearchParams() (App Router constraint, see W1.6/W2 lessons). */}
-        <div className="mx-auto mt-10 max-w-[480px] text-left">
+        <div className="mx-auto mt-10 max-w-[480px] text-center">
           <Eyebrow tone="muted">Insights</Eyebrow>
           <p className="mt-3 t-small text-fg-2">
-            Or subscribe to the next signal — short, framework-driven, no nurture drip.
+            Read the latest signal notes on AI systems, attribution, and revenue recovery.
           </p>
-          <Suspense fallback={<NewsletterFormSkeleton />}>
-            <NewsletterForm
-              source="homepage-final-cta"
-              className="mt-4"
-            />
-          </Suspense>
+          <Link href="/insights" className="aj-btn-intel mt-5">
+            Read Insights
+          </Link>
         </div>
       </div>
     </section>
-  );
-}
-
-function NewsletterFormSkeleton() {
-  return (
-    <div aria-hidden className="mt-4 flex flex-col gap-4 opacity-50">
-      <div className="h-10 rounded-md bg-bg-2" />
-      <div className="h-3 w-40 rounded bg-bg-2" />
-      <div className="h-11 w-32 rounded-md bg-bg-2" />
-    </div>
   );
 }
