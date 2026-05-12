@@ -1,15 +1,11 @@
 import type { Metadata } from "next";
 import {
   HeroAllSignal,
-  TrustedByStrip,
-  ProblemReframeSplit,
   SignalNoiseModel,
-  MAPAttributionSection,
-  SystemModelLoop,
-  ICPFilterSection,
+  ResponseOSWedge,
+  RoiLeadMagnet,
   ProcessPipeline,
   ProofStats,
-  InsightsPreview,
   DiagnosticCTA,
 } from "@/components/home/landing";
 import JsonLd from "@/components/seo/JsonLd";
@@ -22,7 +18,7 @@ import {
 export const metadata: Metadata = {
   title: "Audio Jones — Applied Intelligence Systems for founder-led businesses",
   description:
-    "You don't have an AI problem. You have a signal problem. Audio Jones helps founder-led businesses identify causal growth signals, reduce operational noise, and build Applied Intelligence Systems that compound.",
+    "You don't have a growth problem. You have a signal problem. Audio Jones helps founder-led businesses identify causal growth signals, reduce operational noise, and build Applied Intelligence Systems that compound.",
   alternates: { canonical: "https://audiojones.com/" },
   openGraph: {
     title: "Audio Jones — Applied Intelligence Systems",
@@ -43,7 +39,6 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <>
-      {/* ── Entity schema — Organization + Person + WebSite ── */}
       <JsonLd data={organizationJsonLd()} />
       <JsonLd data={personJsonLd()} />
       <JsonLd data={webSiteJsonLd()} />
@@ -51,34 +46,22 @@ export default function HomePage() {
       {/* 1. Hero */}
       <HeroAllSignal />
 
-      {/* 2. Trusted-by strip */}
-      <TrustedByStrip />
-
-      {/* 3. Problem Reframe */}
-      <ProblemReframeSplit />
-
-      {/* 4. Signal vs Noise Model */}
+      {/* 2. Problem reframe — signal vs noise */}
       <SignalNoiseModel />
 
-      {/* 5. M.A.P Attribution Framework */}
-      <MAPAttributionSection />
+      {/* 3. Flagship offer — ResponseOS */}
+      <ResponseOSWedge />
 
-      {/* 6. Applied Intelligence Systems */}
-      <SystemModelLoop />
+      {/* 4. ROI lead magnet */}
+      <RoiLeadMagnet />
 
-      {/* 7. ICP Filter */}
-      <ICPFilterSection />
-
-      {/* 8. Process */}
+      {/* 5. Process — Diagnose / Design / Deploy */}
       <ProcessPipeline />
 
-      {/* 9. Proof / Metrics */}
+      {/* 6. Proof / Before-After */}
       <ProofStats />
 
-      {/* 10. Insights Preview */}
-      <InsightsPreview />
-
-      {/* 11. Final Diagnostic CTA */}
+      {/* 7. Final CTA */}
       <DiagnosticCTA />
     </>
   );

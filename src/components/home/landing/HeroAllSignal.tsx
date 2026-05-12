@@ -37,10 +37,14 @@ export default function HeroAllSignal() {
       aria-label="Hero"
       style={{
         position: "relative",
-        minHeight: "calc(100vh - 80px)",
+        minHeight: "clamp(820px, calc(100vh - 40px), 1040px)",
         overflow: "hidden",
         display: "flex",
         flexDirection: "column",
+        background:
+          "linear-gradient(rgba(5,7,15,0.08),rgba(5,7,15,0.16)), url(/backgrounds/aj-bg-home-signal-control-room-desktop.webp), var(--aj-gradient-signal-control-room)",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
       }}
     >
       {/* ── 1. Background — mobile < 768px ── */}
@@ -108,24 +112,25 @@ export default function HeroAllSignal() {
         className="hidden lg:block"
         style={{
           position: "absolute",
-          top: "8%",
-          left: "30%",
-          zIndex: 2,
+          top: "11%",
+          left: "38%",
+          zIndex: 1,
           whiteSpace: "nowrap",
           userSelect: "none",
           pointerEvents: "none",
           fontFamily: "var(--font-headline)",
           fontWeight: 700,
-          fontSize: "clamp(8rem, 14vw, 18rem)",
-          lineHeight: 0.78,
-          letterSpacing: "-0.08em",
+          fontSize: "clamp(6.6rem, 11.2vw, 14.5rem)",
+          lineHeight: 0.82,
+          letterSpacing: "-0.065em",
+          opacity: 0.92,
           textTransform: "uppercase",
-          transform: "scaleX(0.78)",
+          transform: "scaleX(0.84)",
           transformOrigin: "left center",
         }}
       >
-        <span style={{ color: "#000000" }}>ALL </span>
-        <span style={{ color: "#FF4500" }}>SIGNAL</span>
+        <span style={{ color: "rgba(0,0,0,0.78)" }}>ALL </span>
+        <span style={{ color: "rgba(255,69,0,0.92)" }}>SIGNAL</span>
       </div>
 
       {/* ── 2. "ALL SIGNAL" — tablet 768–1023px ── */}
@@ -134,24 +139,25 @@ export default function HeroAllSignal() {
         className="hidden md:block lg:hidden"
         style={{
           position: "absolute",
-          top: "8%",
-          left: "28%",
-          zIndex: 2,
+          top: "12%",
+          left: "38%",
+          zIndex: 1,
           whiteSpace: "nowrap",
           userSelect: "none",
           pointerEvents: "none",
           fontFamily: "var(--font-headline)",
           fontWeight: 700,
-          fontSize: "clamp(4.5rem, 9.5vw, 8.5rem)",
-          lineHeight: 0.78,
-          letterSpacing: "-0.07em",
+          fontSize: "clamp(3.8rem, 8vw, 7rem)",
+          lineHeight: 0.82,
+          letterSpacing: "-0.06em",
+          opacity: 0.88,
           textTransform: "uppercase",
-          transform: "scaleX(0.78)",
+          transform: "scaleX(0.84)",
           transformOrigin: "left center",
         }}
       >
-        <span style={{ color: "#000000" }}>ALL </span>
-        <span style={{ color: "#FF4500" }}>SIGNAL</span>
+        <span style={{ color: "rgba(0,0,0,0.74)" }}>ALL </span>
+        <span style={{ color: "rgba(255,69,0,0.9)" }}>SIGNAL</span>
       </div>
 
       {/* ── 2. "ALL SIGNAL" — mobile — HIDDEN (clutters headline on small screens) ── */}
@@ -161,13 +167,13 @@ export default function HeroAllSignal() {
         className="hidden lg:block"
         style={{
           position: "absolute",
-          bottom: "-3%",
-          left: "50%",
-          transform: "translateX(-54%)",
-          width: "72vw",
-          maxWidth: "1080px",
+          bottom: "-8%",
+          left: "51%",
+          transform: "translateX(-55%)",
+          width: "69vw",
+          maxWidth: "1040px",
           height: "104vh",
-          maxHeight: "1160px",
+          maxHeight: "1120px",
           zIndex: 3,
         }}
       >
@@ -188,10 +194,10 @@ export default function HeroAllSignal() {
         className="hidden md:block lg:hidden"
         style={{
           position: "absolute",
-          bottom: 0,
+          bottom: "-3%",
           left: "54%",
           transform: "translateX(-50%)",
-          width: "50vw",
+          width: "48vw",
           maxWidth: "520px",
           height: "78vh",
           maxHeight: "700px",
@@ -315,7 +321,7 @@ export default function HeroAllSignal() {
             margin: 0,
           }}
         >
-          You don&apos;t have<br />an AI problem.
+          You don&apos;t have<br />a growth problem.
           <br />
           <span style={{ color: "#FF4500" }}>
             You have a<br />signal problem.
@@ -342,16 +348,32 @@ export default function HeroAllSignal() {
             display: "flex",
             flexWrap: "wrap",
             alignItems: "center",
-            gap: "12px",
+            gap: "18px",
             marginTop: "28px",
           }}
         >
           <ButtonLink href={ctaLinks.signalDiagnostic} variant="glow">
             Book Your Diagnostic
           </ButtonLink>
-          <ButtonLink href="#system-model" variant="system-glow">
-            See the System
-          </ButtonLink>
+          <a
+            href="#system-model"
+            style={{
+              fontFamily: "var(--font-body)",
+              fontSize: "13px",
+              fontWeight: 600,
+              letterSpacing: "0.08em",
+              textTransform: "uppercase",
+              color: "rgba(255,255,255,0.62)",
+              textDecoration: "none",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "6px",
+              borderBottom: "1px solid rgba(255,255,255,0.18)",
+              paddingBottom: "2px",
+            }}
+          >
+            See how it works <span aria-hidden>→</span>
+          </a>
         </div>
 
         {/* Sub-label */}
@@ -406,7 +428,7 @@ export default function HeroAllSignal() {
             maxWidth: "16ch",
           }}
         >
-          You don&apos;t have an AI problem.
+          You don&apos;t have a growth problem.
           <br />
           <span style={{ color: "#FF4500" }}>You have a signal problem.</span>
         </h1>
@@ -430,16 +452,33 @@ export default function HeroAllSignal() {
           style={{
             display: "flex",
             flexWrap: "wrap",
-            gap: "10px",
+            alignItems: "center",
+            gap: "16px",
             marginTop: "24px",
           }}
         >
           <ButtonLink href={ctaLinks.signalDiagnostic} variant="glow">
             Book Your Diagnostic
           </ButtonLink>
-          <ButtonLink href="#system-model" variant="system-glow">
-            See the System
-          </ButtonLink>
+          <a
+            href="#system-model"
+            style={{
+              fontFamily: "var(--font-body)",
+              fontSize: "12px",
+              fontWeight: 600,
+              letterSpacing: "0.08em",
+              textTransform: "uppercase",
+              color: "rgba(255,255,255,0.62)",
+              textDecoration: "none",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "6px",
+              borderBottom: "1px solid rgba(255,255,255,0.18)",
+              paddingBottom: "2px",
+            }}
+          >
+            See how it works <span aria-hidden>→</span>
+          </a>
         </div>
       </div>
 

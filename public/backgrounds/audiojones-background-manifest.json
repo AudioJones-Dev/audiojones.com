@@ -1,0 +1,113 @@
+{
+  "generatedAt": "2026-05-12T02:10:04.072Z",
+  "assets": [
+    {
+      "name": "aj-bg-home-signal-control-room-desktop",
+      "label": "Homepage Hero Background - Signal Control Room",
+      "width": 2400,
+      "height": 1350,
+      "webp": "/backgrounds/aj-bg-home-signal-control-room-desktop.webp",
+      "png": "/backgrounds/aj-bg-home-signal-control-room-desktop.png",
+      "svg": "/backgrounds/aj-bg-home-signal-control-room-desktop.svg"
+    },
+    {
+      "name": "aj-bg-home-signal-control-room-mobile",
+      "label": "Mobile Hero Background",
+      "width": 1080,
+      "height": 1920,
+      "webp": "/backgrounds/aj-bg-home-signal-control-room-mobile.webp",
+      "png": "/backgrounds/aj-bg-home-signal-control-room-mobile.png",
+      "svg": "/backgrounds/aj-bg-home-signal-control-room-mobile.svg"
+    },
+    {
+      "name": "aj-bg-responseos-revenue-recovery",
+      "label": "ResponseOS Revenue Recovery Background",
+      "width": 1920,
+      "height": 1080,
+      "webp": "/backgrounds/aj-bg-responseos-revenue-recovery.webp",
+      "png": "/backgrounds/aj-bg-responseos-revenue-recovery.png",
+      "svg": "/backgrounds/aj-bg-responseos-revenue-recovery.svg"
+    },
+    {
+      "name": "aj-bg-diagnostic-intelligence-layer",
+      "label": "AI Readiness Diagnostic Background",
+      "width": 1920,
+      "height": 1080,
+      "webp": "/backgrounds/aj-bg-diagnostic-intelligence-layer.webp",
+      "png": "/backgrounds/aj-bg-diagnostic-intelligence-layer.png",
+      "svg": "/backgrounds/aj-bg-diagnostic-intelligence-layer.svg"
+    },
+    {
+      "name": "aj-bg-roi-calculator-grid",
+      "label": "ROI Calculator Background",
+      "width": 1920,
+      "height": 1080,
+      "webp": "/backgrounds/aj-bg-roi-calculator-grid.webp",
+      "png": "/backgrounds/aj-bg-roi-calculator-grid.png",
+      "svg": "/backgrounds/aj-bg-roi-calculator-grid.svg"
+    },
+    {
+      "name": "aj-bg-agents-system-map",
+      "label": "Agents Index Background",
+      "width": 1920,
+      "height": 1080,
+      "webp": "/backgrounds/aj-bg-agents-system-map.webp",
+      "png": "/backgrounds/aj-bg-agents-system-map.png",
+      "svg": "/backgrounds/aj-bg-agents-system-map.svg"
+    },
+    {
+      "name": "aj-bg-services-luxury-graphite",
+      "label": "Services Page Background",
+      "width": 1920,
+      "height": 1080,
+      "webp": "/backgrounds/aj-bg-services-luxury-graphite.webp",
+      "png": "/backgrounds/aj-bg-services-luxury-graphite.png",
+      "svg": "/backgrounds/aj-bg-services-luxury-graphite.svg"
+    },
+    {
+      "name": "aj-bg-case-studies-paper-proof",
+      "label": "Case Studies / Proof Background",
+      "width": 1920,
+      "height": 1080,
+      "webp": "/backgrounds/aj-bg-case-studies-paper-proof.webp",
+      "png": "/backgrounds/aj-bg-case-studies-paper-proof.png",
+      "svg": "/backgrounds/aj-bg-case-studies-paper-proof.svg"
+    },
+    {
+      "name": "aj-bg-workshops-amber-system",
+      "label": "Workshops Background",
+      "width": 1920,
+      "height": 1080,
+      "webp": "/backgrounds/aj-bg-workshops-amber-system.webp",
+      "png": "/backgrounds/aj-bg-workshops-amber-system.png",
+      "svg": "/backgrounds/aj-bg-workshops-amber-system.svg"
+    },
+    {
+      "name": "aj-bg-final-cta-build-system",
+      "label": "Final CTA Background - Build the System",
+      "width": 1920,
+      "height": 1080,
+      "webp": "/backgrounds/aj-bg-final-cta-build-system.webp",
+      "png": "/backgrounds/aj-bg-final-cta-build-system.png",
+      "svg": "/backgrounds/aj-bg-final-cta-build-system.svg"
+    },
+    {
+      "name": "aj-bg-card-texture-dark-glass",
+      "label": "Abstract Card Texture Background",
+      "width": 1200,
+      "height": 900,
+      "webp": "/backgrounds/aj-bg-card-texture-dark-glass.webp",
+      "png": "/backgrounds/aj-bg-card-texture-dark-glass.png",
+      "svg": "/backgrounds/aj-bg-card-texture-dark-glass.svg"
+    },
+    {
+      "name": "aj-bg-noise-layer-overlay",
+      "label": "Noise Layer Overlay",
+      "width": 1920,
+      "height": 1080,
+      "webp": "/backgrounds/aj-bg-noise-layer-overlay.webp",
+      "png": "/backgrounds/aj-bg-noise-layer-overlay.png",
+      "svg": "/backgrounds/aj-bg-noise-layer-overlay.svg"
+    }
+  ]
+}

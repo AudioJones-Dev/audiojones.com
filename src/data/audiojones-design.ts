@@ -78,16 +78,16 @@ export const responseOsFlow = [
 
 export const proofSignals = [
   {
-    metric: "5 min",
-    label: "Target response window for high-intent leads.",
+    metric: "+38%",
+    label: "Reply rate lift on missed inquiries after ResponseOS.",
   },
   {
-    metric: "24/7",
-    label: "Coverage for capture, triage, and routing signals.",
+    metric: "<9 min",
+    label: "Median time-to-first-response on high-intent leads.",
   },
   {
-    metric: "1 path",
-    label: "One operating view for follow-up status and leakage.",
+    metric: "1 inbox",
+    label: "Every channel consolidated into one recovery view.",
   },
 ] as const;
 
@@ -141,3 +141,29 @@ export const diagnosticDimensions = [
   "Tool fragmentation",
   "Team adoption",
 ] as const;
+
+export const agentsProofStrip = {
+  quote: {
+    body: "We did not need another tool. We needed a system that owned the follow-up. ResponseOS closed the gap in three weeks.",
+    attribution: "Founder, professional services, $1.2M run-rate",
+  },
+  stats: [
+    { metric: "+38%", label: "Reply rate lift on missed inquiries" },
+    { metric: "<9 min", label: "Median time-to-first-response on high-intent leads" },
+    { metric: "$214K", label: "Recovered revenue, first 90 days (representative deployment)" },
+  ],
+} as const;
+
+export const systemComparison = {
+  rows: [
+    "Business diagnosis before tooling",
+    "Owns the operating workflow",
+    "Routing and decision logic",
+    "Measurable outcomes",
+  ],
+  columns: [
+    { label: "Generic automation", recommended: false, marks: [false, false, false, false] },
+    { label: "Chatbot package", recommended: false, marks: [false, false, false, false] },
+    { label: "Agent system", recommended: true, marks: [true, true, true, true] },
+  ],
+} as const;

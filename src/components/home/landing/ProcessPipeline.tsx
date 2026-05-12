@@ -335,7 +335,7 @@ export default function ProcessPipeline() {
 
                 {s.active ? (
                   /* Active signal dot with pulse ring */
-                  <div aria-label="Active phase" style={{ position: "relative", width: "8px", height: "8px" }}>
+                  <div aria-hidden style={{ position: "relative", width: "8px", height: "8px" }}>
                     <span
                       aria-hidden
                       style={{
