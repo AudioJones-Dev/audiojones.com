@@ -41,7 +41,7 @@ export default function Header() {
           aria-label="Audio Jones — home"
         >
           <Image
-            src="/assets/logos/audiojones-workmark-white.png"
+            src="/assets/logos/audio-jones-signal-logo-white-nav.png"
             alt=""
             width={160}
             height={32}
