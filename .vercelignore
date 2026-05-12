@@ -10,3 +10,7 @@ node_modules
 *.log
 .vscode/
 .idea/
+DESIGN.md
+env-audit.md
+public/icons/
+.codex/
