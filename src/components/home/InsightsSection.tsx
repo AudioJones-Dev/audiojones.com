@@ -16,7 +16,7 @@ export default function InsightsSection() {
       <div className="relative max-w-6xl mx-auto px-6">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-10">
           <div>
-            <p className="text-sm uppercase tracking-wide text-orange-400 font-semibold">
+            <p className="text-sm uppercase tracking-wide text-[#E8FF5A] font-semibold">
               Insights &amp; Playbooks
             </p>
             <h2 className="text-3xl md:text-4xl font-bold leading-tight">
@@ -44,7 +44,7 @@ export default function InsightsSection() {
               }}
             />
             <div className="p-6 flex flex-col gap-3 flex-1">
-              <p className="text-xs uppercase tracking-wide text-orange-300">AI Marketing • 5 min read</p>
+              <p className="text-xs uppercase tracking-wide text-[#E8FF5A]">AI Marketing • 5 min read</p>
               <h3 className="text-lg font-semibold leading-snug">
                 The Miami Podcast Playbook: How to Launch a Show That Gets Noticed
               </h3>
@@ -53,7 +53,7 @@ export default function InsightsSection() {
               </p>
               <Link
                 href="/blog/miami-podcast-playbook"
-                className="inline-flex items-center mt-1 rounded-full bg-gradient-to-r from-[#FF4500] to-[#FFD700] px-4 py-2 text-sm font-semibold text-black shadow-md hover:opacity-90 transition-all"
+                className="inline-flex items-center mt-1 rounded-full bg-gradient-to-r from-[#E8FF5A] to-[#F0FF85] px-4 py-2 text-sm font-semibold text-black shadow-md hover:opacity-90 transition-all"
               >
                 Open Playbook →
               </Link>
@@ -69,7 +69,7 @@ export default function InsightsSection() {
               }}
             />
             <div className="p-6 flex flex-col gap-3 flex-1">
-              <p className="text-xs uppercase tracking-wide text-orange-300">Content Systems • 7 min read</p>
+              <p className="text-xs uppercase tracking-wide text-[#E8FF5A]">Content Systems • 7 min read</p>
               <h3 className="text-lg font-semibold leading-snug">
                 AI-Powered Content Marketing: How to Generate Leads on Autopilot
               </h3>
@@ -78,7 +78,7 @@ export default function InsightsSection() {
               </p>
               <Link
                 href="/blog/ai-powered-content-marketing"
-                className="inline-flex items-center mt-1 rounded-full bg-gradient-to-r from-[#FF4500] to-[#FFD700] px-4 py-2 text-sm font-semibold text-black shadow-md hover:opacity-90 transition-all"
+                className="inline-flex items-center mt-1 rounded-full bg-gradient-to-r from-[#E8FF5A] to-[#F0FF85] px-4 py-2 text-sm font-semibold text-black shadow-md hover:opacity-90 transition-all"
               >
                 Open Playbook →
               </Link>
@@ -94,7 +94,7 @@ export default function InsightsSection() {
               }}
             />
             <div className="p-6 flex flex-col gap-3 flex-1">
-              <p className="text-xs uppercase tracking-wide text-orange-300">AEO / Local SEO • 6 min read</p>
+              <p className="text-xs uppercase tracking-wide text-[#E8FF5A]">AEO / Local SEO • 6 min read</p>
               <h3 className="text-lg font-semibold leading-snug">
                 The AEO Framework: How to Build a Personal Brand That Attracts Clients
               </h3>
@@ -103,7 +103,7 @@ export default function InsightsSection() {
               </p>
               <Link
                 href="/blog/miami-aeo-framework"
-                className="inline-flex items-center mt-1 rounded-full bg-gradient-to-r from-[#FF4500] to-[#FFD700] px-4 py-2 text-sm font-semibold text-black shadow-md hover:opacity-90 transition-all"
+                className="inline-flex items-center mt-1 rounded-full bg-gradient-to-r from-[#E8FF5A] to-[#F0FF85] px-4 py-2 text-sm font-semibold text-black shadow-md hover:opacity-90 transition-all"
               >
                 Open Playbook →
               </Link>

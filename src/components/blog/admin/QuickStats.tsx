@@ -11,15 +11,15 @@ interface StatCardProps {
 
 function StatCard({ title, value, trend, icon, color }: StatCardProps) {
   const colorClasses = {
-    orange: 'from-[#FF4500]/20 to-[#FF6500]/20 border-[#FF4500]/30',
-    gold: 'from-[#FFD700]/20 to-[#FFA500]/20 border-[#FFD700]/30',
+    orange: 'from-[#E8FF5A]/20 to-[#F0FF85]/20 border-[#E8FF5A]/30',
+    gold: 'from-[#F0FF85]/20 to-[#FFA500]/20 border-[#F0FF85]/30',
     green: 'from-green-500/20 to-green-600/20 border-green-500/30',
     blue: 'from-blue-500/20 to-blue-600/20 border-blue-500/30'
   };
 
   const textColors = {
-    orange: 'text-[#FF4500]',
-    gold: 'text-[#FFD700]',
+    orange: 'text-[#E8FF5A]',
+    gold: 'text-[#F0FF85]',
     green: 'text-green-400',
     blue: 'text-blue-400'
   };
@@ -124,7 +124,7 @@ export default function QuickStats() {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-bold text-[#FFD700]">
+        <h2 className="text-xl font-bold text-[#F0FF85]">
           📊 Performance Overview
         </h2>
         <div className="text-sm text-gray-400">
@@ -144,13 +144,13 @@ export default function QuickStats() {
         
         <div className="grid md:grid-cols-3 gap-6">
           <div className="text-center">
-            <div className="text-2xl font-bold text-[#FF4500] mb-1">85%</div>
+            <div className="text-2xl font-bold text-[#E8FF5A] mb-1">85%</div>
             <div className="text-sm text-gray-400">Avg. Performance Score</div>
             <div className="text-xs text-green-400 mt-1">▲ 12% vs last month</div>
           </div>
           
           <div className="text-center">
-            <div className="text-2xl font-bold text-[#FFD700] mb-1">3.2</div>
+            <div className="text-2xl font-bold text-[#F0FF85] mb-1">3.2</div>
             <div className="text-sm text-gray-400">Engagement Rate</div>
             <div className="text-xs text-green-400 mt-1">▲ 0.4 vs last month</div>
           </div>
@@ -167,7 +167,7 @@ export default function QuickStats() {
             <span className="text-gray-400">
               🔥 Miami operator-level performance tracking
             </span>
-            <span className="text-[#FF4500]">
+            <span className="text-[#E8FF5A]">
               Predictable growth through data
             </span>
           </div>

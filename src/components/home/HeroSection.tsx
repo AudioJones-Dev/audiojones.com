@@ -9,7 +9,7 @@ export default function HeroSection() {
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">
           {/* Left: Copy */}
           <div className="space-y-6">
-            <p className="text-sm font-semibold uppercase tracking-widest text-[#FF4500]">
+            <p className="text-sm font-semibold uppercase tracking-widest text-[#E8FF5A]">
               South Florida Leaders & Creators
             </p>
             <h1 className="text-4xl font-extrabold leading-tight sm:text-5xl lg:text-6xl">
@@ -23,8 +23,8 @@ export default function HeroSection() {
               <a
                 href="/book"
                 className="rounded-full px-6 py-3 font-bold text-black shadow-[0_4px_20px_rgba(255,215,0,0.35)]
-                         bg-[linear-gradient(135deg,#FF4500,#FFD700)]
-                         hover:bg-[linear-gradient(135deg,#FFD700,#FF4500)] transition"
+                         bg-[linear-gradient(135deg,#E8FF5A,#F0FF85)]
+                         hover:bg-[linear-gradient(135deg,#F0FF85,#E8FF5A)] transition"
               >
                 Book a Consultation
               </a>

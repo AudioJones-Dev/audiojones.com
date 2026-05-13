@@ -140,10 +140,10 @@ export default function ContentScheduler() {
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-4">
-          <h2 className="text-xl font-bold text-[#FFD700]">
+          <h2 className="text-xl font-bold text-[#F0FF85]">
             📅 Content Calendar
           </h2>
-          <span className="px-3 py-1 bg-[#FF4500]/20 text-[#FF4500] text-sm rounded-full">
+          <span className="px-3 py-1 bg-[#E8FF5A]/20 text-[#E8FF5A] text-sm rounded-full">
             {scheduledPosts.length} scheduled
           </span>
         </div>
@@ -155,7 +155,7 @@ export default function ContentScheduler() {
               onClick={() => setViewMode('week')}
               className={`px-3 py-1 rounded text-sm font-medium transition-colors ${
                 viewMode === 'week' 
-                  ? 'bg-[#FF4500] text-white' 
+                  ? 'bg-[#E8FF5A] text-[#080808]' 
                   : 'text-gray-400 hover:text-white'
               }`}
             >
@@ -165,7 +165,7 @@ export default function ContentScheduler() {
               onClick={() => setViewMode('month')}
               className={`px-3 py-1 rounded text-sm font-medium transition-colors ${
                 viewMode === 'month' 
-                  ? 'bg-[#FF4500] text-white' 
+                  ? 'bg-[#E8FF5A] text-[#080808]' 
                   : 'text-gray-400 hover:text-white'
               }`}
             >
@@ -204,7 +204,7 @@ export default function ContentScheduler() {
             </button>
           </div>
 
-          <button className="bg-[#FF4500] hover:bg-[#FF6500] text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+          <button className="bg-[#E8FF5A] hover:bg-[#F0FF85] text-[#080808] px-4 py-2 rounded-lg text-sm font-medium transition-colors">
             + Schedule Post
           </button>
         </div>
@@ -221,7 +221,7 @@ export default function ContentScheduler() {
               <div
                 key={index}
                 className={`bg-gray-800/50 border rounded-lg p-3 min-h-[200px] ${
-                  isToday ? 'border-[#FF4500] bg-[#FF4500]/5' : 'border-gray-700'
+                  isToday ? 'border-[#E8FF5A] bg-[#E8FF5A]/5' : 'border-gray-700'
                 }`}
               >
                 {/* Day Header */}
@@ -230,7 +230,7 @@ export default function ContentScheduler() {
                     {date.toLocaleDateString('en-US', { weekday: 'short' })}
                   </div>
                   <div className={`text-lg font-semibold ${
-                    isToday ? 'text-[#FF4500]' : 'text-white'
+                    isToday ? 'text-[#E8FF5A]' : 'text-white'
                   }`}>
                     {date.getDate()}
                   </div>
@@ -303,14 +303,14 @@ export default function ContentScheduler() {
       <div className="mt-8 pt-6 border-t border-gray-700">
         <div className="grid md:grid-cols-4 gap-6">
           <div className="text-center">
-            <div className="text-2xl font-bold text-[#FF4500] mb-1">
+            <div className="text-2xl font-bold text-[#E8FF5A] mb-1">
               {scheduledPosts.length}
             </div>
             <div className="text-sm text-gray-400">Total Scheduled</div>
           </div>
           
           <div className="text-center">
-            <div className="text-2xl font-bold text-[#FFD700] mb-1">
+            <div className="text-2xl font-bold text-[#F0FF85] mb-1">
               {Math.round(scheduledPosts.reduce((sum, post) => sum + post.estimatedViews, 0) / 1000)}k
             </div>
             <div className="text-sm text-gray-400">Est. Total Views</div>
@@ -335,9 +335,9 @@ export default function ContentScheduler() {
       {/* Footer */}
       <div className="mt-6 pt-4 border-t border-gray-700 text-center">
         <p className="text-xs text-gray-400">
-          🔥 <span className="text-[#FF4500]">Audio Jones</span> Content Scheduler • 
+          🔥 <span className="text-[#E8FF5A]">Audio Jones</span> Content Scheduler • 
           Automated publishing for predictable growth • 
-          <span className="text-[#FFD700]">Miami operator efficiency</span>
+          <span className="text-[#F0FF85]">Miami operator efficiency</span>
         </p>
       </div>
     </div>

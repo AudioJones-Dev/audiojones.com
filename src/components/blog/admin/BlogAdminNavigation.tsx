@@ -51,7 +51,7 @@ export default function BlogAdminNavigation({ activeTab }: BlogAdminNavigationPr
   return (
     <div className="bg-gray-900/50 border border-gray-800 rounded-xl p-6">
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-xl font-bold text-[#FFD700]">
+        <h2 className="text-xl font-bold text-[#F0FF85]">
           🎛️ Content Control Center
         </h2>
         <div className="text-sm text-gray-400">
@@ -71,14 +71,14 @@ export default function BlogAdminNavigation({ activeTab }: BlogAdminNavigationPr
               className={`
                 group relative p-4 rounded-lg border transition-all duration-200
                 ${isActive 
-                  ? 'bg-gradient-to-r from-[#FF4500]/20 to-[#FFD700]/20 border-[#FF4500]/40 text-white' 
+                  ? 'bg-gradient-to-r from-[#E8FF5A]/20 to-[#F0FF85]/20 border-[#E8FF5A]/40 text-white' 
                   : 'bg-gray-800/50 border-gray-700 text-gray-300 hover:bg-gray-800 hover:border-gray-600'
                 }
               `}
             >
               {/* Active indicator */}
               {isActive && (
-                <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-[#FF4500] rounded-full" />
+                <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-[#E8FF5A] rounded-full" />
               )}
 
               <div className="flex items-center justify-between mb-2">
@@ -89,7 +89,7 @@ export default function BlogAdminNavigation({ activeTab }: BlogAdminNavigationPr
                 {tab.count && (
                   <span className={`
                     px-2 py-1 text-xs rounded-full font-medium
-                    ${isActive ? 'bg-[#FF4500] text-white' : 'bg-gray-700 text-gray-300'}
+                    ${isActive ? 'bg-[#E8FF5A] text-[#080808]' : 'bg-gray-700 text-gray-300'}
                   `}>
                     {tab.count}
                   </span>
@@ -104,7 +104,7 @@ export default function BlogAdminNavigation({ activeTab }: BlogAdminNavigationPr
               <div className={`
                 absolute inset-0 rounded-lg transition-opacity duration-200
                 ${isActive ? 'opacity-0' : 'opacity-0 group-hover:opacity-100'}
-                bg-gradient-to-r from-[#FF4500]/5 to-[#FFD700]/5
+                bg-gradient-to-r from-[#E8FF5A]/5 to-[#F0FF85]/5
               `} />
             </Link>
           );
@@ -115,7 +115,7 @@ export default function BlogAdminNavigation({ activeTab }: BlogAdminNavigationPr
       <div className="mt-6 pt-4 border-t border-gray-700">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <span className="text-[#FF4500]">
+            <span className="text-[#E8FF5A]">
               {adminTabs.find(tab => tab.id === activeTab)?.icon}
             </span>
             <span className="text-sm text-gray-400">

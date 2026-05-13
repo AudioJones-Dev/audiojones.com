@@ -36,13 +36,13 @@ const CARDS = [
     name: "Profitable",
     question: "Does this create or improve ROI?",
     desc: "Profitable inputs drive economic output. If a metric is not tied to a revenue-generating or cost-reducing lever, it should not be a decision driver — regardless of how frequently it appears in your dashboard.",
-    accent: "#FF4500",
-    border: "rgba(255,69,0,0.35)",
-    bg: "linear-gradient(180deg, rgba(255,69,0,0.08), rgba(11,15,26,0.96))",
-    glow: "0 0 24px rgba(255,69,0,0.12), inset 0 1px 0 rgba(255,255,255,0.04)",
-    badgeBg: "rgba(255,69,0,0.10)",
-    badgeBorder: "rgba(255,69,0,0.38)",
-    badgeGlow: "0 0 16px rgba(255,69,0,0.20)",
+    accent: "#E8FF5A",
+    border: "rgba(232, 255, 90,0.35)",
+    bg: "linear-gradient(180deg, rgba(232, 255, 90,0.08), rgba(11,15,26,0.96))",
+    glow: "0 0 24px rgba(232, 255, 90,0.12), inset 0 1px 0 rgba(255,255,255,0.04)",
+    badgeBg: "rgba(232, 255, 90,0.10)",
+    badgeBorder: "rgba(232, 255, 90,0.38)",
+    badgeGlow: "0 0 16px rgba(232, 255, 90,0.20)",
   },
 ];
 
@@ -89,7 +89,7 @@ export default function MAPAttributionSection() {
               maxWidth: "1080px",
               border: "1px solid rgba(255,255,255,0.08)",
               boxShadow:
-                "0 0 48px -16px rgba(255,69,0,0.12), 0 0 48px -16px rgba(59,91,255,0.14), 0 8px 40px rgba(0,0,0,0.35)",
+                "0 0 48px -16px rgba(232, 255, 90,0.12), 0 0 48px -16px rgba(59,91,255,0.14), 0 8px 40px rgba(0,0,0,0.35)",
             }}
           >
             <Image

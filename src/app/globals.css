@@ -557,8 +557,8 @@ html, body {
     var(--aj-bg-image, none),
     linear-gradient(rgba(148, 163, 184, 0.08) 1px, transparent 1px),
     linear-gradient(90deg, rgba(148, 163, 184, 0.08) 1px, transparent 1px),
-    radial-gradient(circle at 20% 20%, rgba(255, 69, 0, 0.18), transparent 30%),
-    radial-gradient(circle at 80% 70%, rgba(0, 164, 255, 0.16), transparent 30%);
+    radial-gradient(circle at 20% 20%, rgba(232, 255, 90, 0.18), transparent 30%),
+    radial-gradient(circle at 80% 70%, rgba(77, 172, 255, 0.16), transparent 30%);
   background-size:
     cover,
     56px 56px,

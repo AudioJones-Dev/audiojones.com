@@ -16,13 +16,13 @@ export const PILLARS = {
     id: 'ai' as const,
     label: 'AI for Marketing & Creators',
     intents: ['news', 'how-to', 'framework-link', 'opinion'],
-    color: '#FF4500' // Audio Jones orange
+    color: '#E8FF5A' // Audio Jones signal yellow (V2 primary)
   },
   marketing: {
     id: 'marketing' as const,
     label: 'AEO/SEO, Funnels, Automation',
     intents: ['educate', 'commercial', 'authority'],
-    color: '#FFD700' // Audio Jones gold
+    color: '#F0FF85' // Audio Jones signal-soft (V2)
   },
   'podcast-news': {
     id: 'podcast-news' as const,

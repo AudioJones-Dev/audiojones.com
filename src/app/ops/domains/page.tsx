@@ -39,12 +39,12 @@ export default function DomainsPage() {
   return (
     <div className="min-h-screen bg-black text-white p-8">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-3xl font-bold mb-8 text-[#FF4500]">Domain Diagnostics</h1>
+        <h1 className="text-3xl font-bold mb-8 text-[#E8FF5A]">Domain Diagnostics</h1>
         
         <div className="grid gap-8">
           {/* Client Info */}
           <div className="bg-white/5 rounded-lg p-6">
-            <h2 className="text-xl font-semibold mb-4 text-[#FFD700]">Client-Side Info</h2>
+            <h2 className="text-xl font-semibold mb-4 text-[#F0FF85]">Client-Side Info</h2>
             {domainInfo && (
               <dl className="space-y-2">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
@@ -73,7 +73,7 @@ export default function DomainsPage() {
 
           {/* Server Info */}
           <div className="bg-white/5 rounded-lg p-6">
-            <h2 className="text-xl font-semibold mb-4 text-[#FFD700]">Server-Side Info</h2>
+            <h2 className="text-xl font-semibold mb-4 text-[#F0FF85]">Server-Side Info</h2>
             {serverInfo ? (
               <dl className="space-y-2">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
@@ -100,7 +100,7 @@ export default function DomainsPage() {
 
           {/* Tests */}
           <div className="bg-white/5 rounded-lg p-6">
-            <h2 className="text-xl font-semibold mb-4 text-[#FFD700]">Subdomain Tests</h2>
+            <h2 className="text-xl font-semibold mb-4 text-[#F0FF85]">Subdomain Tests</h2>
             <div className="space-y-4">
               <div className="p-4 bg-black/50 rounded">
                 <h3 className="font-semibold text-green-400 mb-2">✅ Expected Behavior:</h3>

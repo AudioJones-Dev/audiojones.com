@@ -29,7 +29,7 @@ const STATIC_CLUSTERS: Record<string, { label: string; description: string; acce
     label: "Signal vs Noise",
     description:
       "Causal vs vanity metrics. Separating what actually creates revenue from what consumes attention and budget without producing outcomes.",
-    accent: "#FF4500",
+    accent: "#E8FF5A",
   },
   "map-attribution": {
     label: "M.A.P Attribution",
@@ -308,7 +308,7 @@ function TopicPostCard({ post, accent }: { post: PostStub; accent: string }) {
       <div className="flex flex-1 flex-col p-6">
         <Link href={`/blog/${post.slug.current}`} className="flex-1">
           <h2
-            className="mb-3 leading-snug transition-colors group-hover:text-[#FF4500]"
+            className="mb-3 leading-snug transition-colors group-hover:text-[#E8FF5A]"
             style={{
               fontFamily: "var(--font-headline)",
               fontSize: "17px",

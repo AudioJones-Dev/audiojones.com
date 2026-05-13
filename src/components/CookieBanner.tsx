@@ -34,14 +34,14 @@ export default function CookieBanner() {
         <p className="text-sm">
           We use cookies to enhance your browsing experience, serve personalized ads, and analyze traffic. By
           clicking “Accept All,” you consent to our cookies.{" "}
-          <Link href="/cookie-policy" className="underline hover:text-yellow-400">
+          <Link href="/cookie-policy" className="underline hover:text-[#E8FF5A]">
             Learn more.
           </Link>
         </p>
         <div className="flex gap-2">
           <button
             onClick={acceptCookies}
-            className="rounded-full bg-gradient-to-r from-orange-500 to-yellow-500 px-4 py-2 text-sm font-bold text-black transition hover:opacity-90"
+            className="rounded-full bg-[#E8FF5A] px-4 py-2 text-sm font-bold text-[#080808] transition hover:bg-[#F0FF85]"
           >
             Accept All
           </button>

@@ -69,7 +69,7 @@ export default function RoiLeadMagnet() {
               </label>
             ))}
           </div>
-          <div className="mt-6 rounded-2xl border border-[rgba(255,69,0,0.28)] bg-[rgba(255,69,0,0.08)] p-6">
+          <div className="mt-6 rounded-2xl border border-[rgba(232, 255, 90,0.28)] bg-[rgba(232, 255, 90,0.08)] p-6">
             <p className="text-xs font-bold uppercase tracking-[0.14em] text-[var(--aj-orange)]">
               Lost revenue estimate
             </p>

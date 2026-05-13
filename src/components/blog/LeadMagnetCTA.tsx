@@ -18,9 +18,9 @@ export default function LeadMagnetCTA({ ctaType, headline, description, link, pi
       case 'newsletter':
         return {
           icon: '📧',
-          bgGradient: 'from-[#FF4500]/20 to-[#FFD700]/10',
-          borderColor: 'border-[#FF4500]/30',
-          buttonColor: 'bg-[#FF4500] hover:bg-[#FF4500]/90'
+          bgGradient: 'from-[#E8FF5A]/20 to-[#F0FF85]/10',
+          borderColor: 'border-[#E8FF5A]/30',
+          buttonColor: 'bg-[#E8FF5A] hover:bg-[#E8FF5A]/90'
         };
       case 'podcast':
         return {
@@ -32,9 +32,9 @@ export default function LeadMagnetCTA({ ctaType, headline, description, link, pi
       case 'services':
         return {
           icon: '🚀',
-          bgGradient: 'from-[#FFD700]/20 to-[#FF4500]/10',
-          borderColor: 'border-[#FFD700]/30',
-          buttonColor: 'bg-[#FFD700] text-black hover:bg-[#FFD700]/90'
+          bgGradient: 'from-[#F0FF85]/20 to-[#E8FF5A]/10',
+          borderColor: 'border-[#F0FF85]/30',
+          buttonColor: 'bg-[#F0FF85] text-black hover:bg-[#F0FF85]/90'
         };
       case 'lead_magnet':
         return {
@@ -46,9 +46,9 @@ export default function LeadMagnetCTA({ ctaType, headline, description, link, pi
       default:
         return {
           icon: '✨',
-          bgGradient: 'from-[#FF4500]/20 to-[#FFD700]/10',
-          borderColor: 'border-[#FF4500]/30',
-          buttonColor: 'bg-[#FF4500] hover:bg-[#FF4500]/90'
+          bgGradient: 'from-[#E8FF5A]/20 to-[#F0FF85]/10',
+          borderColor: 'border-[#E8FF5A]/30',
+          buttonColor: 'bg-[#E8FF5A] hover:bg-[#E8FF5A]/90'
         };
     }
   };
@@ -136,7 +136,7 @@ function PillarBenefits({ pillar, ctaType }: { pillar: PillarType; ctaType: stri
     <div className="grid md:grid-cols-3 gap-4 text-sm">
       {pillarBenefits.map((benefit, index) => (
         <div key={index} className="flex items-center gap-2 text-gray-300">
-          <span className="text-[#FFD700]">✨</span>
+          <span className="text-[#F0FF85]">✨</span>
           <span>{benefit}</span>
         </div>
       ))}
@@ -151,7 +151,7 @@ function NewsletterForm({ buttonColor }: { buttonColor: string }) {
         type="email"
         placeholder="Enter your email"
         required
-        className="flex-1 px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:border-[#FF4500] focus:outline-none"
+        className="flex-1 px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:border-[#E8FF5A] focus:outline-none"
       />
       <button
         type="submit"

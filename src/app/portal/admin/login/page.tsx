@@ -71,7 +71,7 @@ export default function AdminLoginPage() {
               id="email"
               type="email"
               autoComplete="email"
-              className="w-full rounded-md bg-slate-900 border border-slate-700 px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="w-full rounded-md bg-slate-900 border border-slate-700 px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-[#E8FF5A]"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               disabled={loading}
@@ -84,7 +84,7 @@ export default function AdminLoginPage() {
               id="password"
               type="password"
               autoComplete="current-password"
-              className="w-full rounded-md bg-slate-900 border border-slate-700 px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="w-full rounded-md bg-slate-900 border border-slate-700 px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-[#E8FF5A]"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               disabled={loading}
@@ -94,7 +94,7 @@ export default function AdminLoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-orange-500 hover:bg-orange-600 transition text-white font-medium py-2 rounded-md"
+            className="w-full bg-[#E8FF5A] hover:bg-[#F0FF85] transition text-[#080808] font-medium py-2 rounded-md"
           >
             {loading ? "Signing in..." : "Sign in"}
           </button>

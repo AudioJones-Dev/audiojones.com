@@ -136,7 +136,7 @@ export default function AuthForm({ mode }: { mode: "login" | "register" }) {
       <button
         type="submit"
         disabled={loading}
-        className="rounded-full bg-gradient-to-r from-[#FF4500] to-[#FFD700] text-black font-semibold py-2.5 hover:opacity-90 transition"
+        className="rounded-full bg-gradient-to-r from-[#E8FF5A] to-[#F0FF85] text-black font-semibold py-2.5 hover:opacity-90 transition"
       >
         {loading ? "Processing..." : mode === "login" ? "Log In" : "Create Account"}
       </button>
@@ -145,7 +145,7 @@ export default function AuthForm({ mode }: { mode: "login" | "register" }) {
         <button
           type="button"
           onClick={handleReset}
-          className="text-xs text-[#FFD700] underline mt-1 self-end"
+          className="text-xs text-[#F0FF85] underline mt-1 self-end"
         >
           Forgot Password?
         </button>

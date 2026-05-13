@@ -125,10 +125,10 @@ export default function DraftsList({ pillarFilter }: DraftsListProps) {
   const getPillarColor = (pillar: PillarType) => {
     const colors = {
       'ai': 'bg-purple-500/20 text-purple-400',
-      'marketing': 'bg-[#FF4500]/20 text-[#FF4500]',
+      'marketing': 'bg-[#E8FF5A]/20 text-[#E8FF5A]',
       'podcast-news': 'bg-blue-500/20 text-blue-400',
       'tech-business-trends': 'bg-green-500/20 text-green-400',
-      'personal-brand': 'bg-[#FFD700]/20 text-[#FFD700]'
+      'personal-brand': 'bg-[#F0FF85]/20 text-[#F0FF85]'
     };
     return colors[pillar] || 'bg-gray-500/20 text-gray-400';
   };
@@ -150,10 +150,10 @@ export default function DraftsList({ pillarFilter }: DraftsListProps) {
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-4">
-          <h2 className="text-xl font-bold text-[#FFD700]">
+          <h2 className="text-xl font-bold text-[#F0FF85]">
             📝 Content Drafts
           </h2>
-          <span className="px-3 py-1 bg-[#FF4500]/20 text-[#FF4500] text-sm rounded-full">
+          <span className="px-3 py-1 bg-[#E8FF5A]/20 text-[#E8FF5A] text-sm rounded-full">
             {filteredDrafts.length} total
           </span>
         </div>
@@ -163,7 +163,7 @@ export default function DraftsList({ pillarFilter }: DraftsListProps) {
           <select
             value={filterStatus}
             onChange={(e) => setFilterStatus(e.target.value)}
-            className="bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-[#FF4500]"
+            className="bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-[#E8FF5A]"
           >
             <option value="all">All Status</option>
             <option value="draft">Draft</option>
@@ -171,7 +171,7 @@ export default function DraftsList({ pillarFilter }: DraftsListProps) {
             <option value="ready">Ready</option>
           </select>
 
-          <button className="bg-[#FF4500] hover:bg-[#FF6500] text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+          <button className="bg-[#E8FF5A] hover:bg-[#F0FF85] text-[#080808] px-4 py-2 rounded-lg text-sm font-medium transition-colors">
             + New Draft
           </button>
         </div>
@@ -179,9 +179,9 @@ export default function DraftsList({ pillarFilter }: DraftsListProps) {
 
       {/* Bulk Actions */}
       {selectedDrafts.length > 0 && (
-        <div className="mb-4 p-3 bg-[#FF4500]/10 border border-[#FF4500]/30 rounded-lg">
+        <div className="mb-4 p-3 bg-[#E8FF5A]/10 border border-[#E8FF5A]/30 rounded-lg">
           <div className="flex items-center justify-between">
-            <span className="text-sm text-[#FF4500]">
+            <span className="text-sm text-[#E8FF5A]">
               {selectedDrafts.length} drafts selected
             </span>
             <div className="flex items-center gap-2">
@@ -221,7 +221,7 @@ export default function DraftsList({ pillarFilter }: DraftsListProps) {
                 type="checkbox"
                 checked={selectedDrafts.includes(draft.id)}
                 onChange={() => handleSelectDraft(draft.id)}
-                className="mt-1 w-4 h-4 text-[#FF4500] bg-gray-700 border-gray-600 rounded focus:ring-[#FF4500] focus:ring-2"
+                className="mt-1 w-4 h-4 text-[#E8FF5A] bg-gray-700 border-gray-600 rounded focus:ring-[#E8FF5A] focus:ring-2"
               />
 
               {/* Content */}
@@ -231,7 +231,7 @@ export default function DraftsList({ pillarFilter }: DraftsListProps) {
                     <h3 className="font-semibold text-white mb-1">
                       <Link 
                         href={`/portal/admin/blog/edit/${draft.id}`}
-                        className="hover:text-[#FF4500] transition-colors"
+                        className="hover:text-[#E8FF5A] transition-colors"
                       >
                         {draft.title}
                       </Link>
@@ -248,7 +248,7 @@ export default function DraftsList({ pillarFilter }: DraftsListProps) {
                   {/* Performance Score */}
                   {draft.performanceScore && (
                     <div className="text-right">
-                      <div className="text-lg font-bold text-[#FFD700]">
+                      <div className="text-lg font-bold text-[#F0FF85]">
                         {draft.performanceScore}%
                       </div>
                       <div className="text-xs text-gray-400">Performance</div>
@@ -315,7 +315,7 @@ export default function DraftsList({ pillarFilter }: DraftsListProps) {
               : 'Create your first draft to get started'
             }
           </p>
-          <button className="bg-[#FF4500] hover:bg-[#FF6500] text-white px-6 py-2 rounded-lg font-medium transition-colors">
+          <button className="bg-[#E8FF5A] hover:bg-[#F0FF85] text-[#080808] px-6 py-2 rounded-lg font-medium transition-colors">
             + Create Draft
           </button>
         </div>
@@ -324,9 +324,9 @@ export default function DraftsList({ pillarFilter }: DraftsListProps) {
       {/* Footer */}
       <div className="mt-6 pt-4 border-t border-gray-700 text-center">
         <p className="text-xs text-gray-400">
-          🔥 <span className="text-[#FF4500]">Audio Jones</span> Content Management • 
+          🔥 <span className="text-[#E8FF5A]">Audio Jones</span> Content Management • 
           Miami operator-level efficiency • 
-          <span className="text-[#FFD700]">Predictable content growth</span>
+          <span className="text-[#F0FF85]">Predictable content growth</span>
         </p>
       </div>
     </div>

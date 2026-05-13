@@ -74,10 +74,10 @@ const STAGES: Stage[] = [
       "Predictive model refinement",
       "Loop compounds over time",
     ],
-    accent: "#FF4500",
-    border: "rgba(255,69,0,0.24)",
-    cardBg: "rgba(255,69,0,0.05)",
-    dotColor: "#FF6A30",
+    accent: "#E8FF5A",
+    border: "rgba(232, 255, 90,0.24)",
+    cardBg: "rgba(232, 255, 90,0.05)",
+    dotColor: "#E8FF5A",
   },
 ];
 
@@ -282,7 +282,7 @@ function LoopSVG({ className }: { className?: string }) {
                   <path
                     d="M 0 -10 A 10 10 0 1 1 9 5"
                     fill="none"
-                    stroke="#FF4500"
+                    stroke="#E8FF5A"
                     strokeWidth="1.3"
                     strokeLinecap="round"
                     opacity="0.65"
@@ -290,7 +290,7 @@ function LoopSVG({ className }: { className?: string }) {
                   <path
                     d="M 6 1 L 9 5 L 12 1"
                     fill="none"
-                    stroke="#FF4500"
+                    stroke="#E8FF5A"
                     strokeWidth="1.3"
                     strokeLinecap="round"
                     strokeLinejoin="round"

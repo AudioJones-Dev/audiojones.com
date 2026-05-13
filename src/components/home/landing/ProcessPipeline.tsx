@@ -23,7 +23,7 @@ const STEPS = [
     accent: "#3B5BFF",
     border: "rgba(59,91,255,0.45)",
     bg: "linear-gradient(160deg, rgba(59,91,255,0.09) 0%, rgba(11,15,26,0.96) 100%)",
-    glow: "0 0 40px -10px rgba(59,91,255,0.28), 0 0 16px -6px rgba(255,69,0,0.06), inset 0 0 0 1px rgba(59,91,255,0.08)",
+    glow: "0 0 40px -10px rgba(59,91,255,0.28), 0 0 16px -6px rgba(232, 255, 90,0.06), inset 0 0 0 1px rgba(59,91,255,0.08)",
     nodeColor: "#8EA2FF",
     nodeBg: "rgba(59,91,255,0.16)",
     active: true,
@@ -44,12 +44,12 @@ const STEPS = [
     n: "04",
     label: "Deploy",
     desc: "Turn the system into repeatable execution. Instrument everything. Compound the loop.",
-    accent: "#FF4500",
-    border: "rgba(255,69,0,0.32)",
-    bg: "linear-gradient(160deg, rgba(255,69,0,0.07) 0%, rgba(11,15,26,0.96) 100%)",
-    glow: "0 0 28px -10px rgba(255,69,0,0.20), inset 0 0 0 1px rgba(255,69,0,0.04)",
-    nodeColor: "#FF6A30",
-    nodeBg: "rgba(255,69,0,0.12)",
+    accent: "#E8FF5A",
+    border: "rgba(232, 255, 90,0.32)",
+    bg: "linear-gradient(160deg, rgba(232, 255, 90,0.07) 0%, rgba(11,15,26,0.96) 100%)",
+    glow: "0 0 28px -10px rgba(232, 255, 90,0.20), inset 0 0 0 1px rgba(232, 255, 90,0.04)",
+    nodeColor: "#E8FF5A",
+    nodeBg: "rgba(232, 255, 90,0.12)",
     active: false,
   },
 ] as const;
@@ -93,7 +93,7 @@ function ProcessRail() {
           <stop offset="0%" stopColor="#C8A96A" stopOpacity="0.30" />
           <stop offset="33%" stopColor="#3B5BFF" stopOpacity="0.50" />
           <stop offset="66%" stopColor="#94A3B8" stopOpacity="0.28" />
-          <stop offset="100%" stopColor="#FF4500" stopOpacity="0.38" />
+          <stop offset="100%" stopColor="#E8FF5A" stopOpacity="0.38" />
         </linearGradient>
 
         {/* Glow filter for Attribute node */}
@@ -186,7 +186,7 @@ export default function ProcessPipeline() {
             width: "45%",
             height: "70%",
             background:
-              "radial-gradient(ellipse 70% 60% at 85% 20%, rgba(255,69,0,0.07), transparent 65%)",
+              "radial-gradient(ellipse 70% 60% at 85% 20%, rgba(232, 255, 90,0.07), transparent 65%)",
           }}
         />
         {/* Blue glow — center, along card rail */}
@@ -243,8 +243,8 @@ export default function ProcessPipeline() {
             style={{
               width: "48px",
               height: "1.5px",
-              background: "linear-gradient(to right, #FF4500, rgba(255,69,0,0))",
-              boxShadow: "0 0 6px 1px rgba(255,69,0,0.25)",
+              background: "linear-gradient(to right, #E8FF5A, rgba(232, 255, 90,0))",
+              boxShadow: "0 0 6px 1px rgba(232, 255, 90,0.25)",
             }}
           />
 
@@ -471,7 +471,7 @@ export default function ProcessPipeline() {
             border: "1px solid rgba(255,255,255,0.07)",
             backdropFilter: "blur(8px)",
             boxShadow:
-              "0 0 24px -8px rgba(59,91,255,0.10), 0 0 16px -8px rgba(255,69,0,0.08)",
+              "0 0 24px -8px rgba(59,91,255,0.10), 0 0 16px -8px rgba(232, 255, 90,0.08)",
           }}
         >
           <p
@@ -485,7 +485,7 @@ export default function ProcessPipeline() {
             }}
           >
             The system is not built in phases.{" "}
-            <span style={{ color: "#FF6A30", fontWeight: 600 }}>
+            <span style={{ color: "#E8FF5A", fontWeight: 600 }}>
               It is built in sequence — and it compounds.
             </span>
           </p>

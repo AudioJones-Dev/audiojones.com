@@ -63,7 +63,7 @@
 }
 
 .markdown-content blockquote {
-  border-left: 4px solid #ff4500;
+  border-left: 4px solid #E8FF5A;
   padding-left: 1rem;
   margin-left: 0;
   margin-bottom: 1rem;
@@ -72,12 +72,12 @@
 }
 
 .markdown-content a {
-  color: #ff4500;
+  color: #E8FF5A;
   text-decoration: underline;
 }
 
 .markdown-content a:hover {
-  color: #e03d00;
+  color: #F0FF85;
 }
 
 .markdown-content table {

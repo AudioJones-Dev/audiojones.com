@@ -13,19 +13,19 @@ export default function LegalBand() {
         <div className="text-center mb-16">
           <h2 className="text-4xl lg:text-5xl font-bold text-white mb-8">
             Ready to build your{" "}
-            <span className="text-[#FF4500]">Audio Jones</span> system?
+            <span className="text-[#E8FF5A]">Audio Jones</span> system?
           </h2>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
               href="/contact"
-              className="inline-flex items-center justify-center px-8 py-4 bg-[#FF4500] hover:bg-[#FF4500]/90 text-white font-semibold rounded-lg transition-colors duration-200"
+              className="inline-flex items-center justify-center px-8 py-4 bg-[#E8FF5A] hover:bg-[#E8FF5A]/90 text-[#080808] font-semibold rounded-lg transition-colors duration-200"
             >
               Book Intake Call
             </a>
             <a
               href="/packages"
-              className="inline-flex items-center justify-center px-8 py-4 border-2 border-[#FFD700] text-[#FFD700] hover:bg-[#FFD700] hover:text-black font-semibold rounded-lg transition-colors duration-200"
+              className="inline-flex items-center justify-center px-8 py-4 border-2 border-[#F0FF85] text-[#F0FF85] hover:bg-[#F0FF85] hover:text-black font-semibold rounded-lg transition-colors duration-200"
             >
               View Packages
             </a>

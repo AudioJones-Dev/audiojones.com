@@ -20,7 +20,7 @@ export default function EpmExplainer({ title, content, problemList }: EpmExplain
             
             {/* CTA */}
             <div className="flex flex-col sm:flex-row gap-4">
-              <button className="bg-[#FF4500] hover:bg-[#E03D00] text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200">
+              <button className="bg-[#E8FF5A] hover:bg-[#F0FF85] text-[#080808] font-semibold py-3 px-6 rounded-lg transition-colors duration-200">
                 See How It Works
               </button>
               <button className="border border-gray-300 hover:border-gray-400 text-gray-700 font-semibold py-3 px-6 rounded-lg transition-colors duration-200">
@@ -48,9 +48,9 @@ export default function EpmExplainer({ title, content, problemList }: EpmExplain
             </ul>
             
             {/* Solution Preview */}
-            <div className="mt-8 p-4 bg-gradient-to-r from-[#FF4500]/10 to-[#FFD700]/10 rounded-lg border border-[#FF4500]/20">
+            <div className="mt-8 p-4 bg-gradient-to-r from-[#E8FF5A]/10 to-[#F0FF85]/10 rounded-lg border border-[#E8FF5A]/20">
               <div className="flex items-center gap-2 mb-2">
-                <div className="w-4 h-4 bg-gradient-to-r from-[#FF4500] to-[#FFD700] rounded-full"></div>
+                <div className="w-4 h-4 bg-gradient-to-r from-[#E8FF5A] to-[#F0FF85] rounded-full"></div>
                 <span className="font-semibold text-gray-900">EPM Solution</span>
               </div>
               <p className="text-sm text-gray-600">

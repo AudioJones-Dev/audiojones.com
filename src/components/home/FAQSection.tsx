@@ -12,7 +12,7 @@ export default function FAQSection() {
       <div className="absolute inset-0 bg-black/50" />
       
       <div className="relative max-w-5xl mx-auto px-6 text-center mb-12">
-        <p className="uppercase text-sm tracking-wide text-orange-400 font-semibold mb-2">
+        <p className="uppercase text-sm tracking-wide text-[#E8FF5A] font-semibold mb-2">
           FAQ / How It Works
         </p>
         <h2 className="text-4xl md:text-5xl font-bold mb-4">
@@ -24,8 +24,8 @@ export default function FAQSection() {
       </div>
 
       <div className="relative max-w-4xl mx-auto px-6 space-y-6">
-        <div className="flex items-start gap-4 bg-black/70 border border-orange-500/10 rounded-2xl px-6 py-5">
-          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#FF4500] to-[#FFD700] flex items-center justify-center text-black font-bold text-lg mt-1">
+        <div className="flex items-start gap-4 bg-black/70 border border-[#E8FF5A]/10 rounded-2xl px-6 py-5">
+          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#E8FF5A] to-[#F0FF85] flex items-center justify-center text-black font-bold text-lg mt-1">
             1
           </div>
           <div className="text-left">
@@ -38,8 +38,8 @@ export default function FAQSection() {
           </div>
         </div>
 
-        <div className="flex items-start gap-4 bg-black/70 border border-orange-500/10 rounded-2xl px-6 py-5">
-          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#FF4500] to-[#FFD700] flex items-center justify-center text-black font-bold text-lg mt-1">
+        <div className="flex items-start gap-4 bg-black/70 border border-[#E8FF5A]/10 rounded-2xl px-6 py-5">
+          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#E8FF5A] to-[#F0FF85] flex items-center justify-center text-black font-bold text-lg mt-1">
             2
           </div>
           <div className="text-left">
@@ -52,8 +52,8 @@ export default function FAQSection() {
           </div>
         </div>
 
-        <div className="flex items-start gap-4 bg-black/70 border border-orange-500/10 rounded-2xl px-6 py-5">
-          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#FF4500] to-[#FFD700] flex items-center justify-center text-black font-bold text-lg mt-1">
+        <div className="flex items-start gap-4 bg-black/70 border border-[#E8FF5A]/10 rounded-2xl px-6 py-5">
+          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#E8FF5A] to-[#F0FF85] flex items-center justify-center text-black font-bold text-lg mt-1">
             3
           </div>
           <div className="text-left">
@@ -70,7 +70,7 @@ export default function FAQSection() {
       <div className="relative text-center mt-10 flex justify-center gap-4">
         <a 
           href="/book" 
-          className="bg-gradient-to-r from-[#FF4500] to-[#FFD700] text-black px-8 py-3 rounded-full font-semibold shadow-md hover:opacity-90 transition-all"
+          className="bg-gradient-to-r from-[#E8FF5A] to-[#F0FF85] text-black px-8 py-3 rounded-full font-semibold shadow-md hover:opacity-90 transition-all"
         >
           Book Your Strategy
         </a>

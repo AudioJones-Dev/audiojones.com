@@ -9,7 +9,7 @@ export default function NewsletterSection() {
       <div className="absolute inset-0 bg-black/70" />
       
       <div className="relative mx-auto max-w-[820px] px-6 text-center">
-        <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#FF4500]">
+        <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#E8FF5A]">
           Stay ahead in AI + Podcasting
         </p>
         <h2 className="text-4xl sm:text-5xl font-extrabold leading-tight tracking-tight text-white max-w-3xl mx-auto mt-4">
@@ -32,11 +32,11 @@ export default function NewsletterSection() {
             type="email" 
             required 
             placeholder="Enter your best email" 
-            className="w-full flex-auto rounded-full border border-white/15 bg-[#1C1C1C] px-5 py-3.5 text-base text-white placeholder:text-gray-500 focus:border-[#FF4500] focus:outline-none focus:ring-2 focus:ring-[#FF4500]/50" 
+            className="w-full flex-auto rounded-full border border-white/15 bg-[#1C1C1C] px-5 py-3.5 text-base text-white placeholder:text-gray-500 focus:border-[#E8FF5A] focus:outline-none focus:ring-2 focus:ring-[#E8FF5A]/50" 
           />
           <button 
             type="submit" 
-            className="w-full sm:w-auto rounded-full bg-gradient-to-r from-[#FF4500] to-[#FFD700] px-8 py-3.5 text-sm font-bold text-black shadow-sm hover:opacity-90 transition-all"
+            className="w-full sm:w-auto rounded-full bg-gradient-to-r from-[#E8FF5A] to-[#F0FF85] px-8 py-3.5 text-sm font-bold text-black shadow-sm hover:opacity-90 transition-all"
           >
             Join the List
           </button>

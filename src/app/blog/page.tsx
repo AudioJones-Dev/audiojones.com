@@ -49,7 +49,7 @@ const TOPIC_CLUSTERS = [
     slug: "signal-vs-noise",
     label: "Signal vs Noise",
     description: "Causal vs vanity metrics. Separating what creates revenue from what consumes attention.",
-    accent: "#FF4500",
+    accent: "#E8FF5A",
     icon: "◎",
   },
   {
@@ -109,7 +109,7 @@ export default async function BlogPage() {
             }}
           >
             Applied Intelligence,<br />
-            <span style={{ color: "#FF4500" }}>documented.</span>
+            <span style={{ color: "#E8FF5A" }}>documented.</span>
           </h1>
           <p
             className="mt-5 max-w-2xl"
@@ -238,7 +238,7 @@ export default async function BlogPage() {
           <div
             className="rounded-3xl p-10 sm:p-14"
             style={{
-              background: "linear-gradient(135deg, rgba(59,91,255,0.08) 0%, rgba(255,69,0,0.06) 100%)",
+              background: "linear-gradient(135deg, rgba(59,91,255,0.08) 0%, rgba(232, 255, 90,0.06) 100%)",
               border: "1px solid rgba(255,255,255,0.07)",
             }}
           >
@@ -342,7 +342,7 @@ function PostCard({ post, featured = false }: { post: PostStub; featured?: boole
 
         <Link href={`/blog/${post.slug.current}`} className="flex-1">
           <h2
-            className="mb-3 leading-snug transition-colors group-hover:text-[#FF4500]"
+            className="mb-3 leading-snug transition-colors group-hover:text-[#E8FF5A]"
             style={{
               fontFamily: "var(--font-headline)",
               fontSize: featured ? "20px" : "17px",
@@ -384,7 +384,7 @@ function PostCard({ post, featured = false }: { post: PostStub; featured?: boole
           )}
           <Link
             href={`/blog/${post.slug.current}`}
-            style={{ fontFamily: "var(--font-body)", fontSize: "11px", color: "#FF4500", letterSpacing: "0.08em" }}
+            style={{ fontFamily: "var(--font-body)", fontSize: "11px", color: "#E8FF5A", letterSpacing: "0.08em" }}
           >
             Read →
           </Link>
@@ -423,7 +423,7 @@ function EmptyState({ configured }: { configured: boolean }) {
             }}
           >
             The Audio Jones knowledge base<br />
-            <span style={{ color: "#FF4500" }}>is being structured.</span>
+            <span style={{ color: "#E8FF5A" }}>is being structured.</span>
           </h2>
           <p
             style={{

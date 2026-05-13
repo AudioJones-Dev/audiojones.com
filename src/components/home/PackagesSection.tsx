@@ -46,9 +46,9 @@ export default function PackagesSection() {
           </div>
 
           {/* Growth (Most Popular) */}
-          <div className="border border-[#ffa64d]/50 rounded-lg p-8 flex flex-col relative overflow-hidden ring-2 ring-[#ffa64d]/50 shadow-2xl shadow-[#ffa64d]/10">
+          <div className="border border-[#E8FF5A]/50 rounded-lg p-8 flex flex-col relative overflow-hidden ring-2 ring-[#E8FF5A]/50 shadow-2xl shadow-[#E8FF5A]/10">
             <div className="absolute top-0 right-0 -mr-1 mt-1">
-              <div className="inline-flex items-center text-xs font-bold px-3 py-1.5 bg-gradient-to-r from-orange-500 to-amber-400 rounded-bl-lg">
+              <div className="inline-flex items-center text-xs font-bold px-3 py-1.5 bg-[#E8FF5A] text-[#080808] rounded-bl-lg">
                 Most Popular
               </div>
             </div>
@@ -85,7 +85,7 @@ export default function PackagesSection() {
             </div>
             <a 
               href="/book" 
-              className="mt-8 block w-full text-center rounded-full px-6 py-3 text-sm font-bold text-black bg-gradient-to-r from-[#FF4500] to-[#FFD700] hover:opacity-90 transition"
+              className="mt-8 block w-full text-center rounded-full px-6 py-3 text-sm font-bold text-black bg-gradient-to-r from-[#E8FF5A] to-[#F0FF85] hover:opacity-90 transition"
             >
               Start Growing
             </a>

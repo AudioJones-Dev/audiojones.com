@@ -26,7 +26,7 @@ function RecoveryDiagram() {
     >
       <defs>
         <linearGradient id="responseosRoute" x1="72" x2="548" y1="180" y2="180" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stopColor="#ff4500" />
+          <stop offset="0%" stopColor="#E8FF5A" />
           <stop offset="48%" stopColor="#ff6b35" />
           <stop offset="100%" stopColor="#00a4ff" />
         </linearGradient>
@@ -40,8 +40,8 @@ function RecoveryDiagram() {
         [512, "RECOVERY"],
       ].map(([x, label], index) => (
         <g key={label}>
-          <circle cx={Number(x)} cy="180" r="46" fill={index === 0 ? "rgba(255,69,0,0.14)" : index === 1 ? "rgba(255,200,87,0.1)" : "rgba(0,164,255,0.14)"} stroke={index === 0 ? "#ff4500" : index === 1 ? "#ffc857" : "#00a4ff"} strokeOpacity=".72" />
-          <circle cx={Number(x)} cy="180" r="10" fill={index === 0 ? "#ff4500" : index === 1 ? "#ffc857" : "#00a4ff"} />
+          <circle cx={Number(x)} cy="180" r="46" fill={index === 0 ? "rgba(232, 255, 90,0.14)" : index === 1 ? "rgba(255,200,87,0.1)" : "rgba(0,164,255,0.14)"} stroke={index === 0 ? "#E8FF5A" : index === 1 ? "#ffc857" : "#00a4ff"} strokeOpacity=".72" />
+          <circle cx={Number(x)} cy="180" r="10" fill={index === 0 ? "#E8FF5A" : index === 1 ? "#ffc857" : "#00a4ff"} />
           <text x={Number(x)} y="262" textAnchor="middle" fill="#94a3b8" fontFamily="ui-monospace, monospace" fontSize="12" letterSpacing="3">
             {label}
           </text>

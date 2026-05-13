@@ -110,7 +110,7 @@ export default function BlogDraftEditor({ draft: initialDraft }: BlogDraftEditor
             ← Back
           </button>
           <div>
-            <h1 className="text-xl font-bold text-[#FFD700]">
+            <h1 className="text-xl font-bold text-[#F0FF85]">
               📝 Edit Draft
             </h1>
             <p className="text-sm text-gray-400">
@@ -133,7 +133,7 @@ export default function BlogDraftEditor({ draft: initialDraft }: BlogDraftEditor
           <button
             onClick={handlePublish}
             disabled={saving}
-            className="bg-[#FF4500] hover:bg-[#FF6500] disabled:opacity-50 text-white px-4 py-2 rounded-lg transition-colors"
+            className="bg-[#E8FF5A] hover:bg-[#F0FF85] disabled:opacity-50 text-[#080808] px-4 py-2 rounded-lg transition-colors"
           >
             {saving ? 'Publishing...' : 'Publish'}
           </button>
@@ -148,7 +148,7 @@ export default function BlogDraftEditor({ draft: initialDraft }: BlogDraftEditor
             onClick={() => setActiveTab(tab.id as any)}
             className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
               activeTab === tab.id
-                ? 'bg-[#FF4500] text-white'
+                ? 'bg-[#E8FF5A] text-[#080808]'
                 : 'text-gray-400 hover:text-white hover:bg-gray-700'
             }`}
           >
@@ -176,7 +176,7 @@ export default function BlogDraftEditor({ draft: initialDraft }: BlogDraftEditor
                   slug: generateSlug(newTitle) 
                 });
               }}
-              className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FF4500]"
+              className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#E8FF5A]"
               placeholder="Enter blog post title..."
             />
           </div>
@@ -192,7 +192,7 @@ export default function BlogDraftEditor({ draft: initialDraft }: BlogDraftEditor
                 type="text"
                 value={draft.slug}
                 onChange={(e) => updateDraft({ slug: e.target.value })}
-                className="flex-1 bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FF4500]"
+                className="flex-1 bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#E8FF5A]"
               />
             </div>
           </div>
@@ -205,7 +205,7 @@ export default function BlogDraftEditor({ draft: initialDraft }: BlogDraftEditor
             <select
               value={draft.pillar}
               onChange={(e) => updateDraft({ pillar: e.target.value as PillarType })}
-              className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-[#FF4500]"
+              className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-[#E8FF5A]"
             >
               {Object.entries(PILLARS).map(([key, pillar]) => (
                 <option key={key} value={key}>
@@ -223,7 +223,7 @@ export default function BlogDraftEditor({ draft: initialDraft }: BlogDraftEditor
             <textarea
               value={draft.content}
               onChange={(e) => updateDraft({ content: e.target.value })}
-              className="w-full h-96 bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FF4500] font-mono text-sm"
+              className="w-full h-96 bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#E8FF5A] font-mono text-sm"
               placeholder="Write your blog content in Markdown..."
             />
             <div className="text-xs text-gray-400 mt-2">
@@ -244,7 +244,7 @@ export default function BlogDraftEditor({ draft: initialDraft }: BlogDraftEditor
               type="text"
               value={draft.seoTitle || ''}
               onChange={(e) => updateDraft({ seoTitle: e.target.value })}
-              className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FF4500]"
+              className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#E8FF5A]"
               placeholder="SEO optimized title (60 chars max)"
               maxLength={60}
             />
@@ -257,7 +257,7 @@ export default function BlogDraftEditor({ draft: initialDraft }: BlogDraftEditor
             <textarea
               value={draft.seoDescription || ''}
               onChange={(e) => updateDraft({ seoDescription: e.target.value })}
-              className="w-full h-24 bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FF4500]"
+              className="w-full h-24 bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#E8FF5A]"
               placeholder="SEO meta description (160 chars max)"
               maxLength={160}
             />
@@ -273,7 +273,7 @@ export default function BlogDraftEditor({ draft: initialDraft }: BlogDraftEditor
               onChange={(e) => updateDraft({ 
                 seoKeywords: e.target.value.split(',').map(k => k.trim()).filter(Boolean)
               })}
-              className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FF4500]"
+              className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#E8FF5A]"
               placeholder="keyword 1, keyword 2, keyword 3"
             />
           </div>
@@ -286,7 +286,7 @@ export default function BlogDraftEditor({ draft: initialDraft }: BlogDraftEditor
               type="text"
               value={draft.ogImage || ''}
               onChange={(e) => updateDraft({ ogImage: e.target.value })}
-              className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FF4500]"
+              className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#E8FF5A]"
               placeholder="/assets/blog/post-image.jpg"
             />
           </div>
@@ -303,7 +303,7 @@ export default function BlogDraftEditor({ draft: initialDraft }: BlogDraftEditor
             <select
               value={draft.ctaType}
               onChange={(e) => updateDraft({ ctaType: e.target.value as CTAType })}
-              className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-[#FF4500]"
+              className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-[#E8FF5A]"
             >
               <option value="newsletter">Newsletter Signup</option>
               <option value="podcast">Podcast Subscribe</option>
@@ -320,7 +320,7 @@ export default function BlogDraftEditor({ draft: initialDraft }: BlogDraftEditor
               type="text"
               value={draft.ctaHeadline || ''}
               onChange={(e) => updateDraft({ ctaHeadline: e.target.value })}
-              className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FF4500]"
+              className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#E8FF5A]"
               placeholder="Compelling CTA headline"
             />
           </div>
@@ -332,7 +332,7 @@ export default function BlogDraftEditor({ draft: initialDraft }: BlogDraftEditor
             <textarea
               value={draft.ctaDescription || ''}
               onChange={(e) => updateDraft({ ctaDescription: e.target.value })}
-              className="w-full h-24 bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FF4500]"
+              className="w-full h-24 bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#E8FF5A]"
               placeholder="Describe the value proposition"
             />
           </div>
@@ -345,7 +345,7 @@ export default function BlogDraftEditor({ draft: initialDraft }: BlogDraftEditor
               type="text"
               value={draft.ctaLink || ''}
               onChange={(e) => updateDraft({ ctaLink: e.target.value })}
-              className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FF4500]"
+              className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#E8FF5A]"
               placeholder="/download/resource or https://external-link.com"
             />
           </div>
@@ -362,7 +362,7 @@ export default function BlogDraftEditor({ draft: initialDraft }: BlogDraftEditor
             <select
               value={draft.status}
               onChange={(e) => updateDraft({ status: e.target.value as any })}
-              className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-[#FF4500]"
+              className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-[#E8FF5A]"
             >
               <option value="draft">Draft</option>
               <option value="review">Ready for Review</option>
@@ -375,7 +375,7 @@ export default function BlogDraftEditor({ draft: initialDraft }: BlogDraftEditor
               type="checkbox"
               checked={draft.aiGenerated}
               onChange={(e) => updateDraft({ aiGenerated: e.target.checked })}
-              className="w-4 h-4 text-[#FF4500] bg-gray-700 border-gray-600 rounded focus:ring-[#FF4500]"
+              className="w-4 h-4 text-[#E8FF5A] bg-gray-700 border-gray-600 rounded focus:ring-[#E8FF5A]"
             />
             <label className="text-sm text-gray-300">
               AI Generated Content
@@ -390,11 +390,11 @@ export default function BlogDraftEditor({ draft: initialDraft }: BlogDraftEditor
               <div className="flex items-center gap-3">
                 <div className="flex-1 bg-gray-700 rounded-full h-2">
                   <div 
-                    className="bg-gradient-to-r from-[#FF4500] to-[#FFD700] h-2 rounded-full"
+                    className="bg-gradient-to-r from-[#E8FF5A] to-[#F0FF85] h-2 rounded-full"
                     style={{ width: `${draft.performanceScore}%` }}
                   />
                 </div>
-                <span className="text-[#FFD700] font-semibold">
+                <span className="text-[#F0FF85] font-semibold">
                   {draft.performanceScore}%
                 </span>
               </div>
@@ -406,9 +406,9 @@ export default function BlogDraftEditor({ draft: initialDraft }: BlogDraftEditor
       {/* Footer */}
       <div className="mt-8 pt-6 border-t border-gray-700 text-center">
         <p className="text-xs text-gray-400">
-          🔥 <span className="text-[#FF4500]">Audio Jones</span> Blog Editor • 
+          🔥 <span className="text-[#E8FF5A]">Audio Jones</span> Blog Editor • 
           Miami operator-level content creation • 
-          <span className="text-[#FFD700]">Predictable growth through systematic content</span>
+          <span className="text-[#F0FF85]">Predictable growth through systematic content</span>
         </p>
       </div>
     </div>

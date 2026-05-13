@@ -28,19 +28,19 @@ export default function CaseStudySection() {
 
             <ul className="mt-1 space-y-4 text-white">
               <li className="flex items-start gap-3">
-                <span className="mt-0.5 h-2 w-2 rounded-full bg-gradient-to-r from-[#FF4500] to-[#FFD700]" />
+                <span className="mt-0.5 h-2 w-2 rounded-full bg-gradient-to-r from-[#E8FF5A] to-[#F0FF85]" />
                 <span className="text-lg">34% Conversion Rate — highest of any content channel</span>
               </li>
               <li className="flex items-start gap-3">
-                <span className="mt-0.5 h-2 w-2 rounded-full bg-gradient-to-r from-[#FF4500] to-[#FFD700]" />
+                <span className="mt-0.5 h-2 w-2 rounded-full bg-gradient-to-r from-[#E8FF5A] to-[#F0FF85]" />
                 <span className="text-lg">+38% Revenue Growth — AI-powered podcast workflows</span>
               </li>
               <li className="flex items-start gap-3">
-                <span className="mt-0.5 h-2 w-2 rounded-full bg-gradient-to-r from-[#FF4500] to-[#FFD700]" />
+                <span className="mt-0.5 h-2 w-2 rounded-full bg-gradient-to-r from-[#E8FF5A] to-[#F0FF85]" />
                 <span className="text-lg">+89% Brand Awareness — outperforms traditional media</span>
               </li>
               <li className="flex items-start gap-3">
-                <span className="mt-0.5 h-2 w-2 rounded-full bg-gradient-to-r from-[#FF4500] to-[#FFD700]" />
+                <span className="mt-0.5 h-2 w-2 rounded-full bg-gradient-to-r from-[#E8FF5A] to-[#F0FF85]" />
                 <span className="text-lg">10% Guest → Client Conversion — predictable B2B leads</span>
               </li>
             </ul>
@@ -48,7 +48,7 @@ export default function CaseStudySection() {
             <div className="mt-6 flex flex-wrap gap-4">
               <a
                 href="/book"
-                className="inline-flex h-12 items-center justify-center rounded-full bg-gradient-to-r from-[#FF4500] to-[#FFD700] px-6 text-base font-bold text-black shadow-md hover:opacity-90 transition"
+                className="inline-flex h-12 items-center justify-center rounded-full bg-gradient-to-r from-[#E8FF5A] to-[#F0FF85] px-6 text-base font-bold text-black shadow-md hover:opacity-90 transition"
               >
                 Book a Consultation
               </a>

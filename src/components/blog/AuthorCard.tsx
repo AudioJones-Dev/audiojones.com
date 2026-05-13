@@ -5,7 +5,7 @@ export default function AuthorCard() {
   return (
     <div className="bg-gradient-to-r from-gray-900/50 to-gray-800/30 border border-gray-700 rounded-xl p-6">
       <div className="text-center mb-6">
-        <div className="w-20 h-20 mx-auto mb-4 rounded-full overflow-hidden border-2 border-[#FF4500]">
+        <div className="w-20 h-20 mx-auto mb-4 rounded-full overflow-hidden border-2 border-[#E8FF5A]">
           <IKImage
             src="/assets/team/audio-jones-avatar.jpg"
             alt="Audio Jones Team"
@@ -15,7 +15,7 @@ export default function AuthorCard() {
           />
         </div>
         <h3 className="text-xl font-bold text-white mb-2">Audio Jones Team</h3>
-        <p className="text-[#FF4500] font-semibold">Miami-Based AI Marketing Operators</p>
+        <p className="text-[#E8FF5A] font-semibold">Miami-Based AI Marketing Operators</p>
       </div>
 
       <div className="space-y-4 text-sm text-gray-300">
@@ -26,19 +26,19 @@ export default function AuthorCard() {
         
         <div className="space-y-2">
           <div className="flex items-center gap-2">
-            <span className="text-[#FF4500]">🏢</span>
+            <span className="text-[#E8FF5A]">🏢</span>
             <span>Founded in Miami, FL</span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-[#FF4500]">🎯</span>
+            <span className="text-[#E8FF5A]">🎯</span>
             <span>Operator-focused approach</span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-[#FF4500]">🤖</span>
+            <span className="text-[#E8FF5A]">🤖</span>
             <span>AI & automation experts</span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-[#FF4500]">📈</span>
+            <span className="text-[#E8FF5A]">📈</span>
             <span>Predictable growth systems</span>
           </div>
         </div>
@@ -51,14 +51,14 @@ export default function AuthorCard() {
             href="/newsletter"
             className="flex items-center gap-3 p-2 rounded-lg bg-gray-800 hover:bg-gray-700 transition-colors"
           >
-            <span className="text-[#FFD700]">📧</span>
+            <span className="text-[#F0FF85]">📧</span>
             <span className="text-sm">Weekly Newsletter</span>
           </a>
           <a
             href="/podcast"
             className="flex items-center gap-3 p-2 rounded-lg bg-gray-800 hover:bg-gray-700 transition-colors"
           >
-            <span className="text-[#FFD700]">🎙️</span>
+            <span className="text-[#F0FF85]">🎙️</span>
             <span className="text-sm">Podcast</span>
           </a>
           <a
@@ -67,7 +67,7 @@ export default function AuthorCard() {
             rel="noopener noreferrer"
             className="flex items-center gap-3 p-2 rounded-lg bg-gray-800 hover:bg-gray-700 transition-colors"
           >
-            <span className="text-[#FFD700]">🐦</span>
+            <span className="text-[#F0FF85]">🐦</span>
             <span className="text-sm">Twitter</span>
           </a>
           <a
@@ -76,7 +76,7 @@ export default function AuthorCard() {
             rel="noopener noreferrer"
             className="flex items-center gap-3 p-2 rounded-lg bg-gray-800 hover:bg-gray-700 transition-colors"
           >
-            <span className="text-[#FFD700]">💼</span>
+            <span className="text-[#F0FF85]">💼</span>
             <span className="text-sm">LinkedIn</span>
           </a>
         </div>
@@ -85,7 +85,7 @@ export default function AuthorCard() {
       <div className="mt-6 pt-6 border-t border-gray-700 text-center">
         <a
           href="/services"
-          className="inline-block bg-[#FF4500] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#FF4500]/90 transition-colors"
+          className="inline-block bg-[#E8FF5A] text-[#080808] px-6 py-3 rounded-lg font-semibold hover:bg-[#E8FF5A]/90 transition-colors"
         >
           Work with Audio Jones
         </a>

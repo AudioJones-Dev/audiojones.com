@@ -37,7 +37,7 @@ export default function ServicesStrip() {
         <div className="text-center mb-16">
           <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6">
             AI-SEO & AEO Services for{" "}
-            <span className="text-[#FFD700]">2026+</span>
+            <span className="text-[#F0FF85]">2026+</span>
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
             Built to win in AI search, not just Google SERPs.

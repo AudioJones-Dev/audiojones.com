@@ -52,8 +52,8 @@ export const modules: ModuleConfig[] = [
     href: "/services",
     icon: "📦",
     gradient: {
-      from: "#FF4500",
-      to: "#FFD700",
+      from: "#E8FF5A",
+      to: "#F0FF85",
     },
     funnelStage: "deliver",
     suggestedPersonas: ["both"],
@@ -68,7 +68,7 @@ export const modules: ModuleConfig[] = [
     icon: "🚀",
     gradient: {
       from: "#008080",
-      to: "#FFD700",
+      to: "#F0FF85",
     },
     funnelStage: "discover",
     suggestedPersonas: ["both"],
@@ -83,7 +83,7 @@ export const modules: ModuleConfig[] = [
     icon: "🤖",
     gradient: {
       from: "#9370DB",
-      to: "#FFD700",
+      to: "#F0FF85",
     },
     funnelStage: "optimize",
     suggestedPersonas: ["both"],
@@ -133,6 +133,6 @@ export function getModulesByPersona(persona: Persona): ModuleConfig[] {
  */
 export function getModuleGradient(id: ModuleId): string {
   const mod = getModuleById(id);
-  if (!mod) return "from-[#FF4500] to-[#FFD700]";
+  if (!mod) return "from-[#E8FF5A] to-[#F0FF85]";
   return `from-[${mod.gradient.from}] to-[${mod.gradient.to}]`;
 }

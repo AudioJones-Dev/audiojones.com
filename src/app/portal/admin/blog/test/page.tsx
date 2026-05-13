@@ -3,7 +3,7 @@ export default function BlogAdminTest() {
   return (
     <div className="min-h-screen bg-black text-white p-8">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-3xl font-bold text-[#FFD700] mb-8">
+        <h1 className="text-3xl font-bold text-[#F0FF85] mb-8">
           🔥 Blog Admin Interface - Status Check
         </h1>
         
@@ -29,8 +29,8 @@ export default function BlogAdminTest() {
             </ul>
           </div>
 
-          <div className="bg-[#FF4500]/10 border border-[#FF4500]/30 rounded-xl p-6">
-            <h2 className="text-xl font-semibold text-[#FF4500] mb-4">
+          <div className="bg-[#E8FF5A]/10 border border-[#E8FF5A]/30 rounded-xl p-6">
+            <h2 className="text-xl font-semibold text-[#E8FF5A] mb-4">
               🎯 Admin Interface Components
             </h2>
             <div className="grid md:grid-cols-2 gap-4">
@@ -61,8 +61,8 @@ export default function BlogAdminTest() {
             </div>
           </div>
 
-          <div className="bg-[#FFD700]/10 border border-[#FFD700]/30 rounded-xl p-6">
-            <h2 className="text-xl font-semibold text-[#FFD700] mb-4">
+          <div className="bg-[#F0FF85]/10 border border-[#F0FF85]/30 rounded-xl p-6">
+            <h2 className="text-xl font-semibold text-[#F0FF85] mb-4">
               🚀 Next Steps
             </h2>
             <ol className="space-y-2 text-gray-300">
@@ -77,9 +77,9 @@ export default function BlogAdminTest() {
 
           <div className="text-center pt-8">
             <p className="text-gray-400">
-              🔥 <span className="text-[#FF4500]">Audio Jones</span> Blog Automation System • 
+              🔥 <span className="text-[#E8FF5A]">Audio Jones</span> Blog Automation System • 
               Miami operator-level content management • 
-              <span className="text-[#FFD700]">Predictable growth through systematic content</span>
+              <span className="text-[#F0FF85]">Predictable growth through systematic content</span>
             </p>
           </div>
         </div>

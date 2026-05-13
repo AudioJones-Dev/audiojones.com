@@ -81,12 +81,12 @@ export default function ComingSoonCard({
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email"
               required
-              className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FF4500] focus:border-transparent outline-none"
+              className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#E8FF5A] focus:border-transparent outline-none"
             />
             <button
               type="submit"
               disabled={loading}
-              className="bg-[#FF4500] hover:bg-[#E03D00] disabled:opacity-50 text-white font-semibold py-2 px-6 rounded-lg transition-colors duration-200"
+              className="bg-[#E8FF5A] hover:bg-[#F0FF85] disabled:opacity-50 text-[#080808] font-semibold py-2 px-6 rounded-lg transition-colors duration-200"
             >
               {loading ? 'Joining...' : 'Join Waitlist'}
             </button>

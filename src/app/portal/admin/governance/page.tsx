@@ -213,7 +213,7 @@ export default function GovernancePage() {
                   </div>
                   <div className="flex justify-between">
                     <span className="text-white/70">Throughput</span>
-                    <span className="text-[#FFD700]">{healthData.performance.throughput}</span>
+                    <span className="text-[#F0FF85]">{healthData.performance.throughput}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-white/70">Error Rate</span>
@@ -231,7 +231,7 @@ export default function GovernancePage() {
                   </div>
                   <div className="flex justify-between">
                     <span className="text-white/70">Memory Usage</span>
-                    <span className="text-[#FFD700]">{healthData.performance.memoryUsage}</span>
+                    <span className="text-[#F0FF85]">{healthData.performance.memoryUsage}</span>
                   </div>
                 </div>
               </div>
@@ -275,7 +275,7 @@ export default function GovernancePage() {
               <div className="flex flex-wrap gap-4">
                 <button
                   onClick={() => triggerMaintenance('restart')}
-                  className="px-4 py-2 bg-[#FF4500] text-white rounded-lg hover:bg-[#FF4500]/80"
+                  className="px-4 py-2 bg-[#E8FF5A] text-[#080808] rounded-lg hover:bg-[#E8FF5A]/80"
                 >
                   Restart System
                 </button>
@@ -287,7 +287,7 @@ export default function GovernancePage() {
                 </button>
                 <button
                   onClick={() => triggerMaintenance('backup')}
-                  className="px-4 py-2 bg-[#FFD700] text-black rounded-lg hover:bg-[#FFD700]/80"
+                  className="px-4 py-2 bg-[#F0FF85] text-black rounded-lg hover:bg-[#F0FF85]/80"
                 >
                   Create Backup
                 </button>
@@ -402,7 +402,7 @@ export default function GovernancePage() {
 
               <div className="bg-white/5 rounded-lg p-6 border border-white/10">
                 <h3 className="text-lg font-semibold mb-4">Frameworks</h3>
-                <div className="text-3xl font-bold text-[#FFD700] mb-2">
+                <div className="text-3xl font-bold text-[#F0FF85] mb-2">
                   {Object.keys(complianceData.frameworks).length}
                 </div>
                 <div className="text-sm text-white/60">Active compliance frameworks</div>

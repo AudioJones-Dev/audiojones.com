@@ -61,7 +61,7 @@ export default function ProblemReframeSplit() {
           width: "46%",
           height: "52%",
           background:
-            "radial-gradient(ellipse at 70% 85%, rgba(255,69,0,0.09), transparent 62%)",
+            "radial-gradient(ellipse at 70% 85%, rgba(232, 255, 90,0.09), transparent 62%)",
         }}
       />
       {/* ── Blue glow — behind/right of System card ── */}
@@ -105,9 +105,9 @@ export default function ProblemReframeSplit() {
               width: "56px",
               height: "1.5px",
               background:
-                "linear-gradient(to right, #FF4500 0%, rgba(255,69,0,0.5) 60%, rgba(255,69,0,0) 100%)",
+                "linear-gradient(to right, #E8FF5A 0%, rgba(232, 255, 90,0.5) 60%, rgba(232, 255, 90,0) 100%)",
               borderRadius: "1px",
-              boxShadow: "0 0 6px 1px rgba(255,69,0,0.28)",
+              boxShadow: "0 0 6px 1px rgba(232, 255, 90,0.28)",
             }}
           />
         </div>
@@ -131,7 +131,7 @@ export default function ProblemReframeSplit() {
             }}
           >
             Misattribution{" "}
-            <span style={{ color: "#FF4500", opacity: 0.7 }}>→</span>{" "}
+            <span style={{ color: "#E8FF5A", opacity: 0.7 }}>→</span>{" "}
             Attribution
           </span>
           <div
@@ -201,7 +201,7 @@ export default function ProblemReframeSplit() {
               border: "1px solid rgba(59,91,255,0.45)",
               backdropFilter: "blur(12px)",
               boxShadow:
-                "0 0 56px -10px rgba(59,91,255,0.22), 0 0 28px -8px rgba(255,69,0,0.07), inset 0 0 0 1px rgba(59,91,255,0.08)",
+                "0 0 56px -10px rgba(59,91,255,0.22), 0 0 28px -8px rgba(232, 255, 90,0.07), inset 0 0 0 1px rgba(59,91,255,0.08)",
             }}
           >
             {/* Blue→orange top edge */}
@@ -210,7 +210,7 @@ export default function ProblemReframeSplit() {
               className="pointer-events-none absolute inset-x-0 top-0 h-px"
               style={{
                 background:
-                  "linear-gradient(to right, transparent, rgba(59,91,255,0.55), rgba(255,69,0,0.22), transparent)",
+                  "linear-gradient(to right, transparent, rgba(59,91,255,0.55), rgba(232, 255, 90,0.22), transparent)",
               }}
             />
             {/* Live indicator */}
@@ -288,7 +288,7 @@ function NoiseDashboard({ className }: { className?: string }) {
         <div className="flex items-center gap-2">
           <div
             className="h-2 w-2 rounded-full"
-            style={{ background: "#FF4500", opacity: 0.42 }}
+            style={{ background: "#E8FF5A", opacity: 0.42 }}
           />
           <span
             style={{
@@ -307,7 +307,7 @@ function NoiseDashboard({ className }: { className?: string }) {
             [
               "rgba(200,169,106,0.16)",
               "rgba(59,91,255,0.16)",
-              "rgba(255,69,0,0.16)",
+              "rgba(232, 255, 90,0.16)",
             ] as string[]
           ).map((c, i) => (
             <div
@@ -360,7 +360,7 @@ function NoiseDashboard({ className }: { className?: string }) {
                   fontSize: "9px",
                   color: k.pos
                     ? "rgba(74,222,128,0.50)"
-                    : "rgba(255,69,0,0.60)",
+                    : "rgba(232, 255, 90,0.60)",
                   marginTop: "1px",
                 }}
               >
@@ -404,7 +404,7 @@ function NoiseDashboard({ className }: { className?: string }) {
             <polyline
               points="0,52 22,30 44,58 66,18 88,46 110,12 132,50 154,26 176,60 198,16 220,44 242,20 260,42"
               fill="none"
-              stroke="#FF4500"
+              stroke="#E8FF5A"
               strokeWidth="1.2"
               opacity="0.52"
             />
@@ -468,7 +468,7 @@ function NoiseDashboard({ className }: { className?: string }) {
                     t.ok === true
                       ? "rgba(74,222,128,0.45)"
                       : t.ok === false
-                      ? "rgba(255,69,0,0.45)"
+                      ? "rgba(232, 255, 90,0.45)"
                       : "rgba(255,255,255,0.15)",
                 }}
               />

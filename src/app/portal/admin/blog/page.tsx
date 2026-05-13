@@ -72,11 +72,11 @@ export default function BlogAdminDashboard({ searchParams }: BlogAdminDashboardP
         <div className="lg:col-span-4 space-y-6">
           {/* Quick Actions */}
           <div className="bg-gray-900/50 border border-gray-800 rounded-xl p-6">
-            <h3 className="text-lg font-bold mb-4 text-[#FFD700]">
+            <h3 className="text-lg font-bold mb-4 text-[#F0FF85]">
               ⚡ Quick Actions
             </h3>
             <div className="space-y-3">
-              <button className="w-full bg-gradient-to-r from-[#FF4500] to-[#FF6500] hover:from-[#FF6500] hover:to-[#FF4500] text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200">
+              <button className="w-full bg-gradient-to-r from-[#E8FF5A] to-[#F0FF85] hover:from-[#F0FF85] hover:to-[#E8FF5A] text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200">
                 🎯 Generate AI Content
               </button>
               <button className="w-full bg-gray-800 hover:bg-gray-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors">
@@ -93,7 +93,7 @@ export default function BlogAdminDashboard({ searchParams }: BlogAdminDashboardP
 
           {/* Pillar Performance */}
           <div className="bg-gray-900/50 border border-gray-800 rounded-xl p-6">
-            <h3 className="text-lg font-bold mb-4 text-[#FFD700]">
+            <h3 className="text-lg font-bold mb-4 text-[#F0FF85]">
               📈 Pillar Performance
             </h3>
             <div className="space-y-3">
@@ -105,7 +105,7 @@ export default function BlogAdminDashboard({ searchParams }: BlogAdminDashboardP
                   <div className="flex items-center gap-2">
                     <div className="w-16 h-2 bg-gray-700 rounded-full overflow-hidden">
                       <div 
-                        className="h-full bg-gradient-to-r from-[#FF4500] to-[#FFD700]"
+                        className="h-full bg-gradient-to-r from-[#E8FF5A] to-[#F0FF85]"
                         style={{ width: `${Math.random() * 100}%` }}
                       />
                     </div>
@@ -120,7 +120,7 @@ export default function BlogAdminDashboard({ searchParams }: BlogAdminDashboardP
 
           {/* Recent Activity */}
           <div className="bg-gray-900/50 border border-gray-800 rounded-xl p-6">
-            <h3 className="text-lg font-bold mb-4 text-[#FFD700]">
+            <h3 className="text-lg font-bold mb-4 text-[#F0FF85]">
               🔥 Recent Activity
             </h3>
             <div className="space-y-3 text-sm">
@@ -160,9 +160,9 @@ export default function BlogAdminDashboard({ searchParams }: BlogAdminDashboardP
       {/* Audio Jones Footer */}
       <div className="mt-12 text-center border-t border-gray-800 pt-8">
         <p className="text-gray-400 text-sm">
-          🔥 <span className="text-[#FF4500]">Audio Jones</span> Blog Admin • 
+          🔥 <span className="text-[#E8FF5A]">Audio Jones</span> Blog Admin • 
           Powered by Miami operator-level systems • 
-          <span className="text-[#FFD700]">Predictable growth through content automation</span>
+          <span className="text-[#F0FF85]">Predictable growth through content automation</span>
         </p>
       </div>
     </div>
