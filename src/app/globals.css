@@ -1088,3 +1088,16 @@ html, body {
     transition-duration: 0.01ms !important;
   }
 }
+
+
+@keyframes slide-in-top {
+  0% {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

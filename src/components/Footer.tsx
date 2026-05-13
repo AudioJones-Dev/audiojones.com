@@ -1,7 +1,17 @@
 import { Suspense } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import {
+  Facebook,
+  Hash,
+  Instagram,
+  Linkedin,
+  Music2,
+  Twitter,
+  Youtube,
+} from "lucide-react";
 import NewsletterForm from "@/components/newsletter/NewsletterForm";
+import { socialLinks } from "@/config/links";
 import { mainNav } from "@/config/nav";
 
 // Primary nav imported from canonical source — same array Header consumes.
@@ -14,10 +24,48 @@ const LEGAL_NAV = [
 ];
 
 const SOCIAL = [
-  // TODO: integration deferred — confirm canonical URLs before publishing.
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/audiojones" },
-  { label: "YouTube", href: "https://www.youtube.com/@audiojones" },
-  { label: "X", href: "https://x.com/audiojones" },
+  {
+    label: "LinkedIn",
+    href: socialLinks.linkedin,
+    icon: Linkedin,
+    hoverClass: "hover:bg-[#0072b1]",
+  },
+  {
+    label: "YouTube",
+    href: socialLinks.youtube,
+    icon: Youtube,
+    hoverClass: "hover:bg-[#ff0000]",
+  },
+  {
+    label: "Facebook",
+    href: socialLinks.facebook,
+    icon: Facebook,
+    hoverClass: "hover:bg-[#1877f2]",
+  },
+  {
+    label: "Instagram",
+    href: socialLinks.instagram,
+    icon: Instagram,
+    hoverClass: "hover:bg-[#d62976]",
+  },
+  {
+    label: "X",
+    href: socialLinks.twitter,
+    icon: Twitter,
+    hoverClass: "hover:bg-[#00acee]",
+  },
+  {
+    label: "Threads",
+    href: socialLinks.threads,
+    icon: Hash,
+    hoverClass: "hover:bg-[#101010]",
+  },
+  {
+    label: "TikTok",
+    href: socialLinks.tiktok,
+    icon: Music2,
+    hoverClass: "hover:bg-[#ff0050]",
+  },
 ];
 
 export default function Footer() {
@@ -82,20 +130,29 @@ export default function Footer() {
           {/* Connect */}
           <div className="lg:col-span-2">
             <h3 className="t-label text-aj-gold">Connect</h3>
-            <ul className="mt-5 space-y-3">
-              {SOCIAL.map((s) => (
-                <li key={s.label}>
-                  <a
-                    href={s.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="t-body text-fg-1 transition-colors hover:text-fg-0"
-                  >
-                    {s.label}
-                  </a>
-                </li>
+            <div
+              className="mt-5 flex w-fit flex-wrap items-center justify-center gap-3 rounded-[var(--r-card)] border border-[rgba(200,169,106,0.2)] bg-[rgba(238,238,238,0.06)] p-4 shadow-[0_0_20px_rgba(0,0,0,0.18)] backdrop-blur-sm"
+              aria-label="Audio Jones social links"
+            >
+              {SOCIAL.map(({ label, href, icon: Icon, hoverClass }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Follow Audio Jones on ${label}`}
+                  title={label}
+                  className={`group flex h-[52px] w-[52px] items-center justify-center overflow-hidden rounded-[14px] bg-[#2c2c2c] text-white ring-1 ring-white/10 transition duration-300 hover:shadow-[0_0_24px_rgba(200,169,106,0.18)] active:scale-90 ${hoverClass}`}
+                >
+                  <Icon
+                    aria-hidden="true"
+                    className="h-[19px] w-[19px] transition-transform duration-300 group-hover:animate-[slide-in-top_0.3s_both]"
+                    strokeWidth={2.4}
+                  />
+                  <span className="sr-only">{label}</span>
+                </a>
               ))}
-            </ul>
+            </div>
           </div>
 
           {/* Legal */}

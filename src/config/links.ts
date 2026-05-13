@@ -22,10 +22,13 @@ export const ctaLinks = {
 } as const;
 
 export const socialLinks = {
-  twitter: "https://twitter.com/audiojones",
-  linkedin: "https://linkedin.com/company/audio-jones",
-  instagram: "https://instagram.com/audiojones",
-  youtube: "https://youtube.com/@audiojones",
+  linkedin: "https://www.linkedin.com/in/audiojones",
+  youtube: "https://www.youtube.com/@audiojones",
+  facebook: "https://www.facebook.com/audiojones",
+  instagram: "https://www.instagram.com/audiojones",
+  twitter: "https://x.com/audiojones",
+  threads: "https://www.threads.net/@audiojones",
+  tiktok: "https://www.tiktok.com/@audiojones",
 } as const;
 
 export const externalIntegrations = {
