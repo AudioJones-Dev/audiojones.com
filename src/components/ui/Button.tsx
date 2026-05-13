@@ -37,11 +37,11 @@ function glowClass(variant: "glow" | "system-glow", extra?: string) {
 
 function twStyles(variant: Exclude<Variant, "glow" | "system-glow">, size: Size, extra?: string) {
   const base =
-    "inline-flex items-center justify-center gap-2 font-body font-medium tracking-tight " +
-    "rounded-md select-none whitespace-nowrap " +
+    "inline-flex items-center justify-center gap-2 font-headline font-bold tracking-[-0.01em] " +
+    "rounded select-none whitespace-nowrap " +
     "transition-[opacity,border-color,color,background-color,transform] " +
     "duration-[var(--dur-base)] ease-[var(--ease-out)] " +
-    "focus-visible:outline-none focus-visible:[box-shadow:0_0_0_2px_var(--aj-blue-bright)] " +
+    "focus-visible:outline-none focus-visible:[box-shadow:0_0_0_2px_var(--signal-yellow)] " +
     "active:translate-y-px disabled:opacity-50 disabled:pointer-events-none";
 
   // Heights satisfy iOS 44pt minimum touch-target on `md` and `lg`.
@@ -53,13 +53,16 @@ function twStyles(variant: Exclude<Variant, "glow" | "system-glow">, size: Size,
     lg: "h-12 px-7 text-[16px]",
   };
 
+  // V2 (§07): primary CTA leads with signal yellow on near-black text.
+  // Secondary keeps a dark surface with a border-strong outline that
+  // promotes to signal yellow on hover.
   const variantMap: Record<Exclude<Variant, "glow" | "system-glow">, string> = {
     primary:
-      "bg-aj-blue-bright text-white shadow-[0_10px_40px_-10px_rgba(59,91,255,0.7)] hover:opacity-90",
+      "bg-signal-yellow text-bg-base border border-signal-yellow shadow-[0_10px_40px_-10px_rgba(232,255,90,0.55)] hover:bg-signal-soft hover:border-signal-soft",
     secondary:
-      "bg-transparent text-fg-0 border border-[var(--line-2)] hover:border-[var(--line-blue)] hover:text-aj-blue-bright",
+      "bg-transparent text-text-primary border border-border-strong hover:border-signal-yellow hover:text-signal-yellow",
     ghost:
-      "bg-transparent text-fg-1 hover:text-fg-0 hover:bg-[rgba(255,255,255,0.04)]",
+      "bg-transparent text-fg-1 hover:text-fg-0 hover:bg-[rgba(232,255,90,0.06)]",
   };
 
   return [base, sizeMap[size], variantMap[variant], extra].filter(Boolean).join(" ");

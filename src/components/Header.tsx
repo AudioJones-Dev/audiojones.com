@@ -27,26 +27,26 @@ export default function Header() {
 
   return (
     <header
-      className="fixed inset-x-0 top-0 z-50 h-20 border-b border-[var(--line-2)] bg-[rgba(5,7,15,0.78)] backdrop-blur-lg"
+      className="fixed inset-x-0 top-0 z-50 h-20 border-b border-[var(--border-subtle)] bg-[rgba(8,8,8,0.82)] backdrop-blur-lg"
       role="banner"
     >
       <nav
         aria-label="Primary"
         className="mx-auto flex h-full max-w-[1280px] items-center justify-between gap-6 px-5 sm:px-8"
       >
-        {/* Wordmark */}
+        {/* Wordmark — V2 horizontal lockup (signal mark + Syne wordmark) */}
         <Link
           href="/"
           className="flex items-center gap-2 t-h4 text-fg-0"
           aria-label="Audio Jones — home"
         >
           <Image
-            src="/assets/logos/audio-jones-signal-logo-white-nav.png"
-            alt=""
-            width={160}
-            height={32}
+            src="/assets/logos/audiojones-wordmark-nav.svg"
+            alt="Audio Jones"
+            width={180}
+            height={36}
             priority
-            className="h-7 w-auto"
+            className="h-8 w-auto"
           />
         </Link>
 
@@ -91,7 +91,7 @@ export default function Header() {
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
           aria-controls="primary-nav-mobile"
-          className="rounded-md border border-[var(--line-2)] bg-bg-2 px-3 py-2 t-small text-fg-0 lg:hidden"
+          className="rounded-md border border-[var(--border-subtle)] bg-bg-2 px-3 py-2 t-small text-fg-0 lg:hidden"
         >
           {open ? "Close" : "Menu"}
         </button>
@@ -101,7 +101,7 @@ export default function Header() {
       {open && (
         <div
           id="primary-nav-mobile"
-          className="border-t border-[var(--line-2)] bg-bg-0 lg:hidden"
+          className="border-t border-[var(--border-subtle)] bg-bg-base lg:hidden"
         >
           <ul className="mx-auto max-w-[1280px] space-y-1 px-5 py-6 sm:px-8">
             {NAV.map((item) => (

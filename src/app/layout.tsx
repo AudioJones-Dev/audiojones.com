@@ -1,10 +1,33 @@
 import type { Metadata } from "next";
+import { Syne, DM_Sans, DM_Mono } from "next/font/google";
 import "./globals.css";
 import CookieBanner from "@/components/CookieBanner";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { ToastProvider } from "@/components/Toast";
 import { siteConfig } from "@/lib/site";
+
+// Brand 2.0 typography (§03) — Syne for display/headers,
+// DM Sans for body, DM Mono for labels/data/badges. CSS variables
+// are wired to the corresponding --font-* tokens in globals.css.
+const syne = Syne({
+  subsets: ["latin"],
+  weight: ["500", "600", "700", "800"],
+  variable: "--font-syne",
+  display: "swap",
+});
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "700"],
+  variable: "--font-dm-sans",
+  display: "swap",
+});
+const dmMono = DM_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--font-dm-mono",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -51,8 +74,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body className="bg-bg-0 text-fg-1 font-body antialiased">
+    <html
+      lang="en"
+      className={`${syne.variable} ${dmSans.variable} ${dmMono.variable}`}
+    >
+      <body className="bg-bg-base text-text-primary font-body antialiased">
         <ToastProvider>
           <Header />
           <main className="min-h-screen pt-20">{children}</main>
