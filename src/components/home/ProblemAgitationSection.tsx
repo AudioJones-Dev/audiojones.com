@@ -32,7 +32,7 @@ export default function ProblemAgitationSection() {
             Stop Leaving Money on the Table
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Most creators are stuck in the <span className="text-[#FF4500] font-semibold">content creation hamster wheel</span>. 
+            Most creators are stuck in the <span className="text-[#E8FF5A] font-semibold">content creation hamster wheel</span>. 
             You're talented, but your systems aren't working as hard as you are.
           </p>
         </div>
@@ -42,7 +42,7 @@ export default function ProblemAgitationSection() {
           {problems.map((problem, index) => (
             <div 
               key={index}
-              className="bg-black/50 border border-red-900/30 rounded-xl p-6 text-center hover:border-[#FF4500]/50 transition-all duration-300"
+              className="bg-black/50 border border-red-900/30 rounded-xl p-6 text-center hover:border-[#E8FF5A]/50 transition-all duration-300"
             >
               <div className="text-4xl mb-4">{problem.icon}</div>
               <h3 className="text-lg font-semibold text-white mb-3">{problem.title}</h3>
@@ -54,10 +54,10 @@ export default function ProblemAgitationSection() {
         {/* Agitation CTA */}
         <div className="text-center mt-12">
           <p className="text-lg text-gray-300 mb-6">
-            <span className="text-[#FF4500] font-semibold">Sound familiar?</span> You're not alone. 
+            <span className="text-[#E8FF5A] font-semibold">Sound familiar?</span> You're not alone. 
             But there's a better way to build your creator business.
           </p>
-          <div className="inline-block bg-gradient-to-r from-[#FF4500] to-[#FFD700] p-1 rounded-lg">
+          <div className="inline-block bg-gradient-to-r from-[#E8FF5A] to-[#F0FF85] p-1 rounded-lg">
             <div className="bg-black px-6 py-3 rounded-lg">
               <span className="text-white font-medium">
                 Let's fix this mess. Here's how ↓

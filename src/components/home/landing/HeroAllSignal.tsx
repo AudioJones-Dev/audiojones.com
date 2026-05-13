@@ -130,7 +130,7 @@ export default function HeroAllSignal() {
         }}
       >
         <span style={{ color: "rgba(0,0,0,0.78)" }}>ALL </span>
-        <span style={{ color: "rgba(255,69,0,0.92)" }}>SIGNAL</span>
+        <span style={{ color: "rgba(232,255,90,0.92)" }}>SIGNAL</span>
       </div>
 
       {/* ── 2. "ALL SIGNAL" — tablet 768–1023px ── */}
@@ -157,7 +157,7 @@ export default function HeroAllSignal() {
         }}
       >
         <span style={{ color: "rgba(0,0,0,0.74)" }}>ALL </span>
-        <span style={{ color: "rgba(255,69,0,0.9)" }}>SIGNAL</span>
+        <span style={{ color: "rgba(232,255,90,0.9)" }}>SIGNAL</span>
       </div>
 
       {/* ── 2. "ALL SIGNAL" — mobile — HIDDEN (clutters headline on small screens) ── */}
@@ -254,7 +254,7 @@ export default function HeroAllSignal() {
                 fontWeight: 700,
                 lineHeight: 1,
                 letterSpacing: "-0.02em",
-                color: "#FF4500",
+                color: "#E8FF5A",
               }}
             >
               {m.dir}&thinsp;{m.pct}
@@ -323,7 +323,7 @@ export default function HeroAllSignal() {
         >
           You don&apos;t have<br />a growth problem.
           <br />
-          <span style={{ color: "#FF4500" }}>
+          <span style={{ color: "#E8FF5A" }}>
             You have a<br />signal problem.
           </span>
         </div>
@@ -430,7 +430,7 @@ export default function HeroAllSignal() {
         >
           You don&apos;t have a growth problem.
           <br />
-          <span style={{ color: "#FF4500" }}>You have a signal problem.</span>
+          <span style={{ color: "#E8FF5A" }}>You have a signal problem.</span>
         </h1>
 
         <p
@@ -530,7 +530,7 @@ export default function HeroAllSignal() {
                 fontWeight: 700,
                 lineHeight: 1,
                 letterSpacing: "-0.02em",
-                color: "#FF4500",
+                color: "#E8FF5A",
               }}
             >
               {m.dir}&thinsp;{m.pct}
@@ -582,7 +582,7 @@ export default function HeroAllSignal() {
                 fontWeight: 700,
                 lineHeight: 1,
                 letterSpacing: "-0.02em",
-                color: "#FF4500",
+                color: "#E8FF5A",
               }}
             >
               {m.dir}&thinsp;{m.pct}

@@ -19,7 +19,7 @@ export default function ServicesPillars() {
           {/* Card 1 */}
           <div className="group rounded-xl border border-zinc-200/50 bg-white/50 p-6 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl dark:border-zinc-800/50 dark:bg-[#1E1E1E] dark:hover:border-zinc-700">
             <div className="flex h-full flex-col">
-              <span className="material-symbols-outlined mb-4 text-5xl bg-gradient-to-r from-[#FF4500] to-[#FFD600] bg-clip-text text-transparent">
+              <span className="material-symbols-outlined mb-4 text-5xl bg-gradient-to-r from-[#E8FF5A] to-[#F0FF85] bg-clip-text text-transparent">
                 auto_awesome
               </span>
               <h2 className="text-xl font-bold text-zinc-900 dark:text-white">
@@ -32,14 +32,14 @@ export default function ServicesPillars() {
               <ul className="my-6 space-y-3 text-left text-sm text-zinc-700 dark:text-zinc-300">
                 {["Brand Strategy", "Content Creation", "Audience Growth"].map((t) => (
                   <li key={t} className="flex items-center gap-3">
-                    <span className="material-symbols-outlined text-xl bg-gradient-to-r from-[#FF4500] to-[#FFD600] bg-clip-text text-transparent">
+                    <span className="material-symbols-outlined text-xl bg-gradient-to-r from-[#E8FF5A] to-[#F0FF85] bg-clip-text text-transparent">
                       check_circle
                     </span>
                     {t}
                   </li>
                 ))}
               </ul>
-              <button className="mt-auto h-11 w-full cursor-pointer rounded-lg bg-gradient-to-r from-[#FF4500] to-[#FFD600] px-5 text-sm font-bold text-white transition-all duration-300 hover:brightness-110 group-hover:scale-105">
+              <button className="mt-auto h-11 w-full cursor-pointer rounded-lg bg-gradient-to-r from-[#E8FF5A] to-[#F0FF85] px-5 text-sm font-bold text-[#080808] transition-all duration-300 hover:brightness-110 group-hover:scale-105">
                 Build Your Brand
               </button>
             </div>
@@ -48,7 +48,7 @@ export default function ServicesPillars() {
           {/* Card 2 */}
           <div className="group rounded-xl border border-zinc-200/50 bg-white/50 p-6 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl dark:border-zinc-800/50 dark:bg-[#1E1E1E] dark:hover:border-zinc-700">
             <div className="flex h-full flex-col">
-              <span className="material-symbols-outlined mb-4 text-5xl bg-gradient-to-r from-[#FF4500] to-[#FFD600] bg-clip-text text-transparent">
+              <span className="material-symbols-outlined mb-4 text-5xl bg-gradient-to-r from-[#E8FF5A] to-[#F0FF85] bg-clip-text text-transparent">
                 movie
               </span>
               <h2 className="text-xl font-bold text-zinc-900 dark:text-white">
@@ -65,14 +65,14 @@ export default function ServicesPillars() {
                   "Distribution Strategy",
                 ].map((t) => (
                   <li key={t} className="flex items-center gap-3">
-                    <span className="material-symbols-outlined text-xl bg-gradient-to-r from-[#FF4500] to-[#FFD600] bg-clip-text text-transparent">
+                    <span className="material-symbols-outlined text-xl bg-gradient-to-r from-[#E8FF5A] to-[#F0FF85] bg-clip-text text-transparent">
                       check_circle
                     </span>
                     {t}
                   </li>
                 ))}
               </ul>
-              <button className="mt-auto h-11 w-full cursor-pointer rounded-lg bg-gradient-to-r from-[#FF4500] to-[#FFD600] px-5 text-sm font-bold text-white transition-all duration-300 hover:brightness-110 group-hover:scale-105">
+              <button className="mt-auto h-11 w-full cursor-pointer rounded-lg bg-gradient-to-r from-[#E8FF5A] to-[#F0FF85] px-5 text-sm font-bold text-[#080808] transition-all duration-300 hover:brightness-110 group-hover:scale-105">
                 Launch Your Podcast
               </button>
             </div>
@@ -81,7 +81,7 @@ export default function ServicesPillars() {
           {/* Card 3 */}
           <div className="group rounded-xl border border-zinc-200/50 bg-white/50 p-6 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl dark:border-zinc-800/50 dark:bg-[#1E1E1E] dark:hover:border-zinc-700">
             <div className="flex h-full flex-col">
-              <span className="material-symbols-outlined mb-4 text-5xl bg-gradient-to-r from-[#FF4500] to-[#FFD600] bg-clip-text text-transparent">
+              <span className="material-symbols-outlined mb-4 text-5xl bg-gradient-to-r from-[#E8FF5A] to-[#F0FF85] bg-clip-text text-transparent">
                 psychology
               </span>
               <h2 className="text-xl font-bold text-zinc-900 dark:text-white">
@@ -94,14 +94,14 @@ export default function ServicesPillars() {
               <ul className="my-6 space-y-3 text-left text-sm text-zinc-700 dark:text-zinc-300">
                 {["AI Automation", "Content Repurposing", "Lead Generation"].map((t) => (
                   <li key={t} className="flex items-center gap-3">
-                    <span className="material-symbols-outlined text-xl bg-gradient-to-r from-[#FF4500] to-[#FFD600] bg-clip-text text-transparent">
+                    <span className="material-symbols-outlined text-xl bg-gradient-to-r from-[#E8FF5A] to-[#F0FF85] bg-clip-text text-transparent">
                       check_circle
                     </span>
                     {t}
                   </li>
                 ))}
               </ul>
-              <button className="mt-auto h-11 w-full cursor-pointer rounded-lg bg-gradient-to-r from-[#FF4500] to-[#FFD600] px-5 text-sm font-bold text-white transition-all duration-300 hover:brightness-110 group-hover:scale-105">
+              <button className="mt-auto h-11 w-full cursor-pointer rounded-lg bg-gradient-to-r from-[#E8FF5A] to-[#F0FF85] px-5 text-sm font-bold text-[#080808] transition-all duration-300 hover:brightness-110 group-hover:scale-105">
                 Automate Your Marketing
               </button>
             </div>

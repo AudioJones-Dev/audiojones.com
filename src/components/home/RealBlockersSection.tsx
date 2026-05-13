@@ -13,7 +13,7 @@ export default function RealBlockersSection() {
       
       <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         <div className="text-center">
-          <p className="text-sm font-semibold uppercase tracking-widest text-[#FF4500]">
+          <p className="text-sm font-semibold uppercase tracking-widest text-[#E8FF5A]">
             The Real Blockers
           </p>
           <h2 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight">
@@ -30,19 +30,19 @@ export default function RealBlockersSection() {
             <h3 className="text-xl font-bold text-white mb-6">What's Really Holding You Back:</h3>
             <div className="space-y-4">
               <div className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-[#FF4500] rounded-full mt-2 flex-shrink-0" />
+                <div className="w-2 h-2 bg-[#E8FF5A] rounded-full mt-2 flex-shrink-0" />
                 <p className="text-gray-300">Sporadic publishing leads to forgotten presence.</p>
               </div>
               <div className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-[#FF4500] rounded-full mt-2 flex-shrink-0" />
+                <div className="w-2 h-2 bg-[#E8FF5A] rounded-full mt-2 flex-shrink-0" />
                 <p className="text-gray-300">Slow, inconsistent growth despite best efforts.</p>
               </div>
               <div className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-[#FF4500] rounded-full mt-2 flex-shrink-0" />
+                <div className="w-2 h-2 bg-[#E8FF5A] rounded-full mt-2 flex-shrink-0" />
                 <p className="text-gray-300">Struggling to build authority and trust over time.</p>
               </div>
               <div className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-[#FF4500] rounded-full mt-2 flex-shrink-0" />
+                <div className="w-2 h-2 bg-[#E8FF5A] rounded-full mt-2 flex-shrink-0" />
                 <p className="text-gray-300">Missing the compound effect of continuous engagement.</p>
               </div>
             </div>
@@ -57,7 +57,7 @@ export default function RealBlockersSection() {
             <div className="flex flex-col sm:flex-row gap-3">
               <a 
                 href="/book"
-                className="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-[#FF4500] to-[#FFD700] text-black font-semibold rounded-full hover:opacity-90 transition"
+                className="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-[#E8FF5A] to-[#F0FF85] text-black font-semibold rounded-full hover:opacity-90 transition"
               >
                 Fix This Now
               </a>

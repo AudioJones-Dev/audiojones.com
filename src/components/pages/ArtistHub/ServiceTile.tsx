@@ -75,7 +75,7 @@ export default function ServiceTile({
         {/* CTA Button */}
         <button
           onClick={handleCtaClick}
-          className="w-full bg-[#FF4500] hover:bg-[#E03D00] text-white font-semibold py-3 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2"
+          className="w-full bg-[#E8FF5A] hover:bg-[#d4eb3a] text-[#080808] font-semibold py-3 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2"
         >
           {ctaText}
           <ExternalLink size={16} />

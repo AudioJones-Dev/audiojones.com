@@ -41,7 +41,7 @@ export default function EpmFlow({ steps }: EpmFlowProps) {
           <p className="text-lg text-gray-600 mb-6">
             Ready to experience the future of marketing?
           </p>
-          <button className="bg-gradient-to-r from-[#FF4500] to-[#FFD700] hover:from-[#E03D00] hover:to-[#E6C200] text-white font-semibold py-3 px-8 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl">
+          <button className="bg-gradient-to-r from-[#E8FF5A] to-[#F0FF85] hover:from-[#d4eb3a] hover:to-[#F0FF85] text-[#080808] font-semibold py-3 px-8 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl">
             Join the EPM Revolution
           </button>
         </div>

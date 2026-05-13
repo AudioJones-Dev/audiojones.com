@@ -100,7 +100,7 @@ export default function SocialShare({ post, className = '' }: SocialShareProps) 
       {/* Email */}
       <a
         href={shareLinks.email}
-        className="flex items-center justify-center w-10 h-10 rounded-full bg-white/10 hover:bg-[#FF4500] transition-colors duration-200"
+        className="flex items-center justify-center w-10 h-10 rounded-full bg-white/10 hover:bg-[#E8FF5A] transition-colors duration-200"
         aria-label="Share via Email"
       >
         <svg className="w-4 h-4 fill-white" viewBox="0 0 24 24">
@@ -111,7 +111,7 @@ export default function SocialShare({ post, className = '' }: SocialShareProps) 
       {/* Copy Link */}
       <button
         onClick={handleCopyLink}
-        className="flex items-center justify-center w-10 h-10 rounded-full bg-white/10 hover:bg-[#FFD700] hover:text-black transition-colors duration-200"
+        className="flex items-center justify-center w-10 h-10 rounded-full bg-white/10 hover:bg-[#F0FF85] hover:text-black transition-colors duration-200"
         aria-label="Copy Link"
       >
         <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
@@ -122,7 +122,7 @@ export default function SocialShare({ post, className = '' }: SocialShareProps) 
       {/* Engagement CTA */}
       <div className="hidden md:flex items-center ml-4 pl-4 border-l border-white/20">
         <span className="text-xs text-white/60">
-          💥 <span className="text-[#FF4500]">Share the fire</span> - Help more operators win
+          💥 <span className="text-[#E8FF5A]">Share the fire</span> - Help more operators win
         </span>
       </div>
     </div>

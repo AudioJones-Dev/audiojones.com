@@ -55,24 +55,24 @@ const VARIANT_CONFIG: Record<
 > = {
   signal: {
     borderGradient:
-      "linear-gradient(135deg, #FF4500 0%, #3B5BFF 60%, #C8A96A 100%)",
-    iconGradient: "linear-gradient(135deg, #FF4500, #3B5BFF)",
-    iconGlow: "0 0 18px rgba(255,69,0,0.22)",
-    statusBg: "rgba(255,69,0,0.10)",
-    statusBorder: "rgba(255,69,0,0.30)",
-    statusText: "#FF6A30",
-    statusDot: "#FF4500",
-    ctaBorder: "rgba(255,69,0,0.40)",
-    ctaBg: "rgba(255,69,0,0.10)",
-    ctaText: "#FF6A30",
-    ctaHoverGlow: "0 0 20px rgba(255,69,0,0.24)",
-    hoverShadow: "0 0 40px rgba(255,69,0,0.14)",
+      "linear-gradient(135deg, #E8FF5A 0%, #3B5BFF 60%, #C8A96A 100%)",
+    iconGradient: "linear-gradient(135deg, #E8FF5A, #3B5BFF)",
+    iconGlow: "0 0 18px rgba(232,255,90,0.22)",
+    statusBg: "rgba(232,255,90,0.10)",
+    statusBorder: "rgba(232,255,90,0.30)",
+    statusText: "#E8FF5A",
+    statusDot: "#E8FF5A",
+    ctaBorder: "rgba(232,255,90,0.40)",
+    ctaBg: "rgba(232,255,90,0.10)",
+    ctaText: "#E8FF5A",
+    ctaHoverGlow: "0 0 20px rgba(232,255,90,0.24)",
+    hoverShadow: "0 0 40px rgba(232,255,90,0.14)",
     borderOpacity: "0.22",
     blurOpacity: "0.22",
   },
   system: {
     borderGradient:
-      "linear-gradient(135deg, #3B5BFF 0%, #C8A96A 60%, #FF4500 100%)",
+      "linear-gradient(135deg, #3B5BFF 0%, #C8A96A 60%, #E8FF5A 100%)",
     iconGradient: "linear-gradient(135deg, #3B5BFF, #0088CC)",
     iconGlow: "0 0 18px rgba(59,91,255,0.22)",
     statusBg: "rgba(59,91,255,0.10)",
@@ -89,7 +89,7 @@ const VARIANT_CONFIG: Record<
   },
   ledger: {
     borderGradient:
-      "linear-gradient(135deg, #C8A96A 0%, #FF4500 60%, #3B5BFF 100%)",
+      "linear-gradient(135deg, #C8A96A 0%, #E8FF5A 60%, #3B5BFF 100%)",
     iconGradient: "linear-gradient(135deg, #C8A96A, #A07840)",
     iconGlow: "0 0 18px rgba(200,169,106,0.22)",
     statusBg: "rgba(200,169,106,0.10)",
@@ -106,7 +106,7 @@ const VARIANT_CONFIG: Record<
   },
   noise: {
     borderGradient:
-      "linear-gradient(135deg, rgba(255,69,0,0.35) 0%, rgba(59,91,255,0.25) 60%, rgba(200,169,106,0.20) 100%)",
+      "linear-gradient(135deg, rgba(232,255,90,0.35) 0%, rgba(59,91,255,0.25) 60%, rgba(200,169,106,0.20) 100%)",
     iconGradient: "linear-gradient(135deg, #1a1a2e, #2a2a3e)",
     iconGlow: "none",
     statusBg: "rgba(255,255,255,0.04)",
@@ -127,7 +127,7 @@ const ACCENT_COLORS: Record<
   NonNullable<ChartBar["accent"]>,
   { bar: string; bg: string }
 > = {
-  orange: { bar: "#FF4500", bg: "rgba(255,69,0,0.18)" },
+  orange: { bar: "#E8FF5A", bg: "rgba(232,255,90,0.18)" },
   blue: { bar: "#3B5BFF", bg: "rgba(59,91,255,0.18)" },
   gold: { bar: "#C8A96A", bg: "rgba(200,169,106,0.18)" },
   muted: { bar: "#334155", bg: "rgba(51,65,85,0.18)" },
@@ -289,7 +289,7 @@ export default function SignalDataCard({
                       fontFamily: "var(--font-body)",
                       color:
                         m.deltaPositive === false
-                          ? "#FF4500"
+                          ? "#E8FF5A"
                           : m.deltaPositive === true
                           ? "#22C55E"
                           : cfg.statusText,

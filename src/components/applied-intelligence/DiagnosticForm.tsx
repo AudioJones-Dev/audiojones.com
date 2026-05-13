@@ -166,11 +166,11 @@ export default function DiagnosticForm() {
     <div
       style={{
         background:
-          "linear-gradient(#0B0F1A, #0B0F1A) padding-box, linear-gradient(145deg, transparent 28%, rgba(255,69,0,0.95), rgba(59,91,255,0.9) 68%, rgba(200,169,106,0.75)) border-box",
+          "linear-gradient(#0B0F1A, #0B0F1A) padding-box, linear-gradient(145deg, transparent 28%, rgba(232,255,90,0.95), rgba(59,91,255,0.9) 68%, rgba(200,169,106,0.75)) border-box",
         border: "1px solid transparent",
         borderRadius: "24px",
         boxShadow:
-          "0 24px 80px rgba(0,0,0,0.35), 0 0 48px rgba(59,91,255,0.08), 0 0 32px rgba(255,69,0,0.06)",
+          "0 24px 80px rgba(0,0,0,0.35), 0 0 48px rgba(59,91,255,0.08), 0 0 32px rgba(232,255,90,0.06)",
       }}
       className="p-6 sm:p-10"
     >
@@ -233,7 +233,7 @@ export default function DiagnosticForm() {
             type="button"
             onClick={() => setStep((s) => Math.min(STEPS.length - 1, s + 1))}
             disabled={!canAdvance}
-            className="rounded-md bg-[#3B5BFF] px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-[#FF4500] disabled:opacity-40"
+            className="rounded-md bg-[#4DACFF] px-6 py-2.5 text-sm font-semibold text-[#080808] transition hover:bg-[#7AC4FF] disabled:opacity-40"
           >
             Continue
           </button>
@@ -242,7 +242,7 @@ export default function DiagnosticForm() {
             type="button"
             onClick={submit}
             disabled={!canAdvance || submitting}
-            className="rounded-md bg-[#3B5BFF] px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-[#FF4500] disabled:opacity-40"
+            className="rounded-md bg-[#4DACFF] px-6 py-2.5 text-sm font-semibold text-[#080808] transition hover:bg-[#7AC4FF] disabled:opacity-40"
           >
             {submitting ? "Submitting…" : "Submit diagnostic"}
           </button>
@@ -278,7 +278,7 @@ function Field({
 }
 
 const inputCls =
-  "w-full rounded-md border border-white/10 bg-[#05070F] px-3 py-2.5 text-sm text-white outline-none transition focus:border-[#FF4500] focus:ring-2 focus:ring-[#FF4500]/10";
+  "w-full rounded-md border border-white/10 bg-[#05070F] px-3 py-2.5 text-sm text-white outline-none transition focus:border-[#E8FF5A] focus:ring-2 focus:ring-[#E8FF5A]/10";
 
 function Step1({ state, update }: StepProps) {
   return (

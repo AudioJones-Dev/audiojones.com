@@ -117,7 +117,7 @@ export async function sendClientRoiResult({ leadId, lead }: SendArgs): Promise<R
         <p><strong>Recommended next action:</strong> ${escapeHtml(result.recommendedNextAction)}</p>
       </div>
       <p style="margin:18px 0;color:#CBD5E1;">This is directional, not a promise. The next step is to separate true workflow signal from operational noise before investing in automation.</p>
-      <p><a href="${ctaLinks.signalDiagnostic}" style="color:#FF6A30;font-weight:700;">Take the Signal Diagnostic</a></p>
+      <p><a href="${ctaLinks.signalDiagnostic}" style="color:#E8FF5A;font-weight:700;">Take the Signal Diagnostic</a></p>
       <p style="margin-top:24px;color:#94A3B8;font-size:12px;">Reference ID: ${escapeHtml(leadId)}</p>
     </div>`;
 

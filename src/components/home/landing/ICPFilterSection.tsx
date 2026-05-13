@@ -95,7 +95,7 @@ export default function ICPFilterSection() {
           width: "52%",
           height: "80%",
           background:
-            "radial-gradient(ellipse 70% 60% at 20% 50%, rgba(255,69,0,0.07), transparent 70%)",
+            "radial-gradient(ellipse 70% 60% at 20% 50%, rgba(232,255,90,0.07), transparent 70%)",
         }}
       />
 
@@ -126,8 +126,8 @@ export default function ICPFilterSection() {
               width: "48px",
               height: "1.5px",
               background:
-                "linear-gradient(to right, #FF4500, rgba(255,69,0,0))",
-              boxShadow: "0 0 6px 1px rgba(255,69,0,0.25)",
+                "linear-gradient(to right, #E8FF5A, rgba(232,255,90,0))",
+              boxShadow: "0 0 6px 1px rgba(232,255,90,0.25)",
             }}
           />
 

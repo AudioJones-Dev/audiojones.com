@@ -13,7 +13,7 @@ const stats = [
     metric: "CAC Reduction",
     display: "↓ 37%",
     label: "Customer acquisition cost",
-    accent: "#FF4500",
+    accent: "#E8FF5A",
   },
   {
     metric: "Pipeline Growth",
@@ -95,7 +95,7 @@ export default function ProofStats() {
           zIndex: 2,
           pointerEvents: "none",
           background:
-            "radial-gradient(ellipse 65% 55% at 30% 50%, rgba(255,69,0,0.09), transparent 70%)",
+            "radial-gradient(ellipse 65% 55% at 30% 50%, rgba(232,255,90,0.09), transparent 70%)",
         }}
       />
 
@@ -332,7 +332,7 @@ function PerfCard({
         background: ringGradient,
         boxShadow: isAfter
           ? "0 24px 80px rgba(0,164,255,0.18), 0 0 0 1px rgba(0,164,255,0.10)"
-          : "0 24px 80px rgba(255,69,0,0.14), 0 0 0 1px rgba(255,69,0,0.10)",
+          : "0 24px 80px rgba(232,255,90,0.14), 0 0 0 1px rgba(232,255,90,0.10)",
       }}
     >
       <div
@@ -447,7 +447,7 @@ function PerfCard({
               : "rgba(5,7,15,0.40)",
             borderColor: isAfter
               ? "rgba(0,164,255,0.14)"
-              : "rgba(255,69,0,0.14)",
+              : "rgba(232,255,90,0.14)",
           }}
         >
           {chart}
@@ -566,7 +566,7 @@ function ChaoticChart() {
       <path
         d={line}
         fill="none"
-        stroke="#FF6A30"
+        stroke="#E8FF5A"
         strokeWidth="3"
         strokeLinejoin="round"
         opacity="0.88"

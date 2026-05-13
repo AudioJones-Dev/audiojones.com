@@ -16,13 +16,13 @@ export const PILLARS = {
     id: 'ai' as const,
     label: 'AI for Marketing & Creators',
     intents: ['news', 'how-to', 'framework-link', 'opinion'],
-    color: '#FF4500' // Audio Jones orange
+    color: '#E8FF5A' // Audio Jones orange
   },
   marketing: {
     id: 'marketing' as const,
     label: 'AEO/SEO, Funnels, Automation',
     intents: ['educate', 'commercial', 'authority'],
-    color: '#FFD700' // Audio Jones gold
+    color: '#F0FF85' // Audio Jones gold
   },
   'podcast-news': {
     id: 'podcast-news' as const,
@@ -177,7 +177,7 @@ export function getStatusColor(status: BlogStatus): string {
     approved: 'bg-blue-500',
     scheduled: 'bg-purple-500',
     published: 'bg-green-500',
-    optimization_pending: 'bg-orange-500'
+    optimization_pending: 'bg-amber-500'
   };
   return colors[status] || 'bg-gray-500';
 }

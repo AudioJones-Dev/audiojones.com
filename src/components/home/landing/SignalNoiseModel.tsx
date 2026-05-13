@@ -62,7 +62,7 @@ const CARD_CONFIG = {
     border: "none",
     dotColor: "#8EA2FF",
     boxShadow:
-      "0 0 32px -8px rgba(59,91,255,0.18), 0 0 14px -6px rgba(255,69,0,0.06), inset 0 0 0 1px rgba(59,91,255,0.06)",
+      "0 0 32px -8px rgba(59,91,255,0.18), 0 0 14px -6px rgba(232,255,90,0.06), inset 0 0 0 1px rgba(59,91,255,0.06)",
     animated: true,
   },
 } as const;
@@ -254,7 +254,7 @@ export default function SignalNoiseModel() {
                         zIndex: -1,
                         inset: "-1px",
                         backgroundImage:
-                          "linear-gradient(135deg, rgba(255,69,0,0.43), rgba(59,91,255,0.33) 55%, rgba(200,169,106,0.25))",
+                          "linear-gradient(135deg, rgba(232,255,90,0.43), rgba(59,91,255,0.33) 55%, rgba(200,169,106,0.25))",
                         borderRadius: "inherit",
                       }}
                     >
@@ -269,7 +269,7 @@ export default function SignalNoiseModel() {
                           width: "200%",
                           height: "9rem",
                           backgroundImage:
-                            "linear-gradient(90deg, rgba(255,69,0,0) 0%, rgba(255,69,0,0.57) 28%, rgba(59,91,255,0.54) 52%, rgba(200,169,106,0.42) 68%, rgba(255,69,0,0) 100%)",
+                            "linear-gradient(90deg, rgba(232,255,90,0) 0%, rgba(232,255,90,0.57) 28%, rgba(59,91,255,0.54) 52%, rgba(200,169,106,0.42) 68%, rgba(232,255,90,0) 100%)",
                           transformOrigin: "left center",
                           animation: "aj-snm-rotate 12s linear infinite",
                           opacity: 0.42,
@@ -322,7 +322,7 @@ export default function SignalNoiseModel() {
             border: "1px solid rgba(255,255,255,0.07)",
             backdropFilter: "blur(8px)",
             boxShadow:
-              "0 0 24px -8px rgba(255,69,0,0.10), 0 0 16px -8px rgba(59,91,255,0.08)",
+              "0 0 24px -8px rgba(232,255,90,0.10), 0 0 16px -8px rgba(59,91,255,0.08)",
           }}
         >
           <p
@@ -336,7 +336,7 @@ export default function SignalNoiseModel() {
             }}
           >
             The 20% noise often reveals the 80% signal —{" "}
-            <span style={{ color: "#FF6A30", fontWeight: 600 }}>
+            <span style={{ color: "#E8FF5A", fontWeight: 600 }}>
               if you know how to read the system.
             </span>
           </p>

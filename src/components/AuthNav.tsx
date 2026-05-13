@@ -13,7 +13,7 @@ export default function AuthNav() {
     return (
       <Link 
         href="/portal" 
-        className="rounded-full bg-gradient-to-r from-[#FF4500] to-[#FFD700] px-6 py-2 text-sm font-bold text-black shadow-lg hover:scale-105 transition-transform"
+        className="rounded-full bg-gradient-to-r from-[#E8FF5A] to-[#F0FF85] px-6 py-2 text-sm font-bold text-black shadow-lg hover:scale-105 transition-transform"
       >
         Client Portal
       </Link>

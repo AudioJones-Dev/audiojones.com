@@ -7,7 +7,7 @@ export default function Testimonials() {
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6">
-            What <span className="text-[#FF4500]">Clients Say</span>
+            What <span className="text-[#E8FF5A]">Clients Say</span>
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
             From boring businesses to creators, results stay the same — predictable growth.
@@ -19,7 +19,7 @@ export default function Testimonials() {
           {testimonials.map((testimonial, index) => (
             <div
               key={index}
-              className="bg-gray-900/50 border border-gray-800 rounded-xl p-6 hover:border-[#FFD700]/30 transition-colors duration-300"
+              className="bg-gray-900/50 border border-gray-800 rounded-xl p-6 hover:border-[#F0FF85]/30 transition-colors duration-300"
             >
               {/* Quote */}
               <blockquote className="text-gray-300 mb-6 leading-relaxed">
@@ -39,7 +39,7 @@ export default function Testimonials() {
                       const initials = testimonial.name.split(' ').map(n => n[0]).join('');
                       target.style.display = 'none';
                       if (target.parentElement) {
-                        target.parentElement.innerHTML = `<div class="w-full h-full bg-[#FF4500] text-white flex items-center justify-center font-semibold">${initials}</div>`;
+                        target.parentElement.innerHTML = `<div class="w-full h-full bg-[#E8FF5A] text-[#080808] flex items-center justify-center font-semibold">${initials}</div>`;
                       }
                     }}
                   />
@@ -48,7 +48,7 @@ export default function Testimonials() {
                   <div className="font-semibold text-white">
                     {testimonial.name}
                   </div>
-                  <div className="text-sm text-[#FFD700]">
+                  <div className="text-sm text-[#F0FF85]">
                     {testimonial.role}
                   </div>
                 </div>

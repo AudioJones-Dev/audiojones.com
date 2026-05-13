@@ -60,8 +60,8 @@ export default function PricingPage() {
         <section className="relative flex w-full justify-center overflow-hidden py-20 sm:py-24 lg:py-32">
           <div className="absolute inset-0 bg-gradient-to-b from-[#0f0f10] to-[#181818]" />
           <div className="absolute inset-0 opacity-30">
-            <div className="absolute -left-1/4 top-0 h-full w-full rounded-full bg-gradient-radial from-[#FF4500] to-transparent blur-3xl" />
-            <div className="absolute -right-1/4 bottom-0 h-full w-full rounded-full bg-gradient-radial from-[#FFD700] to-transparent blur-3xl" />
+            <div className="absolute -left-1/4 top-0 h-full w-full rounded-full bg-gradient-radial from-[#E8FF5A] to-transparent blur-3xl" />
+            <div className="absolute -right-1/4 bottom-0 h-full w-full rounded-full bg-gradient-radial from-[#F0FF85] to-transparent blur-3xl" />
           </div>
           <div className="relative z-10 mx-auto flex max-w-5xl flex-col items-center gap-6 px-4 text-center">
             {/* breadcrumb */}
@@ -81,7 +81,7 @@ export default function PricingPage() {
             <div className="flex flex-wrap justify-center gap-4">
               <a
                 href="/book"
-                className="bg-[#ff7847] text-black font-semibold px-6 py-3 rounded-lg hover:scale-[1.02] transition"
+                className="bg-[#E8FF5A] text-black font-semibold px-6 py-3 rounded-lg hover:scale-[1.02] transition"
               >
                 Book a Strategy Call
               </a>
@@ -112,12 +112,12 @@ export default function PricingPage() {
                     key={tier.id}
                     className={`rounded-2xl p-6 flex flex-col gap-4 ${
                       index === 1 
-                        ? 'border border-[#ff7847] bg-gradient-to-b from-[#181818] to-[#101010] relative' 
+                        ? 'border border-[#E8FF5A] bg-gradient-to-b from-[#181818] to-[#101010] relative' 
                         : 'border border-white/5 bg-[#131313]'
                     }`}
                   >
                     {index === 1 && (
-                      <span className="absolute -top-3 right-4 bg-[#ff7847] text-black text-xs font-bold px-3 py-1 rounded-full">
+                      <span className="absolute -top-3 right-4 bg-[#E8FF5A] text-black text-xs font-bold px-3 py-1 rounded-full">
                         Popular
                       </span>
                     )}
@@ -152,7 +152,7 @@ export default function PricingPage() {
                       href="/book"
                       className={`mt-auto inline-flex justify-center rounded-lg py-2 text-sm font-semibold transition ${
                         index === 1
-                          ? 'bg-[#ff7847] text-black hover:opacity-90'
+                          ? 'bg-[#E8FF5A] text-black hover:opacity-90'
                           : tier.billing_model === 'custom'
                           ? 'border border-white/20 hover:bg-white/10'
                           : 'bg-white/10 hover:bg-white/20'

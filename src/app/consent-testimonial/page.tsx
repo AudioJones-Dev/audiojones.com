@@ -113,8 +113,8 @@ export default function ConsentTestimonialPage() {
             <button
               type="submit"
               className="rounded-full px-6 py-3 font-bold text-black shadow-[0_4px_20px_rgba(255,215,0,0.35)]
-                         bg-[linear-gradient(135deg,#FF4500,#FFD700)]
-                         hover:bg-[linear-gradient(135deg,#FFD700,#FF4500)] transition"
+                         bg-[linear-gradient(135deg,#E8FF5A,#F0FF85)]
+                         hover:bg-[linear-gradient(135deg,#F0FF85,#E8FF5A)] transition"
             >
               Submit Consent
             </button>

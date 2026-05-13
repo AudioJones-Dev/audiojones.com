@@ -45,7 +45,7 @@ export default function HomeFAQ() {
     <section className="py-16 sm:py-20 lg:py-24 bg-gray-950">
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <p className="text-sm font-bold uppercase tracking-widest text-[#FF4500] mb-4">FAQ</p>
+          <p className="text-sm font-bold uppercase tracking-widest text-[#E8FF5A] mb-4">FAQ</p>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white">
             Frequently Asked Questions
           </h2>
@@ -90,7 +90,7 @@ export default function HomeFAQ() {
           <p className="text-gray-400 mb-6">Still have questions?</p>
           <a 
             href="/book" 
-            className="inline-flex h-12 items-center justify-center rounded-full px-8 bg-gradient-to-r from-[#FF4500] to-[#FFD700] text-black text-sm font-bold tracking-wide hover:scale-105 transition"
+            className="inline-flex h-12 items-center justify-center rounded-full px-8 bg-gradient-to-r from-[#E8FF5A] to-[#F0FF85] text-black text-sm font-bold tracking-wide hover:scale-105 transition"
           >
             Book a Strategy Call
           </a>

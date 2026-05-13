@@ -66,19 +66,19 @@ export default function BlogContent({ content }: BlogContentProps) {
         .blog-heading-1 {
           font-size: 2.5rem;
           margin-top: 0;
-          border-bottom: 2px solid #FF4500;
+          border-bottom: 2px solid #E8FF5A;
           padding-bottom: 0.5rem;
         }
 
         .blog-heading-2 {
           font-size: 2rem;
-          color: #FF4500;
+          color: #E8FF5A;
           margin-top: 3rem;
         }
 
         .blog-heading-3 {
           font-size: 1.5rem;
-          color: #FFD700;
+          color: #F0FF85;
         }
 
         .blog-paragraph {
@@ -108,7 +108,7 @@ export default function BlogContent({ content }: BlogContentProps) {
 
         .blog-inline-code {
           background: #374151;
-          color: #FFD700;
+          color: #F0FF85;
           padding: 0.125rem 0.375rem;
           border-radius: 4px;
           font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
@@ -116,15 +116,15 @@ export default function BlogContent({ content }: BlogContentProps) {
         }
 
         .blog-link {
-          color: #FF4500;
+          color: #E8FF5A;
           text-decoration: underline;
-          text-decoration-color: rgba(255, 69, 0, 0.5);
+          text-decoration-color: rgba(232, 255, 90, 0.5);
           transition: all 0.2s ease;
         }
 
         .blog-link:hover {
-          color: #FFD700;
-          text-decoration-color: #FFD700;
+          color: #F0FF85;
+          text-decoration-color: #F0FF85;
         }
 
         .blog-strong {
@@ -133,7 +133,7 @@ export default function BlogContent({ content }: BlogContentProps) {
         }
 
         .blog-emphasis {
-          color: #FFD700;
+          color: #F0FF85;
           font-style: italic;
         }
 

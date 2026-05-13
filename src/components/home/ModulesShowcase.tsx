@@ -59,7 +59,7 @@ export default function ModulesShowcase() {
               <div className="text-center">
                 <a
                   href="/applied-intelligence"
-                  className="inline-flex items-center text-[#008080] hover:text-[#FFD700] font-medium text-sm transition-colors duration-200"
+                  className="inline-flex items-center text-[#008080] hover:text-[#F0FF85] font-medium text-sm transition-colors duration-200"
                 >
                   Learn More
                   <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">

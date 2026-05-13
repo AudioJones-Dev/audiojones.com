@@ -35,7 +35,7 @@ export default function BlogHero({ post }: BlogHeroProps) {
               {pillarConfig.label}
             </span>
             {post.frameworkUsed && (
-              <span className="px-4 py-2 bg-[#FFD700]/20 border border-[#FFD700]/30 rounded-full text-sm font-semibold text-[#FFD700]">
+              <span className="px-4 py-2 bg-[#F0FF85]/20 border border-[#F0FF85]/30 rounded-full text-sm font-semibold text-[#F0FF85]">
                 {post.frameworkUsed} Framework
               </span>
             )}
@@ -56,7 +56,7 @@ export default function BlogHero({ post }: BlogHeroProps) {
           {/* Meta Information */}
           <div className="flex flex-wrap items-center gap-6 text-gray-400 mb-8">
             <div className="flex items-center gap-2">
-              <span className="text-[#FF4500]">📅</span>
+              <span className="text-[#E8FF5A]">📅</span>
               <time dateTime={post.publishedAt}>
                 {publishDate.toLocaleDateString('en-US', {
                   month: 'long',
@@ -67,12 +67,12 @@ export default function BlogHero({ post }: BlogHeroProps) {
             </div>
             
             <div className="flex items-center gap-2">
-              <span className="text-[#FF4500]">⏱️</span>
+              <span className="text-[#E8FF5A]">⏱️</span>
               <span>{post.readingTime} min read</span>
             </div>
 
             <div className="flex items-center gap-2">
-              <span className="text-[#FF4500]">👨‍💼</span>
+              <span className="text-[#E8FF5A]">👨‍💼</span>
               <span>Audio Jones Team</span>
             </div>
           </div>

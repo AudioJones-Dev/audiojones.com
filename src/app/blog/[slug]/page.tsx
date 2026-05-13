@@ -231,8 +231,8 @@ export default async function BlogPostPage({
                 fontWeight: 600,
                 letterSpacing: "0.12em",
                 textTransform: "uppercase",
-                color: "rgba(255,69,0,0.70)",
-                background: "rgba(255,69,0,0.08)",
+                color: "rgba(232,255,90,0.70)",
+                background: "rgba(232,255,90,0.08)",
                 padding: "3px 10px",
                 borderRadius: "999px",
               }}
@@ -344,7 +344,7 @@ export default async function BlogPostPage({
                       letterSpacing: "-0.01em",
                       marginBottom: "8px",
                     }}
-                    className="group-hover:text-[#FF4500] transition-colors"
+                    className="group-hover:text-[#E8FF5A] transition-colors"
                   >
                     {rp.title}
                   </span>

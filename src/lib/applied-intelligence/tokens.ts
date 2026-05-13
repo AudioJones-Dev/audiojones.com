@@ -5,8 +5,8 @@
 
 export const aiColors = {
   // Brand
-  orange: "#FF4500",
-  orangeSoft: "#FF6A30",
+  orange: "#E8FF5A",
+  orangeSoft: "#F0FF85",
   blue: "#0088CC",
   blueBright: "#3B5BFF",
   gold: "#C8A96A",
@@ -43,7 +43,7 @@ export const aiColors = {
   fgLight2: "#4B5563",
 
   // Brand identity aliases (canonical names)
-  orangePrimary: "#FF4500",
+  orangePrimary: "#E8FF5A",
   blueSystem: "#0088CC",
   darkPrimary: "#05070F",
   darkSecondary: "#0B0F1A",
@@ -56,7 +56,7 @@ export const aiColors = {
   lineGold: "rgba(200,169,106,0.40)",
 
   // Semantic
-  signal: "#FF4500",
+  signal: "#E8FF5A",
   system: "#3B5BFF",
   metric: "#C8A96A",
   success: "#22C55E",
