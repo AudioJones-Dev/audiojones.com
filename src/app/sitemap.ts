@@ -1,4 +1,5 @@
 import { MetadataRoute } from "next";
+import { publishedCaseStudies } from "@/data/case-studies";
 import { FRAMEWORKS } from "@/content/frameworks";
 import { INSIGHTS } from "@/content/insights";
 import { siteConfig } from "@/lib/site";
@@ -49,6 +50,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.75,
   }));
 
+  // ── Dynamic case-study routes ─────────────────────────────────────────────
+  const caseStudyRoutes: MetadataRoute.Sitemap = publishedCaseStudies.map((c) => ({
+    url: `${base}/case-studies/${c.slug}`,
+    lastModified: now,
+    changeFrequency: "monthly",
+    priority: 0.85,
+  }));
+
   // ── Dynamic Sanity blog post routes ──────────────────────────────────────
   // Only fetched when NEXT_PUBLIC_SANITY_PROJECT_ID is configured.
   // If Sanity is not connected, /blog is still in staticRoutes above — no crash.
@@ -73,5 +82,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   }
 
-  return [...staticRoutes, ...frameworkRoutes, ...insightRoutes, ...blogPostRoutes];
+  return [
+    ...staticRoutes,
+    ...frameworkRoutes,
+    ...insightRoutes,
+    ...caseStudyRoutes,
+    ...blogPostRoutes,
+  ];
 }
