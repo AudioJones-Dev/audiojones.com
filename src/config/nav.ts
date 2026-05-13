@@ -53,11 +53,6 @@ export const mainNav: NavItem[] = [
     href: "/roi-calculator",
     description: "Estimate AI ROI, readiness, and payback period",
   },
-  {
-    label: "Workshops",
-    href: "/workshops",
-    description: "Operator workshops and live training sessions",
-  },
 ];
 
 // Right-side header CTAs. Two slots: a soft (secondary) discovery CTA and a

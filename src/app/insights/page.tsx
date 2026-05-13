@@ -27,7 +27,7 @@ export default function InsightsIndex() {
 
       <section className="bg-[#05070F] pt-20 pb-12">
         <div className="mx-auto max-w-4xl px-5 sm:px-8">
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-[#C8A96A]">
+          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-[#E8FF5A]">
             Insights
           </p>
           <h1 className="text-balance text-4xl font-semibold leading-tight text-white sm:text-5xl">
@@ -43,11 +43,11 @@ export default function InsightsIndex() {
             <Link
               key={i.slug}
               href={`/insights/${i.slug}`}
-              className="group rounded-xl border border-white/10 bg-[#0B1020] p-7 transition hover:border-white/30"
+              className="group rounded-xl border border-white/10 bg-[#0B1020] p-7 transition hover:border-white/30 focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-[#E8FF5A]"
             >
               <h2 className="text-2xl font-semibold text-white">{i.title}</h2>
               <p className="mt-3 text-slate-300">{i.excerpt}</p>
-              <p className="mt-5 text-sm font-semibold text-white opacity-70 group-hover:opacity-100">
+              <p className="mt-5 text-sm font-semibold text-[#E8FF5A] transition-colors group-hover:text-[#d4eb3a]">
                 Read the essay →
               </p>
             </Link>

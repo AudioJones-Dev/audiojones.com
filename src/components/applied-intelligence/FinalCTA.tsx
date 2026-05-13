@@ -23,7 +23,7 @@ export default function FinalCTA({
         <p className="mt-4 text-lg text-slate-300">{body}</p>
         <Link
           href={ctaHref}
-          className="mt-10 inline-flex items-center justify-center rounded-md bg-[#3B5BFF] px-8 py-4 text-sm font-semibold text-white shadow-[0_12px_50px_-10px_rgba(59,91,255,0.8)] transition hover:bg-[#5B7AFF]"
+          className="mt-10 inline-flex items-center justify-center rounded-md bg-[#E8FF5A] px-8 py-4 text-sm font-semibold text-[#080808] shadow-[0_12px_50px_-10px_rgba(232,255,90,0.45)] transition hover:bg-[#d4eb3a] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-[#E8FF5A]"
         >
           {ctaLabel}
         </Link>
