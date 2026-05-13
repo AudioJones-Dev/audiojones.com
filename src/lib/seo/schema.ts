@@ -13,7 +13,7 @@ export function organizationJsonLd() {
     name: aiEntity.brandName,
     legalName: aiEntity.legalName,
     url: SITE_URL,
-    logo: `${SITE_URL}/assets/og/audio-jones-logo.png`,
+    logo: `${SITE_URL}/logo-icon.svg`,
     sameAs: aiEntity.sameAs,
     founder: {
       "@type": "Person",
@@ -114,7 +114,7 @@ export function articleJsonLd(args: {
       name: aiEntity.brandName,
       logo: {
         "@type": "ImageObject",
-        url: `${SITE_URL}/assets/og/audio-jones-logo.png`,
+        url: `${SITE_URL}/logo-icon.svg`,
       },
     },
   } as const;

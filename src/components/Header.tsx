@@ -1,9 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { useState, useEffect } from "react";
 import { ButtonLink } from "@/components/ui/Button";
+import { Logo } from "@/components/ui/Logo";
 import { mainNav, headerCtas } from "@/config/nav";
 
 // Single source of truth for primary nav lives in `src/config/nav.ts`.
@@ -40,14 +40,7 @@ export default function Header() {
           className="flex items-center gap-2 t-h4 text-fg-0"
           aria-label="Audio Jones — home"
         >
-          <Image
-            src="/assets/logos/audiojones-wordmark-nav.svg"
-            alt="Audio Jones"
-            width={180}
-            height={36}
-            priority
-            className="h-8 w-auto"
-          />
+          <Logo variant="dark" height={32} className="h-8 w-auto" />
         </Link>
 
         {/* Desktop nav */}

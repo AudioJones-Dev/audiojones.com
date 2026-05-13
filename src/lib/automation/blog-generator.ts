@@ -502,7 +502,7 @@ TONE: Confident operator sharing proven systems, not consultant selling services
         name: 'Audio Jones',
         logo: {
           '@type': 'ImageObject',
-          url: 'https://audiojones.com/assets/logo.png'
+          url: 'https://audiojones.com/logo-icon.svg'
         }
       },
       datePublished: new Date().toISOString(),

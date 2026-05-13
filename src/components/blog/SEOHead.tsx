@@ -36,7 +36,7 @@ export default function SEOHead({ post, structuredData }: SEOHeadProps) {
       name: 'Audio Jones',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://audiojones.com/assets/logo.png',
+        url: 'https://audiojones.com/logo-icon.svg',
         width: 200,
         height: 60,
       },
@@ -99,7 +99,7 @@ export default function SEOHead({ post, structuredData }: SEOHeadProps) {
     name: 'Audio Jones',
     alternateName: 'AJ DIGITAL LLC',
     url: 'https://audiojones.com',
-    logo: 'https://audiojones.com/assets/logo.png',
+    logo: 'https://audiojones.com/logo-icon.svg',
     foundingLocation: {
       '@type': 'Place',
       name: 'Miami, FL',

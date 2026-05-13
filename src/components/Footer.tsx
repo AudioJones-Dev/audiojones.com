@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import NewsletterForm from "@/components/newsletter/NewsletterForm";
+import { Logo } from "@/components/ui/Logo";
 import { mainNav } from "@/config/nav";
 
 // Primary nav imported from canonical source — same array Header consumes.
@@ -35,12 +35,11 @@ export default function Footer() {
               className="inline-flex items-center"
               aria-label="Audio Jones — home"
             >
-              <Image
-                src="/assets/logos/audiojones-wordmark-white.svg"
-                alt="Audio Jones — Applied Intelligence Systems"
-                width={220}
-                height={48}
+              <Logo
+                variant="horizontal"
+                height={40}
                 className="h-10 w-auto"
+                title="Audio Jones — Applied Intelligence Systems"
               />
             </Link>
             <p className="mt-6 max-w-md font-headline text-2xl font-extrabold tracking-[-0.02em] text-fg-0">
