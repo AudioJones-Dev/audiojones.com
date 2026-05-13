@@ -3,6 +3,18 @@ name: Smoke Test (Preview)
 on:
   pull_request:
     branches: [ main ]
+    # PRs that only modify these paths don't produce a Vercel Preview, so
+    # smoke_preview has nothing to test. Keep this in sync with what Vercel's
+    # GitHub integration actually skips for this project.
+    paths-ignore:
+      - '.github/**'
+      - '**/*.md'
+      - 'docs/**'
+      - '.gitignore'
+      - '.gitattributes'
+      - '.vscode/**'
+      - '.codex/**'
+      - 'LICENSE'
 
 jobs:
   smoke_preview:
