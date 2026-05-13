@@ -1,135 +1,106 @@
 @import "tailwindcss";
 
 /* ============================================================
-   Audio Jones — Canonical Design Tokens
-   Single source of truth. Mirrors `colors_and_type.css` from
-   the brand-folder design system, adapted for Tailwind v4 +
-   Next.js App Router.
+   Audio Jones — Brand Guidelines 2.0 (May 2026)
+   Single source of truth for the V2 visual system.
 
-   Brand: Audio Jones (AJ Digital LLC) — Applied Intelligence
-   Systems Partner for founder-led businesses ($250K–$5M).
+   Brand:      Audio Jones (AJ Digital LLC)
+   Tagline:    All Signal. No Noise.
+   Positioning: Applied Intelligence Systems for founder-led
+                businesses ($250K–$5M ARR).
 
-   Reference: docs/design.md
+   Existing component code references legacy token names (e.g.
+   --aj-orange, --bg-0). Those names are preserved as aliases
+   and retargeted to V2 values so the new palette propagates
+   automatically without touching every call site.
+
+   Canonical V2 palette / type values live in :root below.
    ============================================================ */
 
-/* ---------- FONTS (self-hosted, /public/fonts) ---------- */
-@font-face {
-  font-family: "Space Grotesk";
-  src: url("/fonts/SpaceGrotesk-Regular.ttf") format("truetype");
-  font-weight: 400; font-style: normal; font-display: swap;
-}
-@font-face {
-  font-family: "Space Grotesk";
-  src: url("/fonts/SpaceGrotesk-Medium.ttf") format("truetype");
-  font-weight: 500; font-style: normal; font-display: swap;
-}
-@font-face {
-  font-family: "Space Grotesk";
-  src: url("/fonts/SpaceGrotesk-SemiBold.ttf") format("truetype");
-  font-weight: 600; font-style: normal; font-display: swap;
-}
-@font-face {
-  font-family: "Space Grotesk";
-  src: url("/fonts/SpaceGrotesk-Bold.ttf") format("truetype");
-  font-weight: 700; font-style: normal; font-display: swap;
-}
-
-@font-face {
-  font-family: "Sora";
-  src: url("/fonts/Sora-Regular.ttf") format("truetype");
-  font-weight: 400; font-style: normal; font-display: swap;
-}
-@font-face {
-  font-family: "Sora";
-  src: url("/fonts/Sora-Medium.ttf") format("truetype");
-  font-weight: 500; font-style: normal; font-display: swap;
-}
-@font-face {
-  font-family: "Sora";
-  src: url("/fonts/Sora-SemiBold.ttf") format("truetype");
-  font-weight: 600; font-style: normal; font-display: swap;
-}
-@font-face {
-  font-family: "Sora";
-  src: url("/fonts/Sora-Bold.ttf") format("truetype");
-  font-weight: 700; font-style: normal; font-display: swap;
-}
-
-@font-face {
-  font-family: "Inter";
-  src: url("/fonts/Inter-Regular.ttf") format("truetype");
-  font-weight: 400; font-style: normal; font-display: swap;
-}
-@font-face {
-  font-family: "Inter";
-  src: url("/fonts/Inter-Italic.ttf") format("truetype");
-  font-weight: 400; font-style: italic; font-display: swap;
-}
-@font-face {
-  font-family: "Inter";
-  src: url("/fonts/Inter-Medium.ttf") format("truetype");
-  font-weight: 500; font-style: normal; font-display: swap;
-}
-@font-face {
-  font-family: "Inter";
-  src: url("/fonts/Inter-SemiBold.ttf") format("truetype");
-  font-weight: 600; font-style: normal; font-display: swap;
-}
-@font-face {
-  font-family: "Inter";
-  src: url("/fonts/Inter-Bold.ttf") format("truetype");
-  font-weight: 700; font-style: normal; font-display: swap;
-}
+/* ---------- FONTS (Google Fonts — Syne · DM Sans · DM Mono) ----------
+   Brand 2.0 mandates Syne for display/headers, DM Sans for body,
+   DM Mono for labels/data/badges. Loaded over the wire for guaranteed
+   availability across deploy targets; the legacy self-hosted TTFs are
+   kept as fallbacks via the font stacks below. */
+@import url("https://fonts.googleapis.com/css2?family=Syne:wght@500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&family=DM+Mono:wght@400;500&display=swap");
 
 /* ---------- TOKENS ---------- */
 :root {
-  /* AUDIOJONES_DESIGN.md implementation aliases */
-  --aj-bg: #05070f;
-  --aj-bg-elevated: #0b1020;
-  --aj-surface: #101827;
-  --aj-surface-2: #151f32;
-  --aj-ink: #f8fafc;
-  --aj-muted: #94a3b8;
-  --aj-border: rgba(148, 163, 184, 0.2);
-  --aj-blue-deep: #0088cc;
-  --aj-amber: #ffc857;
-  --aj-success: #00cc66;
-  --aj-paper: #f5f5f5;
-  --aj-charcoal: #262626;
-  --aj-container: 1200px;
+  /* ──────────────────────────────────────────────────────────
+     V2 CANONICAL PALETTE (from Brand Guidelines 2.0, §02)
+     ────────────────────────────────────────────────────────── */
+  --signal-yellow:   #E8FF5A;   /* primary accent — the brand */
+  --signal-soft:     #F0FF85;   /* hover / lighter signal */
+  --bg-base:         #080808;   /* page background */
+  --surface-1:       #0F0F0F;   /* card */
+  --surface-2:       #161616;   /* secondary card */
+  --border-strong:   #2A2A2A;   /* dividers */
+  --border-subtle:   #1E1E1E;   /* subtle borders */
+  --text-primary:    #E8E8E8;   /* body copy */
+  --text-muted:      #666666;   /* labels, secondary */
+
+  --accent-blue:     #4DACFF;   /* data · links */
+  --accent-red:      #FF4545;   /* critical · P0 */
+  --accent-amber:    #FFB340;   /* warning · P1 */
+  --accent-green:    #3DFFB0;   /* positive · wins */
+
+  /* ──────────────────────────────────────────────────────────
+     Legacy aliases — retargeted to V2 values so the existing
+     component layer (Header, cards, buttons, ~300 call sites)
+     picks up the new palette without per-file edits.
+     ────────────────────────────────────────────────────────── */
+  --aj-bg:          var(--bg-base);
+  --aj-bg-elevated: var(--surface-1);
+  --aj-surface:     var(--surface-1);
+  --aj-surface-2:   var(--surface-2);
+  --aj-ink:         var(--text-primary);
+  --aj-muted:       var(--text-muted);
+  --aj-border:      var(--border-subtle);
+  --aj-blue-deep:   #2E8FE0;
+  --aj-amber:       var(--accent-amber);
+  --aj-success:     var(--accent-green);
+  --aj-paper:       #F5F5F5;
+  --aj-charcoal:    #262626;
+  --aj-container:      1200px;
   --aj-container-wide: 1440px;
-  --aj-gradient-signal: linear-gradient(135deg, #ff4500 0%, #ff6b35 45%, #00a4ff 100%);
-  --aj-gradient-data: linear-gradient(135deg, rgba(0, 164, 255, 0.18), rgba(255, 69, 0, 0.16));
-  --aj-gradient-dark: radial-gradient(circle at top left, rgba(255, 69, 0, 0.22), transparent 32%), radial-gradient(circle at bottom right, rgba(0, 164, 255, 0.18), transparent 30%), #05070f;
-  --aj-gradient-card-border: linear-gradient(135deg, rgba(255, 69, 0, 0.85), rgba(0, 164, 255, 0.65));
-  --aj-gradient-signal-control-room: radial-gradient(circle at 18% 18%, rgba(255, 69, 0, 0.26), transparent 34%), radial-gradient(circle at 82% 72%, rgba(0, 164, 255, 0.20), transparent 32%), linear-gradient(180deg, #05070f 0%, #0b1020 55%, #05070f 100%);
-  --aj-gradient-revenue-recovery: radial-gradient(circle at 15% 30%, rgba(255, 69, 0, 0.30), transparent 28%), radial-gradient(circle at 85% 20%, rgba(255, 200, 87, 0.12), transparent 26%), linear-gradient(135deg, #05070f 0%, #101827 48%, #05070f 100%);
-  --aj-gradient-intelligence-layer: radial-gradient(circle at 70% 20%, rgba(0, 164, 255, 0.28), transparent 34%), radial-gradient(circle at 22% 80%, rgba(255, 69, 0, 0.14), transparent 30%), linear-gradient(180deg, #05070f 0%, #0b1020 100%);
-  --aj-gradient-luxury-graphite: radial-gradient(circle at top left, rgba(255, 69, 0, 0.18), transparent 30%), linear-gradient(135deg, #05070f 0%, #151f32 45%, #262626 100%);
-  --aj-gradient-orange-blue-field: linear-gradient(135deg, rgba(255, 69, 0, 0.95) 0%, rgba(255, 107, 53, 0.76) 38%, rgba(0, 164, 255, 0.82) 100%);
-  --aj-gradient-executive-paper: radial-gradient(circle at 80% 20%, rgba(255, 69, 0, 0.10), transparent 32%), linear-gradient(180deg, #ffffff 0%, #f5f5f5 52%, rgba(255, 69, 0, 0.08) 100%);
-  --aj-gradient-signal-noise: radial-gradient(circle at 12% 45%, rgba(255, 69, 0, 0.22), transparent 28%), radial-gradient(circle at 88% 50%, rgba(0, 164, 255, 0.16), transparent 30%), linear-gradient(90deg, #05070f 0%, #0b1020 48%, #05070f 100%);
-  --aj-gradient-workshop-amber: radial-gradient(circle at 24% 20%, rgba(255, 200, 87, 0.18), transparent 28%), radial-gradient(circle at 76% 75%, rgba(255, 69, 0, 0.18), transparent 30%), linear-gradient(180deg, #05070f 0%, #1e2a3a 100%);
-  --aj-gradient-black-glass: linear-gradient(180deg, rgba(16, 24, 39, 0.92), rgba(5, 7, 15, 0.94)), radial-gradient(circle at top right, rgba(0, 164, 255, 0.10), transparent 28%);
 
-  /* Brand palette */
-  --aj-orange:       #FF4500;   /* primary accent — emphasis only */
-  --aj-orange-soft:  #FF6A30;
-  --aj-blue:         #00A4FF;   /* secondary - intelligence / system layer */
-  --aj-blue-bright:  #00A4FF;   /* component-level blue used in code */
-  --aj-gold:         #FFC857;   /* eyebrows / metric labels */
+  /* Atmospheric gradients — re-tinted around signal yellow
+     and the V2 dark base. Kept as named tokens so utilities
+     (.aj-bg-signal-control-room etc.) continue to compose. */
+  --aj-gradient-signal:            linear-gradient(135deg, #E8FF5A 0%, #F0FF85 45%, #4DACFF 100%);
+  --aj-gradient-data:              linear-gradient(135deg, rgba(77, 172, 255, 0.18), rgba(232, 255, 90, 0.16));
+  --aj-gradient-dark:              radial-gradient(circle at top left, rgba(232, 255, 90, 0.14), transparent 32%), radial-gradient(circle at bottom right, rgba(77, 172, 255, 0.12), transparent 30%), #080808;
+  --aj-gradient-card-border:       linear-gradient(135deg, rgba(232, 255, 90, 0.55), rgba(77, 172, 255, 0.32));
+  --aj-gradient-signal-control-room: radial-gradient(circle at 18% 18%, rgba(232, 255, 90, 0.18), transparent 34%), radial-gradient(circle at 82% 72%, rgba(77, 172, 255, 0.16), transparent 32%), linear-gradient(180deg, #080808 0%, #0F0F0F 55%, #080808 100%);
+  --aj-gradient-revenue-recovery:  radial-gradient(circle at 15% 30%, rgba(232, 255, 90, 0.20), transparent 28%), radial-gradient(circle at 85% 20%, rgba(255, 179, 64, 0.10), transparent 26%), linear-gradient(135deg, #080808 0%, #161616 48%, #080808 100%);
+  --aj-gradient-intelligence-layer: radial-gradient(circle at 70% 20%, rgba(77, 172, 255, 0.20), transparent 34%), radial-gradient(circle at 22% 80%, rgba(232, 255, 90, 0.12), transparent 30%), linear-gradient(180deg, #080808 0%, #0F0F0F 100%);
+  --aj-gradient-luxury-graphite:   radial-gradient(circle at top left, rgba(232, 255, 90, 0.12), transparent 30%), linear-gradient(135deg, #080808 0%, #161616 45%, #262626 100%);
+  --aj-gradient-orange-blue-field: linear-gradient(135deg, rgba(232, 255, 90, 0.85) 0%, rgba(240, 255, 133, 0.62) 38%, rgba(77, 172, 255, 0.72) 100%);
+  --aj-gradient-executive-paper:   radial-gradient(circle at 80% 20%, rgba(232, 255, 90, 0.10), transparent 32%), linear-gradient(180deg, #ffffff 0%, #f5f5f5 52%, rgba(232, 255, 90, 0.06) 100%);
+  --aj-gradient-signal-noise:      radial-gradient(circle at 12% 45%, rgba(232, 255, 90, 0.18), transparent 28%), radial-gradient(circle at 88% 50%, rgba(77, 172, 255, 0.14), transparent 30%), linear-gradient(90deg, #080808 0%, #0F0F0F 48%, #080808 100%);
+  --aj-gradient-workshop-amber:    radial-gradient(circle at 24% 20%, rgba(255, 179, 64, 0.16), transparent 28%), radial-gradient(circle at 76% 75%, rgba(232, 255, 90, 0.16), transparent 30%), linear-gradient(180deg, #080808 0%, #1A1A1A 100%);
+  --aj-gradient-black-glass:       linear-gradient(180deg, rgba(15, 15, 15, 0.92), rgba(8, 8, 8, 0.94)), radial-gradient(circle at top right, rgba(232, 255, 90, 0.08), transparent 28%);
 
-  /* Surfaces — dark (default) */
-  --bg-0:   #05070F;            /* page */
-  --bg-1:   #0B0F1A;            /* alt section */
-  --bg-2:   #0B1020;            /* card */
-  --bg-3:   #101827;            /* elevated card / table head */
-  --bg-4:   #1A2234;            /* hover surface */
+  /* Legacy brand palette aliases → V2 signal yellow.
+     `--aj-orange` historically meant "primary accent"; in V2 the
+     primary accent is signal yellow, so it now resolves to #E8FF5A
+     across the entire component tree without per-file edits. */
+  --aj-orange:       var(--signal-yellow);
+  --aj-orange-soft:  var(--signal-soft);
+  --aj-blue:         var(--accent-blue);
+  --aj-blue-bright:  var(--accent-blue);
+  --aj-gold:         var(--signal-yellow);   /* eyebrows now signal-yellow per V2 §07 */
+
+  /* Surfaces — dark (V2 default) */
+  --bg-0:   var(--bg-base);     /* page */
+  --bg-1:   var(--surface-1);   /* alt section */
+  --bg-2:   var(--surface-1);   /* card */
+  --bg-3:   var(--surface-2);   /* elevated card / table head */
+  --bg-4:   #1A1A1A;            /* hover surface */
 
   /* Surfaces — light split (paired clarity layer; opt-in via `.surface-light`).
-     Dark remains the primary identity; light is the "clarity/system" contrast
-     used on the hero's right-hand system diagram, comparison panels, the
-     /results/* tier pages, etc. Do NOT convert whole site to light. */
+     Dark is non-negotiable per V2 §07. Light is reserved for callouts /
+     diagram contrast only — never apply to full sections. */
   --paper:        #F8FAFC;
   --surface:      #F5F5F5;
   --surface-soft: #EEF2F6;
@@ -142,43 +113,50 @@
   --bg-light-1: var(--surface);
   --bg-light-2: var(--surface-soft);
 
-  /* Text — dark */
+  /* Text — dark (V2: #E8E8E8 primary, #666 muted) */
   --fg-0:   #FFFFFF;
-  --fg-1:   #E5E7EB;
-  --fg-2:   #94A3B8;
-  --fg-3:   #64748B;
+  --fg-1:   var(--text-primary);
+  --fg-2:   #9A9A9A;
+  --fg-3:   var(--text-muted);
 
-  /* Text — light (legacy aliases pinned to canonical ink tokens) */
+  /* Text — light */
   --fg-light-0: var(--ink);
-  --fg-light-1: #1E2A3A;
+  --fg-light-1: #1F1F1F;
   --fg-light-2: var(--ink-muted);
 
-  /* Borders (carry meaning — see docs/design.md) */
+  /* Borders (V2 §04) */
   --line-1: rgba(255,255,255,0.06);
-  --line-2: rgba(255,255,255,0.10);
-  --line-3: rgba(255,255,255,0.18);
-  --line-blue: rgba(59,91,255,0.40);
-  --line-gold: rgba(200,169,106,0.40);
+  --line-2: var(--border-subtle);
+  --line-3: var(--border-strong);
+  --line-blue: rgba(77, 172, 255, 0.40);
+  --line-gold: rgba(232, 255, 90, 0.45);
+  --line-signal: rgba(232, 255, 90, 0.45);
 
   /* Semantic aliases */
-  --signal:   var(--aj-orange);
-  --system:   var(--aj-blue-bright);
-  --metric:   var(--aj-gold);
-  --success:  #22C55E;
-  --warning:  #FACC15;
-  --danger:   #EF4444;
+  --signal:   var(--signal-yellow);
+  --system:   var(--accent-blue);
+  --metric:   var(--signal-yellow);
+  --success:  var(--accent-green);
+  --warning:  var(--accent-amber);
+  --danger:   var(--accent-red);
 
-  /* Brand identity aliases (canonical names) */
-  --orange-primary:  var(--aj-orange);
-  --blue-system:     var(--aj-blue);
-  --dark-primary:    var(--bg-0);
-  --dark-secondary:  var(--bg-1);
+  /* Brand identity aliases (canonical names — keep old names
+     for backwards-compat; they now resolve to V2 values) */
+  --orange-primary:  var(--signal-yellow);
+  --blue-system:     var(--accent-blue);
+  --dark-primary:    var(--bg-base);
+  --dark-secondary:  var(--surface-1);
 
-  /* Type families */
-  --font-headline: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
-  --font-accent:   "Sora", ui-sans-serif, system-ui, sans-serif;
-  --font-body:     "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-mono:     ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  /* Type families — V2 §03: Syne · DM Sans · DM Mono.
+     `--font-syne`, `--font-dm-sans`, `--font-dm-mono` are injected by
+     next/font in src/app/layout.tsx and fall back to webfont names
+     (then system stack) when next/font hasn't run (e.g. plain CSS
+     preview). The legacy V1 families remain at the tail of the stack
+     so partially-built environments still render gracefully. */
+  --font-headline: var(--font-syne, "Syne"), "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-accent:   var(--font-syne, "Syne"), "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-body:     var(--font-dm-sans, "DM Sans"), "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono:     var(--font-dm-mono, "DM Mono"), ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 
   /* Type scale (desktop) */
   --fs-display-xl: 96px;
@@ -220,9 +198,10 @@
   --gutter-tablet:  24px;
   --gutter-mobile:  20px;
 
-  /* Shadows */
-  --shadow-glow-blue: 0 10px 40px -10px rgba(59,91,255,0.7);
-  --shadow-glow-orange: 0 10px 40px -10px rgba(255,69,0,0.5);
+  /* Shadows (retargeted to V2: signal-yellow glow + data-blue glow) */
+  --shadow-glow-blue:   0 10px 40px -10px rgba(77, 172, 255, 0.55);
+  --shadow-glow-orange: 0 10px 40px -10px rgba(232, 255, 90, 0.45);
+  --shadow-glow-signal: 0 10px 40px -10px rgba(232, 255, 90, 0.55);
   --shadow-card: inset 0 1px 0 rgba(255,255,255,0.04), 0 30px 80px -40px rgba(0,0,0,0.6);
 
   /* Motion */
@@ -242,11 +221,27 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
 
-  --color-aj-orange: var(--aj-orange);
+  /* V2 canonical color names — preferred for new code. */
+  --color-signal-yellow:  var(--signal-yellow);
+  --color-signal-soft:    var(--signal-soft);
+  --color-bg-base:        var(--bg-base);
+  --color-surface-1:      var(--surface-1);
+  --color-surface-2:      var(--surface-2);
+  --color-border-subtle:  var(--border-subtle);
+  --color-border-strong:  var(--border-strong);
+  --color-text-primary:   var(--text-primary);
+  --color-text-muted:     var(--text-muted);
+  --color-accent-blue:    var(--accent-blue);
+  --color-accent-red:     var(--accent-red);
+  --color-accent-amber:   var(--accent-amber);
+  --color-accent-green:   var(--accent-green);
+
+  /* Legacy color aliases — retargeted to V2 values. */
+  --color-aj-orange:      var(--aj-orange);
   --color-aj-orange-soft: var(--aj-orange-soft);
-  --color-aj-blue: var(--aj-blue);
+  --color-aj-blue:        var(--aj-blue);
   --color-aj-blue-bright: var(--aj-blue-bright);
-  --color-aj-gold: var(--aj-gold);
+  --color-aj-gold:        var(--aj-gold);
 
   --color-bg-0: var(--bg-0);
   --color-bg-1: var(--bg-1);
@@ -285,9 +280,9 @@
   --color-metric: var(--metric);
 
   --font-headline: var(--font-headline);
-  --font-accent: var(--font-accent);
-  --font-body: var(--font-body);
-  --font-mono: var(--font-mono);
+  --font-accent:   var(--font-accent);
+  --font-body:     var(--font-body);
+  --font-mono:     var(--font-mono);
 }
 
 /* ---------- BASE ---------- */
@@ -350,96 +345,101 @@ html, body {
   color: var(--ink-muted);
 }
 
-/* ---------- SEMANTIC TYPOGRAPHY ---------- */
+/* ---------- SEMANTIC TYPOGRAPHY (V2 §03) ----------
+   Syne ExtraBold/Bold @ -0.02em tracking for all headers.
+   DM Sans Light/Regular/Bold @ 1.7 line-height for body.
+   DM Mono Regular @ 0.1–0.2em tracking for labels/data. */
 .t-display-xl {
   font-family: var(--font-headline);
   font-size: var(--fs-display-xl);
-  font-weight: 700;
-  line-height: 0.9;
-  letter-spacing: -0.04em;
+  font-weight: 800;
+  line-height: 0.92;
+  letter-spacing: -0.02em;
   color: var(--fg-0);
 }
 .t-display-lg {
   font-family: var(--font-headline);
   font-size: var(--fs-display-lg);
-  font-weight: 700;
-  line-height: 0.95;
-  letter-spacing: -0.035em;
+  font-weight: 800;
+  line-height: 0.96;
+  letter-spacing: -0.02em;
   color: var(--fg-0);
 }
 .t-h1 {
   font-family: var(--font-headline);
   font-size: var(--fs-h1);
-  font-weight: 700;
-  line-height: 1.0;
-  letter-spacing: -0.03em;
+  font-weight: 800;
+  line-height: 1.04;
+  letter-spacing: -0.02em;
   color: var(--fg-0);
 }
 .t-h2 {
   font-family: var(--font-headline);
   font-size: var(--fs-h2);
-  font-weight: 650;
-  line-height: 1.05;
-  letter-spacing: -0.025em;
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
   color: var(--fg-0);
 }
 .t-h3 {
   font-family: var(--font-headline);
   font-size: var(--fs-h3);
-  font-weight: 600;
-  line-height: 1.15;
+  font-weight: 700;
+  line-height: 1.18;
   letter-spacing: -0.02em;
   color: var(--fg-0);
 }
 .t-h4 {
-  font-family: var(--font-accent);
+  font-family: var(--font-headline);
   font-size: var(--fs-h4);
-  font-weight: 600;
-  line-height: 1.25;
-  letter-spacing: -0.01em;
+  font-weight: 700;
+  line-height: 1.28;
+  letter-spacing: -0.02em;
   color: var(--fg-0);
 }
 .t-lead {
-  font-family: var(--font-accent);
+  font-family: var(--font-body);
   font-size: var(--fs-lead);
-  font-weight: 500;
-  line-height: 1.45;
-  letter-spacing: -0.01em;
+  font-weight: 400;
+  line-height: 1.55;
+  letter-spacing: 0;
   color: var(--fg-1);
 }
 .t-body-lg {
   font-family: var(--font-body);
   font-size: var(--fs-body-lg);
   font-weight: 400;
-  line-height: 1.65;
+  line-height: 1.7;
   color: var(--fg-1);
 }
 .t-body {
   font-family: var(--font-body);
   font-size: var(--fs-body);
   font-weight: 400;
-  line-height: 1.6;
+  line-height: 1.7;
   color: var(--fg-1);
 }
 .t-small {
   font-family: var(--font-body);
   font-size: var(--fs-small);
-  line-height: 1.5;
-  color: var(--fg-2);
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--fg-3);
 }
 .t-label {
-  font-family: var(--font-body);
+  font-family: var(--font-mono);
   font-size: var(--fs-label);
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1.2;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--metric);
+  color: var(--signal-yellow);
 }
 .t-mono {
   font-family: var(--font-mono);
   font-size: var(--fs-small);
-  letter-spacing: 0.02em;
+  font-weight: 400;
+  letter-spacing: 0.08em;
   color: var(--fg-2);
 }
 
@@ -466,21 +466,23 @@ html, body {
 .bg-glow-blue {
   background: radial-gradient(
     ellipse 65% 55% at 70% 50%,
-    rgba(59, 91, 255, 0.09),
+    rgba(77, 172, 255, 0.10),
     transparent 70%
   );
 }
 .bg-glow-orange {
+  /* Legacy name — retargeted to V2 signal yellow. */
   background: radial-gradient(
     ellipse 65% 55% at 30% 50%,
-    rgba(255, 69, 0, 0.09),
+    rgba(232, 255, 90, 0.10),
     transparent 70%
   );
 }
 .bg-glow-gold {
+  /* Legacy name — retargeted to V2 signal yellow. */
   background: radial-gradient(
     ellipse 60% 50% at 15% 80%,
-    rgba(200, 169, 106, 0.05),
+    rgba(232, 255, 90, 0.08),
     transparent 65%
   );
 }
@@ -609,14 +611,12 @@ html, body {
   background-size: 18px 18px, 23px 23px;
 }
 
-/* ---------- LEGACY UTILITIES (deprecated; preserved so legacy
-   marketing-surface routes don't visually regress while the
-   redesign rolls out wave-by-wave) ---------- */
+/* ---------- LEGACY UTILITIES (retargeted to V2 signal yellow) ---------- */
 .gradient-bg {
-  background: linear-gradient(90deg, #FF4500, #FFD700);
+  background: linear-gradient(90deg, var(--signal-yellow), var(--signal-soft));
 }
 .gradient-text {
-  background: linear-gradient(135deg, #FF4500, #FFD700);
+  background: linear-gradient(135deg, var(--signal-yellow), var(--signal-soft));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -634,12 +634,12 @@ html, body {
   align-items: center;
   justify-content: center;
   min-height: 44px;
-  padding: 0.875rem 2rem;
-  border-radius: 8px;
-  font-family: "Oswald", ui-sans-serif, system-ui, sans-serif;
+  padding: 0.875rem 1.75rem;
+  border-radius: 4px;
+  font-family: var(--font-headline);
   font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  text-transform: none;
   line-height: 1;
   border: 1px solid transparent;
   cursor: pointer;
@@ -649,34 +649,46 @@ html, body {
   outline: none;
 }
 .btn:focus-visible {
-  box-shadow: 0 0 0 2px var(--aj-blue), 0 0 0 4px var(--bg-light-1);
+  box-shadow: 0 0 0 2px var(--signal-yellow), 0 0 0 4px var(--bg-base);
 }
 .btn:active { transform: translateY(1px); }
-.btn--primary { background: var(--aj-orange); color: #ffffff; }
-.btn--primary:hover { opacity: 0.92; }
+.btn--primary {
+  background: var(--signal-yellow);
+  color: #080808;
+  border-color: var(--signal-yellow);
+}
+.btn--primary:hover {
+  background: var(--signal-soft);
+  border-color: var(--signal-soft);
+}
 .btn--secondary {
   background: transparent;
-  color: var(--fg-light-1);
-  border-color: rgba(30, 42, 58, 0.40);
+  color: var(--text-primary);
+  border-color: var(--border-strong);
 }
-.btn--secondary:hover { border-color: var(--aj-blue); color: var(--aj-blue); }
+.btn--secondary:hover {
+  border-color: var(--signal-yellow);
+  color: var(--signal-yellow);
+}
 .btn--system {
   background: transparent;
-  color: var(--fg-1);
-  border-color: rgba(245, 245, 245, 0.28);
+  color: var(--text-primary);
+  border-color: var(--border-strong);
 }
-.btn--system:hover { border-color: var(--aj-blue); color: var(--aj-blue); }
+.btn--system:hover {
+  border-color: var(--accent-blue);
+  color: var(--accent-blue);
+}
 .btn-row { display: flex; gap: 12px; flex-wrap: wrap; }
 
 /* ══════════════════════════════════════════════════════════
-   GLOW BUTTON SYSTEM
+   GLOW BUTTON SYSTEM — V2
    Two types — both em-based so they scale with context.
 
-   Type 1  .btn-glow       Signal orange  #FF4500  → diagnostic CTAs
-   Type 2  .btn-glow-sys   System blue    #3B5BFF  → framework / secondary CTAs
+   Type 1  .btn-glow       Signal yellow  #E8FF5A  → primary CTAs
+   Type 2  .btn-glow-sys   Data blue      #4DACFF  → secondary CTAs
 
-   Credit: adapted from Uiverse.io / InfinityLoopGames
-   Palette: Audio Jones brand system
+   Palette: Audio Jones Brand Guidelines 2.0
    ══════════════════════════════════════════════════════════ */
 
 /* ── shared base ── */
@@ -735,25 +747,25 @@ html, body {
   outline-offset: 3px;
 }
 
-/* ── Type 1 — Signal Orange ── */
+/* ── Type 1 — Signal Yellow ── */
 .btn-glow {
-  --_glow:   #FF4500;
-  --_spread: rgba(255, 69, 0, 0.52);
-  --_bg:     #0B1020;
+  --_glow:   #E8FF5A;
+  --_spread: rgba(232, 255, 90, 0.48);
+  --_bg:     #0F0F0F;
   color:            var(--_glow);
   background-color: var(--_bg);
   border-color:     var(--_glow);
   box-shadow:
     0 0 0.75em 0.18em var(--_glow),
     0 0 3em    0.7em  var(--_spread),
-    inset 0 0 0.55em 0.18em rgba(255, 69, 0, 0.18);
+    inset 0 0 0.55em 0.18em rgba(232, 255, 90, 0.18);
   text-shadow: 0 0 0.45em var(--_glow);
 }
 .btn-glow::after {
   background-color: var(--_spread);
 }
 .btn-glow:hover {
-  color:            var(--_bg);
+  color:            #080808;
   background-color: var(--_glow);
   box-shadow:
     0 0 1em   0.25em var(--_glow),
@@ -768,18 +780,18 @@ html, body {
     inset 0 0 0.4em 0.18em var(--_glow);
 }
 
-/* ── Type 2 — System Blue ── */
+/* ── Type 2 — Data Blue ── */
 .btn-glow-sys {
-  --_glow:   #3B5BFF;
-  --_spread: rgba(59, 91, 255, 0.42);
-  --_bg:     #0B1020;
+  --_glow:   #4DACFF;
+  --_spread: rgba(77, 172, 255, 0.42);
+  --_bg:     #0F0F0F;
   color:            var(--_glow);
   background-color: var(--_bg);
   border-color:     var(--_glow);
   box-shadow:
-    0 0 0.75em 0.18em rgba(59, 91, 255, 0.55),
+    0 0 0.75em 0.18em rgba(77, 172, 255, 0.55),
     0 0 3em    0.7em  var(--_spread),
-    inset 0 0 0.55em 0.18em rgba(59, 91, 255, 0.12);
+    inset 0 0 0.55em 0.18em rgba(77, 172, 255, 0.12);
   text-shadow: 0 0 0.45em var(--_glow);
 }
 .btn-glow-sys::after {
@@ -819,7 +831,7 @@ html, body {
   }
 }
 
-/* ---------- AUDIOJONES_DESIGN.md component classes ---------- */
+/* ---------- V2 COMPONENT CLASSES (Brand Guidelines 2.0 §05) ---------- */
 .aj-btn-signal {
   position: relative;
   z-index: 1;
@@ -828,17 +840,18 @@ html, body {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  border: 1px solid rgba(255, 107, 53, 0.75);
-  border-radius: 999px;
-  background: linear-gradient(135deg, rgba(255, 69, 0, 0.95), rgba(255, 107, 53, 0.78));
-  color: #fff7ed;
+  border: 1px solid var(--signal-yellow);
+  border-radius: 4px;
+  background: var(--signal-yellow);
+  color: #080808;
   padding: 0.875rem 1.4rem;
-  font-family: Inter, system-ui, sans-serif;
-  font-size: 0.875rem;
+  font-family: var(--font-headline);
+  font-size: 0.9375rem;
   font-weight: 700;
-  letter-spacing: 0;
-  box-shadow: 0 0 0 1px rgba(255, 69, 0, 0.2), 0 0 24px rgba(255, 69, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.24);
-  text-shadow: 0 0 12px rgba(255, 255, 255, 0.24);
+  letter-spacing: -0.01em;
+  box-shadow:
+    0 0 0 1px rgba(232, 255, 90, 0.25),
+    0 0 28px rgba(232, 255, 90, 0.28);
   transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
 }
 
@@ -848,7 +861,7 @@ html, body {
   position: absolute;
   inset: 75% 8% -60%;
   z-index: -1;
-  background: rgba(255, 69, 0, 0.34);
+  background: rgba(232, 255, 90, 0.34);
   filter: blur(24px);
   opacity: 0.55;
   transform: perspective(2rem) rotateX(35deg) scale(1, 0.6);
@@ -856,7 +869,11 @@ html, body {
 
 .aj-btn-signal:hover {
   transform: translateY(-1px);
-  box-shadow: 0 0 0 1px rgba(255, 69, 0, 0.34), 0 0 34px rgba(255, 69, 0, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  background: var(--signal-soft);
+  border-color: var(--signal-soft);
+  box-shadow:
+    0 0 0 1px rgba(232, 255, 90, 0.38),
+    0 0 36px rgba(232, 255, 90, 0.42);
 }
 
 .aj-btn-signal:active {
@@ -865,7 +882,7 @@ html, body {
 
 .aj-btn-signal:focus-visible,
 .aj-btn-intel:focus-visible {
-  outline: 2px solid var(--aj-blue);
+  outline: 2px solid var(--signal-yellow);
   outline-offset: 3px;
 }
 
@@ -874,109 +891,122 @@ html, body {
   min-height: 44px;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(0, 164, 255, 0.52);
-  border-radius: 999px;
-  background: rgba(0, 164, 255, 0.08);
-  color: #dff6ff;
+  border: 1px solid var(--border-strong);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text-primary);
   padding: 0.875rem 1.25rem;
+  font-family: var(--font-headline);
   font-weight: 700;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
-  transition: border-color 180ms ease, background 180ms ease, transform 180ms ease;
+  letter-spacing: -0.01em;
+  transition: border-color 180ms ease, background 180ms ease, transform 180ms ease, color 180ms ease;
 }
 
 .aj-btn-intel:hover {
   transform: translateY(-1px);
-  border-color: rgba(0, 164, 255, 0.9);
-  background: rgba(0, 164, 255, 0.14);
+  border-color: var(--signal-yellow);
+  color: var(--signal-yellow);
+  background: rgba(232, 255, 90, 0.06);
 }
 
 .aj-card-signal {
   position: relative;
-  border-radius: 1.25rem;
-  padding: 1px;
-  background: var(--aj-gradient-card-border);
-  transition: transform 220ms ease, box-shadow 220ms ease;
+  border-radius: 4px;
+  border: 1px solid var(--border-subtle);
+  background: var(--surface-1);
+  padding: 0;
+  transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
 }
 
 .aj-card-signal > .aj-card-inner {
   min-height: 100%;
-  border-radius: calc(1.25rem - 1px);
-  background: var(--aj-gradient-black-glass);
-  backdrop-filter: blur(18px);
+  border-radius: inherit;
+  background: transparent;
   padding: 1.5rem;
 }
 
 .aj-card-signal:hover {
   transform: translateY(-2px);
-  box-shadow: 0 0 30px rgba(255, 69, 0, 0.18), 0 18px 60px rgba(0, 0, 0, 0.32);
+  border-color: var(--border-strong);
+  box-shadow: 0 0 24px rgba(232, 255, 90, 0.10), 0 18px 60px rgba(0, 0, 0, 0.32);
 }
 
 .aj-product-card {
-  border: 1px solid rgba(148, 163, 184, 0.18);
-  border-radius: 1.25rem;
-  background: var(--aj-gradient-black-glass);
-  backdrop-filter: blur(18px);
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  background: var(--surface-1);
+  padding: 1.5rem;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.24);
+  transition: border-color 180ms ease;
+}
+.aj-product-card:hover {
+  border-color: var(--border-strong);
+}
+
+.aj-proof-card {
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  background: var(--surface-2);
+  color: var(--text-primary);
   padding: 1.5rem;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.24);
 }
 
-.aj-proof-card {
-  border: 1px solid rgba(38, 38, 38, 0.1);
-  border-radius: 1.25rem;
-  background: #ffffff;
-  color: #101827;
-  padding: 1.5rem;
-  box-shadow: 0 12px 40px rgba(15, 23, 42, 0.08);
-}
-
 .aj-form-panel {
-  border: 1px solid rgba(148, 163, 184, 0.18);
-  border-radius: 1.5rem;
-  background: var(--aj-gradient-black-glass);
-  backdrop-filter: blur(18px);
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  background: var(--surface-1);
   padding: clamp(1.25rem, 3vw, 2rem);
   box-shadow: 0 24px 80px rgba(0, 0, 0, 0.32);
 }
 
 .aj-data-panel {
-  border: 1px solid rgba(148, 163, 184, 0.18);
-  border-radius: 1rem;
+  border: 1px solid var(--border-subtle);
+  border-left: 3px solid var(--signal-yellow);
+  border-radius: 4px;
   background:
-    linear-gradient(90deg, rgba(255, 69, 0, 0.08), transparent),
-    rgba(5, 7, 15, 0.76);
+    linear-gradient(90deg, rgba(232, 255, 90, 0.08), transparent),
+    var(--surface-1);
   padding: 1rem;
   font-family: var(--font-mono);
 }
 
 .aj-data-label {
-  color: var(--aj-muted);
-  font-size: 0.7rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.16em;
 }
 
 .aj-data-value {
-  color: #ffffff;
+  color: var(--signal-yellow);
+  font-family: var(--font-mono);
   font-size: 1.4rem;
-  font-weight: 800;
+  font-weight: 500;
 }
 
 .aj-input {
   min-height: 48px;
   width: 100%;
-  border: 1px solid rgba(148, 163, 184, 0.24);
-  border-radius: 0.875rem;
-  background: rgba(5, 7, 15, 0.64);
-  color: var(--aj-ink);
+  border: 1px solid var(--border-strong);
+  border-radius: 4px;
+  background: var(--surface-1);
+  color: var(--text-primary);
+  font-family: var(--font-body);
   padding: 0.875rem 1rem;
   outline: none;
   transition: border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
 }
 
+.aj-input::placeholder {
+  color: var(--text-muted);
+}
+
 .aj-input:focus {
-  border-color: rgba(0, 164, 255, 0.82);
-  background: rgba(5, 7, 15, 0.88);
-  box-shadow: 0 0 0 3px rgba(0, 164, 255, 0.14);
+  border-color: var(--signal-yellow);
+  background: var(--surface-2);
+  box-shadow: 0 0 0 3px rgba(232, 255, 90, 0.18);
 }
 
 .aj-radio,
@@ -995,9 +1025,9 @@ html, body {
   position: relative;
   width: 1.25rem;
   height: 1.25rem;
-  border: 1px solid rgba(0, 164, 255, 0.64);
+  border: 1px solid var(--border-strong);
   border-radius: 999px;
-  background: rgba(0, 164, 255, 0.1);
+  background: var(--surface-1);
 }
 
 .aj-radio input[type="radio"]::before {
@@ -1005,7 +1035,7 @@ html, body {
   position: absolute;
   inset: 0.3rem;
   border-radius: 999px;
-  background: var(--aj-blue);
+  background: var(--signal-yellow);
   transform: scale(0);
   transition: transform 150ms ease;
 }
@@ -1037,24 +1067,26 @@ html, body {
 }
 
 .aj-toggle input[type="checkbox"]:checked {
-  border-color: rgba(255, 69, 0, 0.72);
-  background: rgba(255, 69, 0, 0.18);
+  border-color: var(--signal-yellow);
+  background: rgba(232, 255, 90, 0.18);
 }
 
 .aj-toggle input[type="checkbox"]:checked::before {
   transform: translateX(1.45rem);
-  background: var(--aj-orange);
-  box-shadow: 0 0 18px rgba(255, 69, 0, 0.42);
+  background: var(--signal-yellow);
+  box-shadow: 0 0 18px rgba(232, 255, 90, 0.42);
 }
 
 .aj-code-block,
 .prose pre {
   position: relative;
   overflow: auto;
-  border: 1px solid rgba(0, 164, 255, 0.18);
-  border-radius: 1rem;
-  background: linear-gradient(180deg, rgba(0, 164, 255, 0.06), rgba(255, 69, 0, 0.04)), var(--aj-bg);
-  color: #e2e8f0;
+  border: 1px solid var(--border-subtle);
+  border-left: 3px solid var(--signal-yellow);
+  border-radius: 4px;
+  background: var(--surface-1);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
   padding: 1.25rem;
   box-shadow: 0 18px 60px rgba(0, 0, 0, 0.28);
 }
@@ -1064,12 +1096,119 @@ html, body {
   content: "SIGNAL OUTPUT";
   display: block;
   margin-bottom: 0.75rem;
-  color: var(--aj-blue);
-  font-family: Space Grotesk, Inter, system-ui, sans-serif;
-  font-size: 0.68rem;
-  font-weight: 800;
-  letter-spacing: 0.14em;
+  color: var(--signal-yellow);
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
 }
+
+/* ---------- V2 ATMOSPHERIC GLOWS (signal-yellow accented) ---------- */
+.bg-glow-signal {
+  background: radial-gradient(
+    ellipse 65% 55% at 30% 50%,
+    rgba(232, 255, 90, 0.10),
+    transparent 70%
+  );
+}
+
+/* ---------- V2 NEW COMPONENTS (Brand Guidelines 2.0 §04) ---------- */
+
+/* Signal Accent Line — 24–32pt horizontal line preceding section labels.
+   Always left-aligned, paired with a DM Mono eyebrow. */
+.aj-signal-line {
+  display: inline-block;
+  width: 28px;
+  height: 2px;
+  background: var(--signal-yellow);
+  vertical-align: middle;
+  margin-right: 0.75rem;
+}
+
+/* Left-Border Callout — 3px solid left border + 8% accent background.
+   Use accent modifiers to switch the color (.is-blue, .is-amber, .is-red,
+   .is-green). Defaults to signal yellow. */
+.aj-callout {
+  border-left: 3px solid var(--signal-yellow);
+  background: rgba(232, 255, 90, 0.08);
+  padding: 1rem 1.25rem;
+  border-radius: 0 4px 4px 0;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  line-height: 1.7;
+}
+.aj-callout.is-blue   { border-left-color: var(--accent-blue);  background: rgba(77, 172, 255, 0.08); }
+.aj-callout.is-amber  { border-left-color: var(--accent-amber); background: rgba(255, 179, 64, 0.08); }
+.aj-callout.is-red    { border-left-color: var(--accent-red);   background: rgba(255, 69, 69, 0.08); }
+.aj-callout.is-green  { border-left-color: var(--accent-green); background: rgba(61, 255, 176, 0.08); }
+
+/* Priority Badges — DM Mono 10px uppercase pills. */
+.aj-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  padding: 0.2em 0.6em;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  background: rgba(102, 102, 102, 0.18);
+  color: var(--text-muted);
+  border: 1px solid var(--border-strong);
+}
+.aj-badge.is-p0 { color: var(--accent-red);    border-color: rgba(255, 69, 69, 0.45);  background: rgba(255, 69, 69, 0.10); }
+.aj-badge.is-p1 { color: var(--accent-amber);  border-color: rgba(255, 179, 64, 0.45); background: rgba(255, 179, 64, 0.10); }
+.aj-badge.is-p2 { color: var(--accent-blue);   border-color: rgba(77, 172, 255, 0.45); background: rgba(77, 172, 255, 0.10); }
+.aj-badge.is-p3 { color: var(--text-muted);    border-color: var(--border-strong);     background: rgba(102, 102, 102, 0.10); }
+.aj-badge.is-signal {
+  color: #080808;
+  background: var(--signal-yellow);
+  border-color: var(--signal-yellow);
+}
+
+/* Score Bars — 3px progress bars. Apply --value (0–100) inline. */
+.aj-score-bar {
+  position: relative;
+  height: 3px;
+  width: 100%;
+  border-radius: 999px;
+  background: var(--border-strong);
+  overflow: hidden;
+}
+.aj-score-bar::after {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: calc(var(--value, 0) * 1%);
+  background: var(--accent-red);
+  border-radius: inherit;
+  transition: width 320ms var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1));
+}
+.aj-score-bar.is-mid::after  { background: var(--accent-amber); }
+.aj-score-bar.is-high::after { background: var(--accent-green); }
+
+/* Dark Surface Cards — V2 canonical card. */
+.aj-card {
+  background: var(--surface-1);
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  padding: 1.5rem;
+  transition: border-color 180ms ease;
+}
+.aj-card:hover { border-color: var(--border-strong); }
+.aj-card.is-surface-2 { background: var(--surface-2); }
+
+/* Wordmark utility — pairs `Audio` and `Jones` in Syne with the signal
+   mark sitting between (see /assets/logos/audiojones-lockup-stacked.svg). */
+.aj-wordmark {
+  font-family: var(--font-headline);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #FFFFFF;
+}
+.aj-wordmark--accent { color: var(--signal-yellow); }
 
 /* ============================================================
    Section 14b: 3D System Scenes — REMOVED 2026-05-12

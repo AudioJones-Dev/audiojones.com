@@ -24,11 +24,11 @@ export default function Footer() {
   return (
     <footer
       role="contentinfo"
-      className="border-t border-[var(--line-2)] bg-bg-0"
+      className="border-t border-[var(--border-subtle)] bg-bg-base"
     >
       <div className="mx-auto max-w-[1280px] px-5 py-16 sm:px-8 sm:py-20">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
-          {/* Brand block */}
+          {/* Brand block — V2 horizontal wordmark with tagline */}
           <div className="lg:col-span-5">
             <Link
               href="/"
@@ -36,24 +36,27 @@ export default function Footer() {
               aria-label="Audio Jones — home"
             >
               <Image
-                src="/assets/logos/audio-jones-signal-logo-white-nav.png"
-                alt=""
-                width={160}
-                height={32}
-                className="h-7 w-auto"
+                src="/assets/logos/audiojones-wordmark-white.svg"
+                alt="Audio Jones — Applied Intelligence Systems"
+                width={220}
+                height={48}
+                className="h-10 w-auto"
               />
             </Link>
-            <p className="mt-6 max-w-md t-lead text-fg-1">
+            <p className="mt-6 max-w-md font-headline text-2xl font-extrabold tracking-[-0.02em] text-fg-0">
+              All Signal. No Noise.
+            </p>
+            <p className="mt-4 max-w-md t-body text-fg-1">
               Applied Intelligence Systems for founder-led businesses.
             </p>
             <p className="mt-3 max-w-md t-small text-fg-3">
-              Audio Jones is the operating brand of AJ Digital LLC. Founder-led businesses, $250K–$5M.
+              Audio Jones is the operating brand of AJ Digital LLC. Founder-led businesses, $250K–$5M ARR.
             </p>
           </div>
 
           {/* Site nav */}
           <div className="lg:col-span-3">
-            <h3 className="t-label text-aj-gold">Site</h3>
+            <h3 className="t-label">Site</h3>
             <ul className="mt-5 space-y-3">
               {PRIMARY_NAV.map((item) => (
                 <li key={item.href}>
@@ -81,7 +84,7 @@ export default function Footer() {
 
           {/* Connect */}
           <div className="lg:col-span-2">
-            <h3 className="t-label text-aj-gold">Connect</h3>
+            <h3 className="t-label">Connect</h3>
             <ul className="mt-5 space-y-3">
               {SOCIAL.map((s) => (
                 <li key={s.label}>
@@ -100,7 +103,7 @@ export default function Footer() {
 
           {/* Legal */}
           <div className="lg:col-span-2">
-            <h3 className="t-label text-aj-gold">Legal</h3>
+            <h3 className="t-label">Legal</h3>
             <ul className="mt-5 space-y-3">
               {LEGAL_NAV.map((item) => (
                 <li key={item.href}>
@@ -127,9 +130,9 @@ export default function Footer() {
         {/* ── Newsletter row — compact inline variant ──
             Suspense required because <NewsletterForm> uses
             useSearchParams() (App Router constraint). */}
-        <div className="mt-12 grid grid-cols-1 gap-4 border-t border-[var(--line-2)] pt-8 lg:grid-cols-12 lg:items-center">
+        <div className="mt-12 grid grid-cols-1 gap-4 border-t border-[var(--border-subtle)] pt-8 lg:grid-cols-12 lg:items-center">
           <div className="lg:col-span-5">
-            <h3 className="t-label text-aj-gold">Subscribe</h3>
+            <h3 className="t-label">Subscribe</h3>
             <p className="mt-3 t-small text-fg-2">
               The next signal in your inbox. Direct, framework-driven, no nurture drip.
             </p>
@@ -145,7 +148,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col items-start justify-between gap-4 border-t border-[var(--line-2)] pt-8 sm:flex-row sm:items-center">
+        <div className="mt-12 flex flex-col items-start justify-between gap-4 border-t border-[var(--border-subtle)] pt-8 sm:flex-row sm:items-center">
           <p className="t-small text-fg-3">
             © {new Date().getFullYear()} AJ Digital LLC · Audio Jones · All rights reserved.
           </p>
