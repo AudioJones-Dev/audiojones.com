@@ -38,6 +38,7 @@ export const mainNav: NavItem[] = [
     href: "/services",
     description: "Service offerings and engagement packages",
   },
+  // TODO: P0 — publish minimum 1 case study before next campaign
   {
     label: "Case Studies",
     href: "/case-studies",
@@ -52,11 +53,6 @@ export const mainNav: NavItem[] = [
     label: "ROI Calculator",
     href: "/roi-calculator",
     description: "Estimate AI ROI, readiness, and payback period",
-  },
-  {
-    label: "Workshops",
-    href: "/workshops",
-    description: "Operator workshops and live training sessions",
   },
 ];
 

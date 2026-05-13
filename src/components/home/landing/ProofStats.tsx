@@ -8,24 +8,33 @@ const BG =
 
 // ─── Metric data ─────────────────────────────────────────────────────────────
 
-const stats = [
+const stats: ReadonlyArray<{
+  metric: string;
+  display: string;
+  label: string;
+  accent: string;
+  attribution?: string;
+}> = [
   {
     metric: "CAC Reduction",
     display: "↓ 37%",
     label: "Customer acquisition cost",
     accent: "#FF4500",
+    attribution: "B2B Services · 14-month engagement",
   },
   {
     metric: "Pipeline Growth",
     display: "↑ 28%",
     label: "Qualified pipeline per quarter",
     accent: "#C8A96A",
+    attribution: "B2B Services · 14-month engagement",
   },
   {
     metric: "Conversion Rate",
     display: "↑ 42%",
     label: "Lead-to-call conversion rate",
     accent: "#3B5BFF",
+    attribution: "B2B Services · 14-month engagement",
   },
   {
     metric: "Decision Clarity",
@@ -254,6 +263,21 @@ export default function ProofStats() {
               >
                 {s.label}
               </dd>
+              {s.attribution ? (
+                <dd
+                  style={{
+                    display: "block",
+                    marginTop: "6px",
+                    fontFamily:
+                      "var(--font-mono), ui-monospace, SFMono-Regular, Menlo, monospace",
+                    fontSize: "10px",
+                    lineHeight: 1.5,
+                    color: "#666666",
+                  }}
+                >
+                  {s.attribution}
+                </dd>
+              ) : null}
             </div>
           ))}
         </dl>
