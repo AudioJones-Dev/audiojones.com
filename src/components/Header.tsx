@@ -85,13 +85,18 @@ export default function Header() {
           </ButtonLink>
         </div>
 
-        {/* Mobile toggle */}
+        {/* Mobile toggle — signal-yellow brand treatment per V2 §11 */}
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
           aria-controls="primary-nav-mobile"
-          className="rounded-md border border-[var(--border-subtle)] bg-bg-2 px-3 py-2 t-small text-fg-0 lg:hidden"
+          className="rounded-md border bg-transparent px-3 py-2 t-small font-medium transition-colors lg:hidden"
+          style={{
+            borderColor: "rgba(232, 255, 90, 0.45)",
+            color: "var(--signal-yellow)",
+            boxShadow: "0 0 12px -4px rgba(232, 255, 90, 0.25)",
+          }}
         >
           {open ? "Close" : "Menu"}
         </button>

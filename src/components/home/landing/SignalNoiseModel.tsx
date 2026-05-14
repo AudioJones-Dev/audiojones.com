@@ -29,7 +29,7 @@ const COLUMNS = [
   {
     id: "signal",
     label: "Signal",
-    tone: "blue" as const,
+    tone: "signal" as const,
     items: [
       "Causal inputs that predict qualified pipeline",
       "Behavioral patterns that precede conversion",
@@ -48,22 +48,19 @@ const CARD_CONFIG = {
     border: "1px solid rgba(200,169,106,0.22)",
     dotColor: "#C8A96A",
     boxShadow: undefined as string | undefined,
-    animated: false,
   },
   acceptable: {
     bg: "rgba(14,18,28,0.50)",
     border: "1px solid rgba(100,116,139,0.18)",
     dotColor: "#64748B",
     boxShadow: undefined as string | undefined,
-    animated: false,
   },
   signal: {
-    bg: "rgba(8,12,28,0.84)",
-    border: "none",
-    dotColor: "#8EA2FF",
+    bg: "rgba(232,255,90,0.06)",
+    border: "1px solid rgba(232,255,90,0.18)",
+    dotColor: "#E8FF5A",
     boxShadow:
-      "0 0 32px -8px rgba(59,91,255,0.18), 0 0 14px -6px rgba(255,69,0,0.06), inset 0 0 0 1px rgba(59,91,255,0.06)",
-    animated: true,
+      "inset 3px 0 0 0 #E8FF5A, 0 0 24px -8px rgba(232,255,90,0.20)",
   },
 } as const;
 
@@ -76,17 +73,6 @@ export default function SignalNoiseModel() {
       className="relative border-t border-[var(--line-2)] bg-bg-0 py-24 sm:py-32"
       style={{ overflow: "hidden" }}
     >
-      {/* ── Keyframe: aj-card rotating border (Signal card only) ── */}
-      <style>{`
-        @keyframes aj-snm-rotate {
-          from { transform: translate(-50%, -50%) rotate(0deg); }
-          to   { transform: translate(-50%, -50%) rotate(360deg); }
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .aj-snm-sweep { animation: none !important; }
-        }
-      `}</style>
-
       {/* ── Section atmosphere glows ── */}
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
         {/* Gold glow — left, behind Noise card */}
@@ -101,7 +87,7 @@ export default function SignalNoiseModel() {
               "radial-gradient(ellipse 80% 80% at 20% 55%, rgba(200,169,106,0.07), transparent 70%)",
           }}
         />
-        {/* Blue glow — right, behind Signal card */}
+        {/* Signal-yellow glow — right, behind Signal card */}
         <div
           style={{
             position: "absolute",
@@ -110,7 +96,7 @@ export default function SignalNoiseModel() {
             width: "38%",
             height: "70%",
             background:
-              "radial-gradient(ellipse 80% 80% at 80% 55%, rgba(59,91,255,0.09), transparent 70%)",
+              "radial-gradient(ellipse 80% 80% at 80% 55%, rgba(232,255,90,0.10), transparent 70%)",
           }}
         />
       </div>
@@ -214,12 +200,12 @@ export default function SignalNoiseModel() {
                   y1="5"
                   x2="16"
                   y2="5"
-                  stroke="rgba(59,91,255,0.32)"
+                  stroke="rgba(232,255,90,0.40)"
                   strokeWidth="1"
                 />
                 <path
                   d="M12 1L20 5L12 9"
-                  stroke="rgba(59,91,255,0.32)"
+                  stroke="rgba(232,255,90,0.40)"
                   strokeWidth="1"
                   fill="none"
                 />
@@ -235,61 +221,11 @@ export default function SignalNoiseModel() {
                 key={col.id}
                 className="relative flex flex-col rounded-[var(--r-card)] p-7 sm:p-8"
                 style={{
-                  isolation: cfg.animated ? "isolate" : undefined,
                   background: cfg.bg,
-                  border: cfg.animated ? undefined : cfg.border,
+                  border: cfg.border,
                   boxShadow: cfg.boxShadow,
                 }}
               >
-                {/* ── Signal card: animated rotating border ── */}
-                {cfg.animated && (
-                  <>
-                    {/* Static gradient border base */}
-                    <div
-                      aria-hidden
-                      style={{
-                        overflow: "hidden",
-                        pointerEvents: "none",
-                        position: "absolute",
-                        zIndex: -1,
-                        inset: "-1px",
-                        backgroundImage:
-                          "linear-gradient(135deg, rgba(255,69,0,0.43), rgba(59,91,255,0.33) 55%, rgba(200,169,106,0.25))",
-                        borderRadius: "inherit",
-                      }}
-                    >
-                      {/* Rotating sweep — 40% reduced intensity vs reference */}
-                      <div
-                        className="aj-snm-sweep"
-                        style={{
-                          pointerEvents: "none",
-                          position: "absolute",
-                          top: "50%",
-                          left: "50%",
-                          width: "200%",
-                          height: "9rem",
-                          backgroundImage:
-                            "linear-gradient(90deg, rgba(255,69,0,0) 0%, rgba(255,69,0,0.57) 28%, rgba(59,91,255,0.54) 52%, rgba(200,169,106,0.42) 68%, rgba(255,69,0,0) 100%)",
-                          transformOrigin: "left center",
-                          animation: "aj-snm-rotate 12s linear infinite",
-                          opacity: 0.42,
-                        }}
-                      />
-                    </div>
-                    {/* Inner cover — masks the border interior */}
-                    <div
-                      aria-hidden
-                      style={{
-                        position: "absolute",
-                        inset: "1px",
-                        zIndex: -1,
-                        borderRadius: "calc(var(--r-card) - 1px)",
-                        background: cfg.bg,
-                      }}
-                    />
-                  </>
-                )}
-
                 <Eyebrow tone={col.tone}>{col.label}</Eyebrow>
 
                 <ul className="mt-6 flex flex-1 flex-col gap-4">
@@ -322,7 +258,7 @@ export default function SignalNoiseModel() {
             border: "1px solid rgba(255,255,255,0.07)",
             backdropFilter: "blur(8px)",
             boxShadow:
-              "0 0 24px -8px rgba(255,69,0,0.10), 0 0 16px -8px rgba(59,91,255,0.08)",
+              "0 0 24px -8px rgba(232,255,90,0.14)",
           }}
         >
           <p
@@ -336,7 +272,7 @@ export default function SignalNoiseModel() {
             }}
           >
             The 20% noise often reveals the 80% signal —{" "}
-            <span style={{ color: "#FF6A30", fontWeight: 600 }}>
+            <span style={{ color: "#E8FF5A", fontWeight: 600 }}>
               if you know how to read the system.
             </span>
           </p>
