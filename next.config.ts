@@ -46,6 +46,10 @@ const nextConfig: NextConfig = {
       { source: "/(.*)", headers: [{ key: "Cache-Control", value: "no-store, must-revalidate" }] },
       { source: "/_next/static/(.*)", headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }] },
       { source: "/assets/(.*)", headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }] },
+      // Favicon set: 24h cache + must-revalidate so updates roll out within a
+      // day without flickering on every page view.
+      { source: "/favicon.ico", headers: [{ key: "Cache-Control", value: "public, max-age=86400, must-revalidate" }] },
+      { source: "/:file(favicon-.*\\.png|apple-touch-icon\\.png|android-chrome-.*\\.png|icon\\.png|icon\\.svg|site\\.webmanifest)", headers: [{ key: "Cache-Control", value: "public, max-age=86400, must-revalidate" }] },
     ];
   },
 };
