@@ -6,7 +6,7 @@ const COLUMNS = [
   {
     id: "noise",
     label: "Noise",
-    tone: "gold" as const,
+    tone: "muted" as const,
     items: [
       "Vanity metrics that feel good but predict nothing",
       "Tool sprawl without system integration",
@@ -29,7 +29,7 @@ const COLUMNS = [
   {
     id: "signal",
     label: "Signal",
-    tone: "blue" as const,
+    tone: "signal" as const,
     items: [
       "Causal inputs that predict qualified pipeline",
       "Behavioral patterns that precede conversion",
@@ -44,25 +44,25 @@ const COLUMNS = [
 
 const CARD_CONFIG = {
   noise: {
-    bg: "rgba(12,9,4,0.55)",
-    border: "1px solid rgba(200,169,106,0.22)",
-    dotColor: "#C8A96A",
+    bg: "rgba(15,15,15,0.55)",
+    border: "1px solid rgba(255,179,64,0.22)",
+    dotColor: "#FFB340",
     boxShadow: undefined as string | undefined,
     animated: false,
   },
   acceptable: {
-    bg: "rgba(14,18,28,0.50)",
-    border: "1px solid rgba(100,116,139,0.18)",
-    dotColor: "#64748B",
+    bg: "rgba(15,15,15,0.50)",
+    border: "1px solid rgba(102,102,102,0.22)",
+    dotColor: "#666666",
     boxShadow: undefined as string | undefined,
     animated: false,
   },
   signal: {
-    bg: "rgba(8,12,28,0.84)",
+    bg: "rgba(15,15,15,0.84)",
     border: "none",
-    dotColor: "#8EA2FF",
+    dotColor: "#E8FF5A",
     boxShadow:
-      "0 0 32px -8px rgba(59,91,255,0.18), 0 0 14px -6px rgba(255,69,0,0.06), inset 0 0 0 1px rgba(59,91,255,0.06)",
+      "0 0 32px -8px rgba(232,255,90,0.22), 0 0 14px -6px rgba(77,172,255,0.10), inset 0 0 0 1px rgba(232,255,90,0.08)",
     animated: true,
   },
 } as const;
@@ -89,7 +89,7 @@ export default function SignalNoiseModel() {
 
       {/* ── Section atmosphere glows ── */}
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
-        {/* Gold glow — left, behind Noise card */}
+        {/* Amber glow — left, behind Noise card */}
         <div
           style={{
             position: "absolute",
@@ -98,10 +98,10 @@ export default function SignalNoiseModel() {
             width: "38%",
             height: "70%",
             background:
-              "radial-gradient(ellipse 80% 80% at 20% 55%, rgba(200,169,106,0.07), transparent 70%)",
+              "radial-gradient(ellipse 80% 80% at 20% 55%, rgba(255,179,64,0.07), transparent 70%)",
           }}
         />
-        {/* Blue glow — right, behind Signal card */}
+        {/* Signal-yellow glow — right, behind Signal card */}
         <div
           style={{
             position: "absolute",
@@ -110,7 +110,7 @@ export default function SignalNoiseModel() {
             width: "38%",
             height: "70%",
             background:
-              "radial-gradient(ellipse 80% 80% at 80% 55%, rgba(59,91,255,0.09), transparent 70%)",
+              "radial-gradient(ellipse 80% 80% at 80% 55%, rgba(232,255,90,0.10), transparent 70%)",
           }}
         />
       </div>
@@ -179,12 +179,12 @@ export default function SignalNoiseModel() {
                   y1="5"
                   x2="16"
                   y2="5"
-                  stroke="rgba(200,169,106,0.28)"
+                  stroke="rgba(255,179,64,0.32)"
                   strokeWidth="1"
                 />
                 <path
                   d="M12 1L20 5L12 9"
-                  stroke="rgba(200,169,106,0.28)"
+                  stroke="rgba(255,179,64,0.32)"
                   strokeWidth="1"
                   fill="none"
                 />
@@ -214,12 +214,12 @@ export default function SignalNoiseModel() {
                   y1="5"
                   x2="16"
                   y2="5"
-                  stroke="rgba(59,91,255,0.32)"
+                  stroke="rgba(232,255,90,0.42)"
                   strokeWidth="1"
                 />
                 <path
                   d="M12 1L20 5L12 9"
-                  stroke="rgba(59,91,255,0.32)"
+                  stroke="rgba(232,255,90,0.42)"
                   strokeWidth="1"
                   fill="none"
                 />
@@ -254,7 +254,7 @@ export default function SignalNoiseModel() {
                         zIndex: -1,
                         inset: "-1px",
                         backgroundImage:
-                          "linear-gradient(135deg, rgba(255,69,0,0.43), rgba(59,91,255,0.33) 55%, rgba(200,169,106,0.25))",
+                          "linear-gradient(135deg, rgba(232,255,90,0.55), rgba(77,172,255,0.36) 55%, rgba(232,255,90,0.30))",
                         borderRadius: "inherit",
                       }}
                     >
@@ -269,7 +269,7 @@ export default function SignalNoiseModel() {
                           width: "200%",
                           height: "9rem",
                           backgroundImage:
-                            "linear-gradient(90deg, rgba(255,69,0,0) 0%, rgba(255,69,0,0.57) 28%, rgba(59,91,255,0.54) 52%, rgba(200,169,106,0.42) 68%, rgba(255,69,0,0) 100%)",
+                            "linear-gradient(90deg, rgba(232,255,90,0) 0%, rgba(232,255,90,0.62) 28%, rgba(77,172,255,0.50) 52%, rgba(232,255,90,0.42) 68%, rgba(232,255,90,0) 100%)",
                           transformOrigin: "left center",
                           animation: "aj-snm-rotate 12s linear infinite",
                           opacity: 0.42,
@@ -318,11 +318,11 @@ export default function SignalNoiseModel() {
         <div
           className="mx-auto mt-10 max-w-2xl rounded-[var(--r-lg)] px-6 py-5 text-center"
           style={{
-            background: "rgba(7,9,18,0.75)",
+            background: "rgba(15,15,15,0.75)",
             border: "1px solid rgba(255,255,255,0.07)",
             backdropFilter: "blur(8px)",
             boxShadow:
-              "0 0 24px -8px rgba(255,69,0,0.10), 0 0 16px -8px rgba(59,91,255,0.08)",
+              "0 0 24px -8px rgba(232,255,90,0.14), 0 0 16px -8px rgba(77,172,255,0.10)",
           }}
         >
           <p
@@ -336,7 +336,7 @@ export default function SignalNoiseModel() {
             }}
           >
             The 20% noise often reveals the 80% signal —{" "}
-            <span style={{ color: "#FF6A30", fontWeight: 600 }}>
+            <span style={{ color: "var(--signal-yellow)", fontWeight: 600 }}>
               if you know how to read the system.
             </span>
           </p>
