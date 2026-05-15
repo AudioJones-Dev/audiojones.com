@@ -94,10 +94,11 @@ genuinely needed.
 
 ## Environments and secrets
 
-- All env keys live in `.env.example`, `.env.schema.json`, and
-  `packages/config/env.schema.ts`.
+- All env keys live in [`.env.example`](../../.env.example), `.env.schema.json`,
+  and `packages/config/env.schema.ts`.
 - Production secrets are managed in Vercel project settings; do not commit
-  them. See `docs/env/env-template.md`.
+  them. See [`docs/DEPLOYMENT.md`](../DEPLOYMENT.md) for the env workflow and
+  [`docs/SECURITY.md`](../SECURITY.md) for handling and rotation.
 
 ## Observability
 
