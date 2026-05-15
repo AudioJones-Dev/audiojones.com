@@ -110,5 +110,5 @@ curl -X POST https://audiojones.com/api/webhooks/vercel-deploy \
 ## Related Files
 
 - `src/app/api/webhooks/vercel-deploy/route.ts` - Main webhook handler
-- `scripts/get-vercel-failed-logs.ps1` - Manual log fetching tool
-- `run-vercel-logs.bat` - Simplified log fetcher interface
+- `scripts/get-vercel-failed-logs.ps1` - Manual log fetching tool (PowerShell)
+- `scripts/get-vercel-failed-logs.sh` - Bash equivalent for Linux/Mac

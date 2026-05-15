@@ -15,12 +15,7 @@ This script helps you download and analyze logs from failed Vercel deployments t
 
 ## Usage
 
-### Option 1: Windows Batch File (Easiest)
-```cmd
-run-vercel-logs.bat YOUR_VERCEL_TOKEN
-```
-
-### Option 2: PowerShell Script
+### Option 1: PowerShell Script (Windows / pwsh on Linux/Mac)
 ```powershell
 .\scripts\get-vercel-failed-logs.ps1 -VercelToken "YOUR_VERCEL_TOKEN"
 
@@ -31,7 +26,7 @@ run-vercel-logs.bat YOUR_VERCEL_TOKEN
 .\scripts\get-vercel-failed-logs.ps1 -VercelToken "YOUR_VERCEL_TOKEN" -TeamId "team_xxx"
 ```
 
-### Option 3: Bash Script (WSL/Linux/Mac)
+### Option 2: Bash Script (WSL/Linux/Mac)
 ```bash
 # Set environment variables
 export VERCEL_TOKEN="YOUR_VERCEL_TOKEN"
@@ -57,8 +52,8 @@ The script creates:
 
 ## Example
 
-```cmd
-C:\dev\audiojones.com> run-vercel-logs.bat vercel_abc123...
+```powershell
+PS C:\dev\audiojones.com> .\scripts\get-vercel-failed-logs.ps1 -VercelToken vercel_abc123...
 
 Downloading failed deployment logs for audiojones.com...
 Using token: vercel_abc...
