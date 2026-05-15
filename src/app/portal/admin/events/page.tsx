@@ -10,11 +10,6 @@
 import { useState, useEffect } from 'react';
 import { RefreshCw, Play, Eye, AlertTriangle, CheckCircle2, XCircle, Clock, Activity } from 'lucide-react';
 
-// Helper to get admin key
-const getAdminKey = (): string => {
-  return process.env.NEXT_PUBLIC_ADMIN_KEY || '';
-};
-
 interface EventBusEvent {
   event_id: string;
   event_type: string;

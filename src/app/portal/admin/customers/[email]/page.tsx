@@ -65,10 +65,7 @@ export default function CustomerDetailPage() {
   const fetchCustomerDetail = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`/api/admin/customers/${encodeURIComponent(email)}`, {
-        headers: {
-          'admin-key': 'gGho3TE8ztiSAMvORfyCDem62Fk0xpW1',
-        },
+      const response = await fetch(`/api/_proxy/admin/customers/${encodeURIComponent(email)}`, {
       });
 
       if (!response.ok) {
@@ -91,11 +88,10 @@ export default function CustomerDetailPage() {
     
     try {
       setAddingNote(true);
-      const response = await fetch(`/api/admin/customers/${encodeURIComponent(email)}/note`, {
+      const response = await fetch(`/api/_proxy/admin/customers/${encodeURIComponent(email)}/note`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'admin-key': 'gGho3TE8ztiSAMvORfyCDem62Fk0xpW1',
         },
         body: JSON.stringify({ message: newNote.trim() }),
       });
@@ -168,11 +164,10 @@ export default function CustomerDetailPage() {
         return;
       }
 
-      const response = await fetch(`/api/admin/customers/${encodeURIComponent(email)}`, {
+      const response = await fetch(`/api/_proxy/admin/customers/${encodeURIComponent(email)}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
-          'admin-key': 'gGho3TE8ztiSAMvORfyCDem62Fk0xpW1',
         },
         body: JSON.stringify(updates),
       });

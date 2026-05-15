@@ -61,10 +61,7 @@ export default function AdminStatsPage() {
 
   const fetchAnalytics = async () => {
     try {
-      const response = await fetch('/api/admin/analytics/summary', {
-        headers: {
-          'admin-key': 'gGho3TE8ztiSAMvORfyCDem62Fk0xpW1',
-        },
+      const response = await fetch('/api/_proxy/admin/analytics/summary', {
       });
 
       if (response.ok) {
@@ -79,10 +76,7 @@ export default function AdminStatsPage() {
 
   const fetchHealth = async () => {
     try {
-      const response = await fetch('/api/admin/health', {
-        headers: {
-          'admin-key': 'gGho3TE8ztiSAMvORfyCDem62Fk0xpW1',
-        },
+      const response = await fetch('/api/_proxy/admin/health', {
       });
 
       const data: HealthData = await response.json();
@@ -95,10 +89,7 @@ export default function AdminStatsPage() {
 
   const fetchStats = async () => {
     try {
-      const response = await fetch('/api/admin/stats', {
-        headers: {
-          'admin-key': 'gGho3TE8ztiSAMvORfyCDem62Fk0xpW1',
-        },
+      const response = await fetch('/api/_proxy/admin/stats', {
       });
 
       if (!response.ok) {

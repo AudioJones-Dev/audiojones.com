@@ -61,10 +61,7 @@ export default function IncidentSubscriptionManager({
       setLoading(true);
       setError(null);
 
-      const response = await fetch(`/api/admin/incidents/${incidentId}/subscribers`, {
-        headers: {
-          'admin-key': process.env.NEXT_PUBLIC_ADMIN_KEY || '',
-        },
+      const response = await fetch(`/api/_proxy/admin/incidents/${incidentId}/subscribers`, {
       });
 
       if (!response.ok) {
@@ -88,11 +85,10 @@ export default function IncidentSubscriptionManager({
     try {
       setActionLoading('subscribe');
 
-      const response = await fetch(`/api/admin/incidents/${incidentId}/subscribe`, {
+      const response = await fetch(`/api/_proxy/admin/incidents/${incidentId}/subscribe`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'admin-key': process.env.NEXT_PUBLIC_ADMIN_KEY || '',
         },
         body: JSON.stringify(newSubscriber),
       });
@@ -127,11 +123,8 @@ export default function IncidentSubscriptionManager({
     try {
       setActionLoading(`unsubscribe-${subscriber}`);
 
-      const response = await fetch(`/api/admin/incidents/${incidentId}/subscribe?subscriber=${encodeURIComponent(subscriber)}`, {
+      const response = await fetch(`/api/_proxy/admin/incidents/${incidentId}/subscribe?subscriber=${encodeURIComponent(subscriber)}`, {
         method: 'DELETE',
-        headers: {
-          'admin-key': process.env.NEXT_PUBLIC_ADMIN_KEY || '',
-        },
       });
 
       if (!response.ok) {

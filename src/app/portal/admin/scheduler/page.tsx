@@ -70,11 +70,10 @@ export default function AdminSchedulerPage() {
       setStatus(prev => ({ ...prev, isRunning: true }));
       setError(null);
       
-      const response = await fetch('/api/admin/scheduler/run', {
+      const response = await fetch('/api/_proxy/admin/scheduler/run', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'admin-key': 'gGho3TE8ztiSAMvORfyCDem62Fk0xpW1',
         },
       });
 
