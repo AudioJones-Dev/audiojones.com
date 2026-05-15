@@ -1,0 +1,56 @@
+# gitleaksignore — baseline of pre-existing findings.
+#
+# These fingerprints were flagged by gitleaks on the working tree as of the
+# chore/add-gitleaks-secret-scanning PR. They are intentionally ignored here
+# so CI does not fail on legacy issues, while still failing on any *new*
+# secret introduced after this baseline.
+#
+# Categories of entries below:
+#
+# 1. Private-key placeholder markers in docs (false positives).
+#    Examples: `-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----`.
+#
+# 2. A hard-coded `admin-key` value in admin portal pages and test scripts.
+#    These look like a real ADMIN_API_KEY shipped to the client. They need
+#    a proper fix in a follow-up PR — move the call through a server route
+#    (or NEXT_PUBLIC env at minimum), rotate the existing key, and remove
+#    these entries from this file.
+#
+# To regenerate after fixing app code:
+#   pnpm run security:scan --report-path /tmp/leaks.json
+#   then re-derive fingerprints from /tmp/leaks.json.
+
+# --- Placeholder PEM markers in docs (false positives) ---
+DEPLOYMENT.md:private-key:46
+ISSUE_ANALYSIS.md:private-key:62
+VERCEL_ENV_SETUP.md:private-key:26
+docs/EVENT_BUS_README.md:private-key:492
+docs/env.example:private-key:7
+
+# --- TODO: real follow-up — hard-coded admin key in admin portal client code ---
+src/app/portal/admin/alerts/page.tsx:generic-api-key:69
+src/app/portal/admin/alerts/page.tsx:generic-api-key:97
+src/app/portal/admin/alerts/page.tsx:generic-api-key:123
+src/app/portal/admin/alerts/page.tsx:generic-api-key:162
+src/app/portal/admin/alerts/page.tsx:generic-api-key:197
+src/app/portal/admin/alerts/page.tsx:generic-api-key:234
+src/app/portal/admin/audit/page.tsx:generic-api-key:47
+src/app/portal/admin/customers/[email]/page.tsx:generic-api-key:70
+src/app/portal/admin/customers/[email]/page.tsx:generic-api-key:98
+src/app/portal/admin/customers/[email]/page.tsx:generic-api-key:175
+src/app/portal/admin/pricing/page.tsx:generic-api-key:47
+src/app/portal/admin/pricing/page.tsx:generic-api-key:76
+src/app/portal/admin/reports/page.tsx:generic-api-key:64
+src/app/portal/admin/reports/page.tsx:generic-api-key:88
+src/app/portal/admin/reports/page.tsx:generic-api-key:130
+src/app/portal/admin/scheduler/page.tsx:generic-api-key:77
+src/app/portal/admin/stats/page.tsx:generic-api-key:66
+src/app/portal/admin/stats/page.tsx:generic-api-key:84
+src/app/portal/admin/stats/page.tsx:generic-api-key:100
+src/app/portal/admin/webhooks/page.tsx:generic-api-key:42
+src/app/portal/admin/webhooks/page.tsx:generic-api-key:75
+
+# --- TODO: real follow-up — same admin key embedded in standalone test scripts ---
+test-alerts-system.js:generic-api-key:4
+test-enhanced-pricing.js:generic-api-key:8
+test-enhanced-pricing.ps1:generic-api-key:4

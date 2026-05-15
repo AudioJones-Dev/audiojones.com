@@ -58,7 +58,7 @@ vercel env add FIREBASE_PROJECT_ID production  # Enter: audiojoneswebsite
 vercel env add FIREBASE_CLIENT_EMAIL production  # Enter: firebase-adminsdk-fbsvc@audiojoneswebsite.iam.gserviceaccount.com
 
 # Whop API
-vercel env add WHOP_API_KEY production --sensitive  # Enter: apik_nhOhXhdnwNN5P_A2017799_...
+vercel env add WHOP_API_KEY production --sensitive  # Enter: apik_... (pull from Doppler / Whop dashboard)
 vercel env add WHOP_APP_ID production  # Enter: app_Tzvx5EwI6UjdyS
 
 # Base64 Backup (optional but recommended)

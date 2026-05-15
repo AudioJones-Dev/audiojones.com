@@ -1,79 +1,15 @@
 # PowerShell script to set up Vercel environment variables
-# Run this script to configure all environment variables for your project
+#
+# OBSOLETE: This script previously embedded a live Firebase service-account
+# private key and a Whop API key in plaintext. Firebase has been removed
+# from audiojones.com (see docs/architecture/stack-decision.md), so both
+# secrets are dead and have been redacted from this file. Treat any value
+# that ever appeared here as compromised and rotate it.
+#
+# To set Vercel env vars going forward, pull live values from Doppler or
+# 1Password and use `vercel env add <NAME> production --sensitive` interactively.
 
-Write-Host "🚀 Setting up Vercel Environment Variables..." -ForegroundColor Green
-
-# First, let's set up the Firebase private key using stdin (this bypasses truncation issues)
-Write-Host "`n📋 Setting FIREBASE_PRIVATE_KEY..." -ForegroundColor Yellow
-
-# Create a temporary file with the private key
-$privateKey = @'
------BEGIN PRIVATE KEY-----
-MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCaRjnF8/YxaqFB
-UyllYC3EkDprjUikwAoV5YpWxqdRFxpvW6MoKTEwzhBvCAC4vzaaTis0sb3mMsBR
-LU1ZuOTFknb8IlS/hU74NGA4GiNSxRnjFIgTRtGAJGd4AJt+LlkRAeQIyTQa7T0g
-i8jfe0kjCHN9pJBbCg11JLchnPRYyaR4lxpIlrZjqu1Gna5JlR6ljWUpCRR348x8
-SiF05YCgosUpagv5eocFra4WrYCvGfncR2GuXAfvYgDN+7C5QSg6GMzLzOJQKBxU
-0vrU2Ezwo6KfFgCyMr7xsVGARBrsJVT3b3TXonmTWdpSvX0oL925ldT6yU5abY21
-A4Chl/kjAgMBAAECggEABIrv1ZIqZVX5ZJqKXAMMOD8E+oHqKgvCco2dRiUBfmiR
-iOsxOKZOcAD3EaFWoBoJ4O0qwYdAVFK+G7OJS+f6gbKNB6t4jc7jB54iocH+IiO7
-y8QOpf6px1BB921slG4+hZZTmCXHbVvWknOyIiw8QQPneh635lLyPYAHDeLUM2Xp
-fU5nq3TrUw559xrxZFlxIWIhnQwLJnhvDQxF7aJeKEJ0UnyXRoJd0pJJIoqjV3a9
-45MBQGtS54G+9dkNJU8Pzfw2N/KGLGSrC6VX1Z/IL0ZVxCDshDAInScu4444UXSP
-fAyEJ5Hrm20t0E3hqzimodZ04M66j2bq3ce9/TVK3QKBgQDNb7BmzeWIrIPWi6f6
-RgqaAeCM1f+q4MxK2h9O0ek66xcWOKh3k8Pb0N882LvLvw41CzIV34jGgzqwzxBt
-yYfhoKrU69uzsT/P7d6BKQ1+w3KpAPkP4LwY9IPZqoTIMb2jC1E/tYLSekzYik3n
-NX1B6Z5H0YwkLyUSkyKWl5opnQKBgQDAPuDUVvn/nsoEc1/9iv8lPBBIEH0EGJn7
-PDSkgNC7RiCPsESShHFZaZIYBkSJzRRpO1sPG7zIuhRH0MCyxBvc6aWoQmOSzo1o
-b7wPh9rmtekxT1/uq+LsSp6XOV4yaY6ecfM39H01nGjqgPvJ/i1ws0XY7iA+egl/
-4bvgaLWRvwKBgQChJljY+/BvOuycUqbtAx5z2r8bmw7YK0j1+o6OlMkAp8NPchhs
-3KPJ/dnv8A+4buGlKGgckmHHXs+ePH+lr24AxrjbFz0bgxIMeIqPBPYKFyUNf67g
-DqleZgg7qbBJHgOlL06HzEmX88nuHuenU+Uy3CCGM9Fb3QOWw4ZhXQDYXQKBgHmq
-UZeQw/7me2t9qQ5I3VivPo6dAMGK4EiDvb0uWOtsYkcNgxhHAYVYrsDNlqqvQ2+l
-xOc24q8WNKeOkaWRPyD8LX7jJSlP12Z08EvT6tF/5ujyFwBxf9eTEfMat2aoLz5P
-V2HeNS+soSloH/GiDxf4HQhBC97+VOy9660GF4L5AoGAeI+j3uAgqMTYxVUnFS7u
-RmBJK6dwFL911sgkangUcHLf66WeWO/evgsGvpptiLtd14bf2gW8RTLsCPVxsBzD
-4pwxs0WvBXVexYTsOp8pNn5RXWg6hhXEgCd8FXTT0HMmfAAEvR/FZU6PV8kQFnFQ
-0kZNtFLhst4yY5vOzDnX8JY=
------END PRIVATE KEY-----
-'@
-
-# Save private key to temp file
-$tempFile = "$env:TEMP\firebase_private_key.txt"
-$privateKey | Out-File -FilePath $tempFile -Encoding UTF8 -NoNewline
-
-try {
-    # Set the private key using file input (this should preserve the full key)
-    Write-Host "Setting FIREBASE_PRIVATE_KEY from file..." -ForegroundColor Blue
-    Get-Content $tempFile | vercel env add FIREBASE_PRIVATE_KEY production --sensitive
-
-    Write-Host "✅ FIREBASE_PRIVATE_KEY set!" -ForegroundColor Green
-} catch {
-    Write-Host "❌ Failed to set FIREBASE_PRIVATE_KEY: $($_.Exception.Message)" -ForegroundColor Red
-    Write-Host "Trying alternative method..." -ForegroundColor Yellow
-    
-    # Fallback: try the base64 version
-    $base64Key = "LS0tLS1CRUdJTiBQUklWQVRFIEtFWS0tLS0tCk1JSUV2UUlCQURBTkJna3Foa2lHOXcwQkFRRUZBQVNDQktjd2dnU2pBZ0VBQW9JQkFRQ2FSam5GOC9ZeGFxRkIKVXlsbFlDM0VrRHByalVpa3dBb1Y1WXBXeHFkUkZ4cHZXNk1vS1RFd3poQnZDQUM0dnphYVRpczBzYjNtTXNCUgpMVTFadU9URmtuYjhJbFMvaFU3NE5HQTRHaU5TeFJuakZJZ1RSdEdBSkdkNEFKdCtMbGtSQWVRSXlUUWE3VDBnCmk4amZlMGtqQ0hOOXBKQmJDZzExSkxjaG5QUll5YVI0bHhwSWxyWmpxdTFHbmE1SmxSNmxqV1VwQ1JSMzQ4eDgKU2lGMDVZQ2dvc1VwYWd2NWVvY0ZyYTRXcllDdkdmbmNSMkd1WEFmdllnRE4rN0M1UVNnNkdNekx6T0pRS0J4VQowdnJVMkV6d282S2ZGZ0N5TXI3eHNWR0FSQnJzSlZUM2IzVFhvbm1UV2RwU3ZYMG9MOTI1bGRUNnlVNWFiWTIxCkE0Q2hsL2tqQWdNQkFBRUNnZ0VBQklydjFaSXFaVlg1WkpxS1hBTU1PRDhFK29IcUtndkNjbzJkUmlVQmZtaVIKaU9zeE9LWk9jQUQzRWFGV29Cb0o0TzBxd1lkQVZGSytHN09KUytmNmdiS05CNnQ0amM3akI1NGlvY0grSWlPNwp5OFFPcGY2cHgxQkI5MjFzbEc0K2haWlRtQ1hIYlZ2V2tuT3lJaXc4UVFQbmVoNjM1bEx5UFlBSERlTFVNMlhwCmZVNW5xM1RyVXc1NTl4cnhaRmx4SVdJaG5Rd0xKbmh2RFF4RjdhSmVLRUowVW55WFJvSmQwcEpKSW9xalYzYTkKNDVNQlFHdFM1NEcrOWRrTkpVOFB6ZncyTi9LR0xHU3JDNlZYMVovSUwwWlZ4Q0RzaERBSW5TY3U0NDQ0VVhTUApmQXlFSjVIcm0yMHQwRTNocXppbW9kWjA0TTY2ajJicTNjZTkvVFZLM1FLQmdRRE5iN0JtemVXSXJJUFdpNmY2ClJncWFBZUNNMWYrcTRNeEsyaDlPMGVrNjZ4Y1dPS2gzazhQYjBOODgyTHZMdnc0MUN6SVYzNGpHZ3pxd3p4QnQKeVlmaG9LclU2OXV6c1QvUDdkNkJLUTErdzNLcEFQa1A0THdZOUlQWnFvVElNYjJqQzFFL3RZTFNla3pZaWszbgpOWDFCNlo1SDBZd2tMeVVTa3lLV2w1b3BuUUtCZ1FEQVB1RFVWdm4vbnNvRWMxLzlpdjhsUEJCSUVIMEVHSm43ClBEU2tnTkM3UmlDUHNFU1NoSEZaYVpJWUJrU0p6UlJwTzFzUEc3ekl1aFJIME1DeXhCdmM2YVdvUW1PU3pvMW8KYjd3UGg5cm10ZWt4VDEvdXErTHNTcDZYT1Y0eWFZNmVjZk0zOUgwMW5HanFnUHZKL2kxd3MwWFk3aUErZWdsLwo0YnZnYUxXUnZ3S0JnUUNoSmxqWSsvQnZPdXljVXFidEF4NXoycjhibXc3WUswajErbzZPbE1rQXA4TlBjaGhzCjNLUEovZG52OEErNGJ1R2xLR2dja21ISFhzK2VQSCtscjI0QXhyamJGejBiZ3hJTWVJcVBCUFlLRnlVTmY2N2cKRHFsZVpnZzdxYkJKSGdPbEwwNkh6RW1YODhudUh1ZW5VK1V5M0NDR005RmIzUU9XdzRaaFhRRFlYUUtCZ0htcQpVWmVRdy83bWUydDlxUTVJM1ZpdlBvNmRBTUdLNEVpRHZiMHVXT3RzWWtjTmd4aEhBWVZZcnNETmxxcXZRMitsCnhPYzI0cThXTktlT2thV1JQeUQ4TFg3akpTbFAxMlowOEV2VDZ0Ri81dWp5RndCeGY5ZVRFZk1hdDJhb0x6NVAKVjJIZU5TK3NvU2xvSC9HaUR4ZjRIUWhCQzk3K1ZPeTk2NjBHRjRMNUFvR0FlSStqM3VBZ3FNVFl4VlVuRlM3dQpSbUJKSzZkd0ZMOTExc2drYW5nVWNITGY2NldlV08vZXZnc0d2cHB0aUx0ZDE0YmYyZ1c4UlRMc0NQVnhzQnpECjRwd3hzMFd2QlhWZXhZVHNPcDhwTm41UlhXZzZoaFhFZ0NkOEZYVFQwSE1tZkFBRXZSL0ZaVTZQVjhrUUZuRlEKMGtaTnRGTGhzdDR5WTV2T3pEblg4Slk9Ci0tLS0tRU5EIFBSSVZBVEUgS0VZLS0tLS0=
-    Write-Output $base64Key | vercel env add FIREBASE_PRIVATE_KEY_BASE64 production --sensitive
-    Write-Host "✅ FIREBASE_PRIVATE_KEY_BASE64 set as fallback!" -ForegroundColor Green
-} finally {
-    # Clean up temp file
-    if (Test-Path $tempFile) {
-        Remove-Item $tempFile -Force
-    }
-}
-
-# Now set the other environment variables normally
-Write-Host "`n📋 Setting other environment variables..." -ForegroundColor Yellow
-
-# Set Firebase project config
-Write-Output "audiojoneswebsite" | vercel env add FIREBASE_PROJECT_ID production
-Write-Output "firebase-adminsdk-fbsvc@audiojoneswebsite.iam.gserviceaccount.com" | vercel env add FIREBASE_CLIENT_EMAIL production
-
-# Set Whop credentials
-Write-Output "apik_nhOhXhdnwNN5P_A2017799_edd16560a6a3e2f3404b81eef67cadbdc8fb53c61f5c385382d8250832818c3d" | vercel env add WHOP_API_KEY production --sensitive
-Write-Output "app_Tzvx5EwI6UjdyS" | vercel env add WHOP_APP_ID production
-
-Write-Host "`n✅ All environment variables configured!" -ForegroundColor Green
-Write-Host "🚀 Vercel will automatically redeploy in 2-3 minutes" -ForegroundColor Blue
-Write-Host "🔗 Test your webhook at: https://audiojones.com/api/whop" -ForegroundColor Cyan
+Write-Host "This setup script has been retired." -ForegroundColor Yellow
+Write-Host "The secrets it embedded have been removed. See docs/VERCEL_ENV_SOP.md" -ForegroundColor Yellow
+Write-Host "for the current procedure, and pull live values from Doppler / 1Password." -ForegroundColor Yellow
+exit 1

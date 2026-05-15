@@ -30,7 +30,7 @@ Add these to your Vercel project environment:
 
 ```env
 # Required for log fetching (you provided this)
-VERCEL_TOKEN=SGF1z6V8Q3OhntCAno7Wl7WD
+VERCEL_TOKEN=<REDACTED — pull from Doppler / Vercel; rotate the value previously committed here>
 
 # Optional: Slack/n8n/Make webhook for notifications
 DEPLOY_FAIL_WEBHOOK_URL=https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK

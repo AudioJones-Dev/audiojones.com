@@ -48,7 +48,9 @@
         "vercel:patch-win": "powershell -ExecutionPolicy Bypass -File scripts/patch-vercel-next-win.ps1",
         "build:prod": "pnpm vercel:patch-win && npx vercel build --prod",
         "deploy:prod": "pnpm vercel:patch-win && npx vercel --prod",
-        "release:check": "bash scripts/release-check.sh"
+        "release:check": "bash scripts/release-check.sh",
+        "security:scan": "gitleaks detect --no-banner --redact --config .gitleaks.toml --verbose",
+        "security:scan:staged": "gitleaks protect --staged --no-banner --redact --config .gitleaks.toml --verbose"
     },
     "dependencies": {
         "@aj/config": "workspace:*",

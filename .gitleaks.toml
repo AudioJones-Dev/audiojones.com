@@ -1,0 +1,47 @@
+# gitleaks configuration for audiojones.com
+#
+# Extends the upstream default ruleset (recommended). Add repo-specific
+# allowlists below — never disable rules globally without a justification.
+#
+# Run locally:  pnpm run security:scan
+# Docs:         https://github.com/gitleaks/gitleaks
+
+title = "audiojones.com gitleaks config"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Repo-specific allowlist (placeholders, lockfiles, example envs)"
+
+# Path-based allowlist: files where matches are noise, not live credentials.
+paths = [
+  # Lockfiles contain integrity hashes that can resemble high-entropy tokens.
+  '''pnpm-lock\.yaml''',
+  '''package-lock\.json''',
+  # The gitleaks config and ignore-file themselves contain example markers.
+  '''\.gitleaks\.toml''',
+  '''\.gitleaksignore''',
+  # Example / schema env files contain placeholders only.
+  '''\.env\.example''',
+  '''\.env\.schema\.json''',
+  # Build / vendor output.
+  '''node_modules/''',
+  '''\.next/''',
+  '''dist/''',
+  '''build/''',
+  # Static assets.
+  '''public/''',
+]
+
+# Regex allowlist: documented placeholders and example patterns.
+regexes = [
+  # Documented placeholder formats used across docs (e.g. `apik_...`).
+  '''apik_\.\.\.''',
+  '''sk_(test|live)_\.\.\.''',
+  '''ghp_\.\.\.''',
+  # Generic placeholder strings.
+  '''YOUR_[A-Z_]+_HERE''',
+  '''<your-[a-z-]+>''',
+  '''xxx+''',
+]
