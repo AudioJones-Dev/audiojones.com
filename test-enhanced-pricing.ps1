@@ -1,8 +1,12 @@
 # Enhanced Pricing Integration Test
 # This script tests the integration between Firestore pricing_skus and webhook processing
 
-$adminKey = "gGho3TE8ztiSAMvORfyCDem62Fk0xpW1"
-$baseUrl = "http://localhost:3000"
+$adminKey = $env:ADMIN_KEY
+if (-not $adminKey) {
+    Write-Error "Set ADMIN_KEY in your environment before running this script."
+    exit 1
+}
+$baseUrl = if ($env:TEST_BASE_URL) { $env:TEST_BASE_URL } else { "http://localhost:3000" }
 
 Write-Host "🔍 Testing Enhanced Pricing Integration" -ForegroundColor Cyan
 Write-Host "=====================================" -ForegroundColor Cyan

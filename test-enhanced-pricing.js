@@ -5,9 +5,13 @@ async function testEnhancedPricing() {
   console.log('🔍 Testing Enhanced Pricing Integration');
   console.log('=====================================');
 
-  const adminKey = 'gGho3TE8ztiSAMvORfyCDem62Fk0xpW1';
-  const baseUrl = process.env.NODE_ENV === 'production' 
-    ? 'https://audiojones.com' 
+  const adminKey = process.env.ADMIN_KEY;
+  if (!adminKey) {
+    console.error('Set ADMIN_KEY in your environment before running this script.');
+    process.exit(1);
+  }
+  const baseUrl = process.env.NODE_ENV === 'production'
+    ? 'https://audiojones.com'
     : 'http://localhost:3000';
 
   try {

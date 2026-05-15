@@ -52,7 +52,10 @@
     </div>
 
     <script>
-        const adminKey = 'gGho3TE8ztiSAMvORfyCDem62Fk0xpW1';
+        // Ad-hoc dev test page. Paste your ADMIN_KEY at runtime; never commit a real value.
+        const adminKey = (typeof window !== 'undefined' && window.prompt)
+            ? window.prompt('Enter ADMIN_KEY for this test session:')
+            : '';
         let testSku = '';
         let testEmail = '';
 

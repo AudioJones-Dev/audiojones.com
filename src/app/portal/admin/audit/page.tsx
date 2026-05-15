@@ -42,10 +42,7 @@ export default function AuditPage() {
       if (selectedAction) params.append('action', selectedAction);
       if (selectedTarget) params.append('target', selectedTarget);
       
-      const response = await fetch(`/api/admin/audit?${params}`, {
-        headers: {
-          'admin-key': 'gGho3TE8ztiSAMvORfyCDem62Fk0xpW1'
-        }
+      const response = await fetch(`/api/_proxy/admin/audit?${params}`, {
       });
 
       if (response.ok) {

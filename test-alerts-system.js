@@ -1,8 +1,12 @@
 // test-alerts-system.js
 // Test the comprehensive alerts system
 
-const ADMIN_KEY = 'gGho3TE8ztiSAMvORfyCDem62Fk0xpW1';
-const BASE_URL = 'https://audiojones.com'; // Use production for testing
+const ADMIN_KEY = process.env.ADMIN_KEY;
+if (!ADMIN_KEY) {
+  console.error('Set ADMIN_KEY in your environment before running this script.');
+  process.exit(1);
+}
+const BASE_URL = process.env.TEST_BASE_URL || 'https://audiojones.com';
 
 async function testAlertsSystem() {
   console.log('🚨 Testing Comprehensive Alerts System\n');
