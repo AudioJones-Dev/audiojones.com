@@ -125,7 +125,7 @@ npm run build
 - Graceful handling when notification services not configured
 
 **Log Analysis:**
-- `scripts/get-vercel-failed-logs.ps1` - Automated log fetching
-- `run-vercel-logs.bat` - Simple interface for troubleshooting
+- `scripts/get-vercel-failed-logs.ps1` - Automated log fetching (PowerShell; run via `pwsh` on Linux/Mac)
+- `scripts/get-vercel-failed-logs.sh` - Bash equivalent for Linux/Mac shells
 
 This solution ensures robust deployments while maintaining clean separation between build-time and runtime dependencies.

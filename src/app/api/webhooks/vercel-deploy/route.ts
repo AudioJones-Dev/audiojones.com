@@ -133,7 +133,7 @@ export async function POST(req: NextRequest) {
             ``,
             `## Next Steps`,
             `1. Check Vercel logs for detailed error information`,
-            `2. Run the log fetcher script: \`run-vercel-logs.bat ${process.env.VERCEL_TOKEN || 'YOUR_TOKEN'}\``,
+            `2. Run the log fetcher script: \`pwsh scripts/get-vercel-failed-logs.ps1 -VercelToken ${process.env.VERCEL_TOKEN || 'YOUR_TOKEN'}\` (or \`scripts/get-vercel-failed-logs.sh\` on Linux/Mac)`,
             `3. Fix the underlying issue`,
             `4. Close this issue when resolved`,
             ``,
