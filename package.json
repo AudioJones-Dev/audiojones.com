@@ -95,7 +95,7 @@
         "typescript": "^5",
         "vercel": "48.9.0"
     },
-    "description": "This repo is initialized from `codex.init.yml`.",
+    "description": "Public marketing site for AJ Digital LLC (audiojones.com): Applied Intelligence positioning, AI Readiness Diagnostic, lead capture, and booking. Next.js 16 + React 19 + TypeScript on Vercel; Sanity CMS, NeonDB, Resend, n8n, Whop, Stripe.",
     "main": "index.js",
     "directories": {
         "doc": "docs",
