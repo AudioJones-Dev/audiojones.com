@@ -46,7 +46,7 @@ for the rationale.
 | Changelog            | [`docs/CHANGELOG.md`](../docs/CHANGELOG.md)                    |
 | Env shape            | [`.env.example`](../.env.example)                              |
 | Env validation       | `packages/config/env.schema.ts`                                |
-| Marketing IA         | [`MARKETING-IA.md`](../MARKETING-IA.md)                        |
+| Marketing IA         | [`docs/archive/MARKETING-IA.md`](../docs/archive/MARKETING-IA.md) |
 | Nav config           | `src/config/nav.ts`                                            |
 | Lead intake          | `src/app/api/applied-intelligence/leads/route.ts`              |
 | Lead persistence     | `src/db/leads.ts`, `db/migrations/`                            |
@@ -150,6 +150,6 @@ no skipping the Firebase guard).
 
 ## Routes
 
-Authoritative list: [`MARKETING-IA.md`](../MARKETING-IA.md) and
+Authoritative list: [`docs/archive/MARKETING-IA.md`](../docs/archive/MARKETING-IA.md) and
 `src/config/nav.ts`. Do not rename a route without a redirect plan and
 explicit approval.

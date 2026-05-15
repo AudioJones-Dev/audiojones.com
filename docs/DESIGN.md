@@ -83,7 +83,7 @@ expertise into scalable infrastructure.
 ## 3. Site architecture
 
 Authoritative source for routes and nav:
-[`MARKETING-IA.md`](../MARKETING-IA.md) and `src/config/nav.ts`.
+[`MARKETING-IA.md`](./archive/MARKETING-IA.md) and `src/config/nav.ts`.
 
 ### Primary nav
 
@@ -187,7 +187,7 @@ brand folder, this doc).
 - Numbers > adjectives. "Recovered $X" beats "boosts revenue".
 - One CTA per section. Lead with the diagnostic or the call.
 
-See [`MARKETING-IA.md`](../MARKETING-IA.md) for the funnel and module
+See [`MARKETING-IA.md`](./archive/MARKETING-IA.md) for the funnel and module
 map this voice serves.
 
 ---

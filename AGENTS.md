@@ -71,7 +71,7 @@ surface and Applied Intelligence flows.
 | Env template         | [`.env.example`](./.env.example)                            |
 | Env validation       | `packages/config/env.schema.ts`                             |
 | Stack decision       | [`docs/architecture/stack-decision.md`](./docs/architecture/stack-decision.md) |
-| Marketing IA         | [`MARKETING-IA.md`](./MARKETING-IA.md)                      |
+| Marketing IA         | [`docs/archive/MARKETING-IA.md`](./docs/archive/MARKETING-IA.md) |
 | Nav config           | `src/config/nav.ts`                                         |
 | Lead intake          | `src/app/api/applied-intelligence/leads/route.ts`           |
 | Lead persistence     | `src/db/leads.ts`, `db/migrations/`                         |

@@ -335,7 +335,7 @@ Then summarize which pages now depend on src/config/modules.ts.
 
 ## Related Documentation
 
-- [MARKETING-IA.md](../MARKETING-IA.md) - Marketing site information architecture
+- [MARKETING-IA.md](./archive/MARKETING-IA.md) - Marketing site information architecture
 - [.github/copilot-instructions.md](../.github/copilot-instructions.md) - AI development guide
 - [DEPLOYMENT.md](../DEPLOYMENT.md) - Deployment procedures
 
