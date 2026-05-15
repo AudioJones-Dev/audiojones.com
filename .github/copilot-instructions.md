@@ -1,183 +1,155 @@
-﻿# Audio Jones Website - AI Development Guide
+# Audio Jones Website — AI Development Guide
 
-## Architecture Overview
+> This file is the GitHub Copilot / AI agent guide for **audiojones.com**.
+> The durable contract is in [`AGENTS.md`](../AGENTS.md) at the repo
+> root; Claude-specific notes are in [`CLAUDE.md`](../CLAUDE.md). Read
+> those first.
 
-This is a Next.js 16 (React 19) website for Audio Jones' AI branding and marketing services, built on a Firebase-first architecture with advanced integrations.
+## What this repo is
 
-### Core Tech Stack
-- **Frontend**: Next.js 16 + React 19 + TypeScript + Tailwind CSS 4
-- **Database**: Firebase Data Connect (PostgreSQL via Google Cloud SQL) 
-- **Auth**: Firebase Auth with custom admin claims
-- **Storage**: Firebase Storage + ImageKit CDN
-- **Functions**: Firebase Functions (Node.js)
-- **Deployment**: Codex (internal tooling) + Vercel integration
+`audiojones.com` is the **public marketing site** for AJ Digital LLC —
+content, SEO/AEO, the Applied Intelligence diagnostic, lead capture, and
+booking. It is **not** an admin/portal application; the legacy
+`/portal/*` and `/api/admin/*` surface is being phased out and should
+not be deepened.
 
-### Key Firebase Services Integration
-- **Authentication**: Custom admin claims for role-based access (`admin` claim)
-- **Data Connect**: Generated TypeScript clients in `src/dataconnect-generated/`
-- **Functions**: Located in `functions/` with separate package.json
-- **Storage**: File uploads via Firebase Storage with ImageKit optimization
+## Stack
 
-## Essential Patterns & Conventions
-
-### Authentication Flow
-```typescript
-// Client auth pattern (all portal pages use this)
-const { user, loading } = useAuth(); // Custom hook wrapping Firebase auth
-const { loading } = useRequireAuth({ redirectTo: "/login" }); // Portal layout pattern
+```
+Cloudflare → Vercel + Next.js 16 (App Router, React 19, TypeScript strict)
+             → Sanity CMS
+             → NeonDB (Postgres) — leads + structured data
+             → Resend — transactional email
+             → n8n — optional workflow automation
+             → Supabase — only when auth/storage/realtime is needed
+             → Whop / Stripe — licensing and payments
+             → ImageKit — media CDN
 ```
 
-### API Routes Structure
-- **Admin APIs**: `src/app/api/admin/*` - Require `admin` custom claim verification
-- **Integration APIs**: Stripe (`api/stripe/*`), Whop (`api/whop/*`), N8N (`api/n8n/*`)
-- **Auth pattern**: Bearer token validation with Firebase Admin SDK
+**Firebase is intentionally excluded.** Do not reintroduce
+`firebase`, `firebase-admin`, `FIREBASE_*`, or
+`NEXT_PUBLIC_FIREBASE_*`. The `pnpm check:no-firebase` script fails CI
+if you do. See [`docs/DECISIONS.md`](../docs/DECISIONS.md) and
+[`docs/architecture/stack-decision.md`](../docs/architecture/stack-decision.md)
+for the rationale.
 
-### Portal Architecture
-- **Layout**: `src/app/portal/layout.tsx` - Auth-protected wrapper
-- **Sections**: admin/, bookings/, contracts/, crm/, files/, invoices/, licenses/, orders/, payments/
-- **Navigation**: Centralized in `src/app/portal/components/PortalNav`
+## Canonical paths
 
-### Environment Configuration
-Two-tier env setup (see README.md):
-1. **Root**: `.env.local` (Next.js + Firebase client vars)
-2. **Functions**: `functions/.env` (server-side secrets)
+| Concern              | Source of truth                                                |
+| -------------------- | -------------------------------------------------------------- |
+| Product brief        | [`docs/PRD.md`](../docs/PRD.md)                                |
+| Design system        | [`docs/DESIGN.md`](../docs/DESIGN.md)                          |
+| Roadmap              | [`docs/ROADMAP.md`](../docs/ROADMAP.md)                        |
+| Security posture     | [`docs/SECURITY.md`](../docs/SECURITY.md)                      |
+| Deployment / env     | [`docs/DEPLOYMENT.md`](../docs/DEPLOYMENT.md)                  |
+| Decision log         | [`docs/DECISIONS.md`](../docs/DECISIONS.md)                    |
+| Changelog            | [`docs/CHANGELOG.md`](../docs/CHANGELOG.md)                    |
+| Env shape            | [`.env.example`](../.env.example)                              |
+| Env validation       | `packages/config/env.schema.ts`                                |
+| Marketing IA         | [`MARKETING-IA.md`](../MARKETING-IA.md)                        |
+| Nav config           | `src/config/nav.ts`                                            |
+| Lead intake          | `src/app/api/applied-intelligence/leads/route.ts`              |
+| Lead persistence     | `src/db/leads.ts`, `db/migrations/`                            |
 
-Critical vars: Firebase config, Stripe keys, Whop API, MailerLite, admin credentials JSON
+## Architecture patterns
 
-### Development Workflows
+### Lead capture (the most important flow)
 
-### Getting Started
+1. Form submits to `src/app/api/applied-intelligence/leads/route.ts` (or
+   the generic `src/app/api/leads/route.ts`).
+2. Handler validates with **Zod**, rate-limits per IP, and scores the
+   lead via `src/lib/leads/lead-scoring.ts`.
+3. Lead is **persisted to NeonDB** (`src/db/leads.ts →
+   insertAppliedIntelligenceLead`) **before** the response returns.
+4. Internal notification is sent via **Resend**
+   (`RESEND_API_KEY` + `LEAD_NOTIFICATION_EMAIL`).
+5. Optional `N8N_LEAD_WEBHOOK_URL` fires last; failures are logged but
+   never block the response.
+
+### Content
+
+Long-form content (insights, blog, topic clusters) lives in **Sanity
+CMS** and is rendered through the App Router. Schema notes:
+[`docs/sanity-blog-content-model.md`](../docs/sanity-blog-content-model.md).
+
+### Commerce
+
+- **Whop** (`/api/whop/*`) — productized offerings, licensing.
+- **Stripe** (`/api/stripe/*`) — payments and customer portal.
+
+The site links into checkout but does not own post-purchase fulfillment.
+
+### Imagery
+
+`IKImage` (in `src/components/`) routes through ImageKit in production
+and falls back to local `/public` assets in dev. Use `IKImage` instead
+of raw `<Image>` for any path under `/assets/`.
+
+### Tailwind & tokens
+
+Tailwind v4 with CSS variables. Tokens are defined in **four** places
+that must stay in sync — see [`docs/DESIGN.md`](../docs/DESIGN.md).
+Reach for the semantic typography classes (`.h-display`, `.h-1`,
+`.eyebrow`, `.metric`) before hand-rolling type stacks.
+
+## Workflow
+
+### Before changes
+
+1. Read the relevant canonical doc above.
+2. Read the surrounding files; match existing patterns.
+3. If the change feels architectural, add a
+   [`DECISIONS.md`](../docs/DECISIONS.md) entry instead of guessing.
+
+### While changing code
+
+- Prefer editing existing files over creating new ones.
+- Keep diffs minimal and scoped. Don't refactor for taste.
+- Don't introduce new dependencies without explicit approval.
+- Don't add comments that restate the code; add comments only when the
+  *why* is non-obvious.
+- Don't create new top-level `*_COMPLETE.md` / `*_HARDENING_*.md` reports.
+  Add to [`docs/CHANGELOG.md`](../docs/CHANGELOG.md) instead.
+
+### Before committing
+
 ```bash
-npm ci                           # Install dependencies
-npm run dev                      # Start dev server
-npm --prefix functions ci        # Install function dependencies
+pnpm install            # if dependencies could have drifted
+pnpm typecheck
+pnpm lint
+pnpm check:no-firebase
+pnpm build
 ```
 
-### Image Conversion (when adding ImageKit)
-```bash
-# Convert all Image imports to IKImage automatically
-node scripts/convert-to-ikimage.js
-git diff                         # Review changes
-git add -A && git commit -m "chore: convert to IKImage loader"
-```
+If any step fails, **fix the cause**. Do not bypass it (no `--no-verify`,
+no skipping the Firebase guard).
 
-### Codex Integration (Deployment)
-```bash
-npm run repo:init               # Initialize Codex workspace
-npm run repo:sync               # Sync with Codex
-npm run repo:commit             # Auto-commit via Codex
-```
+## Security
 
-### Admin User Management
-```bash
-# Grant admin claims (requires Firebase Admin setup)
-npx tsx tools/set-admin-claim.ts <email>
-npx tsx tools/set-admin-claim.ts <uid>
-```
+- No secrets in the repo — ever. Storage is Vercel env vars (or
+  Doppler/1Password locally). See [`docs/SECURITY.md`](../docs/SECURITY.md).
+- Webhook routes verify signatures from `*_WEBHOOK_SECRET`.
+- `NEXT_PUBLIC_*` is shipped to the browser; server-only secrets must
+  not start with that prefix.
 
-### Security Layer Architecture
-Three-layer protection for admin routes:
-1. **Edge Middleware**: `middleware.ts` - Checks for session cookies before allowing `/portal/admin/*`
-2. **Server Layout**: `src/app/portal/admin/layout.tsx` - Verifies Firebase session cookie + admin claim
-3. **API Guards**: Individual API routes verify Bearer tokens + admin claims
+## Common pitfalls
 
-## Component Patterns
+- **Firebase imports.** Even harmless ones break CI via
+  `check:no-firebase`. There is no Firebase in this site.
+- **Skipping Neon persistence.** Lead handlers must write to Neon
+  *before* responding 200. Do not move the persistence call after the
+  Resend / n8n calls.
+- **Truncated long secrets in Vercel.** Use the CLI with file input;
+  see [`docs/DEPLOYMENT.md`](../docs/DEPLOYMENT.md).
+- **Stale workspace package builds.** `pnpm build` already runs
+  `pnpm packages:build`; if you bypass it, expect missing exports from
+  `@aj/*`.
+- **Missing Sanity dataset env.** Without
+  `NEXT_PUBLIC_SANITY_PROJECT_ID`, the blog surface renders empty
+  rather than failing — set it explicitly per environment.
 
-### ImageKit Integration
-- **Config**: `next.config.ts` allows `ik.imagekit.io` domain
-- **Components**: `IKImage` automatically routes through ImageKit in production, serves locally in dev
-- **Loader**: `src/lib/imagekit.ts` maps local paths to ImageKit URLs with cache-busting
-- **Auth endpoint**: `src/app/api/imagekit-auth/route.ts`
-- **Smart fallback**: Works without ImageKit in dev, automatically uses ImageKit in production
+## Routes
 
-### Image Optimization Patterns
-```typescript
-// Use IKImage instead of Image for automatic ImageKit routing
-import IKImage from "@/components/IKImage";
-
-// Automatically maps /assets/Icons/mic.svg -> ik.imagekit.io/.../icons/mic.svg?v=<sha>
-<IKImage src="/assets/Icons/mic.svg" alt="Mic" width={64} height={64} />
-
-// For raw img tags, use getImageSrc helper
-import { getImageSrc } from "@/lib/imagekit";
-<img src={getImageSrc("/assets/Icons/mic.svg", 64)} alt="Mic" />
-```
-
-### Toast System
-- **Provider**: Wrap layouts with `<ToastProvider>`
-- **Usage**: Global toast context for user feedback
-
-### Form Patterns
-- **AuthForm**: Unified login/register component with mode switching
-- **InputField**: Reusable form input with consistent styling
-
-## Data Patterns
-
-### Firebase Data Connect
-- **Schema**: Defined in `dataconnect/schema/schema.gql`
-- **Queries/Mutations**: `dataconnect/example/` directory
-- **Generated Types**: Auto-imported from `@dataconnect/generated`
-- **Usage**: Import generated hooks for type-safe data operations
-
-### External Integrations
-- **Stripe**: Checkout + customer portal via API routes
-- **Whop**: Product licensing and customer management
-- **N8N**: Workflow automation backend
-- **MailerLite**: Newsletter subscription management
-
-## Security Model
-
-### Authentication Layers
-1. **Client Auth**: Firebase Auth for user sessions
-2. **Edge Protection**: Middleware checks session cookies for admin routes
-3. **Server Verification**: Admin layout verifies session cookie + admin claims
-4. **API Security**: Bearer token validation in protected routes
-
-### Admin Access Pattern
-```typescript
-// Standard admin verification in API routes
-async function requireAdmin(req: NextRequest) {
-  const authz = req.headers.get('authorization');
-  const decoded = await adminAuth().verifyIdToken(token, true);
-  if (!decoded.admin) throw new Error('Admin required');
-}
-
-// Server-side session cookie verification (admin layout)
-const decoded = await adminAuth().verifySessionCookie(sessionCookie, true);
-if (decoded.admin !== true) redirect('/not-authorized');
-```
-
-## File Organization
-
-### Critical Directories
-- `src/app/portal/` - All authenticated user functionality
-- `src/app/api/admin/` - Admin-only API endpoints  
-- `src/lib/firebase/` - Firebase client/server configuration
-- `src/dataconnect-generated/` - Auto-generated Data Connect types
-- `functions/` - Firebase Functions (separate Node.js project)
-- `dataconnect/` - Database schema and operations
-
-### Styling Approach
-- **Tailwind**: Version 4 with CSS variables
-- **Theme**: Dark theme (`bg-black text-white`) as primary
-- **Typography**: Geist Sans/Mono fonts loaded in root layout
-
-## Debugging & Troubleshooting
-
-### Common Issues
-- **Auth failures**: Check Firebase config in `.env.local`
-- **Admin access**: Verify custom claims via `api/admin/whoami`
-- **Functions**: Separate deployment - check `functions/.env`
-- **Data Connect**: Regenerate types after schema changes
-
-### Environment Validation
-- Test Firebase Admin: `GET /api/test-firebase-admin`
-- Test auth state: `GET /api/admin/ping` (requires admin token)
-- N8N connectivity: `GET /api/n8n/me`
-- Admin permission test: Visit `/portal/admin` with different user types
-
-### Admin Security Testing
-1. **Logged out**: `/portal/admin` → redirects to `/login?next=/portal/admin`
-2. **Non-admin user**: `/portal/admin` → redirects to `/not-authorized` 
-3. **Admin user**: `/portal/admin` → shows admin interface
-4. **API 403 handling**: Use `/api/not-authorized` for consistent error responses
+Authoritative list: [`MARKETING-IA.md`](../MARKETING-IA.md) and
+`src/config/nav.ts`. Do not rename a route without a redirect plan and
+explicit approval.
