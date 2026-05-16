@@ -26,6 +26,7 @@ export declare const EnvSchema: z.ZodObject<{
     CRM_WEBHOOK_URL: z.ZodOptional<z.ZodString>;
     LEAD_FORM_SECRET: z.ZodOptional<z.ZodString>;
     IP_HASH_SALT: z.ZodOptional<z.ZodString>;
+    NEXT_PUBLIC_BOOKING_URL: z.ZodOptional<z.ZodString>;
     STRIPE_SECRET_KEY: z.ZodOptional<z.ZodString>;
     NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: z.ZodOptional<z.ZodString>;
     STRIPE_WEBHOOK_SECRET: z.ZodOptional<z.ZodString>;
@@ -65,6 +66,7 @@ export declare const EnvSchema: z.ZodObject<{
     CRM_WEBHOOK_URL?: string | undefined;
     LEAD_FORM_SECRET?: string | undefined;
     IP_HASH_SALT?: string | undefined;
+    NEXT_PUBLIC_BOOKING_URL?: string | undefined;
     STRIPE_SECRET_KEY?: string | undefined;
     NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY?: string | undefined;
     STRIPE_WEBHOOK_SECRET?: string | undefined;
@@ -102,6 +104,7 @@ export declare const EnvSchema: z.ZodObject<{
     CRM_WEBHOOK_URL?: string | undefined;
     LEAD_FORM_SECRET?: string | undefined;
     IP_HASH_SALT?: string | undefined;
+    NEXT_PUBLIC_BOOKING_URL?: string | undefined;
     STRIPE_SECRET_KEY?: string | undefined;
     NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY?: string | undefined;
     STRIPE_WEBHOOK_SECRET?: string | undefined;

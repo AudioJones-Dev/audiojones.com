@@ -52,6 +52,13 @@ export const EnvSchema = z.object({
   // Applied Intelligence diagnostic
   LEAD_FORM_SECRET: z.string().min(1).optional(),
   IP_HASH_SALT: z.string().min(1).optional(),
+
+  // Booking provider — Calendly or Cal.com scheduling URL rendered by
+  // /book-a-call. Optional: when unset, the page falls back to an
+  // apply-async CTA. Loose string validator (rather than .url()) so a
+  // typo in Doppler doesn't fail module load; the iframe will simply
+  // fail to render and the operator can fix the value.
+  NEXT_PUBLIC_BOOKING_URL: z.string().min(1).optional(),
   
   // Stripe payments
   STRIPE_SECRET_KEY: z.string().min(1).optional(),

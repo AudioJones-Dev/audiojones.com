@@ -15,6 +15,12 @@ Entries are reverse chronological. Format follows
 
 ## Unreleased
 
+### Added
+- Wired `/book-a-call` to an `<iframe>` scheduler embed driven by
+  `NEXT_PUBLIC_BOOKING_URL` (Calendly or Cal.com). Falls back to an
+  apply-async CTA when the variable is unset. See
+  [`docs/DECISIONS.md`](./DECISIONS.md) (2026-05-16 entry).
+
 ### Documentation
 - Established the canonical `docs/` hierarchy: `PRD.md`, `DESIGN.md`,
   `ROADMAP.md`, `SECURITY.md`, `DEPLOYMENT.md`, `DECISIONS.md`,

@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
+import BookACallEmbed from "@/components/marketing/BookACallEmbed";
 import {
   DarkSection,
   LightProofSection,
   SectionIntro,
-  SignalConsole,
   SignalHero,
 } from "@/components/marketing/DesignSystemSections";
-import { ButtonLink } from "@/components/ui/Button";
 import { buildMetadata } from "@/lib/seo/metadata";
 
 const DESCRIPTION =
@@ -24,12 +23,12 @@ export default function BookACallPage() {
       <SignalHero
         title="Book the call after you know what system is missing."
         description={DESCRIPTION}
-        primaryHref="/apply"
-        primaryLabel="Apply for Engagement"
-        secondaryHref="/ai-readiness-diagnostic"
-        secondaryLabel="Start the Diagnostic"
+        primaryHref="/ai-readiness-diagnostic"
+        primaryLabel="Start the Diagnostic"
+        secondaryHref="/apply"
+        secondaryLabel="Apply Async"
       >
-        <SignalConsole />
+        <BookACallEmbed />
       </SignalHero>
 
       <DarkSection>
@@ -41,22 +40,17 @@ export default function BookACallPage() {
           />
           <div className="aj-form-panel">
             <p className="text-xs font-bold uppercase tracking-[0.16em] text-[var(--aj-orange)]">
-              Booking Path
+              Before You Book
             </p>
             <h2 className="mt-4 font-accent text-3xl font-bold tracking-[-0.03em] text-fg-0">
-              Apply first, then schedule.
+              Bring a constraint, not a wish list.
             </h2>
             <p className="mt-4 text-sm leading-7 text-fg-2">
-              Calendar scheduling integration is being routed through the application flow. Submit the engagement application and Audio Jones will follow up with the right call path.
+              The most useful 30 minutes start with one specific bottleneck —
+              follow-up speed, attribution clarity, content cadence, fulfillment
+              drag. Audio Jones will diagnose it on the call and recommend the
+              next system.
             </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <ButtonLink href="/apply" variant="glow">
-                Apply for Engagement
-              </ButtonLink>
-              <ButtonLink href="/roi-calculator" variant="secondary">
-                Calculate Lost Revenue
-              </ButtonLink>
-            </div>
           </div>
         </div>
       </DarkSection>

@@ -77,7 +77,20 @@ pnpm dev
 4. Reference it from code via the validated config — never directly
    from `process.env` in app code if a typed accessor exists.
 
-### 3.4 Removing a variable
+### 3.4 Booking provider (`NEXT_PUBLIC_BOOKING_URL`)
+
+The `/book-a-call` page renders a `<iframe>` scheduler embed sourced
+from `NEXT_PUBLIC_BOOKING_URL` — typically a Calendly or Cal.com event
+URL. Set it in Vercel for **production**, **preview**, and
+**development** scopes so previews behave like production. The page
+degrades to an apply-async CTA when the variable is unset, so missing
+the value in a preview won't break the build — but it will silently
+swap the conversion path back to `/apply`. When rotating the booking
+URL, update all three Vercel scopes together; the value is public
+(it's already prefixed `NEXT_PUBLIC_`), so no `--sensitive` flag is
+needed.
+
+### 3.5 Removing a variable
 
 1. Remove the consumer code first.
 2. Remove from `.env.example` and `packages/config/env.schema.ts` in

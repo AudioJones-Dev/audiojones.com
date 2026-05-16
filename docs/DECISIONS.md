@@ -106,6 +106,31 @@ and humans both end up reading stale material.
 
 ---
 
+## 2026-05-16 — Booking provider configured via NEXT_PUBLIC_BOOKING_URL
+
+**Status:** accepted
+**Decision:** `/book-a-call` embeds a scheduler iframe sourced from a
+single env var, `NEXT_PUBLIC_BOOKING_URL` (Calendly or Cal.com event
+link). The site does not depend on a provider-specific SDK; a plain
+`<iframe>` keeps the path provider-agnostic and dependency-free.
+
+**Rationale:** PRD §4.2 contracts `/book-a-call` to link into the
+scheduling provider, not to host the booking surface. A single public
+env var lets us swap providers (Calendly ↔ Cal.com) without code
+changes, keeps preview/production parity easy to configure, and
+avoids pulling in a provider embed SDK that would add bundle weight
+and a fresh dependency surface.
+
+**Consequences:**
+- `NEXT_PUBLIC_BOOKING_URL` is documented in `.env.example` and
+  validated (loosely) in `packages/config/env.schema.ts`.
+- When the variable is unset (local dev, unconfigured preview), the
+  page renders a graceful apply-async fallback instead of an empty
+  iframe.
+- Switching providers later is an env-var change, not a code change.
+
+---
+
 ## How to add an entry
 
 1. Append to the bottom of this file with today's date.
