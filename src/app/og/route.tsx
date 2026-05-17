@@ -2,8 +2,12 @@ import { ImageResponse } from "next/og";
 import { siteConfig } from "@/lib/site";
 
 export const runtime = "edge";
-export const contentType = "image/png";
-export const size = { width: 1200, height: 630 };
+
+// satori (the renderer behind next/og) requires every parent of multiple
+// children to declare display: "flex" or display: "none", and does not
+// support <br/>. Layouts here are expressed as nested flex columns/rows
+// for that reason — see vercel.com/docs/functions/og-image-generation.
+const OG_SIZE = { width: 1200, height: 630 };
 
 // Default OG card served at /og — used as the brand-wide social fallback
 // referenced by metadata, schema, and explicit per-page openGraph.images
@@ -39,6 +43,7 @@ export async function GET() {
         >
           <div
             style={{
+              display: "flex",
               width: 18,
               height: 18,
               borderRadius: 9,
@@ -46,7 +51,7 @@ export async function GET() {
               boxShadow: "0 0 24px rgba(255,69,0,0.85)",
             }}
           />
-          Audio Jones
+          <div style={{ display: "flex" }}>Audio Jones</div>
         </div>
 
         <div
@@ -58,6 +63,8 @@ export async function GET() {
         >
           <div
             style={{
+              display: "flex",
+              flexDirection: "column",
               fontSize: 80,
               fontWeight: 800,
               lineHeight: 1.04,
@@ -65,12 +72,14 @@ export async function GET() {
               maxWidth: 1000,
             }}
           >
-            Founder Intelligence Systems™
-            <br />
-            <span style={{ color: "#FF4500" }}>for founder-led businesses.</span>
+            <div style={{ display: "flex" }}>Founder Intelligence Systems™</div>
+            <div style={{ display: "flex", color: "#FF4500" }}>
+              for founder-led businesses.
+            </div>
           </div>
           <div
             style={{
+              display: "flex",
               fontSize: 30,
               fontWeight: 400,
               color: "rgba(255,255,255,0.78)",
@@ -91,11 +100,15 @@ export async function GET() {
             color: "rgba(255,255,255,0.6)",
           }}
         >
-          <span>{siteConfig.url.replace(/^https?:\/\//, "")}</span>
-          <span style={{ color: "#C8A96A" }}>All Signal. No Noise.</span>
+          <div style={{ display: "flex" }}>
+            {siteConfig.url.replace(/^https?:\/\//, "")}
+          </div>
+          <div style={{ display: "flex", color: "#C8A96A" }}>
+            All Signal. No Noise.
+          </div>
         </div>
       </div>
     ),
-    size,
+    OG_SIZE,
   );
 }
