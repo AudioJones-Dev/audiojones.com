@@ -65,7 +65,7 @@ export async function GET() {
               maxWidth: 1000,
             }}
           >
-            Applied Intelligence Systems
+            Founder Intelligence Systems™
             <br />
             <span style={{ color: "#FF4500" }}>for founder-led businesses.</span>
           </div>
@@ -78,8 +78,7 @@ export async function GET() {
               lineHeight: 1.35,
             }}
           >
-            Identify causal growth signals. Reduce noise. Build the system that
-            compounds.
+            Find the signal. Fix the system. Compound what works.
           </div>
         </div>
 
