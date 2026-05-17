@@ -45,10 +45,40 @@ export default function PricingPage() {
             {
               "@type": "ListItem",
               "position": 2,
-              "name": "Pricing"
+              "name": "Pricing",
+              "item": "https://audiojones.com/pricing"
             }
           ]
         }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Do you offer month-to-month?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Most clients start month-to-month while we dial in the content system."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can you integrate with our existing studio setup?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. We can work with your current production tools and CRMs."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What's included in support?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Pro and Enterprise get priority support, reporting, and automation updates."
+            }
+          }
+        ]
       }
     ]
   };
