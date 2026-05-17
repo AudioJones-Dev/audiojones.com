@@ -39,7 +39,7 @@ export default function WebhooksPage() {
     try {
       const response = await fetch('/api/admin/webhooks', {
         headers: {
-          'admin-key': 'gGho3TE8ztiSAMvORfyCDem62Fk0xpW1'
+          'admin-key': ''
         }
       });
 
@@ -72,7 +72,7 @@ export default function WebhooksPage() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'admin-key': 'gGho3TE8ztiSAMvORfyCDem62Fk0xpW1'
+          'admin-key': ''
         },
         body: JSON.stringify({ event_id: eventId })
       });

@@ -16,7 +16,7 @@ import { RefreshCw, CheckCircle2, XCircle, Clock, AlertTriangle, Play, Plus, Edi
 
 // Helper to get admin key
 const getAdminKey = (): string => {
-  return process.env.NEXT_PUBLIC_ADMIN_KEY || '';
+  return '';
 };
 
 interface WebhookDeliveryAttempt {

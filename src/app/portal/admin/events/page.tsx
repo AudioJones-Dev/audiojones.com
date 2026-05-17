@@ -12,7 +12,7 @@ import { RefreshCw, Play, Eye, AlertTriangle, CheckCircle2, XCircle, Clock, Acti
 
 // Helper to get admin key
 const getAdminKey = (): string => {
-  return process.env.NEXT_PUBLIC_ADMIN_KEY || '';
+  return '';
 };
 
 interface EventBusEvent {

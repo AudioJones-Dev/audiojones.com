@@ -44,7 +44,7 @@ export default function AuditPage() {
       
       const response = await fetch(`/api/admin/audit?${params}`, {
         headers: {
-          'admin-key': 'gGho3TE8ztiSAMvORfyCDem62Fk0xpW1'
+          'admin-key': ''
         }
       });
 

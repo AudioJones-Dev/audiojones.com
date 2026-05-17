@@ -61,7 +61,7 @@ export default function ReportsPage() {
       
       const response = await fetch(`/api/admin/reports/summary?period=${period}`, {
         headers: {
-          'admin-key': 'gGho3TE8ztiSAMvORfyCDem62Fk0xpW1'
+          'admin-key': ''
         }
       });
 
@@ -85,7 +85,7 @@ export default function ReportsPage() {
     try {
       const response = await fetch(`/api/admin/export/${type}?format=${format}`, {
         headers: {
-          'admin-key': 'gGho3TE8ztiSAMvORfyCDem62Fk0xpW1'
+          'admin-key': ''
         }
       });
 
@@ -127,7 +127,7 @@ export default function ReportsPage() {
     try {
       const response = await fetch('/api/admin/reports/export', {
         headers: {
-          'admin-key': 'gGho3TE8ztiSAMvORfyCDem62Fk0xpW1'
+          'admin-key': ''
         }
       });
 

@@ -63,7 +63,7 @@ export default function IncidentSubscriptionManager({
 
       const response = await fetch(`/api/admin/incidents/${incidentId}/subscribers`, {
         headers: {
-          'admin-key': process.env.NEXT_PUBLIC_ADMIN_KEY || '',
+          'admin-key': '',
         },
       });
 
@@ -92,7 +92,7 @@ export default function IncidentSubscriptionManager({
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'admin-key': process.env.NEXT_PUBLIC_ADMIN_KEY || '',
+          'admin-key': '',
         },
         body: JSON.stringify(newSubscriber),
       });
@@ -130,7 +130,7 @@ export default function IncidentSubscriptionManager({
       const response = await fetch(`/api/admin/incidents/${incidentId}/subscribe?subscriber=${encodeURIComponent(subscriber)}`, {
         method: 'DELETE',
         headers: {
-          'admin-key': process.env.NEXT_PUBLIC_ADMIN_KEY || '',
+          'admin-key': '',
         },
       });
 

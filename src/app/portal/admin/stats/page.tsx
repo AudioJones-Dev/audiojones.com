@@ -63,7 +63,7 @@ export default function AdminStatsPage() {
     try {
       const response = await fetch('/api/admin/analytics/summary', {
         headers: {
-          'admin-key': 'gGho3TE8ztiSAMvORfyCDem62Fk0xpW1',
+          'admin-key': '',
         },
       });
 
@@ -81,7 +81,7 @@ export default function AdminStatsPage() {
     try {
       const response = await fetch('/api/admin/health', {
         headers: {
-          'admin-key': 'gGho3TE8ztiSAMvORfyCDem62Fk0xpW1',
+          'admin-key': '',
         },
       });
 
@@ -97,7 +97,7 @@ export default function AdminStatsPage() {
     try {
       const response = await fetch('/api/admin/stats', {
         headers: {
-          'admin-key': 'gGho3TE8ztiSAMvORfyCDem62Fk0xpW1',
+          'admin-key': '',
         },
       });
 
