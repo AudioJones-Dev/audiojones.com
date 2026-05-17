@@ -1,4 +1,14 @@
 // src/app/cancellation-policy/page.tsx
+import type { Metadata } from "next";
+import { buildMetadata } from "@/lib/seo/metadata";
+
+export const metadata: Metadata = buildMetadata({
+  title: "Cancellation & Refund Policy",
+  description:
+    "Cancellation windows, refund eligibility, and rescheduling rules for Audio Jones consulting, recurring engagements, and studio sessions.",
+  path: "/cancellation-policy",
+});
+
 export default function CancellationPolicyPage() {
   const lastUpdated = "October 29, 2025";
 

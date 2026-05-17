@@ -1,7 +1,16 @@
 /* app/pricing/page.tsx */
 
+import type { Metadata } from "next";
 import Link from 'next/link';
 import { getAllServices, applyMarketRules } from '@/lib/getPricing';
+import { buildMetadata } from "@/lib/seo/metadata";
+
+export const metadata: Metadata = buildMetadata({
+  title: "Pricing — Audio Jones Applied Intelligence Plans",
+  description:
+    "Transparent AI consulting and Applied Intelligence Systems pricing for founder-led businesses. Diagnostics, retainers, and build packages with no hidden tiers.",
+  path: "/pricing",
+});
 
 export default function PricingPage() {
   // Load all services and apply market rules
