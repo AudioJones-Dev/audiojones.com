@@ -8,7 +8,7 @@ jobs:
   smoke_preview:
     runs-on: ubuntu-latest
     steps:
-      - name: Resolve preview deployment URL
+      - name: Wait for Vercel preview deployment
         id: preview
         env:
           GH_TOKEN: ${{ github.token }}
@@ -17,30 +17,67 @@ jobs:
         run: |
           set -euo pipefail
 
+          # Vercel registers the Preview deployment on GitHub *after* the
+          # PR workflow starts. A one-shot lookup therefore races the
+          # deployment and fails immediately even when Vercel later
+          # publishes a healthy preview, producing recurring false
+          # negatives on this check. Poll the Deployments API until the
+          # Preview deployment exists AND has a status row with
+          # state=success + environment_url. Bounded: 30 attempts every
+          # 10 seconds = 5 minutes maximum wait.
+          MAX_ATTEMPTS=30
+          SLEEP_SECS=10
           DEPLOYMENTS_URL="https://api.github.com/repos/${REPO}/deployments?sha=${SHA}&per_page=20"
-          DEPLOYMENT_ID="$(curl -sS \
-            -H "Authorization: Bearer ${GH_TOKEN}" \
-            -H "Accept: application/vnd.github+json" \
-            "$DEPLOYMENTS_URL" | jq -r '[.[] | select(.environment == "Preview")] | first | .id // empty')"
 
-          if [ -z "$DEPLOYMENT_ID" ]; then
-            echo "No Preview deployment found for commit ${SHA}"
-            exit 1
-          fi
+          PREVIEW_URL=""
+          LAST_STATE=""
+          for attempt in $(seq 1 "$MAX_ATTEMPTS"); do
+            DEPLOYMENT_ID="$(curl -sS \
+              -H "Authorization: Bearer ${GH_TOKEN}" \
+              -H "Accept: application/vnd.github+json" \
+              "$DEPLOYMENTS_URL" | jq -r '[.[] | select(.environment == "Preview")] | first | .id // empty')"
 
-          STATUS_URL="https://api.github.com/repos/${REPO}/deployments/${DEPLOYMENT_ID}/statuses?per_page=20"
-          PREVIEW_URL="$(curl -sS \
-            -H "Authorization: Bearer ${GH_TOKEN}" \
-            -H "Accept: application/vnd.github+json" \
-            "$STATUS_URL" | jq -r '[.[] | select(.state == "success" and .environment_url != null)] | first | .environment_url // empty')"
+            if [ -z "$DEPLOYMENT_ID" ]; then
+              echo "[attempt ${attempt}/${MAX_ATTEMPTS}] No Preview deployment registered yet for ${SHA}; sleeping ${SLEEP_SECS}s"
+              sleep "$SLEEP_SECS"
+              continue
+            fi
+
+            STATUS_URL="https://api.github.com/repos/${REPO}/deployments/${DEPLOYMENT_ID}/statuses?per_page=20"
+            STATUS_JSON="$(curl -sS \
+              -H "Authorization: Bearer ${GH_TOKEN}" \
+              -H "Accept: application/vnd.github+json" \
+              "$STATUS_URL")"
+
+            PREVIEW_URL="$(echo "$STATUS_JSON" | jq -r '[.[] | select(.state == "success" and .environment_url != null)] | first | .environment_url // empty')"
+            if [ -n "$PREVIEW_URL" ]; then
+              echo "[attempt ${attempt}/${MAX_ATTEMPTS}] Resolved preview URL: ${PREVIEW_URL}"
+              break
+            fi
+
+            # Fail fast on terminal Vercel failure states — additional
+            # polling will not recover a deployment that Vercel itself
+            # marked as failed or errored.
+            TERMINAL_FAILURE="$(echo "$STATUS_JSON" | jq -r '[.[] | select(.state == "failure" or .state == "error")] | first | .state // empty')"
+            if [ -n "$TERMINAL_FAILURE" ]; then
+              echo "Preview deployment ${DEPLOYMENT_ID} reported terminal state: ${TERMINAL_FAILURE}"
+              echo "Status history:"
+              echo "$STATUS_JSON" | jq -r '.[] | "  - \(.created_at) state=\(.state) env_url=\(.environment_url)"'
+              exit 1
+            fi
+
+            LAST_STATE="$(echo "$STATUS_JSON" | jq -r '[.[]] | first | .state // "no-statuses"')"
+            echo "[attempt ${attempt}/${MAX_ATTEMPTS}] Deployment ${DEPLOYMENT_ID} state=${LAST_STATE}; sleeping ${SLEEP_SECS}s"
+            sleep "$SLEEP_SECS"
+          done
 
           if [ -z "$PREVIEW_URL" ]; then
-            echo "No successful deployment status with environment_url found for deployment ${DEPLOYMENT_ID}"
+            echo "Timed out after $((MAX_ATTEMPTS * SLEEP_SECS))s waiting for a successful Preview deployment for ${SHA}"
+            echo "Last observed deployment status state: ${LAST_STATE:-unknown}"
             exit 1
           fi
 
           echo "preview_url=${PREVIEW_URL}" >> "$GITHUB_OUTPUT"
-          echo "Resolved preview URL: ${PREVIEW_URL}"
 
       - name: Smoke check preview routes
         env:
