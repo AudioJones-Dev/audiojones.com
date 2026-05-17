@@ -21,7 +21,7 @@ export function buildMetadata({
     ? ogImage.startsWith("http")
       ? ogImage
       : `${SITE_URL}${ogImage}`
-    : `${SITE_URL}/assets/og/audio-jones-og.jpg`;
+    : `${SITE_URL}/og`;
 
   return {
     title,

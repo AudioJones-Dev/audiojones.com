@@ -14,27 +14,15 @@ import {
   personJsonLd,
   webSiteJsonLd,
 } from "@/lib/seo/schema";
+import { buildMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = {
-  title: "Audio Jones — Applied Intelligence Systems for founder-led businesses",
+export const metadata: Metadata = buildMetadata({
+  title:
+    "Audio Jones — Applied Intelligence Systems for founder-led businesses",
   description:
     "You don't have a growth problem. You have a signal problem. Audio Jones helps founder-led businesses identify causal growth signals, reduce operational noise, and build Applied Intelligence Systems that compound.",
-  alternates: { canonical: "https://audiojones.com/" },
-  openGraph: {
-    title: "Audio Jones — Applied Intelligence Systems",
-    description:
-      "Identify causal growth signals. Reduce noise. Build the system that compounds.",
-    url: "https://audiojones.com/",
-    siteName: "Audio Jones",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Audio Jones — Applied Intelligence Systems",
-    description:
-      "Identify causal growth signals. Reduce noise. Build the system that compounds.",
-  },
-};
+  path: "/",
+});
 
 export default function HomePage() {
   return (

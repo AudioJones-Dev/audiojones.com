@@ -45,7 +45,7 @@ export async function generateMetadata({
   const canonicalUrl = `${siteConfig.url}/blog/${post.slug.current}`;
   const title = post.seoTitle ?? post.title;
   const description = post.seoDescription ?? post.excerpt ?? post.answerSummary ?? "";
-  const ogImage = post.coverImage?.url ?? `${siteConfig.url}/assets/og/audio-jones-og.jpg`;
+  const ogImage = post.coverImage?.url ?? `${siteConfig.url}${siteConfig.ogImage}`;
 
   return {
     title,
