@@ -49,10 +49,6 @@ export const noindexRoutes = [
   "/not-authorized",
   "/status",
   "/consent-testimonial",
-  "/book",
-  "/business",
-  "/creators",
-  "/artisthub",
   "/env",
 ] as const;
 
