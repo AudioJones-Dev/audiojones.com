@@ -8,6 +8,7 @@ import {
   ALL_POST_SLUGS_QUERY,
 } from "@/lib/sanity/queries";
 import type { Post } from "@/lib/sanity/types";
+import { getLocalBlogPost, getLocalPostStubs, type LocalBlogPost } from "@/content/blog";
 import JsonLd from "@/components/seo/JsonLd";
 import {
   articleJsonLd,
@@ -22,8 +23,10 @@ import { ctaLinks } from "@/config/links";
 // ─── Static params (build-time) ───────────────────────────────────────────────
 
 export async function generateStaticParams() {
+  const localSlugs = getLocalPostStubs().map((post) => ({ slug: post.slug.current }));
   const slugs = await safeFetch<Array<{ slug: string }>>(ALL_POST_SLUGS_QUERY);
-  return slugs ?? [];
+
+  return [...localSlugs, ...(slugs ?? [])];
 }
 
 // ─── Metadata ─────────────────────────────────────────────────────────────────
@@ -31,9 +34,36 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
-  const post = await safeFetch<Post>(POST_BY_SLUG_QUERY, { slug: params.slug });
+  const { slug } = await params;
+  const localPost = getLocalBlogPost(slug);
+
+  if (localPost) {
+    return {
+      title: localPost.seoTitle,
+      description: localPost.seoDescription,
+      alternates: { canonical: `${siteConfig.url}/blog/${localPost.slug}` },
+      openGraph: {
+        title: localPost.seoTitle,
+        description: localPost.seoDescription,
+        url: `${siteConfig.url}/blog/${localPost.slug}`,
+        siteName: siteConfig.name,
+        type: "article",
+        publishedTime: localPost.publishedAt,
+        modifiedTime: localPost.updatedAt,
+        images: [{ url: `${siteConfig.url}/assets/og/audio-jones-og.jpg`, width: 1200, height: 630, alt: localPost.title }],
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: localPost.seoTitle,
+        description: localPost.seoDescription,
+        images: [`${siteConfig.url}/assets/og/audio-jones-og.jpg`],
+      },
+    };
+  }
+
+  const post = await safeFetch<Post>(POST_BY_SLUG_QUERY, { slug });
 
   if (!post) {
     return {
@@ -75,9 +105,16 @@ export async function generateMetadata({
 export default async function BlogPostPage({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
-  const post = await safeFetch<Post>(POST_BY_SLUG_QUERY, { slug: params.slug });
+  const { slug } = await params;
+  const localPost = getLocalBlogPost(slug);
+
+  if (localPost) {
+    return <LocalBlogPostPage post={localPost} />;
+  }
+
+  const post = await safeFetch<Post>(POST_BY_SLUG_QUERY, { slug });
 
   if (!post) notFound();
 
@@ -382,6 +419,164 @@ export default async function BlogPostPage({
             </ButtonLink>
             <ButtonLink href="/frameworks" variant="system-glow">
               Explore Frameworks
+            </ButtonLink>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+
+function LocalBlogPostPage({ post }: { post: LocalBlogPost }) {
+  const canonicalUrl = `${siteConfig.url}/blog/${post.slug}`;
+
+  return (
+    <div className="min-h-screen" style={{ background: "#05070F" }}>
+      <JsonLd
+        data={articleJsonLd({
+          title: post.seoTitle,
+          description: post.seoDescription,
+          url: canonicalUrl,
+          datePublished: post.publishedAt,
+          dateModified: post.updatedAt ?? post.publishedAt,
+        })}
+      />
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", url: "/" },
+          { name: "Blog", url: "/blog" },
+          { name: post.topicCluster.title, url: `/blog/topic/${post.topicCluster.slug}` },
+          { name: post.title, url: `/blog/${post.slug}` },
+        ])}
+      />
+
+      <div className="mx-auto max-w-[820px] px-5 pt-10 sm:px-8">
+        <Link
+          href="/blog"
+          style={{
+            fontFamily: "var(--font-body)",
+            fontSize: "11px",
+            color: "rgba(255,255,255,0.35)",
+            letterSpacing: "0.08em",
+          }}
+        >
+          ← Blog
+        </Link>
+        <span style={{ color: "rgba(255,255,255,0.15)", margin: "0 8px" }}>/</span>
+        <Link
+          href={`/blog/topic/${post.topicCluster.slug}`}
+          style={{ fontFamily: "var(--font-body)", fontSize: "11px", color: "rgba(255,255,255,0.35)", letterSpacing: "0.08em" }}
+        >
+          {post.topicCluster.title}
+        </Link>
+      </div>
+
+      <header className="mx-auto max-w-[820px] px-5 pb-10 pt-10 sm:px-8">
+        <Eyebrow>{post.topicCluster.title}</Eyebrow>
+        <h1
+          className="mt-4 text-balance"
+          style={{
+            fontFamily: "var(--font-headline)",
+            fontSize: "clamp(1.8rem, 4vw, 3rem)",
+            fontWeight: 700,
+            lineHeight: 1.05,
+            letterSpacing: "-0.03em",
+            color: "#FFFFFF",
+          }}
+        >
+          {post.title}
+        </h1>
+
+        <div
+          className="mt-6 rounded-xl p-5"
+          style={{
+            background: "rgba(59,91,255,0.07)",
+            border: "1px solid rgba(59,91,255,0.18)",
+            borderLeft: "3px solid #3B5BFF",
+          }}
+        >
+          <p
+            style={{
+              fontFamily: "var(--font-body)",
+              fontSize: "9px",
+              fontWeight: 700,
+              letterSpacing: "0.18em",
+              textTransform: "uppercase",
+              color: "#3B5BFF",
+              marginBottom: "8px",
+            }}
+          >
+            Direct signal
+          </p>
+          <p style={{ fontFamily: "var(--font-accent)", fontSize: "15px", color: "rgba(255,255,255,0.72)", lineHeight: 1.65 }}>
+            {post.answerSummary}
+          </p>
+        </div>
+
+        <div className="mt-6 flex flex-wrap items-center gap-3">
+          <time
+            dateTime={post.publishedAt}
+            style={{ fontFamily: "var(--font-body)", fontSize: "11px", color: "rgba(255,255,255,0.35)" }}
+          >
+            {new Date(post.publishedAt).toLocaleDateString("en-US", {
+              month: "long",
+              day: "numeric",
+              year: "numeric",
+            })}
+          </time>
+          <span
+            style={{
+              fontFamily: "var(--font-body)",
+              fontSize: "10px",
+              fontWeight: 600,
+              letterSpacing: "0.12em",
+              textTransform: "uppercase",
+              color: "rgba(255,69,0,0.70)",
+              background: "rgba(255,69,0,0.08)",
+              padding: "3px 10px",
+              borderRadius: "999px",
+            }}
+          >
+            {post.focusKeyword}
+          </span>
+        </div>
+      </header>
+
+      <article
+        className="mx-auto max-w-[820px] px-5 pb-16 sm:px-8"
+        style={{
+          fontFamily: "var(--font-body)",
+          fontSize: "17px",
+          lineHeight: 1.75,
+          color: "rgba(255,255,255,0.75)",
+        }}
+      >
+        {post.body.map((paragraph) => (
+          <p key={paragraph} className="mb-6">
+            {paragraph}
+          </p>
+        ))}
+      </article>
+
+      <section className="border-t border-[var(--line-2)] py-16">
+        <div className="mx-auto max-w-[820px] px-5 sm:px-8 text-center">
+          <p
+            style={{ fontFamily: "var(--font-body)", fontSize: "9px", fontWeight: 700, letterSpacing: "0.22em", textTransform: "uppercase", color: "#C8A96A", marginBottom: "16px" }}
+          >
+            Apply the thinking
+          </p>
+          <h2
+            style={{ fontFamily: "var(--font-headline)", fontSize: "clamp(1.4rem, 2.5vw, 2.2rem)", fontWeight: 700, letterSpacing: "-0.03em", color: "#FFFFFF", marginBottom: "24px" }}
+          >
+            Ready to turn signal into shipped work?
+          </h2>
+          <div className="flex flex-wrap justify-center gap-3">
+            <ButtonLink href={ctaLinks.signalDiagnostic} variant="glow">
+              Book Diagnostic
+            </ButtonLink>
+            <ButtonLink href="/frameworks/signal-vs-noise" variant="system-glow">
+              Explore Signal Framework
             </ButtonLink>
           </div>
         </div>
