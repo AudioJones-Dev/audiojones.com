@@ -85,8 +85,25 @@ jobs:
 
           ALIAS_HOST="pr-${PR_NUMBER}.preview.audiojones.com"
           echo "Aliasing deployment to ${ALIAS_HOST}"
-          npx vercel@latest alias set "${DEPLOY_URL}" "${ALIAS_HOST}" \
-            --token="${VERCEL_TOKEN}"
+          if ! npx vercel@latest alias set "${DEPLOY_URL}" "${ALIAS_HOST}" \
+              --token="${VERCEL_TOKEN}"; then
+            echo ""
+            echo "============================================================"
+            echo "Failed to alias the preview to ${ALIAS_HOST}."
+            echo ""
+            echo "Most common cause: '*.preview.audiojones.com' is not yet"
+            echo "configured for this Vercel project. One-time setup:"
+            echo "  1. Vercel dashboard -> audiojones-com -> Settings -> Domains:"
+            echo "     add '*.preview.audiojones.com'."
+            echo "  2. DNS: CNAME *.preview.audiojones.com -> cname.vercel-dns.com"
+            echo "     (or whatever the dashboard prompts)."
+            echo "  3. Vercel Firewall: add '*.preview.audiojones.com' to the"
+            echo "     allow-list so requests aren't denied with host_not_allowed."
+            echo ""
+            echo "The deployment itself succeeded: ${DEPLOY_URL}"
+            echo "============================================================"
+            exit 1
+          fi
 
           PREVIEW_URL="https://${ALIAS_HOST}"
           echo "preview_url=${PREVIEW_URL}" >> "$GITHUB_OUTPUT"
