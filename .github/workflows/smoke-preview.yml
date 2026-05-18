@@ -4,80 +4,72 @@ on:
   pull_request:
     branches: [ main ]
 
+# Vercel project identifiers are public — they appear in deploy URLs and
+# in `.vercel/project.json`. Inlining here mirrors deploy.yml so the
+# Vercel CLI can target the same project without extra secrets.
+env:
+  VERCEL_ORG_ID: team_BHxIkAGPW6qEKKQBAt9c0NGz
+  VERCEL_PROJECT_ID: prj_o5mnBAlWyR5Cgi2A3gc9ertoGyJX
+
 jobs:
   smoke_preview:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
-      - name: Wait for Vercel preview deployment
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Activate pnpm
+        run: corepack prepare pnpm@10.30.3 --activate
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'pnpm'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build workspace packages
+        run: pnpm packages:build
+
+      - name: Deploy Vercel preview
         id: preview
         env:
-          GH_TOKEN: ${{ github.token }}
-          REPO: ${{ github.repository }}
-          SHA: ${{ github.event.pull_request.head.sha }}
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         run: |
           set -euo pipefail
 
-          # Vercel registers the Preview deployment on GitHub *after* the
-          # PR workflow starts. A one-shot lookup therefore races the
-          # deployment and fails immediately even when Vercel later
-          # publishes a healthy preview, producing recurring false
-          # negatives on this check. Poll the Deployments API until the
-          # Preview deployment exists AND has a status row with
-          # state=success + environment_url. Bounded: 30 attempts every
-          # 10 seconds = 5 minutes maximum wait.
-          MAX_ATTEMPTS=30
-          SLEEP_SECS=10
-          DEPLOYMENTS_URL="https://api.github.com/repos/${REPO}/deployments?sha=${SHA}&per_page=20"
+          # Vercel's GitHub integration does not auto-register Preview
+          # deployments for PR commits in this project — every recent
+          # deployment in the Vercel API is target=production from main.
+          # Polling /repos/.../deployments?sha=... therefore always
+          # times out. Deploy the preview ourselves with the same
+          # VERCEL_TOKEN deploy.yml uses for production, and feed the
+          # resulting URL into the smoke checks below.
+          #
+          # `vercel deploy` (no --prod) prints the deployment URL on
+          # stdout and progress on stderr in non-TTY contexts, so we can
+          # capture stdout directly.
+          DEPLOY_URL="$(npx vercel@latest deploy \
+            --token="${VERCEL_TOKEN}" \
+            --cwd . \
+            --yes)"
 
-          PREVIEW_URL=""
-          LAST_STATE=""
-          for attempt in $(seq 1 "$MAX_ATTEMPTS"); do
-            DEPLOYMENT_ID="$(curl -sS \
-              -H "Authorization: Bearer ${GH_TOKEN}" \
-              -H "Accept: application/vnd.github+json" \
-              "$DEPLOYMENTS_URL" | jq -r '[.[] | select(.environment == "Preview")] | first | .id // empty')"
-
-            if [ -z "$DEPLOYMENT_ID" ]; then
-              echo "[attempt ${attempt}/${MAX_ATTEMPTS}] No Preview deployment registered yet for ${SHA}; sleeping ${SLEEP_SECS}s"
-              sleep "$SLEEP_SECS"
-              continue
-            fi
-
-            STATUS_URL="https://api.github.com/repos/${REPO}/deployments/${DEPLOYMENT_ID}/statuses?per_page=20"
-            STATUS_JSON="$(curl -sS \
-              -H "Authorization: Bearer ${GH_TOKEN}" \
-              -H "Accept: application/vnd.github+json" \
-              "$STATUS_URL")"
-
-            PREVIEW_URL="$(echo "$STATUS_JSON" | jq -r '[.[] | select(.state == "success" and .environment_url != null)] | first | .environment_url // empty')"
-            if [ -n "$PREVIEW_URL" ]; then
-              echo "[attempt ${attempt}/${MAX_ATTEMPTS}] Resolved preview URL: ${PREVIEW_URL}"
-              break
-            fi
-
-            # Fail fast on terminal Vercel failure states — additional
-            # polling will not recover a deployment that Vercel itself
-            # marked as failed or errored.
-            TERMINAL_FAILURE="$(echo "$STATUS_JSON" | jq -r '[.[] | select(.state == "failure" or .state == "error")] | first | .state // empty')"
-            if [ -n "$TERMINAL_FAILURE" ]; then
-              echo "Preview deployment ${DEPLOYMENT_ID} reported terminal state: ${TERMINAL_FAILURE}"
-              echo "Status history:"
-              echo "$STATUS_JSON" | jq -r '.[] | "  - \(.created_at) state=\(.state) env_url=\(.environment_url)"'
-              exit 1
-            fi
-
-            LAST_STATE="$(echo "$STATUS_JSON" | jq -r '[.[]] | first | .state // "no-statuses"')"
-            echo "[attempt ${attempt}/${MAX_ATTEMPTS}] Deployment ${DEPLOYMENT_ID} state=${LAST_STATE}; sleeping ${SLEEP_SECS}s"
-            sleep "$SLEEP_SECS"
-          done
-
-          if [ -z "$PREVIEW_URL" ]; then
-            echo "Timed out after $((MAX_ATTEMPTS * SLEEP_SECS))s waiting for a successful Preview deployment for ${SHA}"
-            echo "Last observed deployment status state: ${LAST_STATE:-unknown}"
+          if [ -z "${DEPLOY_URL}" ]; then
+            echo "vercel deploy did not return a URL"
             exit 1
           fi
 
-          echo "preview_url=${PREVIEW_URL}" >> "$GITHUB_OUTPUT"
+          echo "Deployed preview: ${DEPLOY_URL}"
+          echo "preview_url=${DEPLOY_URL}" >> "$GITHUB_OUTPUT"
 
       - name: Smoke check preview routes
         env:
