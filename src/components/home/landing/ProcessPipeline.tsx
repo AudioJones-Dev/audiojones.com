@@ -8,12 +8,12 @@ const STEPS = [
     n: "01",
     label: "Diagnose",
     desc: "Find the real constraint. Map the existing system — surface noise, gaps, and false signals before touching tools.",
-    accent: "#C8A96A",
-    border: "rgba(200,169,106,0.28)",
-    bg: "linear-gradient(160deg, rgba(200,169,106,0.06) 0%, rgba(11,15,26,0.96) 100%)",
-    glow: "0 0 28px -10px rgba(200,169,106,0.18), inset 0 0 0 1px rgba(200,169,106,0.04)",
-    nodeColor: "#C8A96A",
-    nodeBg: "rgba(200,169,106,0.12)",
+    accent: "#94A3B8",
+    border: "rgba(148,163,184,0.22)",
+    bg: "linear-gradient(160deg, rgba(148,163,184,0.05) 0%, rgba(11,15,26,0.96) 100%)",
+    glow: "0 0 28px -10px rgba(148,163,184,0.12), inset 0 0 0 1px rgba(148,163,184,0.03)",
+    nodeColor: "#94A3B8",
+    nodeBg: "rgba(148,163,184,0.10)",
     active: false,
   },
   {
@@ -23,7 +23,7 @@ const STEPS = [
     accent: "#3B5BFF",
     border: "rgba(59,91,255,0.45)",
     bg: "linear-gradient(160deg, rgba(59,91,255,0.09) 0%, rgba(11,15,26,0.96) 100%)",
-    glow: "0 0 40px -10px rgba(59,91,255,0.28), 0 0 16px -6px rgba(255,69,0,0.06), inset 0 0 0 1px rgba(59,91,255,0.08)",
+    glow: "0 0 40px -10px rgba(59,91,255,0.28), 0 0 16px -6px rgba(232,255,90,0.06), inset 0 0 0 1px rgba(59,91,255,0.08)",
     nodeColor: "#8EA2FF",
     nodeBg: "rgba(59,91,255,0.16)",
     active: true,
@@ -44,12 +44,12 @@ const STEPS = [
     n: "04",
     label: "Deploy",
     desc: "Turn the system into repeatable execution. Instrument everything. Compound the loop.",
-    accent: "#FF4500",
-    border: "rgba(255,69,0,0.32)",
-    bg: "linear-gradient(160deg, rgba(255,69,0,0.07) 0%, rgba(11,15,26,0.96) 100%)",
-    glow: "0 0 28px -10px rgba(255,69,0,0.20), inset 0 0 0 1px rgba(255,69,0,0.04)",
-    nodeColor: "#FF6A30",
-    nodeBg: "rgba(255,69,0,0.12)",
+    accent: "#E8FF5A",
+    border: "rgba(232,255,90,0.32)",
+    bg: "linear-gradient(160deg, rgba(232,255,90,0.06) 0%, rgba(11,15,26,0.96) 100%)",
+    glow: "0 0 28px -10px rgba(232,255,90,0.18), inset 0 0 0 1px rgba(232,255,90,0.04)",
+    nodeColor: "#E8FF5A",
+    nodeBg: "rgba(232,255,90,0.12)",
     active: false,
   },
 ] as const;
@@ -88,12 +88,12 @@ function ProcessRail() {
       style={{ width: "100%", height: "40px", overflow: "visible" }}
     >
       <defs>
-        {/* Rail gradient: gold → blue → steel → orange */}
+        {/* Rail gradient: slate → blue → steel → signal-yellow */}
         <linearGradient id="pp-rail-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#C8A96A" stopOpacity="0.30" />
+          <stop offset="0%" stopColor="#94A3B8" stopOpacity="0.30" />
           <stop offset="33%" stopColor="#3B5BFF" stopOpacity="0.50" />
           <stop offset="66%" stopColor="#94A3B8" stopOpacity="0.28" />
-          <stop offset="100%" stopColor="#FF4500" stopOpacity="0.38" />
+          <stop offset="100%" stopColor="#E8FF5A" stopOpacity="0.38" />
         </linearGradient>
 
         {/* Glow filter for Attribute node */}
@@ -177,7 +177,7 @@ export default function ProcessPipeline() {
     >
       {/* ── Atmospheric glows ── */}
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
-        {/* Orange glow — upper right */}
+        {/* Signal-yellow glow — upper right, behind Deploy */}
         <div
           style={{
             position: "absolute",
@@ -186,7 +186,7 @@ export default function ProcessPipeline() {
             width: "45%",
             height: "70%",
             background:
-              "radial-gradient(ellipse 70% 60% at 85% 20%, rgba(255,69,0,0.07), transparent 65%)",
+              "radial-gradient(ellipse 70% 60% at 85% 20%, rgba(232,255,90,0.06), transparent 65%)",
           }}
         />
         {/* Blue glow — center, along card rail */}
@@ -201,7 +201,7 @@ export default function ProcessPipeline() {
               "radial-gradient(ellipse 80% 50% at 50% 55%, rgba(59,91,255,0.07), transparent 70%)",
           }}
         />
-        {/* Gold warmth — lower left, Diagnose anchor */}
+        {/* Muted warmth — lower left, Diagnose anchor */}
         <div
           style={{
             position: "absolute",
@@ -210,7 +210,7 @@ export default function ProcessPipeline() {
             width: "35%",
             height: "55%",
             background:
-              "radial-gradient(ellipse 60% 50% at 15% 80%, rgba(200,169,106,0.05), transparent 65%)",
+              "radial-gradient(ellipse 60% 50% at 15% 80%, rgba(255,255,255,0.03), transparent 65%)",
           }}
         />
       </div>
@@ -243,8 +243,8 @@ export default function ProcessPipeline() {
             style={{
               width: "48px",
               height: "1.5px",
-              background: "linear-gradient(to right, #FF4500, rgba(255,69,0,0))",
-              boxShadow: "0 0 6px 1px rgba(255,69,0,0.25)",
+              background: "linear-gradient(to right, var(--signal-yellow), rgba(232,255,90,0))",
+              boxShadow: "0 0 6px 1px rgba(232,255,90,0.25)",
             }}
           />
 
@@ -471,7 +471,7 @@ export default function ProcessPipeline() {
             border: "1px solid rgba(255,255,255,0.07)",
             backdropFilter: "blur(8px)",
             boxShadow:
-              "0 0 24px -8px rgba(59,91,255,0.10), 0 0 16px -8px rgba(255,69,0,0.08)",
+              "0 0 24px -8px rgba(77,172,255,0.10), 0 0 16px -8px rgba(232,255,90,0.08)",
           }}
         >
           <p
@@ -485,7 +485,7 @@ export default function ProcessPipeline() {
             }}
           >
             The system is not built in phases.{" "}
-            <span style={{ color: "#FF6A30", fontWeight: 600 }}>
+            <span style={{ color: "var(--signal-yellow)", fontWeight: 600 }}>
               It is built in sequence — and it compounds.
             </span>
           </p>

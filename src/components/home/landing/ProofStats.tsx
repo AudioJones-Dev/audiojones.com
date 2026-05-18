@@ -13,19 +13,19 @@ const stats = [
     metric: "CAC Reduction",
     display: "↓ 37%",
     label: "Customer acquisition cost",
-    accent: "#FF4500",
+    accent: "#E8FF5A",
   },
   {
     metric: "Pipeline Growth",
     display: "↑ 28%",
     label: "Qualified pipeline per quarter",
-    accent: "#C8A96A",
+    accent: "#94A3B8",
   },
   {
     metric: "Conversion Rate",
     display: "↑ 42%",
     label: "Lead-to-call conversion rate",
-    accent: "#3B5BFF",
+    accent: "#4DACFF",
   },
   {
     metric: "Decision Clarity",
@@ -83,7 +83,7 @@ export default function ProofStats() {
         }}
       />
 
-      {/* ── z:2b Orange glow — Before side ── */}
+      {/* ── z:2b Muted glow — Before side ── */}
       <div
         aria-hidden
         style={{
@@ -95,7 +95,7 @@ export default function ProofStats() {
           zIndex: 2,
           pointerEvents: "none",
           background:
-            "radial-gradient(ellipse 65% 55% at 30% 50%, rgba(255,69,0,0.09), transparent 70%)",
+            "radial-gradient(ellipse 65% 55% at 30% 50%, rgba(255,255,255,0.04), transparent 70%)",
         }}
       />
 
@@ -111,7 +111,7 @@ export default function ProofStats() {
           zIndex: 2,
           pointerEvents: "none",
           background:
-            "radial-gradient(ellipse 65% 55% at 70% 50%, rgba(59,91,255,0.09), transparent 70%)",
+            "radial-gradient(ellipse 65% 55% at 70% 50%, rgba(77,172,255,0.10), transparent 70%)",
         }}
       />
 
@@ -307,22 +307,22 @@ function PerfCard({
   const isAfter = kind === "after";
 
   const ringGradient = isAfter
-    ? "linear-gradient(135deg, var(--aj-blue) 0%, var(--aj-orange) 60%, var(--aj-blue) 100%)"
-    : "linear-gradient(135deg, var(--aj-gold) 0%, var(--aj-orange) 55%, var(--aj-orange-soft) 100%)";
+    ? "linear-gradient(135deg, #4DACFF 0%, #E8FF5A 60%, #4DACFF 100%)"
+    : "linear-gradient(135deg, rgba(148,163,184,0.45) 0%, rgba(148,163,184,0.25) 55%, rgba(148,163,184,0.15) 100%)";
 
   const iconBg = isAfter
-    ? "linear-gradient(135deg, var(--aj-blue), var(--aj-orange))"
-    : "linear-gradient(135deg, var(--aj-gold), var(--aj-orange))";
+    ? "linear-gradient(135deg, #4DACFF, #E8FF5A)"
+    : "linear-gradient(135deg, #94A3B8, #6B7280)";
 
-  const accent = isAfter ? "var(--aj-blue)" : "var(--aj-orange)";
+  const accent = isAfter ? "var(--aj-blue)" : "#94A3B8";
 
-  const statusDotColor = isAfter ? "var(--aj-success)" : "var(--aj-gold)";
+  const statusDotColor = isAfter ? "var(--aj-success)" : "var(--accent-amber)";
   const statusFg = isAfter
     ? "var(--aj-success)"
-    : "var(--aj-gold)";
+    : "var(--accent-amber)";
   const statusBg = isAfter
     ? "rgba(0,204,102,0.10)"
-    : "rgba(255,200,87,0.10)";
+    : "rgba(255,179,64,0.10)";
 
   return (
     <article
@@ -331,8 +331,8 @@ function PerfCard({
       style={{
         background: ringGradient,
         boxShadow: isAfter
-          ? "0 24px 80px rgba(0,164,255,0.18), 0 0 0 1px rgba(0,164,255,0.10)"
-          : "0 24px 80px rgba(255,69,0,0.14), 0 0 0 1px rgba(255,69,0,0.10)",
+          ? "0 24px 80px rgba(77,172,255,0.20), 0 0 0 1px rgba(77,172,255,0.10)"
+          : "0 24px 80px rgba(0,0,0,0.32), 0 0 0 1px rgba(255,255,255,0.06)",
       }}
     >
       <div
@@ -428,7 +428,7 @@ function PerfCard({
               <p
                 className="mt-1 font-mono text-[10px] font-medium"
                 style={{
-                  color: k.trendUp ? "var(--aj-success)" : "var(--aj-gold)",
+                  color: k.trendUp ? "var(--aj-success)" : "var(--accent-amber)",
                 }}
               >
                 {k.trend}
@@ -443,11 +443,11 @@ function PerfCard({
           style={{
             aspectRatio: "16 / 7",
             background: isAfter
-              ? "linear-gradient(180deg, rgba(0,164,255,0.06), rgba(5,7,15,0.30))"
+              ? "linear-gradient(180deg, rgba(77,172,255,0.07), rgba(5,7,15,0.30))"
               : "rgba(5,7,15,0.40)",
             borderColor: isAfter
-              ? "rgba(0,164,255,0.14)"
-              : "rgba(255,69,0,0.14)",
+              ? "rgba(77,172,255,0.16)"
+              : "rgba(255,255,255,0.08)",
           }}
         >
           {chart}
@@ -559,14 +559,14 @@ function ChaoticChart() {
           y={280 - b.h}
           width={barW}
           height={b.h}
-          fill="rgba(200,169,106,0.18)"
+          fill="rgba(255,255,255,0.06)"
         />
       ))}
       {/* Jagged line */}
       <path
         d={line}
         fill="none"
-        stroke="#FF6A30"
+        stroke="#94A3B8"
         strokeWidth="3"
         strokeLinejoin="round"
         opacity="0.88"
