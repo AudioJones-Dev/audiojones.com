@@ -952,6 +952,90 @@ html, body {
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.24);
 }
 
+/* ============================================================
+   Vibrant glowing card (signal-yellow × accent-blue)
+   Used for the singular flagship/featured callout — do not
+   apply to grids. Honors the global prefers-reduced-motion
+   reset at the bottom of this file.
+   ============================================================ */
+@property --aj-vibrant-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+.aj-vibrant-card {
+  position: relative;
+  isolation: isolate;
+  border-radius: 16px;
+  background: transparent;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+}
+.aj-vibrant-card__filter {
+  position: absolute;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+.aj-vibrant-card__halo,
+.aj-vibrant-card__glow,
+.aj-vibrant-card__border {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+.aj-vibrant-card__halo {
+  inset: -32px;
+  background: var(--aj-gradient-signal);
+  filter: url(#aj-vibrant-turbulence) blur(36px);
+  opacity: 0.42;
+  z-index: -2;
+  animation: aj-vibrant-drift 16s ease-in-out infinite alternate;
+}
+.aj-vibrant-card__glow {
+  inset: 0;
+  padding: 1.5px;
+  background: conic-gradient(
+    from var(--aj-vibrant-angle),
+    var(--signal-yellow) 0deg,
+    var(--accent-blue) 120deg,
+    var(--signal-soft) 220deg,
+    var(--accent-blue) 300deg,
+    var(--signal-yellow) 360deg
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  z-index: 1;
+  animation: aj-vibrant-spin 12s linear infinite;
+}
+.aj-vibrant-card__border {
+  box-shadow:
+    inset 0 0 0 1px rgba(8, 8, 8, 0.55),
+    inset 0 0 24px rgba(232, 255, 90, 0.06);
+  z-index: 2;
+}
+.aj-vibrant-card__surface {
+  position: relative;
+  border-radius: inherit;
+  background: linear-gradient(
+    180deg,
+    rgba(15, 15, 15, 0.94),
+    rgba(8, 8, 8, 0.97)
+  );
+  padding: 1.75rem;
+  z-index: 0;
+}
+@keyframes aj-vibrant-spin {
+  to { --aj-vibrant-angle: 360deg; }
+}
+@keyframes aj-vibrant-drift {
+  0%   { transform: translate3d(-2%, -1%, 0) scale(1.02); }
+  100% { transform: translate3d(2%, 1%, 0) scale(1.06); }
+}
+
 .aj-form-panel {
   border: 1px solid var(--border-subtle);
   border-radius: 4px;

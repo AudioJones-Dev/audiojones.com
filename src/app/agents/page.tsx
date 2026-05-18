@@ -8,6 +8,7 @@ import {
   SignalHero,
 } from "@/components/marketing/DesignSystemSections";
 import { ButtonLink } from "@/components/ui/Button";
+import VibrantCard from "@/components/ui/VibrantCard";
 import { agentSystems, proofSignals } from "@/data/audiojones-design";
 import { buildMetadata } from "@/lib/seo/metadata";
 
@@ -90,8 +91,8 @@ export default function AgentsPage() {
             title="ResponseOS is the flagship wedge."
             description="Most founder-led businesses do not lose revenue because demand is absent. They lose it because response, qualification, and follow-up are not a system."
           />
-          <div className="aj-product-card">
-            <p className="text-xs font-bold uppercase tracking-[0.16em] text-[var(--aj-orange)]">
+          <VibrantCard>
+            <p className="text-xs font-bold uppercase tracking-[0.16em] text-[var(--signal-yellow)]">
               Revenue Recovery Infrastructure
             </p>
             <h3 className="mt-4 font-accent text-3xl font-bold tracking-[-0.03em] text-fg-0">
@@ -105,7 +106,7 @@ export default function AgentsPage() {
                 Calculate Lost Revenue
               </ButtonLink>
             </div>
-          </div>
+          </VibrantCard>
         </div>
       </DarkSection>
 
