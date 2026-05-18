@@ -15,6 +15,10 @@ jobs:
   smoke_preview:
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    # Repository secrets — and therefore VERCEL_TOKEN — are not exposed
+    # to PRs from forks or Dependabot, so this job would fail at the
+    # deploy step with no useful signal. Skip it cleanly in those cases.
+    if: github.event.pull_request.head.repo.full_name == github.repository && github.actor != 'dependabot[bot]'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -87,6 +91,9 @@ jobs:
           # Build curl args. The bypass header is only appended when the secret
           # is configured — keeps the value out of the command line otherwise
           # and lets unprotected previews work without the secret.
+          # Headers are written to a tmp file so we can surface Vercel's
+          # `x-deny-reason` / `x-robots-tag` / etc. when a check fails,
+          # rather than collapsing everything to an opaque status code.
           curl_args=(-s -o /dev/null -w "%{http_code}" -L)
           if [ -n "${VERCEL_PROTECTION_BYPASS:-}" ]; then
             curl_args+=(-H "x-vercel-protection-bypass: ${VERCEL_PROTECTION_BYPASS}")
@@ -94,18 +101,31 @@ jobs:
 
           failed=0
           for url in "${URLS[@]}"; do
-            code="$(curl "${curl_args[@]}" "$url")"
+            headers_file="$(mktemp)"
+            code="$(curl "${curl_args[@]}" -D "$headers_file" "$url")"
             echo "${url} -> ${code}"
             if [ "$code" -lt 200 ] || [ "$code" -ge 400 ]; then
+              deny_reason="$(awk -F': ' 'tolower($1) == "x-deny-reason" { print $2 }' "$headers_file" | tr -d '\r' | head -n 1)"
+
               if [ "$code" = "401" ] && [ -z "${VERCEL_PROTECTION_BYPASS:-}" ]; then
                 echo "FAILED: ${url} returned 401."
                 echo "Preview is protected and VERCEL_PROTECTION_BYPASS is not configured."
                 echo "Add the 'VERCEL_PROTECTION_BYPASS' GitHub Actions secret with a Vercel Deployment Protection bypass token."
+              elif [ "$code" = "403" ] && [ "$deny_reason" = "host_not_allowed" ]; then
+                echo "FAILED: ${url} returned 403 with x-deny-reason=host_not_allowed."
+                echo "The Vercel project's Firewall is blocking generated *.vercel.app preview hostnames."
+                echo "Add the deployment URL pattern to the allowed-hosts rule in the Vercel dashboard,"
+                echo "or remove the rule if production-only host enforcement is intentional."
               else
-                echo "FAILED: ${url} returned ${code}"
+                echo "FAILED: ${url} returned ${code}${deny_reason:+ (x-deny-reason=${deny_reason})}"
               fi
+
+              echo "---- response headers for ${url} ----"
+              cat "$headers_file"
+              echo "--------------------------------------"
               failed=1
             fi
+            rm -f "$headers_file"
           done
 
           if [ "$failed" -ne 0 ]; then
