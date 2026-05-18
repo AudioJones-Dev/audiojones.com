@@ -1,6 +1,7 @@
 import { MetadataRoute } from "next";
 import { FRAMEWORKS } from "@/content/frameworks";
 import { INSIGHTS } from "@/content/insights";
+import { STATIC_BLOG_POSTS } from "@/content/blog";
 import { siteConfig } from "@/lib/site";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -12,25 +13,105 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // 2026-05-10 nav restructure, plus crawlable supporting surfaces.
   const staticRoutes: MetadataRoute.Sitemap = [
     // Primary nav
-    { url: base,                                        lastModified: now, changeFrequency: "weekly",  priority: 1    },
-    { url: `${base}/agents`,                            lastModified: now, changeFrequency: "weekly",  priority: 0.9  },
-    { url: `${base}/agents/responseos`,                 lastModified: now, changeFrequency: "weekly",  priority: 0.9  },
-    { url: `${base}/services`,                          lastModified: now, changeFrequency: "weekly",  priority: 0.9  },
-    { url: `${base}/case-studies`,                      lastModified: now, changeFrequency: "weekly",  priority: 0.9  },
-    { url: `${base}/insights`,                          lastModified: now, changeFrequency: "weekly",  priority: 0.85 },
-    { url: `${base}/roi-calculator`,                    lastModified: now, changeFrequency: "weekly",  priority: 0.9  },
-    { url: `${base}/workshops`,                         lastModified: now, changeFrequency: "weekly",  priority: 0.85 },
+    { url: base, lastModified: now, changeFrequency: "weekly", priority: 1 },
+    {
+      url: `${base}/agents`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
+      url: `${base}/agents/responseos`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
+      url: `${base}/services`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
+      url: `${base}/case-studies`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
+      url: `${base}/insights`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.85,
+    },
+    {
+      url: `${base}/roi-calculator`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
+      url: `${base}/workshops`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.85,
+    },
     // Right-side header CTAs
-    { url: `${base}/ai-readiness-diagnostic`,           lastModified: now, changeFrequency: "monthly", priority: 0.9  },
-    { url: `${base}/book-a-call`,                       lastModified: now, changeFrequency: "monthly", priority: 0.85 },
+    {
+      url: `${base}/ai-readiness-diagnostic`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
+      url: `${base}/book-a-call`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.85,
+    },
     // Supporting surfaces
-    { url: `${base}/applied-intelligence`,              lastModified: now, changeFrequency: "weekly",  priority: 0.85 },
-    { url: `${base}/applied-intelligence/diagnostic`,   lastModified: now, changeFrequency: "monthly", priority: 0.85 },
-    { url: `${base}/apply`,                             lastModified: now, changeFrequency: "monthly", priority: 0.85 },
-    { url: `${base}/pricing`,                           lastModified: now, changeFrequency: "monthly", priority: 0.85 },
-    { url: `${base}/frameworks`,                        lastModified: now, changeFrequency: "monthly", priority: 0.8  },
-    { url: `${base}/blog`,                              lastModified: now, changeFrequency: "weekly",  priority: 0.8  },
-    { url: `${base}/about`,                             lastModified: now, changeFrequency: "monthly", priority: 0.6  },
+    {
+      url: `${base}/applied-intelligence`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.85,
+    },
+    {
+      url: `${base}/applied-intelligence/diagnostic`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.85,
+    },
+    {
+      url: `${base}/apply`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.85,
+    },
+    {
+      url: `${base}/pricing`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.85,
+    },
+    {
+      url: `${base}/frameworks`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${base}/blog`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+    {
+      url: `${base}/about`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.6,
+    },
   ];
 
   // ── Dynamic framework routes (from content file) ──────────────────────────
@@ -52,26 +133,45 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // ── Dynamic Sanity blog post routes ──────────────────────────────────────
   // Only fetched when NEXT_PUBLIC_SANITY_PROJECT_ID is configured.
   // If Sanity is not connected, /blog is still in staticRoutes above — no crash.
-  let blogPostRoutes: MetadataRoute.Sitemap = [];
+  let blogPostRoutes: MetadataRoute.Sitemap = STATIC_BLOG_POSTS.map((post) => ({
+    url: `${base}/blog/${post.slug.current}`,
+    lastModified: post.updatedAt ? new Date(post.updatedAt) : now,
+    changeFrequency: "weekly",
+    priority: 0.75,
+  }));
   if (process.env.NEXT_PUBLIC_SANITY_PROJECT_ID) {
     try {
       const { safeFetch } = await import("@/lib/sanity/client");
       const { SITEMAP_POSTS_QUERY } = await import("@/lib/sanity/queries");
-      const posts = await safeFetch<Array<{ slug: string; lastModified?: string }>>(
-        SITEMAP_POSTS_QUERY
-      );
+      const posts =
+        await safeFetch<Array<{ slug: string; lastModified?: string }>>(
+          SITEMAP_POSTS_QUERY,
+        );
       if (posts) {
-        blogPostRoutes = posts.map((p) => ({
-          url: `${base}/blog/${p.slug}`,
-          lastModified: p.lastModified ? new Date(p.lastModified) : now,
-          changeFrequency: "weekly",
-          priority: 0.75,
-        }));
+        const staticSlugs = new Set(
+          STATIC_BLOG_POSTS.map((post) => post.slug.current),
+        );
+        blogPostRoutes = [
+          ...blogPostRoutes,
+          ...posts
+            .filter((p) => !staticSlugs.has(p.slug))
+            .map((p) => ({
+              url: `${base}/blog/${p.slug}`,
+              lastModified: p.lastModified ? new Date(p.lastModified) : now,
+              changeFrequency: "weekly" as const,
+              priority: 0.75,
+            })),
+        ];
       }
     } catch {
       // Sanity fetch failed — degrade gracefully, sitemap still generates
     }
   }
 
-  return [...staticRoutes, ...frameworkRoutes, ...insightRoutes, ...blogPostRoutes];
+  return [
+    ...staticRoutes,
+    ...frameworkRoutes,
+    ...insightRoutes,
+    ...blogPostRoutes,
+  ];
 }

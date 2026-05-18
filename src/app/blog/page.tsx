@@ -6,6 +6,7 @@ import type { PostStub } from "@/lib/sanity/types";
 import { ButtonLink } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { ctaLinks } from "@/config/links";
+import { STATIC_BLOG_POSTS } from "@/content/blog";
 
 // ─── Metadata ─────────────────────────────────────────────────────────────────
 
@@ -23,7 +24,14 @@ export const metadata: Metadata = {
     url: "https://audiojones.com/blog",
     siteName: "Audio Jones",
     type: "website",
-    images: [{ url: "/assets/og/audio-jones-og.jpg", width: 1200, height: 630, alt: "Audio Jones Blog" }],
+    images: [
+      {
+        url: "/assets/og/audio-jones-og.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Audio Jones Blog",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
@@ -41,35 +49,40 @@ const TOPIC_CLUSTERS = [
   {
     slug: "applied-intelligence-systems",
     label: "Applied Intelligence Systems",
-    description: "How to identify signal, build operating leverage, and create systems that compound.",
+    description:
+      "How to identify signal, build operating leverage, and create systems that compound.",
     accent: "#3B5BFF",
     icon: "◈",
   },
   {
     slug: "signal-vs-noise",
     label: "Signal vs Noise",
-    description: "Causal vs vanity metrics. Separating what creates revenue from what consumes attention.",
+    description:
+      "Causal vs vanity metrics. Separating what creates revenue from what consumes attention.",
     accent: "#FF4500",
     icon: "◎",
   },
   {
     slug: "map-attribution",
     label: "M.A.P Attribution",
-    description: "Meaningful. Actionable. Profitable. How to identify what actually drives your growth.",
+    description:
+      "Meaningful. Actionable. Profitable. How to identify what actually drives your growth.",
     accent: "#C8A96A",
     icon: "⬡",
   },
   {
     slug: "why-ai-fails",
     label: "Why AI Fails",
-    description: "AI fails before it starts — when automation precedes systems, processes, and signal.",
+    description:
+      "AI fails before it starts — when automation precedes systems, processes, and signal.",
     accent: "#94A3B8",
     icon: "⊗",
   },
   {
     slug: "ai-readiness",
     label: "AI Readiness for Founder-Led Businesses",
-    description: "The diagnostic framework for knowing whether your business is ready for AI.",
+    description:
+      "The diagnostic framework for knowing whether your business is ready for AI.",
     accent: "#10B981",
     icon: "◉",
   },
@@ -84,15 +97,13 @@ export default async function BlogPage() {
     safeFetch<PostStub[]>(ALL_POSTS_QUERY),
   ]);
 
-  const hasPosts = Array.isArray(all) && all.length > 0;
-  const featuredPosts = featured ?? [];
-  const latestPosts = all ?? [];
+  const sanityPosts = all ?? [];
+  const latestPosts = mergeStaticPosts(sanityPosts);
+  const featuredPosts = mergeStaticPosts(featured ?? []).slice(0, 3);
+  const hasPosts = latestPosts.length > 0;
 
   return (
-    <div
-      className="min-h-screen"
-      style={{ background: "#05070F" }}
-    >
+    <div className="min-h-screen" style={{ background: "#05070F" }}>
       {/* ── Hero ── */}
       <section className="border-b border-[var(--line-2)] py-24 sm:py-32">
         <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
@@ -108,7 +119,8 @@ export default async function BlogPage() {
               color: "#FFFFFF",
             }}
           >
-            Applied Intelligence,<br />
+            Applied Intelligence,
+            <br />
             <span style={{ color: "#FF4500" }}>documented.</span>
           </h1>
           <p
@@ -120,8 +132,9 @@ export default async function BlogPage() {
               color: "rgba(255,255,255,0.65)",
             }}
           >
-            The Audio Jones blog documents Applied Intelligence Systems, signal strategy,
-            M.A.P Attribution, and AI-readiness for founder-led businesses.
+            The Audio Jones blog documents Applied Intelligence Systems, signal
+            strategy, M.A.P Attribution, and AI-readiness for founder-led
+            businesses.
           </p>
         </div>
       </section>
@@ -238,7 +251,8 @@ export default async function BlogPage() {
           <div
             className="rounded-3xl p-10 sm:p-14"
             style={{
-              background: "linear-gradient(135deg, rgba(59,91,255,0.08) 0%, rgba(255,69,0,0.06) 100%)",
+              background:
+                "linear-gradient(135deg, rgba(59,91,255,0.08) 0%, rgba(255,69,0,0.06) 100%)",
               border: "1px solid rgba(255,255,255,0.07)",
             }}
           >
@@ -276,8 +290,8 @@ export default async function BlogPage() {
                 maxWidth: "52ch",
               }}
             >
-              The blog documents the thinking. The frameworks and diagnostic
-              are where it becomes a system for your business.
+              The blog documents the thinking. The frameworks and diagnostic are
+              where it becomes a system for your business.
             </p>
             <div className="flex flex-wrap gap-3">
               <ButtonLink href="/frameworks" variant="system-glow">
@@ -296,7 +310,13 @@ export default async function BlogPage() {
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
 
-function PostCard({ post, featured = false }: { post: PostStub; featured?: boolean }) {
+function PostCard({
+  post,
+  featured = false,
+}: {
+  post: PostStub;
+  featured?: boolean;
+}) {
   const cluster = post.topicCluster;
 
   return (
@@ -318,7 +338,10 @@ function PostCard({ post, featured = false }: { post: PostStub; featured?: boole
       ) : (
         <div
           className="aspect-[16/9] w-full"
-          style={{ background: "rgba(59,91,255,0.06)", borderBottom: "1px solid rgba(255,255,255,0.05)" }}
+          style={{
+            background: "rgba(59,91,255,0.06)",
+            borderBottom: "1px solid rgba(255,255,255,0.05)",
+          }}
           aria-hidden
         />
       )}
@@ -369,11 +392,18 @@ function PostCard({ post, featured = false }: { post: PostStub; featured?: boole
           </p>
         )}
 
-        <div className="mt-auto flex items-center justify-between pt-4" style={{ borderTop: "1px solid rgba(255,255,255,0.05)" }}>
+        <div
+          className="mt-auto flex items-center justify-between pt-4"
+          style={{ borderTop: "1px solid rgba(255,255,255,0.05)" }}
+        >
           {post.publishedAt && (
             <time
               dateTime={post.publishedAt}
-              style={{ fontFamily: "var(--font-body)", fontSize: "11px", color: "rgba(255,255,255,0.30)" }}
+              style={{
+                fontFamily: "var(--font-body)",
+                fontSize: "11px",
+                color: "rgba(255,255,255,0.30)",
+              }}
             >
               {new Date(post.publishedAt).toLocaleDateString("en-US", {
                 month: "short",
@@ -384,7 +414,12 @@ function PostCard({ post, featured = false }: { post: PostStub; featured?: boole
           )}
           <Link
             href={`/blog/${post.slug.current}`}
-            style={{ fontFamily: "var(--font-body)", fontSize: "11px", color: "#FF4500", letterSpacing: "0.08em" }}
+            style={{
+              fontFamily: "var(--font-body)",
+              fontSize: "11px",
+              color: "#FF4500",
+              letterSpacing: "0.08em",
+            }}
           >
             Read →
           </Link>
@@ -410,7 +445,9 @@ function EmptyState({ configured }: { configured: boolean }) {
               color: "rgba(255,255,255,0.25)",
             }}
           >
-            {configured ? "No posts published yet" : "Content system initializing"}
+            {configured
+              ? "No posts published yet"
+              : "Content system initializing"}
           </p>
           <h2
             style={{
@@ -422,7 +459,8 @@ function EmptyState({ configured }: { configured: boolean }) {
               marginBottom: "16px",
             }}
           >
-            The Audio Jones knowledge base<br />
+            The Audio Jones knowledge base
+            <br />
             <span style={{ color: "#FF4500" }}>is being structured.</span>
           </h2>
           <p
@@ -434,8 +472,9 @@ function EmptyState({ configured }: { configured: boolean }) {
               marginBottom: "32px",
             }}
           >
-            Articles on Applied Intelligence Systems, signal strategy, M.A.P Attribution,
-            and AI-readiness are being written and structured into topic clusters.
+            Articles on Applied Intelligence Systems, signal strategy, M.A.P
+            Attribution, and AI-readiness are being written and structured into
+            topic clusters.
           </p>
           <p
             style={{
@@ -451,4 +490,16 @@ function EmptyState({ configured }: { configured: boolean }) {
       </div>
     </section>
   );
+}
+
+function mergeStaticPosts(posts: PostStub[]) {
+  const sanitySlugs = new Set(posts.map((post) => post.slug.current));
+  return [
+    ...STATIC_BLOG_POSTS.filter((post) => !sanitySlugs.has(post.slug.current)),
+    ...posts,
+  ].sort((a, b) => {
+    const aTime = a.publishedAt ? new Date(a.publishedAt).getTime() : 0;
+    const bTime = b.publishedAt ? new Date(b.publishedAt).getTime() : 0;
+    return bTime - aTime;
+  });
 }

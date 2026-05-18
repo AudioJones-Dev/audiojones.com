@@ -15,10 +15,14 @@ import JsonLd from "@/components/seo/JsonLd";
 import { breadcrumbJsonLd } from "@/lib/seo/schema";
 import { siteConfig } from "@/lib/site";
 import { ctaLinks } from "@/config/links";
+import { getStaticBlogPostsByTopic } from "@/content/blog";
 
 // ─── Static cluster fallbacks (render even without Sanity) ────────────────────
 
-const STATIC_CLUSTERS: Record<string, { label: string; description: string; accent: string }> = {
+const STATIC_CLUSTERS: Record<
+  string,
+  { label: string; description: string; accent: string }
+> = {
   "applied-intelligence-systems": {
     label: "Applied Intelligence Systems",
     description:
@@ -58,7 +62,9 @@ export async function generateStaticParams() {
   const staticSlugs = Object.keys(STATIC_CLUSTERS).map((slug) => ({ slug }));
 
   // Add any Sanity-defined clusters if configured
-  const sanityData = await safeFetch<Array<{ slug: string }>>(ALL_TOPIC_SLUGS_QUERY);
+  const sanityData = await safeFetch<Array<{ slug: string }>>(
+    ALL_TOPIC_SLUGS_QUERY,
+  );
   if (sanityData) {
     sanityData.forEach(({ slug }) => {
       if (!staticSlugs.find((s) => s.slug === slug)) {
@@ -77,13 +83,20 @@ export async function generateMetadata({
 }: {
   params: { slug: string };
 }): Promise<Metadata> {
-  const sanityCluster = await safeFetch<TopicCluster>(TOPIC_CLUSTER_BY_SLUG_QUERY, {
-    slug: params.slug,
-  });
+  const sanityCluster = await safeFetch<TopicCluster>(
+    TOPIC_CLUSTER_BY_SLUG_QUERY,
+    {
+      slug: params.slug,
+    },
+  );
   const staticFallback = STATIC_CLUSTERS[params.slug];
 
-  const title = sanityCluster?.seoTitle ?? sanityCluster?.title ?? staticFallback?.label;
-  const description = sanityCluster?.seoDescription ?? sanityCluster?.description ?? staticFallback?.description;
+  const title =
+    sanityCluster?.seoTitle ?? sanityCluster?.title ?? staticFallback?.label;
+  const description =
+    sanityCluster?.seoDescription ??
+    sanityCluster?.description ??
+    staticFallback?.description;
 
   if (!title) return {};
 
@@ -115,7 +128,8 @@ export default async function TopicClusterPage({
   const title = sanityCluster?.title ?? staticFallback!.label;
   const description = sanityCluster?.description ?? staticFallback!.description;
   const accent = staticFallback?.accent ?? "#3B5BFF";
-  const hasPosts = Array.isArray(posts) && posts.length > 0;
+  const topicPosts = mergeTopicPosts(params.slug, posts ?? []);
+  const hasPosts = topicPosts.length > 0;
 
   return (
     <div className="min-h-screen" style={{ background: "#05070F" }}>
@@ -179,9 +193,9 @@ export default async function TopicClusterPage({
         <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
           {hasPosts ? (
             <>
-              <Eyebrow>{`${posts!.length} article${posts!.length !== 1 ? "s" : ""}`}</Eyebrow>
+              <Eyebrow>{`${topicPosts.length} article${topicPosts.length !== 1 ? "s" : ""}`}</Eyebrow>
               <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {posts!.map((post) => (
+                {topicPosts.map((post) => (
                   <TopicPostCard key={post._id} post={post} accent={accent} />
                 ))}
               </div>
@@ -221,12 +235,27 @@ export default async function TopicClusterPage({
       <section className="border-t border-[var(--line-2)] py-16">
         <div className="mx-auto max-w-[1280px] px-5 sm:px-8 text-center">
           <p
-            style={{ fontFamily: "var(--font-body)", fontSize: "9px", fontWeight: 700, letterSpacing: "0.22em", textTransform: "uppercase", color: "#C8A96A", marginBottom: "16px" }}
+            style={{
+              fontFamily: "var(--font-body)",
+              fontSize: "9px",
+              fontWeight: 700,
+              letterSpacing: "0.22em",
+              textTransform: "uppercase",
+              color: "#C8A96A",
+              marginBottom: "16px",
+            }}
           >
             Apply the framework
           </p>
           <h2
-            style={{ fontFamily: "var(--font-headline)", fontSize: "clamp(1.4rem, 2.5vw, 2.2rem)", fontWeight: 700, letterSpacing: "-0.03em", color: "#FFFFFF", marginBottom: "24px" }}
+            style={{
+              fontFamily: "var(--font-headline)",
+              fontSize: "clamp(1.4rem, 2.5vw, 2.2rem)",
+              fontWeight: 700,
+              letterSpacing: "-0.03em",
+              color: "#FFFFFF",
+              marginBottom: "24px",
+            }}
           >
             Ready to build your Applied Intelligence System?
           </h2>
@@ -244,16 +273,25 @@ export default async function TopicClusterPage({
 function InternalLinks({ slug, accent }: { slug: string; accent: string }) {
   const links: Record<string, Array<{ label: string; href: string }>> = {
     "applied-intelligence-systems": [
-      { label: "AIS Framework", href: "/frameworks/applied-intelligence-systems" },
+      {
+        label: "AIS Framework",
+        href: "/frameworks/applied-intelligence-systems",
+      },
       { label: "Applied Intelligence", href: "/applied-intelligence" },
       { label: "Book Diagnostic", href: ctaLinks.signalDiagnostic },
     ],
     "signal-vs-noise": [
-      { label: "Signal vs Noise Framework", href: "/frameworks/signal-vs-noise" },
+      {
+        label: "Signal vs Noise Framework",
+        href: "/frameworks/signal-vs-noise",
+      },
       { label: "Applied Intelligence", href: "/applied-intelligence" },
     ],
     "map-attribution": [
-      { label: "M.A.P Attribution Framework", href: "/frameworks/map-attribution" },
+      {
+        label: "M.A.P Attribution Framework",
+        href: "/frameworks/map-attribution",
+      },
       { label: "Applied Intelligence", href: "/applied-intelligence" },
     ],
     "why-ai-fails": [
@@ -323,7 +361,12 @@ function TopicPostCard({ post, accent }: { post: PostStub; accent: string }) {
         {post.excerpt && (
           <p
             className="mb-4 line-clamp-3"
-            style={{ fontFamily: "var(--font-body)", fontSize: "13px", color: "rgba(255,255,255,0.45)", lineHeight: 1.6 }}
+            style={{
+              fontFamily: "var(--font-body)",
+              fontSize: "13px",
+              color: "rgba(255,255,255,0.45)",
+              lineHeight: 1.6,
+            }}
           >
             {post.excerpt}
           </p>
@@ -335,14 +378,27 @@ function TopicPostCard({ post, accent }: { post: PostStub; accent: string }) {
           {post.publishedAt && (
             <time
               dateTime={post.publishedAt}
-              style={{ fontFamily: "var(--font-body)", fontSize: "11px", color: "rgba(255,255,255,0.30)" }}
+              style={{
+                fontFamily: "var(--font-body)",
+                fontSize: "11px",
+                color: "rgba(255,255,255,0.30)",
+              }}
             >
-              {new Date(post.publishedAt).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+              {new Date(post.publishedAt).toLocaleDateString("en-US", {
+                month: "short",
+                day: "numeric",
+                year: "numeric",
+              })}
             </time>
           )}
           <Link
             href={`/blog/${post.slug.current}`}
-            style={{ fontFamily: "var(--font-body)", fontSize: "11px", color: accent, letterSpacing: "0.08em" }}
+            style={{
+              fontFamily: "var(--font-body)",
+              fontSize: "11px",
+              color: accent,
+              letterSpacing: "0.08em",
+            }}
           >
             Read →
           </Link>
@@ -352,3 +408,16 @@ function TopicPostCard({ post, accent }: { post: PostStub; accent: string }) {
   );
 }
 
+function mergeTopicPosts(topicSlug: string, posts: PostStub[]) {
+  const sanitySlugs = new Set(posts.map((post) => post.slug.current));
+  return [
+    ...getStaticBlogPostsByTopic(topicSlug).filter(
+      (post) => !sanitySlugs.has(post.slug.current),
+    ),
+    ...posts,
+  ].sort((a, b) => {
+    const aTime = a.publishedAt ? new Date(a.publishedAt).getTime() : 0;
+    const bTime = b.publishedAt ? new Date(b.publishedAt).getTime() : 0;
+    return bTime - aTime;
+  });
+}
