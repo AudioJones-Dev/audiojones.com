@@ -42,6 +42,39 @@ The Vercel project is `audiojones-com` under the AJ Digital team. PRs
 get preview deployments automatically; merging to `main` deploys to
 production.
 
+### 2.1 PR preview hosts
+
+Preview smoke tests use a per-PR hostname, not a single shared preview
+host. The GitHub Actions hostname expression is:
+
+```text
+pr-${{ github.event.pull_request.number }}.preview.audiojones.com
+```
+
+That resolves to a concrete per-PR host such as
+`pr-123.preview.audiojones.com`.
+
+Required one-time Vercel / Cloudflare setup before the PR smoke check
+can pass:
+
+1. Add this wildcard domain to the Vercel project:
+
+   ```text
+   *.preview.audiojones.com
+   ```
+
+2. Configure DNS for the wildcard preview subdomain.
+3. Add the firewall allow-list rule for:
+
+   ```text
+   *.preview.audiojones.com
+   ```
+
+Do not alias PR deployments to `preview.audiojones.com` as a shared
+host. Until the wildcard Vercel domain, DNS, and firewall allow-list
+are configured, CI is expected to remain blocked; `host_not_allowed`
+from Vercel is a real failure, not a soft-pass condition.
+
 ---
 
 ## 3. Environment variables

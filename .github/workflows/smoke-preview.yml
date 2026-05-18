@@ -4,6 +4,13 @@ on:
   pull_request:
     branches: [ main ]
 
+# Vercel project identifiers are public — they appear in deploy URLs and
+# in `.vercel/project.json`. The smoke workflow needs them when assigning
+# the PR-specific preview alias.
+env:
+  VERCEL_ORG_ID: team_BHxIkAGPW6qEKKQBAt9c0NGz
+  VERCEL_PROJECT_ID: prj_o5mnBAlWyR5Cgi2A3gc9ertoGyJX
+
 jobs:
   smoke_preview:
     runs-on: ubuntu-latest
@@ -79,9 +86,37 @@ jobs:
 
           echo "preview_url=${PREVIEW_URL}" >> "$GITHUB_OUTPUT"
 
-      - name: Smoke check preview routes
+      - name: Assign per-PR preview host
+        id: preview_host
         env:
           PREVIEW_URL: ${{ steps.preview.outputs.preview_url }}
+          PREVIEW_HOST: pr-${{ github.event.pull_request.number }}.preview.audiojones.com
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          set -euo pipefail
+
+          if [ -z "${VERCEL_TOKEN:-}" ]; then
+            echo "VERCEL_TOKEN is required to assign the per-PR preview alias."
+            exit 1
+          fi
+
+          echo "Assigning ${PREVIEW_URL} to https://${PREVIEW_HOST}"
+          if ! alias_output="$(npx vercel@latest alias set "${PREVIEW_URL}" "${PREVIEW_HOST}" --token="${VERCEL_TOKEN}" 2>&1)"; then
+            echo "${alias_output}"
+            if echo "${alias_output}" | grep -q "host_not_allowed"; then
+              echo "Vercel rejected ${PREVIEW_HOST} with host_not_allowed."
+              echo "Add *.preview.audiojones.com to the Vercel project, configure wildcard DNS, and add the firewall allow-list before this check can pass."
+            fi
+            exit 1
+          fi
+
+          echo "${alias_output}"
+          echo "preview_host=${PREVIEW_HOST}" >> "$GITHUB_OUTPUT"
+          echo "preview_url=https://${PREVIEW_HOST}" >> "$GITHUB_OUTPUT"
+
+      - name: Smoke check preview routes
+        env:
+          PREVIEW_URL: ${{ steps.preview_host.outputs.preview_url }}
           VERCEL_PROTECTION_BYPASS: ${{ secrets.VERCEL_PROTECTION_BYPASS }}
         run: |
           set -euo pipefail
