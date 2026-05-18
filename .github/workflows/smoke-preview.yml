@@ -48,6 +48,7 @@ jobs:
         id: preview
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
           set -euo pipefail
 
@@ -56,8 +57,16 @@ jobs:
           # deployment in the Vercel API is target=production from main.
           # Polling /repos/.../deployments?sha=... therefore always
           # times out. Deploy the preview ourselves with the same
-          # VERCEL_TOKEN deploy.yml uses for production, and feed the
-          # resulting URL into the smoke checks below.
+          # VERCEL_TOKEN deploy.yml uses for production, then alias it
+          # to a stable per-PR hostname under preview.audiojones.com so
+          # the smoke checks below can reach it.
+          #
+          # The Vercel project's Firewall blocks *.vercel.app hostnames
+          # with `x-deny-reason: host_not_allowed`, so smoke-testing the
+          # raw deployment URL is not possible. The alias domain pattern
+          # `*.preview.audiojones.com` must exist on the project AND be
+          # included in the Firewall allow-list for the alias step to
+          # produce a reachable URL.
           #
           # `vercel deploy` (no --prod) prints the deployment URL on
           # stdout and progress on stderr in non-TTY contexts, so we can
@@ -73,7 +82,15 @@ jobs:
           fi
 
           echo "Deployed preview: ${DEPLOY_URL}"
-          echo "preview_url=${DEPLOY_URL}" >> "$GITHUB_OUTPUT"
+
+          ALIAS_HOST="pr-${PR_NUMBER}.preview.audiojones.com"
+          echo "Aliasing deployment to ${ALIAS_HOST}"
+          npx vercel@latest alias set "${DEPLOY_URL}" "${ALIAS_HOST}" \
+            --token="${VERCEL_TOKEN}"
+
+          PREVIEW_URL="https://${ALIAS_HOST}"
+          echo "preview_url=${PREVIEW_URL}" >> "$GITHUB_OUTPUT"
+          echo "deploy_url=${DEPLOY_URL}" >> "$GITHUB_OUTPUT"
 
       - name: Smoke check preview routes
         env:
@@ -113,9 +130,9 @@ jobs:
                 echo "Add the 'VERCEL_PROTECTION_BYPASS' GitHub Actions secret with a Vercel Deployment Protection bypass token."
               elif [ "$code" = "403" ] && [ "$deny_reason" = "host_not_allowed" ]; then
                 echo "FAILED: ${url} returned 403 with x-deny-reason=host_not_allowed."
-                echo "The Vercel project's Firewall is blocking generated *.vercel.app preview hostnames."
-                echo "Add the deployment URL pattern to the allowed-hosts rule in the Vercel dashboard,"
-                echo "or remove the rule if production-only host enforcement is intentional."
+                echo "The Vercel project's Firewall is blocking the alias hostname."
+                echo "Confirm '*.preview.audiojones.com' (or the specific alias above) is"
+                echo "added to the project's domains AND included in the Firewall allow-list."
               else
                 echo "FAILED: ${url} returned ${code}${deny_reason:+ (x-deny-reason=${deny_reason})}"
               fi
