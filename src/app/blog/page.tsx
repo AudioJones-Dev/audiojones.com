@@ -3,6 +3,7 @@ import Link from "next/link";
 import { safeFetch, isSanityConfigured } from "@/lib/sanity/client";
 import { FEATURED_POSTS_QUERY, ALL_POSTS_QUERY } from "@/lib/sanity/queries";
 import type { PostStub } from "@/lib/sanity/types";
+import { getLocalPostStubs } from "@/content/blog";
 import { ButtonLink } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { ctaLinks } from "@/config/links";
@@ -84,9 +85,12 @@ export default async function BlogPage() {
     safeFetch<PostStub[]>(ALL_POSTS_QUERY),
   ]);
 
-  const hasPosts = Array.isArray(all) && all.length > 0;
-  const featuredPosts = featured ?? [];
-  const latestPosts = all ?? [];
+  const localPosts = getLocalPostStubs();
+  const latestPosts = [...localPosts, ...(all ?? [])].sort(sortPostsNewestFirst);
+  const featuredPosts = [...localPosts, ...(featured ?? [])]
+    .sort(sortPostsNewestFirst)
+    .slice(0, 3);
+  const hasPosts = latestPosts.length > 0;
 
   return (
     <div
@@ -451,4 +455,8 @@ function EmptyState({ configured }: { configured: boolean }) {
       </div>
     </section>
   );
+}
+
+function sortPostsNewestFirst(a: PostStub, b: PostStub) {
+  return new Date(b.publishedAt ?? 0).getTime() - new Date(a.publishedAt ?? 0).getTime();
 }

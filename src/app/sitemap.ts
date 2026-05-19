@@ -1,6 +1,7 @@
 import { MetadataRoute } from "next";
 import { FRAMEWORKS } from "@/content/frameworks";
 import { INSIGHTS } from "@/content/insights";
+import { LOCAL_BLOG_POSTS } from "@/content/blog";
 import { siteConfig } from "@/lib/site";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -49,6 +50,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.75,
   }));
 
+  // ── Local blog post routes ──────────────────────────────────────────────
+  const localBlogPostRoutes: MetadataRoute.Sitemap = LOCAL_BLOG_POSTS.map((post) => ({
+    url: `${base}/blog/${post.slug}`,
+    lastModified: new Date(post.updatedAt ?? post.publishedAt),
+    changeFrequency: "weekly",
+    priority: 0.75,
+  }));
+
   // ── Dynamic Sanity blog post routes ──────────────────────────────────────
   // Only fetched when NEXT_PUBLIC_SANITY_PROJECT_ID is configured.
   // If Sanity is not connected, /blog is still in staticRoutes above — no crash.
@@ -73,5 +82,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   }
 
-  return [...staticRoutes, ...frameworkRoutes, ...insightRoutes, ...blogPostRoutes];
+  return [
+    ...staticRoutes,
+    ...frameworkRoutes,
+    ...insightRoutes,
+    ...localBlogPostRoutes,
+    ...blogPostRoutes,
+  ];
 }
