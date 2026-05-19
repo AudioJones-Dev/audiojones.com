@@ -52,13 +52,13 @@ export async function generateMetadata({
         type: "article",
         publishedTime: localPost.publishedAt,
         modifiedTime: localPost.updatedAt,
-        images: [{ url: `${siteConfig.url}/assets/og/audio-jones-og.jpg`, width: 1200, height: 630, alt: localPost.title }],
+        images: [{ url: `${siteConfig.url}${siteConfig.ogImage}`, width: 1200, height: 630, alt: localPost.title }],
       },
       twitter: {
         card: "summary_large_image",
         title: localPost.seoTitle,
         description: localPost.seoDescription,
-        images: [`${siteConfig.url}/assets/og/audio-jones-og.jpg`],
+        images: [`${siteConfig.url}${siteConfig.ogImage}`],
       },
     };
   }
