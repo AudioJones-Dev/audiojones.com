@@ -39,8 +39,15 @@ export function verifyReportToken(leadId: string, token: string | null | undefin
   }
 }
 
+function siteBase(): string {
+  const explicit = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/+$/, "");
+  if (explicit) return explicit;
+  const vercel = process.env.VERCEL_URL?.replace(/\/+$/, "");
+  if (vercel) return `https://${vercel}`;
+  return "https://audiojones.com";
+}
+
 export function buildReportUrl(leadId: string): string {
-  const base = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/+$/, "") || "https://audiojones.com";
   const token = buildReportToken(leadId);
-  return `${base}/roi-calculator/report/${encodeURIComponent(leadId)}?t=${encodeURIComponent(token)}`;
+  return `${siteBase()}/roi-calculator/report/${encodeURIComponent(leadId)}?t=${encodeURIComponent(token)}`;
 }

@@ -103,6 +103,6 @@ export async function POST(req: NextRequest) {
   return successResponse({
     leadId: persisted.leadId,
     reportUrl,
-    emailStatus: agencyEmailStatus === "failed" ? "partial" : "accepted",
+    emailStatus: agencyEmailStatus === "sent" ? "accepted" : "partial",
   });
 }
