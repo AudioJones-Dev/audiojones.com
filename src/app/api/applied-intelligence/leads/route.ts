@@ -91,12 +91,15 @@ export async function POST(req: NextRequest) {
       priority: scores.priority,
       totalScore: scores.totalScore,
     });
-  } catch (err) {
+  } catch {
+    // Detail is already logged inside persistAppliedIntelligenceLead — do
+    // not echo Neon error text (table names, constraint names) back to the
+    // browser. Keep the client message short and useful.
     return NextResponse.json(
       {
         ok: false,
         error: "STORAGE_ERROR",
-        message: err instanceof Error ? err.message : "Unknown storage error",
+        message: "We couldn't save your submission. Please try again in a moment.",
       },
       { status: 500 },
     );
