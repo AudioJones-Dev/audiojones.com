@@ -123,7 +123,82 @@ no skipping the Firebase guard).
 
 ---
 
-## 5. Tone for AI-authored content
+## 5. Execution principles
+
+These principles apply to every task. They are not aspirational — they are
+the bar for "done".
+
+### 5.1 Think before coding
+
+- State the goal, the likely files, and the success criteria before
+  writing code.
+- Surface assumptions and tradeoffs. Name the ambiguity if there is any.
+- Ask when ambiguity could cause rework. Don't silently pick between
+  plausible interpretations of an underspecified request.
+
+### 5.2 Simplicity first
+
+- Implement the smallest change that satisfies the task.
+- No speculative abstractions, config layers, feature flags, or
+  "might be useful later" scaffolding.
+- If the diff is growing past the task, stop and simplify before
+  continuing.
+
+### 5.3 Surgical changes
+
+- Touch only files directly required by the task.
+- Do not refactor adjacent code, rename for taste, or clean up
+  unrelated dead code in the same diff.
+- Do not redesign UI, copy, or routes unless the task explicitly asks
+  for it.
+- Every changed line must trace back to the stated goal.
+
+### 5.4 Goal-driven execution
+
+For every non-trivial task, hold these in your head (or in the PR
+description):
+
+- **Goal** — what behavior changes, in one sentence.
+- **Files likely touched** — narrow set; deviations are a yellow flag.
+- **Success criteria** — observable, not "looks right".
+- **Validation** — the exact commands run (see §4) and what they
+  returned.
+
+For bug fixes: reproduce or precisely identify the failure first, fix
+only the cause, then verify.
+
+For funnels, lead capture, integrations (Sanity, Neon, Resend, Whop,
+Stripe, ImageKit, n8n): **audit the existing wiring before changing
+it.** Read the route, the schema, the env keys, and the downstream
+consumer. Funnel regressions are expensive; mis-scoped edits there are
+the most common cause.
+
+### 5.5 Validation before handoff
+
+- The §4 validation commands must pass locally before the PR is moved
+  out of draft.
+- **Distinguish code gates from deployment / env gates.** Typecheck,
+  lint, `check:no-firebase`, and build are code gates — failing them
+  blocks merge. Missing Vercel env vars, Sanity dataset config, or
+  Stripe keys are deployment gates — surface them in the PR body as
+  remaining manual QA, do not silently paper over them in code.
+- A smoke-test failure caused by a missing env var is **not** a code
+  defect; classify it correctly so the right person resolves it.
+
+### 5.6 PR description expectations
+
+Every PR body should include:
+
+- **What changed** — bullet list, scoped to the diff.
+- **What was intentionally not changed** — adjacent things you noticed
+  but left alone. This is how we keep scope honest.
+- **Validation results** — which §4 commands ran and their outcome.
+- **Remaining gates** — deployment, env, or manual QA still required
+  before the change is safe in production.
+
+---
+
+## 6. Tone for AI-authored content
 
 Match the brand voice documented in [`docs/DESIGN.md`](./docs/DESIGN.md):
 **signal over noise**. Marketing copy is direct, founder-led, technical, and
@@ -132,6 +207,6 @@ free of generic AI-agency clichés ("unlock", "harness", "supercharge",
 
 ---
 
-## 6. When in doubt
+## 7. When in doubt
 
 Stop and ask. A clarifying question is cheaper than a wrong-direction PR.
