@@ -44,7 +44,7 @@ export default function AdminPricingPage() {
 
       const response = await fetch('/api/admin/pricing', {
         headers: {
-          'admin-key': 'gGho3TE8ztiSAMvORfyCDem62Fk0xpW1',
+          'admin-key': '',
         },
       });
 
@@ -73,7 +73,7 @@ export default function AdminPricingPage() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'admin-key': 'gGho3TE8ztiSAMvORfyCDem62Fk0xpW1',
+          'admin-key': '',
         },
         body: JSON.stringify(skuData),
       });

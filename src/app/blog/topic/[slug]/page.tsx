@@ -8,6 +8,7 @@ import {
   ALL_TOPIC_SLUGS_QUERY,
 } from "@/lib/sanity/queries";
 import type { TopicCluster, PostStub } from "@/lib/sanity/types";
+import { getLocalPostsByTopic } from "@/content/blog";
 import { ButtonLink } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { buildMetadata } from "@/lib/seo/metadata";
@@ -75,12 +76,13 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
+  const { slug } = await params;
   const sanityCluster = await safeFetch<TopicCluster>(TOPIC_CLUSTER_BY_SLUG_QUERY, {
-    slug: params.slug,
+    slug,
   });
-  const staticFallback = STATIC_CLUSTERS[params.slug];
+  const staticFallback = STATIC_CLUSTERS[slug];
 
   const title = sanityCluster?.seoTitle ?? sanityCluster?.title ?? staticFallback?.label;
   const description = sanityCluster?.seoDescription ?? sanityCluster?.description ?? staticFallback?.description;
@@ -90,7 +92,7 @@ export async function generateMetadata({
   return buildMetadata({
     title: `${title} | Audio Jones Blog`,
     description: description ?? `Audio Jones articles on ${title}.`,
-    path: `/blog/topic/${params.slug}`,
+    path: `/blog/topic/${slug}`,
   });
 }
 
@@ -99,23 +101,26 @@ export async function generateMetadata({
 export default async function TopicClusterPage({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
-  const staticFallback = STATIC_CLUSTERS[params.slug];
+  const { slug } = await params;
+  const staticFallback = STATIC_CLUSTERS[slug];
 
   // Fetch Sanity data in parallel
   const [sanityCluster, posts] = await Promise.all([
-    safeFetch<TopicCluster>(TOPIC_CLUSTER_BY_SLUG_QUERY, { slug: params.slug }),
-    safeFetch<PostStub[]>(POSTS_BY_TOPIC_QUERY, { topicSlug: params.slug }),
+    safeFetch<TopicCluster>(TOPIC_CLUSTER_BY_SLUG_QUERY, { slug }),
+    safeFetch<PostStub[]>(POSTS_BY_TOPIC_QUERY, { topicSlug: slug }),
   ]);
 
   // 404 if neither Sanity nor static fallback recognises this slug
   if (!sanityCluster && !staticFallback) notFound();
 
+  const localPosts = getLocalPostsByTopic(slug);
+  const topicPosts = [...localPosts, ...(posts ?? [])].sort(sortPostsNewestFirst);
   const title = sanityCluster?.title ?? staticFallback!.label;
   const description = sanityCluster?.description ?? staticFallback!.description;
   const accent = staticFallback?.accent ?? "#3B5BFF";
-  const hasPosts = Array.isArray(posts) && posts.length > 0;
+  const hasPosts = topicPosts.length > 0;
 
   return (
     <div className="min-h-screen" style={{ background: "#05070F" }}>
@@ -123,7 +128,7 @@ export default async function TopicClusterPage({
         data={breadcrumbJsonLd([
           { name: "Home", url: "/" },
           { name: "Blog", url: "/blog" },
-          { name: title, url: `/blog/topic/${params.slug}` },
+          { name: title, url: `/blog/topic/${slug}` },
         ])}
       />
 
@@ -170,7 +175,7 @@ export default async function TopicClusterPage({
           </p>
 
           {/* Internal links to related framework pages */}
-          <InternalLinks slug={params.slug} accent={accent} />
+          <InternalLinks slug={slug} accent={accent} />
         </div>
       </section>
 
@@ -179,9 +184,9 @@ export default async function TopicClusterPage({
         <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
           {hasPosts ? (
             <>
-              <Eyebrow>{`${posts!.length} article${posts!.length !== 1 ? "s" : ""}`}</Eyebrow>
+              <Eyebrow>{`${topicPosts.length} article${topicPosts.length !== 1 ? "s" : ""}`}</Eyebrow>
               <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {posts!.map((post) => (
+                {topicPosts.map((post) => (
                   <TopicPostCard key={post._id} post={post} accent={accent} />
                 ))}
               </div>
@@ -352,3 +357,7 @@ function TopicPostCard({ post, accent }: { post: PostStub; accent: string }) {
   );
 }
 
+
+function sortPostsNewestFirst(a: PostStub, b: PostStub) {
+  return new Date(b.publishedAt ?? 0).getTime() - new Date(a.publishedAt ?? 0).getTime();
+}

@@ -66,7 +66,7 @@ export default function AdminAlertsPage() {
 
       const response = await fetch(`/api/admin/alerts?${params}`, {
         headers: {
-          'admin-key': 'gGho3TE8ztiSAMvORfyCDem62Fk0xpW1',
+          'admin-key': '',
         },
       });
 
@@ -94,7 +94,7 @@ export default function AdminAlertsPage() {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
-          'admin-key': 'gGho3TE8ztiSAMvORfyCDem62Fk0xpW1',
+          'admin-key': '',
         },
         body: JSON.stringify({ action: 'dismiss' }),
       });
@@ -120,7 +120,7 @@ export default function AdminAlertsPage() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'admin-key': 'gGho3TE8ztiSAMvORfyCDem62Fk0xpW1',
+          'admin-key': '',
         },
         body: JSON.stringify({
           ...newAlert,
@@ -159,7 +159,7 @@ export default function AdminAlertsPage() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'admin-key': 'gGho3TE8ztiSAMvORfyCDem62Fk0xpW1',
+          'admin-key': '',
         },
         body: JSON.stringify({ alertId }),
       });
@@ -194,7 +194,7 @@ export default function AdminAlertsPage() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'admin-key': 'gGho3TE8ztiSAMvORfyCDem62Fk0xpW1',
+          'admin-key': '',
         },
         body: JSON.stringify({ alertId }),
       });
@@ -231,7 +231,7 @@ export default function AdminAlertsPage() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'admin-key': 'gGho3TE8ztiSAMvORfyCDem62Fk0xpW1',
+          'admin-key': '',
         },
         body: JSON.stringify({
           message: `Test notification alert - ${severity.toUpperCase()}`,

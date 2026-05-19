@@ -1,10 +1,29 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
+const LEGACY_PORTAL = /^\/portal(\/|$)/;
+const LEGACY_ADMIN_API = /^\/api\/admin(\/|$)/;
+
 export function middleware(request: NextRequest) {
   const url = request.nextUrl.clone();
   const host = request.headers.get("host") ?? "";
   const pathname = url.pathname;
+
+  // Hard-block the legacy /portal/* and /api/admin/* surface on Vercel
+  // production + preview deployments. These routes are decommission-queue
+  // (docs/PRD.md §1, docs/SECURITY.md §4.2) and previously shipped a
+  // browser-exposed admin key. Returning 404 keeps them invisible to
+  // crawlers and scanners. Local `pnpm dev` keeps the redirect-to-login
+  // behaviour below for ongoing legacy work.
+  if (
+    process.env.NODE_ENV === "production" &&
+    (LEGACY_PORTAL.test(pathname) || LEGACY_ADMIN_API.test(pathname))
+  ) {
+    return new NextResponse(null, {
+      status: 404,
+      headers: { "Cache-Control": "no-store" },
+    });
+  }
 
   // DEV LOGGING - Track all incoming requests
   if (process.env.NODE_ENV === "development") {

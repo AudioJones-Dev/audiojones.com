@@ -1,4 +1,14 @@
 // src/app/privacy-policy/page.tsx
+import type { Metadata } from "next";
+import { buildMetadata } from "@/lib/seo/metadata";
+
+export const metadata: Metadata = buildMetadata({
+  title: "Privacy Policy",
+  description:
+    "How AJ Digital LLC (Audio Jones) collects, uses, retains, and shares personal information, plus your rights and contact options.",
+  path: "/privacy-policy",
+});
+
 export default function PrivacyPolicyPage() {
     const lastUpdated = "October 29, 2025";
 

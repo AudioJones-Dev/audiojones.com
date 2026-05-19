@@ -67,7 +67,7 @@ export default function CustomerDetailPage() {
       setLoading(true);
       const response = await fetch(`/api/admin/customers/${encodeURIComponent(email)}`, {
         headers: {
-          'admin-key': 'gGho3TE8ztiSAMvORfyCDem62Fk0xpW1',
+          'admin-key': '',
         },
       });
 
@@ -95,7 +95,7 @@ export default function CustomerDetailPage() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'admin-key': 'gGho3TE8ztiSAMvORfyCDem62Fk0xpW1',
+          'admin-key': '',
         },
         body: JSON.stringify({ message: newNote.trim() }),
       });
@@ -172,7 +172,7 @@ export default function CustomerDetailPage() {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
-          'admin-key': 'gGho3TE8ztiSAMvORfyCDem62Fk0xpW1',
+          'admin-key': '',
         },
         body: JSON.stringify(updates),
       });

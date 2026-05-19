@@ -9,6 +9,8 @@ import {
 } from "@/components/marketing/DesignSystemSections";
 import { ButtonLink } from "@/components/ui/Button";
 import { proofSignals, responseOsFlow } from "@/data/audiojones-design";
+import JsonLd from "@/components/seo/JsonLd";
+import { breadcrumbJsonLd, faqJsonLd } from "@/lib/seo/schema";
 import { buildMetadata } from "@/lib/seo/metadata";
 
 const DESCRIPTION =
@@ -20,9 +22,39 @@ export const metadata: Metadata = buildMetadata({
   path: "/agents/responseos",
 });
 
+const FAQS: Array<[string, string]> = [
+  [
+    "Is this a chatbot?",
+    "No. A chat interface can be one input, but ResponseOS is the operational layer behind capture, qualification, routing, and recovery.",
+  ],
+  [
+    "Who is it for?",
+    "Founder-led businesses with enough inbound demand to feel the cost of slow follow-up, unclear ownership, or scattered response channels.",
+  ],
+  [
+    "What comes first?",
+    "The ROI calculator or diagnostic. The system should be justified by the size and urgency of the revenue leak.",
+  ],
+  [
+    "Does it replace the team?",
+    "No. It gives the team cleaner signal, faster next actions, and a more accountable follow-up path.",
+  ],
+];
+
 export default function ResponseOsPage() {
   return (
     <>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", url: "/" },
+          { name: "Agents", url: "/agents" },
+          { name: "ResponseOS", url: "/agents/responseos" },
+        ])}
+      />
+      <JsonLd
+        data={faqJsonLd(FAQS.map(([question, answer]) => ({ question, answer })))}
+      />
+
       <SignalHero
         title="ResponseOS turns missed demand into a recovery path."
         description={DESCRIPTION}
@@ -122,12 +154,7 @@ export default function ResponseOsPage() {
           description="ResponseOS is installed around your existing stack where possible. The goal is a reliable recovery path, not another disconnected dashboard."
         />
         <div className="mt-10 grid gap-4 md:grid-cols-2">
-          {[
-            ["Is this a chatbot?", "No. A chat interface can be one input, but ResponseOS is the operational layer behind capture, qualification, routing, and recovery."],
-            ["Who is it for?", "Founder-led businesses with enough inbound demand to feel the cost of slow follow-up, unclear ownership, or scattered response channels."],
-            ["What comes first?", "The ROI calculator or diagnostic. The system should be justified by the size and urgency of the revenue leak."],
-            ["Does it replace the team?", "No. It gives the team cleaner signal, faster next actions, and a more accountable follow-up path."],
-          ].map(([question, answer]) => (
+          {FAQS.map(([question, answer]) => (
             <div key={question} className="rounded-2xl border border-[var(--line-2)] bg-bg-2 p-6">
               <h3 className="font-accent text-xl font-bold text-fg-0">
                 {question}

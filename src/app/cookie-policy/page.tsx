@@ -1,4 +1,14 @@
 // src/app/cookie-policy/page.tsx
+import type { Metadata } from "next";
+import { buildMetadata } from "@/lib/seo/metadata";
+
+export const metadata: Metadata = buildMetadata({
+  title: "Cookie Policy",
+  description:
+    "How Audio Jones uses essential, analytics, and marketing cookies, and how to manage your cookie preferences.",
+  path: "/cookie-policy",
+});
+
 export default function CookiePolicyPage() {
   const lastUpdated = "October 29, 2025";
 

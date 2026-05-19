@@ -74,7 +74,7 @@ export default function AdminSchedulerPage() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'admin-key': 'gGho3TE8ztiSAMvORfyCDem62Fk0xpW1',
+          'admin-key': '',
         },
       });
 
