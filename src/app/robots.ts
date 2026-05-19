@@ -18,14 +18,8 @@ export default function robots(): MetadataRoute.Robots {
           "/not-authorized",
           "/status",
           "/consent-testimonial",
-          "/book",
-          "/business",
-          "/creators",
-          // Legacy artist-hub routes — not part of public nav
-          "/artisthub",
-          "/(site)/artist-hub",
-          "/(site)/epm",
-          // Admin portal — block completely
+          // Admin portal — block completely (subset of /portal/, kept
+          // explicit for crawlers that don't honour prefix matches).
           "/portal/admin/",
         ],
       },

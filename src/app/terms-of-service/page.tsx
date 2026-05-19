@@ -1,4 +1,14 @@
 // src/app/terms-of-service/page.tsx
+import type { Metadata } from "next";
+import { buildMetadata } from "@/lib/seo/metadata";
+
+export const metadata: Metadata = buildMetadata({
+  title: "Terms of Service",
+  description:
+    "The terms governing use of audiojones.com and AJ Digital LLC services: scope, payments, cancellations, intellectual property, and liability.",
+  path: "/terms-of-service",
+});
+
 export default function TermsOfServicePage() {
   const lastUpdated = "October 29, 2025";
 

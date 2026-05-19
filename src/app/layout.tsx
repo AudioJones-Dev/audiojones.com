@@ -89,9 +89,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={`${sora.variable} ${inter.variable} ${spaceGrotesk.variable}`}
     >
       <body className="bg-bg-base text-text-primary font-body antialiased">
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-bg-2 focus:px-4 focus:py-2 focus:text-fg-0 focus:outline focus:outline-2 focus:outline-[var(--aj-orange)]"
+        >
+          Skip to main content
+        </a>
         <ToastProvider>
           <Header />
-          <main className="min-h-screen pt-20">{children}</main>
+          <main id="main-content" className="min-h-screen pt-20">
+            {children}
+          </main>
           <Footer />
           <CookieBanner />
         </ToastProvider>

@@ -13,7 +13,7 @@ export function organizationJsonLd() {
     name: aiEntity.brandName,
     legalName: aiEntity.legalName,
     url: SITE_URL,
-    logo: `${SITE_URL}/assets/og/audio-jones-logo.png`,
+    logo: `${SITE_URL}/assets/logos/audiojones-workmark-white.png`,
     sameAs: aiEntity.sameAs,
     founder: {
       "@type": "Person",
@@ -104,7 +104,7 @@ export function articleJsonLd(args: {
       ? args.image.startsWith("http")
         ? args.image
         : `${SITE_URL}${args.image}`
-      : `${SITE_URL}/assets/og/audio-jones-og.jpg`,
+      : `${SITE_URL}/og`,
     author: {
       "@type": "Person",
       name: aiEntity.name,
@@ -114,7 +114,7 @@ export function articleJsonLd(args: {
       name: aiEntity.brandName,
       logo: {
         "@type": "ImageObject",
-        url: `${SITE_URL}/assets/og/audio-jones-logo.png`,
+        url: `${SITE_URL}/assets/logos/audiojones-workmark-white.png`,
       },
     },
   } as const;
