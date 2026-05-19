@@ -52,6 +52,10 @@ export const EnvSchema = z.object({
   // Applied Intelligence diagnostic
   LEAD_FORM_SECRET: z.string().min(1).optional(),
   IP_HASH_SALT: z.string().min(1).optional(),
+
+  // ROI Calculator
+  ROI_REPORT_TOKEN_SECRET: z.string().min(1).optional(),
+  ROI_CALCULATOR_NOTIFY_WEBHOOK_URL: z.string().min(1).optional(),
   
   // Stripe payments
   STRIPE_SECRET_KEY: z.string().min(1).optional(),

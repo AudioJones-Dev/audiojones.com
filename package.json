@@ -14,6 +14,7 @@
         "packages:build": "pnpm -r --filter='@aj/*' build",
         "packages:dev": "pnpm -r --filter='@aj/*' dev",
         "verify:integrations": "tsx scripts/verify-integrations.ts",
+        "roi:smoke": "tsx scripts/roi-calculator-smoke.ts",
         "imagekit:convert": "node scripts/convert-to-ikimage.js",
         "imagekit:setup": "node scripts/setup-imagekit.js",
         "repo:init": "node tools/repo.js init",

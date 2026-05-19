@@ -102,6 +102,53 @@ export async function persistRoiCalculatorLead({ lead, ip, userAgent }: PersistL
   }
 }
 
+export type StoredRoiLead = {
+  id: string;
+  email: string;
+  source: string | null;
+  input: RoiLeadInput["input"];
+  result: RoiLeadInput["result"];
+  createdAt: string;
+};
+
+export async function getRoiCalculatorLead(leadId: string): Promise<StoredRoiLead | null> {
+  const databaseUrl = process.env.DATABASE_URL;
+  if (!databaseUrl) return null;
+
+  try {
+    const sql = neon(databaseUrl);
+    const rows = (await sql`
+      select id, email, source, input, result, created_at
+      from roi_calculator_leads
+      where id = ${leadId}
+      limit 1
+    `) as Array<{
+      id: string;
+      email: string;
+      source: string | null;
+      input: RoiLeadInput["input"];
+      result: RoiLeadInput["result"];
+      created_at: string | Date;
+    }>;
+
+    const row = rows[0];
+    if (!row) return null;
+
+    const createdAt = row.created_at instanceof Date ? row.created_at.toISOString() : String(row.created_at);
+    return {
+      id: row.id,
+      email: row.email,
+      source: row.source,
+      input: row.input,
+      result: row.result,
+      createdAt,
+    };
+  } catch (error) {
+    console.error("[roi-calculator] failed to read lead", { leadId, error });
+    return null;
+  }
+}
+
 export async function updateRoiLeadEmailStatus({
   leadId,
   agencyEmailStatus,

@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { calculateRoiResult } from "@/lib/roi-calculator/calculations";
 import { sendAgencyRoiNotification, sendClientRoiResult } from "@/lib/roi-calculator/roi-calculator-email";
+import { notifyRoiCalculatorChannel } from "@/lib/roi-calculator/roi-calculator-notify";
+import { buildReportUrl } from "@/lib/roi-calculator/report-token";
 import { roiLeadSchema } from "@/lib/roi-calculator/roi-calculator-schema";
 import { getEmailHash, getIpHash, persistRoiCalculatorLead, updateRoiLeadEmailStatus } from "@/lib/roi-calculator/roi-calculator-storage";
 
@@ -87,14 +89,20 @@ export async function POST(req: NextRequest) {
   }
 
   const submittedAt = new Date().toISOString();
+  const reportUrl = buildReportUrl(persisted.leadId);
+
   const agencyEmailStatus = await sendAgencyRoiNotification({ leadId: persisted.leadId, lead, submittedAt });
   await updateRoiLeadEmailStatus({ leadId: persisted.leadId, agencyEmailStatus });
+
   void sendClientRoiResult({ leadId: persisted.leadId, lead, submittedAt }).then((clientEmailStatus) =>
     updateRoiLeadEmailStatus({ leadId: persisted.leadId, clientEmailStatus }),
   );
 
+  void notifyRoiCalculatorChannel({ leadId: persisted.leadId, lead, reportUrl });
+
   return successResponse({
     leadId: persisted.leadId,
+    reportUrl,
     emailStatus: agencyEmailStatus === "failed" ? "partial" : "accepted",
   });
 }

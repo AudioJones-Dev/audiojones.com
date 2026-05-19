@@ -15,6 +15,31 @@ Entries are reverse chronological. Format follows
 
 ## Unreleased
 
+### ROI Calculator — lead capture & report delivery
+- Added `db/migrations/002_roi_calculator_leads.sql` — the table the
+  storage layer has been inserting into never actually existed, so
+  production submissions were 503-ing and no email could ever send.
+- Replaced the thin client email with a branded **"Your Signal ROI
+  Snapshot"** (Executive Snapshot · Revenue Leak · Bottleneck
+  Diagnosis · Signal vs. Noise · M.A.P. Attribution Lens · Recommended
+  Next Move · CTA).
+- Added `/roi-calculator/report/[leadId]` server-rendered report page,
+  protected by an HMAC signed-token query param (`?t=...`). Email links
+  point here so prospects can revisit the report; ready for headless-
+  chrome PDF export later.
+- Added optional Slack/n8n internal team notification (env-gated on
+  `ROI_CALCULATOR_NOTIFY_WEBHOOK_URL` with fallback to
+  `N8N_LEAD_WEBHOOK_URL` / `CRM_WEBHOOK_URL`).
+- Surfaced missing-env warnings instead of silently `"skipped"`-ing:
+  `RESEND_API_KEY`, `FROM_EMAIL`, and `LEAD_NOTIFICATION_EMAIL` now log
+  a single admin-safe console warning on first hit.
+- New env vars (both optional): `ROI_REPORT_TOKEN_SECRET`,
+  `ROI_CALCULATOR_NOTIFY_WEBHOOK_URL`. Documented in `.env.example`,
+  `packages/config/env.schema.ts`, and `.env.schema.json`.
+- Added `pnpm roi:smoke` (`scripts/roi-calculator-smoke.ts`) — posts a
+  synthetic submission and reports persisted + email status against any
+  base URL.
+
 ### Documentation
 - Established the canonical `docs/` hierarchy: `PRD.md`, `DESIGN.md`,
   `ROADMAP.md`, `SECURITY.md`, `DEPLOYMENT.md`, `DECISIONS.md`,
