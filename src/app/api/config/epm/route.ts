@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import epmConfig from '@/config/epm.json';
+import { upsertMailerLiteSubscriber } from '@/lib/integrations/mailerlite';
 
 export async function GET() {
   try {
@@ -24,11 +25,7 @@ export async function POST(request: Request) {
       );
     }
 
-    // TODO: Integrate with MailerLite API for EPM waitlist
-    // This would use the MAILERLITE_TOKEN from environment variables
-    // and tag subscribers with the appropriate waitlist tag
-    
-    console.log('EPM Waitlist signup:', { email, waitlistTag });
+    await upsertMailerLiteSubscriber({ email, tag: waitlistTag });
 
     return NextResponse.json({
       success: true,
