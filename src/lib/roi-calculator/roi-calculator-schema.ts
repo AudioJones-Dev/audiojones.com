@@ -3,6 +3,12 @@ import { z } from "zod";
 const text = (label: string, max = 160) =>
   z.string({ required_error: `${label} is required.` }).trim().min(1, `${label} is required.`).max(max, `${label} is too long.`);
 
+const dollars = (label: string, max = 10000000) =>
+  z.coerce.number().min(0, `${label} cannot be negative.`).max(max, `${label} is too high.`);
+
+const percent = (label: string) =>
+  z.coerce.number().min(0, `${label} cannot be negative.`).max(100, `${label} cannot exceed 100%.`);
+
 export const roiInputSchema = z.object({
   industry: text("Industry"),
   companySize: text("Company size"),
@@ -11,10 +17,19 @@ export const roiInputSchema = z.object({
   taskFrequency: text("Task frequency"),
   hoursPerWeek: z.coerce.number().min(1, "Hours per week must be at least 1.").max(168, "Hours per week must be 168 or less."),
   hourlyCost: z.coerce.number().min(1, "Hourly cost must be at least 1.").max(2000, "Hourly cost is too high."),
-  errorFrequency: text("Error frequency"),
-  monthlyReworkCost: z.coerce.number().min(0, "Monthly rework cost cannot be negative.").max(10000000, "Monthly rework cost is too high."),
-  delayPain: text("Delay pain"),
-  implementationBudget: z.coerce.number().min(0, "Implementation budget cannot be negative.").max(10000000, "Implementation budget is too high."),
+  leadsPerMonth: z.coerce.number().min(0, "Leads per month cannot be negative.").max(1000000, "Leads per month is too high."),
+  averageDealValue: dollars("Average deal value"),
+  currentCloseRate: percent("Current close rate"),
+  speedToLeadLift: percent("Speed-to-lead close rate lift"),
+  errorsPerMonth: z.coerce.number().min(0, "Errors per month cannot be negative.").max(1000000, "Errors per month is too high."),
+  costPerError: dollars("Cost per error"),
+  preventableErrorRate: percent("Preventable error rate"),
+  ownerHoursPerWeek: z.coerce.number().min(0, "Owner hours per week cannot be negative.").max(168, "Owner hours per week must be 168 or less."),
+  ownerHourlyValue: dollars("Owner hourly value", 5000),
+  ownerRecoverableRate: percent("Owner recoverable rate"),
+  avoidedHireMonthlyCost: dollars("Avoided hire monthly cost"),
+  headcountAvoidanceRate: percent("Headcount avoidance rate"),
+  implementationBudget: dollars("Implementation budget"),
   timelineExpectation: text("Timeline expectation"),
   internalOwner: text("Internal owner/readiness"),
   processClarity: z.coerce.number().int().min(1).max(5),
@@ -39,9 +54,11 @@ export const roiResultSchema = z.object({
   recommendation: z.enum(["Automate Now", "Pilot First", "Diagnose the Workflow"]),
   recommendedNextAction: z.string().trim().min(1).max(400),
   savingsBreakdown: z.object({
-    laborSavings: z.number().nonnegative().max(100000000),
-    reworkSavings: z.number().nonnegative().max(100000000),
-    delayRecovery: z.number().nonnegative().max(100000000),
+    manualLaborRecovery: z.number().nonnegative().max(100000000),
+    revenueRecovery: z.number().nonnegative().max(100000000),
+    errorReduction: z.number().nonnegative().max(100000000),
+    ownerCapacityUnlocked: z.number().nonnegative().max(100000000),
+    headcountAvoidance: z.number().nonnegative().max(100000000),
   }),
 });
 
