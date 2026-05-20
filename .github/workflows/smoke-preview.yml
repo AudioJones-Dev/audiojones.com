@@ -111,6 +111,7 @@ jobs:
               echo "outcome=skipped"
               echo "deployment_found=${DEPLOYMENT_FOUND}"
               echo "attempts_used=${ATTEMPTS_USED}"
+              echo "last_state=${LAST_STATE:-unknown}"
               echo "preview_url="
             } >> "$GITHUB_OUTPUT"
             exit 0
@@ -167,7 +168,16 @@ jobs:
 
       - name: Report skip
         if: steps.preview.outputs.outcome == 'skipped'
+        env:
+          DEPLOYMENT_FOUND: ${{ steps.preview.outputs.deployment_found }}
+          ATTEMPTS_USED: ${{ steps.preview.outputs.attempts_used }}
+          LAST_STATE: ${{ steps.preview.outputs.last_state }}
         run: |
-          echo "::notice title=smoke_preview skipped::No Vercel preview deployment was found for this head SHA. Code validation already passed."
-          echo "attempts_used=${{ steps.preview.outputs.attempts_used }}"
-          echo "deployment_found=${{ steps.preview.outputs.deployment_found }}"
+          if [ "${DEPLOYMENT_FOUND}" = "true" ]; then
+            echo "::notice title=smoke_preview skipped::Vercel preview deployment was registered but did not reach success within the wait window (last state: ${LAST_STATE:-unknown}). Code validation already passed."
+          else
+            echo "::notice title=smoke_preview skipped::No Vercel preview deployment was found for this head SHA. Code validation already passed."
+          fi
+          echo "attempts_used=${ATTEMPTS_USED}"
+          echo "deployment_found=${DEPLOYMENT_FOUND}"
+          echo "last_state=${LAST_STATE:-unknown}"
