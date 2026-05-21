@@ -634,15 +634,18 @@ The homepage is the most expensive surface. Only statistics that meet
 3. Operationally interpretable in under twelve words.
 4. Not industry-specific (the homepage serves the full ICP).
 
-**Slots required from the AI Workforce Economics Index dataset:**
+**Slots required from the AI Workforce Economics Index dataset.** Every
+slot maps to a row in [`citations.md`](./citations.md). No statistic ships
+to the homepage until the linked claim transitions from `PROVISIONAL` to
+`VERIFIED` per the intake checklist in `citations.md` §10.
 
-| Slot | Surface | Statistic category | Required form |
-|---|---|---|---|
-| §5.1.A | Hero subline (§2.3) | Lead-value decay vs. time-to-response | One number, single source, ≤14 words. |
-| §5.1.B | "The Cost of the Gap" — col. 1 | Lead response time economics | One number + source, single sentence interpretation. |
-| §5.1.C | "The Cost of the Gap" — col. 2 | Fully-loaded front-office labor cost (median) | One number + source, framed as "operating context", not "alternative". |
-| §5.1.D | "The Cost of the Gap" — col. 3 | Founder/operator time spent on context reconstruction | One number + source, framed as cognitive tax. |
-| §5.1.E | ResponseOSWedge muted CTA line (§2.5) | Median quarterly revenue leak — service businesses | Range, two-source minimum, framed conservatively. |
+| Slot | Surface | Statistic category | Required form | Claim ID |
+|---|---|---|---|---|
+| §5.1.A | Hero subline (§2.3) | Lead-value decay vs. time-to-response | One number, single source, ≤14 words. | [`AJW-001`](./citations.md#ajw-001--lead-response-time-decay-5-minute-window) |
+| §5.1.B | "The Cost of the Gap" — col. 1 | Lead response time economics | One number + source, single sentence interpretation. | [`AJW-001`](./citations.md#ajw-001--lead-response-time-decay-5-minute-window) (reuse, different framing) |
+| §5.1.C | "The Cost of the Gap" — col. 2 | Fully-loaded front-office labor cost (median) | One number + source, framed as "operating context", not "alternative". | [`AJW-002`](./citations.md#ajw-002--fully-loaded-receptionist--front-office-labor-cost) |
+| §5.1.D | "The Cost of the Gap" — col. 3 | Founder/operator time spent on context reconstruction | One number + source, framed as cognitive tax. | [`AJW-003`](./citations.md#ajw-003--knowledge-worker-context-reconstruction-time) |
+| §5.1.E | ResponseOSWedge muted CTA line (§2.5) | Median quarterly revenue leak — service businesses | Range, two-source minimum, framed conservatively. | [`AJW-004`](./citations.md#ajw-004--quarterly-revenue-leak--founder-led-service-businesses) — methodology required |
 
 ### 5.2 Statistics for the ResponseOS page
 
@@ -650,17 +653,20 @@ The ResponseOS page can carry **higher statistic density** than the
 homepage because the buyer has already self-selected into the
 revenue-recovery frame.
 
-| Slot | Surface | Statistic category |
-|---|---|---|
-| §5.2.A | "The Leak" — Inbound scatter card | Average number of inbound channels per SMB |
-| §5.2.B | "The Leak" — Qualification card | Qualification accuracy under volume / time pressure |
-| §5.2.C | "The Leak" — Recovery card | % of lapsed leads never re-engaged |
-| §5.2.D | Economics — Decay curve | Time-to-response value-decay curve (graphable) |
-| §5.2.E | Economics — After-hours | Share of high-intent inquiries arriving outside business hours |
-| §5.2.F | Economics — Labor parity | Fully-loaded receptionist / SDR / front-office FTE cost |
+| Slot | Surface | Statistic category | Claim ID |
+|---|---|---|---|
+| §5.2.A | "The Leak" — Inbound scatter card | Average number of inbound channels per SMB | [`AJW-005`](./citations.md#ajw-005--inbound-channel-fragmentation-per-smb) |
+| §5.2.B | "The Leak" — Qualification card | Qualification accuracy under volume / time pressure | [`AJW-006`](./citations.md#ajw-006--qualification-accuracy-under-volume--time-pressure) — TBD, gated on intake |
+| §5.2.C | "The Leak" — Recovery card | % of lapsed leads never re-engaged | [`AJW-007`](./citations.md#ajw-007--lapsed-leads-never-re-engaged) |
+| §5.2.D | Economics — Decay curve | Time-to-response value-decay curve (graphable) | [`AJW-008`](./citations.md#ajw-008--response-time-decay-curve-graphable) |
+| §5.2.E | Economics — After-hours | Share of high-intent inquiries arriving outside business hours | [`AJW-009`](./citations.md#ajw-009--after-hours-inbound-share) + [`AJW-010`](./citations.md#ajw-010--missed-call-rate-inbound-voice) |
+| §5.2.F | Economics — Labor parity | Fully-loaded receptionist / SDR / front-office FTE cost | [`AJW-002`](./citations.md#ajw-002--fully-loaded-receptionist--front-office-labor-cost) (reuse) |
 
 Maximum total on the page: **six**. Anything beyond six on the
-ResponseOS page begins to read as a deck, not a product surface.
+ResponseOS page begins to read as a deck, not a product surface. If
+`AJW-006` does not transition out of `TBD` at intake, drop the slot
+rather than soften the language — five strong stats are stronger than
+six mixed-quality ones.
 
 ### 5.3 Statistics for the ReKonr OS page
 
@@ -669,17 +675,21 @@ site**, because the buyer cannot yet *feel* the cost the way they feel
 inbound revenue leak. Statistics do the price-making work that
 intuition does for ResponseOS.
 
-| Slot | Surface | Statistic category |
-|---|---|---|
-| §5.3.A | Economics — Context reconstruction | Knowledge-worker / operator daily time spent on context reconstruction |
-| §5.3.B | Economics — Knowledge attrition | Cost of employee turnover attributable to knowledge loss |
-| §5.3.C | Economics — Founder cognitive load | Founder time spent on operational reconstruction (survey-based, cited) |
-| §5.3.D | Reconstruction Problem section | CRM data decay rate per year (industry benchmark) |
-| §5.3.E | Five Forms of Operational Memory — closing | % of operational knowledge that lives in unstructured / non-system locations |
-| §5.3.F | FAQ — disambiguation | Reference to category research distinguishing memory infrastructure from chatbots / KBs |
+| Slot | Surface | Statistic category | Claim ID |
+|---|---|---|---|
+| §5.3.A | Economics — Context reconstruction | Knowledge-worker / operator daily time spent on context reconstruction | [`AJW-003`](./citations.md#ajw-003--knowledge-worker-context-reconstruction-time) (reuse, ReKonr-specific framing) |
+| §5.3.B | Economics — Knowledge attrition | Cost of employee turnover attributable to knowledge loss | [`AJW-011`](./citations.md#ajw-011--employee-turnover-knowledge-loss-cost) |
+| §5.3.C | Economics — Founder cognitive load | Founder time spent on operational reconstruction (survey-based, cited) | [`AJW-014`](./citations.md#ajw-014--founder-operational-cognitive-load) — TBD, cohort survey required |
+| §5.3.D | Reconstruction Problem section | CRM data decay rate per year (industry benchmark) | [`AJW-012`](./citations.md#ajw-012--crm-data-decay-rate) |
+| §5.3.E | Five Forms of Operational Memory — closing | % of operational knowledge that lives in unstructured / non-system locations | [`AJW-013`](./citations.md#ajw-013--unstructured-share-of-enterprise-data) |
+| §5.3.F | FAQ — disambiguation | Reference to category research distinguishing memory infrastructure from chatbots / KBs | [`AJW-015`](./citations.md#ajw-015--category-disambiguation--memory-infrastructure-vs-chatbots--kbs) — TBD, analyst publication required |
 
 Maximum total on the page: **eight**. The page is research-led; this
-is the one surface where research density is the proof.
+is the one surface where research density is the proof. The two `TBD`
+slots (`AJW-014`, `AJW-015`) are *gated on intake* — if either does not
+transition to `PROVISIONAL` with a defensible anchor before
+implementation, the corresponding section ships without the citation
+rather than borrowing a weaker source.
 
 ### 5.4 Statistics best reserved for deeper surfaces
 
@@ -714,9 +724,12 @@ satisfy all of:
    destroyed faster by one inflated number than by ten cautious ones.
 4. **Dated.** Year-of-publication appears in the citation. Statistics
    older than 36 months without re-publication get retired.
-5. **Reviewable.** A single `docs/strategy/citations.md` ledger tracks
-   every statistic on the site, its source, its surface, and its
-   review date. This is the data room. (See §7.5.)
+5. **Reviewable.** A single [`citations.md`](./citations.md) ledger
+   tracks every statistic on the site, its source, its surface, and
+   its review date. This is the data room. The ledger schema and
+   intake checklist are authoritative — claims do not ship to a
+   marketing surface until they pass the `PROVISIONAL → VERIFIED`
+   transition in `citations.md` §10.
 
 ---
 
@@ -798,8 +811,9 @@ Sequenced for compounding lift — each phase enables the next.
 
 | # | Work | Surface | Why this order |
 |---|---|---|---|
-| **1** | Citation ledger + research dataset intake | `docs/strategy/citations.md` (new) | Nothing else ships until §7.5 is live. |
-| **2** | Hero subline statistic (§2.3) | Homepage | Lowest-cost change, highest above-the-fold signal lift. |
+| **1a** | Citation ledger — schema + PROVISIONAL anchor population | [`docs/strategy/citations.md`](./citations.md) | **Complete** as of ledger v0.1. Schema in place; 16 claim rows seeded with public anchors where available, TBD slots marked. |
+| **1b** | Research dataset intake — transition rows from PROVISIONAL → VERIFIED | `docs/strategy/citations.md` | Gated on AI Workforce Economics Index dataset delivery. **Nothing on the public surface ships until the linked claims for that surface transition out of `PROVISIONAL`.** |
+| **2** | Hero subline statistic (§2.3) | Homepage | Lowest-cost change, highest above-the-fold signal lift. Gated on `AJW-001` VERIFIED. |
 | **3** | "Cost of the Gap" section (§2.4) | Homepage | The central architectural insertion. |
 | **4** | ResponseOSWedge CTA augmentation (§2.5) | Homepage | Bridge to product page. |
 | **5** | ProofStats citation row (§2.6) | Homepage | Trust posture upgrade. |
@@ -902,6 +916,8 @@ against this voice plus the live research dataset.
 > An inbound lead loses [XX]% of its operational value within five
 > minutes of arrival.¹
 
+Footnote 1 → [`AJW-001`](./citations.md#ajw-001--lead-response-time-decay-5-minute-window).
+
 ### 8.2 "Cost of the Gap" — opening line
 
 > Three economic forces are reshaping what it costs to run a
@@ -912,6 +928,8 @@ against this voice plus the live research dataset.
 
 > Median founder-led service business loses $[XX,XXX]–$[XX,XXX] per
 > quarter to follow-up gaps before a system is installed.²
+
+Footnote 2 → [`AJW-004`](./citations.md#ajw-004--quarterly-revenue-leak--founder-led-service-businesses). Methodology and numerics both pending — this line does not ship until `AJW-004` transitions to `VERIFIED`.
 
 ### 8.4 ResponseOS — Economics section closing
 
@@ -950,13 +968,19 @@ against this voice plus the live research dataset.
 This strategy is not actionable in code until:
 
 1. The AI Workforce Economics Index research dataset is shared with
-   the strategy team (statistics, sources, methodology, license).
-2. §7.5 citation ledger is created and populated for at least the
-   five homepage slots (§5.1).
+   the strategy team (statistics, sources, methodology, license). **Not
+   yet received.**
+2. [`citations.md`](./citations.md) ledger transitions the homepage
+   claim rows (`AJW-001`, `AJW-002`, `AJW-003`, `AJW-004`) from
+   `PROVISIONAL` to `VERIFIED` per the intake checklist in
+   `citations.md` §10. **Schema is in place (ledger v0.1, this PR); row
+   verification is pending dataset intake.**
 3. The owner of `/research` surface is named (recommendation: AJ
-   Digital LLC research function, not the website team).
+   Digital LLC research function, not the website team). **Not yet
+   named.**
 4. The ReKonr OS naming is confirmed in trademark posture — the
-   page architecture in §4 assumes the brand mark holds.
+   page architecture in §4 assumes the brand mark holds. **Not yet
+   confirmed.**
 
 Until those four are in place, this document is the spec. No
 homepage modifications, no `/agents` modifications, no new pages.

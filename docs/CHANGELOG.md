@@ -16,6 +16,18 @@ Entries are reverse chronological. Format follows
 ## Unreleased
 
 ### Documentation
+- Added `docs/strategy/citations.md` — citation ledger (v0.1) for every
+  statistic that may appear on a public AudioJones.com surface. Schema
+  in place; 16 claim rows seeded with PROVISIONAL anchor citations
+  (BLS OES + ECEC, HBR Oldroyd et al. 2011, McKinsey Global Institute
+  2012, SHRM, multi-vendor synthesis). No claim ships to a marketing
+  surface until it transitions from `PROVISIONAL` to `VERIFIED` per
+  the intake checklist in `citations.md` §10.
+- Updated `docs/strategy/conversion-strategy-2026.md` §5 statistic
+  slot tables to reference ledger claim IDs (`AJW-001` … `AJW-016`),
+  §5.5 to point at the new ledger, §7.1 to reflect the schema being in
+  place, and §9 sign-off list to show current status of each gating
+  item.
 - Added `docs/strategy/conversion-strategy-2026.md` — strategic brief
   for integrating the AI Workforce Economics Index research layer into
   the homepage, `/agents/responseos`, and a new `/agents/rekonr-os`
