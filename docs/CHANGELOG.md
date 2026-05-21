@@ -16,6 +16,11 @@ Entries are reverse chronological. Format follows
 ## Unreleased
 
 ### Documentation
+- Added `docs/strategy/conversion-strategy-2026.md` — strategic brief
+  for integrating the AI Workforce Economics Index research layer into
+  the homepage, `/agents/responseos`, and a new `/agents/rekonr-os`
+  surface. Strategy-only doc; no code or page changes. Implementation
+  is gated on the four sign-off items in §9 of that document.
 - Established the canonical `docs/` hierarchy: `PRD.md`, `DESIGN.md`,
   `ROADMAP.md`, `SECURITY.md`, `DEPLOYMENT.md`, `DECISIONS.md`,
   `CHANGELOG.md`.
