@@ -3,6 +3,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { Button } from "@/components/ui/Button";
 
 export default function CookieBanner() {
   const [showBanner, setShowBanner] = useState(false);
@@ -29,28 +30,40 @@ export default function CookieBanner() {
   }
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 bg-gray-800/90 backdrop-blur-sm p-4 text-white shadow-lg">
-      <div className="container mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-        <p className="text-sm">
-          We use cookies to enhance your browsing experience, serve personalized ads, and analyze traffic. By
-          clicking “Accept All,” you consent to our cookies.{" "}
-          <Link href="/cookie-policy" className="underline hover:text-yellow-400">
-            Learn more.
+    <div
+      role="dialog"
+      aria-label="Cookie consent"
+      className="fixed inset-x-0 bottom-0 z-50 flex justify-center px-4 pb-4 sm:px-6 sm:pb-6"
+    >
+      <div
+        className="
+          w-full max-w-[720px]
+          rounded-[var(--r-card)]
+          border border-border-strong
+          bg-surface-1/95 backdrop-blur-md
+          shadow-[var(--shadow-card),0_10px_40px_-10px_rgba(232,255,90,0.18)]
+          px-5 py-4 sm:px-6 sm:py-5
+          flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between
+          font-body
+        "
+      >
+        <p className="text-[13px] leading-relaxed text-text-primary sm:max-w-[460px]">
+          We use cookies to enhance your experience and analyze traffic.{" "}
+          <Link
+            href="/cookie-policy"
+            className="text-signal-yellow underline underline-offset-4 decoration-signal-yellow/40 hover:decoration-signal-yellow transition-colors"
+          >
+            Learn more
           </Link>
+          .
         </p>
-        <div className="flex gap-2">
-          <button
-            onClick={acceptCookies}
-            className="rounded-full bg-gradient-to-r from-orange-500 to-yellow-500 px-4 py-2 text-sm font-bold text-black transition hover:opacity-90"
-          >
-            Accept All
-          </button>
-          <button
-            onClick={declineCookies}
-            className="rounded-full bg-white/10 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/20"
-          >
+        <div className="flex shrink-0 gap-2">
+          <Button variant="secondary" size="sm" onClick={declineCookies}>
             Decline
-          </button>
+          </Button>
+          <Button variant="primary" size="sm" onClick={acceptCookies}>
+            Accept all
+          </Button>
         </div>
       </div>
     </div>
