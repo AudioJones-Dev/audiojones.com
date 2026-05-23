@@ -6,9 +6,18 @@ export type RoiCalculatorInput = {
   taskFrequency: string;
   hoursPerWeek: number;
   hourlyCost: number;
-  errorFrequency: string;
-  monthlyReworkCost: number;
-  delayPain: string;
+  leadsPerMonth: number;
+  averageDealValue: number;
+  currentCloseRate: number;
+  speedToLeadLift: number;
+  errorsPerMonth: number;
+  costPerError: number;
+  preventableErrorRate: number;
+  ownerHoursPerWeek: number;
+  ownerHourlyValue: number;
+  ownerRecoverableRate: number;
+  avoidedHireMonthlyCost: number;
+  headcountAvoidanceRate: number;
   implementationBudget: number;
   timelineExpectation: string;
   internalOwner: string;
@@ -41,9 +50,11 @@ export type RoiCalculatorResult = {
   recommendation: RoiRecommendation;
   recommendedNextAction: string;
   savingsBreakdown: {
-    laborSavings: number;
-    reworkSavings: number;
-    delayRecovery: number;
+    manualLaborRecovery: number;
+    revenueRecovery: number;
+    errorReduction: number;
+    ownerCapacityUnlocked: number;
+    headcountAvoidance: number;
   };
 };
 

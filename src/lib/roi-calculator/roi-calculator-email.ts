@@ -73,8 +73,18 @@ export async function sendAgencyRoiNotification({ leadId, lead, submittedAt }: S
         row("Frequency", input.taskFrequency),
         row("Hours/week", input.hoursPerWeek),
         row("Hourly cost", `$${input.hourlyCost}`),
-        row("Rework cost", `$${input.monthlyReworkCost}`),
-        row("Delay pain", input.delayPain),
+        row("Leads/month", input.leadsPerMonth),
+        row("Average deal value", `$${input.averageDealValue}`),
+        row("Current close rate", `${input.currentCloseRate}%`),
+        row("Speed-to-lead lift", `${input.speedToLeadLift}%`),
+        row("Errors/month", input.errorsPerMonth),
+        row("Cost per error", `$${input.costPerError}`),
+        row("Preventable error rate", `${input.preventableErrorRate}%`),
+        row("Owner hours/week", input.ownerHoursPerWeek),
+        row("Owner hourly value", `$${input.ownerHourlyValue}`),
+        row("Owner recoverable rate", `${input.ownerRecoverableRate}%`),
+        row("Avoided hire monthly cost", `$${input.avoidedHireMonthlyCost}`),
+        row("Headcount avoidance rate", `${input.headcountAvoidanceRate}%`),
         row("Budget", `$${input.implementationBudget}`),
         row("Timeline", input.timelineExpectation),
         row("Owner/readiness", input.internalOwner),
@@ -83,14 +93,22 @@ export async function sendAgencyRoiNotification({ leadId, lead, submittedAt }: S
       ].join("")}</table>
       <h2 style="margin:20px 0 8px 0;">Result</h2>
       <table style="border-collapse:collapse;font-size:14px;">${[
-        row("Monthly savings", money(result.monthlySavings)),
-        row("Annual savings", money(result.annualSavings)),
+        row("Monthly recovery", money(result.monthlySavings)),
+        row("Annual recovery", money(result.annualSavings)),
         row("Payback", result.paybackMonths ? `${result.paybackMonths} months` : "Needs budget estimate"),
         row("Readiness score", `${result.readinessScore}/100`),
         row("Priority score", `${result.priorityScore}/100`),
         row("Confidence", result.confidenceTier),
         row("Recommendation", result.recommendation),
         row("Next action", result.recommendedNextAction),
+      ].join("")}</table>
+      <h2 style="margin:20px 0 8px 0;">Operational waste recovery levers</h2>
+      <table style="border-collapse:collapse;font-size:14px;">${[
+        row("Manual labor recovery", money(result.savingsBreakdown.manualLaborRecovery)),
+        row("Revenue recovery", money(result.savingsBreakdown.revenueRecovery)),
+        row("Error reduction", money(result.savingsBreakdown.errorReduction)),
+        row("Owner capacity unlocked", money(result.savingsBreakdown.ownerCapacityUnlocked)),
+        row("Headcount avoidance", money(result.savingsBreakdown.headcountAvoidance)),
       ].join("")}</table>
     </div>`;
 
@@ -104,19 +122,27 @@ export async function sendAgencyRoiNotification({ leadId, lead, submittedAt }: S
 
 export async function sendClientRoiResult({ leadId, lead }: SendArgs): Promise<RoiEmailStatus> {
   const { input, result } = lead;
-  const subject = `Your AI ROI Diagnostic — ${result.recommendation}`;
+  const subject = `Your Operational Waste Recovery Signal — ${result.recommendation}`;
   const html = `
     <div style="font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:#05070F;color:#F8FAFC;padding:24px;line-height:1.6;">
-      <p style="margin:0 0 12px 0;color:#C8A96A;text-transform:uppercase;letter-spacing:.08em;font-size:12px;">Audio Jones ROI Diagnostic</p>
+      <p style="margin:0 0 12px 0;color:#C8A96A;text-transform:uppercase;letter-spacing:.08em;font-size:12px;">Audio Jones · Operational Waste Recovery</p>
       <h1 style="margin:0 0 12px 0;">${escapeHtml(input.name)}, here is the short version.</h1>
-      <p style="margin:0 0 18px 0;color:#CBD5E1;">Your workflow shows an estimated ${escapeHtml(money(result.annualSavings))} in annual savings potential with a ${escapeHtml(result.confidenceTier.toLowerCase())} confidence tier.</p>
+      <p style="margin:0 0 18px 0;color:#CBD5E1;">Your workflow shows an estimated ${escapeHtml(money(result.annualSavings))} in annual operational waste recovery with a ${escapeHtml(result.confidenceTier.toLowerCase())} confidence tier.</p>
       <div style="border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:16px;background:#0B1020;">
         <p><strong>Readiness:</strong> ${escapeHtml(result.readinessScore)}/100</p>
-        <p><strong>Estimated monthly savings:</strong> ${escapeHtml(money(result.monthlySavings))}</p>
+        <p><strong>Estimated monthly recovery:</strong> ${escapeHtml(money(result.monthlySavings))}</p>
         <p><strong>Estimated payback:</strong> ${escapeHtml(result.paybackMonths ? `${result.paybackMonths} months` : "needs a budget estimate")}</p>
         <p><strong>Recommended next action:</strong> ${escapeHtml(result.recommendedNextAction)}</p>
       </div>
-      <p style="margin:18px 0;color:#CBD5E1;">This is directional, not a promise. The next step is to separate true workflow signal from operational noise before investing in automation.</p>
+      <p style="margin:18px 0 8px 0;color:#CBD5E1;"><strong>Where the recovery comes from:</strong></p>
+      <ul style="margin:0 0 18px 18px;padding:0;color:#CBD5E1;">
+        <li>Manual labor recovery — ${escapeHtml(money(result.savingsBreakdown.manualLaborRecovery))}/mo</li>
+        <li>Revenue recovery — ${escapeHtml(money(result.savingsBreakdown.revenueRecovery))}/mo</li>
+        <li>Error reduction — ${escapeHtml(money(result.savingsBreakdown.errorReduction))}/mo</li>
+        <li>Owner capacity unlocked — ${escapeHtml(money(result.savingsBreakdown.ownerCapacityUnlocked))}/mo</li>
+        <li>Headcount avoidance — ${escapeHtml(money(result.savingsBreakdown.headcountAvoidance))}/mo</li>
+      </ul>
+      <p style="margin:18px 0;color:#CBD5E1;">This is directional, not a promise. We do not calculate AI hype — we calculate operational waste recovery. The next step is to separate true workflow signal from noise before adding another tool.</p>
       <p><a href="${ctaLinks.signalDiagnostic}" style="color:#FF6A30;font-weight:700;">Take the Signal Diagnostic</a></p>
       <p style="margin-top:24px;color:#94A3B8;font-size:12px;">Reference ID: ${escapeHtml(leadId)}</p>
     </div>`;
