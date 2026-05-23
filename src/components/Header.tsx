@@ -59,14 +59,14 @@ export default function Header() {
                   href={item.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="t-small font-medium text-fg-1 transition-colors hover:text-fg-0"
+                  className="text-sm font-semibold text-fg-0 transition-colors hover:text-signal-yellow"
                 >
                   {item.label}
                 </a>
               ) : (
                 <Link
                   href={item.href}
-                  className="t-small font-medium text-fg-1 transition-colors hover:text-fg-0"
+                  className="text-sm font-semibold text-fg-0 transition-colors hover:text-signal-yellow"
                 >
                   {item.label}
                 </Link>
@@ -111,7 +111,7 @@ export default function Header() {
                     href={item.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block rounded-md px-3 py-3 t-body font-medium text-fg-1 hover:bg-bg-2 hover:text-fg-0"
+                    className="block rounded-md px-3 py-3 text-base font-semibold text-fg-0 hover:bg-bg-2 hover:text-signal-yellow"
                     onClick={() => setOpen(false)}
                   >
                     {item.label}
@@ -119,7 +119,7 @@ export default function Header() {
                 ) : (
                   <Link
                     href={item.href}
-                    className="block rounded-md px-3 py-3 t-body font-medium text-fg-1 hover:bg-bg-2 hover:text-fg-0"
+                    className="block rounded-md px-3 py-3 text-base font-semibold text-fg-0 hover:bg-bg-2 hover:text-signal-yellow"
                     onClick={() => setOpen(false)}
                   >
                     {item.label}
