@@ -12,11 +12,28 @@ export async function notifyAppliedIntelligenceLead(args: NotifyArgs) {
   await Promise.allSettled([sendEmail(args), sendN8nWebhook(args)]);
 }
 
+// Warn-once guard so a misconfigured deploy emits a single visible signal
+// instead of one line per submission. Module-scoped — resets per cold start,
+// which is fine: it's a deployment-config smell, not a per-request alert.
+let emailEnvWarned = false;
+
 async function sendEmail({ leadId, input, scores }: NotifyArgs) {
   const apiKey = process.env.RESEND_API_KEY;
   const to = process.env.LEAD_NOTIFICATION_EMAIL;
   const from = process.env.FROM_EMAIL || "Audio Jones <noreply@audiojones.com>";
-  if (!apiKey || !to) return;
+  if (!apiKey || !to) {
+    if (!emailEnvWarned) {
+      emailEnvWarned = true;
+      console.warn(
+        "[applied-intelligence] internal notification skipped: email env missing",
+        {
+          hasResendApiKey: Boolean(apiKey),
+          hasLeadNotificationEmail: Boolean(to),
+        },
+      );
+    }
+    return;
+  }
 
   const subject = `[${scores.priority.toUpperCase()}] Applied Intelligence lead: ${input.firstName} (${scores.totalScore})`;
   const html = renderEmail({ leadId, input, scores });
