@@ -69,8 +69,19 @@ export default function RoiLeadMagnet() {
               </label>
             ))}
           </div>
-          <div className="mt-6 rounded-2xl border border-[rgba(255,69,0,0.28)] bg-[rgba(255,69,0,0.08)] p-6">
-            <p className="text-xs font-bold uppercase tracking-[0.14em] text-[var(--aj-orange)]">
+          <div
+            className="relative mt-6 overflow-hidden rounded-2xl border border-[rgba(255,255,255,0.06)] p-6"
+            style={{ background: "rgba(8,10,18,0.55)" }}
+          >
+            <div
+              aria-hidden
+              className="absolute inset-x-0 top-0 h-[2px]"
+              style={{
+                background:
+                  "linear-gradient(to right, transparent, var(--signal-yellow), transparent)",
+              }}
+            />
+            <p className="text-xs font-bold uppercase tracking-[0.14em] text-[var(--signal-yellow)]">
               Lost revenue estimate
             </p>
             <p className="mt-3 font-mono text-4xl font-black text-fg-0">

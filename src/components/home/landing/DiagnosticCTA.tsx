@@ -17,7 +17,7 @@ export default function DiagnosticCTA() {
   return (
     <section
       id="diagnostic"
-      className="relative overflow-hidden border-t border-[var(--line-2)] bg-bg-0 py-24 sm:py-32"
+      className="relative overflow-hidden border-t border-[var(--line-2)] bg-bg-0 py-32 sm:py-40"
     >
       <div aria-hidden className="absolute inset-0 -z-30">
         <Image

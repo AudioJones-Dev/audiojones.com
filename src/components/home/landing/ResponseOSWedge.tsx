@@ -26,28 +26,27 @@ function RecoveryDiagram() {
     >
       <defs>
         <linearGradient id="responseosRoute" x1="72" x2="548" y1="180" y2="180" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stopColor="#ff4500" />
-          <stop offset="48%" stopColor="#ff6b35" />
-          <stop offset="100%" stopColor="#00a4ff" />
+          <stop offset="0%" stopColor="#E8FF5A" />
+          <stop offset="100%" stopColor="#4DACFF" />
         </linearGradient>
       </defs>
       <rect x="18" y="28" width="584" height="304" rx="28" fill="rgba(5,7,15,0.72)" stroke="rgba(148,163,184,0.18)" />
       <path d="M108 180 H512" stroke="url(#responseosRoute)" strokeWidth="8" strokeLinecap="round" />
-      <path d="M492 160 L520 180 L492 200" fill="none" stroke="#00a4ff" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M492 160 L520 180 L492 200" fill="none" stroke="#4DACFF" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round" />
       {[
         [108, "LEAD"],
         [310, "AGENT"],
         [512, "RECOVERY"],
       ].map(([x, label], index) => (
         <g key={label}>
-          <circle cx={Number(x)} cy="180" r="46" fill={index === 0 ? "rgba(255,69,0,0.14)" : index === 1 ? "rgba(255,200,87,0.1)" : "rgba(0,164,255,0.14)"} stroke={index === 0 ? "#ff4500" : index === 1 ? "#ffc857" : "#00a4ff"} strokeOpacity=".72" />
-          <circle cx={Number(x)} cy="180" r="10" fill={index === 0 ? "#ff4500" : index === 1 ? "#ffc857" : "#00a4ff"} />
+          <circle cx={Number(x)} cy="180" r="46" fill={index === 0 ? "rgba(232,255,90,0.14)" : index === 1 ? "rgba(148,163,184,0.10)" : "rgba(77,172,255,0.14)"} stroke={index === 0 ? "#E8FF5A" : index === 1 ? "#94A3B8" : "#4DACFF"} strokeOpacity=".72" />
+          <circle cx={Number(x)} cy="180" r="10" fill={index === 0 ? "#E8FF5A" : index === 1 ? "#94A3B8" : "#4DACFF"} />
           <text x={Number(x)} y="262" textAnchor="middle" fill="#94a3b8" fontFamily="ui-monospace, monospace" fontSize="12" letterSpacing="3">
             {label}
           </text>
         </g>
       ))}
-      <text x="310" y="82" textAnchor="middle" fill="#00a4ff" fontFamily="ui-monospace, monospace" fontSize="12" letterSpacing="4">
+      <text x="310" y="82" textAnchor="middle" fill="#4DACFF" fontFamily="ui-monospace, monospace" fontSize="12" letterSpacing="4">
         AGENT LAYER
       </text>
       <text x="310" y="304" textAnchor="middle" fill="#f8fafc" fontFamily="Inter, sans-serif" fontSize="16">
@@ -59,7 +58,7 @@ function RecoveryDiagram() {
 
 export default function ResponseOSWedge() {
   return (
-    <section className="aj-bg-grid-dark border-t border-[var(--line-2)] py-16 sm:py-24">
+    <section className="aj-bg-grid-dark border-t border-[var(--line-2)] py-24 sm:py-40">
       <div className="mx-auto grid max-w-[1280px] gap-10 px-5 sm:px-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
         <div>
           <Eyebrow>Flagship - Revenue Recovery Infrastructure</Eyebrow>
