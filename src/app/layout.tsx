@@ -66,7 +66,7 @@ export const metadata: Metadata = {
       { url: "/android-chrome-512x512.png", sizes: "512x512", type: "image/png" },
     ],
     shortcut: "/favicon-32x32.png",
-    apple: "/apple-touch-icon.png",
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
     other: [
       { rel: "manifest", url: "/site.webmanifest" },
     ],
