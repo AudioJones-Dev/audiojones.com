@@ -56,13 +56,13 @@ export default function AgentsPage() {
       <LightProofSection>
         <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#0088cc]">
+            <p className="text-xs font-bold uppercase tracking-[0.16em] text-[var(--accent-blue)]">
               System Comparison
             </p>
             <h2 className="mt-4 font-accent text-[clamp(2.25rem,4vw,4rem)] font-bold leading-[1.02] tracking-[-0.035em]">
               Do not buy another tool before you know the leak.
             </h2>
-            <p className="mt-5 text-lg leading-8 text-[#4b5563]">
+            <p className="mt-5 text-lg leading-8 text-[var(--ink-muted)]">
               Audio Jones starts with signal diagnosis, then installs the smallest system layer that removes the constraint.
             </p>
           </div>
@@ -76,7 +76,7 @@ export default function AgentsPage() {
                 <h3 className="font-accent text-2xl font-bold tracking-[-0.02em]">
                   {title}
                 </h3>
-                <p className="mt-3 leading-7 text-[#4b5563]">{copy}</p>
+                <p className="mt-3 leading-7 text-[var(--ink-muted)]">{copy}</p>
               </div>
             ))}
           </div>
@@ -91,7 +91,7 @@ export default function AgentsPage() {
             description="Most founder-led businesses do not lose revenue because demand is absent. They lose it because response, qualification, and follow-up are not a system."
           />
           <div className="aj-product-card">
-            <p className="text-xs font-bold uppercase tracking-[0.16em] text-[var(--aj-orange)]">
+            <p className="text-xs font-bold uppercase tracking-[0.16em] text-[var(--aj-gold)]">
               Revenue Recovery Infrastructure
             </p>
             <h3 className="mt-4 font-accent text-3xl font-bold tracking-[-0.03em] text-fg-0">

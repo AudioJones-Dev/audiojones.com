@@ -67,7 +67,7 @@ export default function ResponseOsPage() {
           {responseOsFlow.map((item) => (
             <div key={item.step} className="aj-card-signal">
               <div className="aj-card-inner">
-                <p className="font-mono text-sm font-bold text-[var(--aj-orange)]">
+                <p className="font-mono text-sm font-bold text-[var(--aj-gold)]">
                   {item.step}
                 </p>
                 <h3 className="mt-4 font-accent text-2xl font-bold text-fg-0">
@@ -85,13 +85,13 @@ export default function ResponseOsPage() {
       <LightProofSection>
         <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#0088cc]">
+            <p className="text-xs font-bold uppercase tracking-[0.16em] text-[var(--accent-blue)]">
               ROI Snapshot
             </p>
             <h2 className="mt-4 font-accent text-[clamp(2.25rem,4vw,4rem)] font-bold leading-[1.02] tracking-[-0.035em]">
               The business case starts with the cost of the gap.
             </h2>
-            <p className="mt-5 text-lg leading-8 text-[#4b5563]">
+            <p className="mt-5 text-lg leading-8 text-[var(--ink-muted)]">
               ResponseOS is scoped after the revenue leak is estimated. Use the calculator to quantify missed opportunities, slow response, rework, and readiness drag.
             </p>
             <div className="mt-8">
@@ -108,7 +108,7 @@ export default function ResponseOsPage() {
             ].map(([title, copy]) => (
               <div key={title} className="aj-proof-card">
                 <h3 className="font-accent text-2xl font-bold">{title}</h3>
-                <p className="mt-3 leading-7 text-[#4b5563]">{copy}</p>
+                <p className="mt-3 leading-7 text-[var(--ink-muted)]">{copy}</p>
               </div>
             ))}
           </div>

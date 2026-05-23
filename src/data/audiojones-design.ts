@@ -1,4 +1,12 @@
-export const agentSystems = [
+export type AgentSystem = {
+  name: string;
+  category: string;
+  description: string;
+  signal: string;
+  href?: string;
+};
+
+export const agentSystems: readonly AgentSystem[] = [
   {
     name: "ResponseOS",
     href: "/agents/responseos",
@@ -9,7 +17,6 @@ export const agentSystems = [
   },
   {
     name: "SignalOS",
-    href: "/agents",
     category: "Intelligence",
     description:
       "Business signal clarity for founders who need to see which actions are creating real pipeline and which ones are noise.",
@@ -17,7 +24,6 @@ export const agentSystems = [
   },
   {
     name: "ContentOS",
-    href: "/agents",
     category: "Authority",
     description:
       "A repeatable content operating layer that turns founder expertise into published proof, distribution, and campaign assets.",
@@ -25,7 +31,6 @@ export const agentSystems = [
   },
   {
     name: "PodcastOS",
-    href: "/agents",
     category: "Media",
     description:
       "A production and repurposing system for founder-led media that moves ideas from recording to market without manual drag.",
@@ -33,7 +38,6 @@ export const agentSystems = [
   },
   {
     name: "ClientOS",
-    href: "/agents",
     category: "Operations",
     description:
       "Client onboarding, delivery visibility, and handoff automation for service businesses that need fewer dropped details.",
@@ -41,13 +45,12 @@ export const agentSystems = [
   },
   {
     name: "SalesOS",
-    href: "/agents",
     category: "Pipeline",
     description:
       "Lead qualification, booking, and sales follow-up infrastructure for founder-led teams with inconsistent response cadence.",
     signal: "Tighten pipeline",
   },
-] as const;
+];
 
 export const responseOsFlow = [
   {

@@ -131,7 +131,7 @@ export default function ServicesPage() {
               </p>
               <p className="t-body-lg text-fg-1">
                 We treat AI as a{" "}
-                <span className="text-aj-orange">
+                <span className="font-semibold text-fg-0">
                   force multiplier on a working system
                 </span>
                 , not a substitute for one. Every engagement starts by finding

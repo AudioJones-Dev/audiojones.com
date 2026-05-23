@@ -59,13 +59,13 @@ export default function AiReadinessDiagnosticPage() {
       <LightProofSection>
         <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#0088cc]">
+            <p className="text-xs font-bold uppercase tracking-[0.16em] text-[var(--accent-blue)]">
               Result Routing
             </p>
             <h2 className="mt-4 font-accent text-[clamp(2.25rem,4vw,4rem)] font-bold leading-[1.02] tracking-[-0.035em]">
               The result should activate the next process.
             </h2>
-            <p className="mt-5 text-lg leading-8 text-[#4b5563]">
+            <p className="mt-5 text-lg leading-8 text-[var(--ink-muted)]">
               A useful diagnostic does not stop at a score. It classifies readiness, identifies the bottleneck, and routes the prospect toward the right system or service path.
             </p>
           </div>
@@ -78,7 +78,7 @@ export default function AiReadinessDiagnosticPage() {
             ].map(([title, copy]) => (
               <div key={title} className="aj-proof-card">
                 <h3 className="font-accent text-2xl font-bold">{title}</h3>
-                <p className="mt-3 leading-7 text-[#4b5563]">{copy}</p>
+                <p className="mt-3 leading-7 text-[var(--ink-muted)]">{copy}</p>
               </div>
             ))}
           </div>
@@ -87,7 +87,7 @@ export default function AiReadinessDiagnosticPage() {
 
       <DarkSection className="bg-bg-1">
         <div className="aj-form-panel mx-auto max-w-4xl">
-          <p className="text-xs font-bold uppercase tracking-[0.16em] text-[var(--aj-orange)]">
+          <p className="text-xs font-bold uppercase tracking-[0.16em] text-[var(--aj-gold)]">
             Diagnostic Entry
           </p>
           <h2 className="mt-4 font-accent text-3xl font-bold tracking-[-0.03em] text-fg-0 sm:text-4xl">

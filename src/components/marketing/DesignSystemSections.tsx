@@ -78,7 +78,7 @@ export function SignalHero({
 export function SectionIntro({ label, title, description }: SectionIntroProps) {
   return (
     <div className="max-w-3xl">
-      <p className="text-xs font-bold uppercase tracking-[0.16em] text-[var(--aj-amber)]">
+      <p className="text-xs font-bold uppercase tracking-[0.16em] text-[var(--aj-gold)]">
         {label}
       </p>
       <h2 className="mt-4 font-accent text-[clamp(2.25rem,4vw,4rem)] font-bold leading-[1.02] tracking-[-0.035em] text-fg-0">
@@ -94,9 +94,9 @@ export function SectionIntro({ label, title, description }: SectionIntroProps) {
 export function SignalConsole() {
   const rows = [
     ["SYSTEM STATUS", "ONLINE", "text-[var(--aj-success)]"],
-    ["REVENUE LEAK", "FOLLOW-UP GAP", "text-[var(--aj-orange)]"],
-    ["AGENT LAYER", "RESPONSEOS", "text-[var(--aj-blue)]"],
-    ["RECOVERY PATH", "BOOKING ROUTE", "text-[var(--aj-amber)]"],
+    ["REVENUE LEAK", "FOLLOW-UP GAP", "text-[var(--accent-red)]"],
+    ["AGENT LAYER", "RESPONSEOS", "text-[var(--accent-blue)]"],
+    ["RECOVERY PATH", "BOOKING ROUTE", "text-[var(--accent-amber)]"],
   ] as const;
 
   return (

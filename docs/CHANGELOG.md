@@ -15,6 +15,35 @@ Entries are reverse chronological. Format follows
 
 ## Unreleased
 
+### Fixed
+- Agents index (`/agents`): five placeholder agent cards (SignalOS,
+  ContentOS, PodcastOS, ClientOS, SalesOS) no longer link to `/agents`
+  itself. They render as static cards until per-system detail pages
+  exist. Only ResponseOS retains its detail link.
+- Homepage process section H2 now reads
+  "Diagnose. Attribute. Design. Deploy." to match the four rendered
+  step cards (was missing "Attribute").
+- Services hero body: dropped decorative `text-aj-orange` on the
+  "force multiplier on a working system" phrase per DESIGN.md §4
+  ("orange is a signal, not a fill").
+
+### Design
+- Replaced hardcoded V1 hex literals (`#0088cc`, `#4b5563`) on
+  `/agents`, `/agents/responseos`, and `/ai-readiness-diagnostic`
+  light-section copy with the V2 semantic tokens `--accent-blue` and
+  `--ink-muted`.
+- `SectionIntro` eyebrow swapped from `--aj-amber` (warning) to
+  `--aj-gold` (categorical label) so section eyebrows no longer render
+  as a warning hue.
+- `SignalConsole` recolored: REVENUE LEAK uses `--accent-red`
+  (critical), AGENT LAYER uses `--accent-blue`, RECOVERY PATH uses
+  `--accent-amber`. Previously REVENUE LEAK shared the success/CTA
+  yellow.
+- Replaced misapplied `--aj-orange` on the Featured System eyebrow
+  (`/agents`), ResponseOS step numerals, and Diagnostic Entry label
+  with `--aj-gold` per the eyebrow / numeral conventions in
+  DESIGN.md §4.
+
 ### Documentation
 - Established the canonical `docs/` hierarchy: `PRD.md`, `DESIGN.md`,
   `ROADMAP.md`, `SECURITY.md`, `DEPLOYMENT.md`, `DECISIONS.md`,

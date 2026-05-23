@@ -249,7 +249,7 @@ export default function ProcessPipeline() {
           />
 
           <h2 className="t-h1 text-balance">
-            Diagnose. Design. Deploy.
+            Diagnose. Attribute. Design. Deploy.
           </h2>
           <p className="mt-5 t-lead text-fg-2">
             Four steps. No tool list. Each phase builds on the last until the
