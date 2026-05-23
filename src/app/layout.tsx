@@ -4,6 +4,7 @@ import "./globals.css";
 import CookieBanner from "@/components/CookieBanner";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import JaviChatWidget from "@/components/javi/JaviChatWidget";
 import { ToastProvider } from "@/components/Toast";
 import { siteConfig } from "@/lib/site";
 
@@ -84,6 +85,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <main className="min-h-screen pt-20">{children}</main>
           <Footer />
           <CookieBanner />
+          <JaviChatWidget />
         </ToastProvider>
       </body>
     </html>
