@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 260" fill="none" role="img" aria-label="SalesOS logo">
+  <title>SalesOS logo</title>
+  <g transform="translate(26 30) scale(0.78)">
+      
+    <rect x="42" y="78" width="20" height="80" rx="10" fill="#E8FF5A"/>
+    <rect x="84" y="48" width="20" height="110" rx="10" fill="#E8FF5A"/>
+    <rect x="126" y="26" width="20" height="132" rx="10" fill="#E8FF5A"/>
+    <circle cx="94" cy="188" r="18" fill="#E8FF5A"/>
+  
+      <path d="M150 42h62l-24 38v47l-14 12V80l-24-38Z" fill="none" stroke="#FF4545" stroke-width="7" stroke-linejoin="round"/>
+      <path d="M148 158h58" stroke="#FF4545" stroke-width="7" stroke-linecap="round"/>
+      <path d="M186 140l20 18-20 18" fill="none" stroke="#FF4545" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+  <line x1="228" y1="54" x2="228" y2="206" stroke="#2A2A2A" stroke-width="2"/>
+  <text x="270" y="119" fill="#FFFFFF" font-family="Syne, 'Space Grotesk', Arial, sans-serif" font-size="72" font-weight="800" letter-spacing="-1.4">SalesOS</text>
+  <text x="273" y="157" fill="#E8FF5A" font-family="'DM Mono', 'Courier New', monospace" font-size="18" font-weight="400" letter-spacing="4.4">PIPELINE CONTROL</text>
+  <text x="273" y="194" fill="#E8E8E8" font-family="'DM Sans', Arial, sans-serif" font-size="22" font-weight="300" letter-spacing="0">Qualify, book, follow up</text>
+</svg>

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 260" fill="none" role="img" aria-label="SignalOS logo">
+  <title>SignalOS logo</title>
+  <g transform="translate(26 30) scale(0.78)">
+      
+    <rect x="42" y="78" width="20" height="80" rx="10" fill="#E8FF5A"/>
+    <rect x="84" y="48" width="20" height="110" rx="10" fill="#E8FF5A"/>
+    <rect x="126" y="26" width="20" height="132" rx="10" fill="#E8FF5A"/>
+    <circle cx="94" cy="188" r="18" fill="#E8FF5A"/>
+  
+      <circle cx="94" cy="94" r="68" fill="none" stroke="#4DACFF" stroke-width="6" stroke-opacity="0.8"/>
+      <circle cx="94" cy="94" r="42" fill="none" stroke="#4DACFF" stroke-width="5" stroke-opacity="0.55"/>
+      <path d="M94 94l68-50" stroke="#4DACFF" stroke-width="6" stroke-linecap="round"/>
+      <circle cx="162" cy="44" r="9" fill="#4DACFF"/>
+    </g>
+  <line x1="228" y1="54" x2="228" y2="206" stroke="#2A2A2A" stroke-width="2"/>
+  <text x="270" y="119" fill="#080808" font-family="Syne, 'Space Grotesk', Arial, sans-serif" font-size="72" font-weight="800" letter-spacing="-1.4">SignalOS</text>
+  <text x="273" y="157" fill="#E8FF5A" font-family="'DM Mono', 'Courier New', monospace" font-size="18" font-weight="400" letter-spacing="4.4">SIGNAL CLARITY</text>
+  <text x="273" y="194" fill="#666666" font-family="'DM Sans', Arial, sans-serif" font-size="22" font-weight="300" letter-spacing="0">Separate signal from noise</text>
+</svg>

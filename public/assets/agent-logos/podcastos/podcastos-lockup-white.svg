@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 260" fill="none" role="img" aria-label="PodcastOS logo">
+  <title>PodcastOS logo</title>
+  <g transform="translate(26 30) scale(0.78)">
+      
+    <rect x="42" y="78" width="20" height="80" rx="10" fill="#E8FF5A"/>
+    <rect x="84" y="48" width="20" height="110" rx="10" fill="#E8FF5A"/>
+    <rect x="126" y="26" width="20" height="132" rx="10" fill="#E8FF5A"/>
+    <circle cx="94" cy="188" r="18" fill="#E8FF5A"/>
+  
+      <path d="M170 52v56c0 15-12 27-27 27s-27-12-27-27V52c0-15 12-27 27-27s27 12 27 27Z" fill="none" stroke="#4DACFF" stroke-width="8"/>
+      <path d="M104 103c0 23 17 42 39 42s39-19 39-42M143 145v28M124 173h38" fill="none" stroke="#4DACFF" stroke-width="8" stroke-linecap="round"/>
+    </g>
+  <line x1="228" y1="54" x2="228" y2="206" stroke="#2A2A2A" stroke-width="2"/>
+  <text x="270" y="119" fill="#FFFFFF" font-family="Syne, 'Space Grotesk', Arial, sans-serif" font-size="72" font-weight="800" letter-spacing="-1.4">PodcastOS</text>
+  <text x="273" y="157" fill="#E8FF5A" font-family="'DM Mono', 'Courier New', monospace" font-size="18" font-weight="400" letter-spacing="4.4">MEDIA OPERATIONS</text>
+  <text x="273" y="194" fill="#E8E8E8" font-family="'DM Sans', Arial, sans-serif" font-size="22" font-weight="300" letter-spacing="0">Recording to market system</text>
+</svg>

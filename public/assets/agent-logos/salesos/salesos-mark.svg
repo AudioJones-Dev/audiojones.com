@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" fill="none" role="img" aria-label="SalesOS agent mark">
+  <title>SalesOS agent mark</title>
+  <rect x="10" y="10" width="220" height="220" rx="14" fill="none" stroke="#2A2A2A" stroke-width="2" stroke-dasharray="8 10"/>
+  <g transform="translate(0 0) scale(1)">
+      
+    <rect x="42" y="78" width="20" height="80" rx="10" fill="#E8FF5A"/>
+    <rect x="84" y="48" width="20" height="110" rx="10" fill="#E8FF5A"/>
+    <rect x="126" y="26" width="20" height="132" rx="10" fill="#E8FF5A"/>
+    <circle cx="94" cy="188" r="18" fill="#E8FF5A"/>
+  
+      <path d="M150 42h62l-24 38v47l-14 12V80l-24-38Z" fill="none" stroke="#FF4545" stroke-width="7" stroke-linejoin="round"/>
+      <path d="M148 158h58" stroke="#FF4545" stroke-width="7" stroke-linecap="round"/>
+      <path d="M186 140l20 18-20 18" fill="none" stroke="#FF4545" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+</svg>

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" fill="none" role="img" aria-label="SignalOS agent mark">
+  <title>SignalOS agent mark</title>
+  <rect x="10" y="10" width="220" height="220" rx="14" fill="none" stroke="#2A2A2A" stroke-width="2" stroke-dasharray="8 10"/>
+  <g transform="translate(0 0) scale(1)">
+      
+    <rect x="42" y="78" width="20" height="80" rx="10" fill="#E8FF5A"/>
+    <rect x="84" y="48" width="20" height="110" rx="10" fill="#E8FF5A"/>
+    <rect x="126" y="26" width="20" height="132" rx="10" fill="#E8FF5A"/>
+    <circle cx="94" cy="188" r="18" fill="#E8FF5A"/>
+  
+      <circle cx="94" cy="94" r="68" fill="none" stroke="#4DACFF" stroke-width="6" stroke-opacity="0.8"/>
+      <circle cx="94" cy="94" r="42" fill="none" stroke="#4DACFF" stroke-width="5" stroke-opacity="0.55"/>
+      <path d="M94 94l68-50" stroke="#4DACFF" stroke-width="6" stroke-linecap="round"/>
+      <circle cx="162" cy="44" r="9" fill="#4DACFF"/>
+    </g>
+</svg>
