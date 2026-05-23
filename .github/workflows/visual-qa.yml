@@ -1,0 +1,60 @@
+name: Visual QA (Advisory)
+
+# Advisory visual QA harness. Captures Site-Shot screenshots of the
+# canonical marketing routes and writes a review markdown. Does not gate
+# merges yet — see docs/VISUAL-QA.md for the rollout path.
+
+on:
+  workflow_dispatch:
+    inputs:
+      base_url:
+        description: "Base URL to capture (e.g. https://audiojones.com or a Vercel preview URL)"
+        required: true
+        type: string
+
+jobs:
+  visual_qa:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Activate pnpm
+        run: corepack prepare pnpm@10.30.3 --activate
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Verify SITE_SHOT_API_KEY is configured
+        env:
+          SITE_SHOT_API_KEY: ${{ secrets.SITE_SHOT_API_KEY }}
+        run: |
+          if [ -z "${SITE_SHOT_API_KEY:-}" ]; then
+            echo "::error::SITE_SHOT_API_KEY secret is not set. Add it with: gh secret set SITE_SHOT_API_KEY"
+            exit 1
+          fi
+          echo "SITE_SHOT_API_KEY is configured (value not echoed)"
+
+      - name: Run visual QA harness
+        env:
+          SITE_SHOT_API_KEY: ${{ secrets.SITE_SHOT_API_KEY }}
+          VISUAL_QA_BASE_URL: ${{ inputs.base_url }}
+        run: pnpm visual:qa
+
+      - name: Upload visual QA artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-qa-${{ github.run_id }}
+          path: artifacts/visual-qa/
+          if-no-files-found: warn
+          retention-days: 14

@@ -58,3 +58,6 @@ audiojones.com/
 _tmp_*
 deploy.bat
 deploy*.bat
+
+# Visual QA harness output (screenshots, manifests, reviews — never commit)
+artifacts/visual-qa/
