@@ -48,7 +48,9 @@
         "vercel:patch-win": "powershell -ExecutionPolicy Bypass -File scripts/patch-vercel-next-win.ps1",
         "build:prod": "pnpm vercel:patch-win && npx vercel build --prod",
         "deploy:prod": "pnpm vercel:patch-win && npx vercel --prod",
-        "release:check": "bash scripts/release-check.sh"
+        "release:check": "bash scripts/release-check.sh",
+        "validate": "tsx scripts/validate-local.ts",
+        "validate:summary": "tsx scripts/render-validation-summary.ts"
     },
     "dependencies": {
         "@aj/config": "workspace:*",

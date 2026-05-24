@@ -181,3 +181,38 @@ jobs:
           echo "attempts_used=${ATTEMPTS_USED}"
           echo "deployment_found=${DEPLOYMENT_FOUND}"
           echo "last_state=${LAST_STATE:-unknown}"
+
+      # Additive output for PR Validation Summary workflow. Backwards-
+      # compatible: failures here do not affect this job's outcome.
+      - name: Write smoke-preview summary artifact
+        if: always()
+        continue-on-error: true
+        env:
+          OUTCOME: ${{ steps.preview.outputs.outcome }}
+          PREVIEW_URL: ${{ steps.preview.outputs.preview_url }}
+          DEPLOYMENT_FOUND: ${{ steps.preview.outputs.deployment_found }}
+          ATTEMPTS_USED: ${{ steps.preview.outputs.attempts_used }}
+          LAST_STATE: ${{ steps.preview.outputs.last_state }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          mkdir -p out
+          cat > out/smoke-preview.json <<EOF
+          {
+            "schema_version": "1",
+            "head_sha": "${HEAD_SHA}",
+            "outcome": "${OUTCOME:-unknown}",
+            "preview_url": "${PREVIEW_URL:-}",
+            "deployment_found": "${DEPLOYMENT_FOUND:-false}",
+            "attempts_used": "${ATTEMPTS_USED:-0}",
+            "last_state": "${LAST_STATE:-unknown}"
+          }
+          EOF
+
+      - name: Upload smoke-preview summary artifact
+        if: always()
+        continue-on-error: true
+        uses: actions/upload-artifact@v4
+        with:
+          name: smoke-preview-${{ github.event.pull_request.head.sha }}
+          path: out/smoke-preview.json
+          retention-days: 14
