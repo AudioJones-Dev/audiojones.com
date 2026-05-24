@@ -45,6 +45,7 @@
         "lint:api-imports": "eslint \"src/app/api/**/route.ts\"",
         "typecheck": "tsc --noEmit",
         "check:no-firebase": "tsx scripts/check-no-firebase.ts",
+        "check:design-tokens": "tsx scripts/check-design-tokens.ts",
         "vercel:patch-win": "powershell -ExecutionPolicy Bypass -File scripts/patch-vercel-next-win.ps1",
         "build:prod": "pnpm vercel:patch-win && npx vercel build --prod",
         "deploy:prod": "pnpm vercel:patch-win && npx vercel --prod",

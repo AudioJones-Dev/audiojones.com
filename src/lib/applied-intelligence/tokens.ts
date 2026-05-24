@@ -1,24 +1,42 @@
-// Audio Jones canonical design tokens.
-// Mirrors the brand-folder design system (`colors_and_type.css`)
-// and the CSS variables exposed by `src/app/globals.css`.
-// Update both together — keep in sync.
+// Audio Jones canonical design tokens — Brand Guidelines 2.0 (May 2026).
+// Mirrors `src/app/globals.css` (`:root` block) and `docs/DESIGN.md`
+// (Color tokens table). The CI guard `pnpm check:design-tokens` will
+// fail if any of these three drift. Keep them in lockstep.
 
 export const aiColors = {
-  // Brand
-  orange: "#FF4500",
-  orangeSoft: "#FF6A30",
-  blue: "#0088CC",
-  blueBright: "#3B5BFF",
-  gold: "#C8A96A",
+  // V2 canonical palette (Brand 2.0 §02)
+  signalYellow: "#E8FF5A",
+  signalSoft: "#F0FF85",
+  bgBase: "#080808",
+  surface1: "#0F0F0F",
+  surface2: "#161616",
+  borderStrong: "#2A2A2A",
+  borderSubtle: "#1E1E1E",
+  textPrimary: "#E8E8E8",
+  textMuted: "#666666",
 
-  // Surfaces — dark (canonical)
-  bg0: "#05070F",
-  bg1: "#0B0F1A",
-  bg2: "#0B1020",
-  bg3: "#101827",
-  bg4: "#1A2234",
+  accentBlue: "#4DACFF",
+  accentRed: "#FF4545",
+  accentAmber: "#FFB340",
+  accentGreen: "#3DFFB0",
 
-  // Surfaces — light split (paired clarity layer, opt-in)
+  // Legacy aliases — retargeted to V2 values so existing call sites
+  // (~300 references to `aj-orange`, `bg-0`, etc.) pick up V2 without
+  // per-file edits. Do not reintroduce the V1 hex values.
+  ajOrange: "#E8FF5A",       // V1 was #FF4500 — now signal yellow
+  ajOrangeSoft: "#F0FF85",   // V1 was #FF6A30
+  ajBlue: "#4DACFF",         // V1 was #0088CC
+  ajBlueBright: "#4DACFF",   // V1 was #3B5BFF
+  ajGold: "#E8FF5A",         // V1 was #C8A96A — eyebrows now signal yellow per V2 §07
+
+  // Surfaces — dark (V2 default)
+  bg0: "#080808",
+  bg1: "#0F0F0F",
+  bg2: "#0F0F0F",
+  bg3: "#161616",
+  bg4: "#1A1A1A",
+
+  // Surfaces — light split (opt-in clarity layer via `.surface-light`)
   paper: "#F8FAFC",
   surface: "#F5F5F5",
   surfaceSoft: "#EEF2F6",
@@ -26,62 +44,45 @@ export const aiColors = {
   inkMuted: "#4B5563",
   borderLight: "rgba(17,17,17,0.10)",
 
-  // Legacy aliases (deprecated — call sites migrating)
-  bgLight0: "#F8FAFC",
-  bgLight1: "#F5F5F5",
-  bgLight2: "#EEF2F6",
-
-  // Text — dark
+  // Text — dark (V2: #E8E8E8 primary, #666 muted)
   fg0: "#FFFFFF",
-  fg1: "#E5E7EB",
-  fg2: "#94A3B8",
-  fg3: "#64748B",
+  fg1: "#E8E8E8",
+  fg2: "#9A9A9A",
+  fg3: "#666666",
 
-  // Text — light (legacy aliases)
+  // Text — light
   fgLight0: "#111111",
-  fgLight1: "#1E2A3A",
+  fgLight1: "#1F1F1F",
   fgLight2: "#4B5563",
 
-  // Brand identity aliases (canonical names)
-  orangePrimary: "#FF4500",
-  blueSystem: "#0088CC",
-  darkPrimary: "#05070F",
-  darkSecondary: "#0B0F1A",
+  // Brand identity aliases
+  orangePrimary: "#E8FF5A",
+  blueSystem: "#4DACFF",
+  darkPrimary: "#080808",
+  darkSecondary: "#0F0F0F",
 
   // Borders
   line1: "rgba(255,255,255,0.06)",
-  line2: "rgba(255,255,255,0.10)",
-  line3: "rgba(255,255,255,0.18)",
-  lineBlue: "rgba(59,91,255,0.40)",
-  lineGold: "rgba(200,169,106,0.40)",
+  line2: "#1E1E1E",
+  line3: "#2A2A2A",
+  lineBlue: "rgba(77,172,255,0.40)",
+  lineGold: "rgba(232,255,90,0.45)",
+  lineSignal: "rgba(232,255,90,0.45)",
 
   // Semantic
-  signal: "#FF4500",
-  system: "#3B5BFF",
-  metric: "#C8A96A",
-  success: "#22C55E",
-  warning: "#FACC15",
-  danger: "#EF4444",
-
-  // Legacy aliases (kept until call sites migrate).
-  // NOTE: `surface` is no longer aliased here — it conflicts with the
-  // canonical light-split `surface` above (#F5F5F5). Old call sites
-  // that wanted the dark card surface should use `bg2` ("#0B1020").
-  background: "#05070F",
-  surfaceAlt: "#101827",
-  primary: "#3B5BFF",
-  primaryBright: "#3B5BFF",
-  accent: "#C8A96A",
-  text: "#FFFFFF",
-  muted: "#94A3B8",
-  border: "rgba(255,255,255,0.10)",
+  signal: "#E8FF5A",
+  system: "#4DACFF",
+  metric: "#E8FF5A",
+  success: "#3DFFB0",
+  warning: "#FFB340",
+  danger: "#FF4545",
 } as const;
 
 export const aiFonts = {
-  headline: '"Space Grotesk", ui-sans-serif, system-ui, sans-serif',
-  accent: '"Sora", ui-sans-serif, system-ui, sans-serif',
-  body: '"Inter", ui-sans-serif, system-ui, sans-serif',
-  mono: 'ui-monospace, "SF Mono", Menlo, Consolas, monospace',
+  headline: '"Syne", "Space Grotesk", ui-sans-serif, system-ui, sans-serif',
+  accent: '"Syne", "Space Grotesk", ui-sans-serif, system-ui, sans-serif',
+  body: '"DM Sans", "Inter", ui-sans-serif, system-ui, sans-serif',
+  mono: '"DM Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace',
 } as const;
 
 export const aiMotion = {
