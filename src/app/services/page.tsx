@@ -38,6 +38,13 @@ const serviceBuckets = [
       "A measurement-layer audit for founders who cannot see which campaigns, conversations, or systems are producing real pipeline. We clean up the signal path from source to close so future automation has a trustworthy scoreboard.",
     meta: "2–4 weeks · attribution map · signal scorecard",
   },
+  {
+    category: "Visibility",
+    title: "Founder Media System",
+    description:
+      "A strategy-led visibility and authority system for founder-led service businesses. We connect founder positioning, video podcast production, distribution, SEO/AEO capture, and attribution so media output supports qualified pipeline.",
+    meta: "Audit, launch, and recurring system cadence",
+  },
 ] as const;
 
 const processSteps = [

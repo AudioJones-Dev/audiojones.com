@@ -83,8 +83,8 @@ export default function ResponseOSWedge() {
             <Link href="/agents/responseos" className="aj-btn-signal">
               Explore ResponseOS
             </Link>
-            <Link href="/roi-calculator" className="aj-btn-intel">
-              Calculate Lost Revenue
+            <Link href="/services/founder-media-system" className="aj-btn-intel">
+              Explore Founder Media System
             </Link>
           </div>
         </div>
