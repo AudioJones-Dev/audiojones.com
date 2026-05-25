@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Breadcrumbs from "@/components/applied-intelligence/Breadcrumbs";
 import InsightArticle from "@/components/applied-intelligence/InsightArticle";
+import InsightVisualBreak from "@/components/insights/InsightVisualBreak";
 import { H2, P, UL } from "@/components/applied-intelligence/FrameworkArticle";
 import FAQ from "@/components/applied-intelligence/FAQ";
 import JsonLd from "@/components/seo/JsonLd";
@@ -70,6 +71,12 @@ export default function Page() {
         title={TITLE}
         intro="The fastest answer: most marketing dashboards report which channel was touched, not which channel caused the outcome. Causal attribution is how you fix that."
       >
+
+        <InsightVisualBreak
+          src="/assets/insights/graphics/marketing-attribution-causal-identification.svg"
+          alt="Causal attribution framework showing channel inputs, controlled experiments, and validated revenue outcomes."
+          caption="Attribution loop: channel input, causal test, budget reallocation, measured outcome."
+        />
         <P>
           The mechanism is straightforward. Last-touch and first-touch
           attribution are bookkeeping conventions; they assign credit by

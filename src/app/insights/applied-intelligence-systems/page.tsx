@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Breadcrumbs from "@/components/applied-intelligence/Breadcrumbs";
 import InsightArticle from "@/components/applied-intelligence/InsightArticle";
+import InsightVisualBreak from "@/components/insights/InsightVisualBreak";
 import { H2, P, UL } from "@/components/applied-intelligence/FrameworkArticle";
 import FAQ from "@/components/applied-intelligence/FAQ";
 import JsonLd from "@/components/seo/JsonLd";
@@ -70,6 +71,12 @@ export default function Page() {
         title={TITLE}
         intro="The category, the seven-layer stack, and why founders should build the system before adopting the tools."
       >
+
+        <InsightVisualBreak
+          src="/assets/insights/graphics/applied-intelligence-systems.svg"
+          alt="The seven-layer applied intelligence system map showing how signal collection, attribution, and execution loops connect."
+          caption="Applied Intelligence architecture: seven connected layers from objective to feedback loop."
+        />
         <P>
           The fastest answer: an Applied Intelligence System is a business
           operating model. It combines human judgment, data signals, AI

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Breadcrumbs from "@/components/applied-intelligence/Breadcrumbs";
 import InsightArticle from "@/components/applied-intelligence/InsightArticle";
+import InsightVisualBreak from "@/components/insights/InsightVisualBreak";
 import { H2, P, UL } from "@/components/applied-intelligence/FrameworkArticle";
 import FAQ from "@/components/applied-intelligence/FAQ";
 import JsonLd from "@/components/seo/JsonLd";
@@ -70,6 +71,12 @@ export default function Page() {
         title={TITLE}
         intro="The fastest answer: more data only helps when it changes a decision. The rest is noise — and noise scales faster than signal."
       >
+
+        <InsightVisualBreak
+          src="/assets/insights/graphics/signal-vs-noise-business.svg"
+          alt="Signal-to-noise model showing decision signal strength improving as noisy metrics are filtered out."
+          caption="Signal filtering view: fewer vanity metrics, stronger decision signal."
+        />
         <P>
           Signal is causal information that improves judgment. Noise is
           everything else: vanity metrics, fragmented dashboards, reports

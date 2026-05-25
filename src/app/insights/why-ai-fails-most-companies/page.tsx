@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Breadcrumbs from "@/components/applied-intelligence/Breadcrumbs";
 import InsightArticle from "@/components/applied-intelligence/InsightArticle";
+import InsightVisualBreak from "@/components/insights/InsightVisualBreak";
 import { H2, P, UL } from "@/components/applied-intelligence/FrameworkArticle";
 import FAQ from "@/components/applied-intelligence/FAQ";
 import JsonLd from "@/components/seo/JsonLd";
@@ -70,6 +71,12 @@ export default function Page() {
         title={TITLE}
         intro="The fastest answer: AI rarely fails because the model is wrong. It fails because the business is unclear about which decision the AI is supposed to improve."
       >
+
+        <InsightVisualBreak
+          src="/assets/insights/graphics/why-ai-fails-most-companies.svg"
+          alt="Operational failure points chart highlighting where AI initiatives break before tooling can help."
+          caption="Most AI failures start in operating design, not model quality."
+        />
         <P>
           The mechanism is the same across every failed pilot: noisy inputs,
           undocumented workflow, missing attribution, no named owner for the
