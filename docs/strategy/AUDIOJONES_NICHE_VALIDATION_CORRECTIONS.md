@@ -55,7 +55,8 @@ Even SAFE claims must be re-verified at the primary source before publication. A
 | Entity | Collision Risk | Ownable? | Qualifier Required? | Action |
 |---|---|---|---|---|
 | Founder Intelligence Systems | MODERATE — Accenture's "Founders Intelligence" (acquired 2021) | Yes — with qualifier | YES: "for founder-led service businesses" | Always qualified in public. Consider trademark filing on compound mark. |
-| Signal Revenue System | HIGH — Signal messaging app trademark + entity association | Not as named | N/A — rename required | **RENAME RECOMMENDED.** Candidates: Revenue Clarity System / Revenue Signal Diagnostic / The Revenue Diagnostic. |
+| Signal Revenue System | HIGH (Signal app collision) | DEPRECATED — renamed to Founder Revenue System | N/A | **RENAMED.** Use "Founder Revenue System" in all new public copy. Historical references retained only in internal docs / changelog. |
+| Founder Revenue System | LOW — no competing entity | YES | No (compound name is the qualifier) | **NEW canonical public name** for the core installed offer. Build canonical FAQ + schema. |
 | Persistent Business Memory | HIGH — Persistent Systems ($360M+ IT firm), PBM™ (Australian service mark), Intel persistent memory term-of-art | Not as branded product | N/A | Use ONLY as descriptive concept in methodology. Never as a branded product name. |
 | M.A.P. Attribution | MODERATE — MAP (Minimum Advertised Price) dominates the acronym | Risky as acronym-first | YES: spell out full term | Avoid acronym-first language in public copy. Use "Measurement · Attribution · Prediction" verbatim. |
 | Founder Revenue Leak Diagnostic | LOW-MODERATE — fragmented competitors (Bifrost Agency, SEVAKOR, Kinto Global) at adjacent intersection | YES with "Founder" qualifier | Compound name is the qualifier | **LEAD with this name in public.** Build canonical FAQ + schema. |
@@ -66,13 +67,14 @@ Even SAFE claims must be re-verified at the primary source before publication. A
 
 ## §3 — Updated Public Terminology Recommendations
 
-- LEAD with: **Founder Revenue Leak Diagnostic**
-- Use Founder Intelligence Systems **only with qualifier** "for founder-led service businesses"
-- **Avoid Signal Revenue System as product name** until renamed (e.g., Revenue Clarity System / Revenue Signal Diagnostic)
+- LEAD with: **Founder Revenue Leak Diagnostic** (entry diagnostic)
+- Core installed offer: **Founder Revenue System** (replaces Signal Revenue System for public use)
+- Category umbrella: **Founder Intelligence Systems for founder-led service businesses** (qualifier mandatory)
+- Methodology: **Signal Doctrine**
+- Persona / content pillar: **Founder Operator Under Cognitive Load**
+- **Avoid Signal Revenue System** as a public product name (deprecated 2026-05-26 — see §2)
 - Use Persistent Business Memory **descriptively only, not as a branded product**
 - **Avoid M.A.P. acronym-first language** in public copy; spell out Measurement · Attribution · Prediction
-- **Founder Operator Under Cognitive Load** = strongest content-pillar candidate (low collision, high emotional resonance)
-- **Signal Doctrine** = retained as methodology framework
 
 ---
 
@@ -80,9 +82,10 @@ Even SAFE claims must be re-verified at the primary source before publication. A
 
 ### P0 (priority zero — build first)
 
-1. **Founder Revenue Leak Diagnostic** (canonical FAQ + schema)
-2. **Operational AI for Accessibility Contractors** (vertical-specific whitespace)
-3. **Founder Operator Under Cognitive Load** (broadest emotional entry)
+1. **Founder Revenue Leak Diagnostic** (canonical FAQ + schema) — entry diagnostic
+2. **Founder Revenue System** (core installed offer — replaces deprecated Signal Revenue System; canonical definition + service framing) — added 2026-05-26 per naming decision
+3. **Operational AI for Accessibility Contractors** (vertical-specific whitespace)
+4. **Founder Operator Under Cognitive Load** (broadest emotional entry)
 
 ### P1 (priority one — after P0)
 
