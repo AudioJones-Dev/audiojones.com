@@ -29,6 +29,10 @@ const eslintConfig = defineConfig([
     "packages/**/dist/**",
     // Generated Firebase DataConnect files (CommonJS output):
     "src/dataconnect-generated/**",
+    // Sibling Claude Code worktrees — each is a parallel copy of the
+    // repo with its own historical lint state. Linting them generates
+    // ~480k duplicate warnings and is not actionable from this worktree.
+    ".claude/**",
   ]),
   {
     rules: {
@@ -42,12 +46,4 @@ const eslintConfig = defineConfig([
       "react-hooks/rules-of-hooks": "warn",
       "react-hooks/static-components": "warn",
       "@typescript-eslint/no-unsafe-function-type": "warn",
-      // Next.js rules introduced after this codebase's existing patterns.
-      "@next/next/no-html-link-for-pages": "warn",
-      "@next/next/no-assign-module-variable": "warn",
-      "prefer-const": "warn",
-    },
-  },
-]);
-
-export default eslintConfig;
+      // Next.js rules int

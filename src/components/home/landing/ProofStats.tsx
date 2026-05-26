@@ -13,19 +13,19 @@ const stats = [
     metric: "CAC Reduction",
     display: "↓ 37%",
     label: "Customer acquisition cost",
-    accent: "#FF4500",
+    accent: "#E8FF5A",
   },
   {
     metric: "Pipeline Growth",
     display: "↑ 28%",
     label: "Qualified pipeline per quarter",
-    accent: "#C8A96A",
+    accent: "#3DFFB0",
   },
   {
     metric: "Conversion Rate",
     display: "↑ 42%",
     label: "Lead-to-call conversion rate",
-    accent: "#3B5BFF",
+    accent: "#4DACFF",
   },
   {
     metric: "Decision Clarity",
@@ -53,7 +53,7 @@ export default function ProofStats() {
     <section
       id="proof"
       className="overflow-hidden border-t border-[var(--line-2)] py-24 sm:py-32"
-      style={{ position: "relative", background: "#050710" }}
+      style={{ position: "relative", background: "#080808" }}
     >
       {/* ── z:1 Background image ── */}
       <div
@@ -79,11 +79,11 @@ export default function ProofStats() {
           zIndex: 2,
           pointerEvents: "none",
           background:
-            "linear-gradient(180deg, rgba(5,7,15,0.86) 0%, rgba(5,7,15,0.66) 42%, rgba(5,7,15,0.9) 100%)",
+            "linear-gradient(180deg, rgba(8,8,8,0.86) 0%, rgba(8,8,8,0.66) 42%, rgba(8,8,8,0.9) 100%)",
         }}
       />
 
-      {/* ── z:2b Orange glow — Before side ── */}
+      {/* ── z:2b Signal glow — Before side ── */}
       <div
         aria-hidden
         style={{
@@ -95,7 +95,7 @@ export default function ProofStats() {
           zIndex: 2,
           pointerEvents: "none",
           background:
-            "radial-gradient(ellipse 65% 55% at 30% 50%, rgba(255,69,0,0.09), transparent 70%)",
+            "radial-gradient(ellipse 65% 55% at 30% 50%, rgba(232,255,90,0.08), transparent 70%)",
         }}
       />
 
@@ -111,7 +111,7 @@ export default function ProofStats() {
           zIndex: 2,
           pointerEvents: "none",
           background:
-            "radial-gradient(ellipse 65% 55% at 70% 50%, rgba(59,91,255,0.09), transparent 70%)",
+            "radial-gradient(ellipse 65% 55% at 70% 50%, rgba(77,172,255,0.10), transparent 70%)",
         }}
       />
 
@@ -153,7 +153,7 @@ export default function ProofStats() {
               whiteSpace: "nowrap",
               padding: "5px 14px",
               border: "1px solid rgba(255,255,255,0.09)",
-              borderRadius: "999px",
+              borderRadius: "4px",
               background: "rgba(255,255,255,0.03)",
             }}
           >
@@ -212,7 +212,7 @@ export default function ProofStats() {
           {stats.map((s) => (
             <div
               key={s.metric}
-              className="flex flex-col rounded-2xl p-6"
+              className="flex flex-col rounded-[8px] p-6"
               style={{
                 background: "rgba(10,14,28,0.72)",
                 border: "1px solid rgba(255,255,255,0.07)",
@@ -307,36 +307,36 @@ function PerfCard({
   const isAfter = kind === "after";
 
   const ringGradient = isAfter
-    ? "linear-gradient(135deg, var(--aj-blue) 0%, var(--aj-orange) 60%, var(--aj-blue) 100%)"
-    : "linear-gradient(135deg, var(--aj-gold) 0%, var(--aj-orange) 55%, var(--aj-orange-soft) 100%)";
+    ? "linear-gradient(135deg, var(--accent-blue) 0%, var(--positive-green) 58%, var(--accent-blue) 100%)"
+    : "linear-gradient(135deg, var(--signal-yellow) 0%, rgba(232,255,90,0.58) 55%, var(--border-strong) 100%)";
 
   const iconBg = isAfter
-    ? "linear-gradient(135deg, var(--aj-blue), var(--aj-orange))"
-    : "linear-gradient(135deg, var(--aj-gold), var(--aj-orange))";
+    ? "linear-gradient(135deg, var(--accent-blue), var(--positive-green))"
+    : "linear-gradient(135deg, var(--signal-yellow), rgba(232,255,90,0.68))";
 
-  const accent = isAfter ? "var(--aj-blue)" : "var(--aj-orange)";
+  const accent = isAfter ? "var(--accent-blue)" : "var(--signal-yellow)";
 
-  const statusDotColor = isAfter ? "var(--aj-success)" : "var(--aj-gold)";
+  const statusDotColor = isAfter ? "var(--positive-green)" : "var(--signal-yellow)";
   const statusFg = isAfter
-    ? "var(--aj-success)"
-    : "var(--aj-gold)";
+    ? "var(--positive-green)"
+    : "var(--signal-yellow)";
   const statusBg = isAfter
-    ? "rgba(0,204,102,0.10)"
-    : "rgba(255,200,87,0.10)";
+    ? "rgba(61,255,176,0.10)"
+    : "rgba(232,255,90,0.10)";
 
   return (
     <article
       aria-label={`${isAfter ? "After" : "Before"}: ${title}`}
-      className="group relative flex flex-col rounded-2xl p-[1px]"
+      className="group relative flex flex-col rounded-[8px] p-[1px]"
       style={{
         background: ringGradient,
         boxShadow: isAfter
-          ? "0 24px 80px rgba(0,164,255,0.18), 0 0 0 1px rgba(0,164,255,0.10)"
-          : "0 24px 80px rgba(255,69,0,0.14), 0 0 0 1px rgba(255,69,0,0.10)",
+          ? "0 24px 80px rgba(77,172,255,0.16), 0 0 0 1px rgba(77,172,255,0.10)"
+          : "0 24px 80px rgba(232,255,90,0.10), 0 0 0 1px rgba(232,255,90,0.10)",
       }}
     >
       <div
-        className="flex h-full flex-col rounded-2xl p-6 sm:p-7"
+        className="flex h-full flex-col rounded-[8px] p-6 sm:p-7"
         style={{
           background: "rgba(5,7,15,0.96)",
         }}
@@ -428,7 +428,7 @@ function PerfCard({
               <p
                 className="mt-1 font-mono text-[10px] font-medium"
                 style={{
-                  color: k.trendUp ? "var(--aj-success)" : "var(--aj-gold)",
+                  color: k.trendUp ? "var(--positive-green)" : "var(--signal-yellow)",
                 }}
               >
                 {k.trend}
@@ -443,11 +443,11 @@ function PerfCard({
           style={{
             aspectRatio: "16 / 7",
             background: isAfter
-              ? "linear-gradient(180deg, rgba(0,164,255,0.06), rgba(5,7,15,0.30))"
-              : "rgba(5,7,15,0.40)",
+              ? "linear-gradient(180deg, rgba(77,172,255,0.07), rgba(8,8,8,0.30))"
+              : "rgba(8,8,8,0.40)",
             borderColor: isAfter
-              ? "rgba(0,164,255,0.14)"
-              : "rgba(255,69,0,0.14)",
+              ? "rgba(77,172,255,0.16)"
+              : "rgba(232,255,90,0.14)",
           }}
         >
           {chart}
@@ -559,14 +559,14 @@ function ChaoticChart() {
           y={280 - b.h}
           width={barW}
           height={b.h}
-          fill="rgba(200,169,106,0.18)"
+          fill="rgba(232,255,90,0.14)"
         />
       ))}
       {/* Jagged line */}
       <path
         d={line}
         fill="none"
-        stroke="#FF6A30"
+        stroke="#E8FF5A"
         strokeWidth="3"
         strokeLinejoin="round"
         opacity="0.88"
@@ -600,8 +600,8 @@ function CleanChart() {
     >
       <defs>
         <linearGradient id="cleanFill2" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#3B5BFF" stopOpacity="0.22" />
-          <stop offset="100%" stopColor="#3B5BFF" stopOpacity="0" />
+          <stop offset="0%" stopColor="#4DACFF" stopOpacity="0.22" />
+          <stop offset="100%" stopColor="#4DACFF" stopOpacity="0" />
         </linearGradient>
       </defs>
       {/* Grid lines */}
@@ -612,7 +612,7 @@ function CleanChart() {
           y1={y}
           x2="640"
           y2={y}
-          stroke="#3B5BFF"
+          stroke="#4DACFF"
           strokeWidth="1"
           opacity="0.14"
           vectorEffect="non-scaling-stroke"
@@ -625,16 +625,16 @@ function CleanChart() {
           y1="0"
           x2={x}
           y2="280"
-          stroke="#3B5BFF"
+          stroke="#4DACFF"
           strokeWidth="1"
           opacity="0.08"
           vectorEffect="non-scaling-stroke"
         />
       ))}
-      <text x="8" y="22" fill="#3B5BFF" opacity=".72" fontFamily="ui-monospace, monospace" fontSize="11">
+      <text x="8" y="22" fill="#4DACFF" opacity=".72" fontFamily="var(--font-mono)" fontSize="11">
         SIGNAL
       </text>
-      <text x="548" y="264" fill="#3B5BFF" opacity=".72" fontFamily="ui-monospace, monospace" fontSize="11">
+      <text x="548" y="264" fill="#4DACFF" opacity=".72" fontFamily="var(--font-mono)" fontSize="11">
         REVENUE
       </text>
       {/* Area fill */}
@@ -643,14 +643,14 @@ function CleanChart() {
       <path
         d={curve}
         fill="none"
-        stroke="#3B5BFF"
+        stroke="#4DACFF"
         strokeWidth="3.5"
         strokeLinejoin="round"
         vectorEffect="non-scaling-stroke"
       />
       {/* Nodes */}
       {nodes.map((n, i) => (
-        <circle key={i} cx={n.x} cy={n.y} r="7" fill="#3B5BFF" />
+        <circle key={i} cx={n.x} cy={n.y} r="7" fill="#4DACFF" />
       ))}
     </svg>
   );

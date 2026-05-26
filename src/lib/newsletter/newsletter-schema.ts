@@ -13,6 +13,7 @@ export const NEWSLETTER_SOURCES = [
   "homepage-final-cta",
   "footer",
   "inline-blog",
+  "diagnostic-thank-you",
   "direct",
 ] as const;
 

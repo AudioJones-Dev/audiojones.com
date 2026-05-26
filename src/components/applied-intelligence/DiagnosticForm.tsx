@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
+import { Check, ChevronDown } from "lucide-react";
 import {
   AI_USAGE_LEVELS,
   PRIMARY_CONSTRAINTS,
@@ -96,6 +97,179 @@ const STEPS = [
   "Submit",
 ] as const;
 
+const ROLE_OPTIONS = [
+  "Founder / owner",
+  "CEO / president",
+  "COO / operator",
+  "CMO / growth lead",
+  "Sales leader",
+  "Agency / consultant",
+  "Other",
+];
+
+const GROWTH_STAGE_OPTIONS = [
+  "Pre-revenue / validating offer",
+  "Under $250K and founder-led",
+  "$250K-$500K with inconsistent pipeline",
+  "$500K-$1M and process is breaking",
+  "$1M-$2M and team handoffs are noisy",
+  "$2M-$5M and systems need control",
+  "$5M+ and scaling needs governance",
+];
+
+const PAIN_OPTIONS = [
+  "Missed follow-up",
+  "Too many manual handoffs",
+  "Leads are not qualified",
+  "Marketing is unclear",
+  "Sales process is inconsistent",
+  "Delivery depends on the founder",
+  "Reporting does not match reality",
+  "AI tools are scattered",
+];
+
+const TRIED_OPTIONS = [
+  "Hired an agency",
+  "Built automations in-house",
+  "Tried AI tools",
+  "Changed CRM or pipeline process",
+  "Created SOPs",
+  "Ran paid ads",
+  "Added reporting dashboards",
+  "Nothing structured yet",
+];
+
+const CRM_OPTIONS = [
+  "None",
+  "HubSpot",
+  "Salesforce",
+  "GoHighLevel",
+  "Pipedrive",
+  "Zoho CRM",
+  "Keap",
+  "Monday Sales CRM",
+  "Airtable",
+  "Not sure",
+  "Other",
+];
+
+const ANALYTICS_OPTIONS = [
+  "None",
+  "Google Analytics 4",
+  "Google Search Console",
+  "Looker Studio",
+  "Mixpanel",
+  "Amplitude",
+  "Triple Whale",
+  "Northbeam",
+  "Hotjar",
+  "Microsoft Clarity",
+  "Not sure",
+  "Other",
+];
+
+const PROJECT_OPTIONS = [
+  "None",
+  "ClickUp",
+  "Asana",
+  "Monday.com",
+  "Trello",
+  "Notion",
+  "Basecamp",
+  "Jira",
+  "Airtable",
+  "Google Sheets",
+  "Not sure",
+  "Other",
+];
+
+const AUTOMATION_OPTIONS = [
+  "None",
+  "Zapier",
+  "Make",
+  "n8n",
+  "HubSpot workflows",
+  "GoHighLevel workflows",
+  "Airtable automations",
+  "Pabbly",
+  "Workato",
+  "Custom scripts",
+  "Not sure",
+  "Other",
+];
+
+const CONTENT_SYSTEM_OPTIONS = [
+  "No content system",
+  "Ad hoc posting",
+  "Content calendar",
+  "Documented production workflow",
+  "Newsletter / nurture system",
+  "Repurposing engine",
+  "Full content pipeline",
+  "Not sure",
+];
+
+const AI_TOOL_OPTIONS = [
+  "None",
+  "ChatGPT",
+  "Claude",
+  "Gemini",
+  "Microsoft Copilot",
+  "Perplexity",
+  "Midjourney",
+  "Canva AI",
+  "Zapier AI",
+  "Notion AI",
+  "HubSpot AI",
+  "Custom GPTs",
+  "Internal agents",
+  "Not sure",
+  "Other",
+];
+
+const AI_GOAL_OPTIONS = [
+  "Recover missed revenue",
+  "Automate lead follow-up",
+  "Qualify prospects faster",
+  "Turn expertise into content",
+  "Improve reporting and attribution",
+  "Reduce manual operations",
+  "Build an AI agent workflow",
+  "Create a customer support layer",
+];
+
+const AI_CONCERN_OPTIONS = [
+  "Wrong tool choice",
+  "Poor data quality",
+  "Team adoption",
+  "Security / privacy",
+  "Unclear ROI",
+  "Too much complexity",
+  "Brand voice / quality control",
+  "No owner for the system",
+];
+
+const OUTCOME_OPTIONS = [
+  "Clear operating diagnosis",
+  "Revenue recovery plan",
+  "Automation roadmap",
+  "AI readiness score",
+  "Attribution cleanup",
+  "Agent-system buildout",
+  "Implementation partner fit",
+];
+
+const BUDGET_OPTIONS = [
+  "Under $5K",
+  "$5K-$15K",
+  "$15K-$25K",
+  "$25K-$50K",
+  "$50K+",
+  "Not sure yet",
+];
+
+const DIAGNOSTIC_RESULT_STORAGE_KEY = "audiojones:diagnostic-result";
+
 function tracker(searchParams: URLSearchParams) {
   return {
     utmSource: searchParams.get("utm_source") || undefined,
@@ -104,6 +278,35 @@ function tracker(searchParams: URLSearchParams) {
     utmTerm: searchParams.get("utm_term") || undefined,
     utmContent: searchParams.get("utm_content") || undefined,
   };
+}
+
+function cx(...classes: Array<string | false | undefined>) {
+  return classes.filter(Boolean).join(" ");
+}
+
+type LeadResponse =
+  | {
+      ok: true;
+      leadId: string;
+      priority: string;
+      totalScore: number;
+    }
+  | {
+      ok: false;
+      message?: string;
+      error?: string;
+    };
+
+function storeDiagnosticResult(payload: Record<string, unknown>) {
+  if (typeof window === "undefined") return;
+  try {
+    window.sessionStorage.setItem(
+      DIAGNOSTIC_RESULT_STORAGE_KEY,
+      JSON.stringify(payload),
+    );
+  } catch {
+    // Browser storage is a convenience for the thank-you page, not the source of truth.
+  }
 }
 
 export default function DiagnosticForm() {
@@ -151,11 +354,22 @@ export default function DiagnosticForm() {
           ...utm,
         }),
       });
-      const data = await res.json();
-      if (!res.ok || !data.ok) {
-        throw new Error(data?.message || data?.error || "Submission failed.");
+      const data = (await res.json()) as LeadResponse;
+      if (!data.ok) {
+        throw new Error(data.message || data.error || "Submission failed.");
       }
-      router.push("/applied-intelligence/diagnostic/thank-you");
+      storeDiagnosticResult({
+        type: "applied-intelligence",
+        leadId: data.leadId,
+        priority: data.priority,
+        totalScore: data.totalScore,
+        primaryConstraint: state.primaryConstraint,
+        desiredOutcome: state.desiredOutcome,
+        timeline: state.timeline,
+        email: state.email,
+        submittedAt: new Date().toISOString(),
+      });
+      router.push("/applied-intelligence/diagnostic/thank-you?source=diagnostic");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Submission failed.");
       setSubmitting(false);
@@ -163,30 +377,24 @@ export default function DiagnosticForm() {
   }
 
   return (
-    <div
-      style={{
-        background:
-          "linear-gradient(#0B0F1A, #0B0F1A) padding-box, linear-gradient(145deg, transparent 28%, rgba(255,69,0,0.95), rgba(59,91,255,0.9) 68%, rgba(200,169,106,0.75)) border-box",
-        border: "1px solid transparent",
-        borderRadius: "24px",
-        boxShadow:
-          "0 24px 80px rgba(0,0,0,0.35), 0 0 48px rgba(59,91,255,0.08), 0 0 32px rgba(255,69,0,0.06)",
-      }}
-      className="p-6 sm:p-10"
-    >
-      <ol className="mb-8 grid grid-cols-2 gap-2 text-xs uppercase tracking-wider text-slate-400 sm:grid-cols-6">
+    <div className="diagnostic-shell">
+      <ol className="diagnostic-steps" aria-label="Diagnostic progress">
         {STEPS.map((label, i) => (
-          <li
-            key={label}
-            className={`rounded-md border px-3 py-2 text-center ${
-              i === step
-                ? "border-[#3B5BFF] bg-[#3B5BFF]/10 text-white"
-                : i < step
-                  ? "border-[#22C55E]/40 text-[#22C55E]"
-                  : "border-white/10"
-            }`}
-          >
-            {i + 1}. {label}
+          <li key={label}>
+            <button
+              type="button"
+              className={cx(
+                "diagnostic-step",
+                i === step && "is-active",
+                i < step && "is-complete",
+              )}
+              onClick={() => setStep(i)}
+              disabled={submitting}
+              aria-current={i === step ? "step" : undefined}
+            >
+              <span aria-hidden>{String(i + 1).padStart(2, "0")}</span>
+              <span>{label}</span>
+            </button>
           </li>
         ))}
       </ol>
@@ -196,9 +404,8 @@ export default function DiagnosticForm() {
       {step === 2 && <Step3 state={state} update={update} />}
       {step === 3 && <Step4 state={state} update={update} />}
       {step === 4 && <Step5 state={state} update={update} />}
-      {step === 5 && <Step6 state={state} update={update} />}
+      {step === 5 && <Step6 state={state} update={update} submitting={submitting} />}
 
-      {/* Honeypot */}
       <input
         type="text"
         name="website_url"
@@ -211,10 +418,7 @@ export default function DiagnosticForm() {
       />
 
       {error && (
-        <p
-          role="alert"
-          className="mt-6 rounded-md border border-[#EF4444]/40 bg-[#EF4444]/10 p-3 text-sm text-[#EF4444]"
-        >
+        <p role="alert" className="diagnostic-error">
           {error}
         </p>
       )}
@@ -224,7 +428,7 @@ export default function DiagnosticForm() {
           type="button"
           onClick={() => setStep((s) => Math.max(0, s - 1))}
           disabled={step === 0 || submitting}
-          className="rounded-md border border-white/15 px-5 py-2.5 text-sm font-semibold text-white transition hover:border-[#C8A96A]/50 hover:bg-white/5 disabled:opacity-40"
+          className="diagnostic-button diagnostic-button-secondary"
         >
           Back
         </button>
@@ -233,7 +437,7 @@ export default function DiagnosticForm() {
             type="button"
             onClick={() => setStep((s) => Math.min(STEPS.length - 1, s + 1))}
             disabled={!canAdvance}
-            className="rounded-md bg-[#3B5BFF] px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-[#FF4500] disabled:opacity-40"
+            className="diagnostic-button diagnostic-button-primary"
           >
             Continue
           </button>
@@ -242,9 +446,18 @@ export default function DiagnosticForm() {
             type="button"
             onClick={submit}
             disabled={!canAdvance || submitting}
-            className="rounded-md bg-[#3B5BFF] px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-[#FF4500] disabled:opacity-40"
+            className="diagnostic-button diagnostic-button-primary"
           >
-            {submitting ? "Submitting…" : "Submit diagnostic"}
+            {submitting ? (
+              <span className="inline-flex items-center gap-3">
+                <span className="signal-loader-mini" aria-hidden>
+                  <span />
+                </span>
+                Submitting
+              </span>
+            ) : (
+              "Submit diagnostic"
+            )}
           </button>
         )}
       </div>
@@ -255,6 +468,10 @@ export default function DiagnosticForm() {
 type StepProps = {
   state: FormState;
   update: <K extends keyof FormState>(key: K, value: FormState[K]) => void;
+};
+
+type Step6Props = StepProps & {
+  submitting: boolean;
 };
 
 function Field({
@@ -268,21 +485,137 @@ function Field({
 }) {
   return (
     <label className="block">
-      <span className="mb-1.5 block text-sm font-medium text-slate-200">
+      <span className="diagnostic-label">
         {label}
-        {required && <span className="ml-1 text-[#EF4444]">*</span>}
+        {required && <span className="ml-1 text-[var(--accent-red)]">*</span>}
       </span>
       {children}
     </label>
   );
 }
 
-const inputCls =
-  "w-full rounded-md border border-white/10 bg-[#05070F] px-3 py-2.5 text-sm text-white outline-none transition focus:border-[#FF4500] focus:ring-2 focus:ring-[#FF4500]/10";
+const inputCls = "diagnostic-input";
+
+function SelectField({
+  label,
+  value,
+  options,
+  onChange,
+  required,
+}: {
+  label: string;
+  value: string;
+  options: readonly string[];
+  onChange: (value: string) => void;
+  required?: boolean;
+}) {
+  return (
+    <Field label={label} required={required}>
+      <span className="diagnostic-select-wrap">
+        <select
+          className={inputCls}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+        >
+          <option value="">Select...</option>
+          {options.map((option) => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))}
+        </select>
+        <ChevronDown aria-hidden className="diagnostic-select-icon" size={18} />
+      </span>
+    </Field>
+  );
+}
+
+function ChoiceCards({
+  label,
+  value,
+  options,
+  onChange,
+  columns = "two",
+}: {
+  label: string;
+  value: string;
+  options: readonly string[];
+  onChange: (value: string) => void;
+  columns?: "two" | "three";
+}) {
+  return (
+    <Field label={label}>
+      <div
+        className={cx(
+          "grid gap-2",
+          columns === "three" ? "sm:grid-cols-3" : "sm:grid-cols-2",
+        )}
+      >
+        {options.map((option) => (
+          <button
+            key={option}
+            type="button"
+            className={cx("diagnostic-choice-card", value === option && "is-selected")}
+            onClick={() => onChange(option)}
+          >
+            {option}
+          </button>
+        ))}
+      </div>
+    </Field>
+  );
+}
+
+function MultiChoiceCards({
+  label,
+  value,
+  options,
+  onChange,
+}: {
+  label: string;
+  value: string;
+  options: readonly string[];
+  onChange: (value: string) => void;
+}) {
+  const selected = value
+    .split(",")
+    .map((item) => item.trim())
+    .filter(Boolean);
+
+  const toggle = (option: string) => {
+    const next = selected.includes(option)
+      ? selected.filter((item) => item !== option)
+      : [...selected, option];
+    onChange(next.join(", "));
+  };
+
+  return (
+    <Field label={label}>
+      <div className="grid gap-2 sm:grid-cols-2">
+        {options.map((option) => {
+          const active = selected.includes(option);
+          return (
+            <button
+              key={option}
+              type="button"
+              className={cx("diagnostic-check-card", active && "is-selected")}
+              onClick={() => toggle(option)}
+            >
+              <span className="diagnostic-check-box" aria-hidden>
+                {active && <Check size={14} strokeWidth={3} />}
+              </span>
+              {option}
+            </button>
+          );
+        })}
+      </div>
+    </Field>
+  );
+}
 
 function Step1({ state, update }: StepProps) {
   return (
-    <div className="grid gap-4 sm:grid-cols-2">
+    <div className="grid gap-5 sm:grid-cols-2">
       <Field label="First name" required>
         <input
           className={inputCls}
@@ -329,203 +662,172 @@ function Step1({ state, update }: StepProps) {
           onChange={(e) => update("website", e.target.value)}
         />
       </Field>
-      <Field label="Your role">
-        <input
-          className={inputCls}
-          placeholder="Founder, CEO, COO…"
-          value={state.role}
-          onChange={(e) => update("role", e.target.value)}
-        />
-      </Field>
-      <Field label="Annual revenue">
-        <select
-          className={inputCls}
-          value={state.annualRevenueRange}
-          onChange={(e) => update("annualRevenueRange", e.target.value)}
-        >
-          <option value="">Select…</option>
-          {REVENUE_RANGES.map((r) => (
-            <option key={r} value={r}>
-              {r}
-            </option>
-          ))}
-        </select>
-      </Field>
+      <SelectField
+        label="Your role"
+        value={state.role}
+        options={ROLE_OPTIONS}
+        onChange={(value) => update("role", value)}
+      />
+      <SelectField
+        label="Annual revenue"
+        value={state.annualRevenueRange}
+        options={REVENUE_RANGES}
+        onChange={(value) => update("annualRevenueRange", value)}
+      />
     </div>
   );
 }
 
 function Step2({ state, update }: StepProps) {
   return (
-    <div className="grid gap-4">
-      <Field label="Primary constraint">
-        <select
-          className={inputCls}
-          value={state.primaryConstraint}
-          onChange={(e) => update("primaryConstraint", e.target.value)}
-        >
-          <option value="">Select…</option>
-          {PRIMARY_CONSTRAINTS.map((c) => (
-            <option key={c} value={c}>
-              {c}
-            </option>
-          ))}
-        </select>
-      </Field>
-      <Field label="Current growth stage">
-        <input
-          className={inputCls}
-          placeholder="e.g. plateaued at $1.2M, or scaling past $3M"
-          value={state.currentGrowthStage}
-          onChange={(e) => update("currentGrowthStage", e.target.value)}
-        />
-      </Field>
-      <Field label="Biggest pain right now">
-        <textarea
-          rows={3}
-          className={inputCls}
-          value={state.biggestPain}
-          onChange={(e) => update("biggestPain", e.target.value)}
-        />
-      </Field>
-      <Field label="What have you tried so far?">
-        <textarea
-          rows={3}
-          className={inputCls}
-          value={state.whatHaveYouTried}
-          onChange={(e) => update("whatHaveYouTried", e.target.value)}
-        />
-      </Field>
+    <div className="grid gap-5">
+      <ChoiceCards
+        label="Primary constraint"
+        value={state.primaryConstraint}
+        options={PRIMARY_CONSTRAINTS}
+        columns="two"
+        onChange={(value) => update("primaryConstraint", value)}
+      />
+      <ChoiceCards
+        label="Current growth stage"
+        value={state.currentGrowthStage}
+        options={GROWTH_STAGE_OPTIONS}
+        columns="two"
+        onChange={(value) => update("currentGrowthStage", value)}
+      />
+      <MultiChoiceCards
+        label="Biggest pain right now"
+        value={state.biggestPain}
+        options={PAIN_OPTIONS}
+        onChange={(value) => update("biggestPain", value)}
+      />
+      <MultiChoiceCards
+        label="What have you tried so far?"
+        value={state.whatHaveYouTried}
+        options={TRIED_OPTIONS}
+        onChange={(value) => update("whatHaveYouTried", value)}
+      />
     </div>
   );
 }
 
 function Step3({ state, update }: StepProps) {
   return (
-    <div className="grid gap-4 sm:grid-cols-2">
-      <Field label="CRM in use">
-        <input
-          className={inputCls}
-          value={state.crmUsed}
-          onChange={(e) => update("crmUsed", e.target.value)}
-        />
-      </Field>
-      <Field label="Analytics in use">
-        <input
-          className={inputCls}
-          value={state.analyticsUsed}
-          onChange={(e) => update("analyticsUsed", e.target.value)}
-        />
-      </Field>
-      <Field label="Project management">
-        <input
-          className={inputCls}
-          value={state.projectManagementUsed}
-          onChange={(e) => update("projectManagementUsed", e.target.value)}
-        />
-      </Field>
-      <Field label="Automation tools">
-        <input
-          className={inputCls}
-          value={state.automationToolsUsed}
-          onChange={(e) => update("automationToolsUsed", e.target.value)}
-        />
-      </Field>
-      <Field label="Content system status">
-        <input
-          className={inputCls}
-          placeholder="e.g. ad-hoc, calendar, full pipeline"
-          value={state.contentSystemStatus}
-          onChange={(e) => update("contentSystemStatus", e.target.value)}
-        />
-      </Field>
-      <Field label="Documented SOPs?">
-        <select
-          className={inputCls}
-          value={state.documentedSops ? "yes" : "no"}
-          onChange={(e) => update("documentedSops", e.target.value === "yes")}
-        >
-          <option value="no">No</option>
-          <option value="yes">Yes</option>
-        </select>
-      </Field>
+    <div className="grid gap-5 sm:grid-cols-2">
+      <SelectField
+        label="CRM in use"
+        value={state.crmUsed}
+        options={CRM_OPTIONS}
+        onChange={(value) => update("crmUsed", value)}
+      />
+      <SelectField
+        label="Analytics in use"
+        value={state.analyticsUsed}
+        options={ANALYTICS_OPTIONS}
+        onChange={(value) => update("analyticsUsed", value)}
+      />
+      <SelectField
+        label="Project management"
+        value={state.projectManagementUsed}
+        options={PROJECT_OPTIONS}
+        onChange={(value) => update("projectManagementUsed", value)}
+      />
+      <SelectField
+        label="Automation tools"
+        value={state.automationToolsUsed}
+        options={AUTOMATION_OPTIONS}
+        onChange={(value) => update("automationToolsUsed", value)}
+      />
+      <SelectField
+        label="Content system status"
+        value={state.contentSystemStatus}
+        options={CONTENT_SYSTEM_OPTIONS}
+        onChange={(value) => update("contentSystemStatus", value)}
+      />
+      <YesNoMaybe
+        label="Documented SOPs?"
+        value={state.documentedSops}
+        onChange={(value) => update("documentedSops", value === true)}
+        noUnknown
+      />
     </div>
   );
 }
 
 function Step4({ state, update }: StepProps) {
   return (
-    <div className="grid gap-4">
-      <Field label="Current AI tools">
-        <input
-          className={inputCls}
-          value={state.currentAiTools}
-          onChange={(e) => update("currentAiTools", e.target.value)}
-        />
-      </Field>
-      <Field label="AI usage level">
-        <select
-          className={inputCls}
-          value={state.aiUsageLevel}
-          onChange={(e) => update("aiUsageLevel", e.target.value)}
-        >
-          <option value="">Select…</option>
-          {AI_USAGE_LEVELS.map((l) => (
-            <option key={l} value={l}>
-              {l}
-            </option>
-          ))}
-        </select>
-      </Field>
-      <Field label="Main goal for AI">
-        <textarea
-          rows={2}
-          className={inputCls}
-          value={state.aiMainGoal}
-          onChange={(e) => update("aiMainGoal", e.target.value)}
-        />
-      </Field>
-      <Field label="Biggest concern about AI">
-        <textarea
-          rows={2}
-          className={inputCls}
-          value={state.aiConcern}
-          onChange={(e) => update("aiConcern", e.target.value)}
-        />
-      </Field>
+    <div className="grid gap-5">
+      <SelectField
+        label="Current AI tools"
+        value={state.currentAiTools}
+        options={AI_TOOL_OPTIONS}
+        onChange={(value) => update("currentAiTools", value)}
+      />
+      <SelectField
+        label="AI usage level"
+        value={state.aiUsageLevel}
+        options={AI_USAGE_LEVELS}
+        onChange={(value) => update("aiUsageLevel", value)}
+      />
+      <MultiChoiceCards
+        label="Main goal for AI"
+        value={state.aiMainGoal}
+        options={AI_GOAL_OPTIONS}
+        onChange={(value) => update("aiMainGoal", value)}
+      />
+      <MultiChoiceCards
+        label="Biggest concern about AI"
+        value={state.aiConcern}
+        options={AI_CONCERN_OPTIONS}
+        onChange={(value) => update("aiConcern", value)}
+      />
     </div>
   );
 }
 
-function YesNo({
+function YesNoMaybe({
   label,
   value,
   onChange,
+  noUnknown,
 }: {
   label: string;
   value: boolean | null;
-  onChange: (v: boolean) => void;
+  onChange: (v: boolean | null) => void;
+  noUnknown?: boolean;
 }) {
+  const options: Array<[string, boolean | null]> = noUnknown
+    ? [
+        ["Yes", true],
+        ["No", false],
+      ]
+    : [
+        ["Yes", true],
+        ["No", false],
+        ["IDK", null],
+      ];
+
   return (
     <Field label={label}>
-      <div className="flex gap-2">
-        {([
-          ["Yes", true],
-          ["No", false],
-        ] as const).map(([l, v]) => (
-          <button
-            key={l}
-            type="button"
-            onClick={() => onChange(v)}
-            className={`flex-1 rounded-md border px-4 py-2 text-sm font-medium transition ${
-              value === v
-                ? "border-[#3B5BFF] bg-[#3B5BFF]/15 text-white"
-                : "border-white/10 text-slate-300 hover:border-white/30"
-            }`}
-          >
-            {l}
-          </button>
+      <div className="diagnostic-segmented" data-count={options.length}>
+        {options.map(([labelText, optionValue]) => (
+          <label key={labelText} className="diagnostic-segment">
+            <input
+              type="radio"
+              name={label}
+              checked={value === optionValue}
+              onChange={() => onChange(optionValue)}
+            />
+            <span>{labelText}</span>
+          </label>
         ))}
+        <span
+          className="diagnostic-segment-selection"
+          data-position={Math.max(
+            0,
+            options.findIndex(([, optionValue]) => value === optionValue),
+          )}
+        />
       </div>
     </Field>
   );
@@ -533,26 +835,26 @@ function YesNo({
 
 function Step5({ state, update }: StepProps) {
   return (
-    <div className="grid gap-4 sm:grid-cols-2">
-      <YesNo
+    <div className="grid gap-5 sm:grid-cols-2">
+      <YesNoMaybe
         label="Can you identify your best lead source?"
         value={state.canIdentifyBestLeadSource}
-        onChange={(v) => update("canIdentifyBestLeadSource", v)}
+        onChange={(value) => update("canIdentifyBestLeadSource", value)}
       />
-      <YesNo
+      <YesNoMaybe
         label="Do you track conversion source?"
         value={state.tracksConversionSource}
-        onChange={(v) => update("tracksConversionSource", v)}
+        onChange={(value) => update("tracksConversionSource", value)}
       />
-      <YesNo
+      <YesNoMaybe
         label="Do you know your CAC?"
         value={state.knowsCAC}
-        onChange={(v) => update("knowsCAC", v)}
+        onChange={(value) => update("knowsCAC", value)}
       />
-      <YesNo
+      <YesNoMaybe
         label="Do you know your LTV?"
         value={state.knowsLTV}
-        onChange={(v) => update("knowsLTV", v)}
+        onChange={(value) => update("knowsLTV", value)}
       />
       <Field label={`Attribution confidence: ${state.attributionConfidence} / 10`}>
         <input
@@ -563,66 +865,59 @@ function Step5({ state, update }: StepProps) {
           onChange={(e) =>
             update("attributionConfidence", Number(e.target.value))
           }
-          className="w-full accent-[#3B5BFF]"
+          className="diagnostic-range"
         />
       </Field>
-      <Field label="Desired outcome from this engagement">
-        <textarea
-          rows={2}
-          className={inputCls}
-          value={state.desiredOutcome}
-          onChange={(e) => update("desiredOutcome", e.target.value)}
-        />
-      </Field>
+      <ChoiceCards
+        label="Desired outcome"
+        value={state.desiredOutcome}
+        options={OUTCOME_OPTIONS}
+        columns="two"
+        onChange={(value) => update("desiredOutcome", value)}
+      />
     </div>
   );
 }
 
-function Step6({ state, update }: StepProps) {
+function Step6({ state, update, submitting }: Step6Props) {
   return (
-    <div className="grid gap-4 sm:grid-cols-2">
-      <Field label="Budget range">
-        <input
-          className={inputCls}
-          placeholder="e.g. $5K–$15K, $25K+"
-          value={state.budgetRange}
-          onChange={(e) => update("budgetRange", e.target.value)}
-        />
-      </Field>
-      <Field label="Timeline">
-        <select
-          className={inputCls}
-          value={state.timeline}
-          onChange={(e) => update("timeline", e.target.value)}
-        >
-          <option value="">Select…</option>
-          {TIMELINE_OPTIONS.map((t) => (
-            <option key={t} value={t}>
-              {t}
-            </option>
-          ))}
-        </select>
-      </Field>
-      <Field label="Preferred contact method">
-        <select
-          className={inputCls}
-          value={state.preferredContactMethod}
-          onChange={(e) => update("preferredContactMethod", e.target.value)}
-        >
-          <option value="Email">Email</option>
-          <option value="Phone">Phone</option>
-          <option value="Either">Either</option>
-        </select>
-      </Field>
+    <div className="grid gap-5 sm:grid-cols-2">
+      <SelectField
+        label="Budget range"
+        value={state.budgetRange}
+        options={BUDGET_OPTIONS}
+        onChange={(value) => update("budgetRange", value)}
+      />
+      <SelectField
+        label="Timeline"
+        value={state.timeline}
+        options={TIMELINE_OPTIONS}
+        onChange={(value) => update("timeline", value)}
+      />
+      <SelectField
+        label="Preferred contact method"
+        value={state.preferredContactMethod}
+        options={["Email", "Phone", "Either"]}
+        onChange={(value) => update("preferredContactMethod", value)}
+      />
       <div className="sm:col-span-2">
-        <label className="flex items-start gap-3 rounded-md border border-white/10 bg-[#05070F] p-4">
+        {submitting && (
+          <div className="mb-5 flex justify-center">
+            <div className="signal-radar-loader" aria-label="Submitting diagnostic">
+              <span />
+            </div>
+          </div>
+        )}
+        <label className="diagnostic-consent">
           <input
             type="checkbox"
             checked={state.consentToContact}
             onChange={(e) => update("consentToContact", e.target.checked)}
-            className="mt-1 h-4 w-4 accent-[#3B5BFF]"
           />
-          <span className="text-sm text-slate-300">
+          <span className="diagnostic-consent-box" aria-hidden>
+            {state.consentToContact && <Check size={15} strokeWidth={3} />}
+          </span>
+          <span>
             I consent to Audio Jones contacting me about this diagnostic
             request. I understand my information will be reviewed for fit
             before any next steps.

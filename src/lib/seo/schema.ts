@@ -1,7 +1,7 @@
 // Schema.org JSON-LD builders for Applied Intelligence pages.
 // Keep all entity facts here so they stay consistent across routes.
 
-import { aiEntity, SITE_URL } from "@/lib/applied-intelligence/tokens";
+import { aiEntity, aiLocalBusiness, SITE_URL } from "@/lib/applied-intelligence/tokens";
 
 export type BreadcrumbItem = { name: string; url: string };
 export type FaqItem = { question: string; answer: string };
@@ -143,5 +143,157 @@ export function speakableSpec(cssSelectors: string[]) {
   return {
     "@type": "SpeakableSpecification",
     cssSelector: cssSelectors,
+  } as const;
+}
+
+/**
+ * Service schema for localized landing pages — references the canonical
+ * LocalBusiness via `provider.@id` so the entity graph stays connected.
+ *
+ * Use one per city landing page. `areaServed` should be a single city
+ * (not an array) so Google can rank the page geographically.
+ */
+export function serviceJsonLd(args: {
+  name: string;
+  description: string;
+  url: string;
+  areaServedCity: string;
+  serviceType?: string[];
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: args.name,
+    description: args.description,
+    url: args.url.startsWith("http") ? args.url : `${SITE_URL}${args.url}`,
+    serviceType: args.serviceType ?? [
+      "AI Consulting",
+      "Marketing Automation",
+      "Founder Intelligence Systems",
+    ],
+    provider: {
+      "@id": `${SITE_URL}/#localbusiness`,
+    },
+    areaServed: {
+      "@type": "City",
+      name: args.areaServedCity,
+      containedInPlace: { "@type": "State", name: "Florida" },
+    },
+  } as const;
+}
+
+/**
+ * LocalBusiness / ProfessionalService schema for site-wide local SEO.
+ *
+ * Uses `ProfessionalService` (a LocalBusiness subtype) for sharper category
+ * matching with the GBP primary category "Marketing Consultant".
+ *
+ * Mount once in app/layout.tsx (not per-page) so every URL inherits the
+ * local-business entity. The @id anchors it as the canonical local-business
+ * node referenced by other schemas via { "@id": ".../#localbusiness" }.
+ *
+ * NAP (Name + Address + Phone) MUST stay byte-for-byte identical here, on
+ * the GBP listing, and in any third-party citations (Yelp, Apple Business
+ * Connect, Bing Places). Any drift dilutes local-pack ranking signal.
+ */
+export function localBusinessJsonLd() {
+  const id = `${SITE_URL}/#localbusiness`;
+  const logoUrl = `${SITE_URL}/web-app-manifest-512x512.png`;
+
+  return {
+    "@context": "https://schema.org",
+    "@type": ["ProfessionalService", "LocalBusiness"],
+    "@id": id,
+    name: aiLocalBusiness.brandName,
+    legalName: aiLocalBusiness.legalEntity,
+    description:
+      "Audio Jones helps founder-led service businesses turn operational chaos into measurable clarity. AI consulting, marketing automation, attribution, podcast production, and Founder Intelligence Systems implementation for South Florida and Southwest Florida markets.",
+    url: SITE_URL,
+    logo: {
+      "@type": "ImageObject",
+      url: logoUrl,
+      width: 512,
+      height: 512,
+    },
+    image: logoUrl,
+    telephone: aiLocalBusiness.telephone,
+    email: aiLocalBusiness.email,
+    priceRange: aiLocalBusiness.priceRange,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: aiLocalBusiness.address.streetAddress,
+      addressLocality: aiLocalBusiness.address.addressLocality,
+      addressRegion: aiLocalBusiness.address.addressRegion,
+      postalCode: aiLocalBusiness.address.postalCode,
+      addressCountry: aiLocalBusiness.address.addressCountry,
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: aiLocalBusiness.geo.latitude,
+      longitude: aiLocalBusiness.geo.longitude,
+    },
+    areaServed: aiLocalBusiness.areaServed.map((area) => ({
+      "@type": area.type,
+      name: area.name,
+      containedInPlace: {
+        "@type": "State",
+        name: "Florida",
+      },
+    })),
+    openingHoursSpecification: aiLocalBusiness.openingHours.map((spec) => ({
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday",
+      ],
+      opens: "00:00",
+      closes: "23:59",
+      // Mirror the GBP justification — AI receptionist provides 24/7 reach.
+      description: spec,
+    })),
+    sameAs: [
+      "https://www.audiojones.com",
+      "https://www.linkedin.com/in/audiojones",
+      "https://www.instagram.com/audiojones/",
+      "https://www.youtube.com/@audiojones",
+      "https://x.com/AudioJones",
+      "https://www.facebook.com/AudioJonesTheAIConsultant",
+    ],
+    knowsAbout: aiLocalBusiness.knowsAbout,
+    founder: {
+      "@type": "Person",
+      name: aiLocalBusiness.founder,
+      jobTitle: aiEntity.title,
+      worksFor: {
+        "@type": "Organization",
+        name: aiLocalBusiness.legalEntity,
+      },
+    },
+    parentOrganization: {
+      "@type": "Organization",
+      name: aiLocalBusiness.legalEntity,
+    },
+    /**
+     * Service catalog mirrors the GBP services list. Each item links back
+     * to the canonical service or booking page so the schema closes the
+     * loop with the actual conversion endpoints.
+     */
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Audio Jones — Applied Intelligence Services",
+      itemListElement: aiLocalBusiness.knowsAbout.slice(1).map((serviceName) => ({
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: serviceName,
+          provider: { "@id": id },
+        },
+      })),
+    },
   } as const;
 }

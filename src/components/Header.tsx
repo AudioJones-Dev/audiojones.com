@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { Menu, X } from "lucide-react";
+import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { ButtonLink } from "@/components/ui/Button";
 import { mainNav, headerCtas } from "@/config/nav";
@@ -10,8 +12,19 @@ import { mainNav, headerCtas } from "@/config/nav";
 // Both Header and Footer import the same `mainNav` constant.
 const NAV = mainNav;
 
+function cx(...classes: Array<string | false | undefined>) {
+  return classes.filter(Boolean).join(" ");
+}
+
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+
+  const isActive = (href: string) => {
+    if (href.startsWith("http")) return false;
+    if (href === "/") return pathname === "/";
+    return pathname === href || pathname.startsWith(`${href}/`);
+  };
 
   // Close on escape; lock scroll while menu is open
   useEffect(() => {
@@ -27,12 +40,12 @@ export default function Header() {
 
   return (
     <header
-      className="fixed inset-x-0 top-0 z-50 h-20 border-b border-[var(--border-subtle)] bg-[rgba(8,8,8,0.82)] backdrop-blur-lg"
+      className="site-header fixed inset-x-0 top-0 z-50 h-20"
       role="banner"
     >
       <nav
         aria-label="Primary"
-        className="mx-auto flex h-full max-w-[1280px] items-center justify-between gap-6 px-5 sm:px-8"
+        className="mx-auto flex h-full max-w-[1280px] items-center justify-between gap-4 px-5 sm:px-8"
       >
         {/* Wordmark — V2 horizontal lockup (signal mark + Syne wordmark) */}
         <Link
@@ -51,32 +64,37 @@ export default function Header() {
         </Link>
 
         {/* Desktop nav */}
-        <ul className="hidden items-center gap-6 lg:flex">
-          {NAV.map((item) => (
-            <li key={item.href}>
-              {item.href.startsWith("http") ? (
-                <a
-                  href={item.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="t-small font-medium text-fg-1 transition-colors hover:text-fg-0"
-                >
-                  {item.label}
-                </a>
-              ) : (
-                <Link
-                  href={item.href}
-                  className="t-small font-medium text-fg-1 transition-colors hover:text-fg-0"
-                >
-                  {item.label}
-                </Link>
-              )}
-            </li>
-          ))}
+        <ul className="hidden items-center gap-1 xl:flex">
+          {NAV.map((item) => {
+            const active = isActive(item.href);
+
+            return (
+              <li key={item.href}>
+                {item.href.startsWith("http") ? (
+                  <a
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="site-nav-link"
+                  >
+                    {item.label}
+                  </a>
+                ) : (
+                  <Link
+                    href={item.href}
+                    className={cx("site-nav-link", active && "is-active")}
+                    aria-current={active ? "page" : undefined}
+                  >
+                    {item.label}
+                  </Link>
+                )}
+              </li>
+            );
+          })}
         </ul>
 
         {/* Desktop CTAs — secondary + primary glow per DESIGN.md §11.1 */}
-        <div className="hidden items-center gap-3 lg:flex">
+        <div className="hidden items-center gap-3 xl:flex">
           <ButtonLink href={headerCtas.diagnostic.href} variant="secondary" size="md">
             {headerCtas.diagnostic.label}
           </ButtonLink>
@@ -91,9 +109,10 @@ export default function Header() {
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
           aria-controls="primary-nav-mobile"
-          className="rounded-md border border-[var(--border-subtle)] bg-bg-2 px-3 py-2 t-small text-fg-0 lg:hidden"
+          aria-label={open ? "Close primary navigation" : "Open primary navigation"}
+          className="site-menu-button xl:hidden"
         >
-          {open ? "Close" : "Menu"}
+          {open ? <X aria-hidden size={20} /> : <Menu aria-hidden size={20} />}
         </button>
       </nav>
 
@@ -101,32 +120,37 @@ export default function Header() {
       {open && (
         <div
           id="primary-nav-mobile"
-          className="border-t border-[var(--border-subtle)] bg-bg-base lg:hidden"
+          className="site-mobile-drawer xl:hidden"
         >
           <ul className="mx-auto max-w-[1280px] space-y-1 px-5 py-6 sm:px-8">
-            {NAV.map((item) => (
-              <li key={item.href}>
-                {item.href.startsWith("http") ? (
-                  <a
-                    href={item.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block rounded-md px-3 py-3 t-body font-medium text-fg-1 hover:bg-bg-2 hover:text-fg-0"
-                    onClick={() => setOpen(false)}
-                  >
-                    {item.label}
-                  </a>
-                ) : (
-                  <Link
-                    href={item.href}
-                    className="block rounded-md px-3 py-3 t-body font-medium text-fg-1 hover:bg-bg-2 hover:text-fg-0"
-                    onClick={() => setOpen(false)}
-                  >
-                    {item.label}
-                  </Link>
-                )}
-              </li>
-            ))}
+            {NAV.map((item) => {
+              const active = isActive(item.href);
+
+              return (
+                <li key={item.href}>
+                  {item.href.startsWith("http") ? (
+                    <a
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="site-mobile-nav-link"
+                      onClick={() => setOpen(false)}
+                    >
+                      {item.label}
+                    </a>
+                  ) : (
+                    <Link
+                      href={item.href}
+                      className={cx("site-mobile-nav-link", active && "is-active")}
+                      aria-current={active ? "page" : undefined}
+                      onClick={() => setOpen(false)}
+                    >
+                      {item.label}
+                    </Link>
+                  )}
+                </li>
+              );
+            })}
             <li className="flex flex-col gap-3 pt-4">
               <ButtonLink
                 href={headerCtas.diagnostic.href}

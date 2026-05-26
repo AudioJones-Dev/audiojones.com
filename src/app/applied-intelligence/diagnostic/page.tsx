@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import DiagnosticForm from "@/components/applied-intelligence/DiagnosticForm";
-import Breadcrumbs from "@/components/applied-intelligence/Breadcrumbs";
 import JsonLd from "@/components/seo/JsonLd";
+import { Eyebrow } from "@/components/ui/Eyebrow";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { breadcrumbJsonLd } from "@/lib/seo/schema";
 
@@ -22,31 +22,25 @@ export default function DiagnosticPage() {
           { name: "Diagnostic", url: "/applied-intelligence/diagnostic" },
         ])}
       />
-      <Breadcrumbs
-        items={[
-          { name: "Home", href: "/" },
-          { name: "Applied Intelligence", href: "/applied-intelligence" },
-          { name: "Diagnostic" },
-        ]}
-      />
 
-      <section className="bg-[#05070F] pt-16 pb-10">
+      <section className="bg-bg-0 pt-16 pb-10">
         <div className="mx-auto max-w-3xl px-5 sm:px-8">
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-[#C8A96A]">
+          <Eyebrow tone="blue" className="mb-4">
             Strategic Diagnostic
-          </p>
-          <h1 className="text-balance text-3xl font-semibold leading-tight text-white sm:text-4xl">
+          </Eyebrow>
+          <h1 className="text-balance font-headline text-[clamp(2.35rem,6vw,4rem)] font-extrabold leading-[1.02] tracking-[-0.02em] text-fg-0">
             Tell me where your business actually leaks signal.
           </h1>
-          <p className="mt-4 text-lg text-slate-300">
+          <p className="mt-5 max-w-[58ch] font-body text-[clamp(1.05rem,2.5vw,1.35rem)] leading-[1.55] text-fg-1">
             Six short steps. I review every submission personally and reply
             within two business days if there’s a strong fit.
           </p>
         </div>
       </section>
 
-      <section className="bg-[#05070F] pb-24">
-        <div className="mx-auto max-w-3xl px-5 sm:px-8">
+      <section className="diagnostic-grid-wrapper py-16 sm:py-20">
+        <div className="diagnostic-grid-background" aria-hidden />
+        <div className="relative z-10 mx-auto max-w-5xl px-5 sm:px-8">
           <DiagnosticForm />
         </div>
       </section>

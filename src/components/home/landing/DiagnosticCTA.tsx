@@ -32,11 +32,11 @@ export default function DiagnosticCTA() {
       </div>
       <div
         aria-hidden
-        className="absolute inset-x-0 top-0 -z-10 h-px bg-gradient-to-r from-transparent via-aj-blue-bright/40 to-transparent"
+        className="absolute inset-x-0 top-0 -z-10 h-px bg-gradient-to-r from-transparent via-[rgba(77,172,255,0.40)] to-transparent"
       />
       <div
         aria-hidden
-        className="absolute inset-0 -z-20 bg-[radial-gradient(circle_at_50%_30%,rgba(59,91,255,0.18),transparent_50%)]"
+        className="absolute inset-0 -z-20 bg-[radial-gradient(circle_at_50%_30%,rgba(77,172,255,0.18),transparent_50%)]"
       />
 
       <div className="mx-auto max-w-[960px] px-5 sm:px-8 text-center">

@@ -5,18 +5,27 @@
 
 export const aiColors = {
   // Brand
-  orange: "#FF4500",
-  orangeSoft: "#FF6A30",
-  blue: "#0088CC",
-  blueBright: "#3B5BFF",
-  gold: "#C8A96A",
+  signalYellow: "#E8FF5A",
+  signalSoft: "#F1FF8A",
+  dataBlue: "#4DACFF",
+  dataBlueSoft: "#8FCAFF",
+  positiveGreen: "#3DFFB0",
+  warningAmber: "#FFB340",
+  criticalRed: "#FF4545",
+
+  // Legacy aliases kept for older call sites; these now resolve to V2 tokens.
+  orange: "#E8FF5A",
+  orangeSoft: "#F1FF8A",
+  blue: "#4DACFF",
+  blueBright: "#4DACFF",
+  gold: "#E8FF5A",
 
   // Surfaces — dark (canonical)
-  bg0: "#05070F",
-  bg1: "#0B0F1A",
-  bg2: "#0B1020",
-  bg3: "#101827",
-  bg4: "#1A2234",
+  bg0: "#080808",
+  bg1: "#0F0F0F",
+  bg2: "#161616",
+  bg3: "#2A2A2A",
+  bg4: "#353534",
 
   // Surfaces — light split (paired clarity layer, opt-in)
   paper: "#F8FAFC",
@@ -33,9 +42,9 @@ export const aiColors = {
 
   // Text — dark
   fg0: "#FFFFFF",
-  fg1: "#E5E7EB",
-  fg2: "#94A3B8",
-  fg3: "#64748B",
+  fg1: "#E8E8E8",
+  fg2: "#A1A1AA",
+  fg3: "#666666",
 
   // Text — light (legacy aliases)
   fgLight0: "#111111",
@@ -43,45 +52,45 @@ export const aiColors = {
   fgLight2: "#4B5563",
 
   // Brand identity aliases (canonical names)
-  orangePrimary: "#FF4500",
-  blueSystem: "#0088CC",
-  darkPrimary: "#05070F",
-  darkSecondary: "#0B0F1A",
+  orangePrimary: "#E8FF5A",
+  blueSystem: "#4DACFF",
+  darkPrimary: "#080808",
+  darkSecondary: "#0F0F0F",
 
   // Borders
   line1: "rgba(255,255,255,0.06)",
   line2: "rgba(255,255,255,0.10)",
   line3: "rgba(255,255,255,0.18)",
-  lineBlue: "rgba(59,91,255,0.40)",
-  lineGold: "rgba(200,169,106,0.40)",
+  lineBlue: "rgba(77,172,255,0.40)",
+  lineGold: "rgba(232,255,90,0.36)",
 
   // Semantic
-  signal: "#FF4500",
-  system: "#3B5BFF",
-  metric: "#C8A96A",
-  success: "#22C55E",
-  warning: "#FACC15",
-  danger: "#EF4444",
+  signal: "#E8FF5A",
+  system: "#4DACFF",
+  metric: "#E8FF5A",
+  success: "#3DFFB0",
+  warning: "#FFB340",
+  danger: "#FF4545",
 
   // Legacy aliases (kept until call sites migrate).
   // NOTE: `surface` is no longer aliased here — it conflicts with the
   // canonical light-split `surface` above (#F5F5F5). Old call sites
   // that wanted the dark card surface should use `bg2` ("#0B1020").
-  background: "#05070F",
-  surfaceAlt: "#101827",
-  primary: "#3B5BFF",
-  primaryBright: "#3B5BFF",
-  accent: "#C8A96A",
+  background: "#080808",
+  surfaceAlt: "#161616",
+  primary: "#4DACFF",
+  primaryBright: "#4DACFF",
+  accent: "#E8FF5A",
   text: "#FFFFFF",
-  muted: "#94A3B8",
+  muted: "#A1A1AA",
   border: "rgba(255,255,255,0.10)",
 } as const;
 
 export const aiFonts = {
-  headline: '"Space Grotesk", ui-sans-serif, system-ui, sans-serif',
-  accent: '"Sora", ui-sans-serif, system-ui, sans-serif',
-  body: '"Inter", ui-sans-serif, system-ui, sans-serif',
-  mono: 'ui-monospace, "SF Mono", Menlo, Consolas, monospace',
+  headline: '"Syne", ui-sans-serif, system-ui, sans-serif',
+  accent: '"Syne", ui-sans-serif, system-ui, sans-serif',
+  body: '"DM Sans", ui-sans-serif, system-ui, sans-serif',
+  mono: '"DM Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace',
 } as const;
 
 export const aiMotion = {
@@ -121,3 +130,77 @@ export const aiEntity = {
 
 export const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || "https://audiojones.com";
+
+/**
+ * Local-business facts for LocalBusiness / ProfessionalService JSON-LD.
+ *
+ * Service-area business: `address` is the verified registered address used
+ * for Google Business Profile verification. The actual business does NOT
+ * operate from a public storefront — clients are served remotely or on-site
+ * at their location. Schema.org allows `address` for SAB; what governs
+ * public visibility is the GBP "hide address from customers" toggle.
+ *
+ * Phone matches the canonical number on the Audio Jones GBP under
+ * audiojones@ajdigital.app. Update both together if it ever changes.
+ *
+ * Geo coordinates are an approximate centroid of the registered address;
+ * refine if you want sharper geographic ranking signal.
+ */
+export const aiLocalBusiness = {
+  brandName: "Audio Jones",
+  legalEntity: "AJ Digital LLC",
+  founder: "Tyrone Alexander Nelms",
+  telephone: "+1-954-613-9330",
+  email: "audiojones@ajdigital.app",
+  address: {
+    streetAddress: "20028 NW 64th PL",
+    addressLocality: "Hialeah",
+    addressRegion: "FL",
+    postalCode: "33015",
+    addressCountry: "US",
+  },
+  geo: {
+    latitude: 25.9485,
+    longitude: -80.3275,
+  },
+  /** Service area cities + counties mirrored from the GBP listing. */
+  areaServed: [
+    { type: "City", name: "Miami", region: "FL" },
+    { type: "City", name: "Hialeah", region: "FL" },
+    { type: "City", name: "Fort Lauderdale", region: "FL" },
+    { type: "City", name: "Hollywood", region: "FL" },
+    { type: "City", name: "Pembroke Pines", region: "FL" },
+    { type: "City", name: "Miramar", region: "FL" },
+    { type: "City", name: "Miami Beach", region: "FL" },
+    { type: "City", name: "Davie", region: "FL" },
+    { type: "City", name: "Cooper City", region: "FL" },
+    { type: "City", name: "Naples", region: "FL" },
+    { type: "City", name: "Fort Myers", region: "FL" },
+    { type: "AdministrativeArea", name: "Broward County", region: "FL" },
+    { type: "AdministrativeArea", name: "Miami-Dade County", region: "FL" },
+    { type: "Region", name: "South Florida", region: "FL" },
+  ],
+  /**
+   * 24/7 availability is legitimate because the business operates an AI
+   * receptionist that handles inbound calls/chats around the clock. If you
+   * ever want to surface only your human-staffed hours, narrow this to
+   * Mo-Fr 09:00-18:00 and add an "Online service hours" attribute on GBP.
+   */
+  openingHours: ["Mo-Su 00:00-23:59"],
+  priceRange: "$$$",
+  knowsAbout: [
+    "Applied Intelligence Systems",
+    "AI Consulting",
+    "AI Automation",
+    "Marketing Automation",
+    "SEO Strategy",
+    "AEO Strategy",
+    "Founder Intelligence Systems",
+    "Podcast Production",
+    "Business Automation",
+    "Conversion Optimization",
+    "Funnel Strategy",
+    "Analytics & Attribution",
+    "Executive Reporting Systems",
+  ],
+} as const;

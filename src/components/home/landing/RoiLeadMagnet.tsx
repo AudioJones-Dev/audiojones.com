@@ -53,7 +53,7 @@ export default function RoiLeadMagnet() {
             <p className="font-mono text-xs font-bold uppercase tracking-[0.14em] text-fg-3">
               Signal Output
             </p>
-            <span className="rounded-full border border-[rgba(0,164,255,0.28)] bg-[rgba(0,164,255,0.10)] px-3 py-1 font-mono text-xs font-bold text-[var(--aj-blue)]">
+            <span className="rounded-[4px] border border-[rgba(77,172,255,0.30)] bg-[rgba(77,172,255,0.10)] px-3 py-1 font-mono text-xs font-bold text-[var(--accent-blue)]">
               ROI PREVIEW
             </span>
           </div>
@@ -63,14 +63,14 @@ export default function RoiLeadMagnet() {
                 <span className="mb-2 block text-xs font-bold uppercase tracking-[0.12em] text-fg-3">
                   {label}
                 </span>
-                <span className="flex min-h-12 items-center rounded-xl border border-[rgba(148,163,184,0.14)] bg-[rgba(5,7,15,0.55)] px-4 font-mono text-lg font-bold text-fg-0">
+                <span className="flex min-h-12 items-center rounded-[6px] border border-[rgba(148,163,184,0.14)] bg-[rgba(5,7,15,0.55)] px-4 font-mono text-lg font-bold text-fg-0">
                   {value}
                 </span>
               </label>
             ))}
           </div>
-          <div className="mt-6 rounded-2xl border border-[rgba(255,69,0,0.28)] bg-[rgba(255,69,0,0.08)] p-6">
-            <p className="text-xs font-bold uppercase tracking-[0.14em] text-[var(--aj-orange)]">
+          <div className="mt-6 rounded-[8px] border border-[rgba(232,255,90,0.28)] bg-[rgba(232,255,90,0.08)] p-6">
+            <p className="text-xs font-bold uppercase tracking-[0.14em] text-[var(--signal-yellow)]">
               Lost revenue estimate
             </p>
             <p className="mt-3 font-mono text-4xl font-black text-fg-0">

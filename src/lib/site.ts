@@ -32,6 +32,17 @@ export const publicRoutes = [
   { path: "/insights", priority: 0.85, changeFrequency: "weekly" },
   { path: "/blog", priority: 0.85, changeFrequency: "weekly" },
   { path: "/about", priority: 0.6, changeFrequency: "monthly" },
+  // Localized landing pages — each backed by a brief in docs/landing-pages/
+  // and ships city-specific copy (no doorway templating).
+  // P0 cluster (South Florida)
+  { path: "/marketing-consultant-hialeah", priority: 0.8, changeFrequency: "monthly" },
+  { path: "/ai-consultant-miami", priority: 0.8, changeFrequency: "monthly" },
+  { path: "/ai-services-fort-lauderdale", priority: 0.8, changeFrequency: "monthly" },
+  // P1 cluster (Southwest Florida — blue-collar AI wedge)
+  { path: "/ai-services-naples", priority: 0.75, changeFrequency: "monthly" },
+  { path: "/ai-services-fort-myers", priority: 0.75, changeFrequency: "monthly" },
+  // P2 hub — closes the internal-linking loop across city pages
+  { path: "/service-areas", priority: 0.7, changeFrequency: "monthly" },
   // /pricing — include only once route is confirmed final for launch
   // /step-2  — intentionally excluded: funnel/internal, noindexed
   // /podcast — intentionally excluded: route does not exist

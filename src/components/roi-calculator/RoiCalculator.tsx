@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { ctaLinks } from "@/config/links";
 import { calculateRoiResult } from "@/lib/roi-calculator/calculations";
 import type { RoiCalculatorInput, RoiCalculatorResult } from "@/lib/roi-calculator/types";
@@ -43,9 +44,22 @@ const steps = [
 const selectClass = "min-h-12 w-full rounded-md border border-[var(--line-2)] bg-bg-3 px-4 py-3 text-base text-fg-0 outline-none focus-visible:[box-shadow:0_0_0_2px_var(--aj-blue-bright)]";
 const inputClass = selectClass;
 const secondaryButtonClass = "min-h-11 rounded-md border border-[var(--line-2)] px-5 py-3 text-sm font-semibold text-fg-1 transition hover:border-[var(--line-3)] hover:text-fg-0 focus-visible:[box-shadow:0_0_0_2px_var(--aj-blue-bright)]";
+const DIAGNOSTIC_RESULT_STORAGE_KEY = "audiojones:diagnostic-result";
 
 function money(value: number) {
   return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(value);
+}
+
+function storeDiagnosticResult(payload: Record<string, unknown>) {
+  if (typeof window === "undefined") return;
+  try {
+    window.sessionStorage.setItem(
+      DIAGNOSTIC_RESULT_STORAGE_KEY,
+      JSON.stringify(payload),
+    );
+  } catch {
+    // The persisted lead and client email remain the source of truth.
+  }
 }
 
 function Field({ label, error, children }: { label: string; error?: string; children: React.ReactNode }) {
@@ -127,6 +141,7 @@ function RatingField({ label, value, onChange }: { label: string; value: number;
 }
 
 export default function RoiCalculator() {
+  const router = useRouter();
   const [step, setStep] = useState(0);
   const [input, setInput] = useState<RoiCalculatorInput>(initialInput);
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -211,7 +226,21 @@ export default function RoiCalculator() {
         throw new Error(payload.error?.message ?? "Unable to submit ROI calculator lead.");
       }
       setLeadId(payload.data?.leadId ?? null);
+      storeDiagnosticResult({
+        type: "roi-calculator",
+        leadId: payload.data?.leadId ?? null,
+        recommendation: computed.recommendation,
+        recommendedNextAction: computed.recommendedNextAction,
+        annualSavings: computed.annualSavings,
+        monthlySavings: computed.monthlySavings,
+        readinessScore: computed.readinessScore,
+        confidenceTier: computed.confidenceTier,
+        paybackMonths: computed.paybackMonths,
+        email: input.email,
+        submittedAt: new Date().toISOString(),
+      });
       setResult(computed);
+      router.push("/applied-intelligence/diagnostic/thank-you?source=roi-calculator");
     } catch (error) {
       setSubmitError(error instanceof Error ? error.message : "Unable to submit ROI calculator lead.");
     } finally {
