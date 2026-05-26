@@ -54,6 +54,12 @@ export default function HeroAllSignal() {
         style={{ position: "absolute", inset: 0, zIndex: 0 }}
       >
         <div style={{ position: "relative", width: "100%", height: "100%" }}>
+          {/* Only the mobile variant is `priority`. The tablet/desktop
+              backgrounds and the desktop portrait stay lazy on purpose:
+              `priority` emits an unconditional <head> preload, so marking
+              the hidden breakpoints would force mobile to download every
+              variant. Lazy + display:none means each is fetched only on the
+              breakpoint that actually shows it. */}
           <Image
             src={`${ASSET}/backgrounds/hero-bg-split-dark-light-system-mobile.png`}
             alt=""
@@ -76,7 +82,6 @@ export default function HeroAllSignal() {
             src={`${ASSET}/backgrounds/hero-bg-split-dark-light-system-tablet.png`}
             alt=""
             fill
-            priority
             className="object-cover object-top"
             sizes="100vw"
           />
@@ -94,7 +99,6 @@ export default function HeroAllSignal() {
             src={`${ASSET}/backgrounds/hero-bg-split-dark-light-system-desktop.png`}
             alt=""
             fill
-            priority
             className="object-cover"
             sizes="100vw"
           />
@@ -182,7 +186,6 @@ export default function HeroAllSignal() {
             src={`${ASSET}/portrait/portraithero-portrait-audiojones-transparent.png`}
             alt="Audio Jones"
             fill
-            priority
             className="object-contain object-bottom"
             sizes="(max-width: 1280px) 72vw, 1080px"
           />
@@ -209,7 +212,6 @@ export default function HeroAllSignal() {
             src={`${ASSET}/portrait/portraithero-portrait-audiojones-transparent.png`}
             alt="Audio Jones"
             fill
-            priority
             className="object-contain object-bottom"
             sizes="50vw"
           />
