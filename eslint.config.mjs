@@ -46,4 +46,12 @@ const eslintConfig = defineConfig([
       "react-hooks/rules-of-hooks": "warn",
       "react-hooks/static-components": "warn",
       "@typescript-eslint/no-unsafe-function-type": "warn",
-      // Next.js rules int
+      // Next.js rules introduced after this codebase's existing patterns.
+      "@next/next/no-html-link-for-pages": "warn",
+      "@next/next/no-assign-module-variable": "warn",
+      "prefer-const": "warn",
+    },
+  },
+]);
+
+export default eslintConfig;
