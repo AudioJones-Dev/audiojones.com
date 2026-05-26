@@ -5,7 +5,7 @@
  * and predictive capacity planning for enterprise-grade resource optimization.
  */
 
-import { getDb } from '@/lib/server/firebaseAdmin';
+import { getDb } from '@/lib/server/legacyAdmin';
 import { lazySingleton } from '@/lib/server/lazySingleton';
 import eventStreamingEngine from '@/lib/streaming/EventStreamingEngine';
 import aiOperationsEngine from '@/lib/ai/AIOperationsEngine';
@@ -14,7 +14,7 @@ interface ScalingResource {
   id: string;
   name: string;
   type: 'compute' | 'memory' | 'storage' | 'network' | 'database';
-  provider: 'vercel' | 'firebase' | 'gcp' | 'aws' | 'azure';
+  provider: 'vercel' | 'legacyAuth' | 'gcp' | 'aws' | 'azure';
   currentCapacity: {
     min: number;
     max: number;
@@ -212,10 +212,10 @@ export class AutoScalingEngine {
         isEnabled: true,
       },
       {
-        id: 'firebase_database',
-        name: 'Firebase Database Connections',
+        id: 'document_database',
+        name: 'Retired auth Database Connections',
         type: 'database',
-        provider: 'firebase',
+        provider: 'legacyAuth',
         currentCapacity: {
           min: 100,
           max: 10000,
@@ -320,7 +320,7 @@ export class AutoScalingEngine {
       {
         id: 'database_connection_policy',
         name: 'Database Connection Auto-Scaling',
-        resourceId: 'firebase_database',
+        resourceId: 'document_database',
         triggers: [
           {
             metric: 'connection_utilization',

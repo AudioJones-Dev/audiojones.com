@@ -6,7 +6,7 @@
  * Checks connectivity for NeonDB, ImageKit, Stripe, and MailerLite.
  * Uses read-only API calls. Never logs sensitive keys.
  *
- * Firebase has been intentionally removed — see
+ * Retired auth has been intentionally removed — see
  * docs/architecture/stack-decision.md.
  */
 

@@ -6,7 +6,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { requireAdmin } from '@/lib/server/requireAdmin';
 import { secretsRotationEngine } from '@/lib/secrets/SecretsRotationEngine';
-import { getDb } from '@/lib/server/firebaseAdmin';
+import { getDb } from '@/lib/server/legacyAdmin';
 import { SecretsRotationEngine } from '@/lib/server/secrets/secretsEngine';
 
 export const dynamic = 'force-dynamic';
@@ -427,15 +427,15 @@ export async function GET(request: NextRequest) {
               status: 'configured'
             },
             {
-              id: 'firebase-private-key',
-              name: 'Firebase Private Key',
+              id: 'legacyAuth-private-key',
+              name: 'Retired auth Private Key',
               type: 'certificate',
               frequency: 'quarterly',
               auto_rotation: false,
               max_age: 90,
               grace_period: 48,
               approval_required: true,
-              dependencies: ['firebase-auth', 'admin-sdk'],
+              dependencies: ['legacyAuth-auth', 'admin-sdk'],
               last_rotation: null,
               next_rotation: null,
               status: 'configured'

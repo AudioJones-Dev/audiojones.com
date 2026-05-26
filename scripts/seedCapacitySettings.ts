@@ -9,10 +9,10 @@
  * Usage: npm run seed:capacity
  */
 
-import { getFirestore } from "@/lib/legacy-stubs";
-import admin from "@/lib/legacy-stubs";
+import { getFirestore } from "@/lib/disabled-sdk";
+import admin from "@/lib/disabled-sdk";
 
-// Initialize Firebase Admin directly in the script
+// Initialize retired admin directly in the script
 if (!admin.apps.length) {
   try {
     const serviceAccount = process.env.GOOGLE_APPLICATION_CREDENTIALS 
@@ -22,16 +22,16 @@ if (!admin.apps.length) {
     if (serviceAccount) {
       admin.initializeApp({
         credential: admin.credential.cert(serviceAccount),
-        projectId: process.env.FIREBASE_PROJECT_ID
+        projectId: process.env.GOOGLE_CLOUD_PROJECT
       });
     } else {
       // Use default credentials
       admin.initializeApp({
-        projectId: process.env.FIREBASE_PROJECT_ID || 'audiojones-com'
+        projectId: process.env.GOOGLE_CLOUD_PROJECT || 'audiojones-com'
       });
     }
   } catch (error) {
-    console.error('Failed to initialize Firebase Admin:', error);
+    console.error('Failed to initialize retired admin:', error);
     process.exit(1);
   }
 }

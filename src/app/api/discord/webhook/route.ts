@@ -7,7 +7,7 @@
 
 import { verifyKey } from 'discord-interactions';
 import { NextRequest, NextResponse } from 'next/server';
-import { getDb } from '@/lib/server/firebaseAdmin';
+import { getDb } from '@/lib/server/legacyAdmin';
 import { sendAlertNotification } from '@/lib/server/notify';
 
 export async function POST(req: NextRequest) {

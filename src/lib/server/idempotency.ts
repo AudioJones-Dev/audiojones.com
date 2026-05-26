@@ -12,7 +12,7 @@
  *   // Process webhook...
  */
 
-import { getDb } from './firebaseAdmin';
+import { getDb } from './legacyAdmin';
 
 const COLLECTION_NAME = 'webhook_idempotency';
 

@@ -5,7 +5,7 @@
  * Run with: npx tsx scripts/seedRunbooks.ts
  */
 
-import { getDb } from '../src/lib/server/firebaseAdmin';
+import { getDb } from '../src/lib/server/legacyAdmin';
 import type { Runbook } from '../src/lib/server/incidents';
 
 const defaultRunbooks: Omit<Runbook, 'id' | 'created_at' | 'updated_at'>[] = [
@@ -17,7 +17,7 @@ const defaultRunbooks: Omit<Runbook, 'id' | 'created_at' | 'updated_at'>[] = [
       'Check current capacity utilization in admin dashboard',
       'Review recent capacity trends and forecasts',
       'Check for any pending deployments or migrations',
-      'Scale infrastructure if needed (Firebase quotas, server resources)',
+      'Scale infrastructure if needed (data-store quotas, server resources)',
       'Notify team lead about capacity issue',
       'Monitor for 15 minutes to ensure stabilization',
       'Update incident status once resolved'
@@ -58,7 +58,7 @@ const defaultRunbooks: Omit<Runbook, 'id' | 'created_at' | 'updated_at'>[] = [
     steps: [
       'Check system health metrics and dashboards',
       'Review error logs for root cause',
-      'Verify Firebase services are operational',
+      'Verify retired auth services are operational',
       'Check external dependencies (APIs, CDNs)',
       'Restart services if needed',
       'Escalate to on-call engineer if unresolved',

@@ -1,6 +1,6 @@
 // src/app/api/admin/reports/export/route.ts
 import { NextRequest, NextResponse } from "next/server";
-import { getDb } from '@/lib/server/firebaseAdmin';
+import { getDb } from '@/lib/server/legacyAdmin';
 import { requireAdmin } from "@/lib/server/requireAdmin";
 
 export async function GET(req: NextRequest) {

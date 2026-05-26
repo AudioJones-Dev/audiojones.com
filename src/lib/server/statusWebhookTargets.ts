@@ -8,8 +8,8 @@
  * - Target metadata and descriptions
  */
 
-import { getDb } from '@/lib/server/firebaseAdmin';
-import { FieldValue } from "@/lib/legacy-stubs";
+import { getDb } from '@/lib/server/legacyAdmin';
+import { FieldValue } from "@/lib/disabled-sdk";
 
 export interface StatusWebhookTarget {
   id?: string;

@@ -1,6 +1,6 @@
 // src/app/api/admin/customers/[email]/route.ts
 import { NextRequest, NextResponse } from "next/server";
-import { getDb } from "@/lib/server/firebaseAdmin";
+import { getDb } from "@/lib/server/legacyAdmin";
 import { requireAdmin } from "@/lib/server/requireAdmin";
 import { AdminCustomer, SubscriptionEvent, safeDocCast } from "@/types/admin";
 import { createAuditLog } from "../../audit/route";

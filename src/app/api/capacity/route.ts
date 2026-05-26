@@ -1,6 +1,6 @@
 import { NextRequest } from 'next/server';
-import { getFirestore } from "@/lib/legacy-stubs";
-import { getDb } from '@/lib/server/firebaseAdmin';
+import { getFirestore } from "@/lib/disabled-sdk";
+import { getDb } from '@/lib/server/legacyAdmin';
 import { deriveHoursFromPlan, isWithinWindow } from '@/lib/capacity';
 
 /**

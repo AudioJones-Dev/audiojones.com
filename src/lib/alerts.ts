@@ -1,6 +1,6 @@
 // src/lib/alerts.ts
-import { getApps, initializeApp, cert } from "@/lib/legacy-stubs";
-import { getFirestore } from "@/lib/legacy-stubs";
+import { getApps, initializeApp, cert } from "@/lib/disabled-sdk";
+import { getFirestore } from "@/lib/disabled-sdk";
 
 interface AlertOptions {
   title: string;
@@ -11,15 +11,15 @@ interface AlertOptions {
   auto_dismiss_minutes?: number;
 }
 
-// Initialize Firebase Admin if not already done
-function getFirebaseApp() {
+// Initialize retired admin if not already done
+function getLegacyAuthApp() {
   if (getApps().length === 0) {
-    const projectId = process.env.FIREBASE_PROJECT_ID;
-    const clientEmail = process.env.FIREBASE_CLIENT_EMAIL;
-    const privateKey = process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, "\n");
+    const projectId = process.env.GOOGLE_CLOUD_PROJECT;
+    const clientEmail = process.env.LEGACY_AUTH_CLIENT_EMAIL;
+    const privateKey = process.env.LEGACY_AUTH_PRIVATE_KEY?.replace(/\\n/g, "\n");
 
     if (!projectId || !clientEmail || !privateKey) {
-      console.warn("Firebase Admin credentials not configured for alerts");
+      console.warn("retired admin credentials not configured for alerts");
       return null;
     }
 
@@ -36,7 +36,7 @@ function getFirebaseApp() {
 
 export async function createAlert(options: AlertOptions): Promise<string | null> {
   try {
-    const app = getFirebaseApp();
+    const app = getLegacyAuthApp();
     if (!app) return null;
 
     const db = getFirestore(app);
@@ -131,7 +131,7 @@ export const AlertTemplates = {
 // Auto-dismiss expired alerts (can be called periodically)
 export async function cleanupExpiredAlerts(): Promise<number> {
   try {
-    const app = getFirebaseApp();
+    const app = getLegacyAuthApp();
     if (!app) return 0;
 
     const db = getFirestore(app);

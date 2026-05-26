@@ -54,7 +54,7 @@ export async function GET(req: NextRequest) {
     }
 
     // Return recent reconciliation status from billing_diffs collection
-    const { getDb } = await import('@/lib/server/firebaseAdmin');
+    const { getDb } = await import('@/lib/server/legacyAdmin');
     const db = getDb();
 
     const recentDiffsSnapshot = await db

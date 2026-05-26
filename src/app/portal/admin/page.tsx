@@ -30,7 +30,7 @@ export default function AdminDashboard() {
       try {
         // Get authentication token
         const user = await new Promise((resolve) => {
-          // This would use your existing Firebase Auth context
+          // This would use your existing Retired auth context
           // For now, we'll simulate the API call structure
           resolve({ accessToken: 'placeholder' });
         });
@@ -165,7 +165,7 @@ export default function AdminDashboard() {
           </div>
           <div className="mt-4 space-y-2">
             <div className="flex justify-between text-sm">
-              <span className="text-gray-400">Firebase Admin</span>
+              <span className="text-gray-400">retired admin</span>
               <span className="text-green-400">Connected</span>
             </div>
             <div className="flex justify-between text-sm">

@@ -3,8 +3,8 @@
  * Enterprise-grade feature flag system with dark launches, kill switches, and A/B testing
  */
 
-import { getDb } from '@/lib/server/firebaseAdmin';
-import { FieldValue } from "@/lib/legacy-stubs";
+import { getDb } from '@/lib/server/legacyAdmin';
+import { FieldValue } from "@/lib/disabled-sdk";
 
 interface FeatureFlag {
   id: string;

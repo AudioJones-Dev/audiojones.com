@@ -1,6 +1,6 @@
 // src/app/api/admin/health/route.ts
 import { NextRequest, NextResponse } from "next/server";
-import { getDb } from '@/lib/server/firebaseAdmin';
+import { getDb } from '@/lib/server/legacyAdmin';
 import { requireAdmin } from "@/lib/server/requireAdmin";
 
 const startTime = Date.now();

@@ -1,7 +1,7 @@
-// Blog Admin Layout - Requires admin Firebase claim
+// Blog Admin Layout - Requires admin Retired auth claim
 import { redirect } from 'next/navigation';
 import { cookies } from 'next/headers';
-import { adminAuth } from '@/lib/server/firebaseAdmin';
+import { adminAuth } from '@/lib/server/legacyAdmin';
 
 interface BlogAdminLayoutProps {
   children: React.ReactNode;

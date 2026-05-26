@@ -8,7 +8,7 @@
  * 4. Non-blocking operations to prevent API delays
  */
 
-import { getDb } from '@/lib/server/firebaseAdmin';
+import { getDb } from '@/lib/server/legacyAdmin';
 import { publishEvent, SUPPORTED_EVENT_TYPES } from './eventBus';
 import { createHmac } from 'crypto';
 

@@ -57,6 +57,12 @@ jobs:
       - name: Lint
         run: pnpm lint
 
+      - name: Type check
+        run: pnpm typecheck
+
+      - name: Verify Firebase has not been reintroduced
+        run: pnpm check:no-firebase
+
   build:
     needs: validate
     runs-on: ubuntu-latest
@@ -121,4 +127,4 @@ jobs:
       - name: Deploy to Vercel
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-        run: npx vercel@latest deploy --prod --token="${VERCEL_TOKEN}" --cwd .
+        run: npx vercel@48.9.0 deploy --prod --yes --token="${VERCEL_TOKEN}" --cwd .

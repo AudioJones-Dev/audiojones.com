@@ -7,7 +7,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { getDb } from '@/lib/server/firebaseAdmin';
+import { getDb } from '@/lib/server/legacyAdmin';
 import { serializeIncidentsForFeed, applyFeedFilters } from '@/lib/server/incidentFeed';
 import type { 
   IncidentFeedResponse, 

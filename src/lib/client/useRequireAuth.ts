@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { onAuthStateChanged, type User } from "@/lib/legacy-stubs";
-import { auth } from "@/lib/firebase/client";
+import { onAuthStateChanged, type User } from "@/lib/disabled-sdk";
+import { auth } from "@/lib/client/disabledAuth";
 
 type AuthUser = User & {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

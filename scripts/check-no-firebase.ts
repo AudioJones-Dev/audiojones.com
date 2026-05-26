@@ -35,16 +35,12 @@ const SKIP_DIRS = new Set<string>([
 ]);
 
 // Files that are allowed to mention firebase: the docs explaining why we
-// removed it, the legacy stub, and this guard script itself.
+// removed it and this guard script itself.
 const ALLOWED_FILES = new Set<string>(
   [
     "scripts/check-no-firebase.ts",
-    "src/lib/legacy-stubs.ts",
     "docs/architecture/stack-decision.md",
     "docs/architecture/backend-stack.md",
-    "docs/env/env-template.md",
-    "secrets.md",
-    "vercel.env",
   ].map((p) => path.normalize(p)),
 );
 

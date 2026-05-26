@@ -6,7 +6,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { getDb } from '@/lib/server/firebaseAdmin';
+import { getDb } from '@/lib/server/legacyAdmin';
 import { EventPublisher, WebhookEventHandler } from '@/lib/streaming/EventIntegrations';
 
 export async function POST(request: NextRequest) {

@@ -1,10 +1,10 @@
 // src/app/api/whop-base64/route.ts - Webhook using Base64 private key
 import { NextRequest, NextResponse } from "next/server";
-import { getDb } from '@/lib/server/firebaseAdmin';
+import { getDb } from '@/lib/server/legacyAdmin';
 import { getTierByBillingSku } from "@/lib/getPricing";
 
 // Enhanced pricing lookup - checks Firestore first, then falls back to hardcoded
-async function getTierByBillingSkuEnhanced(db: FirebaseFirestore.Firestore, billingSku: string) {
+async function getTierByBillingSkuEnhanced(db: DocumentStoreTypes.Firestore, billingSku: string) {
   try {
     // First, try to find in Firestore pricing_skus collection
     const pricingQuery = await db
@@ -43,12 +43,12 @@ export async function GET() {
     status: "ok", 
     message: "Whop Base64 webhook endpoint ready",
     env_check: {
-      has_project_id: !!process.env.FIREBASE_PROJECT_ID,
-      has_client_email: !!process.env.FIREBASE_CLIENT_EMAIL,
-      has_private_key_direct: !!process.env.FIREBASE_PRIVATE_KEY,
-      has_private_key_base64: !!process.env.FIREBASE_PRIVATE_KEY_BASE64,
-      direct_key_length: process.env.FIREBASE_PRIVATE_KEY?.length || 0,
-      base64_key_length: process.env.FIREBASE_PRIVATE_KEY_BASE64?.length || 0,
+      has_project_id: !!process.env.GOOGLE_CLOUD_PROJECT,
+      has_client_email: !!process.env.LEGACY_AUTH_CLIENT_EMAIL,
+      has_private_key_direct: !!process.env.LEGACY_AUTH_PRIVATE_KEY,
+      has_private_key_base64: !!process.env.LEGACY_AUTH_PRIVATE_KEY_BASE64,
+      direct_key_length: process.env.LEGACY_AUTH_PRIVATE_KEY?.length || 0,
+      base64_key_length: process.env.LEGACY_AUTH_PRIVATE_KEY_BASE64?.length || 0,
       has_whop_api_key: !!process.env.WHOP_API_KEY,
       has_whop_app_id: !!process.env.WHOP_APP_ID,
     }

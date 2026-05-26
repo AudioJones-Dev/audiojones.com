@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 
 interface SystemStatus {
-  firebase: {
+  legacyAuth: {
     admin: boolean;
     auth: boolean;
     database: boolean;
@@ -110,31 +110,31 @@ export default function SystemMonitoring() {
 
       {status && (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Firebase Services */}
+          {/* Retired auth Services */}
           <div className="rounded-lg border border-gray-700 bg-gray-900 p-6">
             <h3 className="text-lg font-medium text-white mb-4 flex items-center">
-              Firebase Services
+              Retired auth Services
               <span className="ml-2 text-sm">
-                {Object.values(status.firebase).every(Boolean) ? '🟢' : '🔴'}
+                {Object.values(status.legacyAuth).every(Boolean) ? '🟢' : '🔴'}
               </span>
             </h3>
             <div className="space-y-3">
               <div className="flex justify-between items-center">
                 <span className="text-gray-400">Admin SDK</span>
-                <span className={getStatusColor(status.firebase.admin)}>
-                  {getStatusIcon(status.firebase.admin)} {status.firebase.admin ? 'Connected' : 'Failed'}
+                <span className={getStatusColor(status.legacyAuth.admin)}>
+                  {getStatusIcon(status.legacyAuth.admin)} {status.legacyAuth.admin ? 'Connected' : 'Failed'}
                 </span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-gray-400">Authentication</span>
-                <span className={getStatusColor(status.firebase.auth)}>
-                  {getStatusIcon(status.firebase.auth)} {status.firebase.auth ? 'Connected' : 'Failed'}
+                <span className={getStatusColor(status.legacyAuth.auth)}>
+                  {getStatusIcon(status.legacyAuth.auth)} {status.legacyAuth.auth ? 'Connected' : 'Failed'}
                 </span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-gray-400">Database</span>
-                <span className={getStatusColor(status.firebase.database)}>
-                  {getStatusIcon(status.firebase.database)} {status.firebase.database ? 'Connected' : 'Failed'}
+                <span className={getStatusColor(status.legacyAuth.database)}>
+                  {getStatusIcon(status.legacyAuth.database)} {status.legacyAuth.database ? 'Connected' : 'Failed'}
                 </span>
               </div>
             </div>
@@ -275,12 +275,12 @@ export default function SystemMonitoring() {
             Check Who Am I
           </a>
           <a
-            href="/api/test-firebase-admin"
+            href="/api/test-retired-admin-sdk"
             target="_blank"
             rel="noopener noreferrer"
             className="text-center rounded-md bg-yellow-600 px-4 py-2 text-sm font-medium text-white hover:bg-yellow-700 transition"
           >
-            Test Firebase Admin
+            Test retired admin
           </a>
           <button
             onClick={() => window.location.reload()}

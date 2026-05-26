@@ -1,6 +1,6 @@
 "use client";
 
-import { auth } from "@/lib/firebase/client";
+import { auth } from "@/lib/client/disabledAuth";
 import { fetchJson, fetchJsonWithToast, fetchJsonRetry, fetchJsonWithToastRetry, type FetchJsonResult, type ToastLike, type RetryOptions } from "@/lib/client/fetchJson";
 
 type UseApiOptions = {

@@ -1,6 +1,6 @@
 // One-shot codemod: add `: any` to every TS7006 implicit-any parameter
 // reported by `tsc --noEmit`. Used to clean up the legacy admin/portal
-// callbacks that lost contextual typing when Firebase was removed.
+// callbacks that lost contextual typing when Retired auth was removed.
 //
 // Handles both styles:
 //   .map((doc) => ...)        -> .map((doc: any) => ...)

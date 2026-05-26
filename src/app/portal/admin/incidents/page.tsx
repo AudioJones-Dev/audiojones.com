@@ -65,7 +65,6 @@ export default function AdminIncidentsPage() {
 
       const response = await fetch(`/api/admin/incidents?${params.toString()}`, {
         headers: {
-          'admin-key': process.env.NEXT_PUBLIC_ADMIN_KEY || '',
         },
       });
 

@@ -5,7 +5,7 @@ import 'server-only';
  * proxy. Lets engine modules expose a `default` instance without forcing the
  * class to be evaluated at import time — which is the failure mode that
  * makes Next.js page-data collection trip on any constructor side-effect
- * (Firebase Admin initialization, Stripe SDK init, background setInterval,
+ * (retired admin initialization, Stripe SDK init, background setInterval,
  * eventBus.publishEvent, etc.) during the build.
  *
  * Usage:

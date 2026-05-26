@@ -79,7 +79,6 @@ export default function IncidentDetailPage() {
 
       const response = await fetch(`/api/admin/incidents/${incidentId}`, {
         headers: {
-          'admin-key': process.env.NEXT_PUBLIC_ADMIN_KEY || '',
         },
       });
 
@@ -108,7 +107,6 @@ export default function IncidentDetailPage() {
     try {
       const response = await fetch(`/api/admin/runbooks?id=${runbookId}`, {
         headers: {
-          'admin-key': process.env.NEXT_PUBLIC_ADMIN_KEY || '',
         },
       });
 
@@ -131,7 +129,6 @@ export default function IncidentDetailPage() {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
-          'admin-key': process.env.NEXT_PUBLIC_ADMIN_KEY || '',
         },
         body: JSON.stringify({ status: newStatus }),
       });
@@ -161,7 +158,6 @@ export default function IncidentDetailPage() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'admin-key': process.env.NEXT_PUBLIC_ADMIN_KEY || '',
         },
         body: JSON.stringify({ 
           message: newNote,

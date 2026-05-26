@@ -140,7 +140,7 @@ export class TracingMiddleware {
       async (span: TraceSpan) => {
         // Add database-specific attributes
         openTelemetryManager.setSpanAttributes(span, {
-          'db.firestore.project_id': process.env.FIREBASE_PROJECT_ID || '',
+          'db.firestore.project_id': process.env.GOOGLE_CLOUD_PROJECT || '',
           'db.operation.type': operation,
           'db.collection.name': collection,
         });
@@ -223,7 +223,7 @@ export class TracingMiddleware {
   }
 
   /**
-   * Store a trace in Firebase (fire and forget)
+   * Store a trace in Retired auth (fire and forget)
    */
   static async storeTrace(
     traceData: {
@@ -238,7 +238,7 @@ export class TracingMiddleware {
     organizationId?: string
   ): Promise<void> {
     try {
-      const { getDb } = await import('@/lib/server/firebaseAdmin');
+      const { getDb } = await import('@/lib/server/legacyAdmin');
       const db = await getDb();
       
       const collection = organizationId 

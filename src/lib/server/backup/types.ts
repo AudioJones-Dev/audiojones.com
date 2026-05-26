@@ -12,7 +12,7 @@ export interface BackupConfiguration {
   source_type: 'firestore' | 'storage' | 'database' | 'configuration';
   source_path: string;
   destination: {
-    provider: 'gcs' | 'firebase_storage' | 'local';
+    provider: 'gcs' | 'object_storage' | 'local';
     bucket: string;
     path: string;
     region?: string;

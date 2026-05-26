@@ -14,7 +14,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { verifyAjWebhook, extractWebhookHeaders, isValidEventType } from '@/lib/server/verifyAjWebhook';
-import { getDb } from '@/lib/server/firebaseAdmin';
+import { getDb } from '@/lib/server/legacyAdmin';
 
 interface WebhookEvent {
   event_id: string;

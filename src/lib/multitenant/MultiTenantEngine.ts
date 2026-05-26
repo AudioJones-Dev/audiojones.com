@@ -3,9 +3,9 @@
  * Handles tenant isolation, role-based access control, and scoped API keys
  */
 
-import { getDb, getAdminAuth } from '@/lib/server/firebaseAdmin';
+import { getDb, getAdminAuth } from '@/lib/server/legacyAdmin';
 import crypto from 'crypto';
-import { FieldValue } from "@/lib/legacy-stubs";
+import { FieldValue } from "@/lib/disabled-sdk";
 
 interface Organization {
   id: string;

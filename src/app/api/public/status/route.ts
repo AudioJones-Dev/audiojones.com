@@ -8,7 +8,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { getDb } from '@/lib/server/firebaseAdmin';
+import { getDb } from '@/lib/server/legacyAdmin';
 import { serializeIncidentsForFeed } from '@/lib/server/incidentFeed';
 import { getCachedStatus } from '@/lib/server/statusEvents';
 

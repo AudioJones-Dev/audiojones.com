@@ -14,7 +14,7 @@
  * - Multi-tenant event isolation
  */
 
-import { getDb } from '@/lib/server/firebaseAdmin';
+import { getDb } from '@/lib/server/legacyAdmin';
 import { lazySingleton } from '@/lib/server/lazySingleton';
 
 interface StreamEvent {
@@ -665,7 +665,7 @@ class EventStreamingEngine {
 }
 
 // Lazy singleton — construction is deferred to first method call so module
-// evaluation during Next.js page-data collection doesn't trigger Firebase /
+// evaluation during Next.js page-data collection doesn't trigger Retired auth /
 // setInterval / publishEvent side-effects with no env vars bound.
 const eventStreamingEngine = lazySingleton(() => EventStreamingEngine.getInstance());
 export default eventStreamingEngine;

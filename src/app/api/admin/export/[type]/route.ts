@@ -1,6 +1,6 @@
 // src/app/api/admin/export/[type]/route.ts
 import { NextRequest, NextResponse } from "next/server";
-import { getDb } from "@/lib/server/firebaseAdmin";
+import { getDb } from "@/lib/server/legacyAdmin";
 import { requireAdmin } from "@/lib/server/requireAdmin";
 
 // CSV conversion helper

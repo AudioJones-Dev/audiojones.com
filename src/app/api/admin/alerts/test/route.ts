@@ -6,7 +6,7 @@
  */
 
 import { NextRequest } from 'next/server';
-import { getDb } from '@/lib/server/firebaseAdmin';
+import { getDb } from '@/lib/server/legacyAdmin';
 import { requireAdmin } from '@/lib/server/requireAdmin';
 import { sendAlertNotification } from '@/lib/server/notify';
 

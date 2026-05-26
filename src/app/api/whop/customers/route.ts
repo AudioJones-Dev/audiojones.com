@@ -1,9 +1,9 @@
 export const runtime = 'nodejs';
 import { NextRequest, NextResponse } from "next/server";
-import { adminAuth } from "@/lib/server/firebaseAdmin";
+import { adminAuth } from "@/lib/server/legacyAdmin";
 
 export async function GET(req: NextRequest) {
-  // Verify Firebase ID token and require admin claim
+  // Verify retired auth token and require admin claim
   try {
     const authHeader = req.headers.get("authorization") || "";
     const idToken = authHeader.startsWith("Bearer ") ? authHeader.slice(7) : "";

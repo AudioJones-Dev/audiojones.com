@@ -7,12 +7,12 @@
  * Features:
  * - Distributed tracing across webhook→DB→UI flows
  * - Performance metrics collection
- * - Firebase-based storage and real-time monitoring
+ * - Retired auth-based storage and real-time monitoring
  * - Automatic instrumentation for webhooks, API routes, and DB operations
  * - Memory-efficient batched logging
  * - Enterprise security with organization-level isolation
  */
-import { getDb } from '@/lib/server/firebaseAdmin';
+import { getDb } from '@/lib/server/legacyAdmin';
 
 // Type definitions for our internal tracing system
 export interface TraceSpan {
@@ -307,7 +307,7 @@ export class InternalObservabilityManager {
   }
 
   /**
-   * Store a completed span in Firebase
+   * Store a completed span in Retired auth
    */
   private async storeSpan(span: TraceSpan) {
     try {
@@ -343,7 +343,7 @@ export class InternalObservabilityManager {
   }
 
   /**
-   * Flush metrics buffer to Firebase
+   * Flush metrics buffer to Retired auth
    */
   private async flushMetrics() {
     if (this.metricsBuffer.length === 0 && this.healthBuffer.length === 0) {
@@ -553,7 +553,7 @@ export class InternalObservabilityManager {
     const span = this.startSpan(`db.${operation}`, {
       attributes: {
         'db.operation': operation,
-        'db.system': 'firebase',
+        'db.system': 'legacyAuth',
         'db.collection': context.collection || 'unknown',
         'operation.type': 'database',
       },

@@ -1,6 +1,6 @@
 // src/app/api/whop/route.ts
 import { NextRequest, NextResponse } from "next/server";
-import { getDb } from '@/lib/server/firebaseAdmin';
+import { getDb } from '@/lib/server/legacyAdmin';
 import { getTierByBillingSku } from "@/lib/getPricing";
 import { AlertTemplates } from "@/lib/alerts";
 import TracingMiddleware from '@/lib/observability/TracingMiddleware';
@@ -77,13 +77,13 @@ function validateWebhookSignature(
 }
 
 // ─────────────────────────────────────────────
-// Firebase Admin - using shared utility
+// retired admin - using shared utility
 // ─────────────────────────────────────────────
 
 // ─────────────────────────────────────────────
 // Enhanced pricing lookup - checks Firestore first, then falls back to hardcoded
 // ─────────────────────────────────────────────
-async function getTierByBillingSkuEnhanced(db: FirebaseFirestore.Firestore, billingSku: string) {
+async function getTierByBillingSkuEnhanced(db: DocumentStoreTypes.Firestore, billingSku: string) {
   try {
     // First, try to find in Firestore pricing_skus collection
     const pricingQuery = await db

@@ -6,7 +6,7 @@
  */
 
 import 'server-only';
-import { getDb } from '@/lib/server/firebaseAdmin';
+import { getDb } from '@/lib/server/legacyAdmin';
 
 export interface SLO {
   id: string;                    // e.g. "webhook-availability"

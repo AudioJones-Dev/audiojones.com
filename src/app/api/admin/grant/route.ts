@@ -1,7 +1,7 @@
 export const runtime = 'nodejs';
 
 import { NextRequest, NextResponse } from 'next/server';
-import { adminAuth } from '@/lib/server/firebaseAdmin';
+import { adminAuth } from '@/lib/server/legacyAdmin';
 import { requireAdmin } from '@/lib/server/requireAdmin';
 
 export async function POST(req: NextRequest) {

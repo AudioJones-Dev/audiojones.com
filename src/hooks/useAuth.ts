@@ -1,12 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { auth } from "@/lib/firebase/client";
-import { onAuthStateChanged, type User } from "@/lib/legacy-stubs";
+import { auth } from "@/lib/client/disabledAuth";
+import { onAuthStateChanged, type User } from "@/lib/disabled-sdk";
 
-interface AuthUser extends Partial<User> {
+interface AuthUser extends User {
   uid: string;
   email?: string | null;
+  getIdTokenResult: () => Promise<{ claims: Record<string, any> }>;
   customClaims?: {
     admin?: boolean;
     role?: string;
@@ -39,4 +40,3 @@ export function useAuth() {
 
   return { user, loading };
 }
-

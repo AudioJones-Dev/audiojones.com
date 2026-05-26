@@ -58,7 +58,7 @@ export async function GET(request: NextRequest) {
       },
       system: {
         environment: process.env.NODE_ENV,
-        firebase_project: process.env.FIREBASE_PROJECT_ID,
+        legacyAuth_project: process.env.GOOGLE_CLOUD_PROJECT,
         uptime: process.uptime(),
         memory: process.memoryUsage()
       }

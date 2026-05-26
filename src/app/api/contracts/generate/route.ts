@@ -7,7 +7,7 @@ export async function POST(req: NextRequest) {
     if (!auth.startsWith("Bearer ")) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     const idToken = auth.slice(7);
 
-    const base = process.env.FIREBASE_FUNCTIONS_BASE || "https://us-central1-audiojoneswebsite.cloudfunctions.net";
+    const base = process.env.CONTRACTS_API_BASE || "https://us-central1-audiojoneswebsite.cloudfunctions.net";
     const url = `${base}/generateContract`;
     const body = await req.json();
 

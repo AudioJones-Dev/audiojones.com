@@ -10,9 +10,9 @@
  *   node scripts/runPredictiveScheduler.js (if compiled)
  * 
  * Environment Variables Required:
- *   - FIREBASE_PROJECT_ID
- *   - FIREBASE_PRIVATE_KEY_BASE64
- *   - FIREBASE_CLIENT_EMAIL
+ *   - GOOGLE_CLOUD_PROJECT
+ *   - LEGACY_AUTH_PRIVATE_KEY_BASE64
+ *   - LEGACY_AUTH_CLIENT_EMAIL
  *   - ADMIN_KEY (for API calls)
  */
 
@@ -26,9 +26,9 @@ async function main() {
   try {
     // Validate required environment variables
     const requiredEnvVars = [
-      'FIREBASE_PROJECT_ID',
-      'FIREBASE_PRIVATE_KEY_BASE64', 
-      'FIREBASE_CLIENT_EMAIL'
+      'GOOGLE_CLOUD_PROJECT',
+      'LEGACY_AUTH_PRIVATE_KEY_BASE64',
+      'LEGACY_AUTH_CLIENT_EMAIL'
     ];
     
     const missingVars = requiredEnvVars.filter(varName => !process.env[varName]);
@@ -36,7 +36,7 @@ async function main() {
       throw new Error(`Missing required environment variables: ${missingVars.join(', ')}`);
     }
     
-    console.log(`🔧 Environment validated - Firebase project: ${process.env.FIREBASE_PROJECT_ID}`);
+    console.log(`🔧 Environment validated - cloud project: ${process.env.GOOGLE_CLOUD_PROJECT}`);
     
     // Run the predictive scan
     const result = await runPredictiveScan();

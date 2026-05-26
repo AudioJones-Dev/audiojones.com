@@ -87,7 +87,7 @@ export async function GET(request: NextRequest) {
         }
 
         console.log(`🚩 Getting feature flag details: ${flagKey}`);
-        const db = (await import('@/lib/server/firebaseAdmin')).getDb();
+        const db = (await import('@/lib/server/legacyAdmin')).getDb();
         
         // Get flag
         const flagQuery = await db
@@ -149,7 +149,7 @@ export async function GET(request: NextRequest) {
         const limit = parseInt(searchParams.get('limit') || '50');
 
         console.log(`📋 Getting feature flag audit log${flagKey ? ` for ${flagKey}` : ''}`);
-        const db = (await import('@/lib/server/firebaseAdmin')).getDb();
+        const db = (await import('@/lib/server/legacyAdmin')).getDb();
         
         let auditSnapshot;
         
@@ -297,7 +297,7 @@ export async function POST(request: NextRequest) {
         }
 
         console.log(`🟢 Disabling kill switch for ${flag_key}`);
-        const db = (await import('@/lib/server/firebaseAdmin')).getDb();
+        const db = (await import('@/lib/server/legacyAdmin')).getDb();
         
         // Get flag
         const flagQuery = await db
@@ -352,7 +352,7 @@ export async function POST(request: NextRequest) {
         }
 
         console.log(`📝 Updating feature flag: ${flag_key}`);
-        const db = (await import('@/lib/server/firebaseAdmin')).getDb();
+        const db = (await import('@/lib/server/legacyAdmin')).getDb();
         
         // Get flag
         const flagQuery = await db

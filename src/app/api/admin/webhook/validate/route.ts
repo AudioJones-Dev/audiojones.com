@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { verifyAjSignedRequest } from '@/lib/server/ajWebhookVerifier';
-import { adminAuth } from '@/lib/server/firebaseAdmin';
+import { adminAuth } from '@/lib/server/legacyAdmin';
 
 export async function POST(req: NextRequest) {
   try {

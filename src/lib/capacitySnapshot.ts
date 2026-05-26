@@ -6,19 +6,19 @@
  */
 
 import 'server-only';
-import { Firestore } from "@/lib/legacy-stubs";
+import { Firestore } from "@/lib/disabled-sdk";
 import type { CapacitySnapshot, ForecastResponse } from '@/types/capacity';
 
 /**
  * Saves a capacity snapshot to Firestore history collection
  * 
- * @param db - Firebase Firestore instance
+ * @param db - Retired auth Firestore instance
  * @param forecast - Forecast response data from forecast endpoint
  * @returns Promise<void>
  * 
  * @example
  * ```typescript
- * import { db } from '@/lib/server/firebaseAdmin';
+ * import { db } from '@/lib/server/legacyAdmin';
  * import { saveCapacitySnapshot } from '@/lib/capacitySnapshot';
  * 
  * const forecast = await fetch('/api/capacity/forecast').then(r => r.json());
@@ -61,7 +61,7 @@ export async function saveCapacitySnapshot(
 /**
  * Retrieves capacity history for a specific date range
  * 
- * @param db - Firebase Firestore instance
+ * @param db - Retired auth Firestore instance
  * @param startDate - Start date in YYYY-MM-DD format
  * @param endDate - End date in YYYY-MM-DD format (optional, defaults to today)
  * @returns Promise<CapacitySnapshot[]>
@@ -100,7 +100,7 @@ export async function getCapacityHistory(
 /**
  * Gets the most recent capacity snapshot from history
  * 
- * @param db - Firebase Firestore instance
+ * @param db - Retired auth Firestore instance
  * @returns Promise<CapacitySnapshot | null>
  */
 export async function getLatestCapacitySnapshot(db: Firestore): Promise<CapacitySnapshot | null> {

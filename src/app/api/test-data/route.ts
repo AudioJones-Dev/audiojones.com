@@ -1,6 +1,6 @@
 // src/app/api/test-data/route.ts
 import { NextResponse } from "next/server";
-import { getDb } from '@/lib/server/firebaseAdmin';
+import { getDb } from '@/lib/server/legacyAdmin';
 
 export async function GET() {
   try {

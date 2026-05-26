@@ -1,7 +1,7 @@
 // Lead persistence for the Applied Intelligence diagnostic.
 //
 // Persists leads to NeonDB via the canonical SQL schema in
-// db/migrations/001_applied_intelligence_leads.sql. Firebase/Firestore is
+// db/migrations/001_applied_intelligence_leads.sql. Retired auth/Firestore is
 // intentionally not used — see docs/architecture/stack-decision.md.
 
 import "server-only";

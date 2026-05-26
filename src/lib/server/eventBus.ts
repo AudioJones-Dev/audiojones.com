@@ -12,7 +12,7 @@
  * - Built on existing webhook infrastructure
  */
 
-import { getDb } from './firebaseAdmin';
+import { getDb } from './legacyAdmin';
 import { getActiveWebhookTargets } from './statusWebhookTargets';
 import { deliverWebhookWithRetry } from './statusWebhookStore';
 import { generateWebhookSignature } from './statusEvents';

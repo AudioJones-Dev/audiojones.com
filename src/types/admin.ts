@@ -68,7 +68,7 @@ export type FirestoreDoc<T> = {
 } & T;
 
 // Helper function to safely cast Firestore doc data with defaults
-export function safeDocCast<T>(doc: FirebaseFirestore.DocumentSnapshot, defaults: Partial<T>): T & { id: string } {
+export function safeDocCast<T>(doc: DocumentStoreTypes.DocumentSnapshot, defaults: Partial<T>): T & { id: string } {
   const data = doc.data() || {};
   return {
     id: doc.id,

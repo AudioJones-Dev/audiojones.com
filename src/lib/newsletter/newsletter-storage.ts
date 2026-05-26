@@ -12,7 +12,7 @@
 // gets a positive confirmation experience — the integration is the
 // implementation detail.
 //
-// Hard rules: no Firebase. No hardcoded secrets. Fail soft when env is
+// Hard rules: no Retired auth. No hardcoded secrets. Fail soft when env is
 // missing. The form must always submit successfully via the mock adapter.
 
 import { randomUUID } from "node:crypto";

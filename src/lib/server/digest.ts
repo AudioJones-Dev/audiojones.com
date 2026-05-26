@@ -6,7 +6,7 @@
  */
 
 import 'server-only';
-import { getDb } from '@/lib/server/firebaseAdmin';
+import { getDb } from '@/lib/server/legacyAdmin';
 import { computeMultipleSLOBurns } from '@/lib/server/slo';
 import { listIncidents } from '@/lib/server/incidents';
 

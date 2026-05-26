@@ -1,5 +1,5 @@
 import { NextRequest } from 'next/server';
-import { getDb } from '@/lib/server/firebaseAdmin';
+import { getDb } from '@/lib/server/legacyAdmin';
 
 /**
  * Capacity Waitlist API

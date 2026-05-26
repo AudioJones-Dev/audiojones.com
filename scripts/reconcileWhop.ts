@@ -11,10 +11,10 @@
  *   
  * Environment Variables:
  *   WHOP_API_KEY - Whop API authentication
- *   FIREBASE_* - Firebase Admin SDK configuration
+ *   GOOGLE_CLOUD_PROJECT / LEGACY_AUTH_* - retired admin SDK compatibility values
  */
 
-import { getDb } from '../src/lib/server/firebaseAdmin';
+import { getDb } from '../src/lib/server/legacyAdmin';
 import fs from 'fs/promises';
 import path from 'path';
 
@@ -76,7 +76,7 @@ interface BillingDiff {
 
 class WhopBillingReconciler {
   private whopApiKey: string;
-  private db: FirebaseFirestore.Firestore;
+  private db: DocumentStoreTypes.Firestore;
   
   constructor() {
     this.whopApiKey = process.env.WHOP_API_KEY || '';

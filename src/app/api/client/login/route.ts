@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { adminAuth } from '@/lib/server/firebaseAdmin';
+import { adminAuth } from '@/lib/server/legacyAdmin';
 
 /**
  * Client Login API Route
@@ -35,7 +35,7 @@ export async function POST(request: NextRequest) {
       }, { status: 400 });
     }
 
-    // Verify the Firebase ID token
+    // Verify the retired auth token
     const decodedToken = await adminAuth().verifyIdToken(body.idToken, true);
     
     if (!decodedToken.email) {
@@ -73,9 +73,9 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error('Client login error:', error);
     
-    // Handle Firebase token verification errors
+    // Handle Retired auth token verification errors
     if (error instanceof Error) {
-      if (error.message.includes('Firebase ID token')) {
+      if (error.message.includes('retired auth token')) {
         return Response.json({
           ok: false,
           error: 'invalid_token'

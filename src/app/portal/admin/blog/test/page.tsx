@@ -22,7 +22,7 @@ export default function BlogAdminTest() {
               <li>• Blog components with Audio Jones styling</li>
               <li>• SEO optimization with structured data</li>
               <li>• Social sharing with Miami operator voice</li>
-              <li>• Protected admin routes with Firebase auth</li>
+              <li>• Protected admin routes with Retired auth auth</li>
               <li>• Admin dashboard with content management</li>
               <li>• Draft editor with full CMS functionality</li>
               <li>• Content scheduler with calendar view</li>
@@ -66,7 +66,7 @@ export default function BlogAdminTest() {
               🚀 Next Steps
             </h2>
             <ol className="space-y-2 text-gray-300">
-              <li>1. Test admin authentication with Firebase claims</li>
+              <li>1. Test admin authentication with retired auth claims</li>
               <li>2. Connect real Data Connect APIs to components</li>
               <li>3. Set up n8n automation workflows</li>
               <li>4. Configure Perplexity API credentials</li>

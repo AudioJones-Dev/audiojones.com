@@ -16,7 +16,7 @@ import type { Incident, IncidentTimelineEvent } from '@/lib/server/incidents';
  * @returns Safe incident feed item or null if invalid
  */
 export function serializeIncidentForFeed(
-  doc: FirebaseFirestore.DocumentSnapshot
+  doc: DocumentStoreTypes.DocumentSnapshot
 ): IncidentFeedItem | null {
   if (!doc.exists) {
     return null;
@@ -78,7 +78,7 @@ export function serializeIncidentForFeed(
  * @returns Array of safe incident feed items (filters out nulls)
  */
 export function serializeIncidentsForFeed(
-  docs: FirebaseFirestore.DocumentSnapshot[]
+  docs: DocumentStoreTypes.DocumentSnapshot[]
 ): IncidentFeedItem[] {
   return docs
     .map(doc => serializeIncidentForFeed(doc))

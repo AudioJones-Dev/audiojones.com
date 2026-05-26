@@ -5,7 +5,7 @@
  * performance drift detection, bias monitoring, and continuous learning capabilities.
  */
 
-import { getDb } from '@/lib/server/firebaseAdmin';
+import { getDb } from '@/lib/server/legacyAdmin';
 import { lazySingleton } from '@/lib/server/lazySingleton';
 import eventStreamingEngine from '@/lib/streaming/EventStreamingEngine';
 import modelLifecycleEngine from './ModelLifecycleEngine';
@@ -110,7 +110,7 @@ export class FeedbackDriftEngine {
   private monitoringIntervals: Map<string, NodeJS.Timeout> = new Map();
 
   // Lazy Firestore accessor — see StreamAnalyticsCorrelationEngine for rationale.
-  private get db(): FirebaseFirestore.Firestore {
+  private get db(): DocumentStoreTypes.Firestore {
     return getDb();
   }
 

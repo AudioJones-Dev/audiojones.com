@@ -14,11 +14,6 @@
 import { useState, useEffect } from 'react';
 import { RefreshCw, CheckCircle2, XCircle, Clock, AlertTriangle, Play, Plus, Edit, Trash2, Settings } from 'lucide-react';
 
-// Helper to get admin key
-const getAdminKey = (): string => {
-  return process.env.NEXT_PUBLIC_ADMIN_KEY || '';
-};
-
 interface WebhookDeliveryAttempt {
   event_id: string;
   url: string;
@@ -90,15 +85,9 @@ export default function StatusWebhooksPage() {
       setError(null);
 
       const [deliveriesRes, statsRes, targetsRes] = await Promise.all([
-        fetch('/api/admin/status-webhooks/deliveries', {
-          headers: { 'admin-key': getAdminKey() }
-        }),
-        fetch('/api/admin/status-webhooks/stats', {
-          headers: { 'admin-key': getAdminKey() }
-        }),
-        fetch('/api/admin/status-webhooks/targets', {
-          headers: { 'admin-key': getAdminKey() }
-        })
+        fetch('/api/admin/status-webhooks/deliveries'),
+        fetch('/api/admin/status-webhooks/stats'),
+        fetch('/api/admin/status-webhooks/targets')
       ]);
 
       if (!deliveriesRes.ok || !statsRes.ok || !targetsRes.ok) {
@@ -129,10 +118,7 @@ export default function StatusWebhooksPage() {
 
       const response = await fetch('/api/admin/status-webhooks/retry', {
         method: 'POST',
-        headers: { 
-          'admin-key': getAdminKey(),
-          'Content-Type': 'application/json'
-        }
+        headers: { 'Content-Type': 'application/json' }
       });
 
       const result = await response.json();
@@ -163,7 +149,6 @@ export default function StatusWebhooksPage() {
       const response = await fetch('/api/admin/status-webhooks/targets', {
         method: 'POST',
         headers: {
-          'admin-key': getAdminKey(),
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
@@ -198,7 +183,6 @@ export default function StatusWebhooksPage() {
       const response = await fetch(`/api/admin/status-webhooks/targets/${targetId}`, {
         method: 'PATCH',
         headers: {
-          'admin-key': getAdminKey(),
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({ active })
@@ -228,8 +212,7 @@ export default function StatusWebhooksPage() {
       setError(null);
 
       const response = await fetch(`/api/admin/status-webhooks/targets/${targetId}`, {
-        method: 'DELETE',
-        headers: { 'admin-key': getAdminKey() }
+        method: 'DELETE'
       });
 
       const result = await response.json();

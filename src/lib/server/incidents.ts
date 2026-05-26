@@ -6,7 +6,7 @@
  */
 
 import 'server-only';
-import { getDb } from '@/lib/server/firebaseAdmin';
+import { getDb } from '@/lib/server/legacyAdmin';
 import type { Alert } from '@/lib/server/alertRules';
 
 export interface IncidentTimelineEvent {

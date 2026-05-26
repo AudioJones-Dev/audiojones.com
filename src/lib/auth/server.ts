@@ -1,6 +1,6 @@
 import 'server-only';
 import { cookies } from 'next/headers';
-import { adminAuth } from '@/lib/server/firebaseAdmin';
+import { adminAuth } from '@/lib/server/legacyAdmin';
 
 export interface CurrentUser {
   uid: string;
@@ -10,7 +10,7 @@ export interface CurrentUser {
 
 /**
  * Server-side helper to get the current authenticated user
- * Checks Firebase session cookie and returns user info + admin status
+ * Checks Retired auth session cookie and returns user info + admin status
  */
 export async function getCurrentUser(): Promise<CurrentUser | null> {
   try {
@@ -21,7 +21,7 @@ export async function getCurrentUser(): Promise<CurrentUser | null> {
       return null;
     }
 
-    // Verify the session cookie using Firebase Admin
+    // Verify the session cookie using retired admin
     const decoded = await adminAuth().verifySessionCookie(sessionCookie, true);
     
     // Check if user has admin claim (based on existing pattern in admin routes)

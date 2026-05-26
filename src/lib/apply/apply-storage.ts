@@ -10,7 +10,7 @@
 //               lands when /apply is wired into the canonical lead pipeline
 //               (likely in Wave 7 funnel-pack reconciliation).
 //
-// Hard rules: no Firebase. No hardcoded secrets. Fail soft when env is
+// Hard rules: no Retired auth. No hardcoded secrets. Fail soft when env is
 // missing — the form must still submit successfully via the mock adapter.
 
 import { randomUUID } from "node:crypto";

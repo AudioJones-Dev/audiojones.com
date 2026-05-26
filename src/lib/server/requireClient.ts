@@ -1,14 +1,14 @@
 import { NextRequest } from 'next/server';
-import { adminAuth } from './firebaseAdmin';
+import { adminAuth } from './legacyAdmin';
 
 /**
  * Client Authentication Helper
  * 
- * Verifies Firebase Auth JWT from Authorization Bearer header.
+ * Verifies Retired auth JWT from Authorization Bearer header.
  * Returns the decoded email on success, throws on failure.
  * 
  * This follows the same pattern as admin authentication but without
- * requiring custom claims - any authenticated Firebase user can access
+ * requiring custom claims - any authenticated Retired auth user can access
  * client endpoints.
  */
 export async function requireClient(request: NextRequest): Promise<string> {
@@ -20,7 +20,7 @@ export async function requireClient(request: NextRequest): Promise<string> {
     
     if (token) {
       try {
-        // Verify the Firebase ID token
+        // Verify the retired auth token
         const decodedToken = await adminAuth().verifyIdToken(token, true);
         
         if (!decodedToken.email) {
@@ -36,9 +36,9 @@ export async function requireClient(request: NextRequest): Promise<string> {
           throw error;
         }
         
-        // Firebase verification errors
+        // Retired auth verification errors
         if (error instanceof Error) {
-          if (error.message.includes('Firebase ID token')) {
+          if (error.message.includes('retired auth token')) {
             throw new AuthError('Invalid authentication token', 401);
           }
           if (error.message.includes('expired')) {

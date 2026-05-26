@@ -26,7 +26,7 @@ export default function UsersManagement() {
     try {
       // Get authentication token
       const user = await new Promise((resolve) => {
-        // This would use your existing Firebase Auth context
+        // This would use your existing Retired auth context
         resolve({ accessToken: 'placeholder' });
       });
 

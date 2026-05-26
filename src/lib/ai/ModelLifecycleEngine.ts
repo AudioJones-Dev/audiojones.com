@@ -5,7 +5,7 @@
  * retirement scheduling, automated retraining, and governance compliance.
  */
 
-import { getDb } from '@/lib/server/firebaseAdmin';
+import { getDb } from '@/lib/server/legacyAdmin';
 import { lazySingleton } from '@/lib/server/lazySingleton';
 import eventStreamingEngine from '@/lib/streaming/EventStreamingEngine';
 import fs from 'fs/promises';
@@ -140,7 +140,7 @@ export class ModelLifecycleEngine {
   private manifestPath: string;
 
   // Lazy Firestore accessor — see StreamAnalyticsCorrelationEngine for rationale.
-  private get db(): FirebaseFirestore.Firestore {
+  private get db(): DocumentStoreTypes.Firestore {
     return getDb();
   }
 

@@ -10,7 +10,7 @@ import { requireAdmin } from '@/lib/server/requireAdmin';
 import { computeMultipleSLOBurns, getSLOBurnSummary, shouldTriggerIncident, generateSLOIncidentMessage } from '@/lib/server/slo';
 import { DEFAULT_SLOS } from '@/lib/server/defaultSLOs';
 import { createIncidentFromAlert, appendIncidentEvent, findOpenIncidentBySource } from '@/lib/server/incidents';
-import { getDb } from '@/lib/server/firebaseAdmin';
+import { getDb } from '@/lib/server/legacyAdmin';
 
 export async function GET(req: NextRequest) {
   try {

@@ -1,11 +1,11 @@
 export const runtime = 'nodejs';
 
 import { NextRequest, NextResponse } from 'next/server';
-import { adminAuth } from '@/lib/server/firebaseAdmin';
+import { adminAuth } from '@/lib/server/legacyAdmin';
 
 /**
  * GET /api/admin/whoami
- * Reads Firebase ID token from `Authorization: Bearer <token>`
+ * Reads retired auth token from `Authorization: Bearer <token>`
  * and returns uid, email, and custom claims (e.g., { admin: true }).
  */
 export async function GET(req: NextRequest) {
@@ -22,7 +22,7 @@ export async function GET(req: NextRequest) {
     // verify token, force refresh of revoked/changed claims
     const decoded = await adminAuth().verifyIdToken(token, true);
 
-    const { uid, email, picture, name, iat, exp, auth_time, firebase, ...rest } = decoded;
+    const { uid, email, picture, name, iat, exp, auth_time, legacyAuth, ...rest } = decoded;
 
     return NextResponse.json({
       ok: true,
@@ -33,7 +33,7 @@ export async function GET(req: NextRequest) {
       auth_time,
       iat,
       exp,
-      provider: firebase?.sign_in_provider || null,
+      provider: legacyAuth?.sign_in_provider || null,
       claims: rest, // includes custom claims like { admin: true }
     });
   } catch (e: any) {

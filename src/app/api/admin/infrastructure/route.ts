@@ -1,5 +1,5 @@
 import { NextRequest } from 'next/server';
-import { getFirestore } from "@/lib/legacy-stubs";
+import { getFirestore } from "@/lib/disabled-sdk";
 import { requireAdmin } from '@/lib/server/requireAdmin';
 
 /**
@@ -276,8 +276,8 @@ function generateRecommendations(status: InfrastructureStatus): string[] {
   return recommendations;
 }
 
-async function configureTTLPolicies(db: FirebaseFirestore.Firestore, config: any) {
-  // In a real implementation, this would use Firebase Admin SDK to configure TTL policies
+async function configureTTLPolicies(db: DocumentStoreTypes.Firestore, config: any) {
+  // In a real implementation, this would use retired admin SDK to configure TTL policies
   // For now, we'll log the configuration and store it for reference
   
   const configDoc = {
@@ -294,11 +294,11 @@ async function configureTTLPolicies(db: FirebaseFirestore.Firestore, config: any
     action: 'configure_ttl',
     message: 'TTL policies configuration initiated',
     policies: TTL_POLICIES,
-    note: 'TTL policies require Firebase Console configuration to take effect'
+    note: 'TTL policies require retired provider console configuration to take effect'
   });
 }
 
-async function setupAutomatedBackups(db: FirebaseFirestore.Firestore, config: any) {
+async function setupAutomatedBackups(db: DocumentStoreTypes.Firestore, config: any) {
   // Store backup configuration for reference
   const backupConfig = {
     schedule: 'daily at 2:00 AM UTC',
@@ -320,7 +320,7 @@ async function setupAutomatedBackups(db: FirebaseFirestore.Firestore, config: an
   });
 }
 
-async function setupUptimeMonitoring(db: FirebaseFirestore.Firestore, config: any) {
+async function setupUptimeMonitoring(db: DocumentStoreTypes.Firestore, config: any) {
   const monitoringConfig = {
     service: 'UptimeRobot',
     endpoints: CRITICAL_ENDPOINTS,
@@ -341,7 +341,7 @@ async function setupUptimeMonitoring(db: FirebaseFirestore.Firestore, config: an
   });
 }
 
-async function enableRouteTestingCI(db: FirebaseFirestore.Firestore, config: any) {
+async function enableRouteTestingCI(db: DocumentStoreTypes.Firestore, config: any) {
   const ciConfig = {
     test_endpoints: CRITICAL_ENDPOINTS,
     test_frequency: 'on_push_and_daily',
@@ -361,7 +361,7 @@ async function enableRouteTestingCI(db: FirebaseFirestore.Firestore, config: any
   });
 }
 
-async function runInfrastructureHealthCheck(db: FirebaseFirestore.Firestore) {
+async function runInfrastructureHealthCheck(db: DocumentStoreTypes.Firestore) {
   const healthCheck = {
     timestamp: new Date().toISOString(),
     performed_by: 'infrastructure-hardening-system',

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { requireAdmin } from '@/lib/server/requireAdmin';
 import openTelemetryManager from '@/lib/observability/OpenTelemetryManager';
-import { getDb } from '@/lib/server/firebaseAdmin';
+import { getDb } from '@/lib/server/legacyAdmin';
 
 /**
  * Admin API for Observability Metrics
@@ -436,7 +436,7 @@ async function initializeObservability(): Promise<NextResponse> {
     // Initialize OpenTelemetry
     await openTelemetryManager.initialize();
 
-    // Create initial collections in Firebase
+    // Create initial collections in Retired auth
     const db = await getDb();
     
     await db.collection('system_monitoring').doc('observability_init').set({

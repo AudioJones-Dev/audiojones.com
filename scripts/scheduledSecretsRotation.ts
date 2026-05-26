@@ -6,7 +6,7 @@
  */
 
 import { secretsRotationEngine } from '../src/lib/secrets/SecretsRotationEngine';
-import { getDb } from '../src/lib/server/firebaseAdmin';
+import { getDb } from '../src/lib/server/legacyAdmin';
 
 interface RotationScheduleConfig {
   enabled: boolean;

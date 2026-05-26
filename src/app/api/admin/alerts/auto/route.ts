@@ -7,7 +7,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { requireAdmin } from '@/lib/server/requireAdmin';
-import { getDb } from '@/lib/server/firebaseAdmin';
+import { getDb } from '@/lib/server/legacyAdmin';
 import { handleAlert, getActionsSummary, type Alert, type AlertAction } from '@/lib/server/alertActions';
 import { 
   createIncidentFromAlert, 

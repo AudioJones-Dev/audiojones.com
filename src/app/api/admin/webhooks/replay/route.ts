@@ -1,9 +1,9 @@
 // src/app/api/admin/webhooks/replay/route.ts
 import { NextRequest, NextResponse } from "next/server";
-import { getDb } from '@/lib/server/firebaseAdmin';
+import { getDb } from '@/lib/server/legacyAdmin';
 
 // Internal webhook processing function
-async function processWebhookEvent(db: FirebaseFirestore.Firestore, eventData: any) {
+async function processWebhookEvent(db: DocumentStoreTypes.Firestore, eventData: any) {
   const startTime = Date.now();
   
   try {

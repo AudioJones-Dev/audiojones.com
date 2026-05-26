@@ -1,6 +1,6 @@
 // src/app/api/admin/alerts/route.ts
 import { NextRequest, NextResponse } from "next/server";
-import { getDb } from '@/lib/server/firebaseAdmin';
+import { getDb } from '@/lib/server/legacyAdmin';
 import { requireAdmin } from "@/lib/server/requireAdmin";
 import { publishEvent, SUPPORTED_EVENT_TYPES } from "@/lib/server/eventBus";
 import { AdminAlert, safeDocCast } from "@/types/admin";

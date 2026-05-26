@@ -12,8 +12,8 @@ import {
   sendPasswordResetEmail,
   setDoc,
   doc,
-} from "@/lib/legacy-stubs";
-import { auth, db } from "@/lib/firebase/client";
+} from "@/lib/disabled-sdk";
+import { auth, db } from "@/lib/client/disabledAuth";
 
 export default function AuthForm({ mode }: { mode: "login" | "register" }) {
   const router = useRouter();
@@ -157,7 +157,7 @@ export default function AuthForm({ mode }: { mode: "login" | "register" }) {
           onClick={handleGoogle}
           className="flex items-center justify-center gap-2 bg-white text-black rounded-full py-2 font-medium hover:opacity-90"
         >
-          <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="" className="h-4 w-4" />
+          <img src="https://www.gstatic.com/legacyAuthjs/ui/2.0.0/images/auth/google.svg" alt="" className="h-4 w-4" />
           Continue with Google
         </button>
         <button

@@ -6,7 +6,7 @@
  */
 
 import 'server-only';
-import { getDb } from '@/lib/server/firebaseAdmin';
+import { getDb } from '@/lib/server/legacyAdmin';
 import { enqueueAlertProcessing } from '@/lib/server/alertProcessing';
 
 export interface CapacitySnapshot {

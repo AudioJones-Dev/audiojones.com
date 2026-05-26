@@ -4,7 +4,7 @@ import { env } from "@aj/config";
 import mappings from "@/config/automation-mappings.json";
 import { upsertMailerLiteSubscriber } from "@/lib/integrations/mailerlite";
 import { mapWhopPlanToInternal } from "@/lib/capacity";
-import { getDb } from '@/lib/server/firebaseAdmin';
+import { getDb } from '@/lib/server/legacyAdmin';
 
 interface WhopWebhookData {
   event: string;

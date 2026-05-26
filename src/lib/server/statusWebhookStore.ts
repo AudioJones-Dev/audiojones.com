@@ -7,8 +7,8 @@
  * - Backoff and retry management
  */
 
-import { getDb } from '@/lib/server/firebaseAdmin';
-import { FieldValue } from "@/lib/legacy-stubs";
+import { getDb } from '@/lib/server/legacyAdmin';
+import { FieldValue } from "@/lib/disabled-sdk";
 
 export interface WebhookDeliveryAttempt {
   event_id: string;

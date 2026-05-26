@@ -6,7 +6,7 @@
  */
 
 import { backupDREngine } from '../src/lib/backup/BackupDREngine';
-import { getDb } from '../src/lib/server/firebaseAdmin';
+import { getDb } from '../src/lib/server/legacyAdmin';
 
 interface ScheduledBackupConfig {
   enabled: boolean;

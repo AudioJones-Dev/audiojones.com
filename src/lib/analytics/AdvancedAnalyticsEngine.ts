@@ -15,7 +15,7 @@
  * - Performance optimization with caching
  */
 
-import { getDb } from '@/lib/server/firebaseAdmin';
+import { getDb } from '@/lib/server/legacyAdmin';
 
 // Core analytics types
 export interface AnalyticsMetric {
@@ -152,7 +152,7 @@ export class AdvancedAnalyticsEngine {
   }
 
   /**
-   * Initialize Firebase collections for analytics
+   * Initialize Retired auth collections for analytics
    */
   private async initializeCollections(): Promise<void> {
     const db = await getDb();

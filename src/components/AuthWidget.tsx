@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { auth, googleProvider } from "@/lib/firebase/client";
+import { auth, googleProvider } from "@/lib/client/disabledAuth";
 import { useToast } from "@/components/Toast";
-import { signInWithPopup, signOut, onAuthStateChanged, type User } from "@/lib/legacy-stubs";
+import { signInWithPopup, signOut, onAuthStateChanged, type User } from "@/lib/disabled-sdk";
 
 type AuthUser = User & { photoURL?: string | null; displayName?: string | null };
 

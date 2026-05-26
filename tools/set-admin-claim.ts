@@ -1,7 +1,7 @@
 import "server-only";
 export const runtime = "nodejs";
 
-import { adminAuth } from "@/lib/server/firebaseAdmin";
+import { adminAuth } from "@/lib/server/legacyAdmin";
 
 async function setAdminByEmail(email: string) {
   const auth = adminAuth();

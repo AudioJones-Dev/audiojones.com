@@ -9,7 +9,7 @@
  *   await handleEvent(eventType, payload);
  */
 
-import { getDb } from './firebaseAdmin';
+import { getDb } from './legacyAdmin';
 
 export interface EventHandlerContext {
   event_type: string;

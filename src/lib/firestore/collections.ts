@@ -1,8 +1,8 @@
 // src/lib/firestore/collections.ts
 // Firestore collection utilities for portal dashboards
 
-import { getAdminApp } from '@/lib/server/firebaseAdmin';
-import { getFirestore } from "@/lib/legacy-stubs";
+import { getAdminApp } from '@/lib/server/legacyAdmin';
+import { getFirestore } from "@/lib/disabled-sdk";
 
 export interface Customer {
   id: string;

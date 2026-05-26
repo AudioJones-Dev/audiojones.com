@@ -70,7 +70,6 @@ export default function AdminDigestPage() {
       // For now, we'll use the configuration endpoint
       const response = await fetch('/api/admin/digest/run', {
         headers: {
-          'admin-key': process.env.NEXT_PUBLIC_ADMIN_KEY || '',
         },
       });
 
@@ -87,7 +86,6 @@ export default function AdminDigestPage() {
     try {
       const response = await fetch('/api/admin/digest/run', {
         headers: {
-          'admin-key': process.env.NEXT_PUBLIC_ADMIN_KEY || '',
         },
       });
 
@@ -111,7 +109,6 @@ export default function AdminDigestPage() {
       const response = await fetch(url, {
         method: 'POST',
         headers: {
-          'admin-key': process.env.NEXT_PUBLIC_ADMIN_KEY || '',
           'Content-Type': 'application/json',
         },
       });

@@ -5,8 +5,8 @@
  * Creates sample data and indexes for testing
  */
 
-import { getDb } from '../src/lib/server/firebaseAdmin';
-import { FieldValue } from "@/lib/legacy-stubs";
+import { getDb } from '../src/lib/server/legacyAdmin';
+import { FieldValue } from "@/lib/disabled-sdk";
 
 async function initializeCollections() {
   console.log('🔄 Initializing Firestore collections for SLO Credit System...\n');

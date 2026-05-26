@@ -1,5 +1,5 @@
 import { NextRequest } from 'next/server';
-import { getDb } from '@/lib/server/firebaseAdmin';
+import { getDb } from '@/lib/server/legacyAdmin';
 import { deriveHoursFromPlan, isWithinWindow } from '@/lib/capacity';
 import { sendAlertNotification } from '@/lib/server/notify';
 import { enqueueAlertProcessing } from '@/lib/server/alertProcessing';

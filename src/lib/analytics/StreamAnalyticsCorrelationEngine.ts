@@ -13,7 +13,7 @@
  * - Real-time correlation scoring and insights
  */
 
-import { getDb } from '@/lib/server/firebaseAdmin';
+import { getDb } from '@/lib/server/legacyAdmin';
 import { lazySingleton } from '@/lib/server/lazySingleton';
 import eventStreamingEngine from '@/lib/streaming/EventStreamingEngine';
 import advancedAnalyticsEngine from '@/lib/analytics/AdvancedAnalyticsEngine';
@@ -153,7 +153,7 @@ export class StreamAnalyticsCorrelationEngine {
 
   // Lazy Firestore accessor — defers credential resolution until first request,
   // so module-level singleton construction never blows up the Next.js build.
-  private get db(): FirebaseFirestore.Firestore {
+  private get db(): DocumentStoreTypes.Firestore {
     return getDb();
   }
 

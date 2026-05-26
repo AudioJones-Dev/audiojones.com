@@ -9,7 +9,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { requireAdmin } from '@/lib/server/requireAdmin';
 import { backupDREngine } from '@/lib/backup/BackupDREngine';
-import { getDb } from '@/lib/server/firebaseAdmin';
+import { getDb } from '@/lib/server/legacyAdmin';
 import { BackupEngine } from '@/lib/server/backup/backupEngine';
 
 export const dynamic = 'force-dynamic';

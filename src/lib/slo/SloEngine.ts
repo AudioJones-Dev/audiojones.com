@@ -3,8 +3,8 @@
  * Tracks SLOs across multiple dimensions and triggers billing adjustments
  */
 
-import { getDb } from '@/lib/server/firebaseAdmin';
-import { FieldValue } from "@/lib/legacy-stubs";
+import { getDb } from '@/lib/server/legacyAdmin';
+import { FieldValue } from "@/lib/disabled-sdk";
 
 export interface SloMetric {
   service_id: string;
@@ -52,8 +52,8 @@ export interface SloBurnAlert {
 
 export class SloEngine {
   // Lazy Firestore accessor — class-field initializer would otherwise resolve
-  // Firebase credentials at module load and break the Next.js build.
-  private get db(): FirebaseFirestore.Firestore {
+  // retired auth credentials at module load and break the Next.js build.
+  private get db(): DocumentStoreTypes.Firestore {
     return getDb();
   }
 

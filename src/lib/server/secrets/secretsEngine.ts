@@ -5,7 +5,7 @@
  * secure key generation, integration verification, and emergency rotation.
  */
 
-import { getDb } from '../firebaseAdmin';
+import { getDb } from '../legacyAdmin';
 import eventStreamingEngine from '../../streaming/EventStreamingEngine';
 import crypto from 'crypto';
 import {
@@ -25,7 +25,7 @@ export class SecretsRotationEngine {
   private defaultPolicies: SecretRotationPolicy[];
 
   // Lazy Firestore accessor — see StreamAnalyticsCorrelationEngine for rationale.
-  private get db(): FirebaseFirestore.Firestore {
+  private get db(): DocumentStoreTypes.Firestore {
     return getDb();
   }
 
@@ -104,14 +104,14 @@ export class SecretsRotationEngine {
         created_by: 'system'
       },
       {
-        id: 'firebase-private-key',
-        name: 'Firebase Private Key',
-        description: 'Firebase Admin SDK private key for database operations',
+        id: 'legacyAuth-private-key',
+        name: 'Retired auth Private Key',
+        description: 'retired admin SDK private key for database operations',
         secret_type: 'encryption_key',
         provider: 'manual',
         storage_location: {
           type: 'environment_variable',
-          path: 'FIREBASE_PRIVATE_KEY',
+          path: 'LEGACY_AUTH_PRIVATE_KEY',
           encrypted: false
         },
         rotation_policy: {
@@ -123,17 +123,17 @@ export class SecretsRotationEngine {
         },
         dependencies: [
           {
-            service_name: 'firebase-admin',
-            endpoint: '/api/firebase-test',
-            health_check_path: '/api/firebase-test',
+            service_name: 'retired-admin-sdk',
+            endpoint: '/api/legacyAuth-test',
+            health_check_path: '/api/legacyAuth-test',
             restart_required: true,
             update_method: 'service_restart'
           }
         ],
         validation: {
-          test_endpoint: '/api/firebase-test',
+          test_endpoint: '/api/legacyAuth-test',
           test_method: 'GET',
-          expected_response: { firebase_connected: true }
+          expected_response: { legacyAuth_connected: true }
         },
         emergency_contact: {
           primary_owner: 'admin@audiojones.com',

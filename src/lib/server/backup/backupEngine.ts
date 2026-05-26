@@ -6,7 +6,7 @@
  */
 
 import { Storage } from '@google-cloud/storage';
-import { getDb } from '../firebaseAdmin';
+import { getDb } from '../legacyAdmin';
 import eventStreamingEngine from '../../streaming/EventStreamingEngine';
 import crypto from 'crypto';
 import zlib from 'zlib';
@@ -31,7 +31,7 @@ export class BackupEngine {
   private defaultConfigurations: BackupConfiguration[];
 
   // Lazy Firestore accessor — see StreamAnalyticsCorrelationEngine for rationale.
-  private get db(): FirebaseFirestore.Firestore {
+  private get db(): DocumentStoreTypes.Firestore {
     return getDb();
   }
 

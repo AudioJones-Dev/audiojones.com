@@ -121,7 +121,7 @@ console.log('🎉 INCIDENT TIMELINE + RUNBOOKS SYSTEM COMPLETE!');
 console.log('');
 console.log('Next steps:');
 console.log('1. Test the system by creating alerts and processing them');
-console.log('2. Seed runbooks using the admin API or Firebase console');
+console.log('2. Seed runbooks using the admin API or Retired auth console');
 console.log('3. Visit /portal/admin/incidents to see the new interface');
 console.log('4. Monitor alert processing to ensure incidents are created');
 console.log('');

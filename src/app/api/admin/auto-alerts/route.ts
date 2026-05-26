@@ -1,5 +1,5 @@
 import { NextRequest } from 'next/server';
-import { getFirestore } from "@/lib/legacy-stubs";
+import { getFirestore } from "@/lib/disabled-sdk";
 import { requireAdmin } from '@/lib/server/requireAdmin';
 
 /**

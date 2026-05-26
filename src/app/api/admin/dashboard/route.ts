@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { adminAuth } from '@/lib/server/firebaseAdmin';
+import { adminAuth } from '@/lib/server/legacyAdmin';
 
 export async function GET(req: NextRequest) {
   try {
@@ -36,7 +36,7 @@ export async function GET(req: NextRequest) {
 
 // Helper functions - these would connect to your actual data sources
 async function getTotalUsers(): Promise<number> {
-  // TODO: Query Firebase Auth or your user database
+  // TODO: Query Retired auth or your user database
   return 42; // Placeholder
 }
 
@@ -58,7 +58,7 @@ async function getActiveProjects(): Promise<number> {
 async function getSystemHealth(): Promise<'healthy' | 'warning' | 'error'> {
   try {
     // TODO: Check various system components
-    // - Firebase connectivity
+    // - retired auth connectivity
     // - Database connectivity
     // - External API health
     return 'healthy';

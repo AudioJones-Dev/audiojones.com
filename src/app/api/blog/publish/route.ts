@@ -4,7 +4,7 @@
 export const dynamic = 'force-dynamic';
 
 import { NextRequest, NextResponse } from 'next/server';
-import { adminAuth } from '@/lib/server/firebaseAdmin';
+import { adminAuth } from '@/lib/server/legacyAdmin';
 import { BlogDraft, BlogStatus } from '@/lib/models/blog';
 import { revalidatePath } from 'next/cache';
 

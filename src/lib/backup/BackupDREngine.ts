@@ -3,10 +3,10 @@
  * Automated Firestore export/restore with GCS backup and staging restore capabilities
  */
 
-import { getFirestore } from "@/lib/legacy-stubs";
+import { getFirestore } from "@/lib/disabled-sdk";
 import { Storage } from '@google-cloud/storage';
-import { getDb } from '@/lib/server/firebaseAdmin';
-import { FieldValue } from "@/lib/legacy-stubs";
+import { getDb } from '@/lib/server/legacyAdmin';
+import { FieldValue } from "@/lib/disabled-sdk";
 
 export interface BackupConfig {
   projectId: string;
@@ -64,7 +64,7 @@ export interface BackupMetrics {
 export class BackupDREngine {
   // Lazy Firestore accessor — class-field initializers run at construction
   // and would throw at module-load time when env vars aren't yet bound.
-  private get db(): FirebaseFirestore.Firestore {
+  private get db(): DocumentStoreTypes.Firestore {
     return getDb();
   }
   private storage: Storage;
@@ -73,13 +73,13 @@ export class BackupDREngine {
   constructor() {
     // Initialize Google Cloud Storage
     this.storage = new Storage({
-      projectId: process.env.FIREBASE_PROJECT_ID || process.env.GOOGLE_CLOUD_PROJECT_ID,
+      projectId: process.env.GOOGLE_CLOUD_PROJECT || process.env.GOOGLE_CLOUD_PROJECT_ID,
       keyFilename: process.env.GOOGLE_CLOUD_KEY_FILE,
     });
 
     this.defaultConfig = {
-      projectId: process.env.FIREBASE_PROJECT_ID || '',
-      bucketName: `${process.env.FIREBASE_PROJECT_ID}-backups` || 'audiojones-backups',
+      projectId: process.env.GOOGLE_CLOUD_PROJECT || '',
+      bucketName: `${process.env.GOOGLE_CLOUD_PROJECT}-backups` || 'audiojones-backups',
       retention_days: 30,
       backup_frequency: 'daily',
       enabled: true,

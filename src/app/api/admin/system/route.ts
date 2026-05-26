@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { adminAuth } from '@/lib/server/firebaseAdmin';
+import { adminAuth } from '@/lib/server/legacyAdmin';
 
 /** Validate Bearer token and require the `admin` custom claim */
 async function requireAdmin(req: NextRequest) {
@@ -25,8 +25,8 @@ export async function GET(req: NextRequest) {
   if (!gate.ok) return gate.res!;
 
   try {
-    // Test Firebase services
-    const firebaseStatus = await testFirebaseServices();
+    // Test retired auth services
+    const legacyAuthStatus = await testRetiredAuthServices();
     
     // Test API endpoints
     const apiStatus = await testApiEndpoints();
@@ -41,7 +41,7 @@ export async function GET(req: NextRequest) {
     const deploymentInfo = getDeploymentInfo();
 
     const systemStatus = {
-      firebase: firebaseStatus,
+      legacyAuth: legacyAuthStatus,
       apis: apiStatus,
       integrations: integrationStatus,
       environment: environmentInfo,
@@ -56,7 +56,7 @@ export async function GET(req: NextRequest) {
   }
 }
 
-async function testFirebaseServices() {
+async function testRetiredAuthServices() {
   const status = {
     admin: false,
     auth: false,
@@ -64,7 +64,7 @@ async function testFirebaseServices() {
   };
 
   try {
-    // Test Firebase Admin SDK
+    // Test retired admin SDK
     await adminAuth().listUsers(1);
     status.admin = true;
     status.auth = true;
@@ -72,7 +72,7 @@ async function testFirebaseServices() {
     // TODO: Test database connectivity when you have it set up
     status.database = true;
   } catch (error) {
-    console.error('Firebase test failed:', error);
+    console.error('Retired auth test failed:', error);
   }
 
   return status;
@@ -87,9 +87,9 @@ async function testApiEndpoints() {
 
   try {
     // These would be internal tests
-    // For now, assume they work if Firebase Admin works
-    const firebaseWorking = await testFirebaseServices();
-    if (firebaseWorking.admin) {
+    // For now, assume they work if retired admin works
+    const legacyAuthWorking = await testRetiredAuthServices();
+    if (legacyAuthWorking.admin) {
       status.ping = true;
       status.whoami = true;
       status.users = true;
@@ -135,8 +135,8 @@ function getEnvironmentInfo() {
     nodeEnv: process.env.NODE_ENV || 'unknown',
     vercelEnv: process.env.VERCEL_ENV,
     hasSecrets: !!(
-      process.env.FIREBASE_ADMIN_CREDENTIALS &&
-      process.env.NEXT_PUBLIC_FIREBASE_API_KEY
+      process.env.LEGACY_AUTH_ADMIN_CREDENTIALS &&
+      process.env.NEXT_PUBLIC_LEGACY_AUTH_API_KEY
     ),
   };
 }

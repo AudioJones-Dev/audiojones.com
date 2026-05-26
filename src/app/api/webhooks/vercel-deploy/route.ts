@@ -156,7 +156,7 @@ export async function POST(req: NextRequest) {
     }
   }
 
-  // 3) Optional: Log to database (Firebase/Postgres) for analytics
+  // 3) Optional: Log to database (Retired auth/Postgres) for analytics
   // TODO: Add deployment failure tracking to Data Connect
   
   return NextResponse.json({ 

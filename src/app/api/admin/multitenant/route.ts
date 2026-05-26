@@ -32,7 +32,7 @@ export async function GET(request: NextRequest) {
 
       case 'organizations': {
         console.log('🏢 Getting organizations list');
-        const db = (await import('@/lib/server/firebaseAdmin')).getDb();
+        const db = (await import('@/lib/server/legacyAdmin')).getDb();
         
         const orgsSnapshot = await db
           .collection('organizations')
@@ -67,7 +67,7 @@ export async function GET(request: NextRequest) {
         const organization = await multiTenantEngine.getOrganization(orgId);
 
         // Get members
-        const db = (await import('@/lib/server/firebaseAdmin')).getDb();
+        const db = (await import('@/lib/server/legacyAdmin')).getDb();
         const membersSnapshot = await db
           .collection('organization_members')
           .where('org_id', '==', orgId)
@@ -111,7 +111,7 @@ export async function GET(request: NextRequest) {
         }
 
         console.log(`👥 Getting members for organization: ${orgId}`);
-        const db = (await import('@/lib/server/firebaseAdmin')).getDb();
+        const db = (await import('@/lib/server/legacyAdmin')).getDb();
         
         const membersSnapshot = await db
           .collection('organization_members')
@@ -140,7 +140,7 @@ export async function GET(request: NextRequest) {
         }
 
         console.log(`🔑 Getting API keys for organization: ${orgId}`);
-        const db = (await import('@/lib/server/firebaseAdmin')).getDb();
+        const db = (await import('@/lib/server/legacyAdmin')).getDb();
         
         const apiKeysSnapshot = await db
           .collection('scoped_api_keys')
@@ -164,7 +164,7 @@ export async function GET(request: NextRequest) {
         const limit = parseInt(searchParams.get('limit') || '50');
 
         console.log(`📋 Getting audit log${orgId ? ` for org ${orgId}` : ''}`);
-        const db = (await import('@/lib/server/firebaseAdmin')).getDb();
+        const db = (await import('@/lib/server/legacyAdmin')).getDb();
         
         let auditSnapshot;
         
@@ -323,7 +323,7 @@ export async function POST(request: NextRequest) {
         }
 
         console.log(`🔐 Revoking API key: ${api_key_id}`);
-        const db = (await import('@/lib/server/firebaseAdmin')).getDb();
+        const db = (await import('@/lib/server/legacyAdmin')).getDb();
         
         // Update API key status
         await db.collection('scoped_api_keys').doc(api_key_id).update({
@@ -339,7 +339,7 @@ export async function POST(request: NextRequest) {
         if (apiKeyData) {
           // Update organization metadata
           await db.collection('organizations').doc(apiKeyData.org_id).update({
-            'metadata.total_api_keys': (await import('@/lib/legacy-stubs')).FieldValue.increment(-1),
+            'metadata.total_api_keys': (await import('@/lib/disabled-sdk')).FieldValue.increment(-1),
             updated_at: new Date()
           });
 
@@ -374,7 +374,7 @@ export async function POST(request: NextRequest) {
         }
 
         console.log(`👤 Updating member ${member_id} role to ${new_role}`);
-        const db = (await import('@/lib/server/firebaseAdmin')).getDb();
+        const db = (await import('@/lib/server/legacyAdmin')).getDb();
         
         // Define role-based permissions
         const rolePermissions: Record<string, string[]> = {
@@ -439,7 +439,7 @@ export async function POST(request: NextRequest) {
         }
 
         console.log(`👤 Removing member: ${member_id}`);
-        const db = (await import('@/lib/server/firebaseAdmin')).getDb();
+        const db = (await import('@/lib/server/legacyAdmin')).getDb();
         
         // Get member data before removal
         const memberDoc = await db.collection('organization_members').doc(member_id).get();
@@ -461,7 +461,7 @@ export async function POST(request: NextRequest) {
 
         // Update organization metadata
         await db.collection('organizations').doc(memberData.org_id).update({
-          'metadata.total_users': (await import('@/lib/legacy-stubs')).FieldValue.increment(-1),
+          'metadata.total_users': (await import('@/lib/disabled-sdk')).FieldValue.increment(-1),
           updated_at: new Date()
         });
 

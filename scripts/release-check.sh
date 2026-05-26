@@ -14,8 +14,8 @@ fi
 echo "==> Installing dependencies"
 pnpm install --frozen-lockfile
 
-echo "==> Running no-Firebase guardrail"
-pnpm -s check:no-firebase
+echo "==> Running no-Retired auth guardrail"
+pnpm -s check:no-legacyAuth
 
 echo "==> Verifying required environment variables"
 required_vars=(

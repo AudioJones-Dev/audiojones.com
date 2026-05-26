@@ -4,10 +4,10 @@
  * when SLOs are violated beyond threshold
  */
 
-import { getDb } from '@/lib/server/firebaseAdmin';
+import { getDb } from '@/lib/server/legacyAdmin';
 import { computeMultipleSLOBurns } from '@/lib/server/slo';
 import { DEFAULT_SLOS } from '@/lib/server/defaultSLOs';
-import { FieldValue } from "@/lib/legacy-stubs";
+import { FieldValue } from "@/lib/disabled-sdk";
 
 export interface SLOCreditRule {
   slo_id: string;
@@ -43,7 +43,7 @@ export interface SloCreditSummary {
 
 export class SLOCreditEngine {
   // Lazy Firestore accessor — see SloEngine for rationale.
-  private get db(): FirebaseFirestore.Firestore {
+  private get db(): DocumentStoreTypes.Firestore {
     return getDb();
   }
 

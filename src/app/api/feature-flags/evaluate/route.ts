@@ -5,7 +5,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { featureFlagsEngine } from '@/lib/featureflags/FeatureFlagsEngine';
-import { getAdminAuth } from '@/lib/server/firebaseAdmin';
+import { getAdminAuth } from '@/lib/server/legacyAdmin';
 
 export async function POST(request: NextRequest) {
   try {
