@@ -4,6 +4,7 @@ import "./globals.css";
 import CookieBanner from "@/components/CookieBanner";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import JaviChatWidget from "@/components/javi/JaviChatWidget";
 import { ToastProvider } from "@/components/Toast";
 import { GoogleAnalytics, MetaPixel } from "@/components/Analytics";
 import JsonLd from "@/components/seo/JsonLd";
@@ -101,6 +102,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </main>
           <Footer />
           <CookieBanner />
+          <JaviChatWidget />
         </ToastProvider>
         {/* Consent-gated tracking — render nothing until user accepts cookies
             AND the matching env var is set. See src/components/Analytics.tsx. */}

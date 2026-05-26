@@ -197,7 +197,102 @@ then Sentry, then the relevant integration's dashboard.
 
 ---
 
-## 9. Related docs
+## 9. Applied Intelligence diagnostic — preview QA checklist
+
+The diagnostic at `/applied-intelligence/diagnostic` posts to
+`/api/applied-intelligence/leads`, which writes a row to the Neon
+`applied_intelligence_leads` table and fires Resend + (optional) n8n
+notifications. Before promoting a preview to production, run this
+checklist against the preview URL.
+
+### 9.1 Required Vercel env (Preview + Production)
+
+| Env var                   | Purpose                                    |
+| ------------------------- | ------------------------------------------ |
+| `DATABASE_URL`            | Neon Postgres connection string            |
+| `RESEND_API_KEY`          | Internal lead-notification sender          |
+| `LEAD_NOTIFICATION_EMAIL` | Internal recipient (AJ Digital inbox)      |
+| `FROM_EMAIL`              | Verified Resend sender (e.g. `Audio Jones <notifications@audiojones.com>`) |
+
+Optional:
+
+| Env var                  | Purpose                                |
+| ------------------------ | -------------------------------------- |
+| `IP_HASH_SALT`           | Salt for IP-hash column. Defaults to a constant — set to a unique value before launch. |
+| `N8N_LEAD_WEBHOOK_URL`   | Downstream automation. Lead capture continues if it fails. |
+| `CRM_WEBHOOK_URL`        | Fallback if `N8N_LEAD_WEBHOOK_URL` is not set. |
+
+### 9.2 Apply the migration to the target Neon database
+
+The repo does not auto-apply migrations. Run the canonical schema
+manually against the Preview Neon branch (or Production) before
+expecting writes to succeed:
+
+```bash
+psql "$DATABASE_URL" -f db/migrations/001_applied_intelligence_leads.sql
+```
+
+Verify:
+
+```bash
+psql "$DATABASE_URL" -c "\d applied_intelligence_leads" | head -20
+```
+
+### 9.3 Submit a real test diagnostic against the preview
+
+1. Open the Vercel preview URL → `/ai-readiness-diagnostic`.
+2. Click *Start the Diagnostic* → wizard at `/applied-intelligence/diagnostic`.
+3. Complete steps 1–6 using a real test inbox you control. Tick consent.
+4. Submit → expect redirect to `/applied-intelligence/diagnostic/thank-you`.
+
+### 9.4 Confirm the lead landed in Neon
+
+```bash
+psql "$DATABASE_URL" -c \
+  "select id, email, total_score, priority, created_at
+   from applied_intelligence_leads order by created_at desc limit 5;"
+```
+
+A row matching the submission must be present.
+
+### 9.5 Confirm the internal notification fired
+
+- Resend dashboard → Logs → filter recipient = `LEAD_NOTIFICATION_EMAIL`.
+- Vercel runtime logs must **not** contain
+  `[applied-intelligence] internal notification skipped: email env missing`
+  on the happy path. If they do, an email env is unset for that
+  environment.
+
+### 9.6 Negative-path spot checks (curl against the preview)
+
+```bash
+# Validation error — missing required fields
+curl -s -o /dev/null -w "%{http_code}\n" \
+  -X POST "$PREVIEW/api/applied-intelligence/leads" \
+  -H 'content-type: application/json' -d '{"firstName":"x"}'
+# Expect: 400
+
+# Honeypot trap
+curl -s -X POST "$PREVIEW/api/applied-intelligence/leads" \
+  -H 'content-type: application/json' \
+  -d '{"firstName":"Bot","email":"bot@example.com","consentToContact":true,"website_url":"http://spam"}'
+# Expect: { "ok": true, "leadId": "blocked", ... } and NO Neon row.
+
+# Storage-error message must be generic
+# (Confirm in Vercel runtime logs that the detailed error is logged
+#  server-side, but the JSON response only contains the generic message.)
+```
+
+### 9.7 What "ready" means
+
+The funnel is considered production-ready when 9.1 through 9.6 all
+pass against the preview that mirrors production env. A green homepage
+preview alone is not sufficient — the diagnostic must reach Neon and
+trigger a Resend "Delivered" log entry.
+
+---
+
+## 10. Related docs
 
 - [`docs/SECURITY.md`](./SECURITY.md) — secrets, CSP, admin gating.
 - [`docs/architecture/stack-decision.md`](./architecture/stack-decision.md)
