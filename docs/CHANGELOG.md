@@ -16,6 +16,11 @@ Entries are reverse chronological. Format follows
 ## Unreleased
 
 ### Documentation
+- Added `docs/AUDIOJONES_AEO_SEO_CONTENT_INTEGRATION_STRATEGY.md` — SEO/AEO
+  content integration strategy mapping AnswerThePublic seed themes
+  (revenue-linked attribution, attribution models for founder-led service
+  businesses, scalable growth operating model) onto the existing
+  frameworks/insights/diagnostic architecture. Planning doc only; no code change.
 - Established the canonical `docs/` hierarchy: `PRD.md`, `DESIGN.md`,
   `ROADMAP.md`, `SECURITY.md`, `DEPLOYMENT.md`, `DECISIONS.md`,
   `CHANGELOG.md`.
