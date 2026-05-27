@@ -1,11 +1,11 @@
 import 'server-only';
 import { NextRequest, NextResponse } from 'next/server';
-import { getCurrentUser } from '@/lib/auth/server';
+import { ADMIN_SESSION_COOKIE, isValidSessionToken } from '@/lib/server/adminSession';
 
 // Server-side proxy that lets the portal UI call /api/admin/* without
-// shipping the ADMIN_KEY to the browser. The proxy verifies the user's
-// Firebase session cookie + admin claim, then forwards to the real route
-// with admin-key injected from process.env.ADMIN_KEY (server-only).
+// shipping the ADMIN_KEY to the browser. The proxy verifies the admin session
+// cookie issued by /api/admin-auth, then forwards to the real route with
+// admin-key injected from process.env.ADMIN_KEY (server-only).
 //
 // External / server-to-server callers continue to call /api/admin/*
 // directly with their own admin-key header — that path is unchanged.
@@ -28,19 +28,19 @@ async function handler(
   req: NextRequest,
   ctx: { params: Promise<{ path: string[] }> },
 ) {
-  const user = await getCurrentUser();
-  if (!user?.isAdmin) {
-    return NextResponse.json(
-      { error: 'Unauthorized: admin session required' },
-      { status: 401 },
-    );
-  }
-
   const adminKey = process.env.ADMIN_KEY;
   if (!adminKey) {
     return NextResponse.json(
       { error: 'Server misconfigured: ADMIN_KEY not set' },
       { status: 500 },
+    );
+  }
+
+  const sessionToken = req.cookies.get(ADMIN_SESSION_COOKIE)?.value;
+  if (!isValidSessionToken(sessionToken, adminKey)) {
+    return NextResponse.json(
+      { error: 'Unauthorized: admin session required' },
+      { status: 401 },
     );
   }
 
