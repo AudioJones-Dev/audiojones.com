@@ -202,7 +202,11 @@ export default function RoiCalculator() {
     if (step === 2 && input.speedToLeadLift > 100) next.speedToLeadLift = "Lift cannot exceed 100%.";
     if (step === 3 && input.preventableErrorRate > 100) next.preventableErrorRate = "Rate cannot exceed 100%.";
     if (step === 3 && input.ownerRecoverableRate > 100) next.ownerRecoverableRate = "Rate cannot exceed 100%.";
-    if (step === 4 && input.headcountAvoidanceRate > 100) next.headcountAvoidanceRate = "Rate cannot exceed 100%.";
+    // avoidedHireMonthlyCost / headcountAvoidanceRate are optional (not in
+    // requiredByStep), so the required-loop's negative check never runs on
+    // them — validate them inline here instead of failing at the server.
+    if (step === 4 && input.avoidedHireMonthlyCost < 0) next.avoidedHireMonthlyCost = "Enter a valid amount.";
+    if (step === 4 && (input.headcountAvoidanceRate < 0 || input.headcountAvoidanceRate > 100)) next.headcountAvoidanceRate = "Rate must be between 0 and 100%.";
     if (step === 4 && !/^\S+@\S+\.\S+$/.test(input.email)) next.email = "Enter a valid email address.";
 
     setErrors(next);
