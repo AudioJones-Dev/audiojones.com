@@ -58,6 +58,10 @@ parallel templates.
 
 ### 3.2 Local setup
 
+Two supported paths. Pick one.
+
+**Option A — manual `.env.local` (no extra tooling):**
+
 ```bash
 cp .env.example .env.local
 # Fill in the values you actually need. The minimum to run lead capture
@@ -65,6 +69,33 @@ cp .env.example .env.local
 pnpm install
 pnpm dev
 ```
+
+**Option B — Doppler (shared secrets, no hand-copying):**
+
+The repo is pinned to the `audiojones-com` project / `dev` config via
+[`doppler.yaml`](../doppler.yaml), so the CLI resolves automatically
+inside the repo — no interactive `doppler setup` is needed.
+
+```bash
+# One-time: install the CLI (https://docs.doppler.com/docs/install-cli)
+# and authenticate against the AJ Digital workspace:
+doppler login
+
+pnpm install
+pnpm dx:init   # links Doppler from doppler.yaml and writes
+               # .env.development.local (gitignored) from the dev config
+pnpm dev
+```
+
+To run a one-off command with secrets injected without writing a file:
+
+```bash
+doppler run -- pnpm dev
+```
+
+`.env.development.local` is gitignored (matched by `.env*.local`); never
+commit it. `doppler.yaml` holds only project/config names — no secrets —
+and is safe to commit.
 
 ### 3.3 Adding a new variable
 
