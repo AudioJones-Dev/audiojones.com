@@ -73,8 +73,8 @@ export default function ProjectsPage() {
     switch (status) {
       case 'completed': return 'text-green-400';
       case 'in-progress': return 'text-blue-400';
-      case 'pending': return 'text-gray-400';
-      default: return 'text-gray-400';
+      case 'pending': return 'text-text-muted';
+      default: return 'text-text-muted';
     }
   };
 
@@ -96,7 +96,7 @@ export default function ProjectsPage() {
       {/* Page Header */}
       <div>
         <h1 className="text-3xl font-bold text-white">Projects</h1>
-        <p className="mt-2 text-gray-400">
+        <p className="mt-2 text-text-muted">
           Track your project progress and milestones
         </p>
       </div>
@@ -105,25 +105,25 @@ export default function ProjectsPage() {
       <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
         <div className="rounded-lg border border-gray-700 bg-gray-900 p-4">
           <div className="text-2xl font-bold text-white">{projects.length}</div>
-          <div className="text-sm text-gray-400">Total Projects</div>
+          <div className="text-sm text-text-muted">Total Projects</div>
         </div>
         <div className="rounded-lg border border-gray-700 bg-gray-900 p-4">
           <div className="text-2xl font-bold text-blue-400">
             {projects.filter(p => p.status === 'in-progress').length}
           </div>
-          <div className="text-sm text-gray-400">In Progress</div>
+          <div className="text-sm text-text-muted">In Progress</div>
         </div>
         <div className="rounded-lg border border-gray-700 bg-gray-900 p-4">
           <div className="text-2xl font-bold text-yellow-400">
             {projects.filter(p => p.status === 'review').length}
           </div>
-          <div className="text-sm text-gray-400">In Review</div>
+          <div className="text-sm text-text-muted">In Review</div>
         </div>
         <div className="rounded-lg border border-gray-700 bg-gray-900 p-4">
           <div className="text-2xl font-bold text-green-400">
             {projects.filter(p => p.status === 'completed').length}
           </div>
-          <div className="text-sm text-gray-400">Completed</div>
+          <div className="text-sm text-text-muted">Completed</div>
         </div>
       </div>
 
@@ -142,12 +142,12 @@ export default function ProjectsPage() {
               </span>
             </div>
 
-            <p className="text-gray-400 text-sm mb-4 line-clamp-2">{project.description}</p>
+            <p className="text-text-muted text-sm mb-4 line-clamp-2">{project.description}</p>
 
             {/* Progress Bar */}
             <div className="mb-4">
               <div className="flex justify-between text-sm mb-1">
-                <span className="text-gray-400">Progress</span>
+                <span className="text-text-muted">Progress</span>
                 <span className="text-white">{project.progress}%</span>
               </div>
               <div className="w-full bg-gray-700 rounded-full h-2">
@@ -160,7 +160,7 @@ export default function ProjectsPage() {
 
             {/* Team Members */}
             <div className="mb-4">
-              <div className="text-sm text-gray-400 mb-2">Team</div>
+              <div className="text-sm text-text-muted mb-2">Team</div>
               <div className="flex -space-x-2">
                 {project.teamMembers.slice(0, 3).map((member, index) => (
                   <div
@@ -182,7 +182,7 @@ export default function ProjectsPage() {
             {/* Next Milestone */}
             {project.nextMilestone && (
               <div className="text-sm">
-                <span className="text-gray-400">Next: </span>
+                <span className="text-text-muted">Next: </span>
                 <span className="text-white">{project.nextMilestone}</span>
               </div>
             )}
@@ -194,7 +194,7 @@ export default function ProjectsPage() {
         <div className="text-center py-12">
           <div className="text-6xl mb-4">📁</div>
           <h3 className="text-xl font-medium text-white mb-2">No projects yet</h3>
-          <p className="text-gray-400">Your projects will appear here once they're created</p>
+          <p className="text-text-muted">Your projects will appear here once they're created</p>
         </div>
       )}
 
@@ -207,7 +207,7 @@ export default function ProjectsPage() {
                 <h2 className="text-2xl font-bold text-white">{selectedProject.name}</h2>
                 <button
                   onClick={() => setSelectedProject(null)}
-                  className="text-gray-400 hover:text-white"
+                  className="text-text-muted hover:text-white"
                 >
                   ✕
                 </button>
@@ -217,26 +217,26 @@ export default function ProjectsPage() {
                 {/* Project Info */}
                 <div>
                   <h3 className="text-lg font-medium text-white mb-3">Project Details</h3>
-                  <p className="text-gray-400 mb-4">{selectedProject.description}</p>
+                  <p className="text-text-muted mb-4">{selectedProject.description}</p>
                   
                   <div className="grid grid-cols-2 gap-4 text-sm">
                     <div>
-                      <span className="text-gray-400">Status: </span>
+                      <span className="text-text-muted">Status: </span>
                       <span className={`inline-flex rounded-full px-2 py-1 text-xs font-semibold ${getStatusColor(selectedProject.status)}`}>
                         {selectedProject.status.replace('-', ' ')}
                       </span>
                     </div>
                     <div>
-                      <span className="text-gray-400">Progress: </span>
+                      <span className="text-text-muted">Progress: </span>
                       <span className="text-white">{selectedProject.progress}%</span>
                     </div>
                     <div>
-                      <span className="text-gray-400">Start Date: </span>
+                      <span className="text-text-muted">Start Date: </span>
                       <span className="text-white">{selectedProject.startDate}</span>
                     </div>
                     {selectedProject.endDate && (
                       <div>
-                        <span className="text-gray-400">End Date: </span>
+                        <span className="text-text-muted">End Date: </span>
                         <span className="text-white">{selectedProject.endDate}</span>
                       </div>
                     )}
@@ -257,7 +257,7 @@ export default function ProjectsPage() {
                             </span>
                             <span className="text-white">{milestone.name}</span>
                           </div>
-                          <div className="text-sm text-gray-400 ml-6">Due: {milestone.dueDate}</div>
+                          <div className="text-sm text-text-muted ml-6">Due: {milestone.dueDate}</div>
                         </div>
                       </div>
                     ))}
@@ -275,7 +275,7 @@ export default function ProjectsPage() {
                         </div>
                         <div>
                           <div className="text-white">{member.name}</div>
-                          <div className="text-sm text-gray-400">{member.role}</div>
+                          <div className="text-sm text-text-muted">{member.role}</div>
                         </div>
                       </div>
                     ))}
@@ -286,7 +286,7 @@ export default function ProjectsPage() {
               <div className="mt-6 flex justify-end space-x-3">
                 <button
                   onClick={() => setSelectedProject(null)}
-                  className="px-4 py-2 border border-gray-600 rounded-md text-gray-300 hover:text-white hover:border-gray-500 transition"
+                  className="px-4 py-2 border border-gray-600 rounded-md text-text-primary hover:text-white hover:border-gray-500 transition"
                 >
                   Close
                 </button>

@@ -74,9 +74,9 @@ export default async function RelatedPosts({ currentPillar, currentSlug }: Relat
   }
 
   return (
-    <div className="bg-gradient-to-r from-gray-900/50 to-gray-800/30 border border-gray-700 rounded-xl p-6">
+    <div className="bg-surface-1 border border-border-subtle rounded-xl p-6">
       <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
-        <span className="text-[#FFD700]">📚</span>
+        <span className="text-signal-yellow">📚</span>
         Related Posts
       </h3>
 
@@ -86,10 +86,10 @@ export default async function RelatedPosts({ currentPillar, currentSlug }: Relat
         ))}
       </div>
 
-      <div className="mt-6 pt-6 border-t border-gray-700 text-center">
+      <div className="mt-6 pt-6 border-t border-border-subtle text-center">
         <Link
           href="/blog"
-          className="text-[#FF4500] hover:text-[#FF4500]/80 transition-colors font-semibold"
+          className="text-signal-yellow hover:text-signal-soft transition-colors font-semibold"
         >
           View All Posts →
         </Link>
@@ -104,7 +104,7 @@ function RelatedPostCard({ post }: { post: RelatedPost }) {
   return (
     <article className="group">
       <Link href={`/blog/${post.slug}`} className="block">
-        <div className="flex gap-4 p-3 rounded-lg hover:bg-gray-800/50 transition-colors">
+        <div className="flex gap-4 p-3 rounded-lg hover:bg-surface-2 transition-colors">
           {/* Thumbnail */}
           {post.ogImage && (
             <div className="w-16 h-16 flex-shrink-0 rounded-lg overflow-hidden">
@@ -129,12 +129,12 @@ function RelatedPostCard({ post }: { post: RelatedPost }) {
             </span>
 
             {/* Title */}
-            <h4 className="font-semibold text-white group-hover:text-[#FF4500] transition-colors line-clamp-2 mb-1">
+            <h4 className="font-semibold text-white group-hover:text-signal-yellow transition-colors line-clamp-2 mb-1">
               {post.title}
             </h4>
 
             {/* Meta */}
-            <div className="flex items-center gap-3 text-xs text-gray-400">
+            <div className="flex items-center gap-3 text-xs text-text-muted">
               <span>{post.readingTime} min</span>
               <span>•</span>
               <time dateTime={post.publishedAt}>

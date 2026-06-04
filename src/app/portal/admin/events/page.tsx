@@ -93,12 +93,12 @@ export default function EventBusPage() {
     if (eventType.includes('capacity')) return 'text-orange-400';
     if (eventType.includes('alert')) return 'text-red-400';
     if (eventType.includes('incident')) return 'text-purple-400';
-    return 'text-gray-400';
+    return 'text-text-muted';
   };
 
   const getDeliveryStatusIcon = (event: EventBusEvent) => {
     if (event.dispatched_to === 0) {
-      return <Clock className="w-4 h-4 text-gray-400" />;
+      return <Clock className="w-4 h-4 text-text-muted" />;
     }
     if (event.delivery_failed > 0) {
       return <XCircle className="w-4 h-4 text-red-400" />;
@@ -116,7 +116,7 @@ export default function EventBusPage() {
       {/* Header */}
       <div className="mb-6">
         <h1 className="text-2xl font-bold text-white mb-2">Event Bus</h1>
-        <p className="text-gray-400">Monitor and manage all Audio Jones events</p>
+        <p className="text-text-muted">Monitor and manage all Audio Jones events</p>
       </div>
 
       {/* Stats Cards */}
@@ -125,7 +125,7 @@ export default function EventBusPage() {
           <div className="bg-gray-800 rounded-lg p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-400">Total Events</p>
+                <p className="text-sm text-text-muted">Total Events</p>
                 <p className="text-2xl font-bold text-white">{stats.total_events}</p>
               </div>
               <Activity className="w-8 h-8 text-blue-400" />
@@ -135,7 +135,7 @@ export default function EventBusPage() {
           <div className="bg-gray-800 rounded-lg p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-400">Success Rate</p>
+                <p className="text-sm text-text-muted">Success Rate</p>
                 <p className="text-2xl font-bold text-green-400">
                   {Math.round(stats.delivery_success_rate * 100)}%
                 </p>
@@ -147,7 +147,7 @@ export default function EventBusPage() {
           <div className="bg-gray-800 rounded-lg p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-400">Last 24h</p>
+                <p className="text-sm text-text-muted">Last 24h</p>
                 <p className="text-2xl font-bold text-blue-400">{stats.recent_activity.last_24h}</p>
               </div>
               <Clock className="w-8 h-8 text-blue-400" />
@@ -157,7 +157,7 @@ export default function EventBusPage() {
           <div className="bg-gray-800 rounded-lg p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-400">Last 7 days</p>
+                <p className="text-sm text-text-muted">Last 7 days</p>
                 <p className="text-2xl font-bold text-purple-400">{stats.recent_activity.last_7d}</p>
               </div>
               <Activity className="w-8 h-8 text-purple-400" />
@@ -208,26 +208,26 @@ export default function EventBusPage() {
           <table className="w-full">
             <thead className="bg-gray-700">
               <tr>
-                <th className="px-4 py-3 text-left text-sm font-medium text-gray-300">Event</th>
-                <th className="px-4 py-3 text-left text-sm font-medium text-gray-300">Type</th>
-                <th className="px-4 py-3 text-left text-sm font-medium text-gray-300">Source</th>
-                <th className="px-4 py-3 text-left text-sm font-medium text-gray-300">Delivery</th>
-                <th className="px-4 py-3 text-left text-sm font-medium text-gray-300">Created</th>
-                <th className="px-4 py-3 text-left text-sm font-medium text-gray-300">Actions</th>
+                <th className="px-4 py-3 text-left text-sm font-medium text-text-primary">Event</th>
+                <th className="px-4 py-3 text-left text-sm font-medium text-text-primary">Type</th>
+                <th className="px-4 py-3 text-left text-sm font-medium text-text-primary">Source</th>
+                <th className="px-4 py-3 text-left text-sm font-medium text-text-primary">Delivery</th>
+                <th className="px-4 py-3 text-left text-sm font-medium text-text-primary">Created</th>
+                <th className="px-4 py-3 text-left text-sm font-medium text-text-primary">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-700">
               {loading ? (
                 <tr>
-                  <td colSpan={6} className="px-4 py-8 text-center text-gray-400">
+                  <td colSpan={6} className="px-4 py-8 text-center text-text-muted">
                     <RefreshCw className="w-6 h-6 animate-spin mx-auto mb-2" />
                     Loading events...
                   </td>
                 </tr>
               ) : events.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="px-4 py-8 text-center text-gray-400">
-                    <Activity className="w-12 h-12 mx-auto mb-4 text-gray-600" />
+                  <td colSpan={6} className="px-4 py-8 text-center text-text-muted">
+                    <Activity className="w-12 h-12 mx-auto mb-4 text-text-muted" />
                     <p>No events found</p>
                     <p className="text-sm mt-1">Events will appear here as they are published to the event bus</p>
                   </td>
@@ -236,7 +236,7 @@ export default function EventBusPage() {
                 events.map((event) => (
                   <tr key={event.event_id} className="hover:bg-gray-700/50">
                     <td className="px-4 py-3">
-                      <div className="font-mono text-sm text-gray-300">
+                      <div className="font-mono text-sm text-text-primary">
                         {event.event_id.substring(0, 16)}...
                       </div>
                     </td>
@@ -246,18 +246,18 @@ export default function EventBusPage() {
                       </span>
                     </td>
                     <td className="px-4 py-3">
-                      <span className="text-sm text-gray-300">{event.source || 'unknown'}</span>
+                      <span className="text-sm text-text-primary">{event.source || 'unknown'}</span>
                     </td>
                     <td className="px-4 py-3">
                       <div className="flex items-center space-x-2">
                         {getDeliveryStatusIcon(event)}
-                        <span className="text-sm text-gray-300">
+                        <span className="text-sm text-text-primary">
                           {event.delivery_success}/{event.dispatched_to}
                         </span>
                       </div>
                     </td>
                     <td className="px-4 py-3">
-                      <span className="text-sm text-gray-300">
+                      <span className="text-sm text-text-primary">
                         {new Date(event.created_at).toLocaleString()}
                       </span>
                     </td>
@@ -265,7 +265,7 @@ export default function EventBusPage() {
                       <div className="flex items-center space-x-2">
                         <button
                           onClick={() => setSelectedEvent(event)}
-                          className="p-1 text-gray-400 hover:text-white transition-colors"
+                          className="p-1 text-text-muted hover:text-white transition-colors"
                           title="View details"
                         >
                           <Eye className="w-4 h-4" />
@@ -273,7 +273,7 @@ export default function EventBusPage() {
                         <button
                           onClick={() => replayEvent(event.event_id)}
                           disabled={replayingEvent === event.event_id}
-                          className="p-1 text-gray-400 hover:text-blue-400 disabled:text-gray-600 transition-colors"
+                          className="p-1 text-text-muted hover:text-blue-400 disabled:text-text-muted transition-colors"
                           title="Replay event"
                         >
                           {replayingEvent === event.event_id ? (
@@ -301,7 +301,7 @@ export default function EventBusPage() {
                 <h3 className="text-xl font-bold text-white">Event Details</h3>
                 <button
                   onClick={() => setSelectedEvent(null)}
-                  className="text-gray-400 hover:text-white"
+                  className="text-text-muted hover:text-white"
                 >
                   <XCircle className="w-6 h-6" />
                 </button>
@@ -309,21 +309,21 @@ export default function EventBusPage() {
 
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-400 mb-1">Event ID</label>
+                  <label className="block text-sm font-medium text-text-muted mb-1">Event ID</label>
                   <div className="bg-gray-700 rounded px-3 py-2 font-mono text-sm text-white">
                     {selectedEvent.event_id}
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-400 mb-1">Type</label>
+                  <label className="block text-sm font-medium text-text-muted mb-1">Type</label>
                   <div className="bg-gray-700 rounded px-3 py-2 text-sm text-white">
                     {selectedEvent.event_type}
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-400 mb-1">Payload</label>
+                  <label className="block text-sm font-medium text-text-muted mb-1">Payload</label>
                   <pre className="bg-gray-700 rounded px-3 py-2 text-sm text-white overflow-x-auto">
                     {JSON.stringify(selectedEvent.payload, null, 2)}
                   </pre>
@@ -331,7 +331,7 @@ export default function EventBusPage() {
 
                 {selectedEvent.metadata && (
                   <div>
-                    <label className="block text-sm font-medium text-gray-400 mb-1">Metadata</label>
+                    <label className="block text-sm font-medium text-text-muted mb-1">Metadata</label>
                     <pre className="bg-gray-700 rounded px-3 py-2 text-sm text-white overflow-x-auto">
                       {JSON.stringify(selectedEvent.metadata, null, 2)}
                     </pre>
@@ -340,19 +340,19 @@ export default function EventBusPage() {
 
                 <div className="grid grid-cols-3 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-400 mb-1">Dispatched</label>
+                    <label className="block text-sm font-medium text-text-muted mb-1">Dispatched</label>
                     <div className="bg-gray-700 rounded px-3 py-2 text-sm text-white">
                       {selectedEvent.dispatched_to}
                     </div>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-400 mb-1">Success</label>
+                    <label className="block text-sm font-medium text-text-muted mb-1">Success</label>
                     <div className="bg-gray-700 rounded px-3 py-2 text-sm text-green-400">
                       {selectedEvent.delivery_success}
                     </div>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-400 mb-1">Failed</label>
+                    <label className="block text-sm font-medium text-text-muted mb-1">Failed</label>
                     <div className="bg-gray-700 rounded px-3 py-2 text-sm text-red-400">
                       {selectedEvent.delivery_failed}
                     </div>

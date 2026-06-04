@@ -13,13 +13,13 @@ export default function RealBlockersSection() {
       
       <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         <div className="text-center">
-          <p className="text-sm font-semibold uppercase tracking-widest text-[#FF4500]">
+          <p className="text-sm font-semibold uppercase tracking-widest text-signal-yellow">
             The Real Blockers
           </p>
           <h2 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight">
             Consistency beats virality.
           </h2>
-          <p className="mt-6 max-w-3xl mx-auto text-lg text-gray-200 leading-relaxed">
+          <p className="mt-6 max-w-3xl mx-auto text-lg text-text-muted leading-relaxed">
             Publish weekly, grow steadily. Many leaders chase fleeting trends, but true influence is built through consistent, valuable content. Without a reliable publishing schedule, your growth stalls, and your long-term impact diminishes.
           </p>
         </div>
@@ -30,34 +30,34 @@ export default function RealBlockersSection() {
             <h3 className="text-xl font-bold text-white mb-6">What's Really Holding You Back:</h3>
             <div className="space-y-4">
               <div className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-[#FF4500] rounded-full mt-2 flex-shrink-0" />
-                <p className="text-gray-300">Sporadic publishing leads to forgotten presence.</p>
+                <div className="w-2 h-2 bg-signal-yellow rounded-full mt-2 flex-shrink-0" />
+                <p className="text-text-muted">Sporadic publishing leads to forgotten presence.</p>
               </div>
               <div className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-[#FF4500] rounded-full mt-2 flex-shrink-0" />
-                <p className="text-gray-300">Slow, inconsistent growth despite best efforts.</p>
+                <div className="w-2 h-2 bg-signal-yellow rounded-full mt-2 flex-shrink-0" />
+                <p className="text-text-muted">Slow, inconsistent growth despite best efforts.</p>
               </div>
               <div className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-[#FF4500] rounded-full mt-2 flex-shrink-0" />
-                <p className="text-gray-300">Struggling to build authority and trust over time.</p>
+                <div className="w-2 h-2 bg-signal-yellow rounded-full mt-2 flex-shrink-0" />
+                <p className="text-text-muted">Struggling to build authority and trust over time.</p>
               </div>
               <div className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-[#FF4500] rounded-full mt-2 flex-shrink-0" />
-                <p className="text-gray-300">Missing the compound effect of continuous engagement.</p>
+                <div className="w-2 h-2 bg-signal-yellow rounded-full mt-2 flex-shrink-0" />
+                <p className="text-text-muted">Missing the compound effect of continuous engagement.</p>
               </div>
             </div>
           </div>
 
           {/* Solution Preview */}
-          <div className="bg-black/40 backdrop-blur-sm rounded-2xl border border-white/10 p-8">
+          <div className="bg-black/40 backdrop-blur-sm rounded-2xl border border-border-subtle p-8">
             <h3 className="text-xl font-bold text-white mb-4">The Solution:</h3>
-            <p className="text-gray-200 mb-6 leading-relaxed">
+            <p className="text-text-muted mb-6 leading-relaxed">
               A content operating system that turns one recording day into 30 days of omni-channel content, automated distribution, and measurable pipeline growth.
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
               <a 
                 href="/book"
-                className="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-[#FF4500] to-[#FFD700] text-black font-semibold rounded-full hover:opacity-90 transition"
+                className="inline-flex items-center justify-center px-6 py-3 bg-signal-yellow hover:bg-signal-soft text-black font-semibold rounded-full transition"
               >
                 Fix This Now
               </a>

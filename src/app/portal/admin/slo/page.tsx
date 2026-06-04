@@ -17,7 +17,7 @@ export default function AdminSLOPage() {
         <div className="animate-pulse">
           <div className="text-4xl mb-4">📊</div>
           <h1 className="text-xl font-semibold mb-2">Redirecting to Enhanced SLO Dashboard...</h1>
-          <p className="text-gray-400">Loading auto-credits monitoring system</p>
+          <p className="text-text-muted">Loading auto-credits monitoring system</p>
         </div>
       </div>
     </div>

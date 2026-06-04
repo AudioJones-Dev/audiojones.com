@@ -100,7 +100,7 @@ export default function UsersManagement() {
       {/* Page Header */}
       <div>
         <h1 className="text-3xl font-bold text-white">User Management</h1>
-        <p className="mt-2 text-gray-400">
+        <p className="mt-2 text-text-muted">
           Manage user accounts, roles, and permissions
         </p>
       </div>
@@ -133,19 +133,19 @@ export default function UsersManagement() {
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
         <div className="rounded-lg border border-gray-700 bg-gray-900 p-4">
           <div className="text-2xl font-bold text-white">{users.length}</div>
-          <div className="text-sm text-gray-400">Total Users</div>
+          <div className="text-sm text-text-muted">Total Users</div>
         </div>
         <div className="rounded-lg border border-gray-700 bg-gray-900 p-4">
           <div className="text-2xl font-bold text-white">
             {users.filter(u => u.admin).length}
           </div>
-          <div className="text-sm text-gray-400">Admin Users</div>
+          <div className="text-sm text-text-muted">Admin Users</div>
         </div>
         <div className="rounded-lg border border-gray-700 bg-gray-900 p-4">
           <div className="text-2xl font-bold text-white">
             {users.filter(u => !u.admin).length}
           </div>
-          <div className="text-sm text-gray-400">Regular Users</div>
+          <div className="text-sm text-text-muted">Regular Users</div>
         </div>
       </div>
 
@@ -161,19 +161,19 @@ export default function UsersManagement() {
           <table className="min-w-full divide-y divide-gray-700">
             <thead className="bg-gray-800">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-text-primary uppercase tracking-wider">
                   User
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-text-primary uppercase tracking-wider">
                   Role
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-text-primary uppercase tracking-wider">
                   Last Login
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-text-primary uppercase tracking-wider">
                   Created
                 </th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-300 uppercase tracking-wider">
+                <th className="px-6 py-3 text-right text-xs font-medium text-text-primary uppercase tracking-wider">
                   Actions
                 </th>
               </tr>
@@ -186,7 +186,7 @@ export default function UsersManagement() {
                       <div className="text-sm font-medium text-white">
                         {user.displayName || 'No name'}
                       </div>
-                      <div className="text-sm text-gray-400">{user.email}</div>
+                      <div className="text-sm text-text-muted">{user.email}</div>
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
@@ -198,10 +198,10 @@ export default function UsersManagement() {
                       {user.admin ? 'Admin' : 'User'}
                     </span>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-400">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-text-muted">
                     {user.lastLogin || 'Never'}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-400">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-text-muted">
                     {user.createdAt || 'Unknown'}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
@@ -224,7 +224,7 @@ export default function UsersManagement() {
 
         {filteredUsers.length === 0 && (
           <div className="px-6 py-8 text-center">
-            <div className="text-gray-400">No users found</div>
+            <div className="text-text-muted">No users found</div>
           </div>
         )}
       </div>

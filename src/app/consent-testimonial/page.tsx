@@ -92,7 +92,7 @@ export default function ConsentTestimonialPage() {
                   value={signature}
                   onChange={(e) => setSignature(e.target.value)}
                   required
-                  className="mt-1 block w-full rounded-md border-gray-600 bg-white/5 py-2 px-3 text-white shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
+                  className="mt-1 block w-full rounded-md border-border-subtle bg-white/5 py-2 px-3 text-white shadow-sm focus:border-signal-yellow focus:ring-signal-yellow"
                 />
               </div>
               <div>
@@ -105,16 +105,15 @@ export default function ConsentTestimonialPage() {
                   value={date}
                   onChange={(e) => setDate(e.target.value)}
                   required
-                  className="mt-1 block w-full rounded-md border-gray-600 bg-white/5 py-2 px-3 text-white shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
+                  className="mt-1 block w-full rounded-md border-border-subtle bg-white/5 py-2 px-3 text-white shadow-sm focus:border-signal-yellow focus:ring-signal-yellow"
                 />
               </div>
             </div>
 
             <button
               type="submit"
-              className="rounded-full px-6 py-3 font-bold text-black shadow-[0_4px_20px_rgba(255,215,0,0.35)]
-                         bg-[linear-gradient(135deg,#FF4500,#FFD700)]
-                         hover:bg-[linear-gradient(135deg,#FFD700,#FF4500)] transition"
+              className="rounded-full px-6 py-3 font-bold text-black shadow-[0_4px_20px_rgba(232,255,90,0.35)]
+                         bg-signal-yellow hover:bg-signal-soft transition"
             >
               Submit Consent
             </button>

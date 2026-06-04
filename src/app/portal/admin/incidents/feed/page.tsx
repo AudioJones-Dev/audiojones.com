@@ -163,7 +163,7 @@ export default function IncidentFeedPage() {
               <Rss className="h-6 w-6 text-orange-400" />
               <h1 className="text-2xl font-bold text-white">Incident Feed</h1>
             </div>
-            <p className="text-gray-400">
+            <p className="text-text-muted">
               Public API for external systems to read current incidents
             </p>
           </div>
@@ -199,7 +199,7 @@ export default function IncidentFeedPage() {
             <CardContent className="space-y-4">
               
               <div>
-                <label className="text-sm font-medium text-gray-300 mb-2 block">
+                <label className="text-sm font-medium text-text-primary mb-2 block">
                   Base URL
                 </label>
                 <div className="flex items-center gap-2 p-2 bg-gray-900 rounded border border-gray-700">
@@ -213,7 +213,7 @@ export default function IncidentFeedPage() {
                     {copiedUrl === 'base' ? (
                       <CheckCircle className="h-4 w-4 text-green-400" />
                     ) : (
-                      <Copy className="h-4 w-4 text-gray-400" />
+                      <Copy className="h-4 w-4 text-text-muted" />
                     )}
                   </button>
                 </div>
@@ -226,7 +226,7 @@ export default function IncidentFeedPage() {
                     <Shield className="h-4 w-4 text-yellow-400" />
                     <div>
                       <div className="text-sm font-medium text-white">Token Protected</div>
-                      <div className="text-xs text-gray-400">
+                      <div className="text-xs text-text-muted">
                         Append ?token=YOUR_TOKEN when consuming
                       </div>
                     </div>
@@ -236,7 +236,7 @@ export default function IncidentFeedPage() {
                     <Globe className="h-4 w-4 text-green-400" />
                     <div>
                       <div className="text-sm font-medium text-white">Public Access</div>
-                      <div className="text-xs text-gray-400">
+                      <div className="text-xs text-text-muted">
                         No authentication required
                       </div>
                     </div>
@@ -269,7 +269,7 @@ export default function IncidentFeedPage() {
                       {copiedUrl === example.label ? (
                         <CheckCircle className="h-3 w-3 text-green-400" />
                       ) : (
-                        <Copy className="h-3 w-3 text-gray-400" />
+                        <Copy className="h-3 w-3 text-text-muted" />
                       )}
                     </button>
                   </div>
@@ -278,7 +278,7 @@ export default function IncidentFeedPage() {
                       {example.url}
                     </code>
                   </div>
-                  <p className="text-xs text-gray-400">
+                  <p className="text-xs text-text-muted">
                     {example.description}
                   </p>
                 </div>
@@ -300,7 +300,7 @@ export default function IncidentFeedPage() {
                   </CardDescription>
                 </div>
                 
-                <Badge variant="outline" className="text-gray-300">
+                <Badge variant="outline" className="text-text-primary">
                   {incidents.length} incident{incidents.length !== 1 ? 's' : ''}
                 </Badge>
               </div>
@@ -319,12 +319,12 @@ export default function IncidentFeedPage() {
 
               {/* Loading State */}
               {loading ? (
-                <div className="flex items-center justify-center py-8 text-gray-400">
+                <div className="flex items-center justify-center py-8 text-text-muted">
                   <RefreshCw className="h-5 w-5 animate-spin mr-2" />
                   Loading incident feed...
                 </div>
               ) : incidents.length === 0 ? (
-                <div className="text-center py-8 text-gray-400">
+                <div className="text-center py-8 text-text-muted">
                   <AlertCircle className="h-12 w-12 mx-auto mb-3 opacity-50" />
                   <p>No incidents in feed</p>
                   <p className="text-sm">This is good news! No active incidents to report.</p>
@@ -346,7 +346,7 @@ export default function IncidentFeedPage() {
                           </div>
                           
                           {incident.short_description && (
-                            <p className="text-sm text-gray-300 mb-2">
+                            <p className="text-sm text-text-primary mb-2">
                               {incident.short_description}
                             </p>
                           )}
@@ -365,14 +365,14 @@ export default function IncidentFeedPage() {
                           </div>
                           
                           {incident.updated_at && (
-                            <span className="text-xs text-gray-500">
+                            <span className="text-xs text-text-muted">
                               {getTimeAgo(incident.updated_at)}
                             </span>
                           )}
                         </div>
                       </div>
 
-                      <div className="flex items-center justify-between text-xs text-gray-500">
+                      <div className="flex items-center justify-between text-xs text-text-muted">
                         <div className="flex items-center gap-4">
                           <span>ID: {incident.id}</span>
                           {incident.source && (

@@ -60,8 +60,8 @@ export default function PricingPage() {
         <section className="relative flex w-full justify-center overflow-hidden py-20 sm:py-24 lg:py-32">
           <div className="absolute inset-0 bg-gradient-to-b from-[#0f0f10] to-[#181818]" />
           <div className="absolute inset-0 opacity-30">
-            <div className="absolute -left-1/4 top-0 h-full w-full rounded-full bg-gradient-radial from-[#FF4500] to-transparent blur-3xl" />
-            <div className="absolute -right-1/4 bottom-0 h-full w-full rounded-full bg-gradient-radial from-[#FFD700] to-transparent blur-3xl" />
+            <div className="absolute -left-1/4 top-0 h-full w-full rounded-full bg-gradient-radial from-[#E8FF5A] to-transparent blur-3xl" />
+            <div className="absolute -right-1/4 bottom-0 h-full w-full rounded-full bg-gradient-radial from-[#4DACFF] to-transparent blur-3xl" />
           </div>
           <div className="relative z-10 mx-auto flex max-w-5xl flex-col items-center gap-6 px-4 text-center">
             {/* breadcrumb */}

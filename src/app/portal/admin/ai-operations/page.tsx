@@ -144,7 +144,7 @@ export default function AIOperationsPage() {
         <div className="flex items-center justify-center h-64">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto mb-4"></div>
-            <p className="text-gray-400">Loading AI Operations Dashboard...</p>
+            <p className="text-text-muted">Loading AI Operations Dashboard...</p>
           </div>
         </div>
       </div>
@@ -174,7 +174,7 @@ export default function AIOperationsPage() {
         <div className="flex justify-between items-center mb-8">
           <div>
             <h1 className="text-3xl font-bold mb-2">🤖 AI Operations Dashboard</h1>
-            <p className="text-gray-400">
+            <p className="text-text-muted">
               Enterprise AI-powered operations management
               {lastUpdate && (
                 <span className="ml-4 text-sm">
@@ -219,7 +219,7 @@ export default function AIOperationsPage() {
               <span className="text-green-400">🟢</span>
             </div>
             <p className="text-2xl font-bold text-green-400">Operational</p>
-            <p className="text-sm text-gray-400">
+            <p className="text-sm text-text-muted">
               Uptime: {Math.floor(data.status?.aiEngine?.uptime || 0)}s
             </p>
           </div>
@@ -232,7 +232,7 @@ export default function AIOperationsPage() {
             <p className="text-2xl font-bold text-blue-400">
               {data.intelligence?.summary?.totalPredictions || 0}
             </p>
-            <p className="text-sm text-gray-400">Active predictions</p>
+            <p className="text-sm text-text-muted">Active predictions</p>
           </div>
 
           <div className="bg-gray-900 p-6 rounded-lg">
@@ -243,7 +243,7 @@ export default function AIOperationsPage() {
             <p className="text-2xl font-bold text-green-400 capitalize">
               {data.healingStatus?.systemHealth || 'Healthy'}
             </p>
-            <p className="text-sm text-gray-400">
+            <p className="text-sm text-text-muted">
               Healing rate: {((data.healingStatus?.healingSuccessRate || 0.95) * 100).toFixed(1)}%
             </p>
           </div>
@@ -256,7 +256,7 @@ export default function AIOperationsPage() {
             <p className="text-2xl font-bold text-yellow-400">
               {data.recommendations?.length || 0}
             </p>
-            <p className="text-sm text-gray-400">
+            <p className="text-sm text-text-muted">
               Urgent: {data.intelligence?.summary?.urgentRecommendations || 0}
             </p>
           </div>
@@ -277,7 +277,7 @@ export default function AIOperationsPage() {
               className={`flex-1 py-2 px-4 rounded-md transition-colors ${
                 selectedTab === tab.key
                   ? 'bg-blue-600 text-white'
-                  : 'text-gray-400 hover:text-white hover:bg-gray-800'
+                  : 'text-text-muted hover:text-white hover:bg-gray-800'
               }`}
             >
               {tab.label}
@@ -298,15 +298,15 @@ export default function AIOperationsPage() {
                       <h4 className="font-semibold mb-2 capitalize">{modelKey.replace('_', ' ')}</h4>
                       <div className="space-y-2">
                         <div className="flex justify-between">
-                          <span className="text-gray-400">Status:</span>
+                          <span className="text-text-muted">Status:</span>
                           <span className="text-green-400">{model.status}</span>
                         </div>
                         <div className="flex justify-between">
-                          <span className="text-gray-400">Accuracy:</span>
+                          <span className="text-text-muted">Accuracy:</span>
                           <span className="text-blue-400">{(model.accuracy * 100).toFixed(1)}%</span>
                         </div>
                         <div className="flex justify-between">
-                          <span className="text-gray-400">Algorithm:</span>
+                          <span className="text-text-muted">Algorithm:</span>
                           <span className="text-sm">{model.algorithm}</span>
                         </div>
                       </div>
@@ -324,31 +324,31 @@ export default function AIOperationsPage() {
                       <p className="text-2xl font-bold text-red-400">
                         {data.intelligence.summary?.criticalIncidents || 0}
                       </p>
-                      <p className="text-sm text-gray-400">Critical Incidents</p>
+                      <p className="text-sm text-text-muted">Critical Incidents</p>
                     </div>
                     <div className="bg-gray-800 p-4 rounded-lg text-center">
                       <p className="text-2xl font-bold text-yellow-400">
                         {data.intelligence.summary?.capacityAlerts || 0}
                       </p>
-                      <p className="text-sm text-gray-400">Capacity Alerts</p>
+                      <p className="text-sm text-text-muted">Capacity Alerts</p>
                     </div>
                     <div className="bg-gray-800 p-4 rounded-lg text-center">
                       <p className="text-2xl font-bold text-orange-400">
                         {data.intelligence.summary?.severeAnomalies || 0}
                       </p>
-                      <p className="text-sm text-gray-400">Severe Anomalies</p>
+                      <p className="text-sm text-text-muted">Severe Anomalies</p>
                     </div>
                     <div className="bg-gray-800 p-4 rounded-lg text-center">
                       <p className="text-2xl font-bold text-purple-400">
                         {data.intelligence.summary?.highRiskChurn || 0}
                       </p>
-                      <p className="text-sm text-gray-400">High-Risk Churn</p>
+                      <p className="text-sm text-text-muted">High-Risk Churn</p>
                     </div>
                     <div className="bg-gray-800 p-4 rounded-lg text-center">
                       <p className="text-2xl font-bold text-blue-400">
                         {(data.intelligence.confidence * 100).toFixed(1)}%
                       </p>
-                      <p className="text-sm text-gray-400">Confidence</p>
+                      <p className="text-sm text-text-muted">Confidence</p>
                     </div>
                   </div>
                 </div>
@@ -401,21 +401,21 @@ export default function AIOperationsPage() {
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
                           <div>
-                            <span className="text-gray-400">Probability:</span>
+                            <span className="text-text-muted">Probability:</span>
                             <span className="ml-2 font-semibold">{(incident.probability * 100).toFixed(1)}%</span>
                           </div>
                           <div>
-                            <span className="text-gray-400">Predicted Time:</span>
+                            <span className="text-text-muted">Predicted Time:</span>
                             <span className="ml-2">{new Date(incident.predictedTime).toLocaleString()}</span>
                           </div>
                           <div>
-                            <span className="text-gray-400">Contributing Factors:</span>
+                            <span className="text-text-muted">Contributing Factors:</span>
                             <span className="ml-2">{incident.contributingFactors?.length || 0}</span>
                           </div>
                         </div>
                         {incident.preventiveActions && incident.preventiveActions.length > 0 && (
                           <div className="mt-3">
-                            <p className="text-gray-400 text-sm mb-1">Preventive Actions:</p>
+                            <p className="text-text-muted text-sm mb-1">Preventive Actions:</p>
                             <ul className="text-sm space-y-1">
                               {incident.preventiveActions.map((action: string, i: number) => (
                                 <li key={i} className="text-blue-400">• {action}</li>
@@ -448,19 +448,19 @@ export default function AIOperationsPage() {
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-sm">
                           <div>
-                            <span className="text-gray-400">Current:</span>
+                            <span className="text-text-muted">Current:</span>
                             <span className="ml-2 font-semibold">{(forecast.currentUtilization * 100).toFixed(1)}%</span>
                           </div>
                           <div>
-                            <span className="text-gray-400">Magnitude:</span>
+                            <span className="text-text-muted">Magnitude:</span>
                             <span className="ml-2">{forecast.scalingRecommendation.magnitude}x</span>
                           </div>
                           <div>
-                            <span className="text-gray-400">Timing:</span>
+                            <span className="text-text-muted">Timing:</span>
                             <span className="ml-2">{forecast.scalingRecommendation.timing} days</span>
                           </div>
                           <div>
-                            <span className="text-gray-400">Cost Impact:</span>
+                            <span className="text-text-muted">Cost Impact:</span>
                             <span className="ml-2">${forecast.scalingRecommendation.cost_impact}</span>
                           </div>
                         </div>
@@ -488,19 +488,19 @@ export default function AIOperationsPage() {
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-sm">
                           <div>
-                            <span className="text-gray-400">Current Value:</span>
+                            <span className="text-text-muted">Current Value:</span>
                             <span className="ml-2 font-semibold">{anomaly.value}</span>
                           </div>
                           <div>
-                            <span className="text-gray-400">Expected:</span>
+                            <span className="text-text-muted">Expected:</span>
                             <span className="ml-2">{anomaly.expectedValue}</span>
                           </div>
                           <div>
-                            <span className="text-gray-400">Deviation:</span>
+                            <span className="text-text-muted">Deviation:</span>
                             <span className="ml-2">{Math.abs(anomaly.deviation).toFixed(2)}</span>
                           </div>
                           <div>
-                            <span className="text-gray-400">Anomaly Score:</span>
+                            <span className="text-text-muted">Anomaly Score:</span>
                             <span className="ml-2">{anomaly.anomalyScore.toFixed(2)}</span>
                           </div>
                         </div>
@@ -519,12 +519,12 @@ export default function AIOperationsPage() {
                 <div className="bg-gray-800 p-4 rounded-lg">
                   <h4 className="font-semibold mb-2">Active Resources</h4>
                   <p className="text-2xl font-bold text-blue-400">{data.scalingStatus?.activeResources || 0}</p>
-                  <p className="text-sm text-gray-400">Resources under management</p>
+                  <p className="text-sm text-text-muted">Resources under management</p>
                 </div>
                 <div className="bg-gray-800 p-4 rounded-lg">
                   <h4 className="font-semibold mb-2">Active Policies</h4>
                   <p className="text-2xl font-bold text-green-400">{data.scalingStatus?.activePolicies || 0}</p>
-                  <p className="text-sm text-gray-400">Scaling policies enabled</p>
+                  <p className="text-sm text-text-muted">Scaling policies enabled</p>
                 </div>
                 <div className="bg-gray-800 p-4 rounded-lg">
                   <h4 className="font-semibold mb-2">Last Scaling Event</h4>
@@ -548,19 +548,19 @@ export default function AIOperationsPage() {
                   <p className="text-2xl font-bold text-green-400 capitalize">
                     {data.healingStatus?.systemHealth || 'Healthy'}
                   </p>
-                  <p className="text-sm text-gray-400">Overall system status</p>
+                  <p className="text-sm text-text-muted">Overall system status</p>
                 </div>
                 <div className="bg-gray-800 p-4 rounded-lg">
                   <h4 className="font-semibold mb-2">Active Healing Actions</h4>
                   <p className="text-2xl font-bold text-blue-400">{data.healingStatus?.activeHealingActions || 0}</p>
-                  <p className="text-sm text-gray-400">Currently executing</p>
+                  <p className="text-sm text-text-muted">Currently executing</p>
                 </div>
                 <div className="bg-gray-800 p-4 rounded-lg">
                   <h4 className="font-semibold mb-2">Success Rate</h4>
                   <p className="text-2xl font-bold text-green-400">
                     {((data.healingStatus?.healingSuccessRate || 0.95) * 100).toFixed(1)}%
                   </p>
-                  <p className="text-sm text-gray-400">Healing success rate</p>
+                  <p className="text-sm text-text-muted">Healing success rate</p>
                 </div>
               </div>
             </div>
@@ -583,24 +583,24 @@ export default function AIOperationsPage() {
                           {rec.priority}
                         </span>
                       </div>
-                      <p className="text-gray-300 mb-3">{rec.description}</p>
+                      <p className="text-text-primary mb-3">{rec.description}</p>
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
                         <div>
-                          <span className="text-gray-400">Type:</span>
+                          <span className="text-text-muted">Type:</span>
                           <span className="ml-2 capitalize">{rec.type}</span>
                         </div>
                         <div>
-                          <span className="text-gray-400">Confidence:</span>
+                          <span className="text-text-muted">Confidence:</span>
                           <span className="ml-2">{(rec.confidence * 100).toFixed(1)}%</span>
                         </div>
                         <div>
-                          <span className="text-gray-400">Potential Savings:</span>
+                          <span className="text-text-muted">Potential Savings:</span>
                           <span className="ml-2">${rec.potentialSavings}</span>
                         </div>
                       </div>
                       {rec.actions && rec.actions.length > 0 && (
                         <div className="mt-3">
-                          <p className="text-gray-400 text-sm mb-1">Actions:</p>
+                          <p className="text-text-muted text-sm mb-1">Actions:</p>
                           <ul className="text-sm space-y-1">
                             {rec.actions.map((action: any, i: number) => (
                               <li key={i} className="flex justify-between items-center">
@@ -618,7 +618,7 @@ export default function AIOperationsPage() {
                 </div>
               ) : (
                 <div className="text-center py-8">
-                  <p className="text-gray-400">No recommendations available at this time.</p>
+                  <p className="text-text-muted">No recommendations available at this time.</p>
                   <button
                     onClick={generateIntelligence}
                     className="mt-4 bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition-colors"

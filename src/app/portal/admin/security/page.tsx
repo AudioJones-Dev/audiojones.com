@@ -170,7 +170,7 @@ export default function SecurityDashboard() {
       case 'secure': return 'text-green-500';
       case 'warning': return 'text-yellow-500';
       case 'critical': return 'text-red-500';
-      default: return 'text-gray-500';
+      default: return 'text-text-muted';
     }
   };
 
@@ -191,7 +191,7 @@ export default function SecurityDashboard() {
       case 'medium': return 'text-yellow-500';
       case 'high': return 'text-orange-500';
       case 'critical': return 'text-red-500';
-      default: return 'text-gray-500';
+      default: return 'text-text-muted';
     }
   };
 
@@ -217,7 +217,7 @@ export default function SecurityDashboard() {
       <div className="max-w-7xl mx-auto">
         <div className="mb-8">
           <h1 className="text-3xl font-bold mb-2">Security & Compliance Dashboard</h1>
-          <p className="text-gray-400">
+          <p className="text-text-muted">
             Enterprise security monitoring, threat detection, and compliance management
           </p>
         </div>
@@ -234,7 +234,7 @@ export default function SecurityDashboard() {
             <div className="bg-gray-900 p-6 rounded-lg border border-gray-800">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-400">Security Status</p>
+                  <p className="text-sm text-text-muted">Security Status</p>
                   <p className={`text-2xl font-bold ${getStatusColor(securityStatus.status)}`}>
                     {securityStatus.status.toUpperCase()}
                   </p>
@@ -251,7 +251,7 @@ export default function SecurityDashboard() {
             <div className="bg-gray-900 p-6 rounded-lg border border-gray-800">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-400">Active Threats</p>
+                  <p className="text-sm text-text-muted">Active Threats</p>
                   <p className="text-2xl font-bold">{securityStatus.active_threats}</p>
                 </div>
                 <div className="w-12 h-12 bg-red-500/20 rounded-full flex items-center justify-center">
@@ -263,7 +263,7 @@ export default function SecurityDashboard() {
             <div className="bg-gray-900 p-6 rounded-lg border border-gray-800">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-400">Compliance Score</p>
+                  <p className="text-sm text-text-muted">Compliance Score</p>
                   <p className="text-2xl font-bold">{Math.round(securityStatus.compliance_score)}%</p>
                 </div>
                 <div className="w-12 h-12 bg-blue-500/20 rounded-full flex items-center justify-center">
@@ -275,7 +275,7 @@ export default function SecurityDashboard() {
             <div className="bg-gray-900 p-6 rounded-lg border border-gray-800">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-400">Risk Level</p>
+                  <p className="text-sm text-text-muted">Risk Level</p>
                   <p className={`text-2xl font-bold ${getRiskLevelColor(securityStatus.risk_level)}`}>
                     {securityStatus.risk_level.toUpperCase()}
                   </p>
@@ -304,7 +304,7 @@ export default function SecurityDashboard() {
                 className={`py-4 px-1 border-b-2 font-medium text-sm ${
                   activeTab === tab.id
                     ? 'border-white text-white'
-                    : 'border-transparent text-gray-400 hover:text-gray-300 hover:border-gray-300'
+                    : 'border-transparent text-text-muted hover:text-text-primary hover:border-gray-300'
                 }`}
               >
                 <span className="mr-2">{tab.icon}</span>
@@ -323,27 +323,27 @@ export default function SecurityDashboard() {
                 <h3 className="text-xl font-semibold mb-4">Security Metrics</h3>
                 <div className="space-y-4">
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Threats Detected:</span>
+                    <span className="text-text-muted">Threats Detected:</span>
                     <span className="font-medium">{securityStatus.metrics.threats_detected}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Threats Blocked:</span>
+                    <span className="text-text-muted">Threats Blocked:</span>
                     <span className="font-medium text-green-400">{securityStatus.metrics.threats_blocked}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Vulnerabilities Found:</span>
+                    <span className="text-text-muted">Vulnerabilities Found:</span>
                     <span className="font-medium">{securityStatus.metrics.vulnerabilities_found}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Vulnerabilities Fixed:</span>
+                    <span className="text-text-muted">Vulnerabilities Fixed:</span>
                     <span className="font-medium text-green-400">{securityStatus.metrics.vulnerabilities_fixed}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Security Incidents:</span>
+                    <span className="text-text-muted">Security Incidents:</span>
                     <span className="font-medium">{securityStatus.metrics.security_incidents}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Risk Score:</span>
+                    <span className="text-text-muted">Risk Score:</span>
                     <span className={`font-medium ${
                       securityStatus.metrics.risk_score > 75 ? 'text-red-400' :
                       securityStatus.metrics.risk_score > 50 ? 'text-yellow-400' :
@@ -403,7 +403,7 @@ export default function SecurityDashboard() {
           <div className="space-y-6">
             <div className="flex justify-between items-center">
               <h3 className="text-xl font-semibold">Security Threats</h3>
-              <div className="text-sm text-gray-400">
+              <div className="text-sm text-text-muted">
                 Showing {threats.length} most recent threats
               </div>
             </div>
@@ -412,7 +412,7 @@ export default function SecurityDashboard() {
               <div className="bg-gray-900 p-8 rounded-lg border border-gray-800 text-center">
                 <div className="text-4xl mb-4">🛡️</div>
                 <h3 className="text-xl font-semibold mb-2">No Active Threats</h3>
-                <p className="text-gray-400">Your system is currently secure with no detected threats.</p>
+                <p className="text-text-muted">Your system is currently secure with no detected threats.</p>
               </div>
             ) : (
               <div className="space-y-4">
@@ -426,10 +426,10 @@ export default function SecurityDashboard() {
                           </span>
                           <span className="text-sm font-medium">{threat.type.replace('_', ' ').toUpperCase()}</span>
                         </div>
-                        <p className="text-gray-400 text-sm">
+                        <p className="text-text-muted text-sm">
                           Source: {threat.source} → Target: {threat.target}
                         </p>
-                        <p className="text-gray-400 text-sm">
+                        <p className="text-text-muted text-sm">
                           Detected: {new Date(threat.timestamp).toLocaleString()}
                         </p>
                       </div>
@@ -455,7 +455,7 @@ export default function SecurityDashboard() {
                         <h4 className="text-sm font-medium mb-2">Threat Indicators:</h4>
                         <div className="space-y-1">
                           {threat.indicators.map((indicator, index) => (
-                            <div key={index} className="text-sm text-gray-400">
+                            <div key={index} className="text-sm text-text-muted">
                               {indicator.type}: {indicator.value} (confidence: {Math.round(indicator.confidence * 100)}%)
                             </div>
                           ))}
@@ -473,7 +473,7 @@ export default function SecurityDashboard() {
           <div className="space-y-6">
             <div className="flex justify-between items-center">
               <h3 className="text-xl font-semibold">Vulnerabilities</h3>
-              <div className="text-sm text-gray-400">
+              <div className="text-sm text-text-muted">
                 Showing {vulnerabilities.length} vulnerabilities
               </div>
             </div>
@@ -482,7 +482,7 @@ export default function SecurityDashboard() {
               <div className="bg-gray-900 p-8 rounded-lg border border-gray-800 text-center">
                 <div className="text-4xl mb-4">✅</div>
                 <h3 className="text-xl font-semibold mb-2">No Vulnerabilities Found</h3>
-                <p className="text-gray-400">Your system has no known vulnerabilities.</p>
+                <p className="text-text-muted">Your system has no known vulnerabilities.</p>
               </div>
             ) : (
               <div className="space-y-4">
@@ -500,7 +500,7 @@ export default function SecurityDashboard() {
                           )}
                         </div>
                         <p className="text-white mb-2">{vuln.description}</p>
-                        <div className="flex items-center gap-4 text-sm text-gray-400">
+                        <div className="flex items-center gap-4 text-sm text-text-muted">
                           <span>Type: {vuln.type}</span>
                           {vuln.cvss_score && <span>CVSS: {vuln.cvss_score}</span>}
                           <span>Status: {vuln.status.replace('_', ' ')}</span>
@@ -521,7 +521,7 @@ export default function SecurityDashboard() {
           <div className="space-y-6">
             <div className="flex justify-between items-center">
               <h3 className="text-xl font-semibold">Compliance Status</h3>
-              <div className="text-sm text-gray-400">
+              <div className="text-sm text-text-muted">
                 Monitoring {complianceRules.length} compliance rules
               </div>
             </div>
@@ -540,7 +540,7 @@ export default function SecurityDashboard() {
                     <div className="text-3xl font-bold mb-2">
                       {Math.round(compliancePercentage)}%
                     </div>
-                    <div className="text-sm text-gray-400">
+                    <div className="text-sm text-text-muted">
                       {compliantCount} of {frameworkRules.length} rules compliant
                     </div>
                     <div className="mt-4 bg-gray-700 rounded-full h-2">
@@ -562,7 +562,7 @@ export default function SecurityDashboard() {
                     <div>
                       <div className="flex items-center gap-3 mb-2">
                         <span className="text-sm font-medium text-blue-400">{rule.framework}</span>
-                        <span className="text-sm text-gray-400">{rule.requirement}</span>
+                        <span className="text-sm text-text-muted">{rule.requirement}</span>
                         <span className={`px-2 py-1 rounded text-xs font-medium ${
                           rule.status === 'compliant' ? 'bg-green-100 text-green-800 border border-green-200' :
                           rule.status === 'non_compliant' ? 'bg-red-100 text-red-800 border border-red-200' :
@@ -572,9 +572,9 @@ export default function SecurityDashboard() {
                         </span>
                       </div>
                       <h4 className="text-white font-medium mb-2">{rule.category}</h4>
-                      <p className="text-gray-400 text-sm">{rule.description}</p>
+                      <p className="text-text-muted text-sm">{rule.description}</p>
                       {rule.last_check > 0 && (
-                        <p className="text-gray-500 text-xs mt-2">
+                        <p className="text-text-muted text-xs mt-2">
                           Last checked: {new Date(rule.last_check).toLocaleString()}
                         </p>
                       )}
@@ -606,17 +606,17 @@ export default function SecurityDashboard() {
                   <div className="flex items-center gap-6">
                     <div>
                       <div className="text-4xl font-bold text-green-400">{testResults.overall_score}/100</div>
-                      <div className="text-sm text-gray-400">Overall Security Score</div>
+                      <div className="text-sm text-text-muted">Overall Security Score</div>
                     </div>
                     <div>
                       <div className={`text-2xl font-semibold ${getRiskLevelColor(testResults.risk_level)}`}>
                         {testResults.risk_level.toUpperCase()}
                       </div>
-                      <div className="text-sm text-gray-400">Risk Level</div>
+                      <div className="text-sm text-text-muted">Risk Level</div>
                     </div>
                     <div>
                       <div className="text-2xl font-semibold">{testResults.total_test_time}ms</div>
-                      <div className="text-sm text-gray-400">Test Duration</div>
+                      <div className="text-sm text-text-muted">Test Duration</div>
                     </div>
                   </div>
                 </div>
@@ -636,7 +636,7 @@ export default function SecurityDashboard() {
                             }`}>
                               {result.status}
                             </span>
-                            <span className="text-xs text-gray-400">{result.response_time}ms</span>
+                            <span className="text-xs text-text-muted">{result.response_time}ms</span>
                           </div>
                         </div>
                       ))}
@@ -650,7 +650,7 @@ export default function SecurityDashboard() {
                       {Object.entries(testResults.vulnerability_assessment).map(([scan, results]: [string, any]) => (
                         <div key={scan} className="border-b border-gray-700 pb-2">
                           <div className="text-sm font-medium mb-1">{scan.replace('_', ' ')}</div>
-                          <div className="text-xs text-gray-400 grid grid-cols-2 gap-2">
+                          <div className="text-xs text-text-muted grid grid-cols-2 gap-2">
                             <span>Total: {results.vulnerabilities_found}</span>
                             <span>Critical: {results.critical}</span>
                             <span>High: {results.high}</span>
@@ -670,7 +670,7 @@ export default function SecurityDashboard() {
                           <span className="text-sm">{framework.replace('_', ' ')}</span>
                           <div className="flex items-center gap-2">
                             <span className="text-sm font-medium">{results.score}%</span>
-                            <span className="text-xs text-gray-400">
+                            <span className="text-xs text-text-muted">
                               {results.warnings} warnings
                             </span>
                           </div>
@@ -692,7 +692,7 @@ export default function SecurityDashboard() {
                             }`}>
                               {results.status}
                             </span>
-                            <span className="text-xs text-gray-400">{results.effectiveness}%</span>
+                            <span className="text-xs text-text-muted">{results.effectiveness}%</span>
                           </div>
                         </div>
                       ))}
@@ -706,7 +706,7 @@ export default function SecurityDashboard() {
                     <h4 className="text-lg font-semibold mb-4">💡 Recommendations</h4>
                     <ul className="space-y-2">
                       {testResults.recommendations.map((rec: string, index: number) => (
-                        <li key={index} className="text-sm text-gray-300 flex items-start gap-2">
+                        <li key={index} className="text-sm text-text-primary flex items-start gap-2">
                           <span className="text-yellow-400 mt-1">•</span>
                           {rec}
                         </li>
@@ -719,7 +719,7 @@ export default function SecurityDashboard() {
               <div className="bg-gray-900 p-8 rounded-lg border border-gray-800 text-center">
                 <div className="text-4xl mb-4">🧪</div>
                 <h3 className="text-xl font-semibold mb-2">Run Security Tests</h3>
-                <p className="text-gray-400 mb-6">
+                <p className="text-text-muted mb-6">
                   Execute comprehensive security testing to evaluate threat detection, 
                   vulnerability assessment, compliance validation, and security controls.
                 </p>

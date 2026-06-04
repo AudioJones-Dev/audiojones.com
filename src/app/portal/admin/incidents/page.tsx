@@ -174,7 +174,7 @@ export default function AdminIncidentsPage() {
       <div className="flex justify-between items-start">
         <div>
           <h1 className="text-2xl font-bold text-white mb-2">Incident Management</h1>
-          <p className="text-gray-400">
+          <p className="text-text-muted">
             Monitor and manage incident timelines with automated alert grouping
           </p>
         </div>
@@ -205,7 +205,7 @@ export default function AdminIncidentsPage() {
       {/* Filters */}
       <div className="flex gap-4 items-center">
         <div className="flex items-center gap-2">
-          <label className="text-sm text-gray-400">Status:</label>
+          <label className="text-sm text-text-muted">Status:</label>
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value as any)}
@@ -220,7 +220,7 @@ export default function AdminIncidentsPage() {
         </div>
 
         <div className="flex items-center gap-2">
-          <label className="text-sm text-gray-400">Source:</label>
+          <label className="text-sm text-text-muted">Source:</label>
           <select
             value={sourceFilter}
             onChange={(e) => setSourceFilter(e.target.value as any)}
@@ -243,10 +243,10 @@ export default function AdminIncidentsPage() {
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-400">Total</p>
+                  <p className="text-sm text-text-muted">Total</p>
                   <p className="text-2xl font-bold text-white">{stats.total}</p>
                 </div>
-                <FileText className="h-8 w-8 text-gray-400" />
+                <FileText className="h-8 w-8 text-text-muted" />
               </div>
             </CardContent>
           </Card>
@@ -255,7 +255,7 @@ export default function AdminIncidentsPage() {
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-400">Open</p>
+                  <p className="text-sm text-text-muted">Open</p>
                   <p className="text-2xl font-bold text-red-400">{stats.open}</p>
                 </div>
                 <AlertCircle className="h-8 w-8 text-red-400" />
@@ -267,7 +267,7 @@ export default function AdminIncidentsPage() {
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-400">Investigating</p>
+                  <p className="text-sm text-text-muted">Investigating</p>
                   <p className="text-2xl font-bold text-yellow-400">{stats.investigating}</p>
                 </div>
                 <Activity className="h-8 w-8 text-yellow-400" />
@@ -279,7 +279,7 @@ export default function AdminIncidentsPage() {
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-400">Resolved</p>
+                  <p className="text-sm text-text-muted">Resolved</p>
                   <p className="text-2xl font-bold text-green-400">{stats.resolved}</p>
                 </div>
                 <CheckCircle className="h-8 w-8 text-green-400" />
@@ -301,7 +301,7 @@ export default function AdminIncidentsPage() {
         </CardHeader>
         <CardContent>
           {incidents.length === 0 ? (
-            <div className="text-center py-8 text-gray-400">
+            <div className="text-center py-8 text-text-muted">
               <FileText className="h-12 w-12 mx-auto mb-4 opacity-50" />
               <p>No incidents found</p>
               <p className="text-sm">Incidents are automatically created when alerts are processed</p>
@@ -344,7 +344,7 @@ export default function AdminIncidentsPage() {
                         )}
                       </div>
                       
-                      <div className="flex items-center gap-4 text-sm text-gray-400">
+                      <div className="flex items-center gap-4 text-sm text-text-muted">
                         <span className="flex items-center gap-1">
                           <Clock className="h-3 w-3" />
                           Created {getTimeAgo(incident.created_at)}
@@ -374,15 +374,15 @@ export default function AdminIncidentsPage() {
                   {incident.timeline.length > 0 && (
                     <div className="mt-3 p-3 bg-gray-900/50 rounded border-l-2 border-gray-600">
                       <div className="flex items-center gap-2 mb-1">
-                        <span className="text-xs text-gray-500">Latest event:</span>
+                        <span className="text-xs text-text-muted">Latest event:</span>
                         <Badge variant="outline" className="text-xs">
                           {incident.timeline[incident.timeline.length - 1].type}
                         </Badge>
-                        <span className="text-xs text-gray-500">
+                        <span className="text-xs text-text-muted">
                           {getTimeAgo(incident.timeline[incident.timeline.length - 1].ts)}
                         </span>
                       </div>
-                      <p className="text-sm text-gray-300">
+                      <p className="text-sm text-text-primary">
                         {incident.timeline[incident.timeline.length - 1].message}
                       </p>
                     </div>

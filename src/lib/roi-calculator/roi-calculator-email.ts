@@ -57,7 +57,7 @@ export async function sendAgencyRoiNotification({ leadId, lead, submittedAt }: S
   const { input, result } = lead;
   const subject = `[ROI Calc] ${input.industry} / ${input.companySize} — ${result.recommendation}`;
   const html = `
-    <div style="font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:#05070F;color:#F8FAFC;padding:24px;">
+    <div style="font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:#080808;color:#F8FAFC;padding:24px;">
       <h1 style="margin:0 0 8px 0;">ROI Calculator lead</h1>
       <p style="margin:0 0 18px 0;color:#94A3B8;">ID ${escapeHtml(leadId)} · Submitted ${escapeHtml(submittedAt)}</p>
       <h2 style="margin:20px 0 8px 0;">Lead</h2>
@@ -124,11 +124,11 @@ export async function sendClientRoiResult({ leadId, lead }: SendArgs): Promise<R
   const { input, result } = lead;
   const subject = `Your Operational Waste Recovery Signal — ${result.recommendation}`;
   const html = `
-    <div style="font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:#05070F;color:#F8FAFC;padding:24px;line-height:1.6;">
-      <p style="margin:0 0 12px 0;color:#C8A96A;text-transform:uppercase;letter-spacing:.08em;font-size:12px;">Audio Jones · Operational Waste Recovery</p>
+    <div style="font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:#080808;color:#F8FAFC;padding:24px;line-height:1.6;">
+      <p style="margin:0 0 12px 0;color:#E8FF5A;text-transform:uppercase;letter-spacing:.08em;font-size:12px;">Audio Jones · Operational Waste Recovery</p>
       <h1 style="margin:0 0 12px 0;">${escapeHtml(input.name)}, here is the short version.</h1>
       <p style="margin:0 0 18px 0;color:#CBD5E1;">Your workflow shows an estimated ${escapeHtml(money(result.annualSavings))} in annual operational waste recovery with a ${escapeHtml(result.confidenceTier.toLowerCase())} confidence tier.</p>
-      <div style="border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:16px;background:#0B1020;">
+      <div style="border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:16px;background:#161616;">
         <p><strong>Readiness:</strong> ${escapeHtml(result.readinessScore)}/100</p>
         <p><strong>Estimated monthly recovery:</strong> ${escapeHtml(money(result.monthlySavings))}</p>
         <p><strong>Estimated payback:</strong> ${escapeHtml(result.paybackMonths ? `${result.paybackMonths} months` : "needs a budget estimate")}</p>
@@ -143,7 +143,7 @@ export async function sendClientRoiResult({ leadId, lead }: SendArgs): Promise<R
         <li>Headcount avoidance — ${escapeHtml(money(result.savingsBreakdown.headcountAvoidance))}/mo</li>
       </ul>
       <p style="margin:18px 0;color:#CBD5E1;">This is directional, not a promise. We do not calculate AI hype — we calculate operational waste recovery. The next step is to separate true workflow signal from noise before adding another tool.</p>
-      <p><a href="${ctaLinks.signalDiagnostic}" style="color:#FF6A30;font-weight:700;">Take the Signal Diagnostic</a></p>
+      <p><a href="${ctaLinks.signalDiagnostic}" style="color:#E8FF5A;font-weight:700;">Take the Signal Diagnostic</a></p>
       <p style="margin-top:24px;color:#94A3B8;font-size:12px;">Reference ID: ${escapeHtml(leadId)}</p>
     </div>`;
 

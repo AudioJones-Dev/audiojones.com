@@ -90,11 +90,11 @@ export default function SystemMonitoring() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-white">System Monitoring</h1>
-          <p className="mt-2 text-gray-400">
+          <p className="mt-2 text-text-muted">
             Monitor system health and integration status
           </p>
           {lastCheck && (
-            <p className="mt-1 text-sm text-gray-500">
+            <p className="mt-1 text-sm text-text-muted">
               Last checked: {lastCheck.toLocaleTimeString()}
             </p>
           )}
@@ -120,19 +120,19 @@ export default function SystemMonitoring() {
             </h3>
             <div className="space-y-3">
               <div className="flex justify-between items-center">
-                <span className="text-gray-400">Admin SDK</span>
+                <span className="text-text-muted">Admin SDK</span>
                 <span className={getStatusColor(status.firebase.admin)}>
                   {getStatusIcon(status.firebase.admin)} {status.firebase.admin ? 'Connected' : 'Failed'}
                 </span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-gray-400">Authentication</span>
+                <span className="text-text-muted">Authentication</span>
                 <span className={getStatusColor(status.firebase.auth)}>
                   {getStatusIcon(status.firebase.auth)} {status.firebase.auth ? 'Connected' : 'Failed'}
                 </span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-gray-400">Database</span>
+                <span className="text-text-muted">Database</span>
                 <span className={getStatusColor(status.firebase.database)}>
                   {getStatusIcon(status.firebase.database)} {status.firebase.database ? 'Connected' : 'Failed'}
                 </span>
@@ -150,19 +150,19 @@ export default function SystemMonitoring() {
             </h3>
             <div className="space-y-3">
               <div className="flex justify-between items-center">
-                <span className="text-gray-400">Admin Ping</span>
+                <span className="text-text-muted">Admin Ping</span>
                 <span className={getStatusColor(status.apis.ping)}>
                   {getStatusIcon(status.apis.ping)} {status.apis.ping ? 'OK' : 'Failed'}
                 </span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-gray-400">Who Am I</span>
+                <span className="text-text-muted">Who Am I</span>
                 <span className={getStatusColor(status.apis.whoami)}>
                   {getStatusIcon(status.apis.whoami)} {status.apis.whoami ? 'OK' : 'Failed'}
                 </span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-gray-400">Users API</span>
+                <span className="text-text-muted">Users API</span>
                 <span className={getStatusColor(status.apis.users)}>
                   {getStatusIcon(status.apis.users)} {status.apis.users ? 'OK' : 'Failed'}
                 </span>
@@ -181,19 +181,19 @@ export default function SystemMonitoring() {
             </h3>
             <div className="space-y-3">
               <div className="flex justify-between items-center">
-                <span className="text-gray-400">Stripe</span>
+                <span className="text-text-muted">Stripe</span>
                 <span className={getStatusColor(status.integrations.stripe)}>
                   {getStatusIcon(status.integrations.stripe)} {status.integrations.stripe ? 'Connected' : 'Failed'}
                 </span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-gray-400">Whop</span>
+                <span className="text-text-muted">Whop</span>
                 <span className={getStatusColor(status.integrations.whop)}>
                   {getStatusIcon(status.integrations.whop)} {status.integrations.whop ? 'Connected' : 'Failed'}
                 </span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-gray-400">N8N</span>
+                <span className="text-text-muted">N8N</span>
                 <span className={getStatusColor(status.integrations.n8n)}>
                   {getStatusIcon(status.integrations.n8n)} {status.integrations.n8n ? 'Connected' : 'Failed'}
                 </span>
@@ -210,17 +210,17 @@ export default function SystemMonitoring() {
             <h3 className="text-lg font-medium text-white mb-4">Environment</h3>
             <div className="space-y-3">
               <div className="flex justify-between items-center">
-                <span className="text-gray-400">Node Environment</span>
+                <span className="text-text-muted">Node Environment</span>
                 <span className="text-white font-mono text-sm">{status.environment.nodeEnv}</span>
               </div>
               {status.environment.vercelEnv && (
                 <div className="flex justify-between items-center">
-                  <span className="text-gray-400">Vercel Environment</span>
+                  <span className="text-text-muted">Vercel Environment</span>
                   <span className="text-white font-mono text-sm">{status.environment.vercelEnv}</span>
                 </div>
               )}
               <div className="flex justify-between items-center">
-                <span className="text-gray-400">Secrets Loaded</span>
+                <span className="text-text-muted">Secrets Loaded</span>
                 <span className={getStatusColor(status.environment.hasSecrets)}>
                   {getStatusIcon(status.environment.hasSecrets)} {status.environment.hasSecrets ? 'Yes' : 'No'}
                 </span>
@@ -233,19 +233,19 @@ export default function SystemMonitoring() {
             <div className="space-y-3">
               {status.deployment.lastDeploy && (
                 <div className="flex justify-between items-center">
-                  <span className="text-gray-400">Last Deploy</span>
+                  <span className="text-text-muted">Last Deploy</span>
                   <span className="text-white text-sm">{status.deployment.lastDeploy}</span>
                 </div>
               )}
               {status.deployment.commitHash && (
                 <div className="flex justify-between items-center">
-                  <span className="text-gray-400">Commit</span>
+                  <span className="text-text-muted">Commit</span>
                   <span className="text-white font-mono text-sm">{status.deployment.commitHash.slice(0, 8)}</span>
                 </div>
               )}
               {status.deployment.branch && (
                 <div className="flex justify-between items-center">
-                  <span className="text-gray-400">Branch</span>
+                  <span className="text-text-muted">Branch</span>
                   <span className="text-white font-mono text-sm">{status.deployment.branch}</span>
                 </div>
               )}

@@ -11,7 +11,7 @@ type Props = {
 export default function FAQ({ items }: Props) {
   const [open, setOpen] = useState<number | null>(0);
   return (
-    <ul className="divide-y divide-white/10 overflow-hidden rounded-xl border border-white/10 bg-[#0B1020]">
+    <ul className="divide-y divide-border-subtle overflow-hidden rounded-xl border border-border-subtle bg-surface-1">
       {items.map((item, i) => {
         const isOpen = open === i;
         return (
@@ -25,12 +25,12 @@ export default function FAQ({ items }: Props) {
               <span className="text-base font-semibold sm:text-lg">
                 {item.question}
               </span>
-              <span aria-hidden className="text-xl text-[#C8A96A]">
+              <span aria-hidden className="text-xl text-signal-yellow">
                 {isOpen ? "−" : "+"}
               </span>
             </button>
             {isOpen && (
-              <div className="px-6 pb-6 text-slate-300">{item.answer}</div>
+              <div className="px-6 pb-6 text-text-primary">{item.answer}</div>
             )}
           </li>
         );

@@ -115,30 +115,30 @@ export default function DraftsList({ pillarFilter }: DraftsListProps) {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'ready': return 'text-green-400 bg-green-400/20';
-      case 'review': return 'text-yellow-400 bg-yellow-400/20';
-      case 'draft': return 'text-gray-400 bg-gray-400/20';
-      default: return 'text-gray-400 bg-gray-400/20';
+      case 'ready': return 'text-accent-green bg-accent-green/20';
+      case 'review': return 'text-accent-amber bg-accent-amber/20';
+      case 'draft': return 'text-text-muted bg-text-muted/20';
+      default: return 'text-text-muted bg-text-muted/20';
     }
   };
 
   const getPillarColor = (pillar: PillarType) => {
     const colors = {
-      'ai': 'bg-purple-500/20 text-purple-400',
-      'marketing': 'bg-[#FF4500]/20 text-[#FF4500]',
-      'podcast-news': 'bg-blue-500/20 text-blue-400',
-      'tech-business-trends': 'bg-green-500/20 text-green-400',
-      'personal-brand': 'bg-[#FFD700]/20 text-[#FFD700]'
+      'ai': 'bg-accent-blue/20 text-accent-blue',
+      'marketing': 'bg-signal-yellow/20 text-signal-yellow',
+      'podcast-news': 'bg-accent-blue/20 text-accent-blue',
+      'tech-business-trends': 'bg-accent-green/20 text-accent-green',
+      'personal-brand': 'bg-signal-yellow/20 text-signal-yellow'
     };
-    return colors[pillar] || 'bg-gray-500/20 text-gray-400';
+    return colors[pillar] || 'bg-text-muted/20 text-text-muted';
   };
 
   if (loading) {
     return (
-      <div className="bg-gray-900/50 border border-gray-800 rounded-xl p-6">
+      <div className="bg-surface-1 border border-border-subtle rounded-xl p-6">
         <div className="animate-pulse space-y-4">
           {Array.from({ length: 5 }).map((_, i) => (
-            <div key={i} className="h-20 bg-gray-800 rounded-lg" />
+            <div key={i} className="h-20 bg-surface-2 rounded-lg" />
           ))}
         </div>
       </div>
@@ -146,14 +146,14 @@ export default function DraftsList({ pillarFilter }: DraftsListProps) {
   }
 
   return (
-    <div className="bg-gray-900/50 border border-gray-800 rounded-xl p-6">
+    <div className="bg-surface-1 border border-border-subtle rounded-xl p-6">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-4">
-          <h2 className="text-xl font-bold text-[#FFD700]">
+          <h2 className="text-xl font-bold text-signal-yellow">
             📝 Content Drafts
           </h2>
-          <span className="px-3 py-1 bg-[#FF4500]/20 text-[#FF4500] text-sm rounded-full">
+          <span className="px-3 py-1 bg-signal-yellow/20 text-signal-yellow text-sm rounded-full">
             {filteredDrafts.length} total
           </span>
         </div>
@@ -163,7 +163,7 @@ export default function DraftsList({ pillarFilter }: DraftsListProps) {
           <select
             value={filterStatus}
             onChange={(e) => setFilterStatus(e.target.value)}
-            className="bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-[#FF4500]"
+            className="bg-surface-2 border border-border-subtle rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-signal-yellow"
           >
             <option value="all">All Status</option>
             <option value="draft">Draft</option>
@@ -171,7 +171,7 @@ export default function DraftsList({ pillarFilter }: DraftsListProps) {
             <option value="ready">Ready</option>
           </select>
 
-          <button className="bg-[#FF4500] hover:bg-[#FF6500] text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+          <button className="bg-signal-yellow hover:bg-signal-soft text-bg-base px-4 py-2 rounded-lg text-sm font-medium transition-colors">
             + New Draft
           </button>
         </div>
@@ -179,27 +179,27 @@ export default function DraftsList({ pillarFilter }: DraftsListProps) {
 
       {/* Bulk Actions */}
       {selectedDrafts.length > 0 && (
-        <div className="mb-4 p-3 bg-[#FF4500]/10 border border-[#FF4500]/30 rounded-lg">
+        <div className="mb-4 p-3 bg-signal-yellow/10 border border-signal-yellow/30 rounded-lg">
           <div className="flex items-center justify-between">
-            <span className="text-sm text-[#FF4500]">
+            <span className="text-sm text-signal-yellow">
               {selectedDrafts.length} drafts selected
             </span>
             <div className="flex items-center gap-2">
               <button
                 onClick={() => handleBulkAction('publish')}
-                className="text-xs bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded"
+                className="text-xs bg-accent-green hover:bg-accent-green/90 text-bg-base px-3 py-1 rounded"
               >
                 Publish
               </button>
               <button
                 onClick={() => handleBulkAction('schedule')}
-                className="text-xs bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded"
+                className="text-xs bg-accent-blue hover:bg-accent-blue/90 text-bg-base px-3 py-1 rounded"
               >
                 Schedule
               </button>
               <button
                 onClick={() => handleBulkAction('delete')}
-                className="text-xs bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded"
+                className="text-xs bg-accent-red hover:bg-accent-red/90 text-white px-3 py-1 rounded"
               >
                 Delete
               </button>
@@ -213,7 +213,7 @@ export default function DraftsList({ pillarFilter }: DraftsListProps) {
         {filteredDrafts.map((draft) => (
           <div
             key={draft.id}
-            className="bg-gray-800/50 border border-gray-700 rounded-lg p-4 hover:bg-gray-800/70 transition-colors"
+            className="bg-surface-2 border border-border-subtle rounded-lg p-4 hover:bg-surface-2 transition-colors"
           >
             <div className="flex items-start gap-4">
               {/* Checkbox */}
@@ -221,7 +221,7 @@ export default function DraftsList({ pillarFilter }: DraftsListProps) {
                 type="checkbox"
                 checked={selectedDrafts.includes(draft.id)}
                 onChange={() => handleSelectDraft(draft.id)}
-                className="mt-1 w-4 h-4 text-[#FF4500] bg-gray-700 border-gray-600 rounded focus:ring-[#FF4500] focus:ring-2"
+                className="mt-1 w-4 h-4 accent-accent-blue bg-surface-2 border-border-subtle rounded focus:ring-signal-yellow focus:ring-2"
               />
 
               {/* Content */}
@@ -231,12 +231,12 @@ export default function DraftsList({ pillarFilter }: DraftsListProps) {
                     <h3 className="font-semibold text-white mb-1">
                       <Link 
                         href={`/portal/admin/blog/edit/${draft.id}`}
-                        className="hover:text-[#FF4500] transition-colors"
+                        className="hover:text-signal-yellow transition-colors"
                       >
                         {draft.title}
                       </Link>
                     </h3>
-                    <div className="flex items-center gap-3 text-sm text-gray-400">
+                    <div className="flex items-center gap-3 text-sm text-text-muted">
                       <span>/{draft.slug}</span>
                       <span>•</span>
                       <span>{draft.wordCount} words</span>
@@ -248,10 +248,10 @@ export default function DraftsList({ pillarFilter }: DraftsListProps) {
                   {/* Performance Score */}
                   {draft.performanceScore && (
                     <div className="text-right">
-                      <div className="text-lg font-bold text-[#FFD700]">
+                      <div className="text-lg font-bold text-signal-yellow">
                         {draft.performanceScore}%
                       </div>
-                      <div className="text-xs text-gray-400">Performance</div>
+                      <div className="text-xs text-text-muted">Performance</div>
                     </div>
                   )}
                 </div>
@@ -266,12 +266,12 @@ export default function DraftsList({ pillarFilter }: DraftsListProps) {
                       {draft.status}
                     </span>
                     {draft.aiGenerated && (
-                      <span className="px-2 py-1 text-xs rounded-full bg-purple-500/20 text-purple-400">
+                      <span className="px-2 py-1 text-xs rounded-full bg-accent-blue/20 text-accent-blue">
                         🤖 AI Generated
                       </span>
                     )}
                     {draft.scheduledFor && (
-                      <span className="px-2 py-1 text-xs rounded-full bg-blue-500/20 text-blue-400">
+                      <span className="px-2 py-1 text-xs rounded-full bg-accent-blue/20 text-accent-blue">
                         📅 Scheduled
                       </span>
                     )}
@@ -281,19 +281,19 @@ export default function DraftsList({ pillarFilter }: DraftsListProps) {
                   <div className="flex items-center gap-2">
                     <Link
                       href={`/portal/admin/blog/edit/${draft.id}`}
-                      className="text-xs bg-gray-700 hover:bg-gray-600 text-white px-3 py-1 rounded transition-colors"
+                      className="text-xs bg-surface-2 hover:bg-surface-2 text-white px-3 py-1 rounded transition-colors"
                     >
                       Edit
                     </Link>
                     <Link
                       href={`/blog/${draft.slug}`}
                       target="_blank"
-                      className="text-xs bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded transition-colors"
+                      className="text-xs bg-accent-blue hover:bg-accent-blue/90 text-bg-base px-3 py-1 rounded transition-colors"
                     >
                       Preview
                     </Link>
                     {draft.status === 'ready' && (
-                      <button className="text-xs bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded transition-colors">
+                      <button className="text-xs bg-accent-green hover:bg-accent-green/90 text-bg-base px-3 py-1 rounded transition-colors">
                         Publish
                       </button>
                     )}
@@ -309,24 +309,24 @@ export default function DraftsList({ pillarFilter }: DraftsListProps) {
         <div className="text-center py-12">
           <div className="text-4xl mb-4">📝</div>
           <h3 className="text-lg font-semibold text-white mb-2">No drafts found</h3>
-          <p className="text-gray-400 mb-4">
-            {pillarFilter 
+          <p className="text-text-muted mb-4">
+            {pillarFilter
               ? `No drafts found for ${PILLARS[pillarFilter].label} pillar`
               : 'Create your first draft to get started'
             }
           </p>
-          <button className="bg-[#FF4500] hover:bg-[#FF6500] text-white px-6 py-2 rounded-lg font-medium transition-colors">
+          <button className="bg-signal-yellow hover:bg-signal-soft text-bg-base px-6 py-2 rounded-lg font-medium transition-colors">
             + Create Draft
           </button>
         </div>
       )}
 
       {/* Footer */}
-      <div className="mt-6 pt-4 border-t border-gray-700 text-center">
-        <p className="text-xs text-gray-400">
-          🔥 <span className="text-[#FF4500]">Audio Jones</span> Content Management • 
-          Miami operator-level efficiency • 
-          <span className="text-[#FFD700]">Predictable content growth</span>
+      <div className="mt-6 pt-4 border-t border-border-subtle text-center">
+        <p className="text-xs text-text-muted">
+          🔥 <span className="text-signal-yellow">Audio Jones</span> Content Management •
+          Miami operator-level efficiency •
+          <span className="text-signal-yellow">Predictable content growth</span>
         </p>
       </div>
     </div>

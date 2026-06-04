@@ -82,7 +82,7 @@ export default function Page() {
           For the philosophical anchor and the extraction process, see the{" "}
           <Link
             href="/frameworks/signal-vs-noise"
-            className="text-[#3B5BFF] hover:text-[#5B7AFF]"
+            className="text-accent-blue hover:text-accent-blue"
           >
             Signal vs Noise framework
           </Link>
@@ -106,7 +106,7 @@ export default function Page() {
           metrics every time. See{" "}
           <Link
             href="/frameworks/map-attribution"
-            className="text-[#3B5BFF] hover:text-[#5B7AFF]"
+            className="text-accent-blue hover:text-accent-blue"
           >
             M.A.P Attribution
           </Link>{" "}

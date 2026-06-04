@@ -23,7 +23,7 @@ export default function BlogHero({ post }: BlogHeroProps) {
   const publishDate = new Date(post.publishedAt);
 
   return (
-    <section className="py-20 bg-gradient-to-br from-black via-gray-900 to-black">
+    <section className="py-20 bg-gradient-to-br from-black via-surface-1 to-black">
       <div className="container mx-auto px-6">
         <div className="max-w-4xl mx-auto">
           {/* Pillar Badge */}
@@ -35,7 +35,7 @@ export default function BlogHero({ post }: BlogHeroProps) {
               {pillarConfig.label}
             </span>
             {post.frameworkUsed && (
-              <span className="px-4 py-2 bg-[#FFD700]/20 border border-[#FFD700]/30 rounded-full text-sm font-semibold text-[#FFD700]">
+              <span className="px-4 py-2 bg-signal-yellow/20 border border-signal-yellow/30 rounded-full text-sm font-semibold text-signal-yellow">
                 {post.frameworkUsed} Framework
               </span>
             )}
@@ -48,15 +48,15 @@ export default function BlogHero({ post }: BlogHeroProps) {
 
           {/* Description */}
           {post.seoDescription && (
-            <p className="text-xl text-gray-300 mb-8 leading-relaxed">
+            <p className="text-xl text-text-muted mb-8 leading-relaxed">
               {post.seoDescription}
             </p>
           )}
 
           {/* Meta Information */}
-          <div className="flex flex-wrap items-center gap-6 text-gray-400 mb-8">
+          <div className="flex flex-wrap items-center gap-6 text-text-muted mb-8">
             <div className="flex items-center gap-2">
-              <span className="text-[#FF4500]">📅</span>
+              <span className="text-signal-yellow">📅</span>
               <time dateTime={post.publishedAt}>
                 {publishDate.toLocaleDateString('en-US', {
                   month: 'long',
@@ -67,19 +67,19 @@ export default function BlogHero({ post }: BlogHeroProps) {
             </div>
             
             <div className="flex items-center gap-2">
-              <span className="text-[#FF4500]">⏱️</span>
+              <span className="text-signal-yellow">⏱️</span>
               <span>{post.readingTime} min read</span>
             </div>
 
             <div className="flex items-center gap-2">
-              <span className="text-[#FF4500]">👨‍💼</span>
+              <span className="text-signal-yellow">👨‍💼</span>
               <span>Audio Jones Team</span>
             </div>
           </div>
 
           {/* Featured Image */}
           {post.ogImage && (
-            <div className="aspect-[16/9] rounded-2xl overflow-hidden border border-gray-800">
+            <div className="aspect-[16/9] rounded-2xl overflow-hidden border border-border-subtle">
               <IKImage
                 src={post.ogImage}
                 alt={post.title}

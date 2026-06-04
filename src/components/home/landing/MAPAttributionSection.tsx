@@ -10,39 +10,39 @@ const CARDS = [
     name: "Meaningful",
     question: "Does this data point actually matter to the business?",
     desc: "Not all data is equal. Meaningful data has a causal relationship with business outcomes — revenue, retention, qualified pipeline. If a metric cannot be traced to an economic consequence, it is not meaningful.",
-    accent: "#C8A96A",
-    border: "rgba(200,169,106,0.35)",
-    bg: "linear-gradient(180deg, rgba(200,169,106,0.07), rgba(11,15,26,0.96))",
-    glow: "0 0 24px rgba(200,169,106,0.12), inset 0 1px 0 rgba(255,255,255,0.04)",
-    badgeBg: "rgba(200,169,106,0.10)",
-    badgeBorder: "rgba(200,169,106,0.35)",
-    badgeGlow: "0 0 16px rgba(200,169,106,0.20)",
+    accent: "#E8FF5A",
+    border: "rgba(232,255,90,0.35)",
+    bg: "linear-gradient(180deg, rgba(232,255,90,0.07), rgba(15,15,15,0.96))",
+    glow: "0 0 24px rgba(232,255,90,0.12), inset 0 1px 0 rgba(255,255,255,0.04)",
+    badgeBg: "rgba(232,255,90,0.10)",
+    badgeBorder: "rgba(232,255,90,0.35)",
+    badgeGlow: "0 0 16px rgba(232,255,90,0.20)",
   },
   {
     letter: "A",
     name: "Actionable",
     question: "Can we do something with this insight immediately?",
     desc: "Actionable intelligence changes behavior — it shifts budget, modifies messaging, restructures a channel, or adjusts a process. Data that generates a report but no decision is not actionable.",
-    accent: "#3B5BFF",
-    border: "rgba(59,91,255,0.38)",
-    bg: "linear-gradient(180deg, rgba(59,91,255,0.08), rgba(11,15,26,0.96))",
-    glow: "0 0 24px rgba(59,91,255,0.16), inset 0 1px 0 rgba(255,255,255,0.04)",
-    badgeBg: "rgba(59,91,255,0.12)",
-    badgeBorder: "rgba(59,91,255,0.40)",
-    badgeGlow: "0 0 16px rgba(59,91,255,0.24)",
+    accent: "#4DACFF",
+    border: "rgba(77,172,255,0.38)",
+    bg: "linear-gradient(180deg, rgba(77,172,255,0.08), rgba(15,15,15,0.96))",
+    glow: "0 0 24px rgba(77,172,255,0.16), inset 0 1px 0 rgba(255,255,255,0.04)",
+    badgeBg: "rgba(77,172,255,0.12)",
+    badgeBorder: "rgba(77,172,255,0.40)",
+    badgeGlow: "0 0 16px rgba(77,172,255,0.24)",
   },
   {
     letter: "P",
     name: "Profitable",
     question: "Does this create or improve ROI?",
     desc: "Profitable inputs drive economic output. If a metric is not tied to a revenue-generating or cost-reducing lever, it should not be a decision driver — regardless of how frequently it appears in your dashboard.",
-    accent: "#FF4500",
-    border: "rgba(255,69,0,0.35)",
-    bg: "linear-gradient(180deg, rgba(255,69,0,0.08), rgba(11,15,26,0.96))",
-    glow: "0 0 24px rgba(255,69,0,0.12), inset 0 1px 0 rgba(255,255,255,0.04)",
-    badgeBg: "rgba(255,69,0,0.10)",
-    badgeBorder: "rgba(255,69,0,0.38)",
-    badgeGlow: "0 0 16px rgba(255,69,0,0.20)",
+    accent: "#E8FF5A",
+    border: "rgba(232,255,90,0.35)",
+    bg: "linear-gradient(180deg, rgba(232,255,90,0.08), rgba(15,15,15,0.96))",
+    glow: "0 0 24px rgba(232,255,90,0.12), inset 0 1px 0 rgba(255,255,255,0.04)",
+    badgeBg: "rgba(232,255,90,0.10)",
+    badgeBorder: "rgba(232,255,90,0.38)",
+    badgeGlow: "0 0 16px rgba(232,255,90,0.20)",
   },
 ];
 
@@ -61,7 +61,7 @@ export default function MAPAttributionSection() {
         className="pointer-events-none absolute inset-0 -z-10"
         style={{
           background:
-            "radial-gradient(ellipse 60% 40% at 50% 60%, rgba(59,91,255,0.07), transparent 65%)",
+            "radial-gradient(ellipse 60% 40% at 50% 60%, rgba(77,172,255,0.07), transparent 65%)",
         }}
       />
 
@@ -89,7 +89,7 @@ export default function MAPAttributionSection() {
               maxWidth: "1080px",
               border: "1px solid rgba(255,255,255,0.08)",
               boxShadow:
-                "0 0 48px -16px rgba(255,69,0,0.12), 0 0 48px -16px rgba(59,91,255,0.14), 0 8px 40px rgba(0,0,0,0.35)",
+                "0 0 48px -16px rgba(232,255,90,0.12), 0 0 48px -16px rgba(77,172,255,0.14), 0 8px 40px rgba(0,0,0,0.35)",
             }}
           >
             <Image
@@ -161,7 +161,7 @@ export default function MAPAttributionSection() {
                   fontSize: "15px",
                   fontWeight: 700,
                   lineHeight: 1.4,
-                  color: "#E5E7EB",
+                  color: "var(--text-primary)",
                 }}
               >
                 {card.question}
@@ -174,7 +174,7 @@ export default function MAPAttributionSection() {
                   fontFamily: "var(--font-body)",
                   fontSize: "12px",
                   lineHeight: 1.65,
-                  color: "#94A3B8",
+                  color: "var(--fg-2)",
                 }}
               >
                 {card.desc}
@@ -198,7 +198,7 @@ export default function MAPAttributionSection() {
             }}
           >
             If a metric is not meaningful, actionable, and profitable,{" "}
-            <span className="font-semibold text-aj-orange">
+            <span className="font-semibold text-signal-yellow">
               it should not drive strategy.
             </span>
           </p>

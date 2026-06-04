@@ -19,7 +19,7 @@ const stats = [
     metric: "Pipeline Growth",
     display: "↑ 28%",
     label: "Qualified pipeline per quarter",
-    accent: "#94A3B8",
+    accent: "#666666",
   },
   {
     metric: "Conversion Rate",
@@ -31,7 +31,7 @@ const stats = [
     metric: "Decision Clarity",
     display: "1 Signal Map",
     label: "One signal map, one model",
-    accent: "#94A3B8",
+    accent: "#666666",
   },
 ];
 
@@ -53,7 +53,7 @@ export default function ProofStats() {
     <section
       id="proof"
       className="overflow-hidden border-t border-[var(--line-2)] py-24 sm:py-32"
-      style={{ position: "relative", background: "#050710" }}
+      style={{ position: "relative", background: "#080808" }}
     >
       {/* ── z:1 Background image ── */}
       <div
@@ -308,20 +308,20 @@ function PerfCard({
 
   const ringGradient = isAfter
     ? "linear-gradient(135deg, #4DACFF 0%, #E8FF5A 60%, #4DACFF 100%)"
-    : "linear-gradient(135deg, rgba(148,163,184,0.45) 0%, rgba(148,163,184,0.25) 55%, rgba(148,163,184,0.15) 100%)";
+    : "linear-gradient(135deg, rgba(102,102,102,0.45) 0%, rgba(102,102,102,0.25) 55%, rgba(102,102,102,0.15) 100%)";
 
   const iconBg = isAfter
     ? "linear-gradient(135deg, #4DACFF, #E8FF5A)"
-    : "linear-gradient(135deg, #94A3B8, #6B7280)";
+    : "linear-gradient(135deg, #666666, #4A4A4A)";
 
-  const accent = isAfter ? "var(--aj-blue)" : "#94A3B8";
+  const accent = isAfter ? "var(--aj-blue)" : "#666666";
 
   const statusDotColor = isAfter ? "var(--aj-success)" : "var(--accent-amber)";
   const statusFg = isAfter
     ? "var(--aj-success)"
     : "var(--accent-amber)";
   const statusBg = isAfter
-    ? "rgba(0,204,102,0.10)"
+    ? "rgba(61,255,176,0.10)"
     : "rgba(255,179,64,0.10)";
 
   return (
@@ -413,7 +413,7 @@ function PerfCard({
               className="rounded-lg border p-3"
               style={{
                 background: "rgba(10,14,28,0.72)",
-                borderColor: "rgba(148,163,184,0.12)",
+                borderColor: "rgba(102,102,102,0.12)",
               }}
             >
               <p className="font-mono text-[10px] font-bold uppercase tracking-[0.12em] text-fg-3">
@@ -471,7 +471,7 @@ function PerfCard({
         </ul>
 
         {/* Footer */}
-        <div className="mt-5 flex items-center justify-between border-t border-[rgba(148,163,184,0.10)] pt-4">
+        <div className="mt-5 flex items-center justify-between border-t border-[rgba(102,102,102,0.10)] pt-4">
           <span className="font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-fg-3">
             {range}
           </span>
@@ -527,7 +527,7 @@ function ChaoticChart() {
           y1={y}
           x2="640"
           y2={y}
-          stroke="#94A3B8"
+          stroke="#666666"
           strokeWidth="1"
           opacity="0.12"
           vectorEffect="non-scaling-stroke"
@@ -540,16 +540,16 @@ function ChaoticChart() {
           y1="0"
           x2={x}
           y2="280"
-          stroke="#94A3B8"
+          stroke="#666666"
           strokeWidth="1"
           opacity="0.08"
           vectorEffect="non-scaling-stroke"
         />
       ))}
-      <text x="8" y="22" fill="#94A3B8" opacity=".6" fontFamily="ui-monospace, monospace" fontSize="11">
+      <text x="8" y="22" fill="#666666" opacity=".6" fontFamily="ui-monospace, monospace" fontSize="11">
         NOISE
       </text>
-      <text x="570" y="264" fill="#94A3B8" opacity=".6" fontFamily="ui-monospace, monospace" fontSize="11">
+      <text x="570" y="264" fill="#666666" opacity=".6" fontFamily="ui-monospace, monospace" fontSize="11">
         TIME
       </text>
       {bars.map((b, i) => (
@@ -566,7 +566,7 @@ function ChaoticChart() {
       <path
         d={line}
         fill="none"
-        stroke="#94A3B8"
+        stroke="#666666"
         strokeWidth="3"
         strokeLinejoin="round"
         opacity="0.88"
@@ -600,8 +600,8 @@ function CleanChart() {
     >
       <defs>
         <linearGradient id="cleanFill2" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#3B5BFF" stopOpacity="0.22" />
-          <stop offset="100%" stopColor="#3B5BFF" stopOpacity="0" />
+          <stop offset="0%" stopColor="#4DACFF" stopOpacity="0.22" />
+          <stop offset="100%" stopColor="#4DACFF" stopOpacity="0" />
         </linearGradient>
       </defs>
       {/* Grid lines */}
@@ -612,7 +612,7 @@ function CleanChart() {
           y1={y}
           x2="640"
           y2={y}
-          stroke="#3B5BFF"
+          stroke="#4DACFF"
           strokeWidth="1"
           opacity="0.14"
           vectorEffect="non-scaling-stroke"
@@ -625,16 +625,16 @@ function CleanChart() {
           y1="0"
           x2={x}
           y2="280"
-          stroke="#3B5BFF"
+          stroke="#4DACFF"
           strokeWidth="1"
           opacity="0.08"
           vectorEffect="non-scaling-stroke"
         />
       ))}
-      <text x="8" y="22" fill="#3B5BFF" opacity=".72" fontFamily="ui-monospace, monospace" fontSize="11">
+      <text x="8" y="22" fill="#4DACFF" opacity=".72" fontFamily="ui-monospace, monospace" fontSize="11">
         SIGNAL
       </text>
-      <text x="548" y="264" fill="#3B5BFF" opacity=".72" fontFamily="ui-monospace, monospace" fontSize="11">
+      <text x="548" y="264" fill="#4DACFF" opacity=".72" fontFamily="ui-monospace, monospace" fontSize="11">
         REVENUE
       </text>
       {/* Area fill */}
@@ -643,14 +643,14 @@ function CleanChart() {
       <path
         d={curve}
         fill="none"
-        stroke="#3B5BFF"
+        stroke="#4DACFF"
         strokeWidth="3.5"
         strokeLinejoin="round"
         vectorEffect="non-scaling-stroke"
       />
       {/* Nodes */}
       {nodes.map((n, i) => (
-        <circle key={i} cx={n.x} cy={n.y} r="7" fill="#3B5BFF" />
+        <circle key={i} cx={n.x} cy={n.y} r="7" fill="#4DACFF" />
       ))}
     </svg>
   );

@@ -19,11 +19,11 @@ export default function ProcessSteps() {
         {STEPS.map((s) => (
           <li
             key={s.n}
-            className="rounded-lg border border-white/10 bg-[#0B1020] p-6"
+            className="rounded-lg border border-border-subtle bg-surface-1 p-6"
           >
-            <p className="mb-2 text-xs font-mono text-[#C8A96A]">{s.n}</p>
+            <p className="mb-2 text-xs font-mono text-signal-yellow">{s.n}</p>
             <h3 className="mb-2 text-lg font-semibold text-white">{s.title}</h3>
-            <p className="text-sm text-slate-400">{s.body}</p>
+            <p className="text-sm text-text-muted">{s.body}</p>
           </li>
         ))}
       </ol>

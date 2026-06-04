@@ -130,13 +130,13 @@ export default function AuthForm({ mode }: { mode: "login" | "register" }) {
         onChange={(e) => setPassword(e.target.value)}
         required
       />
-      {error && <p className="text-red-400 text-sm">{error}</p>}
-      {resetSent && <p className="text-green-400 text-sm">Reset email sent!</p>}
+      {error && <p className="text-accent-red text-sm">{error}</p>}
+      {resetSent && <p className="text-accent-green text-sm">Reset email sent!</p>}
 
       <button
         type="submit"
         disabled={loading}
-        className="rounded-full bg-gradient-to-r from-[#FF4500] to-[#FFD700] text-black font-semibold py-2.5 hover:opacity-90 transition"
+        className="rounded-full bg-signal-yellow text-bg-base font-semibold py-2.5 hover:bg-signal-soft transition"
       >
         {loading ? "Processing..." : mode === "login" ? "Log In" : "Create Account"}
       </button>
@@ -145,7 +145,7 @@ export default function AuthForm({ mode }: { mode: "login" | "register" }) {
         <button
           type="button"
           onClick={handleReset}
-          className="text-xs text-[#FFD700] underline mt-1 self-end"
+          className="text-xs text-signal-yellow underline mt-1 self-end"
         >
           Forgot Password?
         </button>
