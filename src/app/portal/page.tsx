@@ -100,7 +100,7 @@ export default function PortalDashboard() {
       case 'payment': return 'text-green-400';
       case 'meeting': return 'text-blue-400';
       case 'milestone': return 'text-purple-400';
-      default: return 'text-gray-400';
+      default: return 'text-text-muted';
     }
   };
 
@@ -111,7 +111,7 @@ export default function PortalDashboard() {
         <h1 className="text-3xl font-bold text-white">
           Welcome back, {user?.displayName || user?.email?.split('@')[0]}
         </h1>
-        <p className="mt-2 text-gray-400">
+        <p className="mt-2 text-text-muted">
           Here's what needs your attention today
         </p>
       </div>
@@ -147,7 +147,7 @@ export default function PortalDashboard() {
               </div>
             </div>
             <div className="ml-4">
-              <p className="text-sm font-medium text-gray-300">Active Projects</p>
+              <p className="text-sm font-medium text-text-primary">Active Projects</p>
               <p className="text-2xl font-bold text-white">{dashboardData?.projectSummary.active || 0}</p>
             </div>
           </div>
@@ -161,7 +161,7 @@ export default function PortalDashboard() {
               </div>
             </div>
             <div className="ml-4">
-              <p className="text-sm font-medium text-gray-300">Pending Approvals</p>
+              <p className="text-sm font-medium text-text-primary">Pending Approvals</p>
               <p className="text-2xl font-bold text-white">{dashboardData?.projectSummary.pendingApprovals || 0}</p>
             </div>
           </div>
@@ -175,7 +175,7 @@ export default function PortalDashboard() {
               </div>
             </div>
             <div className="ml-4">
-              <p className="text-sm font-medium text-gray-300">Completed</p>
+              <p className="text-sm font-medium text-text-primary">Completed</p>
               <p className="text-2xl font-bold text-white">{dashboardData?.projectSummary.completed || 0}</p>
             </div>
           </div>
@@ -192,7 +192,7 @@ export default function PortalDashboard() {
               </div>
             </div>
             <div className="ml-4">
-              <p className="text-sm font-medium text-gray-300">Billing Status</p>
+              <p className="text-sm font-medium text-text-primary">Billing Status</p>
               <p className="text-lg font-bold text-white capitalize">
                 {dashboardData?.billingStatus.status || 'Unknown'}
               </p>
@@ -218,7 +218,7 @@ export default function PortalDashboard() {
                       <div>
                         <p className="font-medium text-white">{action.title}</p>
                         {action.dueDate && (
-                          <p className="text-sm text-gray-400">Due: {action.dueDate}</p>
+                          <p className="text-sm text-text-muted">Due: {action.dueDate}</p>
                         )}
                       </div>
                     </div>
@@ -228,7 +228,7 @@ export default function PortalDashboard() {
                   </div>
                 ))
               ) : (
-                <p className="text-gray-400">No pending actions</p>
+                <p className="text-text-muted">No pending actions</p>
               )}
             </div>
           </div>
@@ -243,7 +243,7 @@ export default function PortalDashboard() {
                 dashboardData.upcomingMeetings.map((meeting) => (
                   <div key={meeting.id} className="border-b border-gray-700 pb-3 last:border-b-0 last:pb-0">
                     <p className="font-medium text-white">{meeting.title}</p>
-                    <p className="text-sm text-gray-400">{meeting.date}</p>
+                    <p className="text-sm text-text-muted">{meeting.date}</p>
                     {meeting.meetingLink && (
                       <a
                         href={meeting.meetingLink}
@@ -257,7 +257,7 @@ export default function PortalDashboard() {
                   </div>
                 ))
               ) : (
-                <p className="text-gray-400">No upcoming meetings</p>
+                <p className="text-text-muted">No upcoming meetings</p>
               )}
             </div>
             <div className="mt-4">
@@ -281,15 +281,15 @@ export default function PortalDashboard() {
               <div key={activity.id} className="flex items-center justify-between">
                 <div>
                   <p className="text-white">{activity.action}</p>
-                  <p className="text-sm text-gray-400">{activity.date}</p>
+                  <p className="text-sm text-text-muted">{activity.date}</p>
                 </div>
-                <span className="rounded-full bg-gray-700 px-2 py-1 text-xs text-gray-300 capitalize">
+                <span className="rounded-full bg-gray-700 px-2 py-1 text-xs text-text-primary capitalize">
                   {activity.type}
                 </span>
               </div>
             ))
           ) : (
-            <p className="text-gray-400">No recent activity</p>
+            <p className="text-text-muted">No recent activity</p>
           )}
         </div>
       </div>

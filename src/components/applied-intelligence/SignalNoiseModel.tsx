@@ -3,8 +3,8 @@ import SectionShell from "./SectionShell";
 const COLUMNS = [
   {
     label: "Signal",
-    color: "border-[#3B5BFF]/40 bg-[#0B1020]",
-    eyebrow: "text-[#3B5BFF]",
+    color: "border-accent-blue/40 bg-surface-1",
+    eyebrow: "text-accent-blue",
     title: "Causal inputs tied to outcomes.",
     items: [
       "Lead source that produces revenue",
@@ -14,8 +14,8 @@ const COLUMNS = [
   },
   {
     label: "Acceptable noise",
-    color: "border-[#C8A96A]/40 bg-[#101827]",
-    eyebrow: "text-[#C8A96A]",
+    color: "border-signal-yellow/40 bg-surface-2",
+    eyebrow: "text-signal-yellow",
     title: "Unavoidable complexity that reveals what matters.",
     items: [
       "Variance you measure on purpose",
@@ -25,8 +25,8 @@ const COLUMNS = [
   },
   {
     label: "Noise",
-    color: "border-white/10 bg-[#0B1020]",
-    eyebrow: "text-slate-400",
+    color: "border-border-subtle bg-surface-1",
+    eyebrow: "text-text-muted",
     title: "Activity that obscures judgment.",
     items: [
       "Vanity metrics, fragmented dashboards",
@@ -55,7 +55,7 @@ export default function SignalNoiseModel() {
               {c.label}
             </p>
             <h3 className="mb-4 text-lg font-semibold text-white">{c.title}</h3>
-            <ul className="space-y-2 text-sm text-slate-300">
+            <ul className="space-y-2 text-sm text-text-primary">
               {c.items.map((i) => (
                 <li key={i}>— {i}</li>
               ))}

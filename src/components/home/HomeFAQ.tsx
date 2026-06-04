@@ -42,30 +42,30 @@ export default function HomeFAQ() {
   }
 
   return (
-    <section className="py-16 sm:py-20 lg:py-24 bg-gray-950">
+    <section className="py-16 sm:py-20 lg:py-24 bg-bg-base">
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <p className="text-sm font-bold uppercase tracking-widest text-[#FF4500] mb-4">FAQ</p>
+          <p className="text-sm font-bold uppercase tracking-widest text-signal-yellow mb-4">FAQ</p>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white">
             Frequently Asked Questions
           </h2>
-          <p className="mt-6 text-lg leading-8 text-gray-300 max-w-2xl mx-auto">
+          <p className="mt-6 text-lg leading-8 text-text-muted max-w-2xl mx-auto">
             Get answers to the most common questions about our AI systems and automation services.
           </p>
         </div>
 
         <div className="space-y-4">
           {faqs.map((faq, index) => (
-            <div key={index} className="border border-gray-800 rounded-xl overflow-hidden">
+            <div key={index} className="border border-border-subtle rounded-xl overflow-hidden">
               <button
-                className="w-full px-6 py-5 text-left bg-gray-900/50 hover:bg-gray-900/70 transition-colors duration-200 flex items-center justify-between"
+                className="w-full px-6 py-5 text-left bg-surface-1 hover:bg-surface-2 transition-colors duration-200 flex items-center justify-between"
                 onClick={() => toggleFAQ(index)}
               >
                 <span className="text-lg font-semibold text-white">
                   {faq.question}
                 </span>
                 <svg
-                  className={`w-5 h-5 text-gray-400 transition-transform duration-200 ${
+                  className={`w-5 h-5 text-text-muted transition-transform duration-200 ${
                     openIndex === index ? 'rotate-180' : ''
                   }`}
                   fill="none"
@@ -76,8 +76,8 @@ export default function HomeFAQ() {
                 </svg>
               </button>
               {openIndex === index && (
-                <div className="px-6 py-5 bg-gray-900/30 border-t border-gray-800">
-                  <p className="text-gray-300 leading-relaxed">
+                <div className="px-6 py-5 bg-surface-1 border-t border-border-subtle">
+                  <p className="text-text-muted leading-relaxed">
                     {faq.answer}
                   </p>
                 </div>
@@ -87,10 +87,10 @@ export default function HomeFAQ() {
         </div>
 
         <div className="mt-12 text-center">
-          <p className="text-gray-400 mb-6">Still have questions?</p>
-          <a 
-            href="/book" 
-            className="inline-flex h-12 items-center justify-center rounded-full px-8 bg-gradient-to-r from-[#FF4500] to-[#FFD700] text-black text-sm font-bold tracking-wide hover:scale-105 transition"
+          <p className="text-text-muted mb-6">Still have questions?</p>
+          <a
+            href="/book"
+            className="inline-flex h-12 items-center justify-center rounded-full px-8 bg-signal-yellow hover:bg-signal-soft text-black text-sm font-bold tracking-wide hover:scale-105 transition"
           >
             Book a Strategy Call
           </a>

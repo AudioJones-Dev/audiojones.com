@@ -26,13 +26,13 @@ export default function NotAuthorizedPage() {
 
         <div className="flex items-center justify-center gap-3">
           <a href="/portal" className="rounded-xl px-4 py-2 border">Back to Portal</a>
-          <a href="/login?next=/portal/admin" className="rounded-xl px-4 py-2 text-white"
-             style={{ backgroundColor: "var(--aj-primary, #FF4500)" }}>
+          <a href="/login?next=/portal/admin" className="rounded-xl px-4 py-2 text-black"
+             style={{ backgroundColor: "var(--aj-primary, #E8FF5A)" }}>
             Switch Account
           </a>
         </div>
       </div>
-      <style>{`:root{--aj-primary:#FF4500}`}</style>
+      <style>{`:root{--aj-primary:#E8FF5A}`}</style>
     </main>
   );
 }

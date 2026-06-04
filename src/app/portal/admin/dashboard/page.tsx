@@ -34,12 +34,12 @@ export default async function AdminDashboard() {
   }) => (
     <Card className="bg-gray-900 border-gray-700">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="text-sm font-medium text-gray-300">{title}</CardTitle>
-        <Icon className="h-4 w-4 text-gray-400" />
+        <CardTitle className="text-sm font-medium text-text-primary">{title}</CardTitle>
+        <Icon className="h-4 w-4 text-text-muted" />
       </CardHeader>
       <CardContent>
         <div className="text-2xl font-bold text-white">{value}</div>
-        <p className="text-xs text-gray-500 mt-1">{description}</p>
+        <p className="text-xs text-text-muted mt-1">{description}</p>
         {trend !== undefined && (
           <div className="flex items-center mt-2">
             <TrendingUp className={`h-3 w-3 mr-1 ${trend > 0 ? 'text-green-400' : 'text-red-400'}`} />
@@ -58,11 +58,11 @@ export default async function AdminDashboard() {
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold text-white">Dashboard</h1>
-          <p className="text-gray-400 mt-1">
+          <p className="text-text-muted mt-1">
             Overview of your AudioJones.com admin portal
           </p>
         </div>
-        <div className="text-sm text-gray-500">
+        <div className="text-sm text-text-muted">
           Last updated: {new Date().toLocaleString()}
         </div>
       </div>
@@ -102,25 +102,25 @@ export default async function AdminDashboard() {
         <Card className="bg-gray-900 border-gray-700">
           <CardHeader>
             <CardTitle className="text-lg text-white">Event Breakdown</CardTitle>
-            <CardDescription className="text-gray-400">
+            <CardDescription className="text-text-muted">
               Subscription event types
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-3">
             <div className="flex justify-between items-center">
-              <span className="text-gray-300">Payments</span>
+              <span className="text-text-primary">Payments</span>
               <Badge variant="secondary" className="bg-green-900 text-green-100">
                 {stats.eventCounts.payments}
               </Badge>
             </div>
             <div className="flex justify-between items-center">
-              <span className="text-gray-300">Subscriptions</span>
+              <span className="text-text-primary">Subscriptions</span>
               <Badge variant="secondary" className="bg-blue-900 text-blue-100">
                 {stats.eventCounts.subscriptions}
               </Badge>
             </div>
             <div className="flex justify-between items-center">
-              <span className="text-gray-300">Cancellations</span>
+              <span className="text-text-primary">Cancellations</span>
               <Badge variant="secondary" className="bg-red-900 text-red-100">
                 {stats.eventCounts.cancellations}
               </Badge>
@@ -132,7 +132,7 @@ export default async function AdminDashboard() {
         <Card className="bg-gray-900 border-gray-700 lg:col-span-2">
           <CardHeader>
             <CardTitle className="text-lg text-white">Recent Activity</CardTitle>
-            <CardDescription className="text-gray-400">
+            <CardDescription className="text-text-muted">
               Latest subscription events
             </CardDescription>
           </CardHeader>
@@ -147,14 +147,14 @@ export default async function AdminDashboard() {
                         className={`text-xs ${
                           event.event_type && typeof event.event_type === 'string' && event.event_type.includes('payment') ? 'border-green-500 text-green-400' :
                           event.event_type && typeof event.event_type === 'string' && event.event_type.includes('subscription') ? 'border-blue-500 text-blue-400' :
-                          'border-gray-500 text-gray-400'
+                          'border-gray-500 text-text-muted'
                         }`}
                       >
                         {event.event_type || 'unknown'}
                       </Badge>
-                      <span className="text-sm text-gray-300">{event.customer_email}</span>
+                      <span className="text-sm text-text-primary">{event.customer_email}</span>
                     </div>
-                    <div className="text-xs text-gray-500 mt-1">
+                    <div className="text-xs text-text-muted mt-1">
                       {event.timestamp && typeof event.timestamp === 'string' ? new Date(event.timestamp).toLocaleString() : 'No timestamp'}
                     </div>
                   </div>
@@ -166,7 +166,7 @@ export default async function AdminDashboard() {
                 </div>
               ))}
               {stats.recentEvents.length === 0 && (
-                <div className="text-center py-4 text-gray-500">
+                <div className="text-center py-4 text-text-muted">
                   <AlertCircle className="h-6 w-6 mx-auto mb-2" />
                   No recent events
                 </div>
@@ -180,7 +180,7 @@ export default async function AdminDashboard() {
       <Card className="bg-gray-900 border-gray-700">
         <CardHeader>
           <CardTitle className="text-lg text-white">Quick Actions</CardTitle>
-          <CardDescription className="text-gray-400">
+          <CardDescription className="text-text-muted">
             Common administrative tasks
           </CardDescription>
         </CardHeader>

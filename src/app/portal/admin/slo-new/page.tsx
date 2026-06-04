@@ -143,7 +143,7 @@ export default function SLODashboard() {
       case 'healthy': return 'text-green-500';
       case 'warning': return 'text-yellow-500';
       case 'critical': return 'text-red-500';
-      default: return 'text-gray-500';
+      default: return 'text-text-muted';
     }
   };
 
@@ -187,7 +187,7 @@ export default function SLODashboard() {
       <div className="max-w-7xl mx-auto">
         <div className="mb-8">
           <h1 className="text-3xl font-bold mb-2">SLO & Auto-Credits Dashboard</h1>
-          <p className="text-gray-400">
+          <p className="text-text-muted">
             Service Level Objectives monitoring with automated credit issuance
           </p>
         </div>
@@ -204,7 +204,7 @@ export default function SLODashboard() {
             <div className="bg-gray-900 p-6 rounded-lg border border-gray-800">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-400">Overall Health</p>
+                  <p className="text-sm text-text-muted">Overall Health</p>
                   <p className={`text-2xl font-bold ${getHealthColor(dashboardData.overall_health)}`}>
                     {dashboardData.overall_health.toUpperCase()}
                   </p>
@@ -221,7 +221,7 @@ export default function SLODashboard() {
             <div className="bg-gray-900 p-6 rounded-lg border border-gray-800">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-400">Active Violations</p>
+                  <p className="text-sm text-text-muted">Active Violations</p>
                   <p className="text-2xl font-bold">{dashboardData.active_violations}</p>
                 </div>
                 <div className="w-12 h-12 bg-red-500/20 rounded-full flex items-center justify-center">
@@ -233,7 +233,7 @@ export default function SLODashboard() {
             <div className="bg-gray-900 p-6 rounded-lg border border-gray-800">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-400">Credits This Month</p>
+                  <p className="text-sm text-text-muted">Credits This Month</p>
                   <p className="text-2xl font-bold">${dashboardData.credits_issued_this_month}</p>
                 </div>
                 <div className="w-12 h-12 bg-green-500/20 rounded-full flex items-center justify-center">
@@ -245,9 +245,9 @@ export default function SLODashboard() {
             <div className="bg-gray-900 p-6 rounded-lg border border-gray-800">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-400">Error Budget</p>
+                  <p className="text-sm text-text-muted">Error Budget</p>
                   <p className="text-2xl font-bold">{Math.round(100 - dashboardData.error_budget_summary.consumed_percentage)}%</p>
-                  <p className="text-xs text-gray-400">
+                  <p className="text-xs text-text-muted">
                     {getTrendIcon(dashboardData.error_budget_summary.burn_rate_trend)} {dashboardData.error_budget_summary.burn_rate_trend}
                   </p>
                 </div>
@@ -282,13 +282,13 @@ export default function SLODashboard() {
             {lastEvaluation && (
               <div className="mt-4 p-4 bg-gray-800 rounded">
                 <h4 className="text-sm font-medium mb-2">Last Evaluation Results:</h4>
-                <div className="text-sm text-gray-300 grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="text-sm text-text-primary grid grid-cols-2 md:grid-cols-4 gap-4">
                   <div>SLOs Evaluated: <span className="font-medium">{lastEvaluation.results.slos_evaluated}</span></div>
                   <div>Violations: <span className="font-medium text-red-400">{lastEvaluation.results.violations_detected}</span></div>
                   <div>Credits Issued: <span className="font-medium text-green-400">{lastEvaluation.results.credits_issued}</span></div>
                   <div>Total Credits: <span className="font-medium">${lastEvaluation.results.total_credit_amount}</span></div>
                 </div>
-                <div className="text-xs text-gray-400 mt-2">
+                <div className="text-xs text-text-muted mt-2">
                   Executed in {lastEvaluation.execution_time_ms}ms at {new Date(lastEvaluation.completed_at).toLocaleString()}
                 </div>
               </div>
@@ -311,7 +311,7 @@ export default function SLODashboard() {
                 className={`py-4 px-1 border-b-2 font-medium text-sm ${
                   activeTab === tab.id
                     ? 'border-white text-white'
-                    : 'border-transparent text-gray-400 hover:text-gray-300 hover:border-gray-300'
+                    : 'border-transparent text-text-muted hover:text-text-primary hover:border-gray-300'
                 }`}
               >
                 <span className="mr-2">{tab.icon}</span>
@@ -330,7 +330,7 @@ export default function SLODashboard() {
               <div className="bg-gray-900 p-8 rounded-lg border border-gray-800 text-center">
                 <div className="text-4xl mb-4">📊</div>
                 <h3 className="text-xl font-semibold mb-2">No SLOs Configured</h3>
-                <p className="text-gray-400">Configure SLOs to start monitoring service reliability.</p>
+                <p className="text-text-muted">Configure SLOs to start monitoring service reliability.</p>
               </div>
             ) : (
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -339,7 +339,7 @@ export default function SLODashboard() {
                     <div className="flex items-start justify-between mb-4">
                       <div>
                         <h4 className="text-lg font-semibold">{slo.name}</h4>
-                        <p className="text-sm text-gray-400">Target: {slo.target}%</p>
+                        <p className="text-sm text-text-muted">Target: {slo.target}%</p>
                       </div>
                       <span className={`px-2 py-1 rounded text-xs font-medium ${getStatusColor(slo.status)}`}>
                         {slo.status.toUpperCase()}
@@ -363,13 +363,13 @@ export default function SLODashboard() {
                       </div>
 
                       <div className="flex justify-between text-sm">
-                        <span className="text-gray-400">Burn Rate:</span>
+                        <span className="text-text-muted">Burn Rate:</span>
                         <span className="font-medium">{slo.burn_rate.toFixed(1)}%</span>
                       </div>
 
                       {slo.time_to_exhaustion && (
                         <div className="flex justify-between text-sm">
-                          <span className="text-gray-400">Time to Exhaustion:</span>
+                          <span className="text-text-muted">Time to Exhaustion:</span>
                           <span className="font-medium text-yellow-400">
                             {Math.round((slo.time_to_exhaustion - Date.now()) / (24 * 60 * 60 * 1000))} days
                           </span>
@@ -387,7 +387,7 @@ export default function SLODashboard() {
           <div className="space-y-6">
             <div className="flex justify-between items-center">
               <h3 className="text-xl font-semibold">SLO Violations</h3>
-              <div className="text-sm text-gray-400">
+              <div className="text-sm text-text-muted">
                 Showing {violations.length} recent violations
               </div>
             </div>
@@ -396,7 +396,7 @@ export default function SLODashboard() {
               <div className="bg-gray-900 p-8 rounded-lg border border-gray-800 text-center">
                 <div className="text-4xl mb-4">✅</div>
                 <h3 className="text-xl font-semibold mb-2">No SLO Violations</h3>
-                <p className="text-gray-400">All SLOs are currently meeting their targets.</p>
+                <p className="text-text-muted">All SLOs are currently meeting their targets.</p>
               </div>
             ) : (
               <div className="space-y-4">
@@ -416,7 +416,7 @@ export default function SLODashboard() {
                           )}
                         </div>
                         <p className="text-white mb-2">{violation.impact_description}</p>
-                        <div className="flex items-center gap-4 text-sm text-gray-400">
+                        <div className="flex items-center gap-4 text-sm text-text-muted">
                           <span>Started: {new Date(violation.started_at).toLocaleString()}</span>
                           {violation.duration_minutes && (
                             <span>Duration: {violation.duration_minutes} min</span>
@@ -432,7 +432,7 @@ export default function SLODashboard() {
                         <div className="text-sm">
                           <span className="text-green-400 font-medium">Credit Issued: </span>
                           <span className="text-white">${violation.credit_amount}</span>
-                          <span className="text-gray-400 ml-2">for SLO breach</span>
+                          <span className="text-text-muted ml-2">for SLO breach</span>
                         </div>
                       </div>
                     )}
@@ -447,7 +447,7 @@ export default function SLODashboard() {
           <div className="space-y-6">
             <div className="flex justify-between items-center">
               <h3 className="text-xl font-semibold">Credit Issuance Log</h3>
-              <div className="text-sm text-gray-400">
+              <div className="text-sm text-text-muted">
                 Total: ${credits.reduce((sum, c) => sum + c.amount, 0)}
               </div>
             </div>
@@ -456,7 +456,7 @@ export default function SLODashboard() {
               <div className="bg-gray-900 p-8 rounded-lg border border-gray-800 text-center">
                 <div className="text-4xl mb-4">💳</div>
                 <h3 className="text-xl font-semibold mb-2">No Credits Issued</h3>
-                <p className="text-gray-400">No credits have been issued for SLO breaches yet.</p>
+                <p className="text-text-muted">No credits have been issued for SLO breaches yet.</p>
               </div>
             ) : (
               <div className="space-y-4">
@@ -478,7 +478,7 @@ export default function SLODashboard() {
                           )}
                         </div>
                         <p className="text-white mb-2">{credit.description}</p>
-                        <div className="flex items-center gap-4 text-sm text-gray-400">
+                        <div className="flex items-center gap-4 text-sm text-text-muted">
                           <span>Issued: {new Date(credit.issued_at).toLocaleString()}</span>
                           <span>By: {credit.issued_by}</span>
                           <span>Reason: {credit.reason.replace('_', ' ')}</span>
@@ -516,7 +516,7 @@ export default function SLODashboard() {
                         ></div>
                       </div>
                     </div>
-                    <div className="text-sm text-gray-400">
+                    <div className="text-sm text-text-muted">
                       Burn Rate: {slo.burn_rate.toFixed(1)}%/day
                     </div>
                   </div>

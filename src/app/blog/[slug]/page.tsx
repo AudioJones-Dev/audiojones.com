@@ -86,7 +86,7 @@ export default async function BlogPostPage({
   const cluster = post.topicCluster;
 
   return (
-    <div className="min-h-screen" style={{ background: "#05070F" }}>
+    <div className="min-h-screen" style={{ background: "#080808" }}>
       {/* ── JSON-LD ── */}
       <JsonLd
         data={articleJsonLd({
@@ -165,9 +165,9 @@ export default async function BlogPostPage({
           <div
             className="mt-6 rounded-xl p-5"
             style={{
-              background: "rgba(59,91,255,0.07)",
-              border: "1px solid rgba(59,91,255,0.18)",
-              borderLeft: "3px solid #3B5BFF",
+              background: "rgba(77,172,255,0.07)",
+              border: "1px solid rgba(77,172,255,0.18)",
+              borderLeft: "3px solid #4DACFF",
             }}
           >
             <p
@@ -177,7 +177,7 @@ export default async function BlogPostPage({
                 fontWeight: 700,
                 letterSpacing: "0.18em",
                 textTransform: "uppercase",
-                color: "#3B5BFF",
+                color: "#4DACFF",
                 marginBottom: "8px",
               }}
             >
@@ -231,8 +231,8 @@ export default async function BlogPostPage({
                 fontWeight: 600,
                 letterSpacing: "0.12em",
                 textTransform: "uppercase",
-                color: "rgba(255,69,0,0.70)",
-                background: "rgba(255,69,0,0.08)",
+                color: "rgba(232,255,90,0.70)",
+                background: "rgba(232,255,90,0.08)",
                 padding: "3px 10px",
                 borderRadius: "999px",
               }}
@@ -284,7 +284,7 @@ export default async function BlogPostPage({
                 key={faq._key}
                 className="rounded-xl"
                 style={{
-                  background: "rgba(10,14,28,0.72)",
+                  background: "rgba(15,15,15,0.72)",
                   border: "1px solid rgba(255,255,255,0.06)",
                   padding: "18px 20px",
                 }}
@@ -331,7 +331,7 @@ export default async function BlogPostPage({
                   href={`/blog/${rp.slug.current}`}
                   className="group flex flex-col rounded-xl p-5 transition-all"
                   style={{
-                    background: "rgba(10,14,28,0.72)",
+                    background: "rgba(15,15,15,0.72)",
                     border: "1px solid rgba(255,255,255,0.06)",
                   }}
                 >
@@ -344,7 +344,7 @@ export default async function BlogPostPage({
                       letterSpacing: "-0.01em",
                       marginBottom: "8px",
                     }}
-                    className="group-hover:text-[#FF4500] transition-colors"
+                    className="group-hover:text-signal-yellow transition-colors"
                   >
                     {rp.title}
                   </span>
@@ -367,7 +367,7 @@ export default async function BlogPostPage({
       <section className="border-t border-[var(--line-2)] py-16">
         <div className="mx-auto max-w-[820px] px-5 sm:px-8 text-center">
           <p
-            style={{ fontFamily: "var(--font-body)", fontSize: "9px", fontWeight: 700, letterSpacing: "0.22em", textTransform: "uppercase", color: "#C8A96A", marginBottom: "16px" }}
+            style={{ fontFamily: "var(--font-body)", fontSize: "9px", fontWeight: 700, letterSpacing: "0.22em", textTransform: "uppercase", color: "#E8FF5A", marginBottom: "16px" }}
           >
             Apply the thinking
           </p>

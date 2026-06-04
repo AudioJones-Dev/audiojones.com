@@ -56,13 +56,13 @@ export default function AppliedIntelligencePage() {
       <ProblemReframe />
 
       {/* Step 2 cross-link: position Applied Intelligence as the discipline behind Step 2. */}
-      <section className="border-t border-white/5 bg-[#0B1020] py-10">
+      <section className="border-t border-border-subtle bg-surface-1 py-10">
         <div className="mx-auto flex max-w-5xl flex-col gap-3 px-5 sm:flex-row sm:items-center sm:justify-between sm:px-8">
-          <p className="text-slate-300">
+          <p className="text-text-muted">
             Applied Intelligence is the discipline.{" "}
             <Link
               href="/step-2"
-              className="font-semibold text-[#3B5BFF] hover:text-[#5B7AFF]"
+              className="font-semibold text-accent-blue hover:text-accent-blue"
             >
               Step 2
             </Link>{" "}
@@ -70,7 +70,7 @@ export default function AppliedIntelligencePage() {
           </p>
           <Link
             href="/step-2"
-            className="inline-flex shrink-0 items-center justify-center rounded-md border border-white/15 px-4 py-2 text-sm font-semibold text-white transition hover:border-white/30 hover:bg-white/5"
+            className="inline-flex shrink-0 items-center justify-center rounded-md border border-border-subtle px-4 py-2 text-sm font-semibold text-white transition hover:border-border-strong hover:bg-white/5"
           >
             Read the Step 2 thesis →
           </Link>

@@ -94,7 +94,7 @@ export default function Page() {
           the signal layer, run every metric through{" "}
           <Link
             href="/frameworks/map-attribution"
-            className="text-[#3B5BFF] hover:text-[#5B7AFF]"
+            className="text-accent-blue hover:text-accent-blue"
           >
             M.A.P Attribution
           </Link>
@@ -102,7 +102,7 @@ export default function Page() {
           architecture — see the{" "}
           <Link
             href="/frameworks/applied-intelligence-systems"
-            className="text-[#3B5BFF] hover:text-[#5B7AFF]"
+            className="text-accent-blue hover:text-accent-blue"
           >
             Applied Intelligence Systems framework
           </Link>{" "}

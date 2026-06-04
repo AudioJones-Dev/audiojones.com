@@ -5,44 +5,44 @@ export default function WhyAudioJonesSection() {
     <section 
       className="relative overflow-hidden" 
       style={{
-        backgroundImage: 'linear-gradient(to bottom right, #1A0E00, #0B0B0B)'
+        backgroundImage: 'linear-gradient(to bottom right, #080808, #0B0B0B)'
       }}
     >
-      <div className="absolute -right-1/4 -top-1/4 h-[800px] w-[800px] bg-[radial-gradient(circle_at_center,rgba(255,68,0,0.15)_0%,rgba(255,68,0,0)_50%)]" />
+      <div className="absolute -right-1/4 -top-1/4 h-[800px] w-[800px] bg-[radial-gradient(circle_at_center,rgba(232,255,90,0.15)_0%,rgba(232,255,90,0)_50%)]" />
       
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid w-full grid-cols-1 items-center gap-12 py-24 md:py-32 lg:grid-cols-2 lg:gap-16">
           {/* Text */}
           <div className="flex flex-col gap-8 text-center lg:text-left">
-            <p className="font-bold uppercase tracking-widest text-[#FF4500]">Why Audio Jones</p>
+            <p className="font-bold uppercase tracking-widest text-signal-yellow">Why Audio Jones</p>
             <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white">
               The Studio That Builds Thought Leaders
             </h2>
-            <p className="max-w-2xl text-lg text-gray-300 mx-auto lg:mx-0">
+            <p className="max-w-2xl text-lg text-text-muted mx-auto lg:mx-0">
               Audio Jones bridges creativity, technology, and strategy — helping South Florida entrepreneurs, artists, and executives amplify their message through content systems that actually convert.
             </p>
             
             <ul className="flex flex-col gap-4 text-left">
               <li className="flex items-center gap-3">
-                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-br from-[#FF4500] to-[#FFD700]">
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-br from-[#E8FF5A] to-[#4DACFF]">
                   <span className="text-white text-xs">✨</span>
                 </span>
                 <span className="text-white">Proven AI + Automation Frameworks</span>
               </li>
               <li className="flex items-center gap-3">
-                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-br from-[#FF4500] to-[#FFD700]">
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-br from-[#E8FF5A] to-[#4DACFF]">
                   <span className="text-white text-xs">🎙️</span>
                 </span>
                 <span className="text-white">Studio-Quality Podcast Production</span>
               </li>
               <li className="flex items-center gap-3">
-                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-br from-[#FF4500] to-[#FFD700]">
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-br from-[#E8FF5A] to-[#4DACFF]">
                   <span className="text-white text-xs">📄</span>
                 </span>
                 <span className="text-white">Content Repurposing That Scales Authority</span>
               </li>
               <li className="flex items-center gap-3">
-                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-br from-[#FF4500] to-[#FFD700]">
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-br from-[#E8FF5A] to-[#4DACFF]">
                   <span className="text-white text-xs">🏆</span>
                 </span>
                 <span className="text-white">Personal Branding, Simplified</span>
@@ -52,7 +52,7 @@ export default function WhyAudioJonesSection() {
             <div className="mt-4 flex flex-col items-center justify-center gap-4 sm:flex-row lg:justify-start">
               <a 
                 href="/book" 
-                className="inline-flex h-12 items-center justify-center rounded-full px-8 bg-gradient-to-r from-[#FF4500] to-[#FFD700] text-black text-base font-bold tracking-wide shadow-lg hover:scale-105 transition"
+                className="inline-flex h-12 items-center justify-center rounded-full px-8 bg-signal-yellow hover:bg-signal-soft text-black text-base font-bold tracking-wide shadow-lg hover:scale-105 transition"
               >
                 Work With Audio Jones
               </a>

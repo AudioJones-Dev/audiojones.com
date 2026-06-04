@@ -72,7 +72,7 @@ function MAPTriangle({ className }: { className?: string }) {
       {/* Triangle */}
       <polygon
         points="160,20 300,180 20,180"
-        fill="rgba(59,91,255,0.05)"
+        fill="rgba(77,172,255,0.05)"
         stroke="currentColor"
         strokeWidth="1.5"
         className="text-aj-blue-bright"
@@ -118,7 +118,7 @@ function NICHEFlow({ className }: { className?: string }) {
     <div className={`flex items-center justify-between gap-2 ${className ?? ""}`}>
       {steps.map((s, i) => (
         <div key={s} className="flex flex-1 items-center gap-2">
-          <div className="flex h-12 flex-1 items-center justify-center rounded-[var(--r-md)] border border-[var(--line-blue)] bg-[rgba(59,91,255,0.08)] t-h4 text-aj-blue-bright">
+          <div className="flex h-12 flex-1 items-center justify-center rounded-[var(--r-md)] border border-[var(--line-blue)] bg-[rgba(77,172,255,0.08)] t-h4 text-aj-blue-bright">
             {s}
           </div>
           {i < steps.length - 1 && (

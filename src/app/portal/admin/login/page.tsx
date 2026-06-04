@@ -52,10 +52,10 @@ export default function AdminLoginPage() {
 
   return (
     <main className="min-h-screen flex items-center justify-center bg-slate-950 px-4">
-      <div className="w-full max-w-md bg-white/5 backdrop-blur rounded-xl border border-white/10 p-8 space-y-6">
+      <div className="w-full max-w-md bg-white/5 backdrop-blur rounded-xl border border-border-subtle p-8 space-y-6">
         <div className="space-y-1 text-center">
           <h1 className="text-2xl font-bold text-white">AudioJones Admin</h1>
-          <p className="text-slate-300 text-sm">Sign in to manage ops, automation, and portal.</p>
+          <p className="text-text-muted text-sm">Sign in to manage ops, automation, and portal.</p>
         </div>
 
         {error ? (
@@ -66,12 +66,12 @@ export default function AdminLoginPage() {
 
         <form className="space-y-4" onSubmit={handleEmailSignIn}>
           <div className="space-y-2">
-            <label className="text-sm text-slate-200" htmlFor="email">Email</label>
+            <label className="text-sm text-text-muted" htmlFor="email">Email</label>
             <input
               id="email"
               type="email"
               autoComplete="email"
-              className="w-full rounded-md bg-slate-900 border border-slate-700 px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="w-full rounded-md bg-slate-900 border border-slate-700 px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-signal-yellow"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               disabled={loading}
@@ -79,12 +79,12 @@ export default function AdminLoginPage() {
             />
           </div>
           <div className="space-y-2">
-            <label className="text-sm text-slate-200" htmlFor="password">Password</label>
+            <label className="text-sm text-text-muted" htmlFor="password">Password</label>
             <input
               id="password"
               type="password"
               autoComplete="current-password"
-              className="w-full rounded-md bg-slate-900 border border-slate-700 px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="w-full rounded-md bg-slate-900 border border-slate-700 px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-signal-yellow"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               disabled={loading}
@@ -94,7 +94,7 @@ export default function AdminLoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-orange-500 hover:bg-orange-600 transition text-white font-medium py-2 rounded-md"
+            className="w-full bg-signal-yellow hover:bg-signal-soft transition text-bg-base font-medium py-2 rounded-md"
           >
             {loading ? "Signing in..." : "Sign in"}
           </button>
@@ -102,7 +102,7 @@ export default function AdminLoginPage() {
 
         <div className="flex items-center gap-2">
           <div className="flex-1 h-px bg-slate-700" />
-          <span className="text-slate-400 text-xs">or</span>
+          <span className="text-text-muted text-xs">or</span>
           <div className="flex-1 h-px bg-slate-700" />
         </div>
 

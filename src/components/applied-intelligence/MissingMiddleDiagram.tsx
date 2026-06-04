@@ -3,22 +3,22 @@ const STAGES = [
     label: "Step 1",
     title: "AI Capability",
     body: "Tools, models, agents, automation, platforms.",
-    accent: "border-white/10 text-slate-300",
-    eyebrow: "text-slate-400",
+    accent: "border-border-subtle text-text-primary",
+    eyebrow: "text-text-muted",
   },
   {
     label: "Step 2",
     title: "Operating Layer",
     body: "Diagnosis, workflows, attribution, implementation, feedback loops.",
-    accent: "border-[#3B5BFF]/50 bg-[#3B5BFF]/10 text-white",
-    eyebrow: "text-[#3B5BFF]",
+    accent: "border-accent-blue/50 bg-accent-blue/10 text-white",
+    eyebrow: "text-accent-blue",
   },
   {
     label: "Step 3",
     title: "Measurable Outcomes",
     body: "Profit, speed, margin, scale, decision quality.",
-    accent: "border-[#C8A96A]/40 text-slate-200",
-    eyebrow: "text-[#C8A96A]",
+    accent: "border-signal-yellow/40 text-text-primary",
+    eyebrow: "text-signal-yellow",
   },
 ];
 
@@ -28,7 +28,7 @@ export default function MissingMiddleDiagram() {
       {STAGES.map((s, i) => (
         <div key={s.label} className="contents">
           <article
-            className={`rounded-xl border bg-[#0B1020] p-6 ${s.accent}`}
+            className={`rounded-xl border bg-surface-1 p-6 ${s.accent}`}
           >
             <p
               className={`text-xs font-semibold uppercase tracking-[0.18em] ${s.eyebrow}`}
@@ -41,7 +41,7 @@ export default function MissingMiddleDiagram() {
           {i < STAGES.length - 1 && (
             <span
               aria-hidden
-              className="hidden text-2xl text-slate-500 lg:flex lg:items-center lg:justify-center"
+              className="hidden text-2xl text-text-muted lg:flex lg:items-center lg:justify-center"
             >
               →
             </span>

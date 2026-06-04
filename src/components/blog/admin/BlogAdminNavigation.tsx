@@ -49,12 +49,12 @@ export default function BlogAdminNavigation({ activeTab }: BlogAdminNavigationPr
   };
 
   return (
-    <div className="bg-gray-900/50 border border-gray-800 rounded-xl p-6">
+    <div className="bg-surface-1 border border-border-subtle rounded-xl p-6">
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-xl font-bold text-[#FFD700]">
+        <h2 className="text-xl font-bold text-signal-yellow">
           🎛️ Content Control Center
         </h2>
-        <div className="text-sm text-gray-400">
+        <div className="text-sm text-text-muted">
           Miami operator-level content management
         </div>
       </div>
@@ -70,15 +70,15 @@ export default function BlogAdminNavigation({ activeTab }: BlogAdminNavigationPr
               href={createTabUrl(tab.id)}
               className={`
                 group relative p-4 rounded-lg border transition-all duration-200
-                ${isActive 
-                  ? 'bg-gradient-to-r from-[#FF4500]/20 to-[#FFD700]/20 border-[#FF4500]/40 text-white' 
-                  : 'bg-gray-800/50 border-gray-700 text-gray-300 hover:bg-gray-800 hover:border-gray-600'
+                ${isActive
+                  ? 'bg-gradient-to-r from-[#E8FF5A]/20 to-[#4DACFF]/20 border-signal-yellow/40 text-white'
+                  : 'bg-surface-2 border-border-subtle text-text-muted hover:bg-surface-2 hover:border-border-strong'
                 }
               `}
             >
               {/* Active indicator */}
               {isActive && (
-                <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-[#FF4500] rounded-full" />
+                <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-signal-yellow rounded-full" />
               )}
 
               <div className="flex items-center justify-between mb-2">
@@ -89,14 +89,14 @@ export default function BlogAdminNavigation({ activeTab }: BlogAdminNavigationPr
                 {tab.count && (
                   <span className={`
                     px-2 py-1 text-xs rounded-full font-medium
-                    ${isActive ? 'bg-[#FF4500] text-white' : 'bg-gray-700 text-gray-300'}
+                    ${isActive ? 'bg-signal-yellow text-bg-base' : 'bg-surface-2 text-text-muted'}
                   `}>
                     {tab.count}
                   </span>
                 )}
               </div>
 
-              <p className={`text-xs ${isActive ? 'text-gray-200' : 'text-gray-400'}`}>
+              <p className={`text-xs ${isActive ? 'text-text-primary' : 'text-text-muted'}`}>
                 {tab.description}
               </p>
 
@@ -104,7 +104,7 @@ export default function BlogAdminNavigation({ activeTab }: BlogAdminNavigationPr
               <div className={`
                 absolute inset-0 rounded-lg transition-opacity duration-200
                 ${isActive ? 'opacity-0' : 'opacity-0 group-hover:opacity-100'}
-                bg-gradient-to-r from-[#FF4500]/5 to-[#FFD700]/5
+                bg-gradient-to-r from-[#E8FF5A]/5 to-[#4DACFF]/5
               `} />
             </Link>
           );
@@ -112,19 +112,19 @@ export default function BlogAdminNavigation({ activeTab }: BlogAdminNavigationPr
       </div>
 
       {/* Active Tab Info */}
-      <div className="mt-6 pt-4 border-t border-gray-700">
+      <div className="mt-6 pt-4 border-t border-border-subtle">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <span className="text-[#FF4500]">
+            <span className="text-signal-yellow">
               {adminTabs.find(tab => tab.id === activeTab)?.icon}
             </span>
-            <span className="text-sm text-gray-400">
+            <span className="text-sm text-text-muted">
               Active: <span className="text-white font-medium">
                 {adminTabs.find(tab => tab.id === activeTab)?.label}
               </span>
             </span>
           </div>
-          <div className="text-xs text-gray-500">
+          <div className="text-xs text-text-muted">
             🔥 Audio Jones CMS • Predictable content growth
           </div>
         </div>

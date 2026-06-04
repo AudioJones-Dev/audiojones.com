@@ -208,7 +208,7 @@ export default function SecretsPage() {
       case 'dual_accept': return 'text-yellow-400';
       case 'in_progress': return 'text-blue-400';
       case 'failed': case 'rolled_back': return 'text-red-400';
-      default: return 'text-gray-400';
+      default: return 'text-text-muted';
     }
   };
 
@@ -217,7 +217,7 @@ export default function SecretsPage() {
       case 'good': case 'healthy': return 'text-green-400';
       case 'warning': return 'text-yellow-400';
       case 'critical': return 'text-red-400';
-      default: return 'text-gray-400';
+      default: return 'text-text-muted';
     }
   };
 
@@ -238,7 +238,7 @@ export default function SecretsPage() {
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold mb-2">🔐 Secrets Rotation</h1>
-          <p className="text-gray-400">Zero-downtime secret rotation with dual-accept windows and audit ledger</p>
+          <p className="text-text-muted">Zero-downtime secret rotation with dual-accept windows and audit ledger</p>
         </div>
 
         {/* Error Display */}
@@ -263,7 +263,7 @@ export default function SecretsPage() {
               className={`px-4 py-2 rounded-md font-medium transition-colors ${
                 activeTab === tab.id
                   ? 'bg-white text-black'
-                  : 'text-gray-300 hover:text-white hover:bg-gray-700/50'
+                  : 'text-text-primary hover:text-white hover:bg-gray-700/50'
               }`}
             >
               {tab.label}
@@ -278,26 +278,26 @@ export default function SecretsPage() {
             {metrics && (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <div className="bg-gray-800/50 rounded-lg p-6">
-                  <h3 className="text-sm font-medium text-gray-400 mb-2">Total Secrets</h3>
+                  <h3 className="text-sm font-medium text-text-muted mb-2">Total Secrets</h3>
                   <p className="text-2xl font-bold">{metrics.total_secrets}</p>
                 </div>
                 
                 <div className="bg-gray-800/50 rounded-lg p-6">
-                  <h3 className="text-sm font-medium text-gray-400 mb-2">Compliance Score</h3>
+                  <h3 className="text-sm font-medium text-text-muted mb-2">Compliance Score</h3>
                   <p className={`text-2xl font-bold ${getHealthColor(healthStatus?.overall || 'good')}`}>
                     {metrics.compliance_score}%
                   </p>
                 </div>
                 
                 <div className="bg-gray-800/50 rounded-lg p-6">
-                  <h3 className="text-sm font-medium text-gray-400 mb-2">Overdue Rotations</h3>
+                  <h3 className="text-sm font-medium text-text-muted mb-2">Overdue Rotations</h3>
                   <p className={`text-2xl font-bold ${metrics.overdue_rotations > 0 ? 'text-red-400' : 'text-green-400'}`}>
                     {metrics.overdue_rotations}
                   </p>
                 </div>
                 
                 <div className="bg-gray-800/50 rounded-lg p-6">
-                  <h3 className="text-sm font-medium text-gray-400 mb-2">Active Rotations</h3>
+                  <h3 className="text-sm font-medium text-text-muted mb-2">Active Rotations</h3>
                   <p className="text-2xl font-bold text-blue-400">{metrics.pending_rotations}</p>
                 </div>
               </div>
@@ -342,7 +342,7 @@ export default function SecretsPage() {
                     <div key={index} className="flex items-center justify-between py-2 border-b border-gray-700/50 last:border-b-0">
                       <div>
                         <p className="font-medium">{activity.details}</p>
-                        <p className="text-sm text-gray-400">
+                        <p className="text-sm text-text-muted">
                           {activity.action} • {new Date(activity.timestamp).toLocaleString()}
                         </p>
                       </div>
@@ -422,9 +422,9 @@ export default function SecretsPage() {
                             {secret.type}
                           </span>
                         </td>
-                        <td className="py-3 px-4 text-gray-300">{secret.description}</td>
+                        <td className="py-3 px-4 text-text-primary">{secret.description}</td>
                         <td className="py-3 px-4">{secret.rotation_frequency_days}d</td>
-                        <td className="py-3 px-4 text-gray-400">
+                        <td className="py-3 px-4 text-text-muted">
                           {secret.last_rotation 
                             ? new Date(secret.last_rotation).toLocaleDateString()
                             : 'Never'
@@ -432,7 +432,7 @@ export default function SecretsPage() {
                         </td>
                         <td className="py-3 px-4">
                           {secret.next_rotation_due && (
-                            <span className={secret.days_until_rotation != null && secret.days_until_rotation < 0 ? 'text-red-400' : 'text-gray-300'}>
+                            <span className={secret.days_until_rotation != null && secret.days_until_rotation < 0 ? 'text-red-400' : 'text-text-primary'}>
                               {secret.days_until_rotation != null
                                 ? `${Math.abs(secret.days_until_rotation)}d ${secret.days_until_rotation < 0 ? 'overdue' : 'remaining'}`
                                 : 'Not scheduled'
@@ -522,7 +522,7 @@ export default function SecretsPage() {
                             {job.status.replace('_', ' ')}
                           </span>
                         </td>
-                        <td className="py-3 px-4 text-gray-400">
+                        <td className="py-3 px-4 text-text-muted">
                           {new Date(job.created_at).toLocaleString()}
                         </td>
                         <td className="py-3 px-4">
@@ -534,13 +534,13 @@ export default function SecretsPage() {
                               <div className="text-yellow-400">
                                 {formatDuration(job.dual_accept_started, job.dual_accept_ends)}
                               </div>
-                              <div className="text-gray-500">
+                              <div className="text-text-muted">
                                 until {new Date(job.dual_accept_ends).toLocaleTimeString()}
                               </div>
                             </div>
                           ) : '-'}
                         </td>
-                        <td className="py-3 px-4 text-gray-400">{job.initiated_by}</td>
+                        <td className="py-3 px-4 text-text-muted">{job.initiated_by}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -561,17 +561,17 @@ export default function SecretsPage() {
                   <div className="flex-1">
                     <div className="flex items-center justify-between mb-1">
                       <h4 className="font-medium">{log.details}</h4>
-                      <span className="text-xs text-gray-400">
+                      <span className="text-xs text-text-muted">
                         {new Date(log.timestamp).toLocaleString()}
                       </span>
                     </div>
-                    <div className="text-sm text-gray-400">
+                    <div className="text-sm text-text-muted">
                       <span className="capitalize">{log.action}</span>
                       {log.user_id && ` • by ${log.user_id}`}
                       {log.error && ` • Error: ${log.error}`}
                     </div>
                     {log.metadata && (
-                      <div className="mt-2 text-xs text-gray-500">
+                      <div className="mt-2 text-xs text-text-muted">
                         <pre className="whitespace-pre-wrap">
                           {JSON.stringify(log.metadata, null, 2)}
                         </pre>
@@ -614,7 +614,7 @@ export default function SecretsPage() {
                       {indicator.score}%
                     </span>
                   </div>
-                  <p className="text-sm text-gray-400">{indicator.details}</p>
+                  <p className="text-sm text-text-muted">{indicator.details}</p>
                   <div className="mt-3 w-full bg-gray-700 rounded-full h-2">
                     <div 
                       className={`h-2 rounded-full transition-all duration-300 ${

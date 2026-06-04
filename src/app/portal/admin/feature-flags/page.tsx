@@ -297,7 +297,7 @@ export default function FeatureFlagsAdminPage() {
   const getFlagStatusColor = (flag: FeatureFlag) => {
     if (flag.kill_switch?.enabled) return 'text-red-400';
     if (flag.status === 'active') return 'text-green-400';
-    if (flag.status === 'inactive') return 'text-gray-400';
+    if (flag.status === 'inactive') return 'text-text-muted';
     return 'text-yellow-400';
   };
 
@@ -345,7 +345,7 @@ export default function FeatureFlagsAdminPage() {
               className={`px-4 py-2 border-b-2 ${
                 activeTab === tab.id
                   ? 'border-blue-500 text-blue-400'
-                  : 'border-transparent text-gray-400 hover:text-white'
+                  : 'border-transparent text-text-muted hover:text-white'
               }`}
             >
               {tab.label}
@@ -357,7 +357,7 @@ export default function FeatureFlagsAdminPage() {
         {loading && (
           <div className="mb-6 text-center">
             <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
-            <p className="mt-2 text-gray-400">Loading...</p>
+            <p className="mt-2 text-text-muted">Loading...</p>
           </div>
         )}
 
@@ -368,22 +368,22 @@ export default function FeatureFlagsAdminPage() {
               <div className="bg-gray-900 p-6 rounded-lg">
                 <h3 className="text-lg font-semibold mb-2">Total Flags</h3>
                 <p className="text-3xl font-bold text-blue-400">{metrics.total_flags}</p>
-                <p className="text-sm text-gray-400">{metrics.active_flags} active</p>
+                <p className="text-sm text-text-muted">{metrics.active_flags} active</p>
               </div>
               <div className="bg-gray-900 p-6 rounded-lg">
                 <h3 className="text-lg font-semibold mb-2">Kill Switches</h3>
                 <p className="text-3xl font-bold text-red-400">{metrics.flags_with_kill_switch}</p>
-                <p className="text-sm text-gray-400">Active emergency switches</p>
+                <p className="text-sm text-text-muted">Active emergency switches</p>
               </div>
               <div className="bg-gray-900 p-6 rounded-lg">
                 <h3 className="text-lg font-semibold mb-2">Rollouts</h3>
                 <p className="text-3xl font-bold text-yellow-400">{metrics.flags_in_rollout}</p>
-                <p className="text-sm text-gray-400">Gradual rollouts in progress</p>
+                <p className="text-sm text-text-muted">Gradual rollouts in progress</p>
               </div>
               <div className="bg-gray-900 p-6 rounded-lg">
                 <h3 className="text-lg font-semibold mb-2">Evaluations (24h)</h3>
                 <p className="text-3xl font-bold text-green-400">{metrics.total_evaluations_24h.toLocaleString()}</p>
-                <p className="text-sm text-gray-400">Avg: {metrics.avg_evaluation_time_ms}ms</p>
+                <p className="text-sm text-text-muted">Avg: {metrics.avg_evaluation_time_ms}ms</p>
               </div>
             </div>
 
@@ -394,14 +394,14 @@ export default function FeatureFlagsAdminPage() {
                 {metrics.top_flags_by_usage.map((flag, index) => (
                   <div key={flag.key} className="flex items-center justify-between p-3 bg-gray-800 rounded">
                     <div>
-                      <span className="text-sm text-gray-400">#{index + 1}</span>
+                      <span className="text-sm text-text-muted">#{index + 1}</span>
                       <span className="ml-3 font-medium">{flag.name}</span>
-                      <span className="ml-2 text-sm text-gray-400">({flag.key})</span>
+                      <span className="ml-2 text-sm text-text-muted">({flag.key})</span>
                     </div>
                     <div className="flex items-center space-x-4">
                       <span className="text-blue-400">{flag.evaluations.toLocaleString()} evals</span>
                       <span className="text-yellow-400">{flag.rollout_percentage}%</span>
-                      <span className={`${flag.status === 'active' ? 'text-green-400' : 'text-gray-400'}`}>
+                      <span className={`${flag.status === 'active' ? 'text-green-400' : 'text-text-muted'}`}>
                         {flag.status}
                       </span>
                     </div>
@@ -424,16 +424,16 @@ export default function FeatureFlagsAdminPage() {
                         <span className="text-2xl">{getFlagStatusIcon(flag)}</span>
                         <div>
                           <h3 className="text-lg font-semibold">{flag.name}</h3>
-                          <p className="text-gray-400 text-sm">{flag.key}</p>
+                          <p className="text-text-muted text-sm">{flag.key}</p>
                         </div>
                       </div>
-                      <p className="text-gray-300 mt-2">{flag.description}</p>
+                      <p className="text-text-primary mt-2">{flag.description}</p>
                     </div>
                     <div className="text-right">
                       <p className={`font-medium ${getFlagStatusColor(flag)}`}>
                         {flag.status.toUpperCase()}
                       </p>
-                      <p className="text-sm text-gray-400">
+                      <p className="text-sm text-text-muted">
                         {flag.metadata.total_evaluations.toLocaleString()} evaluations
                       </p>
                     </div>
@@ -451,7 +451,7 @@ export default function FeatureFlagsAdminPage() {
                         </div>
                         <span className="text-sm font-mono">{flag.rollout.percentage}%</span>
                       </div>
-                      <p className="text-xs text-gray-400 mt-1">
+                      <p className="text-xs text-text-muted mt-1">
                         Strategy: {flag.rollout.strategy}
                       </p>
                     </div>
@@ -460,7 +460,7 @@ export default function FeatureFlagsAdminPage() {
                       <h4 className="font-medium mb-2">Type</h4>
                       <p className="text-sm">{flag.flag_type}</p>
                       {flag.variants && (
-                        <p className="text-xs text-gray-400">
+                        <p className="text-xs text-text-muted">
                           {flag.variants.length} variants
                         </p>
                       )}
@@ -469,7 +469,7 @@ export default function FeatureFlagsAdminPage() {
                     <div className="bg-gray-800 p-4 rounded">
                       <h4 className="font-medium mb-2">Performance</h4>
                       <p className="text-sm">Error Rate: {flag.metadata.error_rate}%</p>
-                      <p className="text-xs text-gray-400">
+                      <p className="text-xs text-text-muted">
                         Last evaluation: {formatDate(flag.metadata.last_evaluation)}
                       </p>
                     </div>
@@ -594,7 +594,7 @@ export default function FeatureFlagsAdminPage() {
                   className="w-full px-3 py-2 bg-gray-700 rounded text-white"
                   placeholder="enhanced_analytics_dashboard"
                 />
-                <p className="text-xs text-gray-400 mt-1">
+                <p className="text-xs text-text-muted mt-1">
                   Leave empty to auto-generate from name
                 </p>
               </div>
@@ -683,7 +683,7 @@ export default function FeatureFlagsAdminPage() {
           <div className="space-y-6">
             <h2 className="text-2xl font-bold">Feature Flag Analytics</h2>
             <div className="bg-gray-900 p-6 rounded-lg">
-              <p className="text-center text-gray-400">
+              <p className="text-center text-text-muted">
                 Advanced analytics coming soon...
               </p>
             </div>

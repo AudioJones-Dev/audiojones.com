@@ -58,21 +58,21 @@ export function DegradedBanner({ status, incidents = [] }: DegradedBannerProps) 
   // Configure banner based on status
   const bannerConfig = {
     degraded: {
-      bgColor: 'bg-amber-50 dark:bg-amber-900/20',
-      borderColor: 'border-amber-200 dark:border-amber-800',
-      textColor: 'text-amber-800 dark:text-amber-200',
-      iconColor: 'text-amber-600 dark:text-amber-400',
+      bgColor: 'bg-amber-50 dark:bg-accent-amber/15',
+      borderColor: 'border-amber-200 dark:border-accent-amber/50',
+      textColor: 'text-amber-800 dark:text-accent-amber',
+      iconColor: 'text-amber-600 dark:text-accent-amber',
       icon: AlertTriangle,
       title: 'Service Degraded',
-      message: primaryIncident 
+      message: primaryIncident
         ? `We're experiencing issues: ${primaryIncident.title}`
         : 'Some services may be experiencing issues',
     },
     outage: {
-      bgColor: 'bg-red-50 dark:bg-red-900/20',
-      borderColor: 'border-red-200 dark:border-red-800',
-      textColor: 'text-red-800 dark:text-red-200',
-      iconColor: 'text-red-600 dark:text-red-400',
+      bgColor: 'bg-red-50 dark:bg-accent-red/15',
+      borderColor: 'border-red-200 dark:border-accent-red/50',
+      textColor: 'text-red-800 dark:text-accent-red',
+      iconColor: 'text-red-600 dark:text-accent-red',
       icon: AlertCircle,
       title: 'Service Disruption',
       message: primaryIncident 
@@ -171,14 +171,14 @@ export function DegradedBannerCompact({ status, incidents = [] }: DegradedBanner
 
   const config = {
     degraded: {
-      bgColor: 'bg-amber-100 dark:bg-amber-900/30',
-      textColor: 'text-amber-800 dark:text-amber-200',
+      bgColor: 'bg-amber-100 dark:bg-accent-amber/20',
+      textColor: 'text-amber-800 dark:text-accent-amber',
       icon: AlertTriangle,
       message: 'Service issues detected',
     },
     outage: {
-      bgColor: 'bg-red-100 dark:bg-red-900/30',
-      textColor: 'text-red-800 dark:text-red-200', 
+      bgColor: 'bg-red-100 dark:bg-accent-red/20',
+      textColor: 'text-red-800 dark:text-accent-red',
       icon: AlertCircle,
       message: 'Service disruption',
     },

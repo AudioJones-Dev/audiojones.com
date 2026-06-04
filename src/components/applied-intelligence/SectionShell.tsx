@@ -19,17 +19,17 @@ export default function SectionShell({
   variant = "default",
   className = "",
 }: Props) {
-  const bg = variant === "alt" ? "bg-[#0B1020]" : "bg-[#05070F]";
+  const bg = variant === "alt" ? "bg-surface-1" : "bg-bg-base";
   return (
     <section
       id={id}
-      className={`${bg} border-t border-white/5 py-20 sm:py-24 ${className}`}
+      className={`${bg} border-t border-border-subtle py-20 sm:py-24 ${className}`}
     >
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
         {(eyebrow || title || intro) && (
           <header className="mb-12 max-w-3xl">
             {eyebrow && (
-              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#C8A96A]">
+              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-signal-yellow">
                 {eyebrow}
               </p>
             )}
@@ -39,7 +39,7 @@ export default function SectionShell({
               </h2>
             )}
             {intro && (
-              <p className="mt-4 text-lg text-slate-300">{intro}</p>
+              <p className="mt-4 text-lg text-text-primary">{intro}</p>
             )}
           </header>
         )}

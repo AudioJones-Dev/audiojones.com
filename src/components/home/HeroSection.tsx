@@ -2,14 +2,14 @@ import Image from 'next/image';
 
 export default function HeroSection() {
   return (
-    <section className="relative w-full overflow-hidden bg-gradient-to-br from-black via-[#0B0B0B] to-[#1A0E00] py-16 sm:py-20 lg:py-24 text-white">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,rgba(255,68,0,0.1)_0%,transparent_50%)]" />
+    <section className="relative w-full overflow-hidden bg-gradient-to-br from-black via-[#0B0B0B] to-[#080808] py-16 sm:py-20 lg:py-24 text-white">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,rgba(232,255,90,0.1)_0%,transparent_50%)]" />
       
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">
           {/* Left: Copy */}
           <div className="space-y-6">
-            <p className="text-sm font-semibold uppercase tracking-widest text-[#FF4500]">
+            <p className="text-sm font-semibold uppercase tracking-widest text-signal-yellow">
               South Florida Leaders & Creators
             </p>
             <h1 className="text-4xl font-extrabold leading-tight sm:text-5xl lg:text-6xl">
@@ -22,15 +22,15 @@ export default function HeroSection() {
             <div className="flex flex-wrap gap-3">
               <a
                 href="/book"
-                className="rounded-full px-6 py-3 font-bold text-black shadow-[0_4px_20px_rgba(255,215,0,0.35)]
-                         bg-[linear-gradient(135deg,#FF4500,#FFD700)]
-                         hover:bg-[linear-gradient(135deg,#FFD700,#FF4500)] transition"
+                className="rounded-full px-6 py-3 font-bold text-black shadow-[0_4px_20px_rgba(232,255,90,0.35)]
+                         bg-signal-yellow
+                         hover:bg-signal-soft transition"
               >
                 Book a Consultation
               </a>
               <a
                 href="/services"
-                className="rounded-full border border-white/20 px-6 py-3 font-bold text-white 
+                className="rounded-full border border-border-subtle px-6 py-3 font-bold text-white
                          hover:bg-white/10 transition"
               >
                 Watch the 7m Build Overview

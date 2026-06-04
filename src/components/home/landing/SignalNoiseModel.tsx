@@ -53,7 +53,7 @@ const CARD_CONFIG = {
   acceptable: {
     bg: "rgba(15,18,24,0.50)",
     border: "1px solid rgba(255,255,255,0.07)",
-    dotColor: "#64748B",
+    dotColor: "#666666",
     boxShadow: undefined as string | undefined,
     animated: false,
   },

@@ -35,15 +35,15 @@ export default async function BlogAdminLayout({ children }: BlogAdminLayoutProps
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <h1 className="text-2xl font-bold text-[#FFD700]">
+              <h1 className="text-2xl font-bold text-signal-yellow">
                 📝 Blog Admin
               </h1>
-              <span className="px-3 py-1 bg-[#FF4500]/20 text-[#FF4500] text-sm rounded-full border border-[#FF4500]/30">
+              <span className="px-3 py-1 bg-signal-yellow/20 text-signal-yellow text-sm rounded-full border border-signal-yellow/30">
                 Audio Jones CMS
               </span>
             </div>
             <div className="flex items-center gap-4">
-              <span className="text-sm text-gray-400">
+              <span className="text-sm text-text-muted">
                 🔥 Miami operator-level content control
               </span>
             </div>

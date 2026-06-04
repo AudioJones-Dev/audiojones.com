@@ -25,7 +25,7 @@ export default function PortalLayout({ children }: PortalLayoutProps) {
       <div className="min-h-screen bg-black flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto"></div>
-          <p className="mt-4 text-gray-400">Loading portal...</p>
+          <p className="mt-4 text-text-muted">Loading portal...</p>
         </div>
       </div>
     );
@@ -49,22 +49,22 @@ export default function PortalLayout({ children }: PortalLayoutProps) {
               </div>
               
               <nav className="hidden md:flex items-center space-x-6">
-                <a href="/portal" className="text-gray-300 hover:text-white transition">
+                <a href="/portal" className="text-text-primary hover:text-white transition">
                   Dashboard
                 </a>
-                <a href="/portal/projects" className="text-gray-300 hover:text-white transition">
+                <a href="/portal/projects" className="text-text-primary hover:text-white transition">
                   Projects
                 </a>
-                <a href="/portal/billing" className="text-gray-300 hover:text-white transition">
+                <a href="/portal/billing" className="text-text-primary hover:text-white transition">
                   Billing
                 </a>
-                <a href="/portal/approvals" className="text-gray-300 hover:text-white transition">
+                <a href="/portal/approvals" className="text-text-primary hover:text-white transition">
                   Approvals
                 </a>
-                <a href="/portal/bookings" className="text-gray-300 hover:text-white transition">
+                <a href="/portal/bookings" className="text-text-primary hover:text-white transition">
                   Bookings
                 </a>
-                <a href="/portal/files" className="text-gray-300 hover:text-white transition">
+                <a href="/portal/files" className="text-text-primary hover:text-white transition">
                   Files
                 </a>
                 <a href="/portal/client" className="text-blue-400 hover:text-blue-300 transition">
@@ -84,7 +84,7 @@ export default function PortalLayout({ children }: PortalLayoutProps) {
                 </div>
                 
                 <div className="flex items-center space-x-3">
-                  <span className="text-sm text-gray-400">
+                  <span className="text-sm text-text-muted">
                     {user.email}
                   </span>
                   <button
@@ -92,7 +92,7 @@ export default function PortalLayout({ children }: PortalLayoutProps) {
                       // TODO: Implement logout
                       router.push('/login');
                     }}
-                    className="text-gray-300 hover:text-white transition text-sm"
+                    className="text-text-primary hover:text-white transition text-sm"
                   >
                     Logout
                   </button>
@@ -101,7 +101,7 @@ export default function PortalLayout({ children }: PortalLayoutProps) {
 
               {/* Mobile menu button */}
               <div className="md:hidden">
-                <button className="text-gray-300 hover:text-white">
+                <button className="text-text-primary hover:text-white">
                   <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                   </svg>

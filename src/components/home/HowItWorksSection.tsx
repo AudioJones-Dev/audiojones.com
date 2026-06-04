@@ -44,13 +44,13 @@ export default function HowItWorksSection() {
       <div className="container mx-auto px-6">
         {/* Header */}
         <div className="text-center mb-16">
-          <span className="text-[#FFD700] text-sm font-medium tracking-wide uppercase bg-[#FFD700]/10 px-4 py-2 rounded-full border border-[#FFD700]/20 inline-block mb-6">
+          <span className="text-signal-yellow text-sm font-medium tracking-wide uppercase bg-signal-yellow/10 px-4 py-2 rounded-full border border-signal-yellow/20 inline-block mb-6">
             Our Proven Process
           </span>
           <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">
-            How We Transform <span className="text-[#FF4500]">Creators into Systems</span>
+            How We Transform <span className="text-signal-yellow">Creators into Systems</span>
           </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+          <p className="text-xl text-text-muted max-w-3xl mx-auto">
             Three phases. Predictable results. No more guessing what will work.
           </p>
         </div>
@@ -61,7 +61,7 @@ export default function HowItWorksSection() {
             <div key={index} className="relative">
               {/* Step Number */}
               <div className="flex items-center mb-6">
-                <div className="text-6xl font-bold text-[#FF4500]/20 mr-4">
+                <div className="text-6xl font-bold text-signal-yellow/20 mr-4">
                   {step.step}
                 </div>
                 <div className="text-4xl">{step.icon}</div>
@@ -73,7 +73,7 @@ export default function HowItWorksSection() {
                   <h3 className="text-2xl font-bold text-white mb-4">
                     {step.title}
                   </h3>
-                  <p className="text-gray-300 text-lg leading-relaxed">
+                  <p className="text-text-muted text-lg leading-relaxed">
                     {step.description}
                   </p>
                 </div>
@@ -81,8 +81,8 @@ export default function HowItWorksSection() {
                 {/* Features List */}
                 <ul className="space-y-3">
                   {step.features.map((feature, featureIndex) => (
-                    <li key={featureIndex} className="flex items-center text-gray-300">
-                      <div className="w-2 h-2 bg-[#FFD700] rounded-full mr-3 flex-shrink-0" />
+                    <li key={featureIndex} className="flex items-center text-text-muted">
+                      <div className="w-2 h-2 bg-signal-yellow rounded-full mr-3 flex-shrink-0" />
                       <span>{feature}</span>
                     </li>
                   ))}
@@ -93,8 +93,8 @@ export default function HowItWorksSection() {
               {index < steps.length - 1 && (
                 <div className="hidden lg:block absolute top-16 -right-6 w-12">
                   <div className="flex items-center">
-                    <div className="flex-1 h-px bg-gradient-to-r from-[#FF4500] to-[#FFD700]" />
-                    <div className="w-2 h-2 bg-[#FFD700] rounded-full ml-2" />
+                    <div className="flex-1 h-px bg-gradient-to-r from-[#E8FF5A] to-[#4DACFF]" />
+                    <div className="w-2 h-2 bg-signal-yellow rounded-full ml-2" />
                   </div>
                 </div>
               )}
@@ -104,16 +104,16 @@ export default function HowItWorksSection() {
 
         {/* Bottom CTA */}
         <div className="text-center mt-16">
-          <div className="bg-gradient-to-r from-[#FF4500]/10 to-[#FFD700]/10 border border-[#FF4500]/20 rounded-2xl p-8 max-w-4xl mx-auto">
+          <div className="bg-gradient-to-r from-[#E8FF5A]/10 to-[#4DACFF]/10 border border-signal-yellow/20 rounded-2xl p-8 max-w-4xl mx-auto">
             <h3 className="text-2xl font-bold text-white mb-4">
               Ready to Build Your Revenue System?
             </h3>
-            <p className="text-gray-300 mb-6">
+            <p className="text-text-muted mb-6">
               Book a strategy call and we'll show you exactly how this works for your specific situation.
             </p>
             <a
               href="/contact"
-              className="inline-flex items-center px-8 py-4 bg-[#FF4500] hover:bg-[#e63e00] text-white font-semibold rounded-lg transition-all duration-200 transform hover:scale-105"
+              className="inline-flex items-center px-8 py-4 bg-signal-yellow hover:bg-signal-soft text-black font-semibold rounded-lg transition-all duration-200 transform hover:scale-105"
             >
               Get Your Custom Strategy
               <svg className="ml-2 w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">

@@ -142,7 +142,7 @@ export default function BillingReconciliationPage() {
       case 'high': return 'text-red-400 bg-red-900/30';
       case 'medium': return 'text-yellow-400 bg-yellow-900/30';
       case 'low': return 'text-blue-400 bg-blue-900/30';
-      default: return 'text-gray-400 bg-gray-900/30';
+      default: return 'text-text-muted bg-gray-900/30';
     }
   };
 
@@ -179,7 +179,7 @@ export default function BillingReconciliationPage() {
         <div className="text-center py-12">
           <AlertTriangle className="w-12 h-12 text-yellow-400 mx-auto mb-4" />
           <h2 className="text-xl font-semibold text-white mb-2">Failed to Load Data</h2>
-          <p className="text-gray-400">Unable to fetch billing reconciliation data</p>
+          <p className="text-text-muted">Unable to fetch billing reconciliation data</p>
         </div>
       </div>
     );
@@ -191,14 +191,14 @@ export default function BillingReconciliationPage() {
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-3xl font-bold text-white">Billing Reconciliation</h1>
-          <p className="text-gray-400 mt-1">
+          <p className="text-text-muted mt-1">
             Whop ↔ Firestore billing integrity monitoring
           </p>
         </div>
         
         <div className="flex items-center gap-4">
           {data.latest_reconciliation && (
-            <span className="text-sm text-gray-500">
+            <span className="text-sm text-text-muted">
               Last run: {new Date(data.latest_reconciliation).toLocaleString()}
             </span>
           )}
@@ -218,7 +218,7 @@ export default function BillingReconciliationPage() {
         <div className="bg-gray-900 rounded-lg p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-400">Total Diffs</p>
+              <p className="text-sm text-text-muted">Total Diffs</p>
               <p className="text-2xl font-bold text-white">{data.summary.total}</p>
             </div>
             <TrendingUp className="w-8 h-8 text-blue-400" />
@@ -228,7 +228,7 @@ export default function BillingReconciliationPage() {
         <div className="bg-gray-900 rounded-lg p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-400">Active Issues</p>
+              <p className="text-sm text-text-muted">Active Issues</p>
               <p className="text-2xl font-bold text-red-400">{data.summary.active}</p>
             </div>
             <AlertTriangle className="w-8 h-8 text-red-400" />
@@ -238,7 +238,7 @@ export default function BillingReconciliationPage() {
         <div className="bg-gray-900 rounded-lg p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-400">Resolved</p>
+              <p className="text-sm text-text-muted">Resolved</p>
               <p className="text-2xl font-bold text-green-400">{data.summary.resolved}</p>
             </div>
             <CheckCircle className="w-8 h-8 text-green-400" />
@@ -248,7 +248,7 @@ export default function BillingReconciliationPage() {
         <div className="bg-gray-900 rounded-lg p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-400">False Positives</p>
+              <p className="text-sm text-text-muted">False Positives</p>
               <p className="text-2xl font-bold text-yellow-400">{data.summary.false_positives}</p>
             </div>
             <EyeOff className="w-8 h-8 text-yellow-400" />
@@ -262,15 +262,15 @@ export default function BillingReconciliationPage() {
         <div className="grid grid-cols-3 gap-4">
           <div className="text-center">
             <div className="text-2xl font-bold text-red-400">{data.summary.high_severity}</div>
-            <div className="text-sm text-gray-400">High Severity</div>
+            <div className="text-sm text-text-muted">High Severity</div>
           </div>
           <div className="text-center">
             <div className="text-2xl font-bold text-yellow-400">{data.summary.medium_severity}</div>
-            <div className="text-sm text-gray-400">Medium Severity</div>
+            <div className="text-sm text-text-muted">Medium Severity</div>
           </div>
           <div className="text-center">
             <div className="text-2xl font-bold text-blue-400">{data.summary.low_severity}</div>
-            <div className="text-sm text-gray-400">Low Severity</div>
+            <div className="text-sm text-text-muted">Low Severity</div>
           </div>
         </div>
       </div>
@@ -280,8 +280,8 @@ export default function BillingReconciliationPage() {
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-xl font-semibold text-white">Active Billing Differences</h2>
           <div className="flex items-center gap-2">
-            <Download className="w-4 h-4 text-gray-400" />
-            <span className="text-sm text-gray-400">CSV export available after reconciliation</span>
+            <Download className="w-4 h-4 text-text-muted" />
+            <span className="text-sm text-text-muted">CSV export available after reconciliation</span>
           </div>
         </div>
 
@@ -289,19 +289,19 @@ export default function BillingReconciliationPage() {
           <div className="text-center py-12">
             <CheckCircle className="w-12 h-12 text-green-400 mx-auto mb-4" />
             <h3 className="text-lg font-semibold text-white mb-2">No Active Issues</h3>
-            <p className="text-gray-400">All billing differences have been resolved or marked as false positives</p>
+            <p className="text-text-muted">All billing differences have been resolved or marked as false positives</p>
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-gray-700">
-                  <th className="text-left py-3 text-gray-400 font-medium">Type</th>
-                  <th className="text-left py-3 text-gray-400 font-medium">Severity</th>
-                  <th className="text-left py-3 text-gray-400 font-medium">Description</th>
-                  <th className="text-left py-3 text-gray-400 font-medium">Customer</th>
-                  <th className="text-left py-3 text-gray-400 font-medium">Created</th>
-                  <th className="text-left py-3 text-gray-400 font-medium">Actions</th>
+                  <th className="text-left py-3 text-text-muted font-medium">Type</th>
+                  <th className="text-left py-3 text-text-muted font-medium">Severity</th>
+                  <th className="text-left py-3 text-text-muted font-medium">Description</th>
+                  <th className="text-left py-3 text-text-muted font-medium">Customer</th>
+                  <th className="text-left py-3 text-text-muted font-medium">Created</th>
+                  <th className="text-left py-3 text-text-muted font-medium">Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -310,7 +310,7 @@ export default function BillingReconciliationPage() {
                     <td className="py-3">
                       <div className="flex items-center gap-2">
                         <span className="text-lg">{getTypeIcon(diff.type)}</span>
-                        <span className="text-gray-300 capitalize">{diff.type.replace('_', ' ')}</span>
+                        <span className="text-text-primary capitalize">{diff.type.replace('_', ' ')}</span>
                       </div>
                     </td>
                     <td className="py-3">
@@ -318,15 +318,15 @@ export default function BillingReconciliationPage() {
                         {diff.severity}
                       </span>
                     </td>
-                    <td className="py-3 text-gray-300 max-w-md">
+                    <td className="py-3 text-text-primary max-w-md">
                       <div className="truncate" title={diff.description}>
                         {diff.description}
                       </div>
                     </td>
-                    <td className="py-3 text-gray-300">
+                    <td className="py-3 text-text-primary">
                       {diff.customer_email || '-'}
                     </td>
-                    <td className="py-3 text-gray-400">
+                    <td className="py-3 text-text-muted">
                       {new Date(diff.created_at).toLocaleDateString()}
                     </td>
                     <td className="py-3">
@@ -363,7 +363,7 @@ export default function BillingReconciliationPage() {
               <h3 className="text-xl font-semibold text-white">Billing Difference Details</h3>
               <button
                 onClick={() => setSelectedDiff(null)}
-                className="text-gray-400 hover:text-white"
+                className="text-text-muted hover:text-white"
               >
                 <XCircle className="w-6 h-6" />
               </button>
@@ -371,7 +371,7 @@ export default function BillingReconciliationPage() {
             
             <div className="space-y-4">
               <div>
-                <label className="block text-sm text-gray-400 mb-1">Type</label>
+                <label className="block text-sm text-text-muted mb-1">Type</label>
                 <div className="flex items-center gap-2">
                   <span className="text-lg">{getTypeIcon(selectedDiff.type)}</span>
                   <span className="text-white capitalize">{selectedDiff.type.replace('_', ' ')}</span>
@@ -379,27 +379,27 @@ export default function BillingReconciliationPage() {
               </div>
               
               <div>
-                <label className="block text-sm text-gray-400 mb-1">Description</label>
+                <label className="block text-sm text-text-muted mb-1">Description</label>
                 <p className="text-white">{selectedDiff.description}</p>
               </div>
               
               {selectedDiff.whop_id && (
                 <div>
-                  <label className="block text-sm text-gray-400 mb-1">Whop ID</label>
+                  <label className="block text-sm text-text-muted mb-1">Whop ID</label>
                   <code className="text-green-400 font-mono">{selectedDiff.whop_id}</code>
                 </div>
               )}
               
               {selectedDiff.firestore_id && (
                 <div>
-                  <label className="block text-sm text-gray-400 mb-1">Firestore ID</label>
+                  <label className="block text-sm text-text-muted mb-1">Firestore ID</label>
                   <code className="text-blue-400 font-mono">{selectedDiff.firestore_id}</code>
                 </div>
               )}
               
               {selectedDiff.expected_value && (
                 <div>
-                  <label className="block text-sm text-gray-400 mb-1">Expected Value</label>
+                  <label className="block text-sm text-text-muted mb-1">Expected Value</label>
                   <pre className="text-green-400 font-mono text-sm bg-gray-800 p-2 rounded">
                     {JSON.stringify(selectedDiff.expected_value, null, 2)}
                   </pre>
@@ -408,7 +408,7 @@ export default function BillingReconciliationPage() {
               
               {selectedDiff.actual_value && (
                 <div>
-                  <label className="block text-sm text-gray-400 mb-1">Actual Value</label>
+                  <label className="block text-sm text-text-muted mb-1">Actual Value</label>
                   <pre className="text-red-400 font-mono text-sm bg-gray-800 p-2 rounded">
                     {JSON.stringify(selectedDiff.actual_value, null, 2)}
                   </pre>

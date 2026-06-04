@@ -63,9 +63,9 @@ export default async function DocsIndex() {
                 <a
                   key={file}
                   href={`/ops/docs/${slug}`}
-                  className="block p-4 border border-gray-200 rounded-lg hover:border-[#FF4500] hover:bg-orange-50 transition-colors duration-200"
+                  className="block p-4 border border-gray-200 rounded-lg hover:border-signal-yellow hover:bg-signal-soft/20 transition-colors duration-200"
                 >
-                  <h3 className="text-[#FF4500] font-medium">{title}</h3>
+                  <h3 className="text-signal-yellow font-medium">{title}</h3>
                   <p className="text-gray-600 text-sm mt-1">
                     View {slug} module documentation
                   </p>
@@ -79,7 +79,7 @@ export default async function DocsIndex() {
       <div className="border-t border-gray-200 pt-6">
         <div className="flex items-center justify-between text-sm text-gray-500">
           <span>Total modules: {files.length}</span>
-          <Link href="/" className="text-[#FF4500] hover:text-[#E03D00] transition-colors">
+          <Link href="/" className="text-signal-yellow hover:text-signal-soft transition-colors">
             ← Back to Home
           </Link>
         </div>

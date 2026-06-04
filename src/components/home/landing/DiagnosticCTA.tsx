@@ -36,7 +36,7 @@ export default function DiagnosticCTA() {
       />
       <div
         aria-hidden
-        className="absolute inset-0 -z-20 bg-[radial-gradient(circle_at_50%_30%,rgba(59,91,255,0.18),transparent_50%)]"
+        className="absolute inset-0 -z-20 bg-[radial-gradient(circle_at_50%_30%,rgba(77,172,255,0.18),transparent_50%)]"
       />
 
       <div className="mx-auto max-w-[960px] px-5 sm:px-8 text-center">

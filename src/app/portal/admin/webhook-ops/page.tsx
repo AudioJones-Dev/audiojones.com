@@ -137,7 +137,7 @@ export default function WebhookOpsPage() {
       </span>;
     }
 
-    return <span className="inline-flex items-center px-2 py-1 text-xs font-medium bg-gray-900/30 text-gray-400 rounded-full">
+    return <span className="inline-flex items-center px-2 py-1 text-xs font-medium bg-gray-900/30 text-text-muted rounded-full">
       <AlertCircle className="w-3 h-3 mr-1" />
       Unknown
     </span>;
@@ -160,11 +160,11 @@ export default function WebhookOpsPage() {
       <div className="flex items-center gap-2 mb-4">
         <Icon className="w-5 h-5 text-blue-400" />
         <h2 className="text-lg font-semibold text-white">{title}</h2>
-        <span className="text-sm text-gray-400">({items.length})</span>
+        <span className="text-sm text-text-muted">({items.length})</span>
       </div>
       
       {items.length === 0 ? (
-        <div className="text-center py-8 text-gray-500">
+        <div className="text-center py-8 text-text-muted">
           {emptyMessage}
         </div>
       ) : (
@@ -173,7 +173,7 @@ export default function WebhookOpsPage() {
             <thead>
               <tr className="border-b border-gray-700">
                 {columns.map(col => (
-                  <th key={col.key} className="text-left py-2 text-gray-400 font-medium">
+                  <th key={col.key} className="text-left py-2 text-text-muted font-medium">
                     {col.label}
                   </th>
                 ))}
@@ -183,7 +183,7 @@ export default function WebhookOpsPage() {
               {items.map((item, idx) => (
                 <tr key={item.id || idx} className="border-b border-gray-800 hover:bg-gray-800/50">
                   {columns.map(col => (
-                    <td key={col.key} className="py-2 text-gray-300">
+                    <td key={col.key} className="py-2 text-text-primary">
                       {col.render ? col.render(item) : (item as any)[col.key] || 'N/A'}
                     </td>
                   ))}
@@ -201,14 +201,14 @@ export default function WebhookOpsPage() {
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-3xl font-bold text-white">Webhook Operations</h1>
-          <p className="text-gray-400 mt-1">
+          <p className="text-text-muted mt-1">
             Monitor inbound webhooks, outbound deliveries, and system health
           </p>
         </div>
         
         <div className="flex items-center gap-4">
           {data.lastRefresh && (
-            <span className="text-sm text-gray-500">
+            <span className="text-sm text-text-muted">
               Last refresh: {data.lastRefresh}
             </span>
           )}

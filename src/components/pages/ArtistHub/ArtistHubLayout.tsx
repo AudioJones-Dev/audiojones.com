@@ -51,7 +51,7 @@ export default function ArtistHubLayout() {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#FF4500] mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-signal-yellow mx-auto mb-4"></div>
           <p className="text-gray-600">Loading Artist Hub...</p>
         </div>
       </div>
@@ -65,7 +65,7 @@ export default function ArtistHubLayout() {
           <p className="text-red-600 mb-4">Error: {error}</p>
           <button
             onClick={() => window.location.reload()}
-            className="bg-[#FF4500] text-white px-4 py-2 rounded-lg hover:bg-[#E03D00] transition-colors"
+            className="bg-signal-yellow text-bg-base px-4 py-2 rounded-lg hover:bg-signal-soft transition-colors"
           >
             Try Again
           </button>
@@ -85,7 +85,7 @@ export default function ArtistHubLayout() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-[#FF4500] to-[#E03D00] text-white py-16">
+      <section className="bg-gradient-to-br from-[#E8FF5A] to-[#4DACFF] text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-6">{config.title}</h1>
           <p className="text-xl md:text-2xl max-w-3xl mx-auto leading-relaxed">
@@ -120,7 +120,7 @@ export default function ArtistHubLayout() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
               href="/portal"
-              className="bg-[#008080] hover:bg-[#006666] text-white font-semibold py-3 px-8 rounded-lg transition-colors duration-200"
+              className="bg-accent-blue hover:bg-accent-blue/80 text-white font-semibold py-3 px-8 rounded-lg transition-colors duration-200"
             >
               Client Portal
             </a>

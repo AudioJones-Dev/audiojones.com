@@ -18,13 +18,13 @@ export default function ProblemReframe() {
         {POINTS.map((p) => (
           <li
             key={p}
-            className="flex gap-3 rounded-lg border border-white/10 bg-[#0B1020] p-5"
+            className="flex gap-3 rounded-lg border border-border-subtle bg-surface-1 p-5"
           >
             <span
               aria-hidden
-              className="mt-2 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-[#C8A96A]"
+              className="mt-2 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-signal-yellow"
             />
-            <span className="text-slate-200">{p}</span>
+            <span className="text-text-primary">{p}</span>
           </li>
         ))}
       </ul>
