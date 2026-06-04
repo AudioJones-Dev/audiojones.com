@@ -26,6 +26,8 @@ export const publicRoutes = [
   { path: "/", priority: 1, changeFrequency: "weekly" },
   { path: "/applied-intelligence", priority: 0.95, changeFrequency: "weekly" },
   { path: "/applied-intelligence/diagnostic", priority: 0.9, changeFrequency: "monthly" },
+  { path: "/founder-gravity-audit", priority: 0.9, changeFrequency: "monthly" },
+  { path: "/founder-gravity-audit/diagnostic", priority: 0.9, changeFrequency: "monthly" },
   { path: "/frameworks", priority: 0.85, changeFrequency: "monthly" },
   { path: "/insights", priority: 0.85, changeFrequency: "weekly" },
   { path: "/blog", priority: 0.85, changeFrequency: "weekly" },
