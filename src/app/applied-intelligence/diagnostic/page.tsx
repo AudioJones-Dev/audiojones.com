@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import DiagnosticForm from "@/components/applied-intelligence/DiagnosticForm";
 import Breadcrumbs from "@/components/applied-intelligence/Breadcrumbs";
+import { Eyebrow } from "@/components/ui/Eyebrow";
 import JsonLd from "@/components/seo/JsonLd";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { breadcrumbJsonLd } from "@/lib/seo/schema";
@@ -30,22 +31,22 @@ export default function DiagnosticPage() {
         ]}
       />
 
-      <section className="bg-[#05070F] pt-16 pb-10">
+      <section className="bg-bg-base pt-16 pb-10">
         <div className="mx-auto max-w-3xl px-5 sm:px-8">
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-[#C8A96A]">
-            Strategic Diagnostic
-          </p>
-          <h1 className="text-balance text-3xl font-semibold leading-tight text-white sm:text-4xl">
+          <div className="mb-3">
+            <Eyebrow withLine>Strategic Diagnostic</Eyebrow>
+          </div>
+          <h1 className="text-balance text-3xl font-semibold leading-tight text-text-primary sm:text-4xl">
             Tell me where your business actually leaks signal.
           </h1>
-          <p className="mt-4 text-lg text-slate-300">
+          <p className="mt-4 text-lg text-text-muted">
             Six short steps. I review every submission personally and reply
             within two business days if there’s a strong fit.
           </p>
         </div>
       </section>
 
-      <section className="bg-[#05070F] pb-24">
+      <section className="bg-bg-base pb-24">
         <div className="mx-auto max-w-3xl px-5 sm:px-8">
           <DiagnosticForm />
         </div>
