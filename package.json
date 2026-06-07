@@ -8,7 +8,7 @@
         "build": "pnpm packages:build && next build",
         "start": "next start",
         "lint": "eslint",
-        "dx:init": "echo 'Setting up Doppler and environment...' && doppler setup --project ajdigital --config dev; doppler secrets download --no-file --format env > .env.development.local",
+        "dx:init": "echo 'Setting up Doppler and environment...' && doppler setup --project audiojones-com --config dev --no-interactive && doppler secrets download --no-file --format env > .env.development.local",
         "env:check": "tsx -e \"require('./packages/config/dist/index.js')\" && echo \"âœ… Environment validation successful\"",
         "prestart": "tsx -e \"require('./packages/config/dist/index.js')\"",
         "packages:build": "pnpm -r --filter='@aj/*' build",
