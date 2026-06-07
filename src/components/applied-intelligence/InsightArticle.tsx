@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import Link from "next/link";
+import { ButtonLink } from "@/components/ui/Button";
 import { ctaLinks } from "@/config/links";
 
 type Props = {
@@ -16,35 +16,37 @@ export default function InsightArticle({
   children,
 }: Props) {
   return (
-    <article className="bg-[#05070F]">
-      <header className="border-b border-white/5 pt-20 pb-12">
+    <article className="bg-bg-base">
+      <header className="border-b border-border-subtle pt-20 pb-12">
         <div className="mx-auto max-w-3xl px-5 sm:px-8">
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-[#C8A96A]">
+          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-signal-yellow">
             {eyebrow}
           </p>
           <h1 className="text-balance text-4xl font-semibold leading-tight text-white sm:text-5xl">
             {title}
           </h1>
-          <p className="mt-5 text-lg text-slate-300">{intro}</p>
+          <p className="mt-5 text-lg text-text-primary">{intro}</p>
         </div>
       </header>
 
-      <div className="mx-auto max-w-3xl space-y-10 px-5 py-16 text-slate-200 sm:px-8">
+      <div className="mx-auto max-w-3xl space-y-10 px-5 py-16 text-text-primary sm:px-8">
         {children}
 
-        <div className="rounded-xl border border-white/10 bg-[#0B1020] p-6">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#C8A96A]">
+        <div className="rounded-xl border border-border-subtle bg-surface-1 p-6">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-signal-yellow">
             Apply this
           </p>
           <p className="mt-2 text-lg font-semibold text-white">
             Take the Applied Intelligence Diagnostic.
           </p>
-          <Link
+          <ButtonLink
             href={ctaLinks.signalDiagnostic}
-            className="mt-4 inline-flex items-center justify-center rounded-md bg-[#3B5BFF] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#5B7AFF]"
+            variant="primary"
+            size="sm"
+            className="mt-4"
           >
             Request Strategic Diagnostic
-          </Link>
+          </ButtonLink>
         </div>
       </div>
     </article>

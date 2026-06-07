@@ -4,19 +4,21 @@
 // Update both together — keep in sync.
 
 export const aiColors = {
-  // Brand
-  orange: "#FF4500",
-  orangeSoft: "#FF6A30",
-  blue: "#0088CC",
-  blueBright: "#3B5BFF",
-  gold: "#C8A96A",
+  // Brand — V2 (signal yellow primary, accent blue system).
+  // `orange`/`gold` names are preserved as aliases for call sites that
+  // haven't been renamed yet; in V2 they resolve to signal yellow.
+  orange: "#E8FF5A",
+  orangeSoft: "#F0FF85",
+  blue: "#4DACFF",
+  blueBright: "#4DACFF",
+  gold: "#E8FF5A",
 
-  // Surfaces — dark (canonical)
-  bg0: "#05070F",
-  bg1: "#0B0F1A",
-  bg2: "#0B1020",
-  bg3: "#101827",
-  bg4: "#1A2234",
+  // Surfaces — dark (canonical V2)
+  bg0: "#080808",
+  bg1: "#0F0F0F",
+  bg2: "#0F0F0F",
+  bg3: "#161616",
+  bg4: "#161616",
 
   // Surfaces — light split (paired clarity layer, opt-in)
   paper: "#F8FAFC",
@@ -31,57 +33,57 @@ export const aiColors = {
   bgLight1: "#F5F5F5",
   bgLight2: "#EEF2F6",
 
-  // Text — dark
+  // Text — dark (canonical V2)
   fg0: "#FFFFFF",
-  fg1: "#E5E7EB",
-  fg2: "#94A3B8",
-  fg3: "#64748B",
+  fg1: "#E8E8E8",
+  fg2: "#666666",
+  fg3: "#666666",
 
   // Text — light (legacy aliases)
   fgLight0: "#111111",
   fgLight1: "#1E2A3A",
   fgLight2: "#4B5563",
 
-  // Brand identity aliases (canonical names)
-  orangePrimary: "#FF4500",
-  blueSystem: "#0088CC",
-  darkPrimary: "#05070F",
-  darkSecondary: "#0B0F1A",
+  // Brand identity aliases (canonical names) — V2
+  orangePrimary: "#E8FF5A",
+  blueSystem: "#4DACFF",
+  darkPrimary: "#080808",
+  darkSecondary: "#0F0F0F",
 
   // Borders
   line1: "rgba(255,255,255,0.06)",
   line2: "rgba(255,255,255,0.10)",
   line3: "rgba(255,255,255,0.18)",
-  lineBlue: "rgba(59,91,255,0.40)",
-  lineGold: "rgba(200,169,106,0.40)",
+  lineBlue: "rgba(77,172,255,0.40)",
+  lineGold: "rgba(232,255,90,0.40)",
 
-  // Semantic
-  signal: "#FF4500",
-  system: "#3B5BFF",
-  metric: "#C8A96A",
-  success: "#22C55E",
-  warning: "#FACC15",
-  danger: "#EF4444",
+  // Semantic — V2 canonical palette
+  signal: "#E8FF5A",
+  system: "#4DACFF",
+  metric: "#E8FF5A",
+  success: "#3DFFB0",
+  warning: "#FFB340",
+  danger: "#FF4545",
 
-  // Legacy aliases (kept until call sites migrate).
-  // NOTE: `surface` is no longer aliased here — it conflicts with the
-  // canonical light-split `surface` above (#F5F5F5). Old call sites
-  // that wanted the dark card surface should use `bg2` ("#0B1020").
-  background: "#05070F",
-  surfaceAlt: "#101827",
-  primary: "#3B5BFF",
-  primaryBright: "#3B5BFF",
-  accent: "#C8A96A",
+  // Legacy aliases (kept until call sites migrate). All resolve to V2.
+  // Old call sites that wanted the dark card surface should use `bg2`.
+  background: "#080808",
+  surfaceAlt: "#161616",
+  primary: "#4DACFF",
+  primaryBright: "#4DACFF",
+  accent: "#E8FF5A",
   text: "#FFFFFF",
-  muted: "#94A3B8",
+  muted: "#666666",
   border: "rgba(255,255,255,0.10)",
 } as const;
 
+// V2 §03 — Syne for display/headers, DM Sans for body, DM Mono for
+// eyebrows/labels. Mirrors the next/font variables wired in layout.tsx.
 export const aiFonts = {
-  headline: '"Space Grotesk", ui-sans-serif, system-ui, sans-serif',
-  accent: '"Sora", ui-sans-serif, system-ui, sans-serif',
-  body: '"Inter", ui-sans-serif, system-ui, sans-serif',
-  mono: 'ui-monospace, "SF Mono", Menlo, Consolas, monospace',
+  headline: 'var(--font-syne, "Syne"), "Space Grotesk", ui-sans-serif, system-ui, sans-serif',
+  accent: 'var(--font-syne, "Syne"), "Space Grotesk", ui-sans-serif, system-ui, sans-serif',
+  body: 'var(--font-dm-sans, "DM Sans"), ui-sans-serif, system-ui, sans-serif',
+  mono: 'var(--font-dm-mono, "DM Mono"), ui-monospace, "SF Mono", Menlo, Consolas, monospace',
 } as const;
 
 export const aiMotion = {

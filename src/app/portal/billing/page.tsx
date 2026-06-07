@@ -121,7 +121,7 @@ export default function BillingPage() {
       {/* Page Header */}
       <div>
         <h1 className="text-3xl font-bold text-white">Billing & Subscription</h1>
-        <p className="mt-2 text-gray-400">
+        <p className="mt-2 text-text-muted">
           Manage your subscription, payments, and billing history
         </p>
       </div>
@@ -154,30 +154,30 @@ export default function BillingPage() {
           {billingInfo ? (
             <div className="space-y-4">
               <div className="flex items-center justify-between">
-                <span className="text-gray-400">Plan</span>
+                <span className="text-text-muted">Plan</span>
                 <span className="text-white font-medium">{billingInfo.subscription.plan}</span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-gray-400">Status</span>
+                <span className="text-text-muted">Status</span>
                 <span className={`inline-flex rounded-full px-2 py-1 text-xs font-semibold ${getStatusColor(billingInfo.subscription.status)}`}>
                   {billingInfo.subscription.status.replace('_', ' ')}
                 </span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-gray-400">Amount</span>
+                <span className="text-text-muted">Amount</span>
                 <span className="text-white font-medium">
                   ${billingInfo.subscription.amount.toLocaleString()}/{billingInfo.subscription.currency}
                 </span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-gray-400">Next Billing</span>
+                <span className="text-text-muted">Next Billing</span>
                 <span className="text-white">{billingInfo.subscription.nextBilling}</span>
               </div>
               
               {billingInfo.usage && (
                 <div className="pt-4 border-t border-gray-700">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-gray-400">Usage</span>
+                    <span className="text-text-muted">Usage</span>
                     <span className="text-white">
                       {billingInfo.usage.current} / {billingInfo.usage.limit}
                     </span>
@@ -188,12 +188,12 @@ export default function BillingPage() {
                       style={{ width: `${(billingInfo.usage.current / billingInfo.usage.limit) * 100}%` }}
                     ></div>
                   </div>
-                  <div className="text-sm text-gray-400 mt-1">This {billingInfo.usage.period}</div>
+                  <div className="text-sm text-text-muted mt-1">This {billingInfo.usage.period}</div>
                 </div>
               )}
             </div>
           ) : (
-            <p className="text-gray-400">No subscription information available</p>
+            <p className="text-text-muted">No subscription information available</p>
           )}
         </div>
 
@@ -213,7 +213,7 @@ export default function BillingPage() {
                     •••• •••• •••• {billingInfo.paymentMethod.last4}
                   </div>
                   {billingInfo.paymentMethod.expiryMonth && billingInfo.paymentMethod.expiryYear && (
-                    <div className="text-sm text-gray-400">
+                    <div className="text-sm text-text-muted">
                       Expires {billingInfo.paymentMethod.expiryMonth}/{billingInfo.paymentMethod.expiryYear}
                     </div>
                   )}
@@ -221,7 +221,7 @@ export default function BillingPage() {
               </div>
             </div>
           ) : (
-            <p className="text-gray-400">No payment method on file</p>
+            <p className="text-text-muted">No payment method on file</p>
           )}
           
           <div className="mt-6">
@@ -252,10 +252,10 @@ export default function BillingPage() {
             <table className="min-w-full">
               <thead>
                 <tr className="border-b border-gray-700">
-                  <th className="text-left py-3 text-gray-400 font-medium">Date</th>
-                  <th className="text-left py-3 text-gray-400 font-medium">Amount</th>
-                  <th className="text-left py-3 text-gray-400 font-medium">Status</th>
-                  <th className="text-right py-3 text-gray-400 font-medium">Actions</th>
+                  <th className="text-left py-3 text-text-muted font-medium">Date</th>
+                  <th className="text-left py-3 text-text-muted font-medium">Amount</th>
+                  <th className="text-left py-3 text-text-muted font-medium">Status</th>
+                  <th className="text-right py-3 text-text-muted font-medium">Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -286,7 +286,7 @@ export default function BillingPage() {
             </table>
           </div>
         ) : (
-          <p className="text-gray-400">No billing history available</p>
+          <p className="text-text-muted">No billing history available</p>
         )}
       </div>
 

@@ -16,19 +16,19 @@ export default function InsightsSection() {
       <div className="relative max-w-6xl mx-auto px-6">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-10">
           <div>
-            <p className="text-sm uppercase tracking-wide text-orange-400 font-semibold">
+            <p className="text-sm uppercase tracking-wide text-signal-yellow font-semibold">
               Insights &amp; Playbooks
             </p>
             <h2 className="text-3xl md:text-4xl font-bold leading-tight">
               Learn how Miami leaders stay visible.
             </h2>
-            <p className="text-gray-200 mt-2 max-w-2xl">
+            <p className="text-text-muted mt-2 max-w-2xl">
               AI, podcasting, and AEO strategies we're using with clients right now.
             </p>
           </div>
           <Link
             href="/insights"
-            className="inline-flex items-center rounded-full border border-white/15 bg-black/30 px-5 py-2 text-sm font-semibold text-white hover:border-white/70 transition-all"
+            className="inline-flex items-center rounded-full border border-border-subtle bg-black/30 px-5 py-2 text-sm font-semibold text-white hover:border-border-strong transition-all"
           >
             View all insights
           </Link>
@@ -36,7 +36,7 @@ export default function InsightsSection() {
 
         <div className="grid gap-6 md:grid-cols-3">
           {/* Card 1 */}
-          <article className="flex flex-col bg-black/35 backdrop-blur-sm rounded-2xl border border-white/5 overflow-hidden">
+          <article className="flex flex-col bg-black/35 backdrop-blur-sm rounded-2xl border border-border-subtle overflow-hidden">
             <div 
               className="h-40 bg-cover bg-center" 
               style={{ 
@@ -44,16 +44,16 @@ export default function InsightsSection() {
               }}
             />
             <div className="p-6 flex flex-col gap-3 flex-1">
-              <p className="text-xs uppercase tracking-wide text-orange-300">AI Marketing • 5 min read</p>
+              <p className="text-xs uppercase tracking-wide text-signal-yellow">AI Marketing • 5 min read</p>
               <h3 className="text-lg font-semibold leading-snug">
                 The Miami Podcast Playbook: How to Launch a Show That Gets Noticed
               </h3>
-              <p className="text-gray-300 text-sm flex-1">
+              <p className="text-text-muted text-sm flex-1">
                 A step-by-step approach to launching a video-first show for South Florida audiences.
               </p>
               <Link
                 href="/blog/miami-podcast-playbook"
-                className="inline-flex items-center mt-1 rounded-full bg-gradient-to-r from-[#FF4500] to-[#FFD700] px-4 py-2 text-sm font-semibold text-black shadow-md hover:opacity-90 transition-all"
+                className="inline-flex items-center mt-1 rounded-full bg-signal-yellow hover:bg-signal-soft px-4 py-2 text-sm font-semibold text-black shadow-md transition-all"
               >
                 Open Playbook →
               </Link>
@@ -61,7 +61,7 @@ export default function InsightsSection() {
           </article>
 
           {/* Card 2 */}
-          <article className="flex flex-col bg-black/35 backdrop-blur-sm rounded-2xl border border-white/5 overflow-hidden">
+          <article className="flex flex-col bg-black/35 backdrop-blur-sm rounded-2xl border border-border-subtle overflow-hidden">
             <div 
               className="h-40 bg-cover bg-center" 
               style={{ 
@@ -69,16 +69,16 @@ export default function InsightsSection() {
               }}
             />
             <div className="p-6 flex flex-col gap-3 flex-1">
-              <p className="text-xs uppercase tracking-wide text-orange-300">Content Systems • 7 min read</p>
+              <p className="text-xs uppercase tracking-wide text-signal-yellow">Content Systems • 7 min read</p>
               <h3 className="text-lg font-semibold leading-snug">
                 AI-Powered Content Marketing: How to Generate Leads on Autopilot
               </h3>
-              <p className="text-gray-300 text-sm flex-1">
+              <p className="text-text-muted text-sm flex-1">
                 Use automation and AI to turn episodes into multi-channel lead gen.
               </p>
               <Link
                 href="/blog/ai-powered-content-marketing"
-                className="inline-flex items-center mt-1 rounded-full bg-gradient-to-r from-[#FF4500] to-[#FFD700] px-4 py-2 text-sm font-semibold text-black shadow-md hover:opacity-90 transition-all"
+                className="inline-flex items-center mt-1 rounded-full bg-signal-yellow hover:bg-signal-soft px-4 py-2 text-sm font-semibold text-black shadow-md transition-all"
               >
                 Open Playbook →
               </Link>
@@ -86,7 +86,7 @@ export default function InsightsSection() {
           </article>
 
           {/* Card 3 */}
-          <article className="flex flex-col bg-black/35 backdrop-blur-sm rounded-2xl border border-white/5 overflow-hidden">
+          <article className="flex flex-col bg-black/35 backdrop-blur-sm rounded-2xl border border-border-subtle overflow-hidden">
             <div 
               className="h-40 bg-cover bg-center" 
               style={{ 
@@ -94,16 +94,16 @@ export default function InsightsSection() {
               }}
             />
             <div className="p-6 flex flex-col gap-3 flex-1">
-              <p className="text-xs uppercase tracking-wide text-orange-300">AEO / Local SEO • 6 min read</p>
+              <p className="text-xs uppercase tracking-wide text-signal-yellow">AEO / Local SEO • 6 min read</p>
               <h3 className="text-lg font-semibold leading-snug">
                 The AEO Framework: How to Build a Personal Brand That Attracts Clients
               </h3>
-              <p className="text-gray-300 text-sm flex-1">
+              <p className="text-text-muted text-sm flex-1">
                 Position yourself for Miami search, zero-click results, and branded queries.
               </p>
               <Link
                 href="/blog/miami-aeo-framework"
-                className="inline-flex items-center mt-1 rounded-full bg-gradient-to-r from-[#FF4500] to-[#FFD700] px-4 py-2 text-sm font-semibold text-black shadow-md hover:opacity-90 transition-all"
+                className="inline-flex items-center mt-1 rounded-full bg-signal-yellow hover:bg-signal-soft px-4 py-2 text-sm font-semibold text-black shadow-md transition-all"
               >
                 Open Playbook →
               </Link>

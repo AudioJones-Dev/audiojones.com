@@ -9,13 +9,13 @@ export default function NewsletterSection() {
       <div className="absolute inset-0 bg-black/70" />
       
       <div className="relative mx-auto max-w-[820px] px-6 text-center">
-        <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#FF4500]">
+        <p className="text-sm font-bold uppercase tracking-[0.2em] text-signal-yellow">
           Stay ahead in AI + Podcasting
         </p>
         <h2 className="text-4xl sm:text-5xl font-extrabold leading-tight tracking-tight text-white max-w-3xl mx-auto mt-4">
           Get the Audio Jones playbooks before they drop.
         </h2>
-        <p className="max-w-2xl mx-auto mt-4 text-lg text-gray-200">
+        <p className="max-w-2xl mx-auto mt-4 text-lg text-text-muted">
           Weekly insights, creator case studies, and automation recipes delivered straight from the studio.
         </p>
         
@@ -32,17 +32,17 @@ export default function NewsletterSection() {
             type="email" 
             required 
             placeholder="Enter your best email" 
-            className="w-full flex-auto rounded-full border border-white/15 bg-[#1C1C1C] px-5 py-3.5 text-base text-white placeholder:text-gray-500 focus:border-[#FF4500] focus:outline-none focus:ring-2 focus:ring-[#FF4500]/50" 
+            className="w-full flex-auto rounded-full border border-border-subtle bg-[#1C1C1C] px-5 py-3.5 text-base text-white placeholder:text-text-muted focus:border-signal-yellow focus:outline-none focus:ring-2 focus:ring-signal-yellow/50"
           />
           <button 
             type="submit" 
-            className="w-full sm:w-auto rounded-full bg-gradient-to-r from-[#FF4500] to-[#FFD700] px-8 py-3.5 text-sm font-bold text-black shadow-sm hover:opacity-90 transition-all"
+            className="w-full sm:w-auto rounded-full bg-signal-yellow hover:bg-signal-soft px-8 py-3.5 text-sm font-bold text-black shadow-sm transition-all"
           >
             Join the List
           </button>
         </form>
         
-        <p className="mt-3 text-xs text-gray-400">
+        <p className="mt-3 text-xs text-text-muted">
           Powered by AJ DIGITAL LLC · Delivered via MailerLite · No spam, ever.
         </p>
       </div>

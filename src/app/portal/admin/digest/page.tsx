@@ -169,7 +169,7 @@ export default function AdminDigestPage() {
       <div className="flex justify-between items-start">
         <div>
           <h1 className="text-2xl font-bold text-white mb-2">Ops Digest</h1>
-          <p className="text-gray-400">
+          <p className="text-text-muted">
             Automated operational status reports to Slack
           </p>
         </div>
@@ -211,7 +211,7 @@ export default function AdminDigestPage() {
               }`} />
               <div>
                 <p className="text-sm font-medium text-white">Slack Integration</p>
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-text-muted">
                   {configStatus?.configuration?.slack_configured ? 'Configured' : 'Not configured'}
                 </p>
               </div>
@@ -221,7 +221,7 @@ export default function AdminDigestPage() {
               <div className="w-3 h-3 rounded-full bg-green-500" />
               <div>
                 <p className="text-sm font-medium text-white">SLO Data</p>
-                <p className="text-xs text-gray-400">Available</p>
+                <p className="text-xs text-text-muted">Available</p>
               </div>
             </div>
             
@@ -229,7 +229,7 @@ export default function AdminDigestPage() {
               <div className="w-3 h-3 rounded-full bg-green-500" />
               <div>
                 <p className="text-sm font-medium text-white">Incident Data</p>
-                <p className="text-xs text-gray-400">Available</p>
+                <p className="text-xs text-text-muted">Available</p>
               </div>
             </div>
           </div>
@@ -258,7 +258,7 @@ export default function AdminDigestPage() {
                     {lastStatus.success ? 'Successfully sent' : 'Failed to send'}
                   </p>
                   {lastStatus.sent_at && (
-                    <p className="text-sm text-gray-400">
+                    <p className="text-sm text-text-muted">
                       {getTimeAgo(lastStatus.sent_at)} • {formatTimestamp(lastStatus.sent_at)}
                     </p>
                   )}
@@ -266,7 +266,7 @@ export default function AdminDigestPage() {
               </div>
               
               {lastStatus.digest_summary && (
-                <div className="text-right text-sm text-gray-400">
+                <div className="text-right text-sm text-text-muted">
                   <p>{lastStatus.digest_summary.slo_healthy}/{lastStatus.digest_summary.slo_healthy + lastStatus.digest_summary.slo_at_risk + lastStatus.digest_summary.slo_violating} SLOs healthy</p>
                   <p>{lastStatus.digest_summary.open_incidents} open incidents</p>
                 </div>
@@ -307,7 +307,7 @@ export default function AdminDigestPage() {
                           {lastResult.digest.summary.slo_healthy}
                         </span>
                       </div>
-                      <p className="text-xs text-gray-400">SLOs Healthy</p>
+                      <p className="text-xs text-text-muted">SLOs Healthy</p>
                     </div>
                     
                     <div className="text-center">
@@ -317,7 +317,7 @@ export default function AdminDigestPage() {
                           {lastResult.digest.summary.slo_at_risk + lastResult.digest.summary.slo_violating}
                         </span>
                       </div>
-                      <p className="text-xs text-gray-400">SLOs At Risk</p>
+                      <p className="text-xs text-text-muted">SLOs At Risk</p>
                     </div>
                     
                     <div className="text-center">
@@ -327,7 +327,7 @@ export default function AdminDigestPage() {
                           {lastResult.digest.summary.open_incidents}
                         </span>
                       </div>
-                      <p className="text-xs text-gray-400">Open Incidents</p>
+                      <p className="text-xs text-text-muted">Open Incidents</p>
                     </div>
                     
                     <div className="text-center">
@@ -337,7 +337,7 @@ export default function AdminDigestPage() {
                           {lastResult.digest.summary.capacity_status}
                         </Badge>
                       </div>
-                      <p className="text-xs text-gray-400">Capacity Status</p>
+                      <p className="text-xs text-text-muted">Capacity Status</p>
                     </div>
                   </div>
                 )}
@@ -357,7 +357,7 @@ export default function AdminDigestPage() {
                      'Generated but not sent'}
                   </span>
                   {lastResult.digest?.generated_at && (
-                    <span className="text-gray-400 text-sm">
+                    <span className="text-text-muted text-sm">
                       • {getTimeAgo(lastResult.digest.generated_at)}
                     </span>
                   )}
@@ -394,18 +394,18 @@ export default function AdminDigestPage() {
           <CardContent>
             <div className="space-y-4">
               <div>
-                <h4 className="text-sm font-medium text-gray-400 mb-2">Fallback Text</h4>
+                <h4 className="text-sm font-medium text-text-muted mb-2">Fallback Text</h4>
                 <p className="text-sm text-white bg-gray-900 p-3 rounded">
                   {previewData.preview?.text}
                 </p>
               </div>
               
               <div>
-                <h4 className="text-sm font-medium text-gray-400 mb-2">
+                <h4 className="text-sm font-medium text-text-muted mb-2">
                   Slack Blocks ({previewData.preview?.blocks_count} blocks)
                 </h4>
                 <div className="bg-gray-900 p-3 rounded max-h-60 overflow-y-auto">
-                  <pre className="text-xs text-gray-300">
+                  <pre className="text-xs text-text-primary">
                     {JSON.stringify(previewData.slack_payload, null, 2)}
                   </pre>
                 </div>
@@ -429,7 +429,7 @@ export default function AdminDigestPage() {
               <Target className="h-8 w-8 text-blue-400" />
               <div>
                 <h4 className="font-medium text-white">Service Level Objectives</h4>
-                <p className="text-sm text-gray-400">SLO status and error budget consumption</p>
+                <p className="text-sm text-text-muted">SLO status and error budget consumption</p>
               </div>
             </div>
             
@@ -437,7 +437,7 @@ export default function AdminDigestPage() {
               <Activity className="h-8 w-8 text-red-400" />
               <div>
                 <h4 className="font-medium text-white">Open Incidents</h4>
-                <p className="text-sm text-gray-400">Active incidents requiring attention</p>
+                <p className="text-sm text-text-muted">Active incidents requiring attention</p>
               </div>
             </div>
             
@@ -445,7 +445,7 @@ export default function AdminDigestPage() {
               <BarChart3 className="h-8 w-8 text-green-400" />
               <div>
                 <h4 className="font-medium text-white">Capacity Forecast</h4>
-                <p className="text-sm text-gray-400">Resource utilization and predictions</p>
+                <p className="text-sm text-text-muted">Resource utilization and predictions</p>
               </div>
             </div>
           </div>
@@ -480,7 +480,7 @@ export default function AdminDigestPage() {
           
           <div>
             <h4 className="font-medium text-white mb-2">Recommended Schedule</h4>
-            <ul className="text-sm text-gray-400 space-y-1">
+            <ul className="text-sm text-text-muted space-y-1">
               <li>• Daily at 9:00 AM EST (morning standup)</li>
               <li>• Critical incidents: immediate alerts via existing system</li>
               <li>• Weekly summaries: Fridays at 5:00 PM EST</li>

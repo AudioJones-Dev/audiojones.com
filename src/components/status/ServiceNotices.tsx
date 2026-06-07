@@ -33,7 +33,7 @@ export function ServiceNotices() {
         </h3>
         <Link 
           href="/status"
-          className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 text-sm flex items-center"
+          className="text-blue-600 hover:text-blue-800 dark:text-accent-blue dark:hover:text-accent-blue/80 text-sm flex items-center"
         >
           View Status Page
           <ExternalLink className="w-3 h-3 ml-1" />
@@ -52,10 +52,10 @@ export function ServiceNotices() {
         ))}
         
         {activeIncidents.length > 3 && (
-          <div className="pt-2 border-t border-gray-200 dark:border-gray-700">
+          <div className="pt-2 border-t border-gray-200 dark:border-border-subtle">
             <Link 
               href="/status"
-              className="text-sm text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
+              className="text-sm text-blue-600 hover:text-blue-800 dark:text-accent-blue dark:hover:text-accent-blue/80"
             >
               View {activeIncidents.length - 3} more incidents →
             </Link>
@@ -73,28 +73,28 @@ function IncidentNotice({ incident }: { incident: IncidentFeedItem }) {
   const getSeverityColor = (severity?: string) => {
     switch (severity) {
       case 'critical':
-        return 'bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-200 border-red-200 dark:border-red-800';
+        return 'bg-red-100 text-red-800 dark:bg-accent-red/15 dark:text-accent-red border-red-200 dark:border-accent-red/50';
       case 'high':
-        return 'bg-orange-100 text-orange-800 dark:bg-orange-900/20 dark:text-orange-200 border-orange-200 dark:border-orange-800';
+        return 'bg-orange-100 text-orange-800 dark:bg-signal-yellow/15 dark:text-signal-yellow border-orange-200 dark:border-signal-yellow/50';
       case 'medium':
-        return 'bg-amber-100 text-amber-800 dark:bg-amber-900/20 dark:text-amber-200 border-amber-200 dark:border-amber-800';
+        return 'bg-amber-100 text-amber-800 dark:bg-accent-amber/15 dark:text-accent-amber border-amber-200 dark:border-accent-amber/50';
       case 'low':
-        return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-200 border-yellow-200 dark:border-yellow-800';
+        return 'bg-yellow-100 text-yellow-800 dark:bg-signal-soft/15 dark:text-signal-soft border-yellow-200 dark:border-signal-soft/50';
       default:
-        return 'bg-gray-100 text-gray-800 dark:bg-gray-900/20 dark:text-gray-200 border-gray-200 dark:border-gray-800';
+        return 'bg-gray-100 text-gray-800 dark:bg-surface-2 dark:text-text-primary border-gray-200 dark:border-border-subtle';
     }
   };
   
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'open':
-        return 'bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-200 border-red-200 dark:border-red-800';
+        return 'bg-red-100 text-red-800 dark:bg-accent-red/15 dark:text-accent-red border-red-200 dark:border-accent-red/50';
       case 'investigating':
-        return 'bg-amber-100 text-amber-800 dark:bg-amber-900/20 dark:text-amber-200 border-amber-200 dark:border-amber-800';
+        return 'bg-amber-100 text-amber-800 dark:bg-accent-amber/15 dark:text-accent-amber border-amber-200 dark:border-accent-amber/50';
       case 'monitoring':
-        return 'bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-200 border-blue-200 dark:border-blue-800';
+        return 'bg-blue-100 text-blue-800 dark:bg-accent-blue/15 dark:text-accent-blue border-blue-200 dark:border-accent-blue/50';
       default:
-        return 'bg-gray-100 text-gray-800 dark:bg-gray-900/20 dark:text-gray-200 border-gray-200 dark:border-gray-800';
+        return 'bg-gray-100 text-gray-800 dark:bg-surface-2 dark:text-text-primary border-gray-200 dark:border-border-subtle';
     }
   };
   
@@ -121,9 +121,9 @@ function IncidentNotice({ incident }: { incident: IncidentFeedItem }) {
   };
   
   return (
-    <div className="p-3 bg-gray-50 dark:bg-gray-900/50 rounded-lg border border-gray-200 dark:border-gray-800">
+    <div className="p-3 bg-gray-50 dark:bg-surface-1 rounded-lg border border-gray-200 dark:border-border-subtle">
       <div className="flex items-start justify-between mb-2">
-        <h4 className="font-medium text-gray-900 dark:text-gray-100 text-sm">
+        <h4 className="font-medium text-gray-900 dark:text-text-primary text-sm">
           {incident.title}
         </h4>
         <div className="flex gap-1 ml-2">
@@ -139,12 +139,12 @@ function IncidentNotice({ incident }: { incident: IncidentFeedItem }) {
       </div>
       
       {incident.short_description && (
-        <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+        <p className="text-sm text-gray-600 dark:text-text-muted mb-2">
           {incident.short_description}
         </p>
       )}
       
-      <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-500">
+      <div className="flex items-center justify-between text-xs text-gray-500 dark:text-text-muted">
         <div className="flex items-center">
           <Clock className="w-3 h-3 mr-1" />
           <span>Started {formatTime(incident.started_at)}</span>
@@ -153,9 +153,9 @@ function IncidentNotice({ incident }: { incident: IncidentFeedItem }) {
       </div>
       
       {incident.affected_components && incident.affected_components.length > 0 && (
-        <div className="mt-2 pt-2 border-t border-gray-200 dark:border-gray-700">
-          <span className="text-xs text-gray-500 dark:text-gray-500">Affected: </span>
-          <span className="text-xs text-gray-700 dark:text-gray-300">
+        <div className="mt-2 pt-2 border-t border-gray-200 dark:border-border-subtle">
+          <span className="text-xs text-gray-500 dark:text-text-muted">Affected: </span>
+          <span className="text-xs text-gray-700 dark:text-text-primary">
             {incident.affected_components.join(', ')}
           </span>
         </div>

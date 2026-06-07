@@ -55,67 +55,67 @@ const VARIANT_CONFIG: Record<
 > = {
   signal: {
     borderGradient:
-      "linear-gradient(135deg, #FF4500 0%, #3B5BFF 60%, #C8A96A 100%)",
-    iconGradient: "linear-gradient(135deg, #FF4500, #3B5BFF)",
-    iconGlow: "0 0 18px rgba(255,69,0,0.22)",
-    statusBg: "rgba(255,69,0,0.10)",
-    statusBorder: "rgba(255,69,0,0.30)",
-    statusText: "#FF6A30",
-    statusDot: "#FF4500",
-    ctaBorder: "rgba(255,69,0,0.40)",
-    ctaBg: "rgba(255,69,0,0.10)",
-    ctaText: "#FF6A30",
-    ctaHoverGlow: "0 0 20px rgba(255,69,0,0.24)",
-    hoverShadow: "0 0 40px rgba(255,69,0,0.14)",
+      "linear-gradient(135deg, #E8FF5A 0%, #4DACFF 60%, #E8FF5A 100%)",
+    iconGradient: "linear-gradient(135deg, #E8FF5A, #4DACFF)",
+    iconGlow: "0 0 18px rgba(232,255,90,0.22)",
+    statusBg: "rgba(232,255,90,0.10)",
+    statusBorder: "rgba(232,255,90,0.30)",
+    statusText: "#F0FF85",
+    statusDot: "#E8FF5A",
+    ctaBorder: "rgba(232,255,90,0.40)",
+    ctaBg: "rgba(232,255,90,0.10)",
+    ctaText: "#F0FF85",
+    ctaHoverGlow: "0 0 20px rgba(232,255,90,0.24)",
+    hoverShadow: "0 0 40px rgba(232,255,90,0.14)",
     borderOpacity: "0.22",
     blurOpacity: "0.22",
   },
   system: {
     borderGradient:
-      "linear-gradient(135deg, #3B5BFF 0%, #C8A96A 60%, #FF4500 100%)",
-    iconGradient: "linear-gradient(135deg, #3B5BFF, #0088CC)",
-    iconGlow: "0 0 18px rgba(59,91,255,0.22)",
-    statusBg: "rgba(59,91,255,0.10)",
-    statusBorder: "rgba(59,91,255,0.30)",
+      "linear-gradient(135deg, #4DACFF 0%, #E8FF5A 60%, #E8FF5A 100%)",
+    iconGradient: "linear-gradient(135deg, #4DACFF, #4DACFF)",
+    iconGlow: "0 0 18px rgba(77,172,255,0.22)",
+    statusBg: "rgba(77,172,255,0.10)",
+    statusBorder: "rgba(77,172,255,0.30)",
     statusText: "#8EA2FF",
-    statusDot: "#3B5BFF",
-    ctaBorder: "rgba(59,91,255,0.40)",
-    ctaBg: "rgba(59,91,255,0.10)",
+    statusDot: "#4DACFF",
+    ctaBorder: "rgba(77,172,255,0.40)",
+    ctaBg: "rgba(77,172,255,0.10)",
     ctaText: "#8EA2FF",
-    ctaHoverGlow: "0 0 20px rgba(59,91,255,0.24)",
-    hoverShadow: "0 0 40px rgba(59,91,255,0.14)",
+    ctaHoverGlow: "0 0 20px rgba(77,172,255,0.24)",
+    hoverShadow: "0 0 40px rgba(77,172,255,0.14)",
     borderOpacity: "0.22",
     blurOpacity: "0.22",
   },
   ledger: {
     borderGradient:
-      "linear-gradient(135deg, #C8A96A 0%, #FF4500 60%, #3B5BFF 100%)",
-    iconGradient: "linear-gradient(135deg, #C8A96A, #A07840)",
-    iconGlow: "0 0 18px rgba(200,169,106,0.22)",
-    statusBg: "rgba(200,169,106,0.10)",
-    statusBorder: "rgba(200,169,106,0.30)",
-    statusText: "#D4B87A",
-    statusDot: "#C8A96A",
-    ctaBorder: "rgba(200,169,106,0.40)",
-    ctaBg: "rgba(200,169,106,0.10)",
-    ctaText: "#D4B87A",
-    ctaHoverGlow: "0 0 20px rgba(200,169,106,0.24)",
-    hoverShadow: "0 0 40px rgba(200,169,106,0.12)",
+      "linear-gradient(135deg, #E8FF5A 0%, #E8FF5A 60%, #4DACFF 100%)",
+    iconGradient: "linear-gradient(135deg, #E8FF5A, #4DACFF)",
+    iconGlow: "0 0 18px rgba(232,255,90,0.22)",
+    statusBg: "rgba(232,255,90,0.10)",
+    statusBorder: "rgba(232,255,90,0.30)",
+    statusText: "#F0FF85",
+    statusDot: "#E8FF5A",
+    ctaBorder: "rgba(232,255,90,0.40)",
+    ctaBg: "rgba(232,255,90,0.10)",
+    ctaText: "#F0FF85",
+    ctaHoverGlow: "0 0 20px rgba(232,255,90,0.24)",
+    hoverShadow: "0 0 40px rgba(232,255,90,0.12)",
     borderOpacity: "0.20",
     blurOpacity: "0.18",
   },
   noise: {
     borderGradient:
-      "linear-gradient(135deg, rgba(255,69,0,0.35) 0%, rgba(59,91,255,0.25) 60%, rgba(200,169,106,0.20) 100%)",
+      "linear-gradient(135deg, rgba(232,255,90,0.35) 0%, rgba(77,172,255,0.25) 60%, rgba(232,255,90,0.20) 100%)",
     iconGradient: "linear-gradient(135deg, #1a1a2e, #2a2a3e)",
     iconGlow: "none",
     statusBg: "rgba(255,255,255,0.04)",
     statusBorder: "rgba(255,255,255,0.08)",
-    statusText: "#64748B",
+    statusText: "#666666",
     statusDot: "#475569",
     ctaBorder: "rgba(255,255,255,0.08)",
     ctaBg: "rgba(255,255,255,0.03)",
-    ctaText: "#64748B",
+    ctaText: "#666666",
     ctaHoverGlow: "none",
     hoverShadow: "0 0 20px rgba(0,0,0,0.3)",
     borderOpacity: "0.12",
@@ -127,9 +127,9 @@ const ACCENT_COLORS: Record<
   NonNullable<ChartBar["accent"]>,
   { bar: string; bg: string }
 > = {
-  orange: { bar: "#FF4500", bg: "rgba(255,69,0,0.18)" },
-  blue: { bar: "#3B5BFF", bg: "rgba(59,91,255,0.18)" },
-  gold: { bar: "#C8A96A", bg: "rgba(200,169,106,0.18)" },
+  orange: { bar: "#E8FF5A", bg: "rgba(232,255,90,0.18)" },
+  blue: { bar: "#4DACFF", bg: "rgba(77,172,255,0.18)" },
+  gold: { bar: "#E8FF5A", bg: "rgba(232,255,90,0.18)" },
   muted: { bar: "#334155", bg: "rgba(51,65,85,0.18)" },
 };
 
@@ -173,7 +173,7 @@ export default function SignalDataCard({
 
   return (
     <div
-      className={`group relative flex w-full flex-col rounded-2xl bg-[#05070F] p-4 shadow-2xl transition-all duration-300 hover:scale-[1.015] ${className}`}
+      className={`group relative flex w-full flex-col rounded-2xl bg-bg-base p-4 shadow-2xl transition-all duration-300 hover:scale-[1.015] ${className}`}
       style={{
         transitionProperty: "transform, box-shadow",
       }}
@@ -213,7 +213,7 @@ export default function SignalDataCard({
       <div
         aria-hidden
         className="pointer-events-none absolute inset-px rounded-[15px]"
-        style={{ background: "#0B0F1A" }}
+        style={{ background: "#0F0F0F" }}
       />
 
       {/* Content */}
@@ -232,7 +232,7 @@ export default function SignalDataCard({
               {icon ?? <DefaultIcon />}
             </div>
             <h3
-              className="text-sm font-semibold text-[#E5E7EB]"
+              className="text-sm font-semibold text-text-primary"
               style={{ fontFamily: "var(--font-headline)" }}
             >
               {title}
@@ -266,12 +266,12 @@ export default function SignalDataCard({
                 key={i}
                 className="rounded-xl p-3"
                 style={{
-                  background: "rgba(16,24,39,0.70)",
+                  background: "rgba(22,22,22,0.70)",
                   border: "1px solid rgba(255,255,255,0.07)",
                 }}
               >
                 <p
-                  className="text-xs font-medium text-[#94A3B8]"
+                  className="text-xs font-medium text-text-muted"
                   style={{ fontFamily: "var(--font-body)" }}
                 >
                   {m.label}
@@ -289,9 +289,9 @@ export default function SignalDataCard({
                       fontFamily: "var(--font-body)",
                       color:
                         m.deltaPositive === false
-                          ? "#FF4500"
+                          ? "#FF4545"
                           : m.deltaPositive === true
-                          ? "#22C55E"
+                          ? "#3DFFB0"
                           : cfg.statusText,
                     }}
                   >
@@ -308,7 +308,7 @@ export default function SignalDataCard({
           <div
             className="h-24 w-full overflow-hidden rounded-xl p-3"
             style={{
-              background: "rgba(16,24,39,0.70)",
+              background: "rgba(22,22,22,0.70)",
               border: "1px solid rgba(255,255,255,0.07)",
             }}
           >
@@ -347,7 +347,7 @@ export default function SignalDataCard({
           <div className="flex items-center justify-between">
             {footerLabel && (
               <span
-                className="text-xs font-medium text-[#94A3B8]"
+                className="text-xs font-medium text-text-muted"
                 style={{ fontFamily: "var(--font-body)" }}
               >
                 {footerLabel}

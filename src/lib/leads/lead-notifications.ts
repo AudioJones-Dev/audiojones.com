@@ -94,7 +94,7 @@ function renderEmail({ leadId, input, scores }: NotifyArgs) {
       : `<tr><td style="padding:4px 12px 4px 0;color:#94A3B8;">${label}</td><td style="padding:4px 0;">${escape(String(value))}</td></tr>`;
 
   return `
-  <div style="font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:#05070F;color:#F8FAFC;padding:24px;">
+  <div style="font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:#080808;color:#F8FAFC;padding:24px;">
     <h1 style="margin:0 0 8px 0;">${scores.priority.toUpperCase()} priority lead</h1>
     <p style="margin:0 0 16px 0;color:#94A3B8;">Total score ${scores.totalScore} / 100 · ID ${leadId}</p>
     <table style="border-collapse:collapse;font-size:14px;">

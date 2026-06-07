@@ -22,17 +22,17 @@ export default function SystemModel() {
         {LAYERS.map((l) => (
           <li
             key={l.n}
-            className="flex gap-4 rounded-lg border border-white/10 bg-[#0B1020] p-5"
+            className="flex gap-4 rounded-lg border border-border-subtle bg-surface-1 p-5"
           >
             <span
               aria-hidden
-              className="grid h-9 w-9 shrink-0 place-items-center rounded-md border border-[#3B5BFF]/40 bg-[#3B5BFF]/10 text-sm font-semibold text-[#3B5BFF]"
+              className="grid h-9 w-9 shrink-0 place-items-center rounded-md border border-accent-blue/40 bg-accent-blue/10 text-sm font-semibold text-accent-blue"
             >
               {l.n}
             </span>
             <div>
               <p className="font-semibold text-white">{l.label}</p>
-              <p className="mt-1 text-sm text-slate-400">{l.note}</p>
+              <p className="mt-1 text-sm text-text-muted">{l.note}</p>
             </div>
           </li>
         ))}

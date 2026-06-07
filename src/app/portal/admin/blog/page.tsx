@@ -48,7 +48,7 @@ export default function BlogAdminDashboard({ searchParams }: BlogAdminDashboardP
               <div className="text-center">
                 <div className="text-4xl mb-4">📊</div>
                 <h3 className="text-xl font-bold mb-2">Analytics Dashboard</h3>
-                <p className="text-gray-400">
+                <p className="text-text-muted">
                   Performance tracking coming soon...
                 </p>
               </div>
@@ -60,7 +60,7 @@ export default function BlogAdminDashboard({ searchParams }: BlogAdminDashboardP
               <div className="text-center">
                 <div className="text-4xl mb-4">🤖</div>
                 <h3 className="text-xl font-bold mb-2">AI Automation Hub</h3>
-                <p className="text-gray-400">
+                <p className="text-text-muted">
                   Automated content generation controls coming soon...
                 </p>
               </div>
@@ -72,11 +72,11 @@ export default function BlogAdminDashboard({ searchParams }: BlogAdminDashboardP
         <div className="lg:col-span-4 space-y-6">
           {/* Quick Actions */}
           <div className="bg-gray-900/50 border border-gray-800 rounded-xl p-6">
-            <h3 className="text-lg font-bold mb-4 text-[#FFD700]">
+            <h3 className="text-lg font-bold mb-4 text-signal-yellow">
               ⚡ Quick Actions
             </h3>
             <div className="space-y-3">
-              <button className="w-full bg-gradient-to-r from-[#FF4500] to-[#FF6500] hover:from-[#FF6500] hover:to-[#FF4500] text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200">
+              <button className="w-full bg-gradient-to-r from-[#E8FF5A] to-[#4DACFF] hover:from-[#F0FF85] hover:to-[#4DACFF] text-bg-base font-semibold py-3 px-4 rounded-lg transition-all duration-200">
                 🎯 Generate AI Content
               </button>
               <button className="w-full bg-gray-800 hover:bg-gray-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors">
@@ -93,23 +93,23 @@ export default function BlogAdminDashboard({ searchParams }: BlogAdminDashboardP
 
           {/* Pillar Performance */}
           <div className="bg-gray-900/50 border border-gray-800 rounded-xl p-6">
-            <h3 className="text-lg font-bold mb-4 text-[#FFD700]">
+            <h3 className="text-lg font-bold mb-4 text-signal-yellow">
               📈 Pillar Performance
             </h3>
             <div className="space-y-3">
               {['ai', 'marketing', 'podcast-news', 'tech-business-trends', 'personal-brand'].map((pillar) => (
                 <div key={pillar} className="flex items-center justify-between">
-                  <span className="text-sm text-gray-300 capitalize">
+                  <span className="text-sm text-text-muted capitalize">
                     {pillar.replace('-', ' ')}
                   </span>
                   <div className="flex items-center gap-2">
                     <div className="w-16 h-2 bg-gray-700 rounded-full overflow-hidden">
                       <div 
-                        className="h-full bg-gradient-to-r from-[#FF4500] to-[#FFD700]"
+                        className="h-full bg-gradient-to-r from-[#E8FF5A] to-[#4DACFF]"
                         style={{ width: `${Math.random() * 100}%` }}
                       />
                     </div>
-                    <span className="text-xs text-gray-400">
+                    <span className="text-xs text-text-muted">
                       {Math.floor(Math.random() * 100)}%
                     </span>
                   </div>
@@ -120,7 +120,7 @@ export default function BlogAdminDashboard({ searchParams }: BlogAdminDashboardP
 
           {/* Recent Activity */}
           <div className="bg-gray-900/50 border border-gray-800 rounded-xl p-6">
-            <h3 className="text-lg font-bold mb-4 text-[#FFD700]">
+            <h3 className="text-lg font-bold mb-4 text-signal-yellow">
               🔥 Recent Activity
             </h3>
             <div className="space-y-3 text-sm">
@@ -128,28 +128,28 @@ export default function BlogAdminDashboard({ searchParams }: BlogAdminDashboardP
                 <span className="text-green-400">✓</span>
                 <div>
                   <p className="text-white">Published AI Marketing post</p>
-                  <p className="text-gray-400">2 hours ago</p>
+                  <p className="text-text-muted">2 hours ago</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
                 <span className="text-blue-400">📝</span>
                 <div>
                   <p className="text-white">Draft created: EPM Framework</p>
-                  <p className="text-gray-400">4 hours ago</p>
+                  <p className="text-text-muted">4 hours ago</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
                 <span className="text-yellow-400">⏰</span>
                 <div>
                   <p className="text-white">Scheduled: Personal Brand Tips</p>
-                  <p className="text-gray-400">Yesterday</p>
+                  <p className="text-text-muted">Yesterday</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
                 <span className="text-purple-400">🤖</span>
                 <div>
                   <p className="text-white">AI research completed</p>
-                  <p className="text-gray-400">2 days ago</p>
+                  <p className="text-text-muted">2 days ago</p>
                 </div>
               </div>
             </div>
@@ -159,10 +159,10 @@ export default function BlogAdminDashboard({ searchParams }: BlogAdminDashboardP
 
       {/* Audio Jones Footer */}
       <div className="mt-12 text-center border-t border-gray-800 pt-8">
-        <p className="text-gray-400 text-sm">
-          🔥 <span className="text-[#FF4500]">Audio Jones</span> Blog Admin • 
-          Powered by Miami operator-level systems • 
-          <span className="text-[#FFD700]">Predictable growth through content automation</span>
+        <p className="text-text-muted text-sm">
+          🔥 <span className="text-signal-yellow">Audio Jones</span> Blog Admin •
+          Powered by Miami operator-level systems •
+          <span className="text-signal-yellow">Predictable growth through content automation</span>
         </p>
       </div>
     </div>

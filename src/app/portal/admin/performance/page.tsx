@@ -266,7 +266,7 @@ export default function PerformanceDashboard() {
       case 'high': return 'text-orange-400 bg-orange-900/20';
       case 'medium': return 'text-yellow-400 bg-yellow-900/20';
       case 'low': return 'text-green-400 bg-green-900/20';
-      default: return 'text-gray-400 bg-gray-900/20';
+      default: return 'text-text-muted bg-gray-900/20';
     }
   };
 
@@ -278,7 +278,7 @@ export default function PerformanceDashboard() {
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-3xl font-bold mb-2">Performance Optimization</h1>
-              <p className="text-gray-400">
+              <p className="text-text-muted">
                 Monitor and optimize system performance across all layers
               </p>
             </div>
@@ -291,12 +291,12 @@ export default function PerformanceDashboard() {
                   onChange={(e) => setAutoRefresh(e.target.checked)}
                   className="rounded"
                 />
-                <label htmlFor="autoRefresh" className="text-sm text-gray-400">
+                <label htmlFor="autoRefresh" className="text-sm text-text-muted">
                   Auto-refresh
                 </label>
               </div>
               {lastUpdate && (
-                <div className="text-sm text-gray-500">
+                <div className="text-sm text-text-muted">
                   Last updated: {lastUpdate.toLocaleTimeString()}
                 </div>
               )}
@@ -321,7 +321,7 @@ export default function PerformanceDashboard() {
                 className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
                   selectedTab === tab
                     ? 'bg-blue-600 text-white'
-                    : 'text-gray-400 hover:text-white hover:bg-gray-800'
+                    : 'text-text-muted hover:text-white hover:bg-gray-800'
                 }`}
               >
                 {tab.charAt(0).toUpperCase() + tab.slice(1)}
@@ -340,7 +340,7 @@ export default function PerformanceDashboard() {
                 <p className={`text-2xl font-bold ${getStatusColor(data.metrics.averageResponseTime, 500, 1000)}`}>
                   {formatNumber(data.metrics.averageResponseTime, 0)}ms
                 </p>
-                <p className="text-sm text-gray-400 mt-1">Average response time</p>
+                <p className="text-sm text-text-muted mt-1">Average response time</p>
               </div>
 
               <div className="bg-gray-900 p-6 rounded-lg">
@@ -348,7 +348,7 @@ export default function PerformanceDashboard() {
                 <p className={`text-2xl font-bold ${getStatusColor(data.metrics.cacheHitRate, 0.8, 0.6)}`}>
                   {formatPercentage(data.metrics.cacheHitRate)}
                 </p>
-                <p className="text-sm text-gray-400 mt-1">Overall cache efficiency</p>
+                <p className="text-sm text-text-muted mt-1">Overall cache efficiency</p>
               </div>
 
               <div className="bg-gray-900 p-6 rounded-lg">
@@ -356,7 +356,7 @@ export default function PerformanceDashboard() {
                 <p className={`text-2xl font-bold ${getStatusColor(1 - data.metrics.errorRate, 0.95, 0.9)}`}>
                   {formatPercentage(data.metrics.errorRate)}
                 </p>
-                <p className="text-sm text-gray-400 mt-1">System error rate</p>
+                <p className="text-sm text-text-muted mt-1">System error rate</p>
               </div>
 
               <div className="bg-gray-900 p-6 rounded-lg">
@@ -364,7 +364,7 @@ export default function PerformanceDashboard() {
                 <p className={`text-2xl font-bold ${getStatusColor(1 - data.metrics.memoryUsage, 0.3, 0.15)}`}>
                   {formatPercentage(data.metrics.memoryUsage)}
                 </p>
-                <p className="text-sm text-gray-400 mt-1">System memory usage</p>
+                <p className="text-sm text-text-muted mt-1">System memory usage</p>
               </div>
             </div>
 
@@ -373,15 +373,15 @@ export default function PerformanceDashboard() {
               <h3 className="text-xl font-semibold mb-4">Response Time Percentiles</h3>
               <div className="grid grid-cols-3 gap-6">
                 <div>
-                  <p className="text-sm text-gray-400">P50 (Median)</p>
+                  <p className="text-sm text-text-muted">P50 (Median)</p>
                   <p className="text-lg font-semibold">{formatNumber(data.metrics.p50ResponseTime, 0)}ms</p>
                 </div>
                 <div>
-                  <p className="text-sm text-gray-400">P95</p>
+                  <p className="text-sm text-text-muted">P95</p>
                   <p className="text-lg font-semibold">{formatNumber(data.metrics.p95ResponseTime, 0)}ms</p>
                 </div>
                 <div>
-                  <p className="text-sm text-gray-400">P99</p>
+                  <p className="text-sm text-text-muted">P99</p>
                   <p className="text-lg font-semibold">{formatNumber(data.metrics.p99ResponseTime, 0)}ms</p>
                 </div>
               </div>
@@ -416,21 +416,21 @@ export default function PerformanceDashboard() {
                 <h3 className="text-lg font-semibold mb-4">Memory Cache</h3>
                 <div className="space-y-3">
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Entries:</span>
+                    <span className="text-text-muted">Entries:</span>
                     <span>{data.cacheStats.memoryCache.entries.toLocaleString()}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Hit Rate:</span>
+                    <span className="text-text-muted">Hit Rate:</span>
                     <span className={getStatusColor(data.cacheStats.memoryCache.hitRate, 0.8, 0.6)}>
                       {formatPercentage(data.cacheStats.memoryCache.hitRate)}
                     </span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Memory Usage:</span>
+                    <span className="text-text-muted">Memory Usage:</span>
                     <span>{data.cacheStats.memoryCache.memoryUsage}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Evictions:</span>
+                    <span className="text-text-muted">Evictions:</span>
                     <span>{data.cacheStats.memoryCache.evictions}</span>
                   </div>
                 </div>
@@ -441,21 +441,21 @@ export default function PerformanceDashboard() {
                 <h3 className="text-lg font-semibold mb-4">Disk Cache</h3>
                 <div className="space-y-3">
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Entries:</span>
+                    <span className="text-text-muted">Entries:</span>
                     <span>{data.cacheStats.diskCache.entries.toLocaleString()}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Hit Rate:</span>
+                    <span className="text-text-muted">Hit Rate:</span>
                     <span className={getStatusColor(data.cacheStats.diskCache.hitRate, 0.7, 0.5)}>
                       {formatPercentage(data.cacheStats.diskCache.hitRate)}
                     </span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Disk Usage:</span>
+                    <span className="text-text-muted">Disk Usage:</span>
                     <span>{data.cacheStats.diskCache.diskUsage}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Evictions:</span>
+                    <span className="text-text-muted">Evictions:</span>
                     <span>{data.cacheStats.diskCache.evictions}</span>
                   </div>
                 </div>
@@ -466,21 +466,21 @@ export default function PerformanceDashboard() {
                 <h3 className="text-lg font-semibold mb-4">Distributed Cache</h3>
                 <div className="space-y-3">
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Entries:</span>
+                    <span className="text-text-muted">Entries:</span>
                     <span>{data.cacheStats.distributedCache.entries.toLocaleString()}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Hit Rate:</span>
+                    <span className="text-text-muted">Hit Rate:</span>
                     <span className={getStatusColor(data.cacheStats.distributedCache.hitRate, 0.65, 0.45)}>
                       {formatPercentage(data.cacheStats.distributedCache.hitRate)}
                     </span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Network Latency:</span>
+                    <span className="text-text-muted">Network Latency:</span>
                     <span>{data.cacheStats.distributedCache.networkLatency}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Replication:</span>
+                    <span className="text-text-muted">Replication:</span>
                     <span>{data.cacheStats.distributedCache.replicationFactor}x</span>
                   </div>
                 </div>
@@ -543,7 +543,7 @@ export default function PerformanceDashboard() {
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                 {Object.entries(data.cdnStats.optimizations).map(([type, stats]) => (
                   <div key={type} className="text-center">
-                    <div className="text-sm text-gray-400 capitalize">{type}</div>
+                    <div className="text-sm text-text-muted capitalize">{type}</div>
                     <div className="text-lg font-semibold">{stats.count.toLocaleString()}</div>
                     <div className="text-xs text-green-400">{stats.savedBytes}</div>
                   </div>
@@ -564,19 +564,19 @@ export default function PerformanceDashboard() {
                 <h3 className="text-xl font-semibold mb-4">Connection Pool</h3>
                 <div className="space-y-3">
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Active:</span>
+                    <span className="text-text-muted">Active:</span>
                     <span className="text-green-400">{data.databaseStats.connectionPool.active}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Idle:</span>
+                    <span className="text-text-muted">Idle:</span>
                     <span>{data.databaseStats.connectionPool.idle}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Max Size:</span>
+                    <span className="text-text-muted">Max Size:</span>
                     <span>{data.databaseStats.connectionPool.maxSize}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Waiting:</span>
+                    <span className="text-text-muted">Waiting:</span>
                     <span className={data.databaseStats.connectionPool.waitingRequests > 0 ? 'text-red-400' : 'text-green-400'}>
                       {data.databaseStats.connectionPool.waitingRequests}
                     </span>
@@ -589,25 +589,25 @@ export default function PerformanceDashboard() {
                 <h3 className="text-xl font-semibold mb-4">Query Performance</h3>
                 <div className="space-y-3">
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Average Time:</span>
+                    <span className="text-text-muted">Average Time:</span>
                     <span className={getStatusColor(200 - data.databaseStats.queryPerformance.averageTime, 150, 50)}>
                       {data.databaseStats.queryPerformance.averageTime}ms
                     </span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Slow Queries:</span>
+                    <span className="text-text-muted">Slow Queries:</span>
                     <span className={data.databaseStats.queryPerformance.slowQueries > 10 ? 'text-red-400' : 'text-green-400'}>
                       {data.databaseStats.queryPerformance.slowQueries}
                     </span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Cache Hit Rate:</span>
+                    <span className="text-text-muted">Cache Hit Rate:</span>
                     <span className={getStatusColor(data.databaseStats.queryPerformance.queryCache.hitRate, 0.7, 0.5)}>
                       {formatPercentage(data.databaseStats.queryPerformance.queryCache.hitRate)}
                     </span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Cache Entries:</span>
+                    <span className="text-text-muted">Cache Entries:</span>
                     <span>{data.databaseStats.queryPerformance.queryCache.entries.toLocaleString()}</span>
                   </div>
                 </div>
@@ -618,18 +618,18 @@ export default function PerformanceDashboard() {
                 <h3 className="text-xl font-semibold mb-4">Index Optimization</h3>
                 <div className="space-y-3">
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Total Indexes:</span>
+                    <span className="text-text-muted">Total Indexes:</span>
                     <span>{data.databaseStats.indexes.total}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Unused:</span>
+                    <span className="text-text-muted">Unused:</span>
                     <span className={data.databaseStats.indexes.unused > 0 ? 'text-yellow-400' : 'text-green-400'}>
                       {data.databaseStats.indexes.unused}
                     </span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Suggestions:</span>
-                    <span className={data.databaseStats.indexes.suggestions > 0 ? 'text-blue-400' : 'text-gray-400'}>
+                    <span className="text-text-muted">Suggestions:</span>
+                    <span className={data.databaseStats.indexes.suggestions > 0 ? 'text-blue-400' : 'text-text-muted'}>
                       {data.databaseStats.indexes.suggestions}
                     </span>
                   </div>
@@ -641,15 +641,15 @@ export default function PerformanceDashboard() {
                 <h3 className="text-xl font-semibold mb-4">Replication</h3>
                 <div className="space-y-3">
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Replicas:</span>
+                    <span className="text-text-muted">Replicas:</span>
                     <span>{data.databaseStats.replication.replicas}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Lag Time:</span>
+                    <span className="text-text-muted">Lag Time:</span>
                     <span className="text-green-400">{data.databaseStats.replication.lagTime}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Status:</span>
+                    <span className="text-text-muted">Status:</span>
                     <span className={data.databaseStats.replication.status === 'healthy' ? 'text-green-400' : 'text-red-400'}>
                       {data.databaseStats.replication.status}
                     </span>
@@ -675,19 +675,19 @@ export default function PerformanceDashboard() {
                         <span className={`px-2 py-1 rounded-full text-xs font-medium ${getPriorityColor(rec.priority)}`}>
                           {rec.priority.toUpperCase()}
                         </span>
-                        <span className="px-2 py-1 bg-gray-700 text-gray-300 rounded-full text-xs">
+                        <span className="px-2 py-1 bg-gray-700 text-text-primary rounded-full text-xs">
                           {rec.category.toUpperCase()}
                         </span>
                       </div>
-                      <p className="text-gray-300 mb-3">{rec.description}</p>
+                      <p className="text-text-primary mb-3">{rec.description}</p>
                       <div className="space-y-2">
                         <div>
                           <span className="text-sm font-medium text-green-400">Impact: </span>
-                          <span className="text-sm text-gray-300">{rec.impact}</span>
+                          <span className="text-sm text-text-primary">{rec.impact}</span>
                         </div>
                         <div>
                           <span className="text-sm font-medium text-blue-400">Implementation: </span>
-                          <span className="text-sm text-gray-300">{rec.implementation}</span>
+                          <span className="text-sm text-text-primary">{rec.implementation}</span>
                         </div>
                       </div>
                     </div>
@@ -720,21 +720,21 @@ export default function PerformanceDashboard() {
                   <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                     <div className="text-center">
                       <div className="text-2xl font-bold text-blue-400">{testResults.overallScore}</div>
-                      <div className="text-sm text-gray-400">Overall Score</div>
+                      <div className="text-sm text-text-muted">Overall Score</div>
                     </div>
                     <div className="text-center">
                       <div className="text-2xl font-bold text-green-400">{testResults.totalTestTime}ms</div>
-                      <div className="text-sm text-gray-400">Test Duration</div>
+                      <div className="text-sm text-text-muted">Test Duration</div>
                     </div>
                     <div className="text-center">
                       <div className="text-2xl font-bold text-yellow-400">{testResults.recommendations.length}</div>
-                      <div className="text-sm text-gray-400">Recommendations</div>
+                      <div className="text-sm text-text-muted">Recommendations</div>
                     </div>
                     <div className="text-center">
                       <div className="text-2xl font-bold text-purple-400">
                         {testResults.applicationPerformance.loadTime.timeToInteractive}ms
                       </div>
-                      <div className="text-sm text-gray-400">Time to Interactive</div>
+                      <div className="text-sm text-text-muted">Time to Interactive</div>
                     </div>
                   </div>
                 </div>
@@ -788,7 +788,7 @@ export default function PerformanceDashboard() {
                           {rec.priority.toUpperCase()}
                         </span>
                         <span className="text-sm">{rec.action}</span>
-                        <span className="text-xs text-gray-400">- {rec.impact}</span>
+                        <span className="text-xs text-text-muted">- {rec.impact}</span>
                       </div>
                     ))}
                   </div>

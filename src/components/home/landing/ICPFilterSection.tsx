@@ -61,7 +61,7 @@ export default function ICPFilterSection() {
   return (
     <section
       id="icp"
-      className="relative overflow-hidden border-t border-[var(--line-2)] bg-[#05070F] py-24 sm:py-32"
+      className="relative overflow-hidden border-t border-[var(--line-2)] bg-bg-base py-24 sm:py-32"
     >
       {/* ── Background image ── */}
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-20">
@@ -95,7 +95,7 @@ export default function ICPFilterSection() {
           width: "52%",
           height: "80%",
           background:
-            "radial-gradient(ellipse 70% 60% at 20% 50%, rgba(255,69,0,0.07), transparent 70%)",
+            "radial-gradient(ellipse 70% 60% at 20% 50%, rgba(232,255,90,0.07), transparent 70%)",
         }}
       />
 
@@ -109,7 +109,7 @@ export default function ICPFilterSection() {
           width: "52%",
           height: "80%",
           background:
-            "radial-gradient(ellipse 70% 60% at 80% 50%, rgba(59,91,255,0.10), transparent 70%)",
+            "radial-gradient(ellipse 70% 60% at 80% 50%, rgba(77,172,255,0.10), transparent 70%)",
         }}
       />
 
@@ -126,8 +126,8 @@ export default function ICPFilterSection() {
               width: "48px",
               height: "1.5px",
               background:
-                "linear-gradient(to right, #FF4500, rgba(255,69,0,0))",
-              boxShadow: "0 0 6px 1px rgba(255,69,0,0.25)",
+                "linear-gradient(to right, #E8FF5A, rgba(232,255,90,0))",
+              boxShadow: "0 0 6px 1px rgba(232,255,90,0.25)",
             }}
           />
 
@@ -149,8 +149,8 @@ export default function ICPFilterSection() {
             aria-label="Not for you if"
             style={{
               background:
-                "linear-gradient(160deg, rgba(200,169,106,0.05) 0%, rgba(7,9,18,0.92) 100%)",
-              border: "1px solid rgba(200,169,106,0.18)",
+                "linear-gradient(160deg, rgba(232,255,90,0.05) 0%, rgba(7,9,18,0.92) 100%)",
+              border: "1px solid rgba(232,255,90,0.18)",
             }}
           >
             {/* Warm top-edge accent */}
@@ -163,7 +163,7 @@ export default function ICPFilterSection() {
                 right: "15%",
                 height: "1px",
                 background:
-                  "linear-gradient(90deg, transparent, rgba(200,169,106,0.35), transparent)",
+                  "linear-gradient(90deg, transparent, rgba(232,255,90,0.35), transparent)",
               }}
             />
 
@@ -177,9 +177,9 @@ export default function ICPFilterSection() {
                     aria-hidden
                     className="mt-[5px] inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full"
                     style={{
-                      border: "1px solid rgba(200,169,106,0.25)",
-                      background: "rgba(200,169,106,0.06)",
-                      color: "rgba(200,169,106,0.55)",
+                      border: "1px solid rgba(232,255,90,0.25)",
+                      background: "rgba(232,255,90,0.06)",
+                      color: "rgba(232,255,90,0.55)",
                     }}
                   >
                     <CrossIcon />
@@ -201,10 +201,10 @@ export default function ICPFilterSection() {
             aria-label="For you if"
             style={{
               background:
-                "linear-gradient(160deg, rgba(59,91,255,0.09) 0%, rgba(7,9,18,0.94) 100%)",
-              border: "1px solid rgba(59,91,255,0.40)",
+                "linear-gradient(160deg, rgba(77,172,255,0.09) 0%, rgba(7,9,18,0.94) 100%)",
+              border: "1px solid rgba(77,172,255,0.40)",
               boxShadow:
-                "0 0 56px -12px rgba(59,91,255,0.22), inset 0 0 0 1px rgba(59,91,255,0.06)",
+                "0 0 56px -12px rgba(77,172,255,0.22), inset 0 0 0 1px rgba(77,172,255,0.06)",
             }}
           >
             {/* Blue top-edge accent */}
@@ -217,7 +217,7 @@ export default function ICPFilterSection() {
                 right: "10%",
                 height: "1px",
                 background:
-                  "linear-gradient(90deg, transparent, rgba(59,91,255,0.75), transparent)",
+                  "linear-gradient(90deg, transparent, rgba(77,172,255,0.75), transparent)",
               }}
             />
 
@@ -233,7 +233,7 @@ export default function ICPFilterSection() {
                   position: "absolute",
                   inset: "-4px",
                   borderRadius: "50%",
-                  border: "1px solid rgba(59,91,255,0.20)",
+                  border: "1px solid rgba(77,172,255,0.20)",
                 }}
               />
               {/* Inner dot */}
@@ -243,8 +243,8 @@ export default function ICPFilterSection() {
                   width: "8px",
                   height: "8px",
                   borderRadius: "50%",
-                  background: "#3B5BFF",
-                  boxShadow: "0 0 10px 2px rgba(59,91,255,0.50)",
+                  background: "#4DACFF",
+                  boxShadow: "0 0 10px 2px rgba(77,172,255,0.50)",
                 }}
               />
             </div>
@@ -259,8 +259,8 @@ export default function ICPFilterSection() {
                     aria-hidden
                     className="mt-[5px] inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full"
                     style={{
-                      border: "1px solid rgba(59,91,255,0.38)",
-                      background: "rgba(59,91,255,0.10)",
+                      border: "1px solid rgba(77,172,255,0.38)",
+                      background: "rgba(77,172,255,0.10)",
                       color: "#8EA2FF",
                     }}
                   >
@@ -276,7 +276,7 @@ export default function ICPFilterSection() {
             {/* CTA — anchored at bottom, separated by subtle border */}
             <div
               className="mt-8 pt-6"
-              style={{ borderTop: "1px solid rgba(59,91,255,0.16)" }}
+              style={{ borderTop: "1px solid rgba(77,172,255,0.16)" }}
             >
               {/* Qualifier micro-label */}
               <p
@@ -287,7 +287,7 @@ export default function ICPFilterSection() {
                   fontWeight: 600,
                   letterSpacing: "0.16em",
                   textTransform: "uppercase",
-                  color: "rgba(59,91,255,0.65)",
+                  color: "rgba(77,172,255,0.65)",
                 }}
               >
                 Apply for a diagnostic →

@@ -11,7 +11,7 @@ export default function InputField({ label, ...props }: InputFieldProps) {
       <label className="text-white/80 font-medium">{label}</label>
       <input
         {...props}
-        className="rounded-md bg-white/10 text-white px-3 py-2 border border-white/10 focus:border-[#FF4500] focus:outline-none"
+        className="rounded-md bg-white/10 text-white px-3 py-2 border border-border-subtle focus:border-signal-yellow focus:outline-none"
       />
     </div>
   );

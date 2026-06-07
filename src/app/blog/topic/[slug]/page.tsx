@@ -23,31 +23,31 @@ const STATIC_CLUSTERS: Record<string, { label: string; description: string; acce
     label: "Applied Intelligence Systems",
     description:
       "How to identify signal, build operating leverage, and create systems that compound. The full Applied Intelligence Systems framework documented.",
-    accent: "#3B5BFF",
+    accent: "#4DACFF",
   },
   "signal-vs-noise": {
     label: "Signal vs Noise",
     description:
       "Causal vs vanity metrics. Separating what actually creates revenue from what consumes attention and budget without producing outcomes.",
-    accent: "#FF4500",
+    accent: "#E8FF5A",
   },
   "map-attribution": {
     label: "M.A.P Attribution",
     description:
       "Meaningful. Actionable. Profitable. The Audio Jones attribution framework for identifying exactly what drives growth in your business.",
-    accent: "#C8A96A",
+    accent: "#E8FF5A",
   },
   "why-ai-fails": {
     label: "Why AI Fails",
     description:
       "AI fails before it starts — when automation precedes systems, processes, and signal clarity. Everything founder-led businesses need to know before adopting AI.",
-    accent: "#94A3B8",
+    accent: "#666666",
   },
   "ai-readiness": {
     label: "AI Readiness for Founder-Led Businesses",
     description:
       "The diagnostic framework for knowing whether your business is ready for AI. Processes, attribution, data hygiene, and operating model — all before the tools.",
-    accent: "#10B981",
+    accent: "#3DFFB0",
   },
 };
 
@@ -114,11 +114,11 @@ export default async function TopicClusterPage({
 
   const title = sanityCluster?.title ?? staticFallback!.label;
   const description = sanityCluster?.description ?? staticFallback!.description;
-  const accent = staticFallback?.accent ?? "#3B5BFF";
+  const accent = staticFallback?.accent ?? "#4DACFF";
   const hasPosts = Array.isArray(posts) && posts.length > 0;
 
   return (
-    <div className="min-h-screen" style={{ background: "#05070F" }}>
+    <div className="min-h-screen" style={{ background: "#080808" }}>
       <JsonLd
         data={breadcrumbJsonLd([
           { name: "Home", url: "/" },
@@ -221,7 +221,7 @@ export default async function TopicClusterPage({
       <section className="border-t border-[var(--line-2)] py-16">
         <div className="mx-auto max-w-[1280px] px-5 sm:px-8 text-center">
           <p
-            style={{ fontFamily: "var(--font-body)", fontSize: "9px", fontWeight: 700, letterSpacing: "0.22em", textTransform: "uppercase", color: "#C8A96A", marginBottom: "16px" }}
+            style={{ fontFamily: "var(--font-body)", fontSize: "9px", fontWeight: 700, letterSpacing: "0.22em", textTransform: "uppercase", color: "#E8FF5A", marginBottom: "16px" }}
           >
             Apply the framework
           </p>
@@ -300,7 +300,7 @@ function TopicPostCard({ post, accent }: { post: PostStub; accent: string }) {
     <article
       className="group flex flex-col rounded-2xl overflow-hidden"
       style={{
-        background: "rgba(10,14,28,0.72)",
+        background: "rgba(15,15,15,0.72)",
         border: "1px solid rgba(255,255,255,0.06)",
         borderTop: `2px solid ${accent}`,
       }}
@@ -308,7 +308,7 @@ function TopicPostCard({ post, accent }: { post: PostStub; accent: string }) {
       <div className="flex flex-1 flex-col p-6">
         <Link href={`/blog/${post.slug.current}`} className="flex-1">
           <h2
-            className="mb-3 leading-snug transition-colors group-hover:text-[#FF4500]"
+            className="mb-3 leading-snug transition-colors group-hover:text-signal-yellow"
             style={{
               fontFamily: "var(--font-headline)",
               fontSize: "17px",

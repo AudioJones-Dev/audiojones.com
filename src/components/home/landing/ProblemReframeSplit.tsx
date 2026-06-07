@@ -24,8 +24,8 @@ export default function ProblemReframeSplit() {
   return (
     <section
       id="problem"
-      className="relative overflow-hidden border-t border-white/5"
-      style={{ background: "#05070F" }}
+      className="relative overflow-hidden border-t border-border-subtle"
+      style={{ background: "#080808" }}
     >
       {/* ── Background image — atmospheric layer ── */}
       <div
@@ -61,7 +61,7 @@ export default function ProblemReframeSplit() {
           width: "46%",
           height: "52%",
           background:
-            "radial-gradient(ellipse at 70% 85%, rgba(255,69,0,0.09), transparent 62%)",
+            "radial-gradient(ellipse at 70% 85%, rgba(232,255,90,0.09), transparent 62%)",
         }}
       />
       {/* ── Blue glow — behind/right of System card ── */}
@@ -75,7 +75,7 @@ export default function ProblemReframeSplit() {
           width: "38%",
           height: "65%",
           background:
-            "radial-gradient(ellipse at 85% 40%, rgba(59,91,255,0.11), transparent 60%)",
+            "radial-gradient(ellipse at 85% 40%, rgba(77,172,255,0.11), transparent 60%)",
         }}
       />
 
@@ -89,7 +89,7 @@ export default function ProblemReframeSplit() {
           <Eyebrow>The Reframe</Eyebrow>
           <h2 className="mt-4 t-h1 text-balance text-white">
             You don&apos;t have a growth problem.{" "}
-            <span className="text-aj-orange">You have a signal problem.</span>
+            <span className="text-signal-yellow">You have a signal problem.</span>
           </h2>
           <p
             className="mt-5 t-lead"
@@ -105,9 +105,9 @@ export default function ProblemReframeSplit() {
               width: "56px",
               height: "1.5px",
               background:
-                "linear-gradient(to right, #FF4500 0%, rgba(255,69,0,0.5) 60%, rgba(255,69,0,0) 100%)",
+                "linear-gradient(to right, #E8FF5A 0%, rgba(232,255,90,0.5) 60%, rgba(232,255,90,0) 100%)",
               borderRadius: "1px",
-              boxShadow: "0 0 6px 1px rgba(255,69,0,0.28)",
+              boxShadow: "0 0 6px 1px rgba(232,255,90,0.28)",
             }}
           />
         </div>
@@ -119,7 +119,7 @@ export default function ProblemReframeSplit() {
         >
           <div
             className="h-px flex-1"
-            style={{ background: "rgba(200,169,106,0.14)" }}
+            style={{ background: "rgba(232,255,90,0.14)" }}
           />
           <span
             style={{
@@ -131,12 +131,12 @@ export default function ProblemReframeSplit() {
             }}
           >
             Misattribution{" "}
-            <span style={{ color: "#FF4500", opacity: 0.7 }}>→</span>{" "}
+            <span style={{ color: "#E8FF5A", opacity: 0.7 }}>→</span>{" "}
             Attribution
           </span>
           <div
             className="h-px flex-1"
-            style={{ background: "rgba(59,91,255,0.18)" }}
+            style={{ background: "rgba(77,172,255,0.18)" }}
           />
         </div>
 
@@ -147,7 +147,7 @@ export default function ProblemReframeSplit() {
             className="relative flex flex-col overflow-hidden rounded-[var(--r-card)]"
             style={{
               background: "rgba(7,9,18,0.78)",
-              border: "1px solid rgba(200,169,106,0.18)",
+              border: "1px solid rgba(232,255,90,0.18)",
               backdropFilter: "blur(12px)",
             }}
           >
@@ -157,7 +157,7 @@ export default function ProblemReframeSplit() {
               className="pointer-events-none absolute inset-x-0 top-0 h-px"
               style={{
                 background:
-                  "linear-gradient(to right, transparent, rgba(200,169,106,0.28), transparent)",
+                  "linear-gradient(to right, transparent, rgba(232,255,90,0.28), transparent)",
               }}
             />
             <div className="p-8 sm:p-10">
@@ -172,9 +172,9 @@ export default function ProblemReframeSplit() {
                       aria-hidden
                       className="mt-[6px] inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full"
                       style={{
-                        border: "1px solid rgba(200,169,106,0.22)",
+                        border: "1px solid rgba(232,255,90,0.22)",
                         fontSize: "9px",
-                        color: "rgba(200,169,106,0.45)",
+                        color: "rgba(232,255,90,0.45)",
                       }}
                     >
                       ✕
@@ -198,10 +198,10 @@ export default function ProblemReframeSplit() {
             className="relative flex flex-col overflow-hidden rounded-[var(--r-card)]"
             style={{
               background: "rgba(8,12,28,0.82)",
-              border: "1px solid rgba(59,91,255,0.45)",
+              border: "1px solid rgba(77,172,255,0.45)",
               backdropFilter: "blur(12px)",
               boxShadow:
-                "0 0 56px -10px rgba(59,91,255,0.22), 0 0 28px -8px rgba(255,69,0,0.07), inset 0 0 0 1px rgba(59,91,255,0.08)",
+                "0 0 56px -10px rgba(77,172,255,0.22), 0 0 28px -8px rgba(232,255,90,0.07), inset 0 0 0 1px rgba(77,172,255,0.08)",
             }}
           >
             {/* Blue→orange top edge */}
@@ -210,7 +210,7 @@ export default function ProblemReframeSplit() {
               className="pointer-events-none absolute inset-x-0 top-0 h-px"
               style={{
                 background:
-                  "linear-gradient(to right, transparent, rgba(59,91,255,0.55), rgba(255,69,0,0.22), transparent)",
+                  "linear-gradient(to right, transparent, rgba(77,172,255,0.55), rgba(232,255,90,0.22), transparent)",
               }}
             />
             {/* Live indicator */}
@@ -218,9 +218,9 @@ export default function ProblemReframeSplit() {
               aria-hidden
               className="absolute right-6 top-6 h-2 w-2 rounded-full"
               style={{
-                background: "#3B5BFF",
+                background: "#4DACFF",
                 boxShadow:
-                  "0 0 0 3px rgba(59,91,255,0.12), 0 0 10px 2px rgba(59,91,255,0.45)",
+                  "0 0 0 3px rgba(77,172,255,0.12), 0 0 10px 2px rgba(77,172,255,0.45)",
               }}
             />
             <div className="p-8 sm:p-10">
@@ -235,7 +235,7 @@ export default function ProblemReframeSplit() {
                       aria-hidden
                       className="mt-[6px] inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-aj-blue-bright"
                       style={{
-                        border: "1px solid rgba(59,91,255,0.40)",
+                        border: "1px solid rgba(77,172,255,0.40)",
                         fontSize: "9px",
                       }}
                     >
@@ -253,7 +253,7 @@ export default function ProblemReframeSplit() {
               <SystemDashboard className="mt-8" />
               <div
                 className="mt-6 pt-5"
-                style={{ borderTop: "1px solid rgba(59,91,255,0.16)" }}
+                style={{ borderTop: "1px solid rgba(77,172,255,0.16)" }}
               >
                 <ButtonLink
                   href={ctaLinks.signalDiagnostic}
@@ -288,7 +288,7 @@ function NoiseDashboard({ className }: { className?: string }) {
         <div className="flex items-center gap-2">
           <div
             className="h-2 w-2 rounded-full"
-            style={{ background: "#FF4500", opacity: 0.42 }}
+            style={{ background: "#E8FF5A", opacity: 0.42 }}
           />
           <span
             style={{
@@ -305,9 +305,9 @@ function NoiseDashboard({ className }: { className?: string }) {
         <div className="flex gap-1.5">
           {(
             [
-              "rgba(200,169,106,0.16)",
-              "rgba(59,91,255,0.16)",
-              "rgba(255,69,0,0.16)",
+              "rgba(232,255,90,0.16)",
+              "rgba(77,172,255,0.16)",
+              "rgba(232,255,90,0.16)",
             ] as string[]
           ).map((c, i) => (
             <div
@@ -359,8 +359,8 @@ function NoiseDashboard({ className }: { className?: string }) {
                 style={{
                   fontSize: "9px",
                   color: k.pos
-                    ? "rgba(74,222,128,0.50)"
-                    : "rgba(255,69,0,0.60)",
+                    ? "rgba(61,255,176,0.50)"
+                    : "rgba(255,69,69,0.60)",
                   marginTop: "1px",
                 }}
               >
@@ -404,21 +404,21 @@ function NoiseDashboard({ className }: { className?: string }) {
             <polyline
               points="0,52 22,30 44,58 66,18 88,46 110,12 132,50 154,26 176,60 198,16 220,44 242,20 260,42"
               fill="none"
-              stroke="#FF4500"
+              stroke="#E8FF5A"
               strokeWidth="1.2"
               opacity="0.52"
             />
             <polyline
               points="0,28 22,52 44,14 66,48 88,22 110,58 132,18 154,56 176,16 198,48 220,10 242,52 260,28"
               fill="none"
-              stroke="#C8A96A"
+              stroke="#E8FF5A"
               strokeWidth="1.2"
               opacity="0.32"
             />
             <polyline
               points="0,40 22,36 44,44 66,30 88,50 110,36 132,26 154,48 176,32 198,58 220,26 242,62 260,18"
               fill="none"
-              stroke="#3B5BFF"
+              stroke="#4DACFF"
               strokeWidth="1.2"
               opacity="0.25"
             />
@@ -466,9 +466,9 @@ function NoiseDashboard({ className }: { className?: string }) {
                 style={{
                   background:
                     t.ok === true
-                      ? "rgba(74,222,128,0.45)"
+                      ? "rgba(61,255,176,0.45)"
                       : t.ok === false
-                      ? "rgba(255,69,0,0.45)"
+                      ? "rgba(255,69,69,0.45)"
                       : "rgba(255,255,255,0.15)",
                 }}
               />
@@ -487,24 +487,24 @@ function SystemDashboard({ className }: { className?: string }) {
       aria-hidden
       className={`overflow-hidden rounded-[var(--r-lg)] ${className ?? ""}`}
       style={{
-        border: "1px solid rgba(59,91,255,0.18)",
+        border: "1px solid rgba(77,172,255,0.18)",
         background: "rgba(6,9,22,0.80)",
-        boxShadow: "0 0 24px -8px rgba(59,91,255,0.12)",
+        boxShadow: "0 0 24px -8px rgba(77,172,255,0.12)",
       }}
     >
       <div
         className="flex items-center justify-between border-b px-4 py-2.5"
         style={{
-          borderColor: "rgba(59,91,255,0.14)",
-          background: "rgba(59,91,255,0.04)",
+          borderColor: "rgba(77,172,255,0.14)",
+          background: "rgba(77,172,255,0.04)",
         }}
       >
         <div className="flex items-center gap-2">
           <div
             className="h-2 w-2 rounded-full"
             style={{
-              background: "#3B5BFF",
-              boxShadow: "0 0 6px rgba(59,91,255,0.6)",
+              background: "#4DACFF",
+              boxShadow: "0 0 6px rgba(77,172,255,0.6)",
             }}
           />
           <span
@@ -523,7 +523,7 @@ function SystemDashboard({ className }: { className?: string }) {
           style={{
             fontFamily: "var(--font-body)",
             fontSize: "9px",
-            color: "#3B5BFF",
+            color: "#4DACFF",
             fontWeight: 600,
           }}
         >
@@ -533,16 +533,16 @@ function SystemDashboard({ className }: { className?: string }) {
       <div className="space-y-3 p-4">
         <div className="grid grid-cols-3 gap-2">
           {[
-            { label: "CAC", val: "↓ 37%", color: "#4CAF50" },
-            { label: "Pipeline", val: "↑ 28%", color: "#3B5BFF" },
-            { label: "Conv Rate", val: "↑ 42%", color: "#3B5BFF" },
+            { label: "CAC", val: "↓ 37%", color: "#3DFFB0" },
+            { label: "Pipeline", val: "↑ 28%", color: "#4DACFF" },
+            { label: "Conv Rate", val: "↑ 42%", color: "#4DACFF" },
           ].map((k) => (
             <div
               key={k.label}
               className="rounded-[6px] px-2.5 py-2"
               style={{
-                background: "rgba(59,91,255,0.06)",
-                border: "1px solid rgba(59,91,255,0.14)",
+                background: "rgba(77,172,255,0.06)",
+                border: "1px solid rgba(77,172,255,0.14)",
               }}
             >
               <div
@@ -573,8 +573,8 @@ function SystemDashboard({ className }: { className?: string }) {
         <div
           className="rounded-[6px] p-3"
           style={{
-            background: "rgba(59,91,255,0.04)",
-            border: "1px solid rgba(59,91,255,0.11)",
+            background: "rgba(77,172,255,0.04)",
+            border: "1px solid rgba(77,172,255,0.11)",
           }}
         >
           <div className="mb-2 flex items-center justify-between">
@@ -593,7 +593,7 @@ function SystemDashboard({ className }: { className?: string }) {
               style={{
                 fontFamily: "var(--font-body)",
                 fontSize: "8px",
-                color: "#3B5BFF",
+                color: "#4DACFF",
                 fontWeight: 600,
               }}
             >
@@ -603,8 +603,8 @@ function SystemDashboard({ className }: { className?: string }) {
           <svg viewBox="0 0 260 68" className="h-14 w-full">
             <defs>
               <linearGradient id="sfill2" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#3B5BFF" stopOpacity="0.18" />
-                <stop offset="100%" stopColor="#3B5BFF" stopOpacity="0" />
+                <stop offset="0%" stopColor="#4DACFF" stopOpacity="0.18" />
+                <stop offset="100%" stopColor="#4DACFF" stopOpacity="0" />
               </linearGradient>
             </defs>
             {[17, 34, 51].map((y) => (
@@ -626,7 +626,7 @@ function SystemDashboard({ className }: { className?: string }) {
             <path
               d="M0,65 C50,58 100,48 150,34 C200,20 230,10 260,4"
               fill="none"
-              stroke="#3B5BFF"
+              stroke="#4DACFF"
               strokeWidth="1.8"
             />
             {[
@@ -642,7 +642,7 @@ function SystemDashboard({ className }: { className?: string }) {
                 cx={m.x}
                 cy={m.y}
                 r="2.6"
-                fill="#3B5BFF"
+                fill="#4DACFF"
                 stroke="rgba(6,9,22,0.9)"
                 strokeWidth="1.2"
               />
@@ -659,8 +659,8 @@ function SystemDashboard({ className }: { className?: string }) {
               key={s.signal}
               className="flex items-center gap-3 rounded-[6px] px-3 py-2"
               style={{
-                background: "rgba(59,91,255,0.04)",
-                border: "1px solid rgba(59,91,255,0.10)",
+                background: "rgba(77,172,255,0.04)",
+                border: "1px solid rgba(77,172,255,0.10)",
               }}
             >
               <div className="min-w-0 flex-1">
@@ -694,7 +694,7 @@ function SystemDashboard({ className }: { className?: string }) {
                     className="h-full rounded-full"
                     style={{
                       width: `${s.strength}%`,
-                      background: "linear-gradient(to right,#3B5BFF,#7B9BFF)",
+                      background: "linear-gradient(to right,#4DACFF,#7B9BFF)",
                     }}
                   />
                 </div>
@@ -702,7 +702,7 @@ function SystemDashboard({ className }: { className?: string }) {
                   style={{
                     fontFamily: "var(--font-body)",
                     fontSize: "8px",
-                    color: "#3B5BFF",
+                    color: "#4DACFF",
                     fontWeight: 700,
                   }}
                 >

@@ -1,6 +1,6 @@
 # DMAIC Verification - 2026-06-07
 
-Status: repo-hygiene triage completed; code gates green
+Status: repo-hygiene triage completed; post-merge code gates green
 Owner: Codex verification pass
 Repo: `C:\dev\audiojones-clean`
 Branch: `docs/strategy-seo-aeo-entity-plan`
@@ -31,7 +31,8 @@ Inference:
 
 ## Current State
 
-Working tree status after the 2026-06-07 repo-hygiene pass:
+Working tree status after the 2026-06-07 repo-hygiene pass, before merging
+latest `origin/main`:
 
 ```txt
 ## docs/strategy-seo-aeo-entity-plan...origin/docs/strategy-seo-aeo-entity-plan [ahead 1]
@@ -46,9 +47,13 @@ Resolved working-tree noise:
 - The uncommitted `AUDIOJONES_DESIGN.md` and `docs/design.md` redirect edits
   were reverted to the current AGENTS.md contract path: `docs/DESIGN.md`.
 
-Remaining intentional change under review:
-- `package.json` updates `dx:init` to use Doppler project `audiojones-com`
-  with `--no-interactive`.
+Environment tooling resolution:
+- The original branch updated `package.json` `dx:init` to use Doppler project
+  `audiojones-com` with `--no-interactive`.
+- Latest `origin/main` superseded that with a better repo-level
+  `doppler.yaml` pin for project `audiojones-com` and config `dev`.
+- After conflict resolution, `package.json` uses `doppler setup
+  --no-interactive`, and `doppler.yaml` supplies the project/config.
 - Local Doppler CLI evidence: `doppler projects get audiojones-com --json`
   returned a project named `audiojones-com` with description
   `Local dev env for C:\dev\audiojones-clean (audiojones.com). Matches
@@ -81,6 +86,13 @@ Results from the post-hygiene rerun:
   found.
 - `pnpm build`: passed.
 
+Results from the post-merge rerun after merging latest `origin/main`:
+- `pnpm typecheck`: passed.
+- `pnpm lint`: passed with 0 errors and existing warnings.
+- `pnpm check:no-firebase`: passed; no Firebase imports, packages, or env keys
+  found.
+- `pnpm build`: passed.
+
 Post-hygiene build-time observations:
 - Next.js production build completed successfully.
 - The build still surfaced known legacy/admin runtime log messages where
@@ -105,12 +117,11 @@ Scope risk:
 - Those actions should remain blocked until the operator explicitly approves the
   exact command set to run.
 
-Package-script risk:
-- `package.json` has an uncommitted `dx:init` script change.
-- AGENTS.md says package scripts should not be altered as unrelated work.
-- The change is now isolated: it is the only tracked source diff.
-- Local Doppler evidence supports the new project slug, but the change should
-  still be reviewed as an env/tooling fix before commit.
+Package-script resolution:
+- The standalone `package.json` `dx:init` project-flag change was superseded
+  by `origin/main` commit `chore(doppler): pin repo to audiojones-com/dev
+  config (#151)`.
+- The branch now keeps upstream's `doppler.yaml` approach.
 
 Design-doc path resolution:
 - `docs/design/DESIGN.md` is now the canonical design-system path.
@@ -134,7 +145,7 @@ Suggested remaining validation before commit:
 
 ```bash
 git status --short --branch
-git diff -- package.json
+git diff -- package.json doppler.yaml
 pnpm typecheck
 pnpm lint
 pnpm check:no-firebase
@@ -145,8 +156,8 @@ pnpm build
 
 Proceed with one of these bounded paths:
 
-1. Commit `package.json` and this retrospective note as a bounded env/tooling
-   and repo-hygiene record, after validation passes.
+1. Keep `doppler.yaml` as the source of truth for local Doppler project/config
+   pinning.
 2. Convert this retrospective note into a formal `charter.md` and run the
    remaining cleanup through DMAIC gates.
 3. Keep the DESIGN.md canonical-path state aligned with the 2026-06-07

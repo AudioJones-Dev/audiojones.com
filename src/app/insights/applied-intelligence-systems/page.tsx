@@ -102,7 +102,7 @@ export default function Page() {
           For the full breakdown of each layer, see the{" "}
           <Link
             href="/frameworks/applied-intelligence-systems"
-            className="text-[#3B5BFF] hover:text-[#5B7AFF]"
+            className="text-accent-blue hover:text-accent-blue"
           >
             Applied Intelligence Systems framework
           </Link>

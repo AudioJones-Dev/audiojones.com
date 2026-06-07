@@ -16,31 +16,31 @@ export const PILLARS = {
     id: 'ai' as const,
     label: 'AI for Marketing & Creators',
     intents: ['news', 'how-to', 'framework-link', 'opinion'],
-    color: '#FF4500' // Audio Jones orange
+    color: '#E8FF5A' // signal-yellow
   },
   marketing: {
     id: 'marketing' as const,
     label: 'AEO/SEO, Funnels, Automation',
     intents: ['educate', 'commercial', 'authority'],
-    color: '#FFD700' // Audio Jones gold
+    color: '#4DACFF' // accent-blue
   },
   'podcast-news': {
     id: 'podcast-news' as const,
     label: 'Podcast, Creator, Industry Insights & News',
     intents: ['news', 'trend', 'repurpose'],
-    color: '#32CD32' // Lime green
+    color: '#3DFFB0' // accent-green
   },
   'tech-business-trends': {
     id: 'tech-business-trends' as const,
     label: 'Tech, Business & Trends',
     intents: ['news', 'analysis', 'operator POV'],
-    color: '#1E90FF' // Dodger blue
+    color: '#FFB340' // accent-amber
   },
   'personal-brand': {
     id: 'personal-brand' as const,
     label: 'Personal Brand Development / KOL',
     intents: ['thought-lead', 'story', 'playbook'],
-    color: '#8A2BE2' // Blue violet
+    color: '#FF4545' // accent-red
   }
 } as const;
 

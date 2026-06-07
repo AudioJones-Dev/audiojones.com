@@ -20,12 +20,12 @@ export default function FAQBlock({ faqs }: FAQBlockProps) {
   }
 
   return (
-    <section className="bg-gradient-to-r from-gray-900/50 to-gray-800/30 border border-gray-700 rounded-2xl p-8">
+    <section className="bg-surface-1 border border-border-subtle rounded-2xl p-8">
       <div className="text-center mb-8">
         <h2 className="text-3xl font-bold mb-4">
-          <span className="text-[#FFD700]">❓</span> Frequently Asked Questions
+          <span className="text-signal-yellow">❓</span> Frequently Asked Questions
         </h2>
-        <p className="text-gray-300">
+        <p className="text-text-muted">
           Common questions about Audio Jones strategies and implementation
         </p>
       </div>
@@ -34,10 +34,10 @@ export default function FAQBlock({ faqs }: FAQBlockProps) {
         {faqs.map((faq, index) => (
           <div
             key={index}
-            className="border border-gray-700 rounded-xl overflow-hidden transition-all duration-200 hover:border-[#FF4500]/30"
+            className="border border-border-subtle rounded-xl overflow-hidden transition-all duration-200 hover:border-signal-yellow/30"
           >
             <button
-              className="w-full px-6 py-4 text-left flex items-center justify-between bg-gray-800/50 hover:bg-gray-800/70 transition-colors"
+              className="w-full px-6 py-4 text-left flex items-center justify-between bg-surface-2 hover:bg-surface-2 transition-colors"
               onClick={() => setOpenIndex(openIndex === index ? null : index)}
             >
               <h3 className="font-semibold text-white pr-4">
@@ -45,7 +45,7 @@ export default function FAQBlock({ faqs }: FAQBlockProps) {
               </h3>
               <div className="flex-shrink-0">
                 <svg
-                  className={`w-5 h-5 text-[#FF4500] transition-transform duration-200 ${
+                  className={`w-5 h-5 text-signal-yellow transition-transform duration-200 ${
                     openIndex === index ? 'rotate-180' : ''
                   }`}
                   fill="none"
@@ -63,8 +63,8 @@ export default function FAQBlock({ faqs }: FAQBlockProps) {
             </button>
             
             {openIndex === index && (
-              <div className="px-6 py-4 bg-gray-900/30 border-t border-gray-700">
-                <p className="text-gray-300 leading-relaxed">
+              <div className="px-6 py-4 bg-surface-1 border-t border-border-subtle">
+                <p className="text-text-muted leading-relaxed">
                   {faq.a}
                 </p>
               </div>

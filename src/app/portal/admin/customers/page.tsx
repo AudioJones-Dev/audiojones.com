@@ -17,12 +17,12 @@ export default async function AdminCustomers() {
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold text-white">Customers</h1>
-          <p className="text-gray-400 mt-1">
+          <p className="text-text-muted mt-1">
             Manage customer accounts and subscriptions
           </p>
         </div>
         <div className="flex items-center space-x-4">
-          <div className="text-sm text-gray-500">
+          <div className="text-sm text-text-muted">
             Total: {customers.length} customers
           </div>
         </div>
@@ -34,7 +34,7 @@ export default async function AdminCustomers() {
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-400">Total Customers</p>
+                <p className="text-sm text-text-muted">Total Customers</p>
                 <p className="text-2xl font-bold text-white">{customers.length}</p>
               </div>
               <Users className="h-8 w-8 text-blue-400" />
@@ -46,7 +46,7 @@ export default async function AdminCustomers() {
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-400">Active Subscriptions</p>
+                <p className="text-sm text-text-muted">Active Subscriptions</p>
                 <p className="text-2xl font-bold text-white">
                   {customers.filter(c => c.subscription_status === 'active').length}
                 </p>
@@ -60,7 +60,7 @@ export default async function AdminCustomers() {
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-400">This Month</p>
+                <p className="text-sm text-text-muted">This Month</p>
                 <p className="text-2xl font-bold text-white">
                   {customers.filter(c => {
                     const created = new Date(c.created_at);
@@ -79,7 +79,7 @@ export default async function AdminCustomers() {
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-400">Cancelled</p>
+                <p className="text-sm text-text-muted">Cancelled</p>
                 <p className="text-2xl font-bold text-white">
                   {customers.filter(c => c.subscription_status === 'cancelled').length}
                 </p>
@@ -97,8 +97,8 @@ export default async function AdminCustomers() {
         </CardHeader>
         <CardContent>
           {customers.length === 0 ? (
-            <div className="text-center py-8 text-gray-500">
-              <Users className="h-12 w-12 mx-auto mb-4 text-gray-600" />
+            <div className="text-center py-8 text-text-muted">
+              <Users className="h-12 w-12 mx-auto mb-4 text-text-muted" />
               <p>No customers found</p>
               <p className="text-sm mt-1">Customer data will appear here once webhook events are processed</p>
             </div>
@@ -107,12 +107,12 @@ export default async function AdminCustomers() {
               <table className="w-full">
                 <thead>
                   <tr className="border-b border-gray-700">
-                    <th className="text-left py-3 px-4 text-gray-300 font-medium">Customer</th>
-                    <th className="text-left py-3 px-4 text-gray-300 font-medium">Email</th>
-                    <th className="text-left py-3 px-4 text-gray-300 font-medium">Subscription</th>
-                    <th className="text-left py-3 px-4 text-gray-300 font-medium">Status</th>
-                    <th className="text-left py-3 px-4 text-gray-300 font-medium">Created</th>
-                    <th className="text-left py-3 px-4 text-gray-300 font-medium">Actions</th>
+                    <th className="text-left py-3 px-4 text-text-primary font-medium">Customer</th>
+                    <th className="text-left py-3 px-4 text-text-primary font-medium">Email</th>
+                    <th className="text-left py-3 px-4 text-text-primary font-medium">Subscription</th>
+                    <th className="text-left py-3 px-4 text-text-primary font-medium">Status</th>
+                    <th className="text-left py-3 px-4 text-text-primary font-medium">Created</th>
+                    <th className="text-left py-3 px-4 text-text-primary font-medium">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -128,20 +128,20 @@ export default async function AdminCustomers() {
                             />
                           ) : (
                             <div className="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center">
-                              <Users className="h-4 w-4 text-gray-400" />
+                              <Users className="h-4 w-4 text-text-muted" />
                             </div>
                           )}
                           <div>
                             <div className="text-white font-medium">
                               {customer.username || 'Unknown'}
                             </div>
-                            <div className="text-xs text-gray-500">
+                            <div className="text-xs text-text-muted">
                               ID: {customer.whop_user_id}
                             </div>
                           </div>
                         </div>
                       </td>
-                      <td className="py-4 px-4 text-gray-300">
+                      <td className="py-4 px-4 text-text-primary">
                         <Link 
                           href={`/portal/admin/customers/${encodeURIComponent(customer.email)}`}
                           className="text-blue-400 hover:text-blue-300 hover:underline"
@@ -155,7 +155,7 @@ export default async function AdminCustomers() {
                             {customer.subscription_tier}
                           </Badge>
                         ) : (
-                          <span className="text-gray-500 text-sm">No subscription</span>
+                          <span className="text-text-muted text-sm">No subscription</span>
                         )}
                       </td>
                       <td className="py-4 px-4">
@@ -166,13 +166,13 @@ export default async function AdminCustomers() {
                               ? 'border-green-500 text-green-400'
                               : customer.subscription_status === 'cancelled'
                               ? 'border-red-500 text-red-400'
-                              : 'border-gray-500 text-gray-400'
+                              : 'border-gray-500 text-text-muted'
                           }
                         >
                           {customer.subscription_status || 'inactive'}
                         </Badge>
                       </td>
-                      <td className="py-4 px-4 text-gray-400 text-sm">
+                      <td className="py-4 px-4 text-text-muted text-sm">
                         {new Date(customer.created_at).toLocaleDateString()}
                       </td>
                       <td className="py-4 px-4">

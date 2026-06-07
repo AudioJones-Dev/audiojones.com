@@ -40,7 +40,7 @@ export default async function StatusPage() {
   return (
     <div className="bg-black min-h-screen">
       {/* Status Bar at top */}
-      <div className="border-b border-gray-800">
+      <div className="border-b border-border-subtle">
         <StatusBar incidents={incidents} />
       </div>
       
@@ -50,7 +50,7 @@ export default async function StatusPage() {
           <h1 className="text-4xl font-bold text-white mb-4">
             System Status
           </h1>
-          <p className="text-gray-400 text-lg">
+          <p className="text-text-muted text-lg">
             Current operational status of Audio Jones services
           </p>
         </div>
@@ -83,7 +83,7 @@ export default async function StatusPage() {
         <div className="mb-12">
           <h2 className="text-2xl font-bold text-white mb-6">
             Recent Activity
-            <span className="text-sm font-normal text-gray-400 ml-3">
+            <span className="text-sm font-normal text-text-muted ml-3">
               (Last 7 days)
             </span>
           </h2>
@@ -99,16 +99,16 @@ export default async function StatusPage() {
               ))}
             </div>
           ) : (
-            <div className="bg-gray-900 border border-gray-800 rounded-lg p-8 text-center">
-              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-green-900/20 flex items-center justify-center">
-                <svg className="w-8 h-8 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="bg-surface-1 border border-border-subtle rounded-lg p-8 text-center">
+              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-accent-green/10 flex items-center justify-center">
+                <svg className="w-8 h-8 text-accent-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
               </div>
               <h3 className="text-lg font-medium text-white mb-2">
                 No Recent Incidents
               </h3>
-              <p className="text-gray-400">
+              <p className="text-text-muted">
                 All systems have been running smoothly
               </p>
             </div>
@@ -131,7 +131,7 @@ export default async function StatusPage() {
         </div>
         
         {/* Footer Info */}
-        <div className="text-center text-gray-500 text-sm border-t border-gray-800 pt-8">
+        <div className="text-center text-text-muted text-sm border-t border-border-subtle pt-8">
           <p className="mb-2">
             Status page automatically updated every 5 minutes
           </p>
@@ -139,23 +139,23 @@ export default async function StatusPage() {
             Last updated: {new Date().toLocaleString()}
           </p>
           <div className="flex justify-center space-x-6">
-            <a 
-              href="/api/incidents" 
-              className="text-blue-400 hover:text-blue-300 transition-colors"
+            <a
+              href="/api/incidents"
+              className="text-accent-blue hover:text-accent-blue/80 transition-colors"
               target="_blank"
               rel="noopener noreferrer"
             >
               JSON Feed
             </a>
-            <a 
-              href="mailto:support@audiojones.com" 
-              className="text-blue-400 hover:text-blue-300 transition-colors"
+            <a
+              href="mailto:support@audiojones.com"
+              className="text-accent-blue hover:text-accent-blue/80 transition-colors"
             >
               Contact Support
             </a>
             <Link
               href="/"
-              className="text-blue-400 hover:text-blue-300 transition-colors"
+              className="text-accent-blue hover:text-accent-blue/80 transition-colors"
             >
               Return to Main Site
             </Link>
@@ -174,28 +174,28 @@ function IncidentCard({ incident, compact = false }: {
   compact?: boolean;
 }) {
   const statusColors = {
-    open: 'bg-red-900/20 border-red-800 text-red-200',
-    investigating: 'bg-amber-900/20 border-amber-800 text-amber-200',
-    monitoring: 'bg-blue-900/20 border-blue-800 text-blue-200',
-    resolved: 'bg-green-900/20 border-green-800 text-green-200',
+    open: 'bg-accent-red/15 border-accent-red/50 text-accent-red',
+    investigating: 'bg-accent-amber/15 border-accent-amber/50 text-accent-amber',
+    monitoring: 'bg-accent-blue/15 border-accent-blue/50 text-accent-blue',
+    resolved: 'bg-accent-green/15 border-accent-green/50 text-accent-green',
   };
-  
+
   const statusBadgeColors = {
-    open: 'bg-red-900 text-red-200 border-red-700',
-    investigating: 'bg-amber-900 text-amber-200 border-amber-700',
-    monitoring: 'bg-blue-900 text-blue-200 border-blue-700',
-    resolved: 'bg-green-900 text-green-200 border-green-700',
+    open: 'bg-accent-red/20 text-accent-red border-accent-red/40',
+    investigating: 'bg-accent-amber/20 text-accent-amber border-accent-amber/40',
+    monitoring: 'bg-accent-blue/20 text-accent-blue border-accent-blue/40',
+    resolved: 'bg-accent-green/20 text-accent-green border-accent-green/40',
   };
 
   const severityColors = {
-    critical: 'bg-red-900 text-red-200',
-    high: 'bg-orange-900 text-orange-200',
-    medium: 'bg-amber-900 text-amber-200',
-    low: 'bg-yellow-900 text-yellow-200',
+    critical: 'bg-accent-red/20 text-accent-red',
+    high: 'bg-signal-yellow/20 text-signal-yellow',
+    medium: 'bg-accent-amber/20 text-accent-amber',
+    low: 'bg-signal-soft/20 text-signal-soft',
   };
 
   return (
-    <div className={`bg-gray-900 border rounded-lg p-6 ${statusColors[incident.status]}`}>
+    <div className={`bg-surface-1 border rounded-lg p-6 ${statusColors[incident.status]}`}>
       <div className="flex items-start justify-between mb-4">
         <h3 className={`font-semibold ${compact ? 'text-lg' : 'text-xl'} text-white`}>
           {incident.title}
@@ -213,12 +213,12 @@ function IncidentCard({ incident, compact = false }: {
       </div>
       
       {incident.short_description && !compact && (
-        <p className="text-gray-300 mb-4">
+        <p className="text-text-primary mb-4">
           {incident.short_description}
         </p>
       )}
       
-      <div className="flex items-center justify-between text-sm text-gray-400">
+      <div className="flex items-center justify-between text-sm text-text-muted">
         <span>
           Started: {incident.started_at ? new Date(incident.started_at).toLocaleString() : 'Unknown'}
         </span>
@@ -228,13 +228,13 @@ function IncidentCard({ incident, compact = false }: {
       </div>
       
       {incident.affected_components && incident.affected_components.length > 0 && (
-        <div className="mt-4 pt-4 border-t border-gray-700">
-          <span className="text-sm text-gray-400">Affected components: </span>
+        <div className="mt-4 pt-4 border-t border-border-subtle">
+          <span className="text-sm text-text-muted">Affected components: </span>
           <div className="flex flex-wrap gap-2 mt-2">
             {incident.affected_components.map((component, index) => (
               <span 
                 key={index}
-                className="inline-flex items-center px-2 py-1 rounded bg-gray-800 text-gray-300 text-xs"
+                className="inline-flex items-center px-2 py-1 rounded bg-surface-2 text-text-primary text-xs"
               >
                 {component}
               </span>
@@ -255,18 +255,18 @@ function ComponentStatus({ name, status }: {
 }) {
   const statusConfig = {
     operational: {
-      color: 'bg-green-900/20 border-green-800',
-      indicator: 'bg-green-400',
+      color: 'bg-accent-green/15 border-accent-green/50',
+      indicator: 'bg-accent-green',
       text: 'Operational'
     },
     degraded: {
-      color: 'bg-amber-900/20 border-amber-800',
-      indicator: 'bg-amber-400',
+      color: 'bg-accent-amber/15 border-accent-amber/50',
+      indicator: 'bg-accent-amber',
       text: 'Degraded'
     },
     outage: {
-      color: 'bg-red-900/20 border-red-800',
-      indicator: 'bg-red-400',
+      color: 'bg-accent-red/15 border-accent-red/50',
+      indicator: 'bg-accent-red',
       text: 'Outage'
     }
   };
@@ -279,7 +279,7 @@ function ComponentStatus({ name, status }: {
         <span className="text-white font-medium">{name}</span>
         <div className="flex items-center">
           <div className={`w-2 h-2 rounded-full mr-2 ${config.indicator}`} />
-          <span className="text-sm text-gray-300">{config.text}</span>
+          <span className="text-sm text-text-muted">{config.text}</span>
         </div>
       </div>
     </div>

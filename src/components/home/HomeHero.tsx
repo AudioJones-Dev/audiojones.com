@@ -7,7 +7,7 @@ export default function HomeHero() {
           <div className="space-y-8">
             {/* Eyebrow */}
             <div className="inline-block">
-              <span className="text-[#FFD700] text-sm font-medium tracking-wide uppercase bg-[#FFD700]/10 px-3 py-1 rounded-full">
+              <span className="text-signal-yellow text-sm font-medium tracking-wide uppercase bg-signal-yellow/10 px-3 py-1 rounded-full">
                 AI-Driven Marketing & Automation
               </span>
             </div>
@@ -15,11 +15,11 @@ export default function HomeHero() {
             {/* Main Heading */}
             <h1 className="text-5xl lg:text-6xl font-bold leading-tight">
               Build a brand system that{" "}
-              <span className="text-[#FF4500]">actually converts</span>.
+              <span className="text-signal-yellow">actually converts</span>.
             </h1>
 
             {/* Subtext */}
-            <p className="text-xl text-gray-300 leading-relaxed max-w-2xl">
+            <p className="text-xl text-text-muted leading-relaxed max-w-2xl">
               We help creators, consultants, and service businesses connect content → automations → revenue using AI, Whop, and Google Business Ultra.
             </p>
 
@@ -27,13 +27,13 @@ export default function HomeHero() {
             <div className="flex flex-col sm:flex-row gap-4">
               <a
                 href="/contact"
-                className="inline-flex items-center justify-center px-8 py-4 bg-[#FF4500] hover:bg-[#FF4500]/90 text-white font-semibold rounded-lg transition-colors duration-200"
+                className="inline-flex items-center justify-center px-8 py-4 bg-signal-yellow hover:bg-signal-soft text-black font-semibold rounded-lg transition-colors duration-200"
               >
                 Request Growth Call
               </a>
               <a
                 href="#services"
-                className="inline-flex items-center justify-center px-8 py-4 border-2 border-[#008080] text-[#008080] hover:bg-[#008080] hover:text-white font-semibold rounded-lg transition-colors duration-200"
+                className="inline-flex items-center justify-center px-8 py-4 border-2 border-accent-blue text-accent-blue hover:bg-accent-blue hover:text-white font-semibold rounded-lg transition-colors duration-200"
               >
                 View Services
               </a>

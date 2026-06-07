@@ -166,24 +166,24 @@ export default function DiagnosticForm() {
     <div
       style={{
         background:
-          "linear-gradient(#0B0F1A, #0B0F1A) padding-box, linear-gradient(145deg, transparent 28%, rgba(255,69,0,0.95), rgba(59,91,255,0.9) 68%, rgba(200,169,106,0.75)) border-box",
+          "linear-gradient(#0F0F0F, #0F0F0F) padding-box, linear-gradient(145deg, transparent 28%, rgba(232,255,90,0.85), rgba(77,172,255,0.9) 78%) border-box",
         border: "1px solid transparent",
         borderRadius: "24px",
         boxShadow:
-          "0 24px 80px rgba(0,0,0,0.35), 0 0 48px rgba(59,91,255,0.08), 0 0 32px rgba(255,69,0,0.06)",
+          "0 24px 80px rgba(0,0,0,0.35), 0 0 48px rgba(77,172,255,0.08), 0 0 32px rgba(232,255,90,0.06)",
       }}
       className="p-6 sm:p-10"
     >
-      <ol className="mb-8 grid grid-cols-2 gap-2 text-xs uppercase tracking-wider text-slate-400 sm:grid-cols-6">
+      <ol className="mb-8 grid grid-cols-2 gap-2 text-xs uppercase tracking-wider text-text-muted sm:grid-cols-6">
         {STEPS.map((label, i) => (
           <li
             key={label}
             className={`rounded-md border px-3 py-2 text-center ${
               i === step
-                ? "border-[#3B5BFF] bg-[#3B5BFF]/10 text-white"
+                ? "border-accent-blue bg-accent-blue/10 text-text-primary"
                 : i < step
-                  ? "border-[#22C55E]/40 text-[#22C55E]"
-                  : "border-white/10"
+                  ? "border-accent-green/40 text-accent-green"
+                  : "border-border-subtle"
             }`}
           >
             {i + 1}. {label}
@@ -213,7 +213,7 @@ export default function DiagnosticForm() {
       {error && (
         <p
           role="alert"
-          className="mt-6 rounded-md border border-[#EF4444]/40 bg-[#EF4444]/10 p-3 text-sm text-[#EF4444]"
+          className="mt-6 rounded-md border border-accent-red/40 bg-accent-red/10 p-3 text-sm text-accent-red"
         >
           {error}
         </p>
@@ -224,7 +224,7 @@ export default function DiagnosticForm() {
           type="button"
           onClick={() => setStep((s) => Math.max(0, s - 1))}
           disabled={step === 0 || submitting}
-          className="rounded-md border border-white/15 px-5 py-2.5 text-sm font-semibold text-white transition hover:border-[#C8A96A]/50 hover:bg-white/5 disabled:opacity-40"
+          className="rounded-md border border-border-strong px-5 py-2.5 text-sm font-semibold text-text-primary transition hover:border-signal-yellow/50 hover:bg-white/5 disabled:opacity-40"
         >
           Back
         </button>
@@ -233,7 +233,7 @@ export default function DiagnosticForm() {
             type="button"
             onClick={() => setStep((s) => Math.min(STEPS.length - 1, s + 1))}
             disabled={!canAdvance}
-            className="rounded-md bg-[#3B5BFF] px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-[#FF4500] disabled:opacity-40"
+            className="rounded-md bg-signal-yellow px-6 py-2.5 text-sm font-semibold text-bg-base transition hover:bg-signal-soft disabled:opacity-40"
           >
             Continue
           </button>
@@ -242,7 +242,7 @@ export default function DiagnosticForm() {
             type="button"
             onClick={submit}
             disabled={!canAdvance || submitting}
-            className="rounded-md bg-[#3B5BFF] px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-[#FF4500] disabled:opacity-40"
+            className="rounded-md bg-signal-yellow px-6 py-2.5 text-sm font-semibold text-bg-base transition hover:bg-signal-soft disabled:opacity-40"
           >
             {submitting ? "Submitting…" : "Submit diagnostic"}
           </button>
@@ -268,9 +268,9 @@ function Field({
 }) {
   return (
     <label className="block">
-      <span className="mb-1.5 block text-sm font-medium text-slate-200">
+      <span className="mb-1.5 block text-sm font-medium text-text-primary">
         {label}
-        {required && <span className="ml-1 text-[#EF4444]">*</span>}
+        {required && <span className="ml-1 text-accent-red">*</span>}
       </span>
       {children}
     </label>
@@ -278,7 +278,7 @@ function Field({
 }
 
 const inputCls =
-  "w-full rounded-md border border-white/10 bg-[#05070F] px-3 py-2.5 text-sm text-white outline-none transition focus:border-[#FF4500] focus:ring-2 focus:ring-[#FF4500]/10";
+  "w-full rounded-md border border-border-subtle bg-surface-2 px-3 py-2.5 text-sm text-text-primary outline-none transition focus:border-signal-yellow focus:ring-2 focus:ring-signal-yellow/20";
 
 function Step1({ state, update }: StepProps) {
   return (
@@ -519,8 +519,8 @@ function YesNo({
             onClick={() => onChange(v)}
             className={`flex-1 rounded-md border px-4 py-2 text-sm font-medium transition ${
               value === v
-                ? "border-[#3B5BFF] bg-[#3B5BFF]/15 text-white"
-                : "border-white/10 text-slate-300 hover:border-white/30"
+                ? "border-accent-blue bg-accent-blue/15 text-text-primary"
+                : "border-border-subtle text-text-muted hover:border-border-strong"
             }`}
           >
             {l}
@@ -563,7 +563,7 @@ function Step5({ state, update }: StepProps) {
           onChange={(e) =>
             update("attributionConfidence", Number(e.target.value))
           }
-          className="w-full accent-[#3B5BFF]"
+          className="w-full accent-accent-blue"
         />
       </Field>
       <Field label="Desired outcome from this engagement">
@@ -615,14 +615,14 @@ function Step6({ state, update }: StepProps) {
         </select>
       </Field>
       <div className="sm:col-span-2">
-        <label className="flex items-start gap-3 rounded-md border border-white/10 bg-[#05070F] p-4">
+        <label className="flex items-start gap-3 rounded-md border border-border-subtle bg-surface-2 p-4">
           <input
             type="checkbox"
             checked={state.consentToContact}
             onChange={(e) => update("consentToContact", e.target.checked)}
-            className="mt-1 h-4 w-4 accent-[#3B5BFF]"
+            className="mt-1 h-4 w-4 accent-accent-blue"
           />
-          <span className="text-sm text-slate-300">
+          <span className="text-sm text-text-muted">
             I consent to Audio Jones contacting me about this diagnostic
             request. I understand my information will be reviewed for fit
             before any next steps.

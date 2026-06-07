@@ -39,32 +39,32 @@ export default function DomainsPage() {
   return (
     <div className="min-h-screen bg-black text-white p-8">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-3xl font-bold mb-8 text-[#FF4500]">Domain Diagnostics</h1>
+        <h1 className="text-3xl font-bold mb-8 text-signal-yellow">Domain Diagnostics</h1>
         
         <div className="grid gap-8">
           {/* Client Info */}
           <div className="bg-white/5 rounded-lg p-6">
-            <h2 className="text-xl font-semibold mb-4 text-[#FFD700]">Client-Side Info</h2>
+            <h2 className="text-xl font-semibold mb-4 text-signal-yellow">Client-Side Info</h2>
             {domainInfo && (
               <dl className="space-y-2">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
-                  <dt className="font-medium text-gray-300">Host:</dt>
+                  <dt className="font-medium text-text-muted">Host:</dt>
                   <dd className="md:col-span-2 font-mono text-sm bg-black/50 px-2 py-1 rounded">{domainInfo.host}</dd>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
-                  <dt className="font-medium text-gray-300">Origin:</dt>
+                  <dt className="font-medium text-text-muted">Origin:</dt>
                   <dd className="md:col-span-2 font-mono text-sm bg-black/50 px-2 py-1 rounded">{domainInfo.origin}</dd>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
-                  <dt className="font-medium text-gray-300">Protocol:</dt>
+                  <dt className="font-medium text-text-muted">Protocol:</dt>
                   <dd className="md:col-span-2 font-mono text-sm bg-black/50 px-2 py-1 rounded">{domainInfo.protocol}</dd>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
-                  <dt className="font-medium text-gray-300">Pathname:</dt>
+                  <dt className="font-medium text-text-muted">Pathname:</dt>
                   <dd className="md:col-span-2 font-mono text-sm bg-black/50 px-2 py-1 rounded">{domainInfo.pathname}</dd>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
-                  <dt className="font-medium text-gray-300">Search:</dt>
+                  <dt className="font-medium text-text-muted">Search:</dt>
                   <dd className="md:col-span-2 font-mono text-sm bg-black/50 px-2 py-1 rounded">{domainInfo.search || '(none)'}</dd>
                 </div>
               </dl>
@@ -73,46 +73,46 @@ export default function DomainsPage() {
 
           {/* Server Info */}
           <div className="bg-white/5 rounded-lg p-6">
-            <h2 className="text-xl font-semibold mb-4 text-[#FFD700]">Server-Side Info</h2>
+            <h2 className="text-xl font-semibold mb-4 text-signal-yellow">Server-Side Info</h2>
             {serverInfo ? (
               <dl className="space-y-2">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
-                  <dt className="font-medium text-gray-300">Host Header:</dt>
+                  <dt className="font-medium text-text-muted">Host Header:</dt>
                   <dd className="md:col-span-2 font-mono text-sm bg-black/50 px-2 py-1 rounded">{serverInfo.host || 'undefined'}</dd>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
-                  <dt className="font-medium text-gray-300">X-Forwarded-Host:</dt>
+                  <dt className="font-medium text-text-muted">X-Forwarded-Host:</dt>
                   <dd className="md:col-span-2 font-mono text-sm bg-black/50 px-2 py-1 rounded">{serverInfo.xForwardedHost || 'undefined'}</dd>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
-                  <dt className="font-medium text-gray-300">X-Forwarded-Proto:</dt>
+                  <dt className="font-medium text-text-muted">X-Forwarded-Proto:</dt>
                   <dd className="md:col-span-2 font-mono text-sm bg-black/50 px-2 py-1 rounded">{serverInfo.xForwardedProto || 'undefined'}</dd>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
-                  <dt className="font-medium text-gray-300">User-Agent:</dt>
+                  <dt className="font-medium text-text-muted">User-Agent:</dt>
                   <dd className="md:col-span-2 font-mono text-sm bg-black/50 px-2 py-1 rounded break-all">{serverInfo.userAgent || 'undefined'}</dd>
                 </div>
               </dl>
             ) : (
-              <p className="text-gray-400">Loading server info...</p>
+              <p className="text-text-muted">Loading server info...</p>
             )}
           </div>
 
           {/* Tests */}
           <div className="bg-white/5 rounded-lg p-6">
-            <h2 className="text-xl font-semibold mb-4 text-[#FFD700]">Subdomain Tests</h2>
+            <h2 className="text-xl font-semibold mb-4 text-signal-yellow">Subdomain Tests</h2>
             <div className="space-y-4">
               <div className="p-4 bg-black/50 rounded">
-                <h3 className="font-semibold text-green-400 mb-2">✅ Expected Behavior:</h3>
-                <ul className="space-y-1 text-sm text-gray-300">
+                <h3 className="font-semibold text-accent-green mb-2">✅ Expected Behavior:</h3>
+                <ul className="space-y-1 text-sm text-text-muted">
                   <li>• <code>audiojones.com</code> → Homepage</li>
                   <li>• <code>admin.audiojones.com</code> → <code>/portal/admin</code> (via middleware rewrite)</li>
                   <li>• <code>audiojones.com/portal/admin</code> → Admin portal directly</li>
                 </ul>
               </div>
               <div className="p-4 bg-black/50 rounded">
-                <h3 className="font-semibold text-blue-400 mb-2">🔍 Current Detection:</h3>
-                <p className="text-sm text-gray-300">
+                <h3 className="font-semibold text-accent-blue mb-2">🔍 Current Detection:</h3>
+                <p className="text-sm text-text-muted">
                   {domainInfo?.host.startsWith('admin.') ? 
                     '✅ Admin subdomain detected - should show admin portal' : 
                     '❌ Regular domain - should show public site'

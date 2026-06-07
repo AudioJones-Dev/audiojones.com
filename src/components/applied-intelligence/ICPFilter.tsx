@@ -23,27 +23,27 @@ export default function ICPFilter() {
       intro="This work compounds for a specific operator. If you don't see yourself in the left column, it won't help you — and the right column will tell you why."
     >
       <div className="grid gap-4 lg:grid-cols-2">
-        <div className="rounded-xl border border-[#22C55E]/30 bg-[#0B1020] p-6">
-          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.18em] text-[#22C55E]">
+        <div className="rounded-xl border border-accent-green/30 bg-surface-1 p-6">
+          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.18em] text-accent-green">
             Strong fit
           </p>
-          <ul className="space-y-3 text-slate-200">
+          <ul className="space-y-3 text-text-primary">
             {GOOD.map((g) => (
               <li key={g} className="flex gap-3">
-                <span aria-hidden className="mt-1 text-[#22C55E]">✓</span>
+                <span aria-hidden className="mt-1 text-accent-green">✓</span>
                 <span>{g}</span>
               </li>
             ))}
           </ul>
         </div>
-        <div className="rounded-xl border border-[#EF4444]/30 bg-[#0B1020] p-6">
-          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.18em] text-[#EF4444]">
+        <div className="rounded-xl border border-accent-red/30 bg-surface-1 p-6">
+          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.18em] text-accent-red">
             Not a fit
           </p>
-          <ul className="space-y-3 text-slate-200">
+          <ul className="space-y-3 text-text-primary">
             {BAD.map((b) => (
               <li key={b} className="flex gap-3">
-                <span aria-hidden className="mt-1 text-[#EF4444]">✕</span>
+                <span aria-hidden className="mt-1 text-accent-red">✕</span>
                 <span>{b}</span>
               </li>
             ))}

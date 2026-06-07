@@ -301,7 +301,7 @@ export default function BackupDRPage() {
       case 'running': return 'text-blue-400';
       case 'pending': return 'text-yellow-400';
       case 'failed': return 'text-red-400';
-      default: return 'text-gray-400';
+      default: return 'text-text-muted';
     }
   };
 
@@ -317,7 +317,7 @@ export default function BackupDRPage() {
     <div className="container mx-auto px-4 py-8">
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-white mb-2">Backup & Disaster Recovery</h1>
-        <p className="text-gray-400">
+        <p className="text-text-muted">
           Automated Firestore backups with GCS storage and staging restore capabilities
         </p>
       </div>
@@ -336,7 +336,7 @@ export default function BackupDRPage() {
             className={`px-4 py-2 rounded-lg font-medium transition-colors ${
               activeTab === tab.key
                 ? 'bg-white text-black'
-                : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
+                : 'bg-gray-800 text-text-primary hover:bg-gray-700'
             }`}
           >
             {tab.label}
@@ -375,12 +375,12 @@ export default function BackupDRPage() {
           {/* Metrics Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div className="bg-gray-800 p-6 rounded-lg border border-gray-700">
-              <h3 className="text-sm font-medium text-gray-400 mb-2">Total Backups</h3>
+              <h3 className="text-sm font-medium text-text-muted mb-2">Total Backups</h3>
               <div className="text-2xl font-bold text-white">{dashboard.metrics.total_backups}</div>
             </div>
 
             <div className="bg-gray-800 p-6 rounded-lg border border-gray-700">
-              <h3 className="text-sm font-medium text-gray-400 mb-2">Success Rate</h3>
+              <h3 className="text-sm font-medium text-text-muted mb-2">Success Rate</h3>
               <div className="text-2xl font-bold text-green-400">
                 {dashboard.metrics.total_backups > 0 
                   ? Math.round((dashboard.metrics.successful_backups / dashboard.metrics.total_backups) * 100)
@@ -389,14 +389,14 @@ export default function BackupDRPage() {
             </div>
 
             <div className="bg-gray-800 p-6 rounded-lg border border-gray-700">
-              <h3 className="text-sm font-medium text-gray-400 mb-2">Avg Backup Size</h3>
+              <h3 className="text-sm font-medium text-text-muted mb-2">Avg Backup Size</h3>
               <div className="text-2xl font-bold text-white">
                 {formatBytes(dashboard.metrics.average_backup_size)}
               </div>
             </div>
 
             <div className="bg-gray-800 p-6 rounded-lg border border-gray-700">
-              <h3 className="text-sm font-medium text-gray-400 mb-2">Last Backup</h3>
+              <h3 className="text-sm font-medium text-text-muted mb-2">Last Backup</h3>
               <div className="text-2xl font-bold text-white">
                 {dashboard.metrics.last_backup_date 
                   ? new Date(dashboard.metrics.last_backup_date).toLocaleDateString()
@@ -410,21 +410,21 @@ export default function BackupDRPage() {
             <h3 className="text-lg font-semibold text-white mb-4">System Status</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <span className="text-gray-400">Backup Enabled: </span>
+                <span className="text-text-muted">Backup Enabled: </span>
                 <span className={dashboard.system_status.backup_enabled ? 'text-green-400' : 'text-red-400'}>
                   {dashboard.system_status.backup_enabled ? 'Yes' : 'No'}
                 </span>
               </div>
               <div>
-                <span className="text-gray-400">GCS Bucket: </span>
+                <span className="text-text-muted">GCS Bucket: </span>
                 <span className="text-green-400">{dashboard.system_status.gcs_bucket_status}</span>
               </div>
               <div>
-                <span className="text-gray-400">Retention: </span>
+                <span className="text-text-muted">Retention: </span>
                 <span className="text-white">{dashboard.system_status.retention_days} days</span>
               </div>
               <div>
-                <span className="text-gray-400">Next Backup: </span>
+                <span className="text-text-muted">Next Backup: </span>
                 <span className="text-white">
                   {new Date(dashboard.system_status.next_scheduled_backup).toLocaleString()}
                 </span>
@@ -446,7 +446,7 @@ export default function BackupDRPage() {
                       <div key={backup.id} className="flex justify-between items-center">
                         <div>
                           <div className="text-white font-medium">{backup.id}</div>
-                          <div className="text-sm text-gray-400">
+                          <div className="text-sm text-text-muted">
                             {new Date(backup.started_at).toLocaleString()}
                           </div>
                         </div>
@@ -457,7 +457,7 @@ export default function BackupDRPage() {
                     ))}
                   </div>
                 ) : (
-                  <div className="text-gray-400">No backups yet</div>
+                  <div className="text-text-muted">No backups yet</div>
                 )}
               </div>
             </div>
@@ -474,7 +474,7 @@ export default function BackupDRPage() {
                       <div key={restore.id} className="flex justify-between items-center">
                         <div>
                           <div className="text-white font-medium">{restore.target_environment}</div>
-                          <div className="text-sm text-gray-400">
+                          <div className="text-sm text-text-muted">
                             {new Date(restore.started_at).toLocaleString()}
                           </div>
                         </div>
@@ -485,7 +485,7 @@ export default function BackupDRPage() {
                     ))}
                   </div>
                 ) : (
-                  <div className="text-gray-400">No restores yet</div>
+                  <div className="text-text-muted">No restores yet</div>
                 )}
               </div>
             </div>
@@ -498,28 +498,28 @@ export default function BackupDRPage() {
         <div className="bg-gray-800 rounded-lg border border-gray-700">
           <div className="p-6 border-b border-gray-700">
             <h3 className="text-lg font-semibold text-white">Backup Jobs</h3>
-            <p className="text-sm text-gray-400 mt-1">All backup operations and their status</p>
+            <p className="text-sm text-text-muted mt-1">All backup operations and their status</p>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead className="bg-gray-900">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">
                     Job ID
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">
                     Status
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">
                     Started
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">
                     Size
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">
                     Collections
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">
                     Actions
                   </th>
                 </tr>
@@ -535,13 +535,13 @@ export default function BackupDRPage() {
                         {job.status}
                       </span>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-text-primary">
                       {new Date(job.started_at).toLocaleString()}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-text-primary">
                       {job.backup_size_bytes ? formatBytes(job.backup_size_bytes) : '-'}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-text-primary">
                       {job.collection_count || '-'}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm">
@@ -568,28 +568,28 @@ export default function BackupDRPage() {
         <div className="bg-gray-800 rounded-lg border border-gray-700">
           <div className="p-6 border-b border-gray-700">
             <h3 className="text-lg font-semibold text-white">Restore Jobs</h3>
-            <p className="text-sm text-gray-400 mt-1">All restore operations and their status</p>
+            <p className="text-sm text-text-muted mt-1">All restore operations and their status</p>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead className="bg-gray-900">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">
                     Job ID
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">
                     Backup ID
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">
                     Environment
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">
                     Status
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">
                     Started
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">
                     Documents
                   </th>
                 </tr>
@@ -600,10 +600,10 @@ export default function BackupDRPage() {
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-white font-mono">
                       {job.id}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300 font-mono">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-text-primary font-mono">
                       {job.backup_id}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-text-primary">
                       <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
                         job.target_environment === 'staging' 
                           ? 'bg-blue-100 text-blue-800' 
@@ -617,10 +617,10 @@ export default function BackupDRPage() {
                         {job.status}
                       </span>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-text-primary">
                       {new Date(job.started_at).toLocaleString()}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-text-primary">
                       {job.restored_documents.toLocaleString()}
                     </td>
                   </tr>
@@ -652,19 +652,19 @@ export default function BackupDRPage() {
               <table className="w-full">
                 <thead className="bg-gray-900">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">
                       Backup ID
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">
                       Created
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">
                       Size
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">
                       Collections
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">
                       Actions
                     </th>
                   </tr>
@@ -675,13 +675,13 @@ export default function BackupDRPage() {
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-white font-mono">
                         {job.id}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-text-primary">
                         {new Date(job.started_at).toLocaleString()}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-text-primary">
                         {job.backup_size_bytes ? formatBytes(job.backup_size_bytes) : '-'}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-text-primary">
                         {job.collection_count || '-'}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm space-x-2">

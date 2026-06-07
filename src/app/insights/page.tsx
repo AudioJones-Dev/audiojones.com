@@ -25,9 +25,9 @@ export default function InsightsIndex() {
       />
       <Breadcrumbs items={[{ name: "Home", href: "/" }, { name: "Insights" }]} />
 
-      <section className="bg-[#05070F] pt-20 pb-12">
+      <section className="bg-bg-base pt-20 pb-12">
         <div className="mx-auto max-w-4xl px-5 sm:px-8">
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-[#C8A96A]">
+          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-signal-yellow">
             Insights
           </p>
           <h1 className="text-balance text-4xl font-semibold leading-tight text-white sm:text-5xl">
@@ -37,16 +37,16 @@ export default function InsightsIndex() {
         </div>
       </section>
 
-      <section className="bg-[#05070F] pb-24">
+      <section className="bg-bg-base pb-24">
         <div className="mx-auto grid max-w-4xl gap-4 px-5 sm:px-8">
           {INSIGHTS.map((i) => (
             <Link
               key={i.slug}
               href={`/insights/${i.slug}`}
-              className="group rounded-xl border border-white/10 bg-[#0B1020] p-7 transition hover:border-white/30"
+              className="group rounded-xl border border-border-subtle bg-surface-1 p-7 transition hover:border-border-strong"
             >
               <h2 className="text-2xl font-semibold text-white">{i.title}</h2>
-              <p className="mt-3 text-slate-300">{i.excerpt}</p>
+              <p className="mt-3 text-text-muted">{i.excerpt}</p>
               <p className="mt-5 text-sm font-semibold text-white opacity-70 group-hover:opacity-100">
                 Read the essay →
               </p>
