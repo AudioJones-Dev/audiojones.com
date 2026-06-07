@@ -26,7 +26,7 @@ The authoritative operational and product documentation now lives
 directly under [`docs/`](../). Start with:
 
 - [`docs/PRD.md`](../PRD.md) — product requirements
-- [`docs/DESIGN.md`](../DESIGN.md) — visual + voice contract
+- [`docs/design/DESIGN.md`](../design/DESIGN.md) — visual + voice contract
 - [`docs/DEPLOYMENT.md`](../DEPLOYMENT.md) — environment + Vercel rules
 - [`docs/SECURITY.md`](../SECURITY.md) — what must never leak
 - [`docs/DECISIONS.md`](../DECISIONS.md) — stack decisions

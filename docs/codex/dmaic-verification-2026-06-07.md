@@ -112,14 +112,11 @@ Package-script risk:
 - Local Doppler evidence supports the new project slug, but the change should
   still be reviewed as an env/tooling fix before commit.
 
-Design-doc path risk:
-- AGENTS.md, README.md, PRD.md, CHANGELOG.md, and DECISIONS.md currently point
-  to `docs/DESIGN.md`.
-- Several implementation briefs point to `docs/design/DESIGN.md`.
-- The repo has a Windows-hostile case split between `docs/DESIGN.md`,
-  `docs/design.md`, and `docs/design/DESIGN.md`.
-- No canonical path migration should be committed without an explicit docs
-  decision and redirect plan.
+Design-doc path resolution:
+- `docs/design/DESIGN.md` is now the canonical design-system path.
+- `docs/DESIGN.md` remains as a redirect stub for older links.
+- The tracked lowercase `docs/design.md` duplicate should remain removed from
+  Git because it case-collides with `docs/DESIGN.md` on Windows checkouts.
 
 ## Control Guidance
 
@@ -130,8 +127,8 @@ Before marking the previous DMAIC run complete:
   any cleanup command.
 - Do not delete quarantine files or worktrees without explicit operator
   approval for the exact deletion step.
-- Do not commit a canonical DESIGN.md path migration until the AGENTS.md
-  contract and docs briefs are reconciled.
+- Do not re-add `docs/design.md`; use `docs/DESIGN.md` only as the legacy
+  redirect path.
 
 Suggested remaining validation before commit:
 
@@ -152,5 +149,5 @@ Proceed with one of these bounded paths:
    and repo-hygiene record, after validation passes.
 2. Convert this retrospective note into a formal `charter.md` and run the
    remaining cleanup through DMAIC gates.
-3. Separately resolve the case-collision / DESIGN.md canonical-path state with
-   an explicit docs decision and redirect plan.
+3. Keep the DESIGN.md canonical-path state aligned with the 2026-06-07
+   decision in `docs/DECISIONS.md`.

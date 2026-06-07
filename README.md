@@ -10,7 +10,7 @@ behind Cloudflare.
 The repo's source-of-truth docs live under [`docs/`](./docs/):
 
 - **[`docs/PRD.md`](./docs/PRD.md)** — what the site is for.
-- **[`docs/DESIGN.md`](./docs/DESIGN.md)** — brand, tokens, voice.
+- **[`docs/design/DESIGN.md`](./docs/design/DESIGN.md)** — brand, tokens, voice.
 - **[`docs/ROADMAP.md`](./docs/ROADMAP.md)** — what's in flight.
 - **[`docs/SECURITY.md`](./docs/SECURITY.md)** — secrets and posture.
 - **[`docs/DEPLOYMENT.md`](./docs/DEPLOYMENT.md)** — env vars, Vercel,

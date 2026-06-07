@@ -101,7 +101,7 @@ fulfillment, which lives in the Whop/Stripe accounts.
 | SEO/AEO         | Structured data on every page; canonical URLs; sitemap.     |
 | Lead durability | Zero-loss: persistence to Neon must succeed before responding 200. |
 | Security        | No secrets in repo; CSP on production; admin endpoints gated. |
-| Brand           | Matches [`DESIGN.md`](./DESIGN.md) tone and tokens.         |
+| Brand           | Matches [`DESIGN.md`](./design/DESIGN.md) tone and tokens.  |
 
 ---
 

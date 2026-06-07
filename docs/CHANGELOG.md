@@ -16,6 +16,10 @@ Entries are reverse chronological. Format follows
 ## Unreleased
 
 ### Documentation
+- Promoted `docs/design/DESIGN.md` as the canonical design-system file,
+  kept `docs/DESIGN.md` as a redirect stub, and removed the tracked
+  lowercase `docs/design.md` duplicate that cannot coexist cleanly on
+  Windows.
 - Established the canonical `docs/` hierarchy: `PRD.md`, `DESIGN.md`,
   `ROADMAP.md`, `SECURITY.md`, `DEPLOYMENT.md`, `DECISIONS.md`,
   `CHANGELOG.md`.
