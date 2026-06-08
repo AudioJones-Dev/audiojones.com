@@ -6,21 +6,22 @@ import type { PostStub } from "@/lib/sanity/types";
 import { ButtonLink } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { ctaLinks } from "@/config/links";
+import { siteConfig } from "@/lib/site";
 
 // ─── Metadata ─────────────────────────────────────────────────────────────────
 
 export const metadata: Metadata = {
-  title: "Blog | Audio Jones",
+  title: "Blog",
   description:
     "Applied Intelligence, signal systems, M.A.P Attribution, and AI-readiness insights for founder-led businesses. The Audio Jones knowledge base.",
   alternates: {
-    canonical: "https://audiojones.com/blog",
+    canonical: `${siteConfig.url}/blog`,
   },
   openGraph: {
     title: "Blog | Audio Jones",
     description:
       "Applied Intelligence, signal systems, M.A.P Attribution, and AI-readiness insights for founder-led businesses.",
-    url: "https://audiojones.com/blog",
+    url: `${siteConfig.url}/blog`,
     siteName: "Audio Jones",
     type: "website",
     images: [{ url: "/assets/og/audio-jones-og.jpg", width: 1200, height: 630, alt: "Audio Jones Blog" }],

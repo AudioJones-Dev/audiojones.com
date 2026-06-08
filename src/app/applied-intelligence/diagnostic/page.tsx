@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
+import FAQ from "@/components/applied-intelligence/FAQ";
 import DiagnosticForm from "@/components/applied-intelligence/DiagnosticForm";
 import Breadcrumbs from "@/components/applied-intelligence/Breadcrumbs";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import JsonLd from "@/components/seo/JsonLd";
 import { buildMetadata } from "@/lib/seo/metadata";
-import { breadcrumbJsonLd } from "@/lib/seo/schema";
+import { breadcrumbJsonLd, faqJsonLd } from "@/lib/seo/schema";
+import { founderIntelligenceFaqs } from "@/lib/seo/founder-intelligence-faq";
 
 export const metadata: Metadata = buildMetadata({
   title: "Strategic Diagnostic | Applied Intelligence",
@@ -23,6 +25,7 @@ export default function DiagnosticPage() {
           { name: "Diagnostic", url: "/applied-intelligence/diagnostic" },
         ])}
       />
+      <JsonLd data={faqJsonLd(founderIntelligenceFaqs)} />
       <Breadcrumbs
         items={[
           { name: "Home", href: "/" },
@@ -48,6 +51,21 @@ export default function DiagnosticPage() {
 
       <section className="bg-bg-base pb-24">
         <div className="mx-auto max-w-3xl px-5 sm:px-8">
+          <div className="mb-10 rounded-xl border border-border-subtle bg-surface-1 p-6 sm:p-8">
+            <Eyebrow>Direct Answer</Eyebrow>
+            <h2 className="mt-4 t-h3 text-fg-0">
+              The Applied Intelligence Diagnostic maps the revenue and
+              operating leaks hidden in follow-up, CRM, attribution, and
+              business memory.
+            </h2>
+            <p className="mt-4 t-body text-fg-2">
+              It is built for founder-led service businesses that need clarity
+              on what to fix before adding another AI tool or automation layer.
+            </p>
+            <div className="mt-8">
+              <FAQ items={founderIntelligenceFaqs} />
+            </div>
+          </div>
           <DiagnosticForm />
         </div>
       </section>

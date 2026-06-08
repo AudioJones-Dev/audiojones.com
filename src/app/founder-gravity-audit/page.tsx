@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import FAQ from "@/components/applied-intelligence/FAQ";
 import JsonLd from "@/components/seo/JsonLd";
 import { ButtonLink } from "@/components/ui/Button";
 import {
@@ -7,7 +8,8 @@ import {
   GRAVITY_LAYERS,
 } from "@/lib/founder-gravity-audit/content";
 import { buildMetadata } from "@/lib/seo/metadata";
-import { breadcrumbJsonLd } from "@/lib/seo/schema";
+import { founderIntelligenceFaqs } from "@/lib/seo/founder-intelligence-faq";
+import { breadcrumbJsonLd, faqJsonLd } from "@/lib/seo/schema";
 
 export const metadata: Metadata = buildMetadata({
   title: "Founder Gravity Audit",
@@ -25,6 +27,7 @@ export default function FounderGravityAuditPage() {
           { name: "Founder Gravity Audit", url: "/founder-gravity-audit" },
         ])}
       />
+      <JsonLd data={faqJsonLd(founderIntelligenceFaqs)} />
 
       <section className="relative overflow-hidden bg-bg-base py-16 sm:py-24">
         <div aria-hidden className="absolute inset-0 bg-grid-fine opacity-25" />
@@ -87,6 +90,21 @@ export default function FounderGravityAuditPage() {
 
       <section className="bg-bg-base py-16">
         <div className="mx-auto max-w-[1180px] px-5 sm:px-8">
+          <div className="mb-10 max-w-3xl">
+            <p className="t-label">Direct Answer</p>
+            <h2 className="mt-4 t-h2">
+              Founder Gravity Audit identifies where the business still depends
+              on the founder to decide, approve, remember, follow up, or move
+              revenue forward.
+            </h2>
+            <p className="mt-4 t-body-lg text-fg-2">
+              The result points to the operating layer that should be clarified
+              before a Founder Intelligence System is built.
+            </p>
+          </div>
+          <div className="mb-10 max-w-3xl">
+            <FAQ items={founderIntelligenceFaqs} />
+          </div>
           <div className="aj-callout is-blue">
             <p className="font-headline text-xl font-bold text-fg-0">
               Funnel path: ungated start, preview reveal, email gate, full report,

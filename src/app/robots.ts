@@ -18,7 +18,6 @@ export default function robots(): MetadataRoute.Robots {
           "/not-authorized",
           "/status",
           "/consent-testimonial",
-          "/book",
           "/business",
           "/creators",
           // Legacy artist-hub routes — not part of public nav

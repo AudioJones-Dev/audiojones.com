@@ -480,12 +480,12 @@ export default function ObservabilityDashboard() {
                       <p><span className="text-text-muted">Operation:</span> {selectedTrace.operationName}</p>
                       <p><span className="text-text-muted">Trace ID:</span> {selectedTrace.traceId}</p>
                       <p><span className="text-text-muted">Span ID:</span> {selectedTrace.spanId}</p>
-                      <p><span className="text-text-muted">Status:</span> 
+                      <p><span className="text-text-muted">Status:</span>
                         <span className={`ml-2 ${getStatusColor(selectedTrace.status)}`}>
                           {selectedTrace.status}
                         </span>
                       </p>
-                      <p><span className="text-text-muted">Duration:</span> 
+                      <p><span className="text-text-muted">Duration:</span>
                         {selectedTrace.duration ? formatDuration(selectedTrace.duration) : 'N/A'}
                       </p>
                       <p><span className="text-text-muted">Start Time:</span> {formatTimestamp(selectedTrace.startTime)}</p>

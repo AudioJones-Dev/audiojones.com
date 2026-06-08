@@ -62,7 +62,7 @@ surface and Applied Intelligence flows.
 | Concern              | Source of truth                                             |
 | -------------------- | ----------------------------------------------------------- |
 | Product brief        | [`docs/PRD.md`](./docs/PRD.md)                              |
-| Design system        | [`docs/DESIGN.md`](./docs/DESIGN.md)                        |
+| Design system        | [`docs/design/DESIGN.md`](./docs/design/DESIGN.md)          |
 | Roadmap              | [`docs/ROADMAP.md`](./docs/ROADMAP.md)                      |
 | Security posture     | [`docs/SECURITY.md`](./docs/SECURITY.md)                    |
 | Deployment / env     | [`docs/DEPLOYMENT.md`](./docs/DEPLOYMENT.md)                |
@@ -77,7 +77,7 @@ surface and Applied Intelligence flows.
 | Lead persistence     | `src/db/leads.ts`, `db/migrations/`                         |
 
 Older root-level docs (`AUDIOJONES_DESIGN.md`, `DEPLOYMENT.md`,
-`VERCEL_ENV_SETUP.md`, `secrets.md`, `docs/design.md`,
+`VERCEL_ENV_SETUP.md`, `secrets.md`, `docs/DESIGN.md`,
 `docs/VERCEL_ENV_SOP.md`, `docs/env.example`, `docs/env/env-template.md`)
 are now redirect stubs pointing at the canonical files above.
 
@@ -87,7 +87,7 @@ are now redirect stubs pointing at the canonical files above.
 
 ### Before changing code
 
-1. Skim [`docs/PRD.md`](./docs/PRD.md), [`docs/DESIGN.md`](./docs/DESIGN.md),
+1. Skim [`docs/PRD.md`](./docs/PRD.md), [`docs/design/DESIGN.md`](./docs/design/DESIGN.md),
    and the relevant architecture doc.
 2. Read the surrounding files; match the existing patterns.
 3. If a change feels architectural, append a short entry to
@@ -200,7 +200,7 @@ Every PR body should include:
 
 ## 6. Tone for AI-authored content
 
-Match the brand voice documented in [`docs/DESIGN.md`](./docs/DESIGN.md):
+Match the brand voice documented in [`docs/design/DESIGN.md`](./docs/design/DESIGN.md):
 **signal over noise**. Marketing copy is direct, founder-led, technical, and
 free of generic AI-agency clichés ("unlock", "harness", "supercharge",
 "revolutionize", emoji decoration). Code comments stay short and load-bearing.

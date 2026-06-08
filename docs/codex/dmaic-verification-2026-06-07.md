@@ -1,0 +1,164 @@
+# DMAIC Verification - 2026-06-07
+
+Status: repo-hygiene triage completed; post-merge code gates green
+Owner: Codex verification pass
+Repo: `C:\dev\audiojones-clean`
+Branch: `docs/strategy-seo-aeo-entity-plan`
+
+## Purpose
+
+Verify whether the `dmaic-coding` skill was fully executed for the current
+AudioJones.com cleanup / repo-health state.
+
+## DMAIC Verdict
+
+The skill cannot be marked fully complete from the local evidence.
+
+Facts:
+- The `dmaic-coding` skill expects a `charter.md` with Define, Measure,
+  Analyze, Improve, and Control sections.
+- No `charter.md`, `*charter*.md`, `*dmaic*.md`, or `Build Charter` artifact
+  was found in this checkout.
+- The only recent process artifact found was
+  `.cleanup-quarantine-2026-06-05/CLEANUP-NEXT-STEPS.md`.
+- That cleanup artifact is a handoff / remaining-steps note, not a completed
+  DMAIC charter.
+
+Inference:
+- A cleanup or triage pass likely happened.
+- The pass did not leave enough DMAIC process evidence to prove that all gates
+  cleared.
+
+## Current State
+
+Working tree status after the 2026-06-07 repo-hygiene pass, before merging
+latest `origin/main`:
+
+```txt
+## docs/strategy-seo-aeo-entity-plan...origin/docs/strategy-seo-aeo-entity-plan [ahead 1]
+ M package.json
+?? docs/codex/dmaic-verification-2026-06-07.md
+```
+
+Resolved working-tree noise:
+- `.cleanup-quarantine-2026-06-05/` remains on disk but is excluded through
+  `.git/info/exclude`.
+- `.dashboard/` remains on disk but is excluded through `.git/info/exclude`.
+- The uncommitted `AUDIOJONES_DESIGN.md` and `docs/design.md` redirect edits
+  were reverted to the current AGENTS.md contract path: `docs/DESIGN.md`.
+
+Environment tooling resolution:
+- The original branch updated `package.json` `dx:init` to use Doppler project
+  `audiojones-com` with `--no-interactive`.
+- Latest `origin/main` superseded that with a better repo-level
+  `doppler.yaml` pin for project `audiojones-com` and config `dev`.
+- After conflict resolution, `package.json` uses `doppler setup
+  --no-interactive`, and `doppler.yaml` supplies the project/config.
+- Local Doppler CLI evidence: `doppler projects get audiojones-com --json`
+  returned a project named `audiojones-com` with description
+  `Local dev env for C:\dev\audiojones-clean (audiojones.com). Matches
+  dx:init slug.`
+- Local Doppler CLI evidence: `doppler projects get ajdigital --json` returned
+  `Could not find requested project 'ajdigital'`.
+
+## Measured Signals
+
+Commands run on 2026-06-07:
+
+```bash
+pnpm typecheck
+pnpm lint
+pnpm check:no-firebase
+pnpm build
+```
+
+Results from the earlier verification pass:
+- `pnpm typecheck`: passed.
+- `pnpm lint`: passed with warnings only; 0 errors.
+- `pnpm check:no-firebase`: passed; no Firebase imports, packages, or env keys
+  found.
+- `pnpm build`: passed.
+
+Results from the post-hygiene rerun:
+- `pnpm typecheck`: passed.
+- `pnpm lint`: passed with 0 errors and existing warnings.
+- `pnpm check:no-firebase`: passed; no Firebase imports, packages, or env keys
+  found.
+- `pnpm build`: passed.
+
+Results from the post-merge rerun after merging latest `origin/main`:
+- `pnpm typecheck`: passed.
+- `pnpm lint`: passed with 0 errors and existing warnings.
+- `pnpm check:no-firebase`: passed; no Firebase imports, packages, or env keys
+  found.
+- `pnpm build`: passed.
+
+Post-hygiene build-time observations:
+- Next.js production build completed successfully.
+- The build still surfaced known legacy/admin runtime log messages where
+  removed Firebase surfaces throw intentionally.
+- The build still surfaced a dynamic rendering warning for `/status`.
+- These were warnings / runtime log messages during static generation, not
+  command failures.
+
+## Analysis
+
+Root issue:
+- The codebase currently passes local code gates, but the DMAIC audit trail is
+  incomplete.
+
+Process gap:
+- There is no single source-of-truth charter tying the cleanup problem,
+  measured signals, root cause, improvement action, and control guard together.
+
+Scope risk:
+- The cleanup handoff includes destructive or irreversible actions, including
+  worktree directory removal and quarantine deletion.
+- Those actions should remain blocked until the operator explicitly approves the
+  exact command set to run.
+
+Package-script resolution:
+- The standalone `package.json` `dx:init` project-flag change was superseded
+  by `origin/main` commit `chore(doppler): pin repo to audiojones-com/dev
+  config (#151)`.
+- The branch now keeps upstream's `doppler.yaml` approach.
+
+Design-doc path resolution:
+- `docs/design/DESIGN.md` is now the canonical design-system path.
+- `docs/DESIGN.md` remains as a redirect stub for older links.
+- The tracked lowercase `docs/design.md` duplicate should remain removed from
+  Git because it case-collides with `docs/DESIGN.md` on Windows checkouts.
+
+## Control Guidance
+
+Before marking the previous DMAIC run complete:
+- Create a real DMAIC charter or accept this file as a retrospective
+  verification note only.
+- Review `.cleanup-quarantine-2026-06-05/CLEANUP-NEXT-STEPS.md` before running
+  any cleanup command.
+- Do not delete quarantine files or worktrees without explicit operator
+  approval for the exact deletion step.
+- Do not re-add `docs/design.md`; use `docs/DESIGN.md` only as the legacy
+  redirect path.
+
+Suggested remaining validation before commit:
+
+```bash
+git status --short --branch
+git diff -- package.json doppler.yaml
+pnpm typecheck
+pnpm lint
+pnpm check:no-firebase
+pnpm build
+```
+
+## Recommended Next Decision
+
+Proceed with one of these bounded paths:
+
+1. Keep `doppler.yaml` as the source of truth for local Doppler project/config
+   pinning.
+2. Convert this retrospective note into a formal `charter.md` and run the
+   remaining cleanup through DMAIC gates.
+3. Keep the DESIGN.md canonical-path state aligned with the 2026-06-07
+   decision in `docs/DECISIONS.md`.

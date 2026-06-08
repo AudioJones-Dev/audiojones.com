@@ -94,6 +94,16 @@ export const aiMotion = {
   durSlow: "320ms",
 } as const;
 
+function normalizeSiteUrl(url: string) {
+  return url
+    .replace(/^https:\/\/audiojones\.com\/?$/, "https://www.audiojones.com")
+    .replace(/\/$/, "");
+}
+
+export const SITE_URL = normalizeSiteUrl(
+  process.env.NEXT_PUBLIC_SITE_URL || "https://www.audiojones.com"
+);
+
 export const aiEntity = {
   name: "Audio Jones",
   legalName: "Tyrone Alexander Nelms",
@@ -101,11 +111,11 @@ export const aiEntity = {
   title: "Applied Intelligence Systems Partner",
   description:
     "Audio Jones helps founder-led businesses reduce noise, identify causal growth signals, and build Applied Intelligence Systems.",
-  url: "https://audiojones.com",
+  url: SITE_URL,
   sameAs: [
     "https://www.linkedin.com/in/audiojones",
     "https://www.youtube.com/@audiojones",
-    "https://audiojones.com",
+    SITE_URL,
   ],
   knowsAbout: [
     "Applied Intelligence Systems",
@@ -120,6 +130,3 @@ export const aiEntity = {
     "Systems Thinking",
   ],
 } as const;
-
-export const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://audiojones.com";

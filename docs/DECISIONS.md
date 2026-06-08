@@ -106,6 +106,49 @@ and humans both end up reading stale material.
 
 ---
 
+## 2026-06-07 — Canonical design system path
+
+**Status:** accepted
+**Decision:** `docs/design/DESIGN.md` is the canonical design-system and
+brand-voice source of truth. `docs/DESIGN.md` remains as a redirect stub for
+older links. The tracked lowercase `docs/design.md` duplicate is removed from
+Git because it case-collides with `docs/DESIGN.md` on Windows checkouts.
+
+**Rationale:** newer implementation briefs already depend on
+`docs/design/DESIGN.md`, and that file contains the current v2 design system.
+Keeping both `docs/DESIGN.md` and `docs/design.md` tracked as separate files
+creates an unstable working tree on case-insensitive filesystems.
+
+**Consequences:**
+- Agents should read `docs/design/DESIGN.md` before UI or voice work.
+- Existing `docs/DESIGN.md` links still resolve to a redirect stub.
+- Do not re-add `docs/design.md`; use `docs/DESIGN.md` only as the legacy
+  redirect path.
+
+---
+
+## 2026-06-08 — Canonical public host is www.audiojones.com
+
+**Status:** accepted
+**Decision:** Default public SEO URLs use `https://www.audiojones.com`.
+Sitemap, robots, page metadata, and JSON-LD should resolve through the shared
+site URL helpers instead of hardcoded non-www URLs. A legacy exact
+`https://audiojones.com` `NEXT_PUBLIC_SITE_URL` value is normalized to the
+www host.
+
+**Rationale:** the site audit found sitemap URLs resolving through the
+non-www to www redirect path. Canonical URLs should match the final production
+destination to avoid avoidable redirect hops and mixed host signals.
+
+**Consequences:**
+- `NEXT_PUBLIC_SITE_URL` can still override the host per environment, except
+  the exact non-www production host is normalized to the final www host.
+- The default fallback host is now `https://www.audiojones.com`.
+- Retired `/book` remains handled by the existing permanent redirect to
+  `/book-a-call`; robots must not block the live `/book-a-call` path.
+
+---
+
 ## How to add an entry
 
 1. Append to the bottom of this file with today's date.

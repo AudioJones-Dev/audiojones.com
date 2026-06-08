@@ -94,5 +94,5 @@ local-environmental.
   (`pnpm check:no-firebase`) fails CI if Firebase is reintroduced.
 - Not a single-stack codebase yet — the `legacy marketing surface`
   (`/services`, `/blog`, etc.) is still live but de-listed from the
-  primary nav. See `docs/design.md` for the canonical Applied
+  primary nav. See `docs/design/DESIGN.md` for the canonical Applied
   Intelligence surface direction.
