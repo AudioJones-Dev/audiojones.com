@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Enable Corepack
         run: corepack enable
@@ -15,7 +15,7 @@ jobs:
         run: corepack prepare pnpm@10.30.3 --activate
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 22
           cache: 'pnpm'
@@ -47,7 +47,7 @@ jobs:
       - name: Test admin auth centralization
         run: |
           echo "Testing admin authentication centralization..."
-          if grep -r "headers\.get.*admin-key.*process\.env" src/app/api/admin/ --exclude-dir=node_modules; then
+          if grep -r "headers\\.get.*admin-key.*process\\.env" src/app/api/admin/ --exclude-dir=node_modules; then
             echo "❌ Found duplicate admin authentication code!"
             exit 1
           fi
