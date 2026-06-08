@@ -79,7 +79,7 @@ pnpm dev
 
 ### 3.4 Booking provider (`NEXT_PUBLIC_BOOKING_URL`)
 
-The `/book-a-call` page renders a `<iframe>` scheduler embed sourced
+The `/book-a-call` page renders an `<iframe>` scheduler embed sourced
 from `NEXT_PUBLIC_BOOKING_URL` — typically a Calendly or Cal.com event
 URL. Set it in Vercel for **production**, **preview**, and
 **development** scopes so previews behave like production. The page

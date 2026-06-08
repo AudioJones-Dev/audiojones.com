@@ -5,8 +5,11 @@ import { Eyebrow } from "@/components/ui/Eyebrow";
 
 // Public env vars are inlined by Next.js at build time, so reading
 // process.env.NEXT_PUBLIC_BOOKING_URL here resolves to a string literal
-// in the client bundle. No runtime env access required.
-const BOOKING_URL = process.env.NEXT_PUBLIC_BOOKING_URL;
+// in the client bundle. Trim once at definition so a whitespace-only
+// value (e.g. accidentally `NEXT_PUBLIC_BOOKING_URL="   "`) still falls
+// back to the apply-async panel instead of rendering a broken iframe.
+const RAW_BOOKING_URL = process.env.NEXT_PUBLIC_BOOKING_URL;
+const BOOKING_URL = RAW_BOOKING_URL ? RAW_BOOKING_URL.trim() : "";
 
 export default function BookACallEmbed() {
   if (!BOOKING_URL) {
@@ -54,7 +57,6 @@ export default function BookACallEmbed() {
           loading="lazy"
           tabIndex={0}
           className="block h-[720px] w-full border-0"
-          allow="camera; microphone; autoplay; encrypted-media; fullscreen; payment"
         />
       </div>
 
