@@ -10,10 +10,6 @@ export declare const EnvSchema: z.ZodObject<{
     NEXT_PUBLIC_SANITY_PROJECT_ID: z.ZodOptional<z.ZodString>;
     NEXT_PUBLIC_SANITY_DATASET: z.ZodOptional<z.ZodString>;
     SANITY_API_READ_TOKEN: z.ZodOptional<z.ZodString>;
-    NEXT_PUBLIC_SUPABASE_URL: z.ZodOptional<z.ZodString>;
-    NEXT_PUBLIC_SUPABASE_ANON_KEY: z.ZodOptional<z.ZodString>;
-    SUPABASE_SERVICE_ROLE_KEY: z.ZodOptional<z.ZodString>;
-    OPENAI_API_KEY: z.ZodOptional<z.ZodString>;
     MAILERLITE_API_KEY: z.ZodOptional<z.ZodString>;
     MAILERLITE_GROUP_ID: z.ZodOptional<z.ZodString>;
     N8N_WEBHOOK_URL: z.ZodOptional<z.ZodString>;
@@ -44,10 +40,6 @@ export declare const EnvSchema: z.ZodObject<{
     NEXT_PUBLIC_SANITY_PROJECT_ID?: string | undefined;
     NEXT_PUBLIC_SANITY_DATASET?: string | undefined;
     SANITY_API_READ_TOKEN?: string | undefined;
-    NEXT_PUBLIC_SUPABASE_URL?: string | undefined;
-    NEXT_PUBLIC_SUPABASE_ANON_KEY?: string | undefined;
-    SUPABASE_SERVICE_ROLE_KEY?: string | undefined;
-    OPENAI_API_KEY?: string | undefined;
     MAILERLITE_API_KEY?: string | undefined;
     MAILERLITE_GROUP_ID?: string | undefined;
     N8N_WEBHOOK_URL?: string | undefined;
@@ -76,10 +68,6 @@ export declare const EnvSchema: z.ZodObject<{
     NEXT_PUBLIC_SANITY_PROJECT_ID?: string | undefined;
     NEXT_PUBLIC_SANITY_DATASET?: string | undefined;
     SANITY_API_READ_TOKEN?: string | undefined;
-    NEXT_PUBLIC_SUPABASE_URL?: string | undefined;
-    NEXT_PUBLIC_SUPABASE_ANON_KEY?: string | undefined;
-    SUPABASE_SERVICE_ROLE_KEY?: string | undefined;
-    OPENAI_API_KEY?: string | undefined;
     MAILERLITE_API_KEY?: string | undefined;
     MAILERLITE_GROUP_ID?: string | undefined;
     N8N_WEBHOOK_URL?: string | undefined;

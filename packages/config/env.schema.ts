@@ -23,14 +23,6 @@ export const EnvSchema = z.object({
   NEXT_PUBLIC_SANITY_DATASET: z.string().min(1).optional(),
   SANITY_API_READ_TOKEN: z.string().min(1).optional(),
 
-  // Supabase — only used if auth/storage/realtime is required
-  NEXT_PUBLIC_SUPABASE_URL: z.string().min(1).optional(),
-  NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string().min(1).optional(),
-  SUPABASE_SERVICE_ROLE_KEY: z.string().min(1).optional(),
-
-  // OpenAI & AI services
-  OPENAI_API_KEY: z.string().min(1).optional(),
-  
   // MailerLite integration
   MAILERLITE_API_KEY: z.string().min(1).optional(),
   MAILERLITE_GROUP_ID: z.string().min(1).optional(),

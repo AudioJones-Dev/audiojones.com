@@ -17,10 +17,10 @@ jobs:
 
           URLS=(
             "https://audiojones.com/"
-            "https://audiojones.com/modules/ai-optimization"
-            "https://audiojones.com/portal/billing"
-            "https://audiojones.com/ops/domains"
-            "https://audiojones.com/status"
+            "https://audiojones.com/services"
+            "https://audiojones.com/pricing"
+            "https://audiojones.com/ai-readiness-diagnostic"
+            "https://audiojones.com/applied-intelligence"
           )
 
           for url in "${URLS[@]}"; do

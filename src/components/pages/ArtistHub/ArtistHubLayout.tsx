@@ -118,12 +118,6 @@ export default function ArtistHubLayout() {
             Join hundreds of artists who've transformed their music with Audio Jones professional services.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="/portal"
-              className="bg-[#008080] hover:bg-[#006666] text-white font-semibold py-3 px-8 rounded-lg transition-colors duration-200"
-            >
-              Client Portal
-            </a>
             <Link
               href="/"
               className="border border-gray-300 hover:border-gray-400 text-gray-700 font-semibold py-3 px-8 rounded-lg transition-colors duration-200"

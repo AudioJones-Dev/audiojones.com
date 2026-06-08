@@ -13,17 +13,17 @@ export default function NotFound() {
         </div>
         
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link 
-            href="/" 
+          <Link
+            href="/"
             className="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-[#FF4500] to-[#FFD700] text-black font-semibold rounded-full hover:opacity-90 transition-opacity"
           >
             Back to Home
           </Link>
-          <Link 
-            href="/portal" 
+          <Link
+            href="/services"
             className="inline-flex items-center justify-center px-6 py-3 border border-white/20 text-white font-semibold rounded-full hover:bg-white/10 transition-colors"
           >
-            Client Portal
+            View Services
           </Link>
         </div>
       </div>
