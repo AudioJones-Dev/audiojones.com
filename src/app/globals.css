@@ -968,7 +968,11 @@ html, body {
   isolation: isolate;
   border-radius: 16px;
   background: transparent;
-  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+  overflow: clip;
+  box-shadow:
+    0 0 60px rgba(232, 255, 90, 0.14),
+    0 0 120px rgba(77, 172, 255, 0.10),
+    0 24px 80px rgba(0, 0, 0, 0.45);
 }
 .aj-vibrant-card__filter {
   position: absolute;
@@ -985,7 +989,7 @@ html, body {
   pointer-events: none;
 }
 .aj-vibrant-card__halo {
-  inset: -32px;
+  inset: -8%;
   background: var(--aj-gradient-signal);
   filter: url(#aj-vibrant-turbulence) blur(36px);
   opacity: 0.42;
@@ -1004,6 +1008,9 @@ html, body {
     var(--signal-yellow) 360deg
   );
   -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+          mask:
     linear-gradient(#000 0 0) content-box,
     linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
