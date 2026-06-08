@@ -63,10 +63,7 @@ export default function AdminIncidentsPage() {
       if (sourceFilter !== 'all') params.set('source', sourceFilter);
       params.set('limit', '50');
 
-      const response = await fetch(`/api/admin/incidents?${params.toString()}`, {
-        headers: {
-          'admin-key': process.env.NEXT_PUBLIC_ADMIN_KEY || '',
-        },
+      const response = await fetch(`/api/_proxy/admin/incidents?${params.toString()}`, {
       });
 
       if (!response.ok) {

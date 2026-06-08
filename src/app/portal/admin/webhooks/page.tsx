@@ -37,10 +37,7 @@ export default function WebhooksPage() {
 
   const fetchEvents = async () => {
     try {
-      const response = await fetch('/api/admin/webhooks', {
-        headers: {
-          'admin-key': 'gGho3TE8ztiSAMvORfyCDem62Fk0xpW1'
-        }
+      const response = await fetch('/api/_proxy/admin/webhooks', {
       });
 
       if (response.ok) {
@@ -68,11 +65,10 @@ export default function WebhooksPage() {
     setReplayingIds(prev => new Set([...prev, eventId]));
     
     try {
-      const response = await fetch('/api/admin/webhooks/replay', {
+      const response = await fetch('/api/_proxy/admin/webhooks/replay', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'admin-key': 'gGho3TE8ztiSAMvORfyCDem62Fk0xpW1'
         },
         body: JSON.stringify({ event_id: eventId })
       });

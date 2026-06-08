@@ -68,10 +68,7 @@ export default function AdminDigestPage() {
     try {
       // This would typically call an API to get digest status from Firestore
       // For now, we'll use the configuration endpoint
-      const response = await fetch('/api/admin/digest/run', {
-        headers: {
-          'admin-key': process.env.NEXT_PUBLIC_ADMIN_KEY || '',
-        },
+      const response = await fetch('/api/_proxy/admin/digest/run', {
       });
 
       if (response.ok) {
@@ -85,10 +82,7 @@ export default function AdminDigestPage() {
 
   const loadConfiguration = async () => {
     try {
-      const response = await fetch('/api/admin/digest/run', {
-        headers: {
-          'admin-key': process.env.NEXT_PUBLIC_ADMIN_KEY || '',
-        },
+      const response = await fetch('/api/_proxy/admin/digest/run', {
       });
 
       if (response.ok) {
@@ -106,12 +100,11 @@ export default function AdminDigestPage() {
     setPreviewData(null);
 
     try {
-      const url = preview ? '/api/admin/digest/run?preview=true' : '/api/admin/digest/run';
+      const url = preview ? '/api/_proxy/admin/digest/run?preview=true' : '/api/_proxy/admin/digest/run';
       
       const response = await fetch(url, {
         method: 'POST',
         headers: {
-          'admin-key': process.env.NEXT_PUBLIC_ADMIN_KEY || '',
           'Content-Type': 'application/json',
         },
       });

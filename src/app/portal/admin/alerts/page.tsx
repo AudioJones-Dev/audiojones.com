@@ -64,10 +64,7 @@ export default function AdminAlertsPage() {
       if (severityFilter !== 'all') params.set('severity', severityFilter);
       params.set('limit', '100');
 
-      const response = await fetch(`/api/admin/alerts?${params}`, {
-        headers: {
-          'admin-key': 'gGho3TE8ztiSAMvORfyCDem62Fk0xpW1',
-        },
+      const response = await fetch(`/api/_proxy/admin/alerts?${params}`, {
       });
 
       if (!response.ok) {
@@ -90,11 +87,10 @@ export default function AdminAlertsPage() {
 
   const dismissAlert = async (alertId: string) => {
     try {
-      const response = await fetch(`/api/admin/alerts/${alertId}`, {
+      const response = await fetch(`/api/_proxy/admin/alerts/${alertId}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
-          'admin-key': 'gGho3TE8ztiSAMvORfyCDem62Fk0xpW1',
         },
         body: JSON.stringify({ action: 'dismiss' }),
       });
@@ -116,11 +112,10 @@ export default function AdminAlertsPage() {
 
   const createAlert = async () => {
     try {
-      const response = await fetch('/api/admin/alerts', {
+      const response = await fetch('/api/_proxy/admin/alerts', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'admin-key': 'gGho3TE8ztiSAMvORfyCDem62Fk0xpW1',
         },
         body: JSON.stringify({
           ...newAlert,
@@ -155,11 +150,10 @@ export default function AdminAlertsPage() {
     try {
       setProcessingAlerts(prev => new Set(prev).add(alertId));
       
-      const response = await fetch('/api/admin/alerts/process', {
+      const response = await fetch('/api/_proxy/admin/alerts/process', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'admin-key': 'gGho3TE8ztiSAMvORfyCDem62Fk0xpW1',
         },
         body: JSON.stringify({ alertId }),
       });
@@ -190,11 +184,10 @@ export default function AdminAlertsPage() {
     try {
       setAutoProcessingAlerts(prev => new Set(prev).add(alertId));
       
-      const response = await fetch('/api/admin/alerts/auto', {
+      const response = await fetch('/api/_proxy/admin/alerts/auto', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'admin-key': 'gGho3TE8ztiSAMvORfyCDem62Fk0xpW1',
         },
         body: JSON.stringify({ alertId }),
       });
@@ -227,11 +220,10 @@ export default function AdminAlertsPage() {
     try {
       setTestAlertLoading(true);
       
-      const response = await fetch('/api/admin/alerts/test', {
+      const response = await fetch('/api/_proxy/admin/alerts/test', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'admin-key': 'gGho3TE8ztiSAMvORfyCDem62Fk0xpW1',
         },
         body: JSON.stringify({
           message: `Test notification alert - ${severity.toUpperCase()}`,

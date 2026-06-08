@@ -59,10 +59,7 @@ export default function ReportsPage() {
     try {
       setLoading(true);
       
-      const response = await fetch(`/api/admin/reports/summary?period=${period}`, {
-        headers: {
-          'admin-key': 'gGho3TE8ztiSAMvORfyCDem62Fk0xpW1'
-        }
+      const response = await fetch(`/api/_proxy/admin/reports/summary?period=${period}`, {
       });
 
       if (response.ok) {
@@ -83,10 +80,7 @@ export default function ReportsPage() {
     setExporting(prev => new Set([...prev, type]));
     
     try {
-      const response = await fetch(`/api/admin/export/${type}?format=${format}`, {
-        headers: {
-          'admin-key': 'gGho3TE8ztiSAMvORfyCDem62Fk0xpW1'
-        }
+      const response = await fetch(`/api/_proxy/admin/export/${type}?format=${format}`, {
       });
 
       if (response.ok) {
@@ -125,10 +119,7 @@ export default function ReportsPage() {
     setExporting(prev => new Set([...prev, 'comprehensive']));
     
     try {
-      const response = await fetch('/api/admin/reports/export', {
-        headers: {
-          'admin-key': 'gGho3TE8ztiSAMvORfyCDem62Fk0xpW1'
-        }
+      const response = await fetch('/api/_proxy/admin/reports/export', {
       });
 
       if (response.ok) {
