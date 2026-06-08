@@ -26,6 +26,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Supporting surfaces
     { url: `${base}/founder-intelligence-system`,              lastModified: now, changeFrequency: "weekly",  priority: 0.85 },
     { url: `${base}/founder-intelligence-system/diagnostic`,   lastModified: now, changeFrequency: "monthly", priority: 0.85 },
+    { url: `${base}/founder-intelligence-systems-pilot`,       lastModified: now, changeFrequency: "weekly",  priority: 0.9  },
     { url: `${base}/apply`,                             lastModified: now, changeFrequency: "monthly", priority: 0.85 },
     { url: `${base}/pricing`,                           lastModified: now, changeFrequency: "monthly", priority: 0.85 },
     { url: `${base}/frameworks`,                        lastModified: now, changeFrequency: "monthly", priority: 0.8  },
