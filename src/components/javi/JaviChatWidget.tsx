@@ -147,6 +147,10 @@ export default function JaviChatWidget() {
   const scrollerRef = React.useRef<HTMLDivElement | null>(null);
   const turnSeq = React.useRef(0);
   const nextId = (prefix: string) => `${prefix}-${++turnSeq.current}`;
+  // Synchronous in-flight guard. `sending` drives the UI but is React state,
+  // so a rapid double-Enter/double-click can re-enter dispatch before the
+  // re-render flips it; this ref blocks the second call in the same tick.
+  const inFlight = React.useRef(false);
 
   // Close on Escape; restore focus to launcher on close.
   React.useEffect(() => {
@@ -193,7 +197,8 @@ export default function JaviChatWidget() {
   // surfaces a reply — including an error bubble if the request fails — so the
   // typing indicator can never strand without a response.
   const dispatch = async (display: string, payload: string) => {
-    if (sending) return;
+    if (inFlight.current) return;
+    inFlight.current = true;
     setSending(true);
     setTurns((prev) => [
       ...prev,
@@ -211,13 +216,14 @@ export default function JaviChatWidget() {
         { role: "javi", id: nextId("j"), response: ERROR_RESPONSE },
       ]);
     } finally {
+      inFlight.current = false;
       setSending(false);
     }
   };
 
   const send = (text: string) => {
     const trimmed = text.trim();
-    if (!trimmed || sending) return;
+    if (!trimmed || inFlight.current) return;
     setDraft("");
     void dispatch(trimmed, trimmed);
   };
