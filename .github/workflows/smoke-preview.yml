@@ -87,9 +87,10 @@ jobs:
           set -euo pipefail
           URLS=(
             "${PREVIEW_URL}/"
-            "${PREVIEW_URL}/status"
-            "${PREVIEW_URL}/portal/billing"
-            "${PREVIEW_URL}/api/public/incidents"
+            "${PREVIEW_URL}/services"
+            "${PREVIEW_URL}/founder-intelligence-system"
+            "${PREVIEW_URL}/founder-intelligence-systems-pilot"
+            "${PREVIEW_URL}/ai-readiness-diagnostic"
           )
 
           # Build curl args. The bypass header is only appended when the secret

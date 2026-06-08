@@ -20,7 +20,8 @@ jobs:
             "https://audiojones.com/services"
             "https://audiojones.com/pricing"
             "https://audiojones.com/ai-readiness-diagnostic"
-            "https://audiojones.com/applied-intelligence"
+            "https://audiojones.com/founder-intelligence-system"
+            "https://audiojones.com/founder-intelligence-systems-pilot"
           )
 
           for url in "${URLS[@]}"; do

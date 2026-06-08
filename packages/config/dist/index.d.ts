@@ -11,7 +11,7 @@ declare const env: {
     NEXT_PUBLIC_SANITY_PROJECT_ID?: string | undefined;
     NEXT_PUBLIC_SANITY_DATASET?: string | undefined;
     SANITY_API_READ_TOKEN?: string | undefined;
-    MAILERLITE_API_KEY?: string | undefined;
+    MAILERLITE_TOKEN?: string | undefined;
     MAILERLITE_GROUP_ID?: string | undefined;
     N8N_WEBHOOK_URL?: string | undefined;
     N8N_LEAD_WEBHOOK_URL?: string | undefined;
