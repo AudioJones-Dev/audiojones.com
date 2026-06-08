@@ -15,7 +15,6 @@ interface SecretConfig {
   rotation_frequency_days: number;
   dual_accept_window_hours: number;
   external_sync?: {
-    whop?: boolean;
     stripe?: boolean;
     n8n?: boolean;
     mailerlite?: boolean;
@@ -86,16 +85,6 @@ export class SecretsRotationEngine {
 
     // Create default secret configurations
     const defaultSecrets: SecretConfig[] = [
-      {
-        name: 'whop_api_key',
-        type: 'api_key',
-        description: 'Whop API authentication key',
-        rotation_frequency_days: 90,
-        dual_accept_window_hours: 2,
-        external_sync: { whop: true },
-        validation_endpoint: '/api/whop/me',
-        rollback_threshold_minutes: 5
-      },
       {
         name: 'stripe_webhook_secret',
         type: 'webhook_secret',
@@ -460,18 +449,6 @@ export class SecretsRotationEngine {
     const db = getDb();
     const jobRef = db.collection('secret_rotation_jobs').doc(jobId);
     const syncResults: Record<string, boolean> = {};
-
-    // Whop API key rotation
-    if (syncConfig.whop) {
-      try {
-        // Note: In production, this would call Whop's API to update the key
-        console.log('🔄 Syncing with Whop API (placeholder)');
-        syncResults.whop = true;
-      } catch (error) {
-        console.error('Whop sync failed:', error);
-        syncResults.whop = false;
-      }
-    }
 
     // Stripe webhook secret rotation
     if (syncConfig.stripe) {

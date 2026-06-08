@@ -43,7 +43,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ type
           ...doc.data(),
           document_id: doc.id
         }));
-        headers = ['email', 'whop_user_id', 'name', 'billing_sku', 'tier', 'service_name', 'status', 'created_at', 'updated_at'];
+        headers = ['email', 'name', 'billing_sku', 'tier', 'service_name', 'status', 'created_at', 'updated_at'];
         filename = `customers-export-${new Date().toISOString().split('T')[0]}`;
         break;
 
@@ -62,7 +62,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ type
           id: doc.id,
           ...doc.data()
         }));
-        headers = ['id', 'event_type', 'customer_email', 'whop_user_id', 'tier', 'timestamp', 'processed_at', 'processing_time_ms'];
+        headers = ['id', 'event_type', 'customer_email', 'tier', 'timestamp', 'processed_at', 'processing_time_ms'];
         filename = `events-export-${new Date().toISOString().split('T')[0]}`;
         break;
 

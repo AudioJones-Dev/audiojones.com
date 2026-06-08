@@ -172,14 +172,14 @@ export class SecretsRotationEngine {
         dependencies: [
           {
             service_name: 'webhook-handlers',
-            endpoint: '/api/webhooks/whop',
-            health_check_path: '/api/webhooks/whop',
+            endpoint: '/api/webhooks/stripe',
+            health_check_path: '/api/webhooks/stripe',
             restart_required: false,
             update_method: 'config_reload'
           }
         ],
         validation: {
-          test_endpoint: '/api/webhooks/whop',
+          test_endpoint: '/api/webhooks/stripe',
           test_method: 'POST',
           test_payload: { test: true }
         },

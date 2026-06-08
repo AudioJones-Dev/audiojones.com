@@ -136,7 +136,7 @@ export default async function AdminCustomers() {
                               {customer.username || 'Unknown'}
                             </div>
                             <div className="text-xs text-gray-500">
-                              ID: {customer.whop_user_id}
+                              ID: {customer.id}
                             </div>
                           </div>
                         </div>

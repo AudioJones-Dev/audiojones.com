@@ -29,10 +29,6 @@ export const socialLinks = {
 } as const;
 
 export const externalIntegrations = {
-  whop: {
-    storefront: "https://whop.com/audiojones", // TODO: Replace with actual Whop URL
-    checkoutBase: "https://whop.com/checkout", // TODO: Map product SKUs
-  },
   stripe: {
     customerPortal: "https://billing.stripe.com/p/login", // TODO: Configure actual portal
   },

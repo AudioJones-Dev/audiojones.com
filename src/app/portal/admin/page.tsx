@@ -224,7 +224,7 @@ export default function AdminDashboard() {
           </div>
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-white">Webhook received from Whop</p>
+              <p className="text-sm font-medium text-white">Webhook received</p>
               <p className="text-xs text-gray-400">1 hour ago</p>
             </div>
             <span className="rounded-full bg-green-600 px-2 py-1 text-xs text-white">WEBHOOK</span>

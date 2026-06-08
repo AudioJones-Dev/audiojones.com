@@ -24,7 +24,7 @@ try {
     $envOutput = vercel env ls production 2>$null
     
     # Check for required variables
-    $requiredVars = @("FIREBASE_PRIVATE_KEY", "FIREBASE_PROJECT_ID", "FIREBASE_CLIENT_EMAIL", "WHOP_API_KEY", "WHOP_APP_ID")
+    $requiredVars = @("FIREBASE_PRIVATE_KEY", "FIREBASE_PROJECT_ID", "FIREBASE_CLIENT_EMAIL")
     $foundVars = @()
     
     foreach ($var in $requiredVars) {
@@ -77,45 +77,7 @@ try {
     Write-Host "   ⚠️  Could not verify private key length" -ForegroundColor Yellow
 }
 
-# 4. Test webhook endpoints
-if (-not $SkipWebhookTest) {
-    Write-Host "`n🌐 Webhook Endpoint Tests:" -ForegroundColor Yellow
-    
-    # Test main webhook
-    try {
-        $response = Invoke-RestMethod -Uri "https://audiojones.com/api/whop" -Method GET -TimeoutSec 10
-        if ($response.ok -eq $true -and $response.source -eq "whop-webhook") {
-            Write-Host "   ✅ Main webhook: https://audiojones.com/api/whop" -ForegroundColor Green
-            if ($Verbose) {
-                Write-Host "      Response: $($response | ConvertTo-Json -Compress)" -ForegroundColor Gray
-            }
-        } else {
-            Write-Host "   ⚠️  Main webhook responded but with unexpected data" -ForegroundColor Yellow
-            if ($Verbose) {
-                Write-Host "      Response: $($response | ConvertTo-Json)" -ForegroundColor Gray
-            }
-        }
-    } catch {
-        Write-Host "   ❌ Main webhook error: $($_.Exception.Message)" -ForegroundColor Red
-    }
-    
-    # Test Base64 webhook (if it exists)  
-    try {
-        $response = Invoke-RestMethod -Uri "https://audiojones.com/api/whop-base64" -Method GET -TimeoutSec 10
-        Write-Host "   ✅ Base64 webhook: https://audiojones.com/api/whop-base64" -ForegroundColor Green
-        if ($Verbose) {
-            Write-Host "      Response: $($response | ConvertTo-Json -Compress)" -ForegroundColor Gray
-        }
-    } catch {
-        if ($_.Exception.Message -match "404") {
-            Write-Host "   ℹ️  Base64 webhook: Not deployed (optional)" -ForegroundColor Blue
-        } else {
-            Write-Host "   ❌ Base64 webhook error: $($_.Exception.Message)" -ForegroundColor Red
-        }
-    }
-}
-
-# 5. Summary
+# 4. Summary
 Write-Host "`n📊 Summary:" -ForegroundColor Cyan
 $totalRequired = $requiredVars.Count
 $foundCount = $foundVars.Count
@@ -130,7 +92,5 @@ Write-Host "`n💡 Quick Setup Commands:" -ForegroundColor Blue
 Write-Host "   Get-Content .\scripts\firebase-private-key.txt | vercel env add FIREBASE_PRIVATE_KEY production --sensitive --force" -ForegroundColor White
 Write-Host "   vercel env add FIREBASE_PROJECT_ID production" -ForegroundColor White
 Write-Host "   vercel env add FIREBASE_CLIENT_EMAIL production" -ForegroundColor White
-Write-Host "   vercel env add WHOP_API_KEY production --sensitive" -ForegroundColor White
-Write-Host "   vercel env add WHOP_APP_ID production" -ForegroundColor White
 
 Write-Host "`n🔗 Documentation: docs\VERCEL_ENV_SOP.md" -ForegroundColor Cyan

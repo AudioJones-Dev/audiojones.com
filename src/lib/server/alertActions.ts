@@ -70,7 +70,7 @@ export async function handleAlert(alert: Alert): Promise<AlertAction[]> {
     // Billing alerts automation
     else if (alert.type === 'billing' && alert.severity === 'error') {
       const action = await executeSlackNotification(
-        'Billing error detected — check Whop logs',
+        'Billing error detected — check billing logs',
         'error',
         {
           alert_id: alert.id,

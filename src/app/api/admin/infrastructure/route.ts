@@ -87,7 +87,6 @@ const TTL_POLICIES: TTLPolicy[] = [
 const CRITICAL_ENDPOINTS = [
   { url: '/api/admin/health', name: 'Admin Health Check' },
   { url: '/api/admin/stats', name: 'Admin Statistics' },
-  { url: '/api/webhooks/whop', name: 'Whop Webhook' },
   { url: '/api/stripe/checkout', name: 'Stripe Checkout' },
   { url: '/api/client/billing/portal', name: 'Client Billing' },
   { url: '/api/admin/analytics/summary', name: 'Analytics Summary' },

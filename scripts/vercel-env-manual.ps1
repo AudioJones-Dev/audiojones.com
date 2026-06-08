@@ -47,16 +47,6 @@ Write-Host "4pwxs0WvBXVexYTsOp8pNn5RXWg6hhXEgCd8FXTT0HMmfAAEvR/FZU6PV8kQFnFQ" -F
 Write-Host "0kZNtFLhst4yY5vOzDnX8JY=" -ForegroundColor Gray
 Write-Host "-----END PRIVATE KEY-----`n" -ForegroundColor Gray
 
-# Whop API Key
-Write-Host "4. Set Whop API Key:" -ForegroundColor Cyan
-Write-Host 'vercel env add WHOP_API_KEY production --sensitive' -ForegroundColor White
-Write-Host "   Enter: apik_nhOhXhdnwNN5P_A2017799_edd16560a6a3e2f3404b81eef67cadbdc8fb53c61f5c385382d8250832818c3d`n"
-
-# Whop App ID
-Write-Host "5. Set Whop App ID:" -ForegroundColor Cyan
-Write-Host 'vercel env add WHOP_APP_ID production' -ForegroundColor White
-Write-Host "   Enter: app_Tzvx5EwI6UjdyS`n"
-
 Write-Host "🎯 CRITICAL SUCCESS METRIC:" -ForegroundColor Red
 Write-Host "After setting FIREBASE_PRIVATE_KEY, run this to verify it's NOT truncated:" -ForegroundColor Yellow
 Write-Host 'vercel env ls production | findstr FIREBASE_PRIVATE_KEY' -ForegroundColor White
@@ -64,4 +54,3 @@ Write-Host "The key should be ~1678 characters, NOT 40!`n" -ForegroundColor Red
 
 Write-Host "✅ After all variables are set:" -ForegroundColor Green
 Write-Host "- Vercel will auto-redeploy in 2-3 minutes" -ForegroundColor Blue
-Write-Host "- Test your webhook: https://audiojones.com/api/whop" -ForegroundColor Cyan

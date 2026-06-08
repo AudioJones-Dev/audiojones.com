@@ -39,10 +39,6 @@ jobs:
           "$PRODUCTION_URL/api/admin/stats" || exit 1
         echo "✅ Admin stats check passed"
 
-        # Test webhook endpoint (HEAD request)
-        curl -f -I "$PRODUCTION_URL/api/webhooks/whop" || exit 1
-        echo "✅ Whop webhook endpoint accessible"
-
     - name: Test Post-MVP Automation Routes
       run: |
         echo "🤖 Testing automation system routes..."
@@ -117,7 +113,6 @@ jobs:
         echo "Tested Routes:"
         echo "- /api/admin/health"
         echo "- /api/admin/stats"
-        echo "- /api/webhooks/whop"
         echo "- /api/admin/analytics/summary"
         echo "- /api/system/maintenance"
         echo "- /api/admin/auto-alerts"

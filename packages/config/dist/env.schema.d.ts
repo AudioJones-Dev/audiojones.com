@@ -13,11 +13,6 @@ export declare const EnvSchema: z.ZodObject<{
     NEXT_PUBLIC_SUPABASE_URL: z.ZodOptional<z.ZodString>;
     NEXT_PUBLIC_SUPABASE_ANON_KEY: z.ZodOptional<z.ZodString>;
     SUPABASE_SERVICE_ROLE_KEY: z.ZodOptional<z.ZodString>;
-    WHOP_API_KEY: z.ZodOptional<z.ZodString>;
-    NEXT_PUBLIC_WHOP_APP_ID: z.ZodOptional<z.ZodString>;
-    NEXT_PUBLIC_WHOP_COMPANY_ID: z.ZodOptional<z.ZodString>;
-    NEXT_PUBLIC_WHOP_AGENT_USER_ID: z.ZodOptional<z.ZodString>;
-    WHOP_WEBHOOK_SECRET: z.ZodOptional<z.ZodString>;
     OPENAI_API_KEY: z.ZodOptional<z.ZodString>;
     MAILERLITE_API_KEY: z.ZodOptional<z.ZodString>;
     MAILERLITE_GROUP_ID: z.ZodOptional<z.ZodString>;
@@ -52,11 +47,6 @@ export declare const EnvSchema: z.ZodObject<{
     NEXT_PUBLIC_SUPABASE_URL?: string | undefined;
     NEXT_PUBLIC_SUPABASE_ANON_KEY?: string | undefined;
     SUPABASE_SERVICE_ROLE_KEY?: string | undefined;
-    WHOP_API_KEY?: string | undefined;
-    NEXT_PUBLIC_WHOP_APP_ID?: string | undefined;
-    NEXT_PUBLIC_WHOP_COMPANY_ID?: string | undefined;
-    NEXT_PUBLIC_WHOP_AGENT_USER_ID?: string | undefined;
-    WHOP_WEBHOOK_SECRET?: string | undefined;
     OPENAI_API_KEY?: string | undefined;
     MAILERLITE_API_KEY?: string | undefined;
     MAILERLITE_GROUP_ID?: string | undefined;
@@ -89,11 +79,6 @@ export declare const EnvSchema: z.ZodObject<{
     NEXT_PUBLIC_SUPABASE_URL?: string | undefined;
     NEXT_PUBLIC_SUPABASE_ANON_KEY?: string | undefined;
     SUPABASE_SERVICE_ROLE_KEY?: string | undefined;
-    WHOP_API_KEY?: string | undefined;
-    NEXT_PUBLIC_WHOP_APP_ID?: string | undefined;
-    NEXT_PUBLIC_WHOP_COMPANY_ID?: string | undefined;
-    NEXT_PUBLIC_WHOP_AGENT_USER_ID?: string | undefined;
-    WHOP_WEBHOOK_SECRET?: string | undefined;
     OPENAI_API_KEY?: string | undefined;
     MAILERLITE_API_KEY?: string | undefined;
     MAILERLITE_GROUP_ID?: string | undefined;

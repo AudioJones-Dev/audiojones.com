@@ -61,7 +61,7 @@ export default function FAQSection() {
               How do AI systems fit into all of this?
             </h3>
             <p className="text-gray-300 leading-relaxed">
-              We integrate AI + automation (MailerLite, n8n, Whop) so your show feeds your list, offers, and private communities automatically.
+              We integrate AI + automation (MailerLite, n8n) so your show feeds your list, offers, and private communities automatically.
             </p>
           </div>
         </div>

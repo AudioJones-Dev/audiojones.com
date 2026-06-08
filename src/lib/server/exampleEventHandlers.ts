@@ -134,9 +134,6 @@ export const eventHandlers: Record<string, (payload: any) => Promise<void>> = {
   'capacity_alert': handleCapacityAlert, 
   'incident_created': handleIncidentCreated,
   'subscription_event': handleSubscriptionEvent,
-  'whop_subscription_created': handleSubscriptionEvent,
-  'whop_subscription_cancelled': handleSubscriptionEvent,
-  'whop_subscription_updated': handleSubscriptionEvent,
 };
 
 /**

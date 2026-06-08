@@ -24,7 +24,6 @@ export async function GET(req: NextRequest) {
       const data = doc.data();
       return {
         id: doc.id,
-        whop_user_id: data.whop_user_id || null,
         email: data.email || null,
         username: data.username || null,
         avatar_image_url: data.avatar_image_url || null,
@@ -42,7 +41,6 @@ export async function GET(req: NextRequest) {
       return {
         id: doc.id,
         event_type: data.event_type || null,
-        whop_user_id: data.whop_user_id || null,
         customer_email: data.customer_email || null,
         amount: data.amount || null,
         currency: data.currency || null,

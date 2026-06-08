@@ -70,10 +70,5 @@ Write-Host "`n📋 Setting other environment variables..." -ForegroundColor Yell
 Write-Output "audiojoneswebsite" | vercel env add FIREBASE_PROJECT_ID production
 Write-Output "firebase-adminsdk-fbsvc@audiojoneswebsite.iam.gserviceaccount.com" | vercel env add FIREBASE_CLIENT_EMAIL production
 
-# Set Whop credentials
-Write-Output "apik_nhOhXhdnwNN5P_A2017799_edd16560a6a3e2f3404b81eef67cadbdc8fb53c61f5c385382d8250832818c3d" | vercel env add WHOP_API_KEY production --sensitive
-Write-Output "app_Tzvx5EwI6UjdyS" | vercel env add WHOP_APP_ID production
-
 Write-Host "`n✅ All environment variables configured!" -ForegroundColor Green
 Write-Host "🚀 Vercel will automatically redeploy in 2-3 minutes" -ForegroundColor Blue
-Write-Host "🔗 Test your webhook at: https://audiojones.com/api/whop" -ForegroundColor Cyan

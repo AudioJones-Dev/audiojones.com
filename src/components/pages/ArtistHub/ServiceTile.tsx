@@ -7,7 +7,7 @@ interface ServiceTileProps {
   title: string;
   description: string;
   ctaText: string;
-  whopProductUrl: string;
+  productUrl: string;
   imageUrl: string;
   pricing?: string;
   duration?: string;
@@ -17,22 +17,21 @@ export default function ServiceTile({
   title,
   description,
   ctaText,
-  whopProductUrl,
+  productUrl,
   imageUrl,
   pricing,
   duration
 }: ServiceTileProps) {
   const handleCtaClick = () => {
-    // Track analytics
+    if (!productUrl) return;
+
     if (typeof window !== 'undefined' && (window as any).gtag) {
       (window as any).gtag('event', 'artist_hub_service_click', {
         service_name: title,
-        destination: 'whop'
       });
     }
 
-    // Redirect to Whop product
-    window.open(whopProductUrl, '_blank');
+    window.open(productUrl, '_blank');
   };
 
   return (

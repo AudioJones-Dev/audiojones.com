@@ -490,7 +490,7 @@ export class InternalObservabilityManager {
     const span = this.startSpan(`webhook.${webhookType}`, {
       attributes: {
         'webhook.type': webhookType,
-        'webhook.source': 'whop',
+        'webhook.source': webhookType,
         'operation.type': 'webhook_processing',
       },
       userId: context.userId,

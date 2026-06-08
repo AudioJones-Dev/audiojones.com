@@ -104,22 +104,14 @@ async function testApiEndpoints() {
 async function testIntegrations() {
   const status = {
     stripe: false,
-    whop: false,
     n8n: false,
   };
 
   try {
-    // Test Stripe
     if (process.env.STRIPE_SECRET_KEY) {
       status.stripe = true; // TODO: Actually test Stripe API
     }
 
-    // Test Whop
-    if (process.env.WHOP_API_KEY) {
-      status.whop = true; // TODO: Actually test Whop API
-    }
-
-    // Test N8N
     if (process.env.N8N_WEBHOOK_URL) {
       status.n8n = true; // TODO: Actually test N8N connectivity
     }

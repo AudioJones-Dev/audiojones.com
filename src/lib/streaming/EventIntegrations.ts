@@ -72,59 +72,6 @@ export class EventPublisher {
 export class WebhookEventHandler {
   
   /**
-   * Handle Whop webhook and publish to event stream
-   */
-  static async handleWhopWebhook(webhookData: any): Promise<string> {
-    const { type, data } = webhookData;
-    
-    switch (type) {
-      case 'payment:succeeded':
-        return await eventStreamingEngine.publishEvent({
-          type: 'payment.success',
-          source: 'whop_webhook',
-          data: {
-            customerId: data?.customer_id,
-            amount: data?.amount,
-            currency: data?.currency,
-            timestamp: Date.now(),
-          },
-          metadata: {
-            version: 1,
-          },
-        });
-        
-      case 'subscription:created':
-        return await eventStreamingEngine.publishEvent({
-          type: 'subscription.created',
-          source: 'whop_webhook', 
-          data: {
-            subscriptionId: data.id,
-            customerId: data.customer_id,
-            planId: data.plan_id,
-            status: data.status,
-            timestamp: Date.now(),
-          },
-          metadata: {
-            version: 1,
-          },
-        });
-        
-      default:
-        return await eventStreamingEngine.publishEvent({
-          type: 'webhook.received',
-          source: 'whop_webhook',
-          data: {
-            webhookType: type,
-            timestamp: Date.now(),
-          },
-          metadata: {
-            version: 1,
-          },
-        });
-    }
-  }
-
-  /**
    * Handle Stripe webhook and publish to event stream
    */
   static async handleStripeWebhook(stripeEvent: any): Promise<string> {

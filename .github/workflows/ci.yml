@@ -61,11 +61,9 @@ jobs:
         env:
           NEXT_PUBLIC_SITE_URL: https://audiojones.com
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          WHOP_API_KEY: ${{ secrets.WHOP_API_KEY }}
           STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
           NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY }}
           STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
-          NEXT_PUBLIC_WHOP_APP_ID: ${{ secrets.NEXT_PUBLIC_WHOP_APP_ID }}
           MAILERLITE_API_KEY: ${{ secrets.MAILERLITE_API_KEY }}
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
@@ -79,7 +77,4 @@ jobs:
           CRM_WEBHOOK_URL: ${{ secrets.CRM_WEBHOOK_URL }}
           MAILERLITE_GROUP_ID: ci-group-id
           N8N_WEBHOOK_URL: https://example.com/webhook
-          WHOP_WEBHOOK_SECRET: ci-whop-webhook-secret
-          NEXT_PUBLIC_WHOP_COMPANY_ID: ci-whop-company
-          NEXT_PUBLIC_WHOP_AGENT_USER_ID: ci-whop-agent
           API_BASE_URL: https://audiojones.com

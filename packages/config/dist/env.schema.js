@@ -22,12 +22,6 @@ export const EnvSchema = z.object({
     NEXT_PUBLIC_SUPABASE_URL: z.string().min(1).optional(),
     NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string().min(1).optional(),
     SUPABASE_SERVICE_ROLE_KEY: z.string().min(1).optional(),
-    // Whop integration
-    WHOP_API_KEY: z.string().min(1).optional(),
-    NEXT_PUBLIC_WHOP_APP_ID: z.string().min(1).optional(),
-    NEXT_PUBLIC_WHOP_COMPANY_ID: z.string().min(1).optional(),
-    NEXT_PUBLIC_WHOP_AGENT_USER_ID: z.string().min(1).optional(),
-    WHOP_WEBHOOK_SECRET: z.string().min(1).optional(),
     // OpenAI & AI services
     OPENAI_API_KEY: z.string().min(1).optional(),
     // MailerLite integration

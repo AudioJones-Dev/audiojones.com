@@ -6,7 +6,6 @@ import { getFirestore } from "@/lib/legacy-stubs";
 
 export interface Customer {
   id: string;
-  whop_user_id: string;
   email: string;
   username?: string;
   avatar_image_url?: string;
@@ -19,7 +18,6 @@ export interface Customer {
 export interface SubscriptionEvent {
   id: string;
   event_type: 'payment.succeeded' | 'payment.failed' | 'invoice.paid' | 'subscription.created' | 'subscription.cancelled';
-  whop_user_id: string;
   customer_email?: string;
   amount?: number;
   currency?: string;
@@ -152,24 +150,3 @@ export async function getDashboardStats(): Promise<DashboardStats> {
   }
 }
 
-/**
- * Get customer by Whop user ID
- */
-export async function getCustomerByWhopId(whopUserId: string): Promise<Customer | null> {
-  try {
-    const db = getDb();
-    const snapshot = await db
-      .collection('customers')
-      .where('whop_user_id', '==', whopUserId)
-      .limit(1)
-      .get();
-
-    if (snapshot.empty) return null;
-
-    const doc = snapshot.docs[0];
-    return { id: doc.id, ...doc.data() } as Customer;
-  } catch (error) {
-    console.error('Error fetching customer by Whop ID:', error);
-    return null;
-  }
-}

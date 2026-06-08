@@ -54,7 +54,7 @@ export const DEFAULT_SLOS: SLO[] = [
     target: 99.8, // 99.8% billing accuracy = very high reliability needed
     window: "7d",
     bad_event_type: "billing",
-    description: "Billing event processing and Whop integration reliability"
+    description: "Billing event processing reliability"
   },
   {
     id: "predictive-alerts",

@@ -19,7 +19,6 @@ interface SubscriptionEvent {
   id: string;
   event_type: string;
   customer_email: string;
-  whop_user_id?: string;
   tier?: string;
   timestamp: string;
   processed_at: string;
@@ -624,9 +623,6 @@ export default function CustomerDetailPage() {
                     </div>
                     
                     <div className="text-sm text-muted-foreground space-y-1">
-                      {event.whop_user_id && (
-                        <div>Whop User: {event.whop_user_id}</div>
-                      )}
                       {event.tier && (
                         <div>Tier: {event.tier}</div>
                       )}

@@ -20,7 +20,7 @@ export default function HomeHero() {
 
             {/* Subtext */}
             <p className="text-xl text-gray-300 leading-relaxed max-w-2xl">
-              We help creators, consultants, and service businesses connect content → automations → revenue using AI, Whop, and Google Business Ultra.
+              We help creators, consultants, and service businesses connect content → automations → revenue using AI and Google Business Ultra.
             </p>
 
             {/* CTAs */}

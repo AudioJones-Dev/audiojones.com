@@ -14,11 +14,6 @@ declare const env: {
     NEXT_PUBLIC_SUPABASE_URL?: string | undefined;
     NEXT_PUBLIC_SUPABASE_ANON_KEY?: string | undefined;
     SUPABASE_SERVICE_ROLE_KEY?: string | undefined;
-    WHOP_API_KEY?: string | undefined;
-    NEXT_PUBLIC_WHOP_APP_ID?: string | undefined;
-    NEXT_PUBLIC_WHOP_COMPANY_ID?: string | undefined;
-    NEXT_PUBLIC_WHOP_AGENT_USER_ID?: string | undefined;
-    WHOP_WEBHOOK_SECRET?: string | undefined;
     OPENAI_API_KEY?: string | undefined;
     MAILERLITE_API_KEY?: string | undefined;
     MAILERLITE_GROUP_ID?: string | undefined;

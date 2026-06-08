@@ -400,7 +400,7 @@ export default function ObservabilityDashboard() {
                     type="text"
                     value={traceFilters.operation}
                     onChange={(e) => setTraceFilters({ ...traceFilters, operation: e.target.value })}
-                    placeholder="webhook.whop, api.get"
+                    placeholder="webhook.stripe, api.get"
                     className="w-full px-3 py-2 bg-gray-700 rounded text-white"
                   />
                 </div>

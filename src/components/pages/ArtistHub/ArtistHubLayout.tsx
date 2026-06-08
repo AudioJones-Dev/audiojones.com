@@ -9,7 +9,7 @@ interface ArtistHubService {
   title: string;
   description: string;
   ctaText: string;
-  whopProductUrl: string;
+  productUrl: string;
   imageUrl: string;
   pricing?: string;
   duration?: string;

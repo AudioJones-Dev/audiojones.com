@@ -6,8 +6,8 @@ export default function ModulesShowcase() {
       icon: "🤖"
     },
     {
-      title: "Client Delivery Module", 
-      purpose: "Whop → GBU → Notion seamless client onboarding",
+      title: "Client Delivery Module",
+      purpose: "GBU → Notion seamless client onboarding",
       icon: "🚀"
     },
     {

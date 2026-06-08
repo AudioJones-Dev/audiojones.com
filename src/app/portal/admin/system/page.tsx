@@ -15,7 +15,6 @@ interface SystemStatus {
   };
   integrations: {
     stripe: boolean;
-    whop: boolean;
     n8n: boolean;
   };
   environment: {
@@ -184,12 +183,6 @@ export default function SystemMonitoring() {
                 <span className="text-gray-400">Stripe</span>
                 <span className={getStatusColor(status.integrations.stripe)}>
                   {getStatusIcon(status.integrations.stripe)} {status.integrations.stripe ? 'Connected' : 'Failed'}
-                </span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-gray-400">Whop</span>
-                <span className={getStatusColor(status.integrations.whop)}>
-                  {getStatusIcon(status.integrations.whop)} {status.integrations.whop ? 'Connected' : 'Failed'}
                 </span>
               </div>
               <div className="flex justify-between items-center">

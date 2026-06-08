@@ -95,12 +95,6 @@ const navigation: NavItem[] = [
     description: 'SKU management'
   },
   {
-    name: 'Billing',
-    href: '/portal/admin/billing',
-    icon: DollarSign,
-    description: 'Whop reconciliation'
-  },
-  {
     name: 'SLO Credits',
     href: '/portal/admin/slo-credits',
     icon: Target,

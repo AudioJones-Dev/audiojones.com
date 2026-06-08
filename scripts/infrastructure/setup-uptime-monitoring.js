@@ -46,13 +46,6 @@ const CRITICAL_ENDPOINTS = [
     httpHeaders: 'admin-key:' + (process.env.ADMIN_API_KEY || 'placeholder')
   },
   {
-    name: 'Whop Webhook Endpoint',
-    url: 'https://audiojones.com/api/webhooks/whop',
-    type: 1,
-    interval: 300,
-    timeout: 30
-  },
-  {
     name: 'Stripe Checkout API',
     url: 'https://audiojones.com/api/stripe/checkout',
     type: 1,

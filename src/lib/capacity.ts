@@ -54,55 +54,6 @@ export function formatOpenDate(dateIso: string): string {
 }
 
 /**
- * Maps Whop plan data to our internal plan structure
- */
-export function mapWhopPlanToInternal(whopData: any): {
-  plan_tier: string;
-  plan_type: string;
-  hours_committed: number;
-} {
-  // Default mapping - can be customized based on Whop product structure
-  const defaultMapping = {
-    plan_tier: 'foundation',
-    plan_type: 'retainer',
-    hours_committed: 20
-  };
-  
-  // Extract from Whop product/plan data if available
-  if (whopData?.product?.name) {
-    const productName = whopData.product.name.toLowerCase();
-    
-    if (productName.includes('podcast')) {
-      return {
-        plan_tier: 'podcast',
-        plan_type: 'podcast',
-        hours_committed: 22
-      };
-    } else if (productName.includes('integrated')) {
-      return {
-        plan_tier: 'integrated',
-        plan_type: 'retainer',
-        hours_committed: 55
-      };
-    } else if (productName.includes('growth')) {
-      return {
-        plan_tier: 'growth',
-        plan_type: 'retainer',
-        hours_committed: 35
-      };
-    } else if (productName.includes('web') || productName.includes('funnel')) {
-      return {
-        plan_tier: 'web_funnel',
-        plan_type: 'retainer',
-        hours_committed: 38
-      };
-    }
-  }
-  
-  return defaultMapping;
-}
-
-/**
  * Calculates capacity utilization percentage
  */
 export function calculateUtilization(current: number, max: number): number {

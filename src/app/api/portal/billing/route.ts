@@ -25,7 +25,7 @@ export async function GET(req: NextRequest) {
 async function getUserBillingInfo(userId: string) {
   // TODO: In a real implementation, this would:
   // 1. Query your database for the user's Stripe customer ID
-  // 2. Fetch subscription details from Stripe or Whop API
+  // 2. Fetch subscription details from Stripe
   // 3. Get payment method information
   // 4. Retrieve invoice history
   

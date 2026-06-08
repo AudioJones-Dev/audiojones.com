@@ -7,14 +7,14 @@ import { sendAlertNotification } from '@/lib/server/notify';
  * Client Billing Portal API Route
  * 
  * Provides authenticated clients with access to their billing management portal.
- * Returns portal links for Whop or Stripe based on the client's subscription type.
+ * Returns portal links for Stripe based on the client's subscription type.
  * This closes the revenue loop by enabling self-service billing management.
  */
 
 interface BillingPortalResponse {
   ok: boolean;
   portal_url?: string;
-  provider?: 'whop' | 'stripe' | 'manual';
+  provider?: 'stripe' | 'manual';
   subscription_info?: {
     billing_sku: string;
     tier_id: string;
@@ -56,24 +56,10 @@ export async function GET(request: NextRequest) {
     }
 
     // Determine billing provider based on billing_sku pattern
-    let provider: 'whop' | 'stripe' | 'manual' = 'manual';
+    let provider: 'stripe' | 'manual' = 'manual';
     let portalUrl: string | null = null;
 
-    // Check if this is a Whop-managed subscription
-    if (billingSkuMap.startsWith('whop-') || serviceId?.includes('whop')) {
-      provider = 'whop';
-      
-      // For Whop, we'll direct them to their Whop customer portal
-      // Note: Whop customer portal URL format may vary based on their setup
-      portalUrl = `https://whop.com/hub/memberships`;
-      
-      // If we have specific Whop customer ID, we could make this more specific:
-      // const whopCustomerId = customerData?.whop_customer_id;
-      // if (whopCustomerId) {
-      //   portalUrl = `https://whop.com/hub/memberships/${whopCustomerId}`;
-      // }
-      
-    } else if (billingSkuMap.includes('stripe') || serviceId?.includes('stripe')) {
+    if (billingSkuMap.includes('stripe') || serviceId?.includes('stripe')) {
       provider = 'stripe';
       
       // For Stripe, we'd create a customer portal session

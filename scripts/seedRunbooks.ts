@@ -29,7 +29,7 @@ const defaultRunbooks: Omit<Runbook, 'id' | 'created_at' | 'updated_at'>[] = [
     active: true,
     steps: [
       'Check webhook endpoint logs for errors',
-      'Verify external service (Whop, Stripe) is operational',
+      'Verify external service (Stripe) is operational',
       'Check network connectivity and firewall rules',
       'Review recent webhook payload changes',
       'Attempt manual webhook replay if possible',
@@ -42,7 +42,6 @@ const defaultRunbooks: Omit<Runbook, 'id' | 'created_at' | 'updated_at'>[] = [
     source: 'billing',
     active: true,
     steps: [
-      'Check Whop dashboard for payment issues',
       'Review Stripe customer portal for billing alerts',
       'Verify subscription status and payment methods',  
       'Check for failed payment notifications',

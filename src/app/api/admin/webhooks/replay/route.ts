@@ -9,7 +9,6 @@ async function processWebhookEvent(db: FirebaseFirestore.Firestore, eventData: a
   try {
     // Extract customer info from the event
     const email = eventData.customer_email || eventData.email;
-    const whopUserId = eventData.whop_user_id || `user_${Date.now()}`;
     const billingSkus = eventData.billing_sku || eventData.tier || 'unknown-sku';
     
     if (!email) {
@@ -34,7 +33,6 @@ async function processWebhookEvent(db: FirebaseFirestore.Firestore, eventData: a
     } else {
       // Create new customer from event data
       customerData = {
-        whop_user_id: whopUserId,
         email: email,
         name: eventData.customer_name || eventData.name || "Unknown User",
         billing_sku: billingSkus,

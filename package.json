@@ -52,14 +52,12 @@
     },
     "dependencies": {
         "@aj/config": "workspace:*",
-        "@aj/whop": "workspace:*",
         "@google-cloud/secret-manager": "^5.6.0",
         "@google-cloud/storage": "^7.17.3",
         "@neondatabase/neon-js": "0.2.0-beta.1",
         "@neondatabase/serverless": "^1.0.0",
         "@supabase/ssr": "^0.6.1",
         "@supabase/supabase-js": "^2.50.0",
-        "@whop/sdk": "^0.0.6",
         "clsx": "^2.1.1",
         "discord-interactions": "^4.4.0",
         "groq": "^5.23.0",
@@ -95,7 +93,7 @@
         "typescript": "^5",
         "vercel": "48.9.0"
     },
-    "description": "Public marketing site for AJ Digital LLC (audiojones.com): Applied Intelligence positioning, AI Readiness Diagnostic, lead capture, and booking. Next.js 16 + React 19 + TypeScript on Vercel; Sanity CMS, NeonDB, Resend, n8n, Whop, Stripe.",
+    "description": "Public marketing site for AJ Digital LLC (audiojones.com): Applied Intelligence positioning, AI Readiness Diagnostic, lead capture, and booking. Next.js 16 + React 19 + TypeScript on Vercel; Sanity CMS, NeonDB, Resend, n8n, Stripe.",
     "main": "index.js",
     "directories": {
         "doc": "docs",
