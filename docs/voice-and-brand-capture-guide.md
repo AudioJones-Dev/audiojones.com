@@ -11,6 +11,50 @@ Total target time: **35–45 minutes**. Take breaks between sections.
 
 ---
 
+## Consent & Use of Your Voice
+
+**Please read before recording.** Voice cloning creates a synthetic version
+of your voice. We will not start training until you confirm the points
+below in writing (email reply or signed consent form is fine).
+
+- **What we'll do with the audio.**
+  1. Transcribe it (speech-to-text) to draft your `brand.md`.
+  2. Use it to train a voice clone associated with your account.
+  3. Store the source recording so the clone can be retrained or
+     improved if you ask.
+- **Who can use the cloned voice.** Only you, or people you explicitly
+  authorize in writing. We will not use your voice for any other
+  client, marketing, demo, or training corpus without your written
+  permission.
+- **Third-party vendors.** Audio and/or transcripts may be processed by
+  the providers we use for transcription and voice cloning (for
+  example, ElevenLabs, Deepgram, or equivalents). We'll name the exact
+  vendor before processing. Vendors are bound by their own terms; we
+  do not allow them to use your data to train shared/foundation models
+  where that setting is available.
+- **Retention.** Source recordings are kept for as long as your voice
+  clone is active, plus 30 days after you ask us to delete it (so we
+  can confirm removal from vendors).
+- **Deletion & revocation.** You can revoke consent and request full
+  deletion at any time by emailing
+  [contact@audiojones.com](mailto:contact@audiojones.com). We will
+  delete the source audio, transcripts, and clone, and request
+  deletion from any vendor that holds a copy. Some backup copies may
+  persist for up to 30 days before they roll off.
+- **No impersonation.** You confirm the voice in the recording is your
+  own (or that you have written permission from the speaker), and that
+  you will not use the clone to impersonate anyone or to deceive
+  anyone about who is speaking.
+- **Minors.** Do not record anyone under 18 without a parent or
+  guardian's written consent. We do not knowingly process minors'
+  voices for cloning.
+
+By recording and sending us the audio, you confirm you've read the
+above and agree to it. If anything here doesn't work for you, **stop
+and email us first** — we'd rather adjust than guess.
+
+---
+
 ## Before You Start
 
 A few quick things to set you up for success.
@@ -283,9 +327,15 @@ Last one. Speak from the heart.
 1. **Save the recording** as a single file if possible (`.wav` or
    `.m4a`). If you broke it into parts, name them in order:
    `01-warmup.wav`, `02-foundation.wav`, etc.
-2. **Send it over** along with any notes you want us to know (things
+2. **Confirm consent.** In your email, paste this line and your name:
+   *"I've read the Consent & Use of Your Voice section and agree to it.
+   — [Your Name], [Date]."*
+3. **Send it over** along with any notes you want us to know (things
    you wish you'd said differently, names to spell, etc.).
-3. **We'll handle the rest** — transcription, voice clone training,
+4. **We'll handle the rest** — transcription, voice clone training,
    and turning your answers into a draft `brand.md`.
+
+To revoke consent later or delete your data, email
+[contact@audiojones.com](mailto:contact@audiojones.com).
 
 Thanks for trusting us with your voice. Talk soon.
