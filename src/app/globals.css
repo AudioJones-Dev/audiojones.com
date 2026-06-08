@@ -36,7 +36,7 @@
   --border-strong:   #2A2A2A;   /* dividers */
   --border-subtle:   #1E1E1E;   /* subtle borders */
   --text-primary:    #E8E8E8;   /* body copy */
-  --text-muted:      #666666;   /* labels, secondary */
+  --text-muted:      #808080;   /* labels, secondary — ~5:1 on --bg-base for WCAG AA */
 
   --accent-blue:     #4DACFF;   /* data · links */
   --accent-red:      #FF4545;   /* critical · P0 */
@@ -347,7 +347,12 @@ html, body {
 /* ---------- SEMANTIC TYPOGRAPHY (V2 §03) ----------
    Syne ExtraBold/Bold @ -0.02em tracking for all headers.
    DM Sans Light/Regular/Bold @ 1.7 line-height for body.
-   DM Mono Regular @ 0.1–0.2em tracking for labels/data. */
+   DM Mono Regular @ 0.1–0.2em tracking for labels/data.
+
+   Wrapped in @layer components so `text-fg-*` color utilities applied in
+   markup win over these defaults. Unlayered, these rules outrank Tailwind's
+   layered utilities, which silently muted nav/card text marked text-fg-1. */
+@layer components {
 .t-display-xl {
   font-family: var(--font-headline);
   font-size: var(--fs-display-xl);
@@ -440,6 +445,7 @@ html, body {
   font-weight: 400;
   letter-spacing: 0.08em;
   color: var(--fg-2);
+}
 }
 
 /* Mobile scale overrides */
