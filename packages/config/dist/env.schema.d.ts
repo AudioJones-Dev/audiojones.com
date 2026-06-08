@@ -19,7 +19,7 @@ export declare const EnvSchema: z.ZodObject<{
     NEXT_PUBLIC_WHOP_AGENT_USER_ID: z.ZodOptional<z.ZodString>;
     WHOP_WEBHOOK_SECRET: z.ZodOptional<z.ZodString>;
     OPENAI_API_KEY: z.ZodOptional<z.ZodString>;
-    MAILERLITE_API_KEY: z.ZodOptional<z.ZodString>;
+    MAILERLITE_TOKEN: z.ZodOptional<z.ZodString>;
     MAILERLITE_GROUP_ID: z.ZodOptional<z.ZodString>;
     N8N_WEBHOOK_URL: z.ZodOptional<z.ZodString>;
     N8N_LEAD_WEBHOOK_URL: z.ZodOptional<z.ZodString>;
@@ -58,7 +58,7 @@ export declare const EnvSchema: z.ZodObject<{
     NEXT_PUBLIC_WHOP_AGENT_USER_ID?: string | undefined;
     WHOP_WEBHOOK_SECRET?: string | undefined;
     OPENAI_API_KEY?: string | undefined;
-    MAILERLITE_API_KEY?: string | undefined;
+    MAILERLITE_TOKEN?: string | undefined;
     MAILERLITE_GROUP_ID?: string | undefined;
     N8N_WEBHOOK_URL?: string | undefined;
     N8N_LEAD_WEBHOOK_URL?: string | undefined;
@@ -95,7 +95,7 @@ export declare const EnvSchema: z.ZodObject<{
     NEXT_PUBLIC_WHOP_AGENT_USER_ID?: string | undefined;
     WHOP_WEBHOOK_SECRET?: string | undefined;
     OPENAI_API_KEY?: string | undefined;
-    MAILERLITE_API_KEY?: string | undefined;
+    MAILERLITE_TOKEN?: string | undefined;
     MAILERLITE_GROUP_ID?: string | undefined;
     N8N_WEBHOOK_URL?: string | undefined;
     N8N_LEAD_WEBHOOK_URL?: string | undefined;
