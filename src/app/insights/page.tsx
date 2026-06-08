@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Breadcrumbs from "@/components/applied-intelligence/Breadcrumbs";
-import FinalCTA from "@/components/applied-intelligence/FinalCTA";
+import Breadcrumbs from "@/components/founder-intelligence/Breadcrumbs";
+import FinalCTA from "@/components/founder-intelligence/FinalCTA";
 import JsonLd from "@/components/seo/JsonLd";
 import { INSIGHTS } from "@/content/insights";
 import { buildMetadata } from "@/lib/seo/metadata";
@@ -10,7 +10,7 @@ import { breadcrumbJsonLd } from "@/lib/seo/schema";
 export const metadata: Metadata = buildMetadata({
   title: "Insights | Audio Jones",
   description:
-    "Pillar essays on Applied Intelligence Systems, signal vs noise, AI failure modes, and marketing attribution for founder-led businesses.",
+    "Pillar essays on Founder Intelligence Systems, signal vs noise, AI failure modes, and marketing attribution for founder-led businesses.",
   path: "/insights",
 });
 
@@ -31,7 +31,7 @@ export default function InsightsIndex() {
             Insights
           </p>
           <h1 className="text-balance text-4xl font-semibold leading-tight text-white sm:text-5xl">
-            Essays on Applied Intelligence, signal architecture, and the
+            Essays on Founder Intelligence System, signal architecture, and the
             business systems behind useful AI.
           </h1>
         </div>

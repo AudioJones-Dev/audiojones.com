@@ -156,8 +156,8 @@ export async function POST(req: NextRequest) {
     }
   }
 
-  // 3) Optional: Log to database (Firebase/Postgres) for analytics
-  // TODO: Add deployment failure tracking to Data Connect
+  // 3) Optional: log to NeonDB for analytics
+  // TODO: Add deployment failure tracking.
   
   return NextResponse.json({ 
     ok: true, 

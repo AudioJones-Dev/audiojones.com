@@ -13,11 +13,11 @@ entries ([`DECISIONS.md`](./DECISIONS.md)), and the changelog
 - **Docs readiness bootstrap.** Establish AGENTS.md, CLAUDE.md, and the
   canonical `docs/` hierarchy. Stub legacy/duplicated docs to a single
   source of truth. *(this PR)*
-- **Applied Intelligence surface polish.** Continue migrating legacy
+- **Founder Intelligence System surface polish.** Continue migrating legacy
   marketing pages onto the canonical AI surface. Track open visual debt
   in PR descriptions, not here.
 - **Lead-capture hardening.** Continue ensuring all forms route through
-  `src/app/api/applied-intelligence/leads/route.ts` and persist to Neon
+  `src/app/api/founder-intelligence/leads/route.ts` and persist to Neon
   before any optional integrations fire.
 
 ## Next (queued, not started)
@@ -29,15 +29,13 @@ entries ([`DECISIONS.md`](./DECISIONS.md)), and the changelog
   sitemap completeness across the canonical surface.
 - **Booking flow consolidation.** Single source of truth for the
   `Book a Call` provider/URL; remove ad-hoc links.
-- **Legacy `/portal/*` decommission plan.** Identify which routes are
-  still serving real traffic and define a sunset path.
 
 ## Later (directional, not committed)
 
 - **AI Readiness Diagnostic v2** — adaptive question paths driven by
   scoring rather than linear forms.
-- **ROI Calculator v2** — tie outputs to the Whop product catalog so
-  the recommended package is one click away.
+- **ROI Calculator v2** — tie outputs to the Stripe-backed engagement
+  options so the recommended package is one click away.
 - **Self-serve case-study pipeline** — Sanity-driven, gated previews.
 - **Edge-rendered personalization** — per-persona hero variants via
   Cloudflare Workers, behind a feature flag.
@@ -45,7 +43,10 @@ entries ([`DECISIONS.md`](./DECISIONS.md)), and the changelog
 ## Explicitly out of scope
 
 - Reintroducing Firebase (see [`DECISIONS.md`](./DECISIONS.md)).
-- Building admin/portal CRUD on this codebase.
+- Reintroducing Whop (removed 2026-06-08; see [`CHANGELOG.md`](./CHANGELOG.md)).
+- Rebuilding the admin/client portal on this codebase (also removed
+  2026-06-08). New customer-servicing surfaces belong to a separate
+  application.
 - Multi-tenant or white-label modes.
 - A native mobile app.
 

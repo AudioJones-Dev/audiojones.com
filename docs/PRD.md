@@ -8,11 +8,14 @@
 ## 1. What this product is
 
 AudioJones.com is the **public marketing site** for AJ Digital LLC. It
-is the front door to the Applied Intelligence Systems offering: founder-
+is the front door to the Founder Intelligence System offering: founder-
 led AI infrastructure for businesses in the $250K–$5M range.
 
-It is **not** the admin/portal application. The legacy `/portal/*` and
-`/api/admin/*` routes are being phased out; do not deepen them.
+It is **only** a marketing site. There is no admin portal, no client
+portal, no auth surface, and no internal "engine" services in this
+codebase. The legacy `/portal/*`, `/api/admin/*`, `/api/governance/*`,
+and `/api/incidents/*` trees have been removed (see
+[`CHANGELOG.md`](./CHANGELOG.md), 2026-06-08).
 
 ---
 
@@ -23,8 +26,12 @@ mechanisms:
 
 1. **Authority content** — insights, frameworks, case studies, ROI
    calculator.
-2. **Diagnostic** — the AI Readiness Diagnostic captures structured
-   intent and routes leads to the appropriate tier.
+2. **Diagnostic** — the AI Readiness Diagnostic (`/ai-readiness-diagnostic`)
+   captures structured intent and routes leads to the appropriate tier.
+   The Founder Intelligence System has its own discovery flow at
+   `/founder-intelligence-system/diagnostic`. The two are distinct: the
+   AI Readiness Diagnostic is the top-of-funnel lead qualifier; the FIS
+   diagnostic is the offer-specific discovery.
 3. **Direct booking** — the `Book a Call` CTA opens a scheduling flow
    for high-intent visitors.
 
@@ -49,11 +56,11 @@ Every surface should drive toward one of these three exits.
 
 1. Visitor lands on a marketing page.
 2. CTA opens a form (`/ai-readiness-diagnostic`, contact, or inline).
-3. Submission goes to `src/app/api/applied-intelligence/leads/route.ts`
+3. Submission goes to `src/app/api/founder-intelligence/leads/route.ts`
    (or `src/app/api/leads/route.ts` for generic intake).
 4. Server validates with Zod, rate-limits per IP, scores the lead
    (`src/lib/leads/lead-scoring.ts`), persists to NeonDB
-   (`src/db/leads.ts → insertAppliedIntelligenceLead`), sends an
+   (`src/db/leads.ts → insertFounderIntelligenceLead`), sends an
    internal Resend email, and optionally fires `N8N_LEAD_WEBHOOK_URL`.
 5. n8n failure must not block the response. Lead is durable in Neon and
    the email is queued before the webhook fires.
@@ -72,12 +79,10 @@ Long-form content (insights, blog, topic clusters) is authored in
 
 ### 4.4 Commerce
 
-- **Whop** — product licensing and customer management for productized
-  offerings (`/api/whop/*`).
 - **Stripe** — payment processing and customer portal (`/api/stripe/*`).
 
 The site links into checkout but does not own the post-purchase
-fulfillment, which lives in the Whop/Stripe accounts.
+fulfillment, which lives in the Stripe account.
 
 ---
 

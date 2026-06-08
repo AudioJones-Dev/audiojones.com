@@ -10,18 +10,18 @@ last_updated: "2026-05-06"
 
 # Audio Jones DESIGN.md
 
-The canonical design-system + implementation guide for AudioJones.com. Reflects the actual implementation in `src/app/globals.css` and `src/lib/applied-intelligence/tokens.ts` first; target-state recommendations are clearly marked.
+The canonical design-system + implementation guide for AudioJones.com. Reflects the actual implementation in `src/app/globals.css` and `src/lib/founder-intelligence-system/tokens.ts` first; target-state recommendations are clearly marked.
 
 ## 1. Overview
 
-Audio Jones is the public marketing site and product surface for AJ Digital LLC, an Applied Intelligence Systems partner for founder-led businesses. The site needs to feel **authored, intelligent, weight-bearing, cinematic, intentional, analytical, psychologically sharp** — and convert without theater.
+Audio Jones is the public marketing site and product surface for AJ Digital LLC, a Founder Intelligence Systems partner for founder-led businesses. The site needs to feel **authored, intelligent, weight-bearing, cinematic, intentional, analytical, psychologically sharp** — and convert without theater.
 
 This document is the source of truth for visual, typographic, and component decisions. Future Claude / Codex / human contributors must read this before designing or implementing UI.
 
 The implementation lives in:
 
 - `src/app/globals.css` — canonical CSS variables + Tailwind v4 `@theme inline` bridge
-- `src/lib/applied-intelligence/tokens.ts` — TypeScript-side token mirror (must stay in sync with `globals.css`)
+- `src/lib/founder-intelligence-system/tokens.ts` — TypeScript-side token mirror (must stay in sync with `globals.css`)
 - `src/components/ui/` — shared primitives
 - `src/components/Header.tsx` / `src/components/Footer.tsx` — chrome
 - `src/app/layout.tsx` — typography registration + chrome composition

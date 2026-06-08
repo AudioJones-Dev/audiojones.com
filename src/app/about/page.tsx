@@ -16,10 +16,10 @@ import {
 } from "@/lib/seo/schema";
 
 const DESCRIPTION =
-  "Audio Jones is the strategist and operator behind applied intelligence systems for founder-led businesses.";
+  "Audio Jones is the strategist and operator behind Founder Intelligence Systems for founder-led businesses.";
 
 export const metadata: Metadata = buildMetadata({
-  title: "About Audio Jones - Applied Intelligence Systems",
+  title: "About Audio Jones - Founder Intelligence Systems",
   description: DESCRIPTION,
   path: "/about",
 });

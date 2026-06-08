@@ -12,14 +12,14 @@ import { ctaLinks } from "@/config/links";
 export const metadata: Metadata = {
   title: "Blog | Audio Jones",
   description:
-    "Applied Intelligence, signal systems, M.A.P Attribution, and AI-readiness insights for founder-led businesses. The Audio Jones knowledge base.",
+    "Founder Intelligence System, signal systems, M.A.P Attribution, and AI-readiness insights for founder-led businesses. The Audio Jones knowledge base.",
   alternates: {
     canonical: "https://audiojones.com/blog",
   },
   openGraph: {
     title: "Blog | Audio Jones",
     description:
-      "Applied Intelligence, signal systems, M.A.P Attribution, and AI-readiness insights for founder-led businesses.",
+      "Founder Intelligence System, signal systems, M.A.P Attribution, and AI-readiness insights for founder-led businesses.",
     url: "https://audiojones.com/blog",
     siteName: "Audio Jones",
     type: "website",
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Blog | Audio Jones",
     description:
-      "Applied Intelligence, signal systems, M.A.P Attribution, and AI-readiness insights for founder-led businesses.",
+      "Founder Intelligence System, signal systems, M.A.P Attribution, and AI-readiness insights for founder-led businesses.",
     images: ["/assets/og/audio-jones-og.jpg"],
   },
 };
@@ -39,8 +39,8 @@ export const metadata: Metadata = {
 
 const TOPIC_CLUSTERS = [
   {
-    slug: "applied-intelligence-systems",
-    label: "Applied Intelligence Systems",
+    slug: "founder-intelligence-systems",
+    label: "Founder Intelligence Systems",
     description: "How to identify signal, build operating leverage, and create systems that compound.",
     accent: "#3B5BFF",
     icon: "◈",
@@ -108,7 +108,7 @@ export default async function BlogPage() {
               color: "#FFFFFF",
             }}
           >
-            Applied Intelligence,<br />
+            Founder Intelligence System,<br />
             <span style={{ color: "#FF4500" }}>documented.</span>
           </h1>
           <p
@@ -120,7 +120,7 @@ export default async function BlogPage() {
               color: "rgba(255,255,255,0.65)",
             }}
           >
-            The Audio Jones blog documents Applied Intelligence Systems, signal strategy,
+            The Audio Jones blog documents Founder Intelligence Systems, signal strategy,
             M.A.P Attribution, and AI-readiness for founder-led businesses.
           </p>
         </div>
@@ -434,7 +434,7 @@ function EmptyState({ configured }: { configured: boolean }) {
               marginBottom: "32px",
             }}
           >
-            Articles on Applied Intelligence Systems, signal strategy, M.A.P Attribution,
+            Articles on Founder Intelligence Systems, signal strategy, M.A.P Attribution,
             and AI-readiness are being written and structured into topic clusters.
           </p>
           <p

@@ -27,7 +27,7 @@ export const EnvSchema = z.object({
     N8N_WEBHOOK_URL: z.string().min(1).optional(),
     N8N_LEAD_WEBHOOK_URL: z.string().min(1).optional(),
     CRM_WEBHOOK_URL: z.string().min(1).optional(),
-    // Applied Intelligence diagnostic
+    // Founder Intelligence System diagnostic
     LEAD_FORM_SECRET: z.string().min(1).optional(),
     IP_HASH_SALT: z.string().min(1).optional(),
     // Stripe payments

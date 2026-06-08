@@ -19,7 +19,7 @@ Use this skill to audit any UI change against `docs/design/DESIGN.md`. Run at th
 - The PR / branch / files under audit
 - `docs/design/DESIGN.md` (source of truth)
 - `src/app/globals.css` (token implementation)
-- `src/lib/applied-intelligence/tokens.ts` (TS-side mirror)
+- `src/lib/founder-intelligence/tokens.ts` (TS-side mirror)
 - `src/components/ui/` (existing primitives)
 
 ## Audit checklist

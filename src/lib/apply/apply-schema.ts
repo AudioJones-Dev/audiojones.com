@@ -3,7 +3,7 @@
 // the specifics needed to scope an actual engagement.
 //
 // This schema is independent from `lead-schema.ts` (the 6-step diagnostic
-// at /applied-intelligence/diagnostic). Both eventually feed the same Neon
+// at /founder-intelligence-system/diagnostic). Both eventually feed the same Neon
 // `applied_intelligence_leads` table, but apply payloads use a different
 // shape and downstream router logic.
 

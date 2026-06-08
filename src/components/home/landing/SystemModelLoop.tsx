@@ -4,7 +4,7 @@ import { Eyebrow } from "@/components/ui/Eyebrow";
 // ─── Asset ───────────────────────────────────────────────────────────────────
 
 const BG =
-  "/assets/Homepage/07-applied-intelligence-systems/backgrounds/applied-intelligence-systems-background.png";
+  "/assets/Homepage/07-founder-intelligence-systems/backgrounds/founder-intelligence-systems-background.png";
 
 // ─── Stage data ──────────────────────────────────────────────────────────────
 
@@ -171,7 +171,7 @@ function LoopSVG({ className }: { className?: string }) {
   return (
     <svg
       role="img"
-      aria-label="Applied Intelligence Systems loop: input, process, output, feedback"
+      aria-label="Founder Intelligence Systems loop: input, process, output, feedback"
       viewBox="0 0 800 195"
       className={className}
     >
@@ -367,13 +367,13 @@ export default function SystemModelLoop() {
       <div style={{ position: "relative", zIndex: 3 }} className="mx-auto max-w-[1280px] px-5 sm:px-8">
         {/* Header */}
         <div className="mb-14 max-w-3xl">
-          <Eyebrow>Applied Intelligence Systems</Eyebrow>
+          <Eyebrow>Founder Intelligence Systems</Eyebrow>
           <h2 className="mt-4 t-h1 text-balance">
             AI only works when the system is ready.
           </h2>
           <p className="mt-5 t-lead text-fg-2">
             Automation applied to broken systems accelerates dysfunction.
-            Applied Intelligence Systems align human judgment, data signals,
+            Founder Intelligence Systems align human judgment, data signals,
             and feedback loops before automation scales the work.
           </p>
         </div>

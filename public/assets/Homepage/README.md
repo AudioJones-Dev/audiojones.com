@@ -39,7 +39,7 @@ Metrics strip
 - `04-problem-reframe`
 - `05-signal-vs-noise-model`
 - `06-map-attribution-framework`
-- `07-applied-intelligence-systems`
+- `07-founder-intelligence-systems`
 - `08-icp-filter`
 - `09-process-pipeline`
 - `10-proof-metrics`

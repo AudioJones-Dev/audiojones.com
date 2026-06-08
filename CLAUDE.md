@@ -10,20 +10,28 @@ The notes below are Claude-specific and should stay short.
 
 ## Project shape
 
+- **Public marketing site** for AJ Digital LLC. No admin portal, no
+  client portal, no auth, no Firebase, no Whop. Read-only blog +
+  diagnostic funnels + lead capture + Stripe checkout.
 - Next.js 16 (App Router, React 19, TypeScript strict).
 - pnpm workspace; `packageManager` is pinned — use `pnpm`, not `npm`.
 - Source: `src/`. Workspace packages: `packages/*` (build with
   `pnpm packages:build`). `next build` already chains this for you.
-- The `functions/` directory is legacy Firebase tooling and is excluded
-  from the TypeScript program (`tsconfig.json`). Don't add to it.
-- The `tests/`, `test/`, and root-level `test-*.js` files are integration
-  scripts; there is no Vitest/Jest suite yet.
+- The `test/` directory holds integration scripts only; there is no
+  Vitest/Jest suite yet.
+
+## Brand
+
+The offer is the **Founder Intelligence System** (FIS for short after
+first reference). The lead-qualifier funnel is the **AI Readiness
+Diagnostic** — distinct from the FIS. Do not conflate them.
 
 ## Stack guardrail
 
 `pnpm check:no-firebase` is the bright line: any reintroduction of
-Firebase imports, packages, or env keys fails CI. If a task seems to
-require Firebase, escalate before writing code.
+Firebase imports, packages, or env keys fails CI. Firebase, Whop, and
+the admin/portal/engine surface were intentionally removed — don't
+bring them back without explicit direction.
 
 ## Validation contract
 

@@ -1,4 +1,4 @@
-import type { AppliedIntelligenceLeadInput } from "./lead-schema";
+import type { FounderIntelligenceLeadInput } from "./lead-schema";
 
 export type LeadPriority = "low" | "medium" | "high" | "urgent";
 
@@ -14,8 +14,8 @@ export type LeadScores = {
 const PRIME_REVENUE = ["$250K–$500K", "$500K–$1M", "$1M–$2M", "$2M–$5M"];
 const ACTIVE_TIMELINES = ["Immediately", "30 days", "60 days", "90 days"];
 
-export function scoreAppliedIntelligenceLead(
-  input: AppliedIntelligenceLeadInput,
+export function scoreFounderIntelligenceLead(
+  input: FounderIntelligenceLeadInput,
 ): LeadScores {
   const revenueScore = PRIME_REVENUE.includes(input.annualRevenueRange || "")
     ? 25

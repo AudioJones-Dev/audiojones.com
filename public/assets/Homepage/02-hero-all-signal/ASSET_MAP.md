@@ -121,7 +121,7 @@ Role: Center transition noise that blends the dark noise field into the light ri
 ## System Diagram — Desktop
 
 File: system-diagram/hero-system-diagram-transparent.png.png
-Role: Applied Intelligence loop icon cluster (Input -> Process -> Output -> Feedback), desktop size.
+Role: Founder Intelligence System loop icon cluster (Input -> Process -> Output -> Feedback), desktop size.
 
 ---
 

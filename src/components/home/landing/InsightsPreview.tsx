@@ -23,9 +23,9 @@ const insights = [
     href: "/insights/marketing-attribution-causal-identification",
   },
   {
-    q: "What is Applied Intelligence?",
+    q: "What is Founder Intelligence System?",
     a: "The integration of human judgment, data signals, and feedback loops into a repeatable operating system. Not a tool. A system.",
-    href: "/insights/applied-intelligence-systems",
+    href: "/insights/founder-intelligence-systems",
   },
   {
     q: "Why is AI not the first step?",

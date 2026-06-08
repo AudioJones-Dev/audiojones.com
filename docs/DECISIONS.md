@@ -49,7 +49,7 @@ Full context: [`docs/architecture/stack-decision.md`](./architecture/stack-decis
 ## 2026-04-29 — NeonDB as the lead store
 
 **Status:** accepted
-**Decision:** Applied Intelligence diagnostic leads and other
+**Decision:** Founder Intelligence System diagnostic leads and other
 structured marketing data persist to NeonDB (Postgres). Sanity remains
 the CMS for unstructured/long-form content.
 

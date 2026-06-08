@@ -300,7 +300,7 @@ export default function HeroAllSignal() {
             display: "block",
           }}
         >
-          Applied Intelligence Systems
+          Founder Intelligence Systems
         </span>
 
         {/* Desktop heading — same content as the canonical mobile <h1>
@@ -413,7 +413,7 @@ export default function HeroAllSignal() {
             display: "block",
           }}
         >
-          Applied Intelligence Systems
+          Founder Intelligence Systems
         </span>
 
         <h1

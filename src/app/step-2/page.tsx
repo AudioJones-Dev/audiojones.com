@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Breadcrumbs from "@/components/applied-intelligence/Breadcrumbs";
-import FAQ from "@/components/applied-intelligence/FAQ";
-import FinalCTA from "@/components/applied-intelligence/FinalCTA";
-import MissingMiddleDiagram from "@/components/applied-intelligence/MissingMiddleDiagram";
-import Step2Framework from "@/components/applied-intelligence/Step2Framework";
+import Breadcrumbs from "@/components/founder-intelligence/Breadcrumbs";
+import FAQ from "@/components/founder-intelligence/FAQ";
+import FinalCTA from "@/components/founder-intelligence/FinalCTA";
+import MissingMiddleDiagram from "@/components/founder-intelligence/MissingMiddleDiagram";
+import Step2Framework from "@/components/founder-intelligence/Step2Framework";
 import JsonLd from "@/components/seo/JsonLd";
 import { buildMetadata } from "@/lib/seo/metadata";
 import {
@@ -28,14 +28,14 @@ const FAQS = [
       "AI projects often fail because businesses automate unclear workflows, skip operational diagnosis, lack attribution, and do not define measurable outcomes before implementation.",
   },
   {
-    question: "What is the difference between AI hype and applied intelligence?",
+    question: "What is the difference between AI hype and Founder Intelligence?",
     answer:
-      "AI hype focuses on tools and promises. Applied intelligence focuses on using tools inside real workflows to produce measurable business outcomes.",
+      "AI hype focuses on tools and promises. Founder Intelligence focuses on using tools inside real workflows to produce measurable business outcomes.",
   },
   {
     question: "How does Audio Jones help businesses with AI?",
     answer:
-      "Audio Jones helps businesses identify bottlenecks, redesign workflows, build applied intelligence systems, create attribution loops, and measure whether AI improves revenue, margin, speed, or decision quality.",
+      "Audio Jones helps businesses identify bottlenecks, redesign workflows, build Founder Intelligence Systems, create attribution loops, and measure whether AI improves revenue, margin, speed, or decision quality.",
   },
   {
     question: "What should a business do before adopting AI?",
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
   ...buildMetadata({
     title: "Step 2: The Missing Layer Between AI Hype and Profit | Audio Jones",
     description:
-      "Step 2 is the missing operating layer between AI capability and measurable business outcomes. Audio Jones helps businesses turn AI hype into applied intelligence, attribution, workflow redesign, and profit.",
+      "Step 2 is the missing operating layer between AI capability and measurable business outcomes. Audio Jones helps businesses turn AI hype into Founder Intelligence System, attribution, workflow redesign, and profit.",
     path: PATH,
     type: "article",
   }),
@@ -88,7 +88,7 @@ export default function Step2Page() {
         />
         <div className="mx-auto max-w-4xl px-5 sm:px-8">
           <p className="mb-3 text-xs font-semibold uppercase tracking-[0.22em] text-[#C8A96A]">
-            Applied Intelligence for the missing middle
+            Founder Intelligence System for the missing middle
           </p>
           <h1 className="text-balance text-4xl font-semibold leading-[1.05] text-white sm:text-5xl lg:text-6xl">
             Step 2: The Missing Layer Between AI Hype and Profit
@@ -102,10 +102,10 @@ export default function Step2Page() {
           <p className="mt-4 text-lg text-slate-300">
             Audio Jones builds Step 2 through{" "}
             <Link
-              href="/applied-intelligence"
+              href="/founder-intelligence-system"
               className="text-[#3B5BFF] hover:text-[#5B7AFF]"
             >
-              applied intelligence
+              Founder Intelligence System
             </Link>
             ,{" "}
             <Link
@@ -131,10 +131,10 @@ export default function Step2Page() {
               Build Your Step 2 System
             </Link>
             <Link
-              href="/applied-intelligence"
+              href="/founder-intelligence-system"
               className="inline-flex items-center justify-center rounded-md border border-white/15 px-6 py-3 text-sm font-semibold text-white transition hover:border-white/30 hover:bg-white/5"
             >
-              Explore Applied Intelligence
+              Explore Founder Intelligence System
             </Link>
           </div>
         </div>
@@ -207,7 +207,7 @@ export default function Step2Page() {
           </ul>
           <p className="mt-6 text-lg text-slate-300">
             Without Step 2, AI remains hype. With Step 2, AI becomes
-            applied intelligence.
+            Founder Intelligence System.
           </p>
         </div>
       </section>

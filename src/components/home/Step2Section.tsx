@@ -1,5 +1,5 @@
 import Link from "next/link";
-import MissingMiddleDiagram from "@/components/applied-intelligence/MissingMiddleDiagram";
+import MissingMiddleDiagram from "@/components/founder-intelligence/MissingMiddleDiagram";
 import { ctaLinks } from "@/config/links";
 
 export default function Step2Section() {
@@ -8,7 +8,7 @@ export default function Step2Section() {
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
         <div className="mb-12 max-w-3xl">
           <p className="mb-3 text-xs font-semibold uppercase tracking-[0.22em] text-[#C8A96A]">
-            Applied Intelligence for the missing middle
+            Founder Intelligence System for the missing middle
           </p>
           <h2 className="text-balance text-3xl font-semibold leading-tight sm:text-4xl">
             Most businesses are missing Step 2.

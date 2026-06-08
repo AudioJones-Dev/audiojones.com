@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Breadcrumbs from "@/components/applied-intelligence/Breadcrumbs";
-import InsightArticle from "@/components/applied-intelligence/InsightArticle";
-import { H2, P, UL } from "@/components/applied-intelligence/FrameworkArticle";
-import FAQ from "@/components/applied-intelligence/FAQ";
+import Breadcrumbs from "@/components/founder-intelligence/Breadcrumbs";
+import InsightArticle from "@/components/founder-intelligence/InsightArticle";
+import { H2, P, UL } from "@/components/founder-intelligence/FrameworkArticle";
+import FAQ from "@/components/founder-intelligence/FAQ";
 import JsonLd from "@/components/seo/JsonLd";
 import { buildMetadata } from "@/lib/seo/metadata";
 import {
@@ -101,10 +101,10 @@ export default function Page() {
           , and document the workflow. Then deploy AI inside that
           architecture — see the{" "}
           <Link
-            href="/frameworks/applied-intelligence-systems"
+            href="/frameworks/founder-intelligence-systems"
             className="text-[#3B5BFF] hover:text-[#5B7AFF]"
           >
-            Applied Intelligence Systems framework
+            Founder Intelligence Systems framework
           </Link>{" "}
           for the order.
         </P>

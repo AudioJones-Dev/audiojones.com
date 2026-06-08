@@ -1,7 +1,7 @@
 # audiojones.com
 
 Public marketing site for **AJ Digital LLC** — content, SEO/AEO, the
-Applied Intelligence diagnostic, lead capture, and booking. Built on
+Founder Intelligence System diagnostic, lead capture, and booking. Built on
 Next.js 16 (App Router, React 19) and TypeScript, deployed via Vercel
 behind Cloudflare.
 
@@ -32,15 +32,18 @@ Cloudflare → Vercel + Next.js 16 (App Router, React 19, TypeScript strict)
              → NeonDB (Postgres) — leads + structured data
              → Resend — transactional email
              → n8n — optional workflow automation
-             → Supabase — only when auth/storage/realtime is needed
-             → Whop / Stripe — licensing and payments
+             → Stripe — payments
+             → MailerLite — waitlist + newsletter enrollment
              → ImageKit — media CDN
+             → GoDaddy — DNS automation
 ```
 
 **Firebase is intentionally excluded.** See
 [`docs/DECISIONS.md`](./docs/DECISIONS.md). The
 `pnpm check:no-firebase` script fails CI if a Firebase import, package,
-or env key is reintroduced.
+or env key is reintroduced. **Whop is also currently excluded** — the
+old admin/portal/engine tree was removed alongside Firebase and Whop
+will be re-added separately.
 
 ## Quick start
 
@@ -83,14 +86,13 @@ Never commit secrets — see [`docs/SECURITY.md`](./docs/SECURITY.md).
 | --------------------------- | ------------------------------------------------ |
 | `src/app/`                  | Next.js App Router pages and API routes.         |
 | `src/components/`           | UI components (canonical primitives in `ui/`).   |
-| `src/lib/`                  | Domain logic (lead scoring, applied-intelligence tokens, integrations). |
+| `src/lib/`                  | Domain logic (lead scoring, founder-intelligence tokens, integrations). |
 | `src/db/`                   | NeonDB clients and lead persistence.             |
 | `db/migrations/`            | SQL migrations for the lead store.               |
-| `packages/`                 | Workspace packages (`@aj/config`, `@aj/whop`, adapters). |
+| `packages/`                 | Workspace packages (`@aj/config`).               |
 | `public/`                   | Static assets (fonts, logos, images).            |
 | `docs/`                     | Canonical documentation.                         |
 | `scripts/`, `tools/`        | One-off and operational scripts.                 |
-| `functions/`                | **Legacy Firebase Functions tree.** Excluded from the TS program; do not extend. |
 
 ## License
 

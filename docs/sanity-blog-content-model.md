@@ -28,7 +28,7 @@ Pillar → TopicCluster → Post
 
 ### Core Pillars
 
-1. Applied Intelligence Systems
+1. Founder Intelligence Systems
 2. Signal vs Noise
 3. M.A.P Attribution
 4. Why AI Fails
@@ -37,7 +37,7 @@ Pillar → TopicCluster → Post
 ### Topic Cluster Routes
 
 ```
-/blog/topic/applied-intelligence-systems
+/blog/topic/founder-intelligence-systems
 /blog/topic/signal-vs-noise
 /blog/topic/map-attribution
 /blog/topic/why-ai-fails
@@ -220,7 +220,7 @@ Every published post must include:
 
 | # | Title | Cluster | Focus Keyword |
 |---|---|---|---|
-| 1 | What Is an Applied Intelligence System? | applied-intelligence-systems | applied intelligence system |
+| 1 | What Is a Founder Intelligence System? | founder-intelligence-systems | Founder Intelligence system |
 | 2 | Why AI Fails in Founder-Led Businesses | why-ai-fails | why AI fails small business |
 | 3 | What Is Signal vs Noise in Business? | signal-vs-noise | signal vs noise business |
 | 4 | What Is M.A.P Attribution? | map-attribution | MAP attribution framework |
@@ -229,7 +229,7 @@ Every published post must include:
 | 7 | How to Know If Your Business Is AI Ready | ai-readiness | AI readiness checklist |
 | 8 | Vanity Metrics vs Causal Metrics | signal-vs-noise | vanity metrics causal metrics |
 | 9 | How Founder-Led Businesses Can Use AI Without Scaling Chaos | ai-readiness | AI for founders |
-| 10 | Diagnose Before You Automate | applied-intelligence-systems | diagnose before automate |
+| 10 | Diagnose Before You Automate | founder-intelligence-systems | diagnose before automate |
 
 ---
 
@@ -237,17 +237,17 @@ Every published post must include:
 
 Each post should link to at least one framework page:
 
-- Applied Intelligence Systems → `/frameworks/applied-intelligence-systems`
+- Founder Intelligence Systems → `/frameworks/founder-intelligence-systems`
 - Signal vs Noise → `/frameworks/signal-vs-noise`
 - M.A.P Attribution → `/frameworks/map-attribution`
-- AI content → `/applied-intelligence`
-- Diagnostic CTAs → `/applied-intelligence/diagnostic`
+- AI content → `/founder-intelligence-system`
+- Diagnostic CTAs → `/founder-intelligence-system/diagnostic`
 
 ---
 
 ## Blog Positioning Statement
 
-> The Audio Jones blog documents Applied Intelligence Systems, signal strategy,
+> The Audio Jones blog documents Founder Intelligence Systems, signal strategy,
 > attribution, and AI-readiness for founder-led businesses.
 
 Use this in meta descriptions, social bios, and `og:description` fields.

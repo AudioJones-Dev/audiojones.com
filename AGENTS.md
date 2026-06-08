@@ -12,7 +12,7 @@ it inherits everything below.
 ## 1. What this repo is
 
 `audiojones.com` is the public marketing site for **AJ Digital LLC** —
-content, SEO/AEO, the Applied Intelligence diagnostic, lead capture, and
+content, SEO/AEO, the Founder Intelligence System diagnostic, lead capture, and
 booking. It is **not** an admin/portal monolith.
 
 Stack (canonical — see [`docs/DECISIONS.md`](./docs/DECISIONS.md) and
@@ -24,17 +24,18 @@ Cloudflare → Vercel + Next.js 16 (App Router, React 19)
              → NeonDB (Postgres) — leads + structured data
              → Resend — transactional email
              → n8n — optional automation
-             → Supabase — only when auth/storage/realtime is genuinely required
-             → Whop — product licensing/checkout
              → Stripe — payments
+             → MailerLite — waitlist + newsletter enrollment
              → ImageKit — media CDN
+             → GoDaddy — DNS automation
 ```
 
 **Firebase is intentionally excluded.** `pnpm check:no-firebase` enforces this.
+**Whop is intentionally excluded** for now — will be re-added separately.
 
-Some legacy `/portal/*` and `/api/admin/*` routes exist from a previous
-Firebase era; they are being phased out. New work targets the marketing
-surface and Applied Intelligence flows.
+There is no admin portal, no client portal, no auth, no engines, and no
+`/api/admin/*` surface. The whole `/portal/*` tree was removed alongside
+Firebase. All work targets the public marketing surface.
 
 ---
 
@@ -73,7 +74,7 @@ surface and Applied Intelligence flows.
 | Stack decision       | [`docs/architecture/stack-decision.md`](./docs/architecture/stack-decision.md) |
 | Marketing IA         | [`docs/archive/MARKETING-IA.md`](./docs/archive/MARKETING-IA.md) |
 | Nav config           | `src/config/nav.ts`                                         |
-| Lead intake          | `src/app/api/applied-intelligence/leads/route.ts`           |
+| Lead intake          | `src/app/api/founder-intelligence/leads/route.ts`           |
 | Lead persistence     | `src/db/leads.ts`, `db/migrations/`                         |
 
 Older root-level docs (`AUDIOJONES_DESIGN.md`, `DEPLOYMENT.md`,
@@ -167,11 +168,11 @@ description):
 For bug fixes: reproduce or precisely identify the failure first, fix
 only the cause, then verify.
 
-For funnels, lead capture, integrations (Sanity, Neon, Resend, Whop,
-Stripe, ImageKit, n8n): **audit the existing wiring before changing
-it.** Read the route, the schema, the env keys, and the downstream
-consumer. Funnel regressions are expensive; mis-scoped edits there are
-the most common cause.
+For funnels, lead capture, integrations (Sanity, Neon, Resend,
+Stripe, MailerLite, ImageKit, n8n): **audit the existing wiring before
+changing it.** Read the route, the schema, the env keys, and the
+downstream consumer. Funnel regressions are expensive; mis-scoped edits
+there are the most common cause.
 
 ### 5.5 Validation before handoff
 

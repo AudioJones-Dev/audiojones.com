@@ -4,12 +4,12 @@
 **Supersedes:** `AUDIOJONES_DESIGN.md` (root) and `docs/design.md`
 
 This is the single source of truth for the AudioJones.com brand, voice,
-and Applied Intelligence UI surface. It mirrors the brand-folder design
+and Founder Intelligence System UI surface. It mirrors the brand-folder design
 system (Audio Jones Design System) and is implemented in this repo as:
 
 - `src/app/globals.css` — CSS variables + `@theme inline` Tailwind v4
   bridge + semantic typography classes.
-- `src/lib/applied-intelligence/tokens.ts` — TypeScript token mirror.
+- `src/lib/founder-intelligence-system/tokens.ts` — TypeScript token mirror.
 - `src/components/ui/` — canonical primitives (Button, Eyebrow, …).
 - `public/fonts/` — self-hosted Inter / Sora / Space Grotesk.
 - `public/assets/logos/` and `public/assets/trusted-by/` — brand assets.
@@ -43,7 +43,7 @@ Avoid:
 
 ## 2. Brand position
 
-**Audio Jones (AJ Digital LLC)** — Applied Intelligence Systems Partner
+**Audio Jones (AJ Digital LLC)** — Founder Intelligence Systems Partner
 for founder-led businesses ($250K–$5M revenue range).
 
 ### Core phrase
@@ -64,7 +64,7 @@ expertise into scalable infrastructure.
 
 - Agent Systems
 - Revenue Recovery Infrastructure
-- Applied Intelligence Systems
+- Founder Intelligence Systems
 - AI Readiness Diagnostic
 - Business Signal Clarity
 - Operating System for Founder-Led Growth
@@ -99,8 +99,8 @@ AI Readiness Diagnostic · Book a Call
 
 ### Surface tiers
 
-- **Applied Intelligence surface** (canonical): homepage, `/agents`,
-  `/applied-intelligence`, `/ai-readiness-diagnostic`, `/services`,
+- **Founder Intelligence System surface** (canonical): homepage, `/agents`,
+  `/founder-intelligence-system`, `/ai-readiness-diagnostic`, `/services`,
   `/insights`, `/roi-calculator`, `/workshops`, `/case-studies`,
   `/book-a-call`. New work targets this surface.
 - **Legacy marketing surface**: `/blog`, older `/services` variants,
@@ -197,7 +197,7 @@ map this voice serves.
 A token, color, or font change is not done until it lands in:
 
 1. `src/app/globals.css`
-2. `src/lib/applied-intelligence/tokens.ts`
+2. `src/lib/founder-intelligence-system/tokens.ts`
 3. The brand-folder design system
 4. This document
 

@@ -36,7 +36,7 @@ export const TIMELINE_OPTIONS = [
   "Exploring only",
 ] as const;
 
-export const appliedIntelligenceLeadSchema = z.object({
+export const founderIntelligenceLeadSchema = z.object({
   firstName: z.string().min(1, "First name is required"),
   lastName: z.string().optional(),
   email: z.string().email("Valid email is required"),
@@ -88,6 +88,6 @@ export const appliedIntelligenceLeadSchema = z.object({
   utmContent: z.string().optional(),
 });
 
-export type AppliedIntelligenceLeadInput = z.infer<
-  typeof appliedIntelligenceLeadSchema
+export type FounderIntelligenceLeadInput = z.infer<
+  typeof founderIntelligenceLeadSchema
 >;

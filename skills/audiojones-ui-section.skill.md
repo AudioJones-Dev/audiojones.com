@@ -11,7 +11,7 @@ Use this skill when creating new UI on AudioJones.com. It enforces the Editorial
 
 1. **Read `docs/design/DESIGN.md` first.** This is the source of truth — tokens, components, anti-patterns, drift risks.
 2. **Read `docs/design/design-principles.md`.** Decision framework for ambiguous cases.
-3. **Check existing implementations.** Before designing, look at the most-similar existing surface (`/applied-intelligence`, `/services`, `/insights`, `/blog`, `/apply`). Match their visual rhythm where reasonable.
+3. **Check existing implementations.** Before designing, look at the most-similar existing surface (`/founder-intelligence-system`, `/services`, `/insights`, `/blog`, `/apply`). Match their visual rhythm where reasonable.
 4. **Identify the conversion criticality of this surface.** Lead-capture critical (form that drives leads) vs. marketing-page critical (hero, content section) vs. supporting. Different rules apply — see §17.5 of DESIGN.md.
 
 ## Authoring rules

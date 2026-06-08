@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Breadcrumbs from "@/components/applied-intelligence/Breadcrumbs";
-import FinalCTA from "@/components/applied-intelligence/FinalCTA";
+import Breadcrumbs from "@/components/founder-intelligence/Breadcrumbs";
+import FinalCTA from "@/components/founder-intelligence/FinalCTA";
 import JsonLd from "@/components/seo/JsonLd";
 import { FRAMEWORKS } from "@/content/frameworks";
 import { buildMetadata } from "@/lib/seo/metadata";
@@ -10,7 +10,7 @@ import { breadcrumbJsonLd } from "@/lib/seo/schema";
 export const metadata: Metadata = buildMetadata({
   title: "Frameworks | Audio Jones",
   description:
-    "The Audio Jones framework library: Applied Intelligence Systems, M.A.P Attribution, N.I.C.H.E, and Signal vs Noise.",
+    "The Audio Jones framework library: Founder Intelligence Systems, M.A.P Attribution, N.I.C.H.E, and Signal vs Noise.",
   path: "/frameworks",
 });
 
