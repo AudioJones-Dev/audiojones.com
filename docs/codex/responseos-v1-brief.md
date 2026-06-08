@@ -135,8 +135,8 @@ clarity yet, and shipping them deep would dilute ResponseOS's wedge effect.
 - ❌ No CTA destination changes site-wide. ResponseOS CTAs flow through
   `ctaLinks.bookSession` → `/book-a-call` and `ctaLinks.signalDiagnostic` →
   whichever route is canonical when v1 ships
-- ❌ No Stripe/Whop integration on the page. Pricing is **posture**, not
-  checkout (see §9)
+- ❌ No Stripe integration on the page. Pricing is **posture**, not
+  checkout (see §9). (Whop was removed site-wide on 2026-06-08.)
 - ❌ No demo functionality in v1. `/agents/responseos/demo` is documented in
   §11 as a follow-up; this PR does not implement it
 - ❌ No live phone/SMS infrastructure on the page. The page describes the
@@ -600,7 +600,7 @@ Documented so it doesn't get rebuilt mid-v1. None of these ship in this PR.
 | `/agents/responseos/case-studies/[slug]` | First case study with attribution permission |
 | `/agents/responseos/changelog` | When Audio Jones starts shipping ResponseOS updates publicly |
 | Self-serve pricing surface at `/agents/responseos/pricing` | When self-serve tier opens (Phase 3+) |
-| Client portal connection at `client.audiojones.com/responseos` | When ClientOS lands |
+| Client portal connection at `client.audiojones.com/responseos` | If/when a client-servicing surface ships in a separate application — the client portal was removed from this codebase on 2026-06-08 |
 | Multi-location dashboard | When a multi-location operator becomes a public reference customer |
 | Industry-specific landing pages (`/agents/responseos/home-services`, etc.) | When inbound traffic data shows clear vertical segmentation |
 
@@ -649,11 +649,13 @@ ResponseOS v1 is done when:
 - ❌ SignalOS / ContentOS / PodcastOS / ClientOS / SalesOS deep pages
   (placeholders only — separate PR)
 - ❌ ResponseOS pricing table or self-serve checkout
-- ❌ Client portal integration (waits for ClientOS)
+- ❌ Client portal integration (the client portal was removed from
+  this codebase on 2026-06-08 — see [`docs/CHANGELOG.md`](../CHANGELOG.md))
 - ❌ Industry-specific landing pages
 - ❌ ResponseOS changelog or release notes
 - ❌ Customer logo strip beyond what real attribution permits
-- ❌ Stripe / Whop / any payment integration on the page
+- ❌ Stripe or any payment integration on the page (Whop was removed
+  site-wide on 2026-06-08)
 - ❌ A/B test framework (Phase 3+)
 - ❌ Newsletter capture on the page (use the footer)
 
@@ -665,7 +667,8 @@ ResponseOS v1 is done when:
   brief
 - `docs/design/DESIGN.md` — binding visual + token rules
 - `docs/architecture/stack-decision.md` — stack constraints (no Firebase,
-  Vercel + Neon + Sanity + Resend + n8n only)
+  no Whop, no Supabase; Cloudflare → Vercel + Next.js + Sanity + Neon +
+  Resend + n8n + Stripe + MailerLite + ImageKit)
 - `src/components/seo/RelatedLinks.tsx` — internal-link block to reuse
 - `src/lib/seo/schema.ts` — JSON-LD builders (will need a new
   `serviceJsonLd()` for §10)

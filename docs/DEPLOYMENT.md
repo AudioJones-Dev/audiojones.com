@@ -16,16 +16,18 @@ like this, see [`DECISIONS.md`](./DECISIONS.md) and
 ```
 Cloudflare → Vercel + Next.js 16 (App Router, React 19)
              → Sanity CMS
-             → NeonDB (Postgres)
-             → Resend
-             → n8n
-             → Supabase   (only if auth/storage/realtime is needed)
-             → Whop / Stripe
-             → ImageKit
+             → NeonDB (Postgres)        — leads + structured data
+             → Resend                   — transactional email
+             → n8n                      — optional automation
+             → Stripe                   — payments
+             → MailerLite               — waitlist + newsletter
+             → ImageKit                 — media CDN
+             → GoDaddy                  — DNS (delegated to Cloudflare)
 ```
 
-Firebase is intentionally excluded. `pnpm check:no-firebase` enforces
-this; do not bypass it.
+Firebase, Whop, Supabase, and OpenAI are intentionally excluded.
+`pnpm check:no-firebase` enforces the Firebase guardrail; do not bypass
+it.
 
 ---
 
@@ -33,10 +35,11 @@ this; do not bypass it.
 
 | Concern         | Provider                                              |
 | --------------- | ----------------------------------------------------- |
-| DNS / WAF / CDN | Cloudflare                                            |
+| DNS             | GoDaddy registrar, delegated to Cloudflare            |
+| WAF / CDN       | Cloudflare                                            |
 | App hosting     | Vercel (automatic deploys from `main` and PR branches)|
 | Media CDN       | ImageKit (`https://ik.imagekit.io/audiojones`)        |
-| Static binary   | Cloudflare R2 (preferred) or Supabase Storage         |
+| Static binary   | Cloudflare R2                                         |
 
 The Vercel project is `audiojones-com` under the AJ Digital team. PRs
 get preview deployments automatically; merging to `main` deploys to
@@ -192,8 +195,9 @@ then Sentry, then the relevant integration's dashboard.
   `NEXT_PUBLIC_SANITY_PROJECT_ID` won't crash the build, but the blog
   surface will render empty. Set it explicitly per environment.
 - **n8n outage.** Lead capture must keep working. Confirm
-  `applied_intelligence_leads` is receiving rows in Neon when the n8n
-  webhook is timing out.
+  `applied_intelligence_leads` (legacy table name, still canonical — see
+  [`DECISIONS.md`](./DECISIONS.md)) is receiving rows in Neon when the
+  n8n webhook is timing out.
 
 ---
 

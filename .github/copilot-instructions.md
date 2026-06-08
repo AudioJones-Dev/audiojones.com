@@ -8,10 +8,14 @@
 ## What this repo is
 
 `audiojones.com` is the **public marketing site** for AJ Digital LLC —
-content, SEO/AEO, the Applied Intelligence diagnostic, lead capture, and
-booking. It is **not** an admin/portal application; the legacy
-`/portal/*` and `/api/admin/*` surface is being phased out and should
-not be deepened.
+content, SEO/AEO, the Founder Intelligence System offer, the AI
+Readiness Diagnostic lead qualifier, and booking. It is **not** an
+admin/portal application; the `/portal/*`, `/api/admin/*`,
+`/api/governance/*`, `/api/incidents/*`, all "engines"
+(`src/lib/{ai,analytics,automation,backup,featureflags,firestore,
+multitenant,observability,performance,secrets,security,slo,streaming,
+mcp,server,shared}/`), and all auth scaffolding were deleted on
+2026-06-08. Do not reintroduce them.
 
 ## Stack
 
@@ -21,15 +25,18 @@ Cloudflare → Vercel + Next.js 16 (App Router, React 19, TypeScript strict)
              → NeonDB (Postgres) — leads + structured data
              → Resend — transactional email
              → n8n — optional workflow automation
-             → Supabase — only when auth/storage/realtime is needed
-             → Whop / Stripe — licensing and payments
+             → Stripe — payments
+             → MailerLite — waitlist + newsletter
              → ImageKit — media CDN
+             → GoDaddy — DNS (delegated to Cloudflare)
 ```
 
-**Firebase is intentionally excluded.** Do not reintroduce
-`firebase`, `firebase-admin`, `FIREBASE_*`, or
-`NEXT_PUBLIC_FIREBASE_*`. The `pnpm check:no-firebase` script fails CI
-if you do. See [`docs/DECISIONS.md`](../docs/DECISIONS.md) and
+**Firebase, Whop, Supabase, and OpenAI are intentionally excluded.**
+Do not reintroduce `firebase`, `firebase-admin`, `FIREBASE_*`,
+`NEXT_PUBLIC_FIREBASE_*`, the `@aj/whop` package, `WHOP_*`,
+`SUPABASE_*`, or `OPENAI_API_KEY`. The `pnpm check:no-firebase` script
+fails CI on Firebase reintroduction. See
+[`docs/DECISIONS.md`](../docs/DECISIONS.md) and
 [`docs/architecture/stack-decision.md`](../docs/architecture/stack-decision.md)
 for the rationale.
 
@@ -48,23 +55,25 @@ for the rationale.
 | Env validation       | `packages/config/env.schema.ts`                                |
 | Marketing IA         | [`docs/archive/MARKETING-IA.md`](../docs/archive/MARKETING-IA.md) |
 | Nav config           | `src/config/nav.ts`                                            |
-| Lead intake          | `src/app/api/applied-intelligence/leads/route.ts`              |
+| Lead intake          | `src/app/api/founder-intelligence/leads/route.ts`              |
 | Lead persistence     | `src/db/leads.ts`, `db/migrations/`                            |
 
 ## Architecture patterns
 
 ### Lead capture (the most important flow)
 
-1. Form submits to `src/app/api/applied-intelligence/leads/route.ts` (or
-   the generic `src/app/api/leads/route.ts`).
+1. Form submits to `src/app/api/founder-intelligence/leads/route.ts`
+   (the diagnostic form) or the generic `src/app/api/leads/route.ts`.
 2. Handler validates with **Zod**, rate-limits per IP, and scores the
    lead via `src/lib/leads/lead-scoring.ts`.
 3. Lead is **persisted to NeonDB** (`src/db/leads.ts →
-   insertAppliedIntelligenceLead`) **before** the response returns.
+   insertFounderIntelligenceLead`, against the legacy
+   `applied_intelligence_leads` table — name kept stable) **before**
+   the response returns.
 4. Internal notification is sent via **Resend**
    (`RESEND_API_KEY` + `LEAD_NOTIFICATION_EMAIL`).
-5. Optional `N8N_LEAD_WEBHOOK_URL` fires last; failures are logged but
-   never block the response.
+5. Optional `N8N_LEAD_WEBHOOK_URL` (or `CRM_WEBHOOK_URL`) fires last;
+   failures are logged but never block the response.
 
 ### Content
 
@@ -74,8 +83,8 @@ CMS** and is rendered through the App Router. Schema notes:
 
 ### Commerce
 
-- **Whop** (`/api/whop/*`) — productized offerings, licensing.
-- **Stripe** (`/api/stripe/*`) — payments and customer portal.
+- **Stripe** (`/api/stripe/*`) — payments and customer portal. Sole
+  payments provider; Whop was removed on 2026-06-08.
 
 The site links into checkout but does not own post-purchase fulfillment.
 

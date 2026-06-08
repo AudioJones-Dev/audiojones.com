@@ -16,9 +16,11 @@ variable, integration, or admin endpoint.
    messages, not in PR descriptions.
 2. **No Firebase reintroduction.** `pnpm check:no-firebase` enforces
    this in CI.
-3. **No admin endpoints without auth.** Any route under
-   `/api/admin/*` or `/portal/admin/*` must verify identity *and*
-   authorization on the server.
+3. **No admin/portal surface.** The legacy `/portal/*`, `/api/admin/*`,
+   `/api/governance/*`, and `/api/incidents/*` trees were removed on
+   2026-06-08 along with all auth scaffolding. Do not reintroduce
+   admin or authenticated surfaces here; new customer-servicing needs
+   belong to a separate application.
 4. **No client-side secrets.** Anything prefixed `NEXT_PUBLIC_*` is
    shipped to the browser. Server-only secrets must not start with that
    prefix.
@@ -56,8 +58,8 @@ the approved stores above — including:
 
 ### Response
 
-1. **Rotate immediately** in the issuing system (Stripe, Whop, Resend,
-   Neon, Sanity, etc.).
+1. **Rotate immediately** in the issuing system (Stripe, Resend, Neon,
+   Sanity, MailerLite, ImageKit, etc.).
 2. Update the value in Vercel for every scope (production, preview,
    development).
 3. Invalidate any derived sessions / tokens if the credential signed
@@ -80,22 +82,18 @@ the approved stores above — including:
 - Optional downstream calls (Resend, n8n) must not block the response
   on failure; failures are logged, not propagated.
 
-### 4.2 Admin / portal routes (legacy)
+### 4.2 Admin / portal routes
 
-The legacy admin surface uses three layers when present:
-
-1. **Edge middleware** (`middleware.ts`) — checks for a session cookie
-   before allowing `/portal/admin/*`.
-2. **Server layout** — verifies session cookie + admin claim.
-3. **API guards** — Bearer token validation in protected routes.
-
-Do not deepen this surface; it is on the decommission queue. New admin
-needs go to a separate application.
+There is no admin or client portal in this codebase. The legacy
+`/portal/*`, `/api/admin/*`, `/api/governance/*`, and `/api/incidents/*`
+trees were removed on 2026-06-08 along with `useAuth`, `AuthWidget`,
+`requireAdmin`, and `requireClient`. Do not reintroduce them; new
+customer-servicing surfaces belong to a separate application.
 
 ### 4.3 Webhook endpoints
 
-- Inbound webhooks (Whop, Stripe, n8n) verify signatures using their
-  documented secret before acting on the payload.
+- Inbound webhooks (Stripe, n8n, Vercel deploy hook) verify signatures
+  using their documented secret before acting on the payload.
 - The signing secret is read from env (`*_WEBHOOK_SECRET`); never
   hard-coded.
 - Replay protection is enforced where the provider supports it
@@ -116,7 +114,7 @@ Production responses set:
 - `Strict-Transport-Security` (HSTS) with a long max-age.
 - `Content-Security-Policy` scoped to the integrations actually used
   (Sanity, ImageKit, Cloudflare, Vercel analytics, Calendly/Cal.com,
-  Whop, Stripe).
+  Stripe, MailerLite).
 - `Referrer-Policy: strict-origin-when-cross-origin`.
 - `X-Content-Type-Options: nosniff`.
 - `Permissions-Policy` denying camera/microphone by default.

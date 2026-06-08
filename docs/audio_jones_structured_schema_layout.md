@@ -308,7 +308,7 @@ Our process is tailored for podcasters, consultants, and creators in the Miami m
       <div class="w-10 h-10 rounded-full bg-gradient-to-br from-[#FF4500] to-[#FFD700] flex items-center justify-center text-black font-bold text-lg mt-1">3</div>
       <div class="text-left">
         <h3 class="text-lg md:text-xl font-semibold mb-1 text-white">How do AI systems fit into all of this?</h3>
-        <p class="text-gray-300 leading-relaxed">We integrate AI + automation (MailerLite, n8n, Whop) so your show feeds your list, offers, and private communities automatically.</p>
+        <p class="text-gray-300 leading-relaxed">We integrate AI + automation (MailerLite, n8n, Stripe) so your show feeds your list, offers, and private communities automatically.</p>
       </div>
     </div>
   </div>

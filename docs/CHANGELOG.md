@@ -34,6 +34,53 @@ Entries are reverse chronological. Format follows
 
 ---
 
+## 2026-06-08 — Marketing-only collapse + Founder Intelligence rebrand
+
+### Removed
+- **Whop.** `@aj/whop` workspace package, `/api/whop/*` routes,
+  `WHOP_*` env keys, the Whop SDK dependency, and the
+  `/api/webhooks/whop` surface. Stripe remains the sole payments
+  provider.
+- **Firebase shims and the entire admin/portal/engine surface.**
+  `/portal/*`, `/api/admin/*`, `/api/governance/*`, `/api/incidents/*`,
+  all `src/lib/{ai,analytics,automation,backup,featureflags,firestore,
+  multitenant,observability,performance,secrets,security,slo,streaming,
+  mcp,server,shared}/` "engines", `firebaseAdmin.ts`,
+  `legacy-stubs.ts`, the auth surface (`useAuth`, `AuthWidget`,
+  `requireAdmin`, `requireClient`), the incidents pipeline, the
+  status page, the capacity banner, the blog admin components, and
+  the infrastructure scripts (`seedRunbooks`, `testBackupDR`,
+  `testSecretsRotation`, `infrastructure/*`) are all deleted.
+- Supabase, OpenAI, Discord, and Google Cloud references stripped
+  from documentation and env shape — none of those were live.
+
+### Changed
+- **Rebrand: Applied Intelligence → Founder Intelligence System.**
+  The `/api/applied-intelligence/leads` route is renamed to
+  `/api/founder-intelligence/leads`. Internal symbols renamed:
+  `AppliedIntelligenceLeadInput` → `FounderIntelligenceLeadInput`,
+  `insertAppliedIntelligenceLead` → `insertFounderIntelligenceLead`,
+  `persistAppliedIntelligenceLead` → `persistFounderIntelligenceLead`,
+  `scoreAppliedIntelligenceLead` → `scoreFounderIntelligenceLead`,
+  `notifyAppliedIntelligenceLead` → `notifyFounderIntelligenceLead`,
+  `appliedIntelligenceLeadSchema` → `founderIntelligenceLeadSchema`.
+  The Neon `applied_intelligence_leads` table is intentionally **not**
+  renamed; the legacy table name is stable and is read/written by
+  the new symbols.
+- The **AI Readiness Diagnostic** (`/ai-readiness-diagnostic`) is
+  unchanged — it is a distinct top-of-funnel lead qualifier, not the
+  same surface as the FIS discovery flow at
+  `/founder-intelligence-system/diagnostic`.
+
+### Notes
+- No `/applied-intelligence` page-level redirects ship — the rename
+  is hard. Inbound links from old URLs will 404; acceptable given
+  the low traffic on that surface.
+- Full context: [`docs/DECISIONS.md`](./DECISIONS.md) (three new
+  entries dated 2026-06-08).
+
+---
+
 ## 2026-04-29 — Firebase removed from AudioJones.com
 
 ### Changed

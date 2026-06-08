@@ -16,10 +16,12 @@ Cloudflare
     → NeonDB
     → Resend
     → n8n
-    → Supabase (only if auth, storage, or realtime is genuinely required)
+    → Stripe
+    → MailerLite
+    → ImageKit
 ```
 
-Firebase is **intentionally excluded** from this site.
+Firebase, Whop, and Supabase are **intentionally excluded** from this site.
 
 ## Why not Firebase
 
@@ -29,18 +31,21 @@ stack above without overlap:
 
 | Need                       | Service                                         |
 | -------------------------- | ----------------------------------------------- |
-| CDN, edge, WAF, DNS        | Cloudflare                                      |
+| DNS (registrar)            | GoDaddy (delegated to Cloudflare)               |
+| CDN, edge, WAF             | Cloudflare                                      |
 | Hosting, SSR, API routes   | Vercel + Next.js                                |
 | CMS / structured content   | Sanity                                          |
 | Lead + structured data DB  | NeonDB (Postgres)                               |
 | Transactional email        | Resend                                          |
-| Workflow / CRM automation  | n8n                                             |
-| Auth / storage / realtime  | Supabase (only when actually needed)            |
-| File / media CDN           | Cloudflare R2 or Supabase Storage               |
+| Waitlist / newsletter      | MailerLite                                      |
+| Workflow / CRM automation  | n8n (optional)                                  |
+| Payments                   | Stripe                                          |
+| Media CDN                  | ImageKit                                        |
+| File / static binary       | Cloudflare R2                                   |
 
 Adding Firebase on top of that would duplicate Vercel hosting, Vercel/Next.js
-serverless functions, Cloudflare R2 / Supabase storage, and Postgres — without
-adding capability for this specific site.
+serverless functions, Cloudflare R2, and Postgres — without adding capability
+for this specific site.
 
 Firebase Studio is also being sunset on **March 22, 2027**, with core Firebase
 services remaining available. This is not a panic migration — it is
@@ -52,8 +57,8 @@ architectural cleanup so the site stops carrying an unused dependency.
 | ------------------------------- | ----------------------------------------------------------------- |
 | Firestore (lead storage)        | NeonDB — `applied_intelligence_leads` (db/migrations/)            |
 | Firestore (CMS data)            | Sanity (already canonical)                                        |
-| Firebase Auth                   | Supabase Auth — only if auth is genuinely required                |
-| Firebase Storage                | Supabase Storage or Cloudflare R2                                 |
+| Firebase Auth                   | Not used — site has no auth surface (see 2026-06-08 decision)     |
+| Firebase Storage                | Cloudflare R2 (binaries) / ImageKit (media)                       |
 | Firebase Hosting                | Vercel + Cloudflare                                               |
 | Firebase Cloud Functions        | Next.js API routes / Vercel Functions / Cloudflare Workers / n8n  |
 | Firebase email triggers         | Resend (+ n8n for orchestration)                                  |
@@ -80,10 +85,10 @@ templates. Wire it into CI.
 
 ## Migration notes
 
-- `src/lib/legacy-stubs.ts` is a typed shim that throws on use. It exists only
-  so older admin/portal tooling that has not yet been migrated still
-  type-checks. New code must not import from it. Delete the shim once the last
-  consumer is gone.
 - `src/db/neon.ts` and `src/db/leads.ts` are the canonical NeonDB entry points.
 - The lead capture flow lives at `src/app/api/leads/route.ts` and
   `src/app/api/founder-intelligence/leads/route.ts` (the diagnostic form).
+- The Neon table is still named `applied_intelligence_leads` after the
+  2026-06-08 Applied Intelligence → Founder Intelligence System rebrand;
+  the legacy table name is stable and is read/written by the new symbols
+  (`insertFounderIntelligenceLead`, etc.). See [`docs/DECISIONS.md`](../DECISIONS.md).

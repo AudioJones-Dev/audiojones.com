@@ -92,7 +92,12 @@ local-environmental.
 
 - Not a Firebase project. Removed in PR #33. The repo guard
   (`pnpm check:no-firebase`) fails CI if Firebase is reintroduced.
-- Not a single-stack codebase yet — the `legacy marketing surface`
-  (`/services`, `/blog`, etc.) is still live but de-listed from the
-  primary nav. See `docs/design.md` for the canonical Applied
-  Intelligence surface direction.
+- Not an admin/portal application. The `/portal/*`, `/api/admin/*`,
+  and engine surfaces were removed on 2026-06-08. There is no auth in
+  this codebase.
+- Not a Whop integration. Whop was removed on 2026-06-08; Stripe is
+  the sole payments provider.
+- The canonical product surface is the **Founder Intelligence System**
+  (`/founder-intelligence-system`). The **AI Readiness Diagnostic**
+  (`/ai-readiness-diagnostic`) is a distinct top-of-funnel lead
+  qualifier. See [`DESIGN.md`](./DESIGN.md).

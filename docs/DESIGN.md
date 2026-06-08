@@ -100,11 +100,13 @@ AI Readiness Diagnostic · Book a Call
 ### Surface tiers
 
 - **Founder Intelligence System surface** (canonical): homepage, `/agents`,
-  `/founder-intelligence-system`, `/ai-readiness-diagnostic`, `/services`,
-  `/insights`, `/roi-calculator`, `/workshops`, `/case-studies`,
-  `/book-a-call`. New work targets this surface.
-- **Legacy marketing surface**: `/blog`, older `/services` variants,
-  `/portal/*`. Still live but de-listed; do not deepen.
+  `/founder-intelligence-system`, `/founder-intelligence-system/diagnostic`,
+  `/ai-readiness-diagnostic`, `/services`, `/insights`, `/roi-calculator`,
+  `/workshops`, `/case-studies`, `/book-a-call`, `/apply`, `/about`,
+  `/frameworks/*`, `/step-2`. New work targets this surface.
+- **Read-only legacy surfaces**: `/blog` (Sanity-driven, read-only).
+- **Removed**: `/portal/*` and the admin/engines surface were deleted
+  on 2026-06-08. Do not reintroduce.
 
 ---
 

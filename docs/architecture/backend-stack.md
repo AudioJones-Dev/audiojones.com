@@ -29,8 +29,9 @@ intentionally absent.
                           └─────────────┘
 ```
 
-Supabase sits next to NeonDB, only enabled when auth / storage / realtime is
-genuinely needed.
+Stripe (payments), MailerLite (waitlist + newsletter), and ImageKit (media
+CDN) sit alongside the core pipeline. None of them sit on the critical lead
+capture path.
 
 ## Lead capture flow
 
@@ -85,12 +86,19 @@ genuinely needed.
   `CRM_WEBHOOK_URL`).
 - Must remain optional — lead capture continues if n8n is unreachable.
 
-### Supabase
-- Used only when one of these is actually needed:
-  - server-side auth that must survive without our own user table,
-  - object storage with row-level security,
-  - realtime subscriptions over Postgres changes.
-- Otherwise omit `SUPABASE_*` entirely.
+### Stripe
+- Payments for productized offerings via `/api/stripe/*`.
+- Webhook signature verification via `STRIPE_WEBHOOK_SECRET`.
+
+### MailerLite
+- Waitlist + newsletter via `/api/newsletter` and the MailerLite
+  integration route (`/api/integrations/mailerlite`).
+- Token-based; falls back to a mock adapter on 4xx/5xx so the UI
+  surfaces a "pending" state rather than failing the request.
+
+### ImageKit
+- Media CDN. Routes through `IKImage` in `src/components/` with a
+  fallback to local `/public` assets in dev.
 
 ## Environments and secrets
 
@@ -109,6 +117,10 @@ genuinely needed.
 ## What is not in this stack
 
 - Firebase (Firestore, Auth, Storage, Hosting, Functions, Studio).
-- Google Cloud project-level dependencies (`@google-cloud/*` packages still
-  exist in `package.json` for Secret Manager / GCS interop with legacy
-  tooling, but they are not part of the runtime path for new features).
+- Whop. Removed on 2026-06-08; Stripe is the sole payments provider.
+- Supabase. The auth/storage/realtime surface this site would have used
+  it for no longer exists in this codebase.
+- OpenAI / direct LLM SDKs. The marketing site does not call LLMs at
+  request time.
+- Any admin, client portal, or authenticated surface. See
+  [`docs/DECISIONS.md`](../DECISIONS.md) (2026-06-08 entries).
