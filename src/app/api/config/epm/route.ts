@@ -2,8 +2,8 @@ import { NextResponse } from 'next/server';
 import epmConfig from '@/config/epm.json';
 import { upsertMailerLiteSubscriber } from '@/lib/integrations/mailerlite';
 
-const ALLOWED_WAITLIST_TAGS = new Set(
-  epmConfig.comingSoon.map((entry) => entry.waitlistTag)
+const WAITLIST_GROUP_BY_TAG = new Map(
+  epmConfig.comingSoon.map((entry) => [entry.waitlistTag, entry.waitlistGroupId])
 );
 
 // Pragmatic email check — rejects obvious garbage without trying to be RFC 5322.
@@ -41,18 +41,38 @@ export async function POST(request: Request) {
       );
     }
 
-    if (typeof waitlistTag !== 'string' || !ALLOWED_WAITLIST_TAGS.has(waitlistTag)) {
+    if (typeof waitlistTag !== 'string' || !WAITLIST_GROUP_BY_TAG.has(waitlistTag)) {
       return NextResponse.json(
         { error: 'Unknown waitlist tag' },
         { status: 400 }
       );
     }
 
-    await upsertMailerLiteSubscriber({ email: normalizedEmail, tag: waitlistTag });
+    const groupId = WAITLIST_GROUP_BY_TAG.get(waitlistTag);
+    if (!groupId || groupId.startsWith('REPLACE_WITH_')) {
+      console.error('[epm-waitlist] Group ID not configured for tag:', waitlistTag);
+      return NextResponse.json(
+        { error: 'Waitlist enrollment is not yet configured' },
+        { status: 503 }
+      );
+    }
+
+    const result = await upsertMailerLiteSubscriber({
+      email: normalizedEmail,
+      groupId,
+    });
+
+    if (!result.ok) {
+      console.error('[epm-waitlist] Enrollment failed:', result);
+      return NextResponse.json(
+        { error: 'Failed to enroll in waitlist' },
+        { status: 502 }
+      );
+    }
 
     return NextResponse.json({
       success: true,
-      message: 'Successfully joined EPM waitlist'
+      message: 'Successfully joined EPM waitlist',
     });
   } catch (error) {
     console.error('Error processing EPM waitlist signup:', error);

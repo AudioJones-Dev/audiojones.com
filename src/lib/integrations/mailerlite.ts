@@ -1,88 +1,91 @@
-// Server-side MailerLite integration helper
-// This module handles subscriber management via MailerLite API v2
+// Server-side MailerLite integration helper.
+// Uses the MailerLite Connect API (https://connect.mailerlite.com).
+// Segmentation on Connect is by group ID — there is no /tags endpoint.
 
 interface UpsertSubscriberParams {
   email: string;
+  groupId?: string;
+  name?: string;
+  /**
+   * @deprecated The Connect API has no `/tags` endpoint. Pass `groupId`
+   * with a MailerLite group ID instead. Retained so legacy callers
+   * compile while they migrate.
+   */
   tag?: string;
-  name?: string;
 }
 
-interface MailerLiteSubscriber {
-  id: string;
-  email: string;
-  name?: string;
-  status: string;
+export interface UpsertSubscriberResult {
+  ok: boolean;
+  error?:
+    | 'missing-email'
+    | 'missing-token'
+    | 'upstream-error'
+    | 'network-error';
+  status?: number;
 }
 
-/**
- * Creates or updates a MailerLite subscriber and optionally adds a tag
- */
-export async function upsertMailerLiteSubscriber(params: UpsertSubscriberParams): Promise<void> {
-  const { email, tag, name } = params;
+export async function upsertMailerLiteSubscriber(
+  params: UpsertSubscriberParams
+): Promise<UpsertSubscriberResult> {
+  const { email, groupId, name, tag } = params;
 
-  // Early return if no email
+  if (tag && !groupId) {
+    console.warn(
+      '[mailerlite] `tag` is deprecated and has no effect on Connect API; pass `groupId` (MailerLite group ID).'
+    );
+  }
+
   if (!email) {
     console.log('[mailerlite] No email provided, skipping');
-    return;
+    return { ok: false, error: 'missing-email' };
   }
 
   const token = process.env.MAILERLITE_TOKEN;
   if (!token) {
     console.error('[mailerlite] MAILERLITE_TOKEN not configured');
-    return;
+    return { ok: false, error: 'missing-token' };
+  }
+
+  const body: Record<string, unknown> = {
+    email,
+    fields: { name: name ?? '' },
+    status: 'active',
+  };
+  if (groupId) {
+    body.groups = [groupId];
   }
 
   try {
-    // Step 1: Create or update subscriber
-    const subscriberResponse = await fetch('https://connect.mailerlite.com/api/subscribers', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email,
-        fields: {
-          name: name ?? ""
-        },
-        status: "active"
-      }),
-    });
-
-    const subscriberData = await subscriberResponse.json().catch(() => null);
-    
-    if (!subscriberResponse.ok) {
-      console.error('[mailerlite] Subscriber upsert failed:', subscriberResponse.status, subscriberData);
-      return;
-    }
-
-    console.log('[mailerlite] Subscriber upserted:', email);
-
-    // Step 2: Add tag if provided and we have subscriber ID
-    if (tag && subscriberData?.data?.id) {
-      const subscriberId = subscriberData.data.id;
-      
-      const tagResponse = await fetch(`https://connect.mailerlite.com/api/subscribers/${subscriberId}/tags`, {
+    const response = await fetch(
+      'https://connect.mailerlite.com/api/subscribers',
+      {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          tag: tag
-        }),
-      });
-
-      if (tagResponse.ok) {
-        console.log('[mailerlite] Tag added:', tag, 'to subscriber:', email);
-      } else {
-        console.error('[mailerlite] Tag addition failed:', tagResponse.status);
+        body: JSON.stringify(body),
       }
-    } else if (tag) {
-      console.log('[mailerlite] No subscriber ID returned, skipping tag:', tag);
+    );
+
+    if (!response.ok) {
+      const detail = await response.text().catch(() => '');
+      console.error(
+        '[mailerlite] Subscriber upsert failed:',
+        response.status,
+        detail
+      );
+      return { ok: false, error: 'upstream-error', status: response.status };
     }
 
+    console.log(
+      '[mailerlite] Subscriber upserted:',
+      email,
+      groupId ? `(group ${groupId})` : '(no group)'
+    );
+    return { ok: true };
   } catch (error) {
     console.error('[mailerlite] Request failed:', error);
+    return { ok: false, error: 'network-error' };
   }
 }

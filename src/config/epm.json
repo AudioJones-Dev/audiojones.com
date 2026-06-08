@@ -46,18 +46,21 @@
       "title": "EPM Audit",
       "description": "Comprehensive analysis of your current emotional marketing effectiveness with actionable insights",
       "waitlistTag": "epm-audit",
+      "waitlistGroupId": "REPLACE_WITH_EPM_AUDIT_GROUP_ID",
       "estimatedLaunch": "Q2 2026"
     },
     {
       "title": "Affective Offer Engine",
       "description": "AI-powered system that creates emotionally-resonant offers based on audience psychological profiles",
       "waitlistTag": "affective-offers",
+      "waitlistGroupId": "REPLACE_WITH_AFFECTIVE_OFFERS_GROUP_ID",
       "estimatedLaunch": "Q3 2026"
     },
     {
       "title": "Creator EPM Lab",
       "description": "Hands-on workshop and certification program for creators mastering emotional predictive marketing",
       "waitlistTag": "epm-lab",
+      "waitlistGroupId": "REPLACE_WITH_EPM_LAB_GROUP_ID",
       "estimatedLaunch": "Q4 2026"
     }
   ],
