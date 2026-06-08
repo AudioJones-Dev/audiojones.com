@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Breadcrumbs from "@/components/applied-intelligence/Breadcrumbs";
+import Breadcrumbs from "@/components/founder-intelligence/Breadcrumbs";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { buildMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = {
   ...buildMetadata({
-    title: "Diagnostic received | Applied Intelligence",
+    title: "Diagnostic received | Founder Intelligence",
     description:
-      "Your Applied Intelligence Diagnostic request has been received. Audio Jones will review your signal profile and respond within two business days.",
-    path: "/applied-intelligence/diagnostic/thank-you",
+      "Your Founder Intelligence Diagnostic request has been received. Audio Jones will review your signal profile and respond within two business days.",
+    path: "/founder-intelligence/diagnostic/thank-you",
   }),
   robots: { index: false, follow: false },
 };
@@ -20,8 +20,8 @@ export default function ThankYouPage() {
       <Breadcrumbs
         items={[
           { name: "Home", href: "/" },
-          { name: "Applied Intelligence", href: "/applied-intelligence" },
-          { name: "Diagnostic", href: "/applied-intelligence/diagnostic" },
+          { name: "Founder Intelligence", href: "/founder-intelligence" },
+          { name: "Diagnostic", href: "/founder-intelligence/diagnostic" },
           { name: "Received" },
         ]}
       />
@@ -40,12 +40,12 @@ export default function ThankYouPage() {
           </p>
           <div className="mt-10 grid gap-3 sm:grid-cols-2">
             <Link
-              href="/frameworks/applied-intelligence-systems"
+              href="/frameworks/founder-intelligence-systems"
               className="rounded-lg border border-border-subtle bg-surface-2 p-6 transition hover:border-border-strong"
             >
               <Eyebrow>Read while you wait</Eyebrow>
               <p className="mt-2 text-lg font-semibold text-text-primary">
-                Applied Intelligence Systems →
+                Founder Intelligence Systems →
               </p>
               <p className="mt-1 text-sm text-text-muted">
                 The seven-layer model behind every engagement.

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import FAQ from "@/components/applied-intelligence/FAQ";
+import FAQ from "@/components/founder-intelligence/FAQ";
 import RoiCalculator from "@/components/roi-calculator/RoiCalculator";
 import { ctaLinks } from "@/config/links";
 import { buildMetadata } from "@/lib/seo/metadata";

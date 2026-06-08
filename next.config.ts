@@ -23,15 +23,15 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       // Pre-redesign /modules/* — retired (already redirected pre-existing).
-      { source: "/modules/ai-optimization", destination: "/applied-intelligence", permanent: true },
+      { source: "/modules/ai-optimization", destination: "/founder-intelligence", permanent: true },
       { source: "/modules/client-delivery", destination: "/services", permanent: true },
-      { source: "/modules/data-intelligence", destination: "/applied-intelligence", permanent: true },
+      { source: "/modules/data-intelligence", destination: "/founder-intelligence", permanent: true },
       { source: "/modules/marketing-automation", destination: "/services", permanent: true },
       // /systems index + leaves — retired by 2026-05-10 nav restructure.
-      { source: "/systems", destination: "/applied-intelligence", permanent: true },
-      { source: "/systems/ai-optimization", destination: "/applied-intelligence", permanent: true },
+      { source: "/systems", destination: "/founder-intelligence", permanent: true },
+      { source: "/systems/ai-optimization", destination: "/founder-intelligence", permanent: true },
       { source: "/systems/client-delivery", destination: "/services", permanent: true },
-      { source: "/systems/data-intelligence", destination: "/applied-intelligence", permanent: true },
+      { source: "/systems/data-intelligence", destination: "/founder-intelligence", permanent: true },
       { source: "/systems/marketing-automation", destination: "/services", permanent: true },
       // Pre-redesign legacy marketing pages — retired by 2026-05-10 nav
       // restructure. Backlinks transfer to the closest semantic replacement.
@@ -39,6 +39,15 @@ const nextConfig: NextConfig = {
       { source: "/business", destination: "/services", permanent: true },
       { source: "/creators", destination: "/services", permanent: true },
       { source: "/artisthub", destination: "/services", permanent: true },
+      // Brand rename: "Applied Intelligence" → "Founder Intelligence".
+      // 308 (permanent: true) preserves request method so existing POSTs to
+      // the API endpoint keep working through the redirect.
+      { source: "/applied-intelligence", destination: "/founder-intelligence", permanent: true },
+      { source: "/applied-intelligence/:path*", destination: "/founder-intelligence/:path*", permanent: true },
+      { source: "/api/applied-intelligence/:path*", destination: "/api/founder-intelligence/:path*", permanent: true },
+      { source: "/frameworks/applied-intelligence-systems", destination: "/frameworks/founder-intelligence-systems", permanent: true },
+      { source: "/insights/applied-intelligence-systems", destination: "/insights/founder-intelligence-systems", permanent: true },
+      { source: "/blog/topic/applied-intelligence-systems", destination: "/blog/topic/founder-intelligence-systems", permanent: true },
     ];
   },
   async headers() {

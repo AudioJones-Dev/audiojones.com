@@ -2,4 +2,4 @@
 
 Place these planned assets here:
 
-- `applied-intelligence-systems-mock.png`
+- `founder-intelligence-systems-mock.png`

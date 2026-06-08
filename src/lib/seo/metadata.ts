@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { SITE_URL } from "@/lib/applied-intelligence/tokens";
+import { SITE_URL } from "@/lib/founder-intelligence/tokens";
 
 export type PageMetaInput = {
   title: string;

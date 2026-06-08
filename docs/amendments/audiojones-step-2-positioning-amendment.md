@@ -45,10 +45,10 @@ current build. Substitutions used:
 | Amendment route   | Implemented as                          | Reason |
 | ----------------- | --------------------------------------- | ------ |
 | `/step-2`         | `/step-2`                               | New    |
-| `/applied-intelligence` | `/applied-intelligence`           | Exists |
+| `/founder-intelligence` | `/founder-intelligence`           | Exists |
 | `/attribution`    | `/frameworks/map-attribution`           | Closest existing IP page |
-| `/ai-readiness`   | `/applied-intelligence/diagnostic`      | Closest existing readiness funnel |
-| `/work-with-me`   | `/applied-intelligence/diagnostic`      | Single conversion endpoint today |
+| `/ai-readiness`   | `/founder-intelligence/diagnostic`      | Closest existing readiness funnel |
+| `/work-with-me`   | `/founder-intelligence/diagnostic`      | Single conversion endpoint today |
 
 ## 4. Implementation summary
 
@@ -57,7 +57,7 @@ current build. Substitutions used:
 - Homepage Step 2 callout section linking to `/step-2`.
 - Sitemap updated to include `/step-2`.
 - FAQPage and BreadcrumbList JSON-LD on `/step-2`.
-- Internal links from `/step-2` and `/applied-intelligence` to the
+- Internal links from `/step-2` and `/founder-intelligence` to the
   substituted routes above.
 
 ## 5. Acceptance criteria
@@ -65,6 +65,6 @@ current build. Substitutions used:
 - Visitor learns within 10 seconds that Audio Jones builds the missing
   operational layer between AI tools and measurable outcomes.
 - `/step-2` exists, has metadata, canonical URL, FAQPage + BreadcrumbList
-  JSON-LD, and links to applied intelligence, attribution, AI readiness,
+  JSON-LD, and links to founder intelligence, attribution, AI readiness,
   and the conversion endpoint.
 - TypeScript and lint pass; sitemap includes `/step-2`.

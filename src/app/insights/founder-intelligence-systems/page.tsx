@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Breadcrumbs from "@/components/applied-intelligence/Breadcrumbs";
-import InsightArticle from "@/components/applied-intelligence/InsightArticle";
-import { H2, P, UL } from "@/components/applied-intelligence/FrameworkArticle";
-import FAQ from "@/components/applied-intelligence/FAQ";
+import Breadcrumbs from "@/components/founder-intelligence/Breadcrumbs";
+import InsightArticle from "@/components/founder-intelligence/InsightArticle";
+import { H2, P, UL } from "@/components/founder-intelligence/FrameworkArticle";
+import FAQ from "@/components/founder-intelligence/FAQ";
 import JsonLd from "@/components/seo/JsonLd";
 import { buildMetadata } from "@/lib/seo/metadata";
 import {
@@ -12,21 +12,21 @@ import {
   faqJsonLd,
 } from "@/lib/seo/schema";
 
-const PATH = "/insights/applied-intelligence-systems";
-const TITLE = "What is an Applied Intelligence System?";
+const PATH = "/insights/founder-intelligence-systems";
+const TITLE = "What is an Founder Intelligence System?";
 const DESCRIPTION =
-  "An Applied Intelligence System combines human judgment, data signals, AI tools, attribution, and feedback loops into a single business operating model.";
+  "An Founder Intelligence System combines human judgment, data signals, AI tools, attribution, and feedback loops into a single business operating model.";
 
 const FAQS = [
   {
-    question: "What is an Applied Intelligence System?",
+    question: "What is an Founder Intelligence System?",
     answer:
-      "An Applied Intelligence System is a business operating model that combines human judgment, data signals, AI tools, attribution, and feedback loops to improve and execute decisions at scale.",
+      "An Founder Intelligence System is a business operating model that combines human judgment, data signals, AI tools, attribution, and feedback loops to improve and execute decisions at scale.",
   },
   {
-    question: "How does Applied Intelligence differ from AI automation?",
+    question: "How does Founder Intelligence differ from AI automation?",
     answer:
-      "AI automation moves work faster. Applied Intelligence changes which work is done. It rebuilds decision architecture before adding AI on top, so the AI compounds judgment instead of accelerating dysfunction.",
+      "AI automation moves work faster. Founder Intelligence changes which work is done. It rebuilds decision architecture before adding AI on top, so the AI compounds judgment instead of accelerating dysfunction.",
   },
   {
     question: "What systems should founders build before AI?",
@@ -61,7 +61,7 @@ export default function Page() {
         items={[
           { name: "Home", href: "/" },
           { name: "Insights", href: "/insights" },
-          { name: "Applied Intelligence Systems" },
+          { name: "Founder Intelligence Systems" },
         ]}
       />
 
@@ -71,7 +71,7 @@ export default function Page() {
         intro="The category, the seven-layer stack, and why founders should build the system before adopting the tools."
       >
         <P>
-          The fastest answer: an Applied Intelligence System is a business
+          The fastest answer: an Founder Intelligence System is a business
           operating model. It combines human judgment, data signals, AI
           tools, attribution, and feedback loops into a single architecture
           designed to improve decisions and execution. It belongs on the same
@@ -101,10 +101,10 @@ export default function Page() {
         <P>
           For the full breakdown of each layer, see the{" "}
           <Link
-            href="/frameworks/applied-intelligence-systems"
+            href="/frameworks/founder-intelligence-systems"
             className="text-accent-blue hover:text-accent-blue"
           >
-            Applied Intelligence Systems framework
+            Founder Intelligence Systems framework
           </Link>
           .
         </P>

@@ -2,16 +2,16 @@ export type InsightSummary = {
   slug: string;
   title: string;
   excerpt: string;
-  pillar: "applied-intelligence" | "signal" | "ai-failure" | "attribution";
+  pillar: "founder-intelligence" | "signal" | "ai-failure" | "attribution";
 };
 
 export const INSIGHTS: InsightSummary[] = [
   {
-    slug: "applied-intelligence-systems",
-    title: "What is an Applied Intelligence System?",
+    slug: "founder-intelligence-systems",
+    title: "What is an Founder Intelligence System?",
     excerpt:
       "The category, the seven-layer stack, and why founders should build the system before adopting the tools.",
-    pillar: "applied-intelligence",
+    pillar: "founder-intelligence",
   },
   {
     slug: "signal-vs-noise-business",

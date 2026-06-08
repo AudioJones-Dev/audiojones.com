@@ -25,7 +25,7 @@ export default function AiReadinessDiagnosticPage() {
       <SignalHero
         title="Diagnose the system before you install AI."
         description={DESCRIPTION}
-        primaryHref="/applied-intelligence/diagnostic"
+        primaryHref="/founder-intelligence/diagnostic"
         primaryLabel="Start the Diagnostic"
         secondaryHref="/book-a-call"
         secondaryLabel="Book a Call"
@@ -97,7 +97,7 @@ export default function AiReadinessDiagnosticPage() {
             The active diagnostic flow is available now. Use it to create the readiness profile and route the next process.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <ButtonLink href="/applied-intelligence/diagnostic" variant="glow">
+            <ButtonLink href="/founder-intelligence/diagnostic" variant="glow">
               Start the Diagnostic
             </ButtonLink>
             <ButtonLink href="/roi-calculator" variant="secondary">
@@ -111,7 +111,7 @@ export default function AiReadinessDiagnosticPage() {
         title="Do not automate the wrong constraint."
         description="Start with diagnosis, then route the business into the right revenue, signal, content, operations, or pipeline system."
         primaryLabel="Start the Diagnostic"
-        primaryHref="/applied-intelligence/diagnostic"
+        primaryHref="/founder-intelligence/diagnostic"
         secondaryLabel="Book a Call"
         secondaryHref="/book-a-call"
       />

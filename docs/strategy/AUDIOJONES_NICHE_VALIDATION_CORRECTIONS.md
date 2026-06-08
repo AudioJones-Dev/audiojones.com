@@ -99,41 +99,41 @@ Even SAFE claims must be re-verified at the primary source before publication. A
 
 Audit performed against `origin/main` at HEAD `e0ddca6` (date: 2026-05-26). Findings are FLAG-ONLY — this document does not fix any of them. Each flagged conflict requires its own scoped PR with user-approved terminology decisions.
 
-### 5.1 "Applied Intelligence Systems" public usage — HIGH VOLUME (23 files)
+### 5.1 "Founder Intelligence Systems" public usage — HIGH VOLUME (23 files)
 
-The current site publishes "Applied Intelligence Systems" as the public brand wedge in 23 source files. Per the corrections approved wedge (§intro) + §2 entity-risk table, the public name should be **"Founder Intelligence Systems for founder-led service businesses"** with the qualifier always present (Accenture's "Founders Intelligence" collision risk).
+The current site publishes "Founder Intelligence Systems" as the public brand wedge in 23 source files. Per the corrections approved wedge (§intro) + §2 entity-risk table, the public name should be **"Founder Intelligence Systems for founder-led service businesses"** with the qualifier always present (Accenture's "Founders Intelligence" collision risk).
 
 **Critical public surfaces (must be addressed first):**
 
 | File | Surface | Current text (sampled) | Recommended action |
 |---|---|---|---|
-| `src/app/page.tsx` | Homepage `<title>` + `<meta>` + OG | `"Audio Jones — Applied Intelligence Systems for founder-led businesses"` + matching OG title + Twitter title | Migrate to qualified FIS™ wording per §2 |
+| `src/app/page.tsx` | Homepage `<title>` + `<meta>` + OG | `"Audio Jones — Founder Intelligence Systems for founder-led businesses"` + matching OG title + Twitter title | Migrate to qualified FIS™ wording per §2 |
 | `src/app/layout.tsx` | Root layout metadata | (root metadata template references AIS) | Audit + migrate |
 | `src/app/about/page.tsx` | About page | (publishes AIS publicly) | Audit + migrate |
 | `src/app/services/page.tsx` | Services page | (publishes AIS publicly) | Audit + migrate (services rebrand spec already exists) |
 | `src/app/blog/page.tsx` | Blog index | (publishes AIS publicly) | Audit + migrate |
 | `src/app/blog/topic/[slug]/page.tsx` | Blog topic pages | (publishes AIS publicly via dynamic copy) | Audit + migrate |
 | `src/app/insights/page.tsx` | Insights index | (publishes AIS publicly) | Audit + migrate |
-| `src/app/insights/applied-intelligence-systems/page.tsx` | Dedicated AIS insight page | Slug includes AIS | Decide: rename route, add 308 redirect to FIS-named slug, OR convert to internal-only banner |
+| `src/app/insights/founder-intelligence-systems/page.tsx` | Dedicated AIS insight page | Slug includes AIS | Decide: rename route, add 308 redirect to FIS-named slug, OR convert to internal-only banner |
 | `src/app/insights/why-ai-fails-most-companies/page.tsx` | Insight article | (references AIS) | Audit + migrate |
 | `src/app/frameworks/page.tsx` | Frameworks index | (publishes AIS publicly) | Audit + migrate |
-| `src/app/frameworks/applied-intelligence-systems/page.tsx` | Dedicated AIS framework page | Slug includes AIS | Decide: rename route, add 308 redirect, OR convert to internal-only banner |
-| `src/app/applied-intelligence/page.tsx` | `/applied-intelligence` page | Route slug + body content reference AIS | Decide: keep as methodology entry-point, retitle copy to FIS qualified wording |
-| `src/app/applied-intelligence/diagnostic/thank-you/page.tsx` | Post-diagnostic thank-you | (references AIS) | Audit + migrate |
+| `src/app/frameworks/founder-intelligence-systems/page.tsx` | Dedicated AIS framework page | Slug includes AIS | Decide: rename route, add 308 redirect, OR convert to internal-only banner |
+| `src/app/founder-intelligence/page.tsx` | `/founder-intelligence` page | Route slug + body content reference AIS | Decide: keep as methodology entry-point, retitle copy to FIS qualified wording |
+| `src/app/founder-intelligence/diagnostic/thank-you/page.tsx` | Post-diagnostic thank-you | (references AIS) | Audit + migrate |
 | `src/components/Footer.tsx` | Footer (every page) | (references AIS in tagline/description) | Audit + migrate |
 | `src/components/home/landing/HeroAllSignal.tsx` | Homepage hero | Hero copy references AIS | Migrate hero copy to qualified FIS™ wording |
 | `src/components/home/landing/SystemModelLoop.tsx` | Homepage section | (references AIS) | Audit + migrate |
-| `src/components/applied-intelligence/SystemModel.tsx` | Applied-intelligence sub-component | (references AIS) | Audit + migrate |
+| `src/components/founder-intelligence/SystemModel.tsx` | Applied-intelligence sub-component | (references AIS) | Audit + migrate |
 
 **Internal / config (lower priority — verify each before migrating):**
 
 | File | Surface | Notes |
 |---|---|---|
 | `src/lib/site.ts` | `siteConfig.description` — leaks to OG + schema | Verify exact public-string usage; migrate the public-leaking strings |
-| `src/lib/applied-intelligence/tokens.ts` | TS token mirror | Internal module name; code comments only — may stay as-is |
+| `src/lib/founder-intelligence/tokens.ts` | TS token mirror | Internal module name; code comments only — may stay as-is |
 | `src/lib/javi/mockJaviResponses.ts` | Javi chat widget mock responses | Audit — chatbot replies count as public copy |
 | `src/config/nav.ts` | Nav label / CTA copy | Verify nav text doesn't publish unqualified AIS |
-| `src/app/globals.css` | CSS file comment (line 9-10: `Positioning: Applied Intelligence Systems for founder-led businesses ($250K–$5M ARR).`) | Code comment, not public output — low priority |
+| `src/app/globals.css` | CSS file comment (line 9-10: `Positioning: Founder Intelligence Systems for founder-led businesses ($250K–$5M ARR).`) | Code comment, not public output — low priority |
 | `src/content/frameworks/index.ts` | Framework content store | Audit — content surfaces as public framework pages |
 
 **Sub-flag — `$250K–$5M ARR` qualifier appears in `globals.css` comment.** Per the corrections preserved-wedge, the primary persona is qualified on signal-maturity criteria, NOT hard ARR bands. The `$250K–$5M ARR` framing should be retired in any public-facing copy that publishes it.
@@ -182,9 +182,9 @@ Grep across `src/` for `Founder Intelligence Systems`, `Signal Revenue System`, 
 
 Routes that would be affected by §5.1 migrations (and require sitemap + robots updates):
 
-- `/insights/applied-intelligence-systems` (if route renamed or retired — needs 308 redirect + sitemap update)
-- `/frameworks/applied-intelligence-systems` (same)
-- `/applied-intelligence` + `/applied-intelligence/diagnostic` (likely keep as-is per earlier strategy — methodology pages, not public brand vehicle — but verify with terminology-decision PR)
+- `/insights/founder-intelligence-systems` (if route renamed or retired — needs 308 redirect + sitemap update)
+- `/frameworks/founder-intelligence-systems` (same)
+- `/founder-intelligence` + `/founder-intelligence/diagnostic` (likely keep as-is per earlier strategy — methodology pages, not public brand vehicle — but verify with terminology-decision PR)
 
 This audit does NOT modify `robots.ts`, `sitemap.ts`, or `src/lib/site.ts`. Those updates land in the per-route migration PRs.
 
@@ -194,7 +194,7 @@ This audit does NOT modify `robots.ts`, `sitemap.ts`, or `src/lib/site.ts`. Thos
 
 This document is corrections-only. It does NOT modify product copy, marketing pages, or app code. Implementation of these corrections requires separate scoped PRs after user approval of each terminology change:
 
-1. **AIS → FIS™ qualified migration PR(s)** — likely sequenced as: homepage + layout + about (single PR) → blog + insights → frameworks (with 308 redirects for route renames) → applied-intelligence pages → footer + nav copy
+1. **AIS → FIS™ qualified migration PR(s)** — likely sequenced as: homepage + layout + about (single PR) → blog + insights → frameworks (with 308 redirects for route renames) → founder-intelligence pages → footer + nav copy
 2. **ResponseOS audit PR** — review `docs/codex/responseos-v1-brief.md` against §2 entity-risk, decide whether ResponseOS as product name needs adjustment or qualifier
 3. **Signal Revenue System rename PR** — if any internal docs/specs reference Signal Revenue System as a product name (none currently published; check `docs/codex/`, `docs/specs/`), update them
 4. **Persistent Business Memory descope PR** — if any current/planned product surface uses PBM as a branded name, rewrite to descriptive use only

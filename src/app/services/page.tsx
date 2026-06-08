@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import FAQ from "@/components/applied-intelligence/FAQ";
+import FAQ from "@/components/founder-intelligence/FAQ";
 import JsonLd from "@/components/seo/JsonLd";
 import { ButtonLink } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Eyebrow";
@@ -9,7 +9,7 @@ import { buildMetadata } from "@/lib/seo/metadata";
 import { founderIntelligenceFaqs } from "@/lib/seo/founder-intelligence-faq";
 import { faqJsonLd } from "@/lib/seo/schema";
 
-const TITLE = "Applied Intelligence Services";
+const TITLE = "Founder Intelligence Services";
 const DESCRIPTION =
   "Strategic operator engagements that diagnose business systems first, then install AI workflows and measurement loops where they create leverage.";
 
@@ -23,7 +23,7 @@ const serviceBuckets = [
   },
   {
     category: "Buildout",
-    title: "Applied Intelligence Systems Buildout",
+    title: "Founder Intelligence Systems Buildout",
     description:
       "The core engagement for installing the workflows your team should have had from day one. We turn the diagnostic into connected intake, automation, agent, and reporting layers that reduce manual drag without burying the operator in another tool stack.",
     meta: "60–90 days · system sprints · measured rollout",
@@ -53,7 +53,7 @@ const processSteps = [
   {
     title: "Prioritize leverage",
     description:
-      "We separate high-signal constraints from noisy tool problems, then choose the workflows where applied intelligence can measurably improve speed, clarity, or conversion.",
+      "We separate high-signal constraints from noisy tool problems, then choose the workflows where founder intelligence can measurably improve speed, clarity, or conversion.",
   },
   {
     title: "Build the system layer",
@@ -194,10 +194,10 @@ export default function ServicesPage() {
                 the operating rhythm.
               </p>
               <Link
-                href="/applied-intelligence"
+                href="/founder-intelligence"
                 className="mt-6 inline-flex t-body text-aj-orange hover:text-aj-orange-soft"
               >
-                Read the full Applied Intelligence framework →
+                Read the full Founder Intelligence framework →
               </Link>
             </div>
 
@@ -256,7 +256,7 @@ export default function ServicesPage() {
               href="/insights"
               className="text-aj-orange hover:text-aj-orange-soft"
             >
-              Read Applied Intelligence insights →
+              Read Founder Intelligence insights →
             </Link>
             <Link
               href="/case-studies"

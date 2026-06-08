@@ -108,9 +108,9 @@ export const aiEntity = {
   name: "Audio Jones",
   legalName: "Tyrone Alexander Nelms",
   brandName: "AJ Digital",
-  title: "Applied Intelligence Systems Partner",
+  title: "Founder Intelligence Systems Partner",
   description:
-    "Audio Jones helps founder-led businesses reduce noise, identify causal growth signals, and build Applied Intelligence Systems.",
+    "Audio Jones helps founder-led businesses reduce noise, identify causal growth signals, and build Founder Intelligence Systems.",
   url: SITE_URL,
   sameAs: [
     "https://www.linkedin.com/in/audiojones",
@@ -118,7 +118,7 @@ export const aiEntity = {
     SITE_URL,
   ],
   knowsAbout: [
-    "Applied Intelligence Systems",
+    "Founder Intelligence Systems",
     "AI Consulting",
     "Marketing Attribution",
     "Signal vs Noise",

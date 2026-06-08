@@ -1,4 +1,4 @@
-// Lead persistence for the Applied Intelligence diagnostic.
+// Lead persistence for the Founder Intelligence diagnostic.
 //
 // Persists leads to NeonDB via the canonical SQL schema in
 // db/migrations/001_applied_intelligence_leads.sql. Firebase/Firestore is
@@ -6,10 +6,10 @@
 
 import "server-only";
 import { createHash } from "node:crypto";
-import type { AppliedIntelligenceLeadInput } from "./lead-schema";
+import type { FounderIntelligenceLeadInput } from "./lead-schema";
 import type { LeadScores } from "./lead-scoring";
 import {
-  insertAppliedIntelligenceLead,
+  insertFounderIntelligenceLead,
   type LeadContext,
   type StoredLead,
 } from "@/db/leads";
@@ -22,18 +22,18 @@ export function hashIp(ip: string | null | undefined): string | null {
   return createHash("sha256").update(`${salt}:${ip}`).digest("hex");
 }
 
-export async function persistAppliedIntelligenceLead(
-  input: AppliedIntelligenceLeadInput,
+export async function persistFounderIntelligenceLead(
+  input: FounderIntelligenceLeadInput,
   scores: LeadScores,
   ctx: LeadContext,
 ): Promise<StoredLead> {
   try {
-    return await insertAppliedIntelligenceLead(input, scores, ctx);
+    return await insertFounderIntelligenceLead(input, scores, ctx);
   } catch (err) {
     // Log so the lead is not silently dropped, then re-throw so the API route
     // returns a 500 and the form can surface the error rather than pretending
     // to succeed.
-    console.error("[applied-intelligence] failed to persist lead", {
+    console.error("[founder-intelligence] failed to persist lead", {
       error: err instanceof Error ? err.message : String(err),
       email: input.email,
     });

@@ -88,6 +88,6 @@ export const appliedIntelligenceLeadSchema = z.object({
   utmContent: z.string().optional(),
 });
 
-export type AppliedIntelligenceLeadInput = z.infer<
+export type FounderIntelligenceLeadInput = z.infer<
   typeof appliedIntelligenceLeadSchema
 >;

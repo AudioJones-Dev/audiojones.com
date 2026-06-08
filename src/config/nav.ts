@@ -26,7 +26,7 @@ export const mainNav: NavItem[] = [
   {
     label: "Home",
     href: "/",
-    description: "Audio Jones — Applied Intelligence Systems",
+    description: "Audio Jones — Founder Intelligence Systems",
   },
   {
     label: "Agents",
@@ -46,7 +46,7 @@ export const mainNav: NavItem[] = [
   {
     label: "Insights",
     href: "/insights",
-    description: "Pillar essays on Applied Intelligence Systems",
+    description: "Pillar essays on Founder Intelligence Systems",
   },
   {
     label: "ROI Calculator",

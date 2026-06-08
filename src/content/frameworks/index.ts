@@ -8,8 +8,8 @@ export type FrameworkSummary = {
 
 export const FRAMEWORKS: FrameworkSummary[] = [
   {
-    slug: "applied-intelligence-systems",
-    title: "Applied Intelligence Systems",
+    slug: "founder-intelligence-systems",
+    title: "Founder Intelligence Systems",
     shortTitle: "AIS",
     tagline: "The category — business OS for the AI era.",
     description:
@@ -29,7 +29,7 @@ export const FRAMEWORKS: FrameworkSummary[] = [
     shortTitle: "N.I.C.H.E",
     tagline: "Position around the highest-signal market.",
     description:
-      "A positioning system for identifying high-signal markets and engineering business engines around causal clarity, human leverage, and applied intelligence.",
+      "A positioning system for identifying high-signal markets and engineering business engines around causal clarity, human leverage, and founder intelligence.",
   },
   {
     slug: "signal-vs-noise",

@@ -374,7 +374,7 @@ export default async function BlogPostPage({
           <h2
             style={{ fontFamily: "var(--font-headline)", fontSize: "clamp(1.4rem, 2.5vw, 2.2rem)", fontWeight: 700, letterSpacing: "-0.03em", color: "#FFFFFF", marginBottom: "24px" }}
           >
-            Ready to build your Applied Intelligence System?
+            Ready to build your Founder Intelligence System?
           </h2>
           <div className="flex flex-wrap justify-center gap-3">
             <ButtonLink href={ctaLinks.signalDiagnostic} variant="glow">

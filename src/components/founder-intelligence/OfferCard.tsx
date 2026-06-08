@@ -21,7 +21,7 @@ export default function OfferCard() {
               Engagement
             </p>
             <h2 className="mt-2 text-3xl font-semibold text-white sm:text-4xl">
-              Applied Intelligence Diagnostic
+              Founder Intelligence Diagnostic
             </h2>
             <p className="mt-4 text-lg text-text-primary">
               A focused engagement that identifies the constraint, maps the

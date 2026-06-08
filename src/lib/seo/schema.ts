@@ -1,7 +1,7 @@
-// Schema.org JSON-LD builders for Applied Intelligence pages.
+// Schema.org JSON-LD builders for Founder Intelligence pages.
 // Keep all entity facts here so they stay consistent across routes.
 
-import { aiEntity, SITE_URL } from "@/lib/applied-intelligence/tokens";
+import { aiEntity, SITE_URL } from "@/lib/founder-intelligence/tokens";
 
 export type BreadcrumbItem = { name: string; url: string };
 export type FaqItem = { question: string; answer: string };
@@ -133,7 +133,7 @@ export function definedTermJsonLd(args: {
     url: args.url.startsWith("http") ? args.url : `${SITE_URL}${args.url}`,
     inDefinedTermSet: {
       "@type": "DefinedTermSet",
-      name: "Audio Jones Applied Intelligence Glossary",
+      name: "Audio Jones Founder Intelligence Glossary",
       url: `${SITE_URL}/frameworks`,
     },
   } as const;

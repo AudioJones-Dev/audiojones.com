@@ -13,11 +13,11 @@ entries ([`DECISIONS.md`](./DECISIONS.md)), and the changelog
 - **Docs readiness bootstrap.** Establish AGENTS.md, CLAUDE.md, and the
   canonical `docs/` hierarchy. Stub legacy/duplicated docs to a single
   source of truth. *(this PR)*
-- **Applied Intelligence surface polish.** Continue migrating legacy
+- **Founder Intelligence surface polish.** Continue migrating legacy
   marketing pages onto the canonical AI surface. Track open visual debt
   in PR descriptions, not here.
 - **Lead-capture hardening.** Continue ensuring all forms route through
-  `src/app/api/applied-intelligence/leads/route.ts` and persist to Neon
+  `src/app/api/founder-intelligence/leads/route.ts` and persist to Neon
   before any optional integrations fire.
 
 ## Next (queued, not started)

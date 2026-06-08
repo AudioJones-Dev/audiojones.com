@@ -47,7 +47,7 @@ export interface FAQ {
 // ─── Topic cluster pillars ────────────────────────────────────────────────────
 
 export type TopicClusterSlug =
-  | "applied-intelligence-systems"
+  | "founder-intelligence-systems"
   | "signal-vs-noise"
   | "map-attribution"
   | "why-ai-fails"

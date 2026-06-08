@@ -1,14 +1,14 @@
 import "server-only";
-import type { AppliedIntelligenceLeadInput } from "./lead-schema";
+import type { FounderIntelligenceLeadInput } from "./lead-schema";
 import type { LeadScores } from "./lead-scoring";
 
 type NotifyArgs = {
   leadId: string;
-  input: AppliedIntelligenceLeadInput;
+  input: FounderIntelligenceLeadInput;
   scores: LeadScores;
 };
 
-export async function notifyAppliedIntelligenceLead(args: NotifyArgs) {
+export async function notifyFounderIntelligenceLead(args: NotifyArgs) {
   await Promise.allSettled([sendEmail(args), sendN8nWebhook(args)]);
 }
 
@@ -25,7 +25,7 @@ async function sendEmail({ leadId, input, scores }: NotifyArgs) {
     if (!emailEnvWarned) {
       emailEnvWarned = true;
       console.warn(
-        "[applied-intelligence] internal notification skipped: email env missing",
+        "[founder-intelligence] internal notification skipped: email env missing",
         {
           hasResendApiKey: Boolean(apiKey),
           hasLeadNotificationEmail: Boolean(to),
@@ -35,7 +35,7 @@ async function sendEmail({ leadId, input, scores }: NotifyArgs) {
     return;
   }
 
-  const subject = `[${scores.priority.toUpperCase()}] Applied Intelligence lead: ${input.firstName} (${scores.totalScore})`;
+  const subject = `[${scores.priority.toUpperCase()}] Founder Intelligence lead: ${input.firstName} (${scores.totalScore})`;
   const html = renderEmail({ leadId, input, scores });
 
   try {
@@ -48,7 +48,7 @@ async function sendEmail({ leadId, input, scores }: NotifyArgs) {
       body: JSON.stringify({ from, to, subject, html }),
     });
   } catch (err) {
-    console.error("[applied-intelligence] email notification failed", err);
+    console.error("[founder-intelligence] email notification failed", err);
   }
 }
 
@@ -83,7 +83,7 @@ async function sendN8nWebhook({ leadId, input, scores }: NotifyArgs) {
       body: JSON.stringify(payload),
     });
   } catch (err) {
-    console.error("[applied-intelligence] n8n webhook failed", err);
+    console.error("[founder-intelligence] n8n webhook failed", err);
   }
 }
 

@@ -136,7 +136,7 @@ export default function DiagnosticForm() {
     setError(null);
     setSubmitting(true);
     try {
-      const res = await fetch("/api/applied-intelligence/leads", {
+      const res = await fetch("/api/founder-intelligence/leads", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
@@ -147,7 +147,7 @@ export default function DiagnosticForm() {
           knowsCAC: state.knowsCAC ?? undefined,
           knowsLTV: state.knowsLTV ?? undefined,
           tracksConversionSource: state.tracksConversionSource ?? undefined,
-          sourcePage: "/applied-intelligence/diagnostic",
+          sourcePage: "/founder-intelligence/diagnostic",
           ...utm,
         }),
       });
@@ -155,7 +155,7 @@ export default function DiagnosticForm() {
       if (!res.ok || !data.ok) {
         throw new Error(data?.message || data?.error || "Submission failed.");
       }
-      router.push("/applied-intelligence/diagnostic/thank-you");
+      router.push("/founder-intelligence/diagnostic/thank-you");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Submission failed.");
       setSubmitting(false);

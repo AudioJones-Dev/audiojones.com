@@ -12,7 +12,7 @@ it inherits everything below.
 ## 1. What this repo is
 
 `audiojones.com` is the public marketing site for **AJ Digital LLC** —
-content, SEO/AEO, the Applied Intelligence diagnostic, lead capture, and
+content, SEO/AEO, the Founder Intelligence diagnostic, lead capture, and
 booking. It is **not** an admin/portal monolith.
 
 Stack (canonical — see [`docs/DECISIONS.md`](./docs/DECISIONS.md) and
@@ -34,7 +34,7 @@ Cloudflare → Vercel + Next.js 16 (App Router, React 19)
 
 Some legacy `/portal/*` and `/api/admin/*` routes exist from a previous
 Firebase era; they are being phased out. New work targets the marketing
-surface and Applied Intelligence flows.
+surface and Founder Intelligence flows.
 
 ---
 
@@ -73,7 +73,7 @@ surface and Applied Intelligence flows.
 | Stack decision       | [`docs/architecture/stack-decision.md`](./docs/architecture/stack-decision.md) |
 | Marketing IA         | [`docs/archive/MARKETING-IA.md`](./docs/archive/MARKETING-IA.md) |
 | Nav config           | `src/config/nav.ts`                                         |
-| Lead intake          | `src/app/api/applied-intelligence/leads/route.ts`           |
+| Lead intake          | `src/app/api/founder-intelligence/leads/route.ts`           |
 | Lead persistence     | `src/db/leads.ts`, `db/migrations/`                         |
 
 Older root-level docs (`AUDIOJONES_DESIGN.md`, `DEPLOYMENT.md`,
