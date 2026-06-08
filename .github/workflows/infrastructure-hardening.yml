@@ -23,7 +23,7 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
 
     - name: Test Core Platform Routes
       run: |
@@ -142,7 +142,7 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
 
     - name: Enable Corepack
       run: corepack enable
@@ -151,7 +151,7 @@ jobs:
       run: corepack prepare pnpm@10.30.3 --activate
 
     - name: Setup Node.js
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v6
       with:
         node-version: '22'
         cache: 'pnpm'
