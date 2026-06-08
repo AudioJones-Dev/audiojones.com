@@ -10,16 +10,36 @@ on:
     - cron: '0 6 * * *'
 
 env:
-  PRODUCTION_URL: https://audiojones.com
-  ADMIN_API_KEY: ${{ secrets.ADMIN_API_KEY }}
+  PRODUCTION_URL: https://www.audiojones.com
+  ADMIN_KEY: ${{ secrets.ADMIN_KEY }}
 
 jobs:
+  preflight:
+    name: Preflight
+    runs-on: ubuntu-latest
+    outputs:
+      has-admin-api-key: ${{ steps.admin-key.outputs.present }}
+
+    steps:
+    - name: Check protected route credentials
+      id: admin-key
+      env:
+        ADMIN_KEY: ${{ secrets.ADMIN_KEY }}
+      run: |
+        if [[ -n "$ADMIN_KEY" ]]; then
+          echo "present=true" >> "$GITHUB_OUTPUT"
+        else
+          echo "present=false" >> "$GITHUB_OUTPUT"
+          echo "ADMIN_KEY is not configured; protected production route checks will be skipped."
+        fi
+
   route-testing:
     name: Critical Route Testing
     runs-on: ubuntu-latest
-    # Skip when ADMIN_API_KEY isn't available (fork PRs, fresh repos) — the
+    needs: preflight
+    # Skip when ADMIN_KEY isn't available (fork PRs, fresh repos) — the
     # curl-based tests would all 401 without it and produce noise.
-    if: ${{ secrets.ADMIN_API_KEY != '' }}
+    if: ${{ needs.preflight.outputs.has-admin-api-key == 'true' }}
 
     steps:
     - name: Checkout repository
@@ -30,35 +50,41 @@ jobs:
         echo "🧪 Testing critical API routes..."
 
         # Test admin health endpoint
-        curl -f -H "admin-key: $ADMIN_API_KEY" \
+        curl -f -H "admin-key: $ADMIN_KEY" \
           "$PRODUCTION_URL/api/admin/health" || exit 1
         echo "✅ Admin health check passed"
 
         # Test admin stats endpoint
-        curl -f -H "admin-key: $ADMIN_API_KEY" \
+        curl -f -H "admin-key: $ADMIN_KEY" \
           "$PRODUCTION_URL/api/admin/stats" || exit 1
         echo "✅ Admin stats check passed"
 
-        # Test webhook endpoint (HEAD request)
-        curl -f -I "$PRODUCTION_URL/api/webhooks/whop" || exit 1
-        echo "✅ Whop webhook endpoint accessible"
+        # Test webhook endpoint exists and rejects unsigned requests.
+        response=$(curl -s -o /dev/null -w "%{http_code}" \
+          -X POST "$PRODUCTION_URL/api/webhooks/whop")
+        if [[ "$response" == "400" || "$response" == "401" || "$response" == "403" ]]; then
+          echo "✅ Whop webhook endpoint protected (got $response)"
+        else
+          echo "❌ Whop webhook endpoint unexpected response (got $response)"
+          exit 1
+        fi
 
     - name: Test Post-MVP Automation Routes
       run: |
         echo "🤖 Testing automation system routes..."
 
         # Test analytics endpoint
-        curl -f -H "admin-key: $ADMIN_API_KEY" \
+        curl -f -H "admin-key: $ADMIN_KEY" \
           "$PRODUCTION_URL/api/admin/analytics/summary" || exit 1
         echo "✅ Analytics endpoint passed"
 
         # Test maintenance system endpoint
-        curl -f -H "admin-key: $ADMIN_API_KEY" \
+        curl -f -H "admin-key: $ADMIN_KEY" \
           "$PRODUCTION_URL/api/system/maintenance" || exit 1
         echo "✅ Maintenance system passed"
 
         # Test auto-alerts endpoint
-        curl -f -H "admin-key: $ADMIN_API_KEY" \
+        curl -f -H "admin-key: $ADMIN_KEY" \
           "$PRODUCTION_URL/api/admin/auto-alerts" || exit 1
         echo "✅ Auto-alerts system passed"
 
@@ -82,7 +108,7 @@ jobs:
         echo "🔧 Testing infrastructure hardening routes..."
 
         # Test infrastructure status endpoint
-        curl -f -H "admin-key: $ADMIN_API_KEY" \
+        curl -f -H "admin-key: $ADMIN_KEY" \
           "$PRODUCTION_URL/api/admin/infrastructure" || exit 1
         echo "✅ Infrastructure endpoint passed"
 
@@ -92,7 +118,7 @@ jobs:
 
         # Test response time for critical endpoints
         admin_health_time=$(curl -w "%{time_total}" -s -o /dev/null \
-          -H "admin-key: $ADMIN_API_KEY" \
+          -H "admin-key: $ADMIN_KEY" \
           "$PRODUCTION_URL/api/admin/health")
 
         echo "📊 Admin health response time: ${admin_health_time}s"
@@ -218,7 +244,7 @@ jobs:
 
         for endpoint in "${endpoints[@]}"; do
           response=$(curl -s -o /dev/null -w "%{http_code}" \
-            -H "admin-key: $ADMIN_API_KEY" \
+            -H "admin-key: $ADMIN_KEY" \
             "$PRODUCTION_URL$endpoint")
           if [[ "$response" == "200" ]]; then
             echo "✅ $endpoint deployed successfully"
