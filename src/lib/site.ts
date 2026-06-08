@@ -6,9 +6,19 @@
  * for backward compatibility — do not remove that export.
  */
 
+function normalizeSiteUrl(url: string) {
+  return url
+    .replace(/^https:\/\/audiojones\.com\/?$/, "https://www.audiojones.com")
+    .replace(/\/$/, "");
+}
+
+const canonicalSiteUrl = normalizeSiteUrl(
+  process.env.NEXT_PUBLIC_SITE_URL || "https://www.audiojones.com"
+);
+
 export const siteConfig = {
   name: "Audio Jones",
-  url: process.env.NEXT_PUBLIC_SITE_URL || "https://audiojones.com",
+  url: canonicalSiteUrl,
   description:
     "Applied Intelligence Systems for founder-led businesses. Identify causal growth signals, reduce operational noise, and build the system that compounds.",
   ogImage: "/assets/og/audio-jones-og.jpg",

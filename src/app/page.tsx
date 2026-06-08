@@ -14,17 +14,18 @@ import {
   personJsonLd,
   webSiteJsonLd,
 } from "@/lib/seo/schema";
+import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Audio Jones — Applied Intelligence Systems for founder-led businesses",
   description:
     "You don't have a growth problem. You have a signal problem. Audio Jones helps founder-led businesses identify causal growth signals, reduce operational noise, and build Applied Intelligence Systems that compound.",
-  alternates: { canonical: "https://audiojones.com/" },
+  alternates: { canonical: `${siteConfig.url}/` },
   openGraph: {
     title: "Audio Jones — Applied Intelligence Systems",
     description:
       "Identify causal growth signals. Reduce noise. Build the system that compounds.",
-    url: "https://audiojones.com/",
+    url: `${siteConfig.url}/`,
     siteName: "Audio Jones",
     type: "website",
   },

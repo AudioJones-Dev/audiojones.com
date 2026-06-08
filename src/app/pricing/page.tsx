@@ -1,7 +1,56 @@
 /* app/pricing/page.tsx */
 
+import type { Metadata } from 'next';
 import Link from 'next/link';
+import JsonLd from '@/components/seo/JsonLd';
+import { ctaLinks } from '@/config/links';
 import { getAllServices, applyMarketRules } from '@/lib/getPricing';
+import { siteConfig } from '@/lib/site';
+import { buildMetadata } from '@/lib/seo/metadata';
+
+const PRICING_FAQS = [
+  {
+    question: 'Do you offer month-to-month?',
+    answer:
+      'Yes. Some engagements can start month-to-month, but larger systems work is scoped around the diagnostic and the operating change required.',
+  },
+  {
+    question: 'Can you work with our existing tools?',
+    answer:
+      'Yes. AJ Digital usually works around the tools already in place, then clarifies the workflows, ownership, attribution, and reporting layer around them.',
+  },
+  {
+    question: "What's included in support?",
+    answer:
+      'Support depends on the engagement path. The diagnostic defines the operating gap, the system layer to build, and the level of reporting or adoption support required.',
+  },
+];
+
+export const metadata: Metadata = buildMetadata({
+  title: 'Founder Intelligence System Pricing',
+  description:
+    'Transparent diagnostic, systems buildout, automation, attribution, and content-system pricing for founder-led service businesses.',
+  path: '/pricing',
+});
+
+function formatTierPrice(tier: { billing_model: string; price_min: number; price_max: number }) {
+  if (
+    tier.billing_model === 'custom' ||
+    !Number.isFinite(tier.price_min) ||
+    !Number.isFinite(tier.price_max) ||
+    tier.price_min <= 0 ||
+    tier.price_max <= 0
+  ) {
+    return 'Custom';
+  }
+
+  const amount =
+    tier.price_min === tier.price_max
+      ? `$${tier.price_min.toLocaleString()}`
+      : `$${tier.price_min.toLocaleString()} - $${tier.price_max.toLocaleString()}`;
+
+  return tier.billing_model === 'monthly' ? `${amount}/mo` : amount;
+}
 
 export default function PricingPage() {
   // Load all services and apply market rules
@@ -19,11 +68,11 @@ export default function PricingPage() {
     "@graph": [
       {
         "@type": "WebPage",
-        "@id": "https://audiojones.com/pricing",
-        "url": "https://audiojones.com/pricing",
-        "name": "Audio Jones Pricing",
-        "description": "Transparent AI consulting and media systems pricing.",
-        "isPartOf": { "@id": "https://audiojones.com/#website" },
+        "@id": `${siteConfig.url}/pricing`,
+        "url": `${siteConfig.url}/pricing`,
+        "name": "Founder Intelligence System Pricing",
+        "description": "Transparent diagnostic, systems buildout, automation, attribution, and content-system pricing for founder-led service businesses.",
+        "isPartOf": { "@id": `${siteConfig.url}/#website` },
         "breadcrumb": {
           "@type": "BreadcrumbList",
           "itemListElement": [
@@ -31,7 +80,7 @@ export default function PricingPage() {
               "@type": "ListItem",
               "position": 1,
               "name": "Home",
-              "item": "https://audiojones.com/"
+              "item": `${siteConfig.url}/`
             },
             {
               "@type": "ListItem",
@@ -40,18 +89,24 @@ export default function PricingPage() {
             }
           ]
         }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": PRICING_FAQS.map((faq) => ({
+          "@type": "Question",
+          "name": faq.question,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": faq.answer
+          }
+        }))
       }
     ]
   };
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
-        }}
-      />
+      <JsonLd data={jsonLd} />
       <main className="bg-[#0f0f10] text-white min-h-screen">
         {/* top spacer if your layout has fixed nav */}
         <div className="h-16" />
@@ -80,7 +135,7 @@ export default function PricingPage() {
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <a
-                href="/book"
+                href={ctaLinks.bookSession}
                 className="bg-[#ff7847] text-black font-semibold px-6 py-3 rounded-lg hover:scale-[1.02] transition"
               >
                 Book a Strategy Call
@@ -128,14 +183,7 @@ export default function PricingPage() {
                     </div>
                     
                     <div className="text-2xl font-bold">
-                      {tier.billing_model === 'custom' ? (
-                        'Custom'
-                      ) : tier.price_min === tier.price_max ? (
-                        `$${tier.price_min.toLocaleString()}`
-                      ) : (
-                        `$${tier.price_min.toLocaleString()} - $${tier.price_max.toLocaleString()}`
-                      )}
-                      {tier.billing_model === 'monthly' && <span className="text-sm font-normal text-white/50">/mo</span>}
+                      {formatTierPrice(tier)}
                     </div>
                     
                     <p className="text-xs text-white/50 uppercase tracking-wide">
@@ -149,7 +197,7 @@ export default function PricingPage() {
                     </ul>
                     
                     <a
-                      href="/book"
+                      href={ctaLinks.bookSession}
                       className={`mt-auto inline-flex justify-center rounded-lg py-2 text-sm font-semibold transition ${
                         index === 1
                           ? 'bg-[#ff7847] text-black hover:opacity-90'
@@ -198,24 +246,12 @@ export default function PricingPage() {
         <section className="max-w-4xl mx-auto px-4 py-16 space-y-8">
           <h2 className="text-2xl font-semibold">Pricing FAQs</h2>
           <div className="space-y-4">
-            <details className="bg-white/5 rounded-lg p-4">
-              <summary className="cursor-pointer font-medium">Do you offer month-to-month?</summary>
-              <p className="mt-2 text-sm text-white/70">
-                Yes. Most clients start month-to-month while we dial in the content system.
-              </p>
-            </details>
-            <details className="bg-white/5 rounded-lg p-4">
-              <summary className="cursor-pointer font-medium">Can you integrate with our existing studio setup?</summary>
-              <p className="mt-2 text-sm text-white/70">
-                Yes. We can work with your current production tools and CRMs.
-              </p>
-            </details>
-            <details className="bg-white/5 rounded-lg p-4">
-              <summary className="cursor-pointer font-medium">What's included in support?</summary>
-              <p className="mt-2 text-sm text-white/70">
-                Pro and Enterprise get priority support, reporting, and automation updates.
-              </p>
-            </details>
+            {PRICING_FAQS.map((faq) => (
+              <details key={faq.question} className="bg-white/5 rounded-lg p-4">
+                <summary className="cursor-pointer font-medium">{faq.question}</summary>
+                <p className="mt-2 text-sm text-white/70">{faq.answer}</p>
+              </details>
+            ))}
           </div>
         </section>
       </main>

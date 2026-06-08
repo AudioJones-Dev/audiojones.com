@@ -75,12 +75,13 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
+  const { slug } = await params;
   const sanityCluster = await safeFetch<TopicCluster>(TOPIC_CLUSTER_BY_SLUG_QUERY, {
-    slug: params.slug,
+    slug,
   });
-  const staticFallback = STATIC_CLUSTERS[params.slug];
+  const staticFallback = STATIC_CLUSTERS[slug];
 
   const title = sanityCluster?.seoTitle ?? sanityCluster?.title ?? staticFallback?.label;
   const description = sanityCluster?.seoDescription ?? sanityCluster?.description ?? staticFallback?.description;
@@ -90,7 +91,7 @@ export async function generateMetadata({
   return buildMetadata({
     title: `${title} | Audio Jones Blog`,
     description: description ?? `Audio Jones articles on ${title}.`,
-    path: `/blog/topic/${params.slug}`,
+    path: `/blog/topic/${slug}`,
   });
 }
 
@@ -99,14 +100,15 @@ export async function generateMetadata({
 export default async function TopicClusterPage({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
-  const staticFallback = STATIC_CLUSTERS[params.slug];
+  const { slug } = await params;
+  const staticFallback = STATIC_CLUSTERS[slug];
 
   // Fetch Sanity data in parallel
   const [sanityCluster, posts] = await Promise.all([
-    safeFetch<TopicCluster>(TOPIC_CLUSTER_BY_SLUG_QUERY, { slug: params.slug }),
-    safeFetch<PostStub[]>(POSTS_BY_TOPIC_QUERY, { topicSlug: params.slug }),
+    safeFetch<TopicCluster>(TOPIC_CLUSTER_BY_SLUG_QUERY, { slug }),
+    safeFetch<PostStub[]>(POSTS_BY_TOPIC_QUERY, { topicSlug: slug }),
   ]);
 
   // 404 if neither Sanity nor static fallback recognises this slug
@@ -123,7 +125,7 @@ export default async function TopicClusterPage({
         data={breadcrumbJsonLd([
           { name: "Home", url: "/" },
           { name: "Blog", url: "/blog" },
-          { name: title, url: `/blog/topic/${params.slug}` },
+          { name: title, url: `/blog/topic/${slug}` },
         ])}
       />
 
@@ -170,7 +172,7 @@ export default async function TopicClusterPage({
           </p>
 
           {/* Internal links to related framework pages */}
-          <InternalLinks slug={params.slug} accent={accent} />
+          <InternalLinks slug={slug} accent={accent} />
         </div>
       </section>
 
@@ -351,4 +353,3 @@ function TopicPostCard({ post, accent }: { post: PostStub; accent: string }) {
     </article>
   );
 }
-

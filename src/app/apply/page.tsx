@@ -1,16 +1,19 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import ApplyForm from "@/components/apply/ApplyForm";
+import FAQ from "@/components/applied-intelligence/FAQ";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import JsonLd from "@/components/seo/JsonLd";
 import {
+  faqJsonLd,
   organizationJsonLd,
   personJsonLd,
 } from "@/lib/seo/schema";
+import { founderIntelligenceFaqs } from "@/lib/seo/founder-intelligence-faq";
 import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Apply",
+  title: "Diagnostic Review Application",
   description:
     "Apply for an Audio Jones engagement. Founder-led businesses, $250K–$5M. Reviewed personally for fit.",
   alternates: { canonical: `${siteConfig.url}/apply` },
@@ -34,6 +37,7 @@ export default function ApplyPage() {
     <>
       <JsonLd data={organizationJsonLd()} />
       <JsonLd data={personJsonLd()} />
+      <JsonLd data={faqJsonLd(founderIntelligenceFaqs)} />
       <JsonLd
         data={{
           "@context": "https://schema.org",
@@ -64,6 +68,22 @@ export default function ApplyPage() {
               <li>· Founder-led, $250K–$5M</li>
             </ul>
           </header>
+
+          <section className="mx-auto mb-14 max-w-[760px] rounded-xl border border-border-subtle bg-surface-1 p-6 sm:p-8">
+            <Eyebrow>Direct Answer</Eyebrow>
+            <h2 className="mt-4 t-h3 text-fg-0">
+              The application is for founder-led service businesses that need
+              a sharper operating diagnosis before a systems buildout.
+            </h2>
+            <p className="mt-4 t-body text-fg-2">
+              AJ Digital reviews the constraint, current stack, revenue leaks,
+              and implementation readiness before recommending a diagnostic,
+              engagement, or no-fit next step.
+            </p>
+            <div className="mt-8">
+              <FAQ items={founderIntelligenceFaqs} />
+            </div>
+          </section>
 
           {/* Suspense boundary required because <ApplyForm> uses
               useSearchParams() — without it, /apply throws a prerender

@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import FAQ from "@/components/applied-intelligence/FAQ";
+import JsonLd from "@/components/seo/JsonLd";
 import { ButtonLink } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { ctaLinks } from "@/config/links";
 import { buildMetadata } from "@/lib/seo/metadata";
+import { founderIntelligenceFaqs } from "@/lib/seo/founder-intelligence-faq";
+import { faqJsonLd } from "@/lib/seo/schema";
 
 const TITLE = "Applied Intelligence Services";
 const DESCRIPTION =
@@ -90,6 +94,7 @@ export const metadata: Metadata = buildMetadata({
 export default function ServicesPage() {
   return (
     <main className="min-h-screen bg-bg-0 text-fg-0">
+      <JsonLd data={faqJsonLd(founderIntelligenceFaqs)} />
       <section className="border-b border-[var(--line-2)] py-16 sm:py-24 lg:py-32">
         <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
           <div className="max-w-[var(--copy-max)]">
@@ -259,6 +264,25 @@ export default function ServicesPage() {
             >
               Review operator case studies →
             </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-t border-[var(--line-2)] bg-bg-1 py-16 sm:py-24">
+        <div className="mx-auto max-w-3xl px-5 sm:px-8">
+          <Eyebrow>Direct Answer</Eyebrow>
+          <h2 className="mt-4 t-h2 text-balance text-fg-0">
+            AJ Digital builds Founder Intelligence Systems for founder-led
+            service businesses with follow-up, CRM, attribution, and reporting
+            gaps.
+          </h2>
+          <p className="mt-5 t-body-lg text-fg-2">
+            The service path starts with diagnosis, then installs the smallest
+            system layer needed to recover signal, reduce manual drag, and make
+            revenue movement visible.
+          </p>
+          <div className="mt-8">
+            <FAQ items={founderIntelligenceFaqs} />
           </div>
         </div>
       </section>

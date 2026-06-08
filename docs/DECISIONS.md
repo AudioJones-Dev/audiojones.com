@@ -127,6 +127,28 @@ creates an unstable working tree on case-insensitive filesystems.
 
 ---
 
+## 2026-06-08 — Canonical public host is www.audiojones.com
+
+**Status:** accepted
+**Decision:** Default public SEO URLs use `https://www.audiojones.com`.
+Sitemap, robots, page metadata, and JSON-LD should resolve through the shared
+site URL helpers instead of hardcoded non-www URLs. A legacy exact
+`https://audiojones.com` `NEXT_PUBLIC_SITE_URL` value is normalized to the
+www host.
+
+**Rationale:** the site audit found sitemap URLs resolving through the
+non-www to www redirect path. Canonical URLs should match the final production
+destination to avoid avoidable redirect hops and mixed host signals.
+
+**Consequences:**
+- `NEXT_PUBLIC_SITE_URL` can still override the host per environment, except
+  the exact non-www production host is normalized to the final www host.
+- The default fallback host is now `https://www.audiojones.com`.
+- Retired `/book` remains handled by the existing permanent redirect to
+  `/book-a-call`; robots must not block the live `/book-a-call` path.
+
+---
+
 ## How to add an entry
 
 1. Append to the bottom of this file with today's date.
