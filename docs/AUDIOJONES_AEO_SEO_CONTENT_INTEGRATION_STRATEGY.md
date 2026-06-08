@@ -704,10 +704,28 @@ AEO is the highest-ROI layer here because the seed themes are
 
 ### 9.2 Speakable
 
-Add `speakableSpec([...])` to the JSON-LD on hubs and pillars, targeting the
-answer-block class and the FAQ answers. The helper already exists in
-`src/lib/seo/schema.ts` and is currently unused on pages — adopting it is pure
-upside.
+Add speakable markup to hubs and pillars, targeting the answer-block class and
+the FAQ answers. **Implementation caveat (important):** the existing
+`speakableSpec()` helper in `src/lib/seo/schema.ts` returns a bare
+`SpeakableSpecification` object (no `@context`, no parent type). Per Google's
+spec, `speakable` must be a **property of an `Article` or `WebPage` object** —
+emitting `speakableSpec()` as a standalone `<JsonLd data={...}/>` block (the
+pattern used by every other helper in this repo) would produce an orphan that
+won't validate.
+
+Two acceptable build-phase implementations:
+
+1. **(Recommended) Extend `articleJsonLd`** to accept an optional
+   `speakable?: string[]` argument and inject `speakable: speakableSpec(selectors)`
+   into the returned `Article` object. Pages stay simple: one `<JsonLd>` per
+   schema type, speakable rides inside the Article.
+2. **Page-level nest** at the call site — spread `speakableSpec(...)` into the
+   `articleJsonLd(...)` result before passing to `<JsonLd>`. Equivalent output,
+   slightly more repetition.
+
+Either way, **do not ship `<JsonLd data={speakableSpec([...])}/>` as its own
+block.** §15 lists `speakableSpec` against rows to remind implementers it must
+be nested into the page's `articleJsonLd` (or `WebPage` schema on the hubs).
 
 ### 9.3 FAQ as AEO surface
 
@@ -873,22 +891,29 @@ page; the diagnostic is the default primary unless the page is bottom-of-funnel
 ## 15. Schema recommendations (mapped to existing helpers)
 
 All recommendations reuse `src/lib/seo/schema.ts`; **no new schema
-infrastructure is required.**
+infrastructure is required, with one small helper change** (see §9.2): to use
+speakable correctly, either extend `articleJsonLd` to accept an optional
+`speakable?: string[]` argument, or nest `speakableSpec(...)` into the Article
+object at the call site. Never emit it as a standalone JSON-LD block.
+
+In the table below, `speakableSpec (nested in Article)` means: nested under the
+page's `articleJsonLd` result via one of the two patterns in §9.2 — **not** a
+separate `<JsonLd data={speakableSpec(...)}/>` call.
 
 | Asset | Schema (helper) |
 |---|---|
-| A1 | `definedTermJsonLd` + `articleJsonLd` + `faqJsonLd` + `breadcrumbJsonLd` + `speakableSpec` |
+| A1 | `definedTermJsonLd` + `articleJsonLd` + `faqJsonLd` + `breadcrumbJsonLd` + `speakableSpec` *(nested in Article)* |
 | A2 | `articleJsonLd` + `faqJsonLd` + `breadcrumbJsonLd` (+ HTML comparison table for snippet) |
-| A3 (hub) | existing schema **+ add `speakableSpec`** |
-| B1 | `articleJsonLd` + `definedTermJsonLd` (concept block) + `faqJsonLd` + `breadcrumbJsonLd` + `speakableSpec` |
-| B2 (hub) | existing schema **+ add `speakableSpec`** |
+| A3 (hub) | existing schema **+ add `speakableSpec` nested in the page's `articleJsonLd`** |
+| B1 | `articleJsonLd` + `definedTermJsonLd` (concept block) + `faqJsonLd` + `breadcrumbJsonLd` + `speakableSpec` *(nested in Article)* |
+| B2 (hub) | existing schema **+ add `speakableSpec` nested in the page's `articleJsonLd`** |
 | C1 (ResponseOS) | **add `faqJsonLd`** (currently missing) |
 | C2 (revenue leak) | `definedTermJsonLd` |
 | Site-wide | append to `aiEntity.knowsAbout` (Person/Organization schema) |
 
 **Two no-cost wins to call out:** (1) `speakableSpec` exists but isn't used on
-any page yet; (2) the ResponseOS FAQ renders without FAQ schema. Both are
-edits, not builds.
+any page yet (adopt with the nesting pattern above); (2) the ResponseOS FAQ
+renders without FAQ schema. Both are edits, not builds.
 
 ---
 
