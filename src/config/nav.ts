@@ -39,6 +39,11 @@ export const mainNav: NavItem[] = [
     description: "Service offerings and engagement packages",
   },
   {
+    label: "Pilot Program",
+    href: "/founder-intelligence-systems-pilot",
+    description: "Founder Intelligence Systems Pilot — limited to 3 partners",
+  },
+  {
     label: "Case Studies",
     href: "/case-studies",
     description: "How operators apply intelligence — in their own words",
