@@ -1,0 +1,360 @@
+{
+  "source_url": "https://www.audiojones.com/frameworks/map-attribution",
+  "discovery_source": "internal-link|sitemap",
+  "fetched_at": "2026-06-08T04:45:21.425Z",
+  "status_code": 200,
+  "final_url": "https://www.audiojones.com/frameworks/map-attribution",
+  "redirected": false,
+  "content_type": "text/html; charset=utf-8",
+  "canonical_url": "https://www.audiojones.com/frameworks/map-attribution",
+  "title": "M.A.P Attribution Framework | Audio Jones Framework | Audio Jones",
+  "meta_description": "M.A.P Attribution: a three-filter framework that decides which metrics earn the right to drive your strategy.",
+  "robots_meta": "",
+  "h1": "M.A.P Attribution: the filter every metric must earn its way through.",
+  "headings": [
+    {
+      "level": 1,
+      "text": "M.A.P Attribution: the filter every metric must earn its way through."
+    },
+    {
+      "level": 2,
+      "text": "Why most attribution is wrong"
+    },
+    {
+      "level": 2,
+      "text": "M = Meaningful"
+    },
+    {
+      "level": 2,
+      "text": "A = Actionable"
+    },
+    {
+      "level": 2,
+      "text": "P = Profitable"
+    },
+    {
+      "level": 2,
+      "text": "Signal vs noise scoring"
+    },
+    {
+      "level": 2,
+      "text": "Use cases"
+    },
+    {
+      "level": 2,
+      "text": "FAQ"
+    },
+    {
+      "level": 3,
+      "text": "Site"
+    },
+    {
+      "level": 3,
+      "text": "Connect"
+    },
+    {
+      "level": 3,
+      "text": "Legal"
+    },
+    {
+      "level": 3,
+      "text": "Subscribe"
+    }
+  ],
+  "h2_h3_structure": [
+    {
+      "level": 2,
+      "text": "Why most attribution is wrong"
+    },
+    {
+      "level": 2,
+      "text": "M = Meaningful"
+    },
+    {
+      "level": 2,
+      "text": "A = Actionable"
+    },
+    {
+      "level": 2,
+      "text": "P = Profitable"
+    },
+    {
+      "level": 2,
+      "text": "Signal vs noise scoring"
+    },
+    {
+      "level": 2,
+      "text": "Use cases"
+    },
+    {
+      "level": 2,
+      "text": "FAQ"
+    },
+    {
+      "level": 3,
+      "text": "Site"
+    },
+    {
+      "level": 3,
+      "text": "Connect"
+    },
+    {
+      "level": 3,
+      "text": "Legal"
+    },
+    {
+      "level": 3,
+      "text": "Subscribe"
+    }
+  ],
+  "word_count": 384,
+  "above_the_fold_copy": "M.A.P Attribution Framework | Audio Jones Framework | Audio Jones Definition M.A.P Attribution is an Audio Jones methodology for evaluating whether a metric or data point is Meaningful, Actionable, and Profitable before it drives business strategy. Why most attribution is wrong Most attribution models track which channel a lead touched last — not which channel caused the lead. They reward whichever surface had the cookie when conversion happened, regardless of where the intent was actually formed. M.A.P forces a different question: did this metric move a decision, and did the decision move profit? M = Meaningful A metric is Meaningful when it represents something the business cares about at the strategy level. Page views are not meaningful. Pipeline revenue from a specific source is. Meaning is the first gate because measurable doesn’t imply important. A = Actionable A metric is Actionab",
+  "cta_text": [
+    "Services",
+    "Workshops",
+    "AI Readiness Diagnostic",
+    "Book a Call",
+    "Request Strategic Diagnostic"
+  ],
+  "internal_links": [
+    {
+      "href": "https://www.audiojones.com",
+      "text": ""
+    },
+    {
+      "href": "https://www.audiojones.com",
+      "text": "Home"
+    },
+    {
+      "href": "https://www.audiojones.com/agents",
+      "text": "Agents"
+    },
+    {
+      "href": "https://www.audiojones.com/services",
+      "text": "Services"
+    },
+    {
+      "href": "https://www.audiojones.com/case-studies",
+      "text": "Case Studies"
+    },
+    {
+      "href": "https://www.audiojones.com/insights",
+      "text": "Insights"
+    },
+    {
+      "href": "https://www.audiojones.com/roi-calculator",
+      "text": "ROI Calculator"
+    },
+    {
+      "href": "https://www.audiojones.com/workshops",
+      "text": "Workshops"
+    },
+    {
+      "href": "https://www.audiojones.com/ai-readiness-diagnostic",
+      "text": "AI Readiness Diagnostic"
+    },
+    {
+      "href": "https://www.audiojones.com/book-a-call",
+      "text": "Book a Call"
+    },
+    {
+      "href": "https://www.audiojones.com/frameworks",
+      "text": "Frameworks"
+    },
+    {
+      "href": "https://www.audiojones.com/ai-readiness-diagnostic",
+      "text": "Request Strategic Diagnostic"
+    },
+    {
+      "href": "https://www.audiojones.com/privacy-policy",
+      "text": "Privacy"
+    },
+    {
+      "href": "https://www.audiojones.com/terms-of-service",
+      "text": "Terms"
+    },
+    {
+      "href": "https://www.audiojones.com/cookie-policy",
+      "text": "Cookies"
+    },
+    {
+      "href": "https://www.audiojones.com/sitemap.xml",
+      "text": "Site map"
+    }
+  ],
+  "external_links": [
+    {
+      "href": "https://www.linkedin.com/in/audiojones",
+      "text": "LinkedIn"
+    },
+    {
+      "href": "https://www.youtube.com/@audiojones",
+      "text": "YouTube"
+    },
+    {
+      "href": "https://x.com/audiojones",
+      "text": "X"
+    }
+  ],
+  "images": [
+    {
+      "src": "https://www.audiojones.com/assets/logos/audiojones-wordmark-nav.svg?dpl=dpl_H6zJ4NEkUwo32A9GVocUSKHfTRXa",
+      "alt": "Audio Jones"
+    },
+    {
+      "src": "https://www.audiojones.com/assets/logos/audiojones-wordmark-white.svg?dpl=dpl_H6zJ4NEkUwo32A9GVocUSKHfTRXa",
+      "alt": "Audio Jones — Applied Intelligence Systems"
+    },
+    {
+      "src": "https://www.audiojones.com/_next/image?url=%2Fimages%2Fjavi%2Favatar.png&w=64&q=75&dpl=dpl_H6zJ4NEkUwo32A9GVocUSKHfTRXa",
+      "alt": "Javi"
+    }
+  ],
+  "image_alt_text": [
+    "Audio Jones",
+    "Audio Jones — Applied Intelligence Systems",
+    "Javi"
+  ],
+  "structured_data": [
+    {
+      "parsed": {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://audiojones.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Frameworks",
+            "item": "https://audiojones.com/frameworks"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "M.A.P Attribution Framework",
+            "item": "https://audiojones.com/frameworks/map-attribution"
+          }
+        ]
+      }
+    },
+    {
+      "parsed": {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "M.A.P Attribution Framework",
+        "description": "M.A.P Attribution is an Audio Jones methodology for evaluating whether a metric or data point is Meaningful, Actionable, and Profitable before it drives business strategy.",
+        "mainEntityOfPage": "https://audiojones.com/frameworks/map-attribution",
+        "datePublished": "2026-06-08T03:34:40.656Z",
+        "dateModified": "2026-06-08T03:34:40.656Z",
+        "image": "https://audiojones.com/assets/og/audio-jones-og.jpg",
+        "author": {
+          "@type": "Person",
+          "name": "Audio Jones"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "AJ Digital",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://audiojones.com/assets/og/audio-jones-logo.png"
+          }
+        }
+      }
+    },
+    {
+      "parsed": {
+        "@context": "https://schema.org",
+        "@type": "DefinedTerm",
+        "name": "M.A.P Attribution Framework",
+        "description": "M.A.P Attribution is an Audio Jones methodology for evaluating whether a metric or data point is Meaningful, Actionable, and Profitable before it drives business strategy.",
+        "url": "https://audiojones.com/frameworks/map-attribution",
+        "inDefinedTermSet": {
+          "@type": "DefinedTermSet",
+          "name": "Audio Jones Applied Intelligence Glossary",
+          "url": "https://audiojones.com/frameworks"
+        }
+      }
+    },
+    {
+      "parsed": {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is the M.A.P Attribution Framework?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "M.A.P is a three-question filter — Meaningful, Actionable, Profitable — that every metric must pass before it earns the right to drive a business decision. It separates causal signal from vanity activity."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How is M.A.P different from marketing analytics?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Marketing analytics typically measures activity. M.A.P measures decision quality. A click-through rate may be tracked, but if it can't move a decision and can't be tied to profit, M.A.P retires it from the dashboard."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Why does attribution matter for small businesses?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Founder-led businesses can't afford to scale unproven inputs. Without causal attribution, every dollar of growth spend is a guess, and every AI automation is built on top of a hypothesis the team has never validated."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do I know if a metric is profitable?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "A metric is profitable when changes in it produce changes in revenue, margin, or efficiency that you can demonstrate. If you can't draw that line, the metric is informational at best and theatre at worst."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is a high-signal metric?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "A high-signal metric passes all three M.A.P filters: it matters to the business, it can change a decision, and it ties to profit. Most dashboards contain two or three of these surrounded by noise."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "schema_types": [
+    "Article",
+    "BreadcrumbList",
+    "DefinedTerm",
+    "FAQPage"
+  ],
+  "open_graph": {
+    "og:title": "M.A.P Attribution Framework | Audio Jones Framework",
+    "og:description": "M.A.P Attribution: a three-filter framework that decides which metrics earn the right to drive your strategy.",
+    "og:url": "https://audiojones.com/frameworks/map-attribution",
+    "og:site_name": "Audio Jones",
+    "og:image": "https://audiojones.com/assets/og/audio-jones-og.jpg",
+    "og:image:width": "1200",
+    "og:image:height": "630",
+    "og:image:alt": "M.A.P Attribution Framework | Audio Jones Framework",
+    "og:type": "article"
+  },
+  "twitter_meta": {
+    "twitter:card": "summary_large_image",
+    "twitter:title": "M.A.P Attribution Framework | Audio Jones Framework",
+    "twitter:description": "M.A.P Attribution: a three-filter framework that decides which metrics earn the right to drive your strategy.",
+    "twitter:image": "https://audiojones.com/assets/og/audio-jones-og.jpg"
+  },
+  "visible_text": "M.A.P Attribution Framework | Audio Jones Framework | Audio Jones Definition M.A.P Attribution is an Audio Jones methodology for evaluating whether a metric or data point is Meaningful, Actionable, and Profitable before it drives business strategy. Why most attribution is wrong Most attribution models track which channel a lead touched last — not which channel caused the lead. They reward whichever surface had the cookie when conversion happened, regardless of where the intent was actually formed. M.A.P forces a different question: did this metric move a decision, and did the decision move profit? M = Meaningful A metric is Meaningful when it represents something the business cares about at the strategy level. Page views are not meaningful. Pipeline revenue from a specific source is. Meaning is the first gate because measurable doesn’t imply important. A = Actionable A metric is Actionable when a change in it would change a decision. If the number moves and nothing about how the team operates would change, the metric is informational, not operational. Most dashboards are full of informational metrics dressed up as KPIs. P = Profitable A metric is Profitable when improving it improves revenue, margin, or efficiency in a way you can demonstrate. This is where attribution earns its name: a Profitable metric carries a causal link to outcome, not just a correlation. Signal vs noise scoring Score every dashboard tile against M, A, and P (0 or 1 each). 0–1: noise — remove or relegate to diagnostics. 2: borderline — keep, but instrument for the missing dimension. 3: signal — protect, automate, and tie to a named decision owner. Use cases Pruning marketing dashboards before AI reporting layers are added. Selecting which lead source to scale spend against. Deciding which automation deserves engineering investment. Killing reports that nobody decides from. FAQ What is the M.A.P Attribution Framework? − M.A.P is a three-question filter — Meaningful, Actionable, Profitable — that every metric must pass before it earns the right to drive a business decision. It separates causal signal from vanity activity. How is M.A.P different from marketing analytics? + Why does attribution matter for small businesses? + How do I know if a metric is profitable? + What is a high-signal metric? + Next step Apply this to your business in the Strategic Diagnostic. Request Strategic Diagnostic Ask Javi",
+  "page_type": "Framework / educational page",
+  "indexability_status": "indexable",
+  "raw_file": "frameworks-map-attribution.json",
+  "report_file": "frameworks-map-attribution.md"
+}

@@ -1,0 +1,31 @@
+url,seo_score,aeo_score,cro_score,messaging_score,icp_score,offer_score,priority,primary_issue,recommended_fix
+https://www.audiojones.com,89,75,87,90,69,100,Medium,stronger meta description,"Rewrite the meta description to name the ICP, problem, outcome, and next step in 140-160 characters."
+https://www.audiojones.com/about,96,61,81,77,100,100,Medium,FAQ block,Add a compact FAQ section with direct answers to buyer objections and FAQPage JSON-LD.
+https://www.audiojones.com/agents,86,43,87,93,91,95,High,FAQ block,Add a compact FAQ section with direct answers to buyer objections and FAQPage JSON-LD.
+https://www.audiojones.com/agents/responseos,86,74,81,75,91,95,Medium,service/offer schema,"Make the offer mechanism explicit: what AJ Digital builds, what the buyer receives, and what happens next."
+https://www.audiojones.com/ai-readiness-diagnostic,86,37,81,67,25,100,High,FAQ block,Add a compact FAQ section with direct answers to buyer objections and FAQPage JSON-LD.
+https://www.audiojones.com/applied-intelligence,96,75,81,76,69,95,Medium,FAQ block,Add a compact FAQ section with direct answers to buyer objections and FAQPage JSON-LD.
+https://www.audiojones.com/applied-intelligence/diagnostic,92,25,75,46,25,65,High,FAQ block,Add a compact FAQ section with direct answers to buyer objections and FAQPage JSON-LD.
+https://www.audiojones.com/apply,86,25,59,33,25,35,High,tighter title tag,"Rewrite the title tag around the exact page intent, primary entity, and Audio Jones brand without duplicating the brand suffix."
+https://www.audiojones.com/blog,82,45,81,60,69,65,Medium,FAQ block,Add a compact FAQ section with direct answers to buyer objections and FAQPage JSON-LD.
+https://www.audiojones.com/cancellation-policy,82,37,99,48,25,65,Low,FAQ block,Add a compact FAQ section with direct answers to buyer objections and FAQPage JSON-LD.
+https://www.audiojones.com/case-studies,86,65,87,95,100,100,Medium,FAQ block,Add a compact FAQ section with direct answers to buyer objections and FAQPage JSON-LD.
+https://www.audiojones.com/cookie-policy,82,25,84,43,25,50,Low,FAQ block,Add a compact FAQ section with direct answers to buyer objections and FAQPage JSON-LD.
+https://www.audiojones.com/founder-gravity-audit,92,25,75,50,47,80,High,FAQ block,Add a compact FAQ section with direct answers to buyer objections and FAQPage JSON-LD.
+https://www.audiojones.com/founder-gravity-audit/diagnostic,92,25,75,47,47,65,High,FAQ block,Add a compact FAQ section with direct answers to buyer objections and FAQPage JSON-LD.
+https://www.audiojones.com/frameworks,92,45,81,56,47,65,Medium,FAQ block,Add a compact FAQ section with direct answers to buyer objections and FAQPage JSON-LD.
+https://www.audiojones.com/frameworks/applied-intelligence-systems,96,74,81,58,47,65,Medium,service/offer schema,"Make the offer mechanism explicit: what AJ Digital builds, what the buyer receives, and what happens next."
+https://www.audiojones.com/frameworks/map-attribution,96,74,72,52,25,50,Medium,service/offer schema,"Make the offer mechanism explicit: what AJ Digital builds, what the buyer receives, and what happens next."
+https://www.audiojones.com/frameworks/niche-framework,96,66,75,55,47,65,Medium,service/offer schema,"Make the offer mechanism explicit: what AJ Digital builds, what the buyer receives, and what happens next."
+https://www.audiojones.com/frameworks/signal-vs-noise,96,74,75,54,47,65,Medium,service/offer schema,"Make the offer mechanism explicit: what AJ Digital builds, what the buyer receives, and what happens next."
+https://www.audiojones.com/insights,92,59,75,55,69,65,Medium,FAQ block,Add a compact FAQ section with direct answers to buyer objections and FAQPage JSON-LD.
+https://www.audiojones.com/insights/applied-intelligence-systems,96,66,81,55,47,65,Medium,service/offer schema,"Make the offer mechanism explicit: what AJ Digital builds, what the buyer receives, and what happens next."
+https://www.audiojones.com/insights/marketing-attribution-causal-identification,86,66,66,52,69,50,Medium,tighter title tag,"Rewrite the title tag around the exact page intent, primary entity, and Audio Jones brand without duplicating the brand suffix."
+https://www.audiojones.com/insights/signal-vs-noise-business,86,74,72,52,47,50,Medium,tighter title tag,"Rewrite the title tag around the exact page intent, primary entity, and Audio Jones brand without duplicating the brand suffix."
+https://www.audiojones.com/insights/why-ai-fails-most-companies,86,66,81,48,25,65,High,tighter title tag,"Rewrite the title tag around the exact page intent, primary entity, and Audio Jones brand without duplicating the brand suffix."
+https://www.audiojones.com/pricing,100,39,71,67,69,100,High,FAQ block,Add a compact FAQ section with direct answers to buyer objections and FAQPage JSON-LD.
+https://www.audiojones.com/privacy-policy,82,39,89,50,25,80,Low,FAQ block,Add a compact FAQ section with direct answers to buyer objections and FAQPage JSON-LD.
+https://www.audiojones.com/roi-calculator,86,35,81,67,69,95,High,tighter title tag,"Rewrite the title tag around the exact page intent, primary entity, and Audio Jones brand without duplicating the brand suffix."
+https://www.audiojones.com/services,90,59,71,79,91,95,High,FAQ block,Add a compact FAQ section with direct answers to buyer objections and FAQPage JSON-LD.
+https://www.audiojones.com/terms-of-service,82,25,89,50,25,65,Low,FAQ block,Add a compact FAQ section with direct answers to buyer objections and FAQPage JSON-LD.
+https://www.audiojones.com/workshops,86,43,81,78,91,100,High,FAQ block,Add a compact FAQ section with direct answers to buyer objections and FAQPage JSON-LD.

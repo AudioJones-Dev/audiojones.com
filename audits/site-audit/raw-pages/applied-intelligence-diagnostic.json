@@ -1,0 +1,210 @@
+{
+  "source_url": "https://www.audiojones.com/applied-intelligence/diagnostic",
+  "discovery_source": "internal-link|sitemap",
+  "fetched_at": "2026-06-08T04:45:21.425Z",
+  "status_code": 200,
+  "final_url": "https://www.audiojones.com/applied-intelligence/diagnostic",
+  "redirected": false,
+  "content_type": "text/html; charset=utf-8",
+  "canonical_url": "https://www.audiojones.com/applied-intelligence/diagnostic",
+  "title": "Strategic Diagnostic | Applied Intelligence | Audio Jones",
+  "meta_description": "Apply for an Applied Intelligence Diagnostic. Six steps that map your constraint, signal architecture, AI readiness, and attribution clarity.",
+  "robots_meta": "",
+  "h1": "Tell me where your business actually leaks signal.",
+  "headings": [
+    {
+      "level": 1,
+      "text": "Tell me where your business actually leaks signal."
+    },
+    {
+      "level": 3,
+      "text": "Site"
+    },
+    {
+      "level": 3,
+      "text": "Connect"
+    },
+    {
+      "level": 3,
+      "text": "Legal"
+    },
+    {
+      "level": 3,
+      "text": "Subscribe"
+    }
+  ],
+  "h2_h3_structure": [
+    {
+      "level": 3,
+      "text": "Site"
+    },
+    {
+      "level": 3,
+      "text": "Connect"
+    },
+    {
+      "level": 3,
+      "text": "Legal"
+    },
+    {
+      "level": 3,
+      "text": "Subscribe"
+    }
+  ],
+  "word_count": 80,
+  "above_the_fold_copy": "Strategic Diagnostic | Applied Intelligence | Audio Jones Strategic Diagnostic Tell me where your business actually leaks signal. Six short steps. I review every submission personally and reply within two business days if there’s a strong fit. 1 . Business snapshot 2 . Growth constraint 3 . Current systems 4 . AI readiness 5 . Attribution 6 . Submit First name * Last name Email * Phone Company name Website Your role Annual revenue Select… Under $250K $250K–$500K $500K–$1M $1M–$2M $2M–$5M $5M+ Back Continue Ask Javi",
+  "cta_text": [
+    "Services",
+    "Workshops",
+    "AI Readiness Diagnostic",
+    "Book a Call"
+  ],
+  "internal_links": [
+    {
+      "href": "https://www.audiojones.com",
+      "text": ""
+    },
+    {
+      "href": "https://www.audiojones.com",
+      "text": "Home"
+    },
+    {
+      "href": "https://www.audiojones.com/agents",
+      "text": "Agents"
+    },
+    {
+      "href": "https://www.audiojones.com/services",
+      "text": "Services"
+    },
+    {
+      "href": "https://www.audiojones.com/case-studies",
+      "text": "Case Studies"
+    },
+    {
+      "href": "https://www.audiojones.com/insights",
+      "text": "Insights"
+    },
+    {
+      "href": "https://www.audiojones.com/roi-calculator",
+      "text": "ROI Calculator"
+    },
+    {
+      "href": "https://www.audiojones.com/workshops",
+      "text": "Workshops"
+    },
+    {
+      "href": "https://www.audiojones.com/ai-readiness-diagnostic",
+      "text": "AI Readiness Diagnostic"
+    },
+    {
+      "href": "https://www.audiojones.com/book-a-call",
+      "text": "Book a Call"
+    },
+    {
+      "href": "https://www.audiojones.com/applied-intelligence",
+      "text": "Applied Intelligence"
+    },
+    {
+      "href": "https://www.audiojones.com/privacy-policy",
+      "text": "Privacy"
+    },
+    {
+      "href": "https://www.audiojones.com/terms-of-service",
+      "text": "Terms"
+    },
+    {
+      "href": "https://www.audiojones.com/cookie-policy",
+      "text": "Cookies"
+    },
+    {
+      "href": "https://www.audiojones.com/sitemap.xml",
+      "text": "Site map"
+    }
+  ],
+  "external_links": [
+    {
+      "href": "https://www.linkedin.com/in/audiojones",
+      "text": "LinkedIn"
+    },
+    {
+      "href": "https://www.youtube.com/@audiojones",
+      "text": "YouTube"
+    },
+    {
+      "href": "https://x.com/audiojones",
+      "text": "X"
+    }
+  ],
+  "images": [
+    {
+      "src": "https://www.audiojones.com/assets/logos/audiojones-wordmark-nav.svg?dpl=dpl_H6zJ4NEkUwo32A9GVocUSKHfTRXa",
+      "alt": "Audio Jones"
+    },
+    {
+      "src": "https://www.audiojones.com/assets/logos/audiojones-wordmark-white.svg?dpl=dpl_H6zJ4NEkUwo32A9GVocUSKHfTRXa",
+      "alt": "Audio Jones — Applied Intelligence Systems"
+    },
+    {
+      "src": "https://www.audiojones.com/_next/image?url=%2Fimages%2Fjavi%2Favatar.png&w=64&q=75&dpl=dpl_H6zJ4NEkUwo32A9GVocUSKHfTRXa",
+      "alt": "Javi"
+    }
+  ],
+  "image_alt_text": [
+    "Audio Jones",
+    "Audio Jones — Applied Intelligence Systems",
+    "Javi"
+  ],
+  "structured_data": [
+    {
+      "parsed": {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://audiojones.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Applied Intelligence",
+            "item": "https://audiojones.com/applied-intelligence"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Diagnostic",
+            "item": "https://audiojones.com/applied-intelligence/diagnostic"
+          }
+        ]
+      }
+    }
+  ],
+  "schema_types": [
+    "BreadcrumbList"
+  ],
+  "open_graph": {
+    "og:title": "Strategic Diagnostic | Applied Intelligence",
+    "og:description": "Apply for an Applied Intelligence Diagnostic. Six steps that map your constraint, signal architecture, AI readiness, and attribution clarity.",
+    "og:url": "https://audiojones.com/applied-intelligence/diagnostic",
+    "og:site_name": "Audio Jones",
+    "og:image": "https://audiojones.com/assets/og/audio-jones-og.jpg",
+    "og:image:width": "1200",
+    "og:image:height": "630",
+    "og:image:alt": "Strategic Diagnostic | Applied Intelligence",
+    "og:type": "website"
+  },
+  "twitter_meta": {
+    "twitter:card": "summary_large_image",
+    "twitter:title": "Strategic Diagnostic | Applied Intelligence",
+    "twitter:description": "Apply for an Applied Intelligence Diagnostic. Six steps that map your constraint, signal architecture, AI readiness, and attribution clarity.",
+    "twitter:image": "https://audiojones.com/assets/og/audio-jones-og.jpg"
+  },
+  "visible_text": "Strategic Diagnostic | Applied Intelligence | Audio Jones Strategic Diagnostic Tell me where your business actually leaks signal. Six short steps. I review every submission personally and reply within two business days if there’s a strong fit. 1 . Business snapshot 2 . Growth constraint 3 . Current systems 4 . AI readiness 5 . Attribution 6 . Submit First name * Last name Email * Phone Company name Website Your role Annual revenue Select… Under $250K $250K–$500K $500K–$1M $1M–$2M $2M–$5M $5M+ Back Continue Ask Javi",
+  "page_type": "Diagnostic / lead capture page",
+  "indexability_status": "indexable",
+  "raw_file": "applied-intelligence-diagnostic.json",
+  "report_file": "applied-intelligence-diagnostic.md"
+}
