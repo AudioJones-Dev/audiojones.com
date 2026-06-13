@@ -126,6 +126,22 @@ export default function HeroAllSignal() {
         }}
       >
         <div style={{ position: "relative", width: "100%", height: "100%" }}>
+          {/* Contact shadow — grounds the cutout on the white field. */}
+          <div
+            aria-hidden
+            style={{
+              position: "absolute",
+              left: "50%",
+              bottom: "3%",
+              transform: "translateX(-50%)",
+              width: "44%",
+              height: "90px",
+              background:
+                "radial-gradient(ellipse at center, rgba(8,8,12,0.22), rgba(8,8,12,0.10) 45%, transparent 72%)",
+              filter: "blur(10px)",
+              pointerEvents: "none",
+            }}
+          />
           <Image
             src={PORTRAIT}
             alt="Audio Jones"
@@ -153,6 +169,22 @@ export default function HeroAllSignal() {
         }}
       >
         <div style={{ position: "relative", width: "100%", height: "100%" }}>
+          {/* Contact shadow — grounds the cutout on the white field. */}
+          <div
+            aria-hidden
+            style={{
+              position: "absolute",
+              left: "50%",
+              bottom: "2%",
+              transform: "translateX(-50%)",
+              width: "50%",
+              height: "54px",
+              background:
+                "radial-gradient(ellipse at center, rgba(8,8,12,0.20), rgba(8,8,12,0.09) 45%, transparent 72%)",
+              filter: "blur(7px)",
+              pointerEvents: "none",
+            }}
+          />
           <Image
             src={PORTRAIT}
             alt="Audio Jones"
@@ -482,19 +514,38 @@ export default function HeroAllSignal() {
           marginTop: "20px",
         }}
       >
-        <Image
-          src={PORTRAIT}
-          alt="Audio Jones"
-          width={1080}
-          height={1350}
-          priority
-          style={{
-            width: "82vw",
-            maxWidth: "420px",
-            height: "auto",
-            objectFit: "contain",
-          }}
-        />
+        <div style={{ position: "relative" }}>
+          {/* Contact shadow — grounds the cutout on the white field. */}
+          <div
+            aria-hidden
+            style={{
+              position: "absolute",
+              left: "50%",
+              bottom: "6px",
+              transform: "translateX(-50%)",
+              width: "66%",
+              height: "30px",
+              background:
+                "radial-gradient(ellipse at center, rgba(8,8,12,0.20), rgba(8,8,12,0.08) 45%, transparent 72%)",
+              filter: "blur(6px)",
+              pointerEvents: "none",
+            }}
+          />
+          <Image
+            src={PORTRAIT}
+            alt="Audio Jones"
+            width={1080}
+            height={1350}
+            priority
+            style={{
+              width: "82vw",
+              maxWidth: "420px",
+              height: "auto",
+              objectFit: "contain",
+              position: "relative",
+            }}
+          />
+        </div>
       </div>
 
       {/* ── 4. Metrics strip — mobile < 768px ── */}
