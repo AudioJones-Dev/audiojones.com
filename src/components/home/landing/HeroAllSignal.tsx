@@ -3,26 +3,35 @@ import { ButtonLink } from "@/components/ui/Button";
 import { ctaLinks } from "@/config/links";
 
 /**
- * HeroAllSignal — layered editorial-tech composition.
+ * HeroAllSignal — editorial-tech composition on a white top-of-fold.
  *
  * Layer stack (bottom → top):
- *  1. Background PNG — dark noise left / clean system right (responsive)
- *  2. "ALL SIGNAL" live typography (behind portrait) — desktop + tablet only
- *  3. Portrait transparent cutout — mutually exclusive per breakpoint:
- *       desktop  >= 1024px → portrait/portraithero-portrait-audiojones-transparent.png (1024×1536)
- *       tablet 768–1023px  → portrait/portraithero-portrait-audiojones-transparent.png (desktop fallback, adjusted size)
- *       mobile  < 768px    → portrait/hero-portrait-audiojones-mobile-transparent.png  (1200×1600)
+ *  1. White background (subtle signal-tint glow, no dark imagery)
+ *  2. "ALL SIGNAL" watermark typography (behind portrait) — desktop + tablet
+ *  3. Portrait transparent cutout (same asset across breakpoints)
  *  4. Metrics strip — one per breakpoint, never duplicated
  *  5. Content block (headline / copy / CTAs)
  *
+ * On a white field every foreground text role flips to dark ink for
+ * readability — signal-yellow only survives where it sits on its own
+ * dark surface (the metrics chip) or as a highlighter behind dark ink.
+ *
  * ⚠ IMPORTANT — inline style vs Tailwind visibility:
- *   Inline `display:` values override Tailwind's `hidden` / `md:hidden` / `lg:hidden`
- *   because inline styles have higher CSS specificity than class-based rules.
- *   All flex/block display values must go in className, NOT in style={{}}.
- *   style={{}} may only contain non-display properties (position, zIndex, colors…).
+ *   Inline `display:` values override Tailwind's `hidden` / `md:hidden` /
+ *   `lg:hidden` because inline styles have higher CSS specificity than
+ *   class-based rules. All flex/block display values must go in className,
+ *   NOT in style={{}}. style={{}} may only contain non-display properties.
  */
 
 const ASSET = "/assets/Homepage/02-hero-all-signal";
+const PORTRAIT = `${ASSET}/portrait/hero-portrait-eightee20-society.png`;
+
+// On-white foreground ink roles.
+const INK = "#0A0A0A";
+const INK_SOFT = "rgba(10,10,10,0.66)";
+const INK_FAINT = "rgba(10,10,10,0.34)";
+const INK_LINE = "rgba(10,10,10,0.18)";
+const SIGNAL = "#E8FF5A";
 
 const METRICS = [
   { pct: "37%", dir: "↓", label: "CAC Reduction" },
@@ -42,75 +51,12 @@ export default function HeroAllSignal() {
         display: "flex",
         flexDirection: "column",
         background:
-          "linear-gradient(rgba(5,7,15,0.08),rgba(5,7,15,0.16)), url(/backgrounds/aj-bg-home-signal-control-room-desktop.webp), var(--aj-gradient-signal-control-room)",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
+          "radial-gradient(circle at 82% 16%, rgba(232,255,90,0.12), transparent 30%), #FFFFFF",
       }}
     >
-      {/* ── 1. Background — mobile < 768px ── */}
-      <div
-        aria-hidden
-        className="block md:hidden"
-        style={{ position: "absolute", inset: 0, zIndex: 0 }}
-      >
-        <div style={{ position: "relative", width: "100%", height: "100%" }}>
-          {/* Only the mobile variant is `priority`. The tablet/desktop
-              backgrounds and the desktop portrait stay lazy on purpose:
-              `priority` emits an unconditional <head> preload, so marking
-              the hidden breakpoints would force mobile to download every
-              variant. Lazy + display:none means each is fetched only on the
-              breakpoint that actually shows it. */}
-          <Image
-            src={`${ASSET}/backgrounds/hero-bg-split-dark-light-system-mobile.png`}
-            alt=""
-            fill
-            priority
-            className="object-cover object-top"
-            sizes="100vw"
-          />
-        </div>
-      </div>
-
-      {/* ── 1. Background — tablet 768–1023px ── */}
-      <div
-        aria-hidden
-        className="hidden md:block lg:hidden"
-        style={{ position: "absolute", inset: 0, zIndex: 0 }}
-      >
-        <div style={{ position: "relative", width: "100%", height: "100%" }}>
-          <Image
-            src={`${ASSET}/backgrounds/hero-bg-split-dark-light-system-tablet.png`}
-            alt=""
-            fill
-            className="object-cover object-top"
-            sizes="100vw"
-          />
-        </div>
-      </div>
-
-      {/* ── 1. Background — desktop >= 1024px ── */}
-      <div
-        aria-hidden
-        className="hidden lg:block"
-        style={{ position: "absolute", inset: 0, zIndex: 0 }}
-      >
-        <div style={{ position: "relative", width: "100%", height: "100%" }}>
-          <Image
-            src={`${ASSET}/backgrounds/hero-bg-split-dark-light-system-desktop.png`}
-            alt=""
-            fill
-            className="object-cover"
-            sizes="100vw"
-          />
-        </div>
-      </div>
-
-      {/* ── 2. "ALL SIGNAL" mega typography — desktop >= 1024px ──
-           Asymmetric editorial bleed is intentional, but the prior
-           `left: 37%` + `clamp(... 22rem)` + `nowrap` clipped too much
-           on 1024–1280px viewports. Pulled `left` left and capped the
-           upper-bound font-size to keep the first ~70% reliably visible
-           across the desktop range while preserving the bleed feel. ── */}
+      {/* ── 2. "ALL SIGNAL" watermark — desktop >= 1024px ──
+           Monochrome ink watermark so it stays a texture, not competing
+           text, on the white field. ── */}
       <div
         aria-hidden
         className="hidden lg:block"
@@ -127,14 +73,13 @@ export default function HeroAllSignal() {
           fontSize: "clamp(6.6rem, 11.2vw, 14.5rem)",
           lineHeight: 0.82,
           letterSpacing: "-0.065em",
-          opacity: 0.92,
           textTransform: "uppercase",
           transform: "scaleX(0.84)",
           transformOrigin: "left center",
         }}
       >
-        <span style={{ color: "rgba(0,0,0,0.78)" }}>ALL </span>
-        <span style={{ color: "rgba(232,255,90,0.95)" }}>SIGNAL</span>
+        <span style={{ color: "rgba(10,10,10,0.07)" }}>ALL </span>
+        <span style={{ color: "rgba(10,10,10,0.13)" }}>SIGNAL</span>
       </div>
 
       {/* ── 2. "ALL SIGNAL" — tablet 768–1023px ── */}
@@ -154,14 +99,13 @@ export default function HeroAllSignal() {
           fontSize: "clamp(3.8rem, 8vw, 7rem)",
           lineHeight: 0.82,
           letterSpacing: "-0.06em",
-          opacity: 0.88,
           textTransform: "uppercase",
           transform: "scaleX(0.84)",
           transformOrigin: "left center",
         }}
       >
-        <span style={{ color: "rgba(0,0,0,0.74)" }}>ALL </span>
-        <span style={{ color: "rgba(232,255,90,0.92)" }}>SIGNAL</span>
+        <span style={{ color: "rgba(10,10,10,0.07)" }}>ALL </span>
+        <span style={{ color: "rgba(10,10,10,0.13)" }}>SIGNAL</span>
       </div>
 
       {/* ── 2. "ALL SIGNAL" — mobile — HIDDEN (clutters headline on small screens) ── */}
@@ -183,16 +127,17 @@ export default function HeroAllSignal() {
       >
         <div style={{ position: "relative", width: "100%", height: "100%" }}>
           <Image
-            src={`${ASSET}/portrait/portraithero-portrait-audiojones-transparent.png`}
+            src={PORTRAIT}
             alt="Audio Jones"
             fill
+            priority
             className="object-contain object-bottom"
             sizes="(max-width: 1280px) 72vw, 1080px"
           />
         </div>
       </div>
 
-      {/* ── 3. Portrait — tablet 768–1023px (desktop asset, adjusted size) ── */}
+      {/* ── 3. Portrait — tablet 768–1023px (adjusted size) ── */}
       <div
         className="hidden md:block lg:hidden"
         style={{
@@ -209,7 +154,7 @@ export default function HeroAllSignal() {
       >
         <div style={{ position: "relative", width: "100%", height: "100%" }}>
           <Image
-            src={`${ASSET}/portrait/portraithero-portrait-audiojones-transparent.png`}
+            src={PORTRAIT}
             alt="Audio Jones"
             fill
             className="object-contain object-bottom"
@@ -219,8 +164,9 @@ export default function HeroAllSignal() {
       </div>
 
       {/* ── 4. Metrics strip — desktop >= 1024px ──
-           NOTE: display value MUST stay in className (hidden lg:flex), NOT in style.
-           An inline display:flex would override the hidden class on mobile. ── */}
+           Self-contained dark chip: signal-yellow stays readable on its own
+           dark surface, and the chip anchors the otherwise-white field.
+           NOTE: display value MUST stay in className (hidden lg:flex). ── */}
       <div
         className="hidden lg:flex"
         style={{
@@ -234,8 +180,7 @@ export default function HeroAllSignal() {
           border: "1px solid rgba(255,255,255,0.08)",
           borderRadius: "10px",
           padding: "14px 20px",
-          backdropFilter: "blur(8px)",
-          boxShadow: "0 8px 32px rgba(0,0,0,0.4)",
+          boxShadow: "0 18px 48px rgba(10,12,24,0.18)",
         }}
       >
         {METRICS.map((m, i) => (
@@ -256,7 +201,7 @@ export default function HeroAllSignal() {
                 fontWeight: 700,
                 lineHeight: 1,
                 letterSpacing: "-0.02em",
-                color: "#E8FF5A",
+                color: SIGNAL,
               }}
             >
               {m.dir}&thinsp;{m.pct}
@@ -297,19 +242,30 @@ export default function HeroAllSignal() {
             fontWeight: 600,
             letterSpacing: "0.22em",
             textTransform: "uppercase",
-            color: "#E8FF5A",
+            color: INK,
             marginBottom: "20px",
-            display: "block",
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "10px",
           }}
         >
+          <span
+            aria-hidden
+            style={{
+              width: "22px",
+              height: "8px",
+              background: SIGNAL,
+              borderRadius: "2px",
+              display: "inline-block",
+            }}
+          />
           Applied Intelligence Systems
         </span>
 
         {/* Desktop heading — same content as the canonical mobile <h1>
             below, but emitted as role="heading" aria-level="1" so the
             DOM contains a single <h1> tag (mobile is the canonical one
-            for SEO under mobile-first indexing). Screen readers still
-            announce it as a level-1 heading on desktop viewports. */}
+            for SEO under mobile-first indexing). */}
         <div
           role="heading"
           aria-level={1}
@@ -319,14 +275,23 @@ export default function HeroAllSignal() {
             fontWeight: 700,
             lineHeight: 1.0,
             letterSpacing: "-0.03em",
-            color: "#FFFFFF",
+            color: INK,
             margin: 0,
           }}
         >
           You don&apos;t have<br />a growth problem.
           <br />
-          <span style={{ color: "#E8FF5A" }}>
-            You have a<br />signal problem.
+          <span
+            style={{
+              background: SIGNAL,
+              color: INK,
+              padding: "0.02em 0.18em",
+              borderRadius: "2px",
+              boxDecorationBreak: "clone",
+              WebkitBoxDecorationBreak: "clone",
+            }}
+          >
+            You have a signal problem.
           </span>
         </div>
 
@@ -336,7 +301,7 @@ export default function HeroAllSignal() {
             fontSize: "17px",
             fontWeight: 500,
             lineHeight: 1.55,
-            color: "rgba(255,255,255,0.72)",
+            color: INK_SOFT,
             marginTop: "20px",
             maxWidth: "42ch",
           }}
@@ -365,12 +330,12 @@ export default function HeroAllSignal() {
               fontWeight: 600,
               letterSpacing: "0.08em",
               textTransform: "uppercase",
-              color: "rgba(255,255,255,0.62)",
+              color: INK_SOFT,
               textDecoration: "none",
               display: "inline-flex",
               alignItems: "center",
               gap: "6px",
-              borderBottom: "1px solid rgba(255,255,255,0.18)",
+              borderBottom: `1px solid ${INK_LINE}`,
               paddingBottom: "2px",
             }}
           >
@@ -385,7 +350,7 @@ export default function HeroAllSignal() {
             fontSize: "10px",
             letterSpacing: "0.14em",
             textTransform: "uppercase",
-            color: "rgba(255,255,255,0.28)",
+            color: INK_FAINT,
             marginTop: "32px",
           }}
         >
@@ -410,11 +375,23 @@ export default function HeroAllSignal() {
             fontWeight: 600,
             letterSpacing: "0.22em",
             textTransform: "uppercase",
-            color: "#E8FF5A",
+            color: INK,
             marginBottom: "16px",
-            display: "block",
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "10px",
           }}
         >
+          <span
+            aria-hidden
+            style={{
+              width: "20px",
+              height: "8px",
+              background: SIGNAL,
+              borderRadius: "2px",
+              display: "inline-block",
+            }}
+          />
           Applied Intelligence Systems
         </span>
 
@@ -425,14 +402,25 @@ export default function HeroAllSignal() {
             fontWeight: 700,
             lineHeight: 1.0,
             letterSpacing: "-0.03em",
-            color: "#FFFFFF",
+            color: INK,
             margin: 0,
             maxWidth: "16ch",
           }}
         >
           You don&apos;t have a growth problem.
           <br />
-          <span style={{ color: "#E8FF5A" }}>You have a signal problem.</span>
+          <span
+            style={{
+              background: SIGNAL,
+              color: INK,
+              padding: "0.02em 0.18em",
+              borderRadius: "2px",
+              boxDecorationBreak: "clone",
+              WebkitBoxDecorationBreak: "clone",
+            }}
+          >
+            You have a signal problem.
+          </span>
         </h1>
 
         <p
@@ -441,7 +429,7 @@ export default function HeroAllSignal() {
             fontSize: "16px",
             fontWeight: 500,
             lineHeight: 1.55,
-            color: "rgba(255,255,255,0.72)",
+            color: INK_SOFT,
             marginTop: "16px",
             maxWidth: "44ch",
           }}
@@ -470,12 +458,12 @@ export default function HeroAllSignal() {
               fontWeight: 600,
               letterSpacing: "0.08em",
               textTransform: "uppercase",
-              color: "rgba(255,255,255,0.62)",
+              color: INK_SOFT,
               textDecoration: "none",
               display: "inline-flex",
               alignItems: "center",
               gap: "6px",
-              borderBottom: "1px solid rgba(255,255,255,0.18)",
+              borderBottom: `1px solid ${INK_LINE}`,
               paddingBottom: "2px",
             }}
           >
@@ -485,8 +473,7 @@ export default function HeroAllSignal() {
       </div>
 
       {/* ── 3. Portrait — mobile < 768px ──
-           NOTE: display value MUST stay in className (flex md:hidden), NOT in style.
-           An inline display:flex would override the md:hidden class on tablet/desktop. ── */}
+           NOTE: display value MUST stay in className (flex md:hidden). ── */}
       <div
         className="flex justify-center md:hidden"
         style={{
@@ -496,10 +483,10 @@ export default function HeroAllSignal() {
         }}
       >
         <Image
-          src={`${ASSET}/portrait/hero-portrait-audiojones-mobile-transparent.png`}
+          src={PORTRAIT}
           alt="Audio Jones"
-          width={1200}
-          height={1600}
+          width={1080}
+          height={1350}
           priority
           style={{
             width: "82vw",
@@ -532,7 +519,7 @@ export default function HeroAllSignal() {
                 fontWeight: 700,
                 lineHeight: 1,
                 letterSpacing: "-0.02em",
-                color: "#E8FF5A",
+                color: SIGNAL,
               }}
             >
               {m.dir}&thinsp;{m.pct}
@@ -558,7 +545,7 @@ export default function HeroAllSignal() {
         style={{
           position: "relative",
           zIndex: 6,
-          background: "rgba(8, 10, 20, 0.85)",
+          background: "rgba(8, 10, 20, 0.92)",
           borderTop: "1px solid rgba(255,255,255,0.08)",
           justifyContent: "space-around",
           padding: "14px 2rem",
@@ -584,7 +571,7 @@ export default function HeroAllSignal() {
                 fontWeight: 700,
                 lineHeight: 1,
                 letterSpacing: "-0.02em",
-                color: "#E8FF5A",
+                color: SIGNAL,
               }}
             >
               {m.dir}&thinsp;{m.pct}
