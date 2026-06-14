@@ -47,7 +47,9 @@ export default function BookACallPage() {
               Apply first, then schedule.
             </h2>
             <p className="mt-4 text-sm leading-7 text-fg-2">
-              Calendar scheduling integration is being routed through the application flow. Submit the engagement application and Audio Jones will follow up with the right call path.
+              Calls are booked by application, not an open calendar — so every
+              conversation starts with context. Submit the engagement application
+              and you&apos;ll get a scheduling link matched to the right call path.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <ButtonLink href="/apply" variant="glow">
