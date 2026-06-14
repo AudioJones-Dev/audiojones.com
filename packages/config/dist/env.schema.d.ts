@@ -18,6 +18,11 @@ export declare const EnvSchema: z.ZodObject<{
     NEXT_PUBLIC_WHOP_COMPANY_ID: z.ZodOptional<z.ZodString>;
     NEXT_PUBLIC_WHOP_AGENT_USER_ID: z.ZodOptional<z.ZodString>;
     WHOP_WEBHOOK_SECRET: z.ZodOptional<z.ZodString>;
+    NEXT_PUBLIC_FOURTHWALL_STOREFRONT_TOKEN: z.ZodOptional<z.ZodString>;
+    NEXT_PUBLIC_FOURTHWALL_CHECKOUT_URL: z.ZodOptional<z.ZodString>;
+    FOURTHWALL_API_USERNAME: z.ZodOptional<z.ZodString>;
+    FOURTHWALL_API_PASSWORD: z.ZodOptional<z.ZodString>;
+    FOURTHWALL_HMAC_SECRET: z.ZodOptional<z.ZodString>;
     OPENAI_API_KEY: z.ZodOptional<z.ZodString>;
     MAILERLITE_API_KEY: z.ZodOptional<z.ZodString>;
     MAILERLITE_GROUP_ID: z.ZodOptional<z.ZodString>;
@@ -57,6 +62,11 @@ export declare const EnvSchema: z.ZodObject<{
     NEXT_PUBLIC_WHOP_COMPANY_ID?: string | undefined;
     NEXT_PUBLIC_WHOP_AGENT_USER_ID?: string | undefined;
     WHOP_WEBHOOK_SECRET?: string | undefined;
+    NEXT_PUBLIC_FOURTHWALL_STOREFRONT_TOKEN?: string | undefined;
+    NEXT_PUBLIC_FOURTHWALL_CHECKOUT_URL?: string | undefined;
+    FOURTHWALL_API_USERNAME?: string | undefined;
+    FOURTHWALL_API_PASSWORD?: string | undefined;
+    FOURTHWALL_HMAC_SECRET?: string | undefined;
     OPENAI_API_KEY?: string | undefined;
     MAILERLITE_API_KEY?: string | undefined;
     MAILERLITE_GROUP_ID?: string | undefined;
@@ -94,6 +104,11 @@ export declare const EnvSchema: z.ZodObject<{
     NEXT_PUBLIC_WHOP_COMPANY_ID?: string | undefined;
     NEXT_PUBLIC_WHOP_AGENT_USER_ID?: string | undefined;
     WHOP_WEBHOOK_SECRET?: string | undefined;
+    NEXT_PUBLIC_FOURTHWALL_STOREFRONT_TOKEN?: string | undefined;
+    NEXT_PUBLIC_FOURTHWALL_CHECKOUT_URL?: string | undefined;
+    FOURTHWALL_API_USERNAME?: string | undefined;
+    FOURTHWALL_API_PASSWORD?: string | undefined;
+    FOURTHWALL_HMAC_SECRET?: string | undefined;
     OPENAI_API_KEY?: string | undefined;
     MAILERLITE_API_KEY?: string | undefined;
     MAILERLITE_GROUP_ID?: string | undefined;

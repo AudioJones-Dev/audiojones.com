@@ -28,6 +28,15 @@ export const EnvSchema = z.object({
     NEXT_PUBLIC_WHOP_COMPANY_ID: z.string().min(1).optional(),
     NEXT_PUBLIC_WHOP_AGENT_USER_ID: z.string().min(1).optional(),
     WHOP_WEBHOOK_SECRET: z.string().min(1).optional(),
+    // Fourthwall merch integration.
+    // The storefront token + checkout URL are publishable (read-only storefront
+    // + hosted-checkout redirect). The API user/password (Basic auth) and the
+    // webhook HMAC secret are server-only and must never reach the client.
+    NEXT_PUBLIC_FOURTHWALL_STOREFRONT_TOKEN: z.string().min(1).optional(),
+    NEXT_PUBLIC_FOURTHWALL_CHECKOUT_URL: z.string().min(1).optional(),
+    FOURTHWALL_API_USERNAME: z.string().min(1).optional(),
+    FOURTHWALL_API_PASSWORD: z.string().min(1).optional(),
+    FOURTHWALL_HMAC_SECRET: z.string().min(1).optional(),
     // OpenAI & AI services
     OPENAI_API_KEY: z.string().min(1).optional(),
     // MailerLite integration
