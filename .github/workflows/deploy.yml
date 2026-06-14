@@ -122,3 +122,70 @@ jobs:
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         run: npx vercel@latest deploy --prod --token="${VERCEL_TOKEN}" --cwd .
+
+  # Branch previews — the Vercel Git integration only auto-deploys `main`
+  # to production, so pull requests never got a preview URL. This job
+  # deploys each PR to a Vercel preview target and surfaces the URL as a
+  # sticky PR comment so changes can be reviewed before merge.
+  deploy_preview:
+    needs: validate
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Activate pnpm
+        run: corepack prepare pnpm@10.30.3 --activate
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+          cache: 'pnpm'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build packages
+        run: pnpm packages:build
+
+      - name: Deploy preview to Vercel
+        id: vercel
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          url="$(npx vercel@latest deploy --token="${VERCEL_TOKEN}" --cwd . --yes)"
+          echo "preview_url=${url}" >> "$GITHUB_OUTPUT"
+          {
+            echo "### Vercel preview"
+            echo ""
+            echo "${url}"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Comment preview URL on PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const url = '${{ steps.vercel.outputs.preview_url }}';
+            const marker = '<!-- vercel-preview-url -->';
+            const headSha = context.payload.pull_request.head.sha;
+            const body = `${marker}\n🔍 **Preview deployment ready**\n\n${url}\n\n_Updated for commit \`${headSha.slice(0, 7)}\`._`;
+            const { owner, repo } = context.repo;
+            const issue_number = context.issue.number;
+            const { data: comments } = await github.rest.issues.listComments({ owner, repo, issue_number });
+            const existing = comments.find((c) => c.body && c.body.includes(marker));
+            if (existing) {
+              await github.rest.issues.updateComment({ owner, repo, comment_id: existing.id, body });
+            } else {
+              await github.rest.issues.createComment({ owner, repo, issue_number, body });
+            }
