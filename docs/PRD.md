@@ -8,7 +8,7 @@
 ## 1. What this product is
 
 AudioJones.com is the **public marketing site** for AJ Digital LLC. It
-is the front door to the Applied Intelligence Systems offering: founder-
+is the front door to the Founder Intelligence Systems offering: founder-
 led AI infrastructure for businesses in the $250K–$5M range.
 
 It is **not** the admin/portal application. The legacy `/portal/*` and
@@ -49,11 +49,11 @@ Every surface should drive toward one of these three exits.
 
 1. Visitor lands on a marketing page.
 2. CTA opens a form (`/ai-readiness-diagnostic`, contact, or inline).
-3. Submission goes to `src/app/api/applied-intelligence/leads/route.ts`
+3. Submission goes to `src/app/api/founder-intelligence/leads/route.ts`
    (or `src/app/api/leads/route.ts` for generic intake).
 4. Server validates with Zod, rate-limits per IP, scores the lead
    (`src/lib/leads/lead-scoring.ts`), persists to NeonDB
-   (`src/db/leads.ts → insertAppliedIntelligenceLead`), sends an
+   (`src/db/leads.ts → insertFounderIntelligenceLead`), sends an
    internal Resend email, and optionally fires `N8N_LEAD_WEBHOOK_URL`.
 5. n8n failure must not block the response. Lead is durable in Neon and
    the email is queued before the webhook fires.

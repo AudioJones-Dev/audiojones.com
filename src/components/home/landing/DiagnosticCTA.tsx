@@ -9,9 +9,9 @@ const CTA_BG =
  * Section 8 — Diagnostic CTA.
  * High-conversion. Inline form preview is non-functional and routes
  * the user to the canonical 6-step diagnostic at
- * /applied-intelligence/diagnostic. We do not collect data here —
+ * /founder-intelligence/diagnostic. We do not collect data here —
  * the field is visual scaffolding only. (Mock-only per Wave 1 rules;
- * real intake stays at the Applied Intelligence diagnostic route.)
+ * real intake stays at the Founder Intelligence diagnostic route.)
  */
 export default function DiagnosticCTA() {
   return (

@@ -74,7 +74,7 @@ the approved stores above — including:
 
 - All form handlers validate input with Zod before any side effect.
 - Per-IP rate limiting is applied in
-  `src/app/api/applied-intelligence/leads/route.ts` and the generic
+  `src/app/api/founder-intelligence/leads/route.ts` and the generic
   `src/app/api/leads/route.ts`.
 - Persistence to NeonDB happens **before** the response returns 200.
 - Optional downstream calls (Resend, n8n) must not block the response

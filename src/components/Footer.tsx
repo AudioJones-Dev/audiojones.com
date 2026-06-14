@@ -37,7 +37,7 @@ export default function Footer() {
             >
               <Image
                 src="/assets/logos/audiojones-wordmark-white.svg"
-                alt="Audio Jones — Applied Intelligence Systems"
+                alt="Audio Jones — Founder Intelligence Systems"
                 width={220}
                 height={48}
                 className="h-10 w-auto"
@@ -47,7 +47,7 @@ export default function Footer() {
               All Signal. No Noise.
             </p>
             <p className="mt-4 max-w-md t-body text-fg-1">
-              Applied Intelligence Systems for founder-led businesses.
+              Founder Intelligence Systems for founder-led businesses.
             </p>
             <p className="mt-3 max-w-md t-small text-fg-3">
               Audio Jones is the operating brand of AJ Digital LLC. Founder-led businesses, $250K–$5M ARR.

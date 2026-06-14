@@ -12,7 +12,7 @@ futuristic_glowing_targeting_reticle.png -> 02-hero-all-signal/signal-node/hero-
 noise_vs_signal_a_marketing_transformation.png -> 04-problem-reframe/references/problem-reframe-section-mock.png
 signal_vs_noise_model_breakdown.png -> 05-signal-vs-noise-model/references/signal-vs-noise-model-mock.png
 attribution_in_a_digital_landscape.png -> 06-map-attribution-framework/references/map-attribution-section-mock.png
-applied_intelligence_systems_flowchart_design.png -> 07-applied-intelligence-systems/references/applied-intelligence-systems-mock.png
+applied_intelligence_systems_flowchart_design.png -> 07-applied-intelligence-systems/references/founder-intelligence-systems-mock.png
 sleek_ui_design_for_founder_led_businesses.png -> 08-icp-filter/references/icp-filter-section-mock.png
 the_process_a_digital_workflow_design.png -> 09-process-pipeline/references/process-pipeline-section-mock.png
 metrics_driven_transformation_for_founders.png -> 10-proof-metrics/references/proof-metrics-section-mock.png

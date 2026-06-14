@@ -49,7 +49,7 @@ This plan operationalizes the corrections layer at `docs/strategy/AUDIOJONES_NIC
 | Deprecated Term | Replacement | Reason |
 |---|---|---|
 | Signal Revenue System | Founder Revenue System | Signal messaging app trademark collision (deprecated 2026-05-26) |
-| Applied Intelligence Systems (public) | Founder Intelligence Systems for founder-led service businesses | Same-vertical competitor at appliedintelligencesystems.com |
+| Founder Intelligence Systems (public) | Founder Intelligence Systems for founder-led service businesses | Same-vertical competitor at appliedintelligencesystems.com |
 | Signal Theory | Signal Doctrine | signaltheory.com (Ad Age agency) — cannot own |
 | Persistent Business Memory (as branded product) | Persistent business memory (descriptive only) | Multiple entity collisions; descriptor only |
 | M.A.P. (acronym-first) | Measurement · Attribution · Prediction (spelled out) | MAP (Minimum Advertised Price) acronym collision dominates retrieval |
@@ -88,9 +88,9 @@ This plan operationalizes the corrections layer at `docs/strategy/AUDIOJONES_NIC
 
 Per the Section 5 audit in the corrections doc, current `src/app/` does not contain any of the proposed routes above. Two related existing routes warrant disposition decisions in subsequent scoped PRs:
 
-- **`/applied-intelligence/page.tsx` + `/applied-intelligence/diagnostic/`** — methodology entry-point + Signal Audit diagnostic instance. Likely keep as-is (methodology entry; not public brand vehicle). Confirm in the AIS→FIS migration PR.
-- **`/frameworks/applied-intelligence-systems/`** — dedicated AIS-slugged route. Disposition: rename to `/frameworks/founder-intelligence-systems` with 308 redirect from the old slug, OR retire to internal-only banner. Lock in the AIS→FIS migration PR.
-- **`/insights/applied-intelligence-systems/`** — same AIS-slug pattern. Same disposition decision.
+- **`/founder-intelligence/page.tsx` + `/founder-intelligence/diagnostic/`** — methodology entry-point + Signal Audit diagnostic instance. Likely keep as-is (methodology entry; not public brand vehicle). Confirm in the AIS→FIS migration PR.
+- **`/frameworks/founder-intelligence-systems/`** — dedicated AIS-slugged route. Disposition: rename to `/frameworks/founder-intelligence-systems` with 308 redirect from the old slug, OR retire to internal-only banner. Lock in the AIS→FIS migration PR.
+- **`/insights/founder-intelligence-systems/`** — same AIS-slug pattern. Same disposition decision.
 
 Route slug decisions for new entities are open in §12 below.
 
@@ -232,8 +232,8 @@ Surface for user resolution before Phase 1 begins:
 
 1. **Founder Revenue System route slug** — `/services/founder-revenue-system` vs `/system/founder-revenue-system` vs `/founder-revenue-system` (top-level). Recommendation: `/services/founder-revenue-system` — keeps the offer under the existing `/services` taxonomy and avoids creating a new top-level segment.
 2. **Operational AI for Accessibility Contractors route slug** — `/verticals/accessibility-contractors` vs `/industries/accessibility-contractors`. Recommendation: `/verticals/...` — "verticals" reads as operator language; "industries" is generic.
-3. **`/frameworks/applied-intelligence-systems` disposition** — rename to `/frameworks/founder-intelligence-systems` with 308 redirect, OR convert to internal-only banner, OR retire entirely. Locked in the AIS→FIS migration PR (not this one).
-4. **`/insights/applied-intelligence-systems` disposition** — same decision space as #3.
+3. **`/frameworks/founder-intelligence-systems` disposition** — rename to `/frameworks/founder-intelligence-systems` with 308 redirect, OR convert to internal-only banner, OR retire entirely. Locked in the AIS→FIS migration PR (not this one).
+4. **`/insights/founder-intelligence-systems` disposition** — same decision space as #3.
 5. **Founder Revenue System abbreviation policy** — directive says "no abbreviation; do not introduce an acronym" but verify: is there ANY context where the team wants to internally use "FRS"? If yes, document the boundary (internal-only, like AIS).
 6. **Founder Intelligence Systems trademark filing** — corrections doc flagged "Consider trademark filing on compound mark". Decision is out of code scope but referenced here for the strategic record.
 
@@ -246,6 +246,6 @@ Surface for user resolution before Phase 1 begins:
 - **No app code modified**. Plan is docs-only.
 - **No `package.json` / `pnpm-lock.yaml` / CI changes**.
 - **No Firebase references introduced**.
-- **No public copy migrated** from "Applied Intelligence Systems" to "Founder Intelligence Systems for founder-led service businesses". That sweep lives in the AIS→FIS migration PR (a separate scoped PR per the corrections doc Section 5 audit findings).
+- **No public copy migrated** from "Founder Intelligence Systems" to "Founder Intelligence Systems for founder-led service businesses". That sweep lives in the AIS→FIS migration PR (a separate scoped PR per the corrections doc Section 5 audit findings).
 - **No content pillar copy written**. Content lives in scaffolded page PRs in §11 phases 2-6.
 - **No measurement code**. Lives in `aj-rekonr`, not in this repo.

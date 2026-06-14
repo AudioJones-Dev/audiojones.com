@@ -58,7 +58,7 @@ export default function ModulesShowcase() {
               {/* Link */}
               <div className="text-center">
                 <a
-                  href="/applied-intelligence"
+                  href="/founder-intelligence"
                   className="inline-flex items-center text-accent-blue hover:text-signal-yellow font-medium text-sm transition-colors duration-200"
                 >
                   Learn More
@@ -74,7 +74,7 @@ export default function ModulesShowcase() {
         {/* Bottom CTA */}
         <div className="text-center mt-12">
           <a
-            href="/applied-intelligence"
+            href="/founder-intelligence"
             className="inline-flex items-center justify-center px-8 py-4 bg-accent-blue hover:bg-accent-blue/90 text-white font-semibold rounded-lg transition-colors duration-200"
           >
             Explore All Systems

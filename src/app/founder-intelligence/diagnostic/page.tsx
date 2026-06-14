@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import FAQ from "@/components/applied-intelligence/FAQ";
-import DiagnosticForm from "@/components/applied-intelligence/DiagnosticForm";
-import Breadcrumbs from "@/components/applied-intelligence/Breadcrumbs";
+import FAQ from "@/components/founder-intelligence/FAQ";
+import DiagnosticForm from "@/components/founder-intelligence/DiagnosticForm";
+import Breadcrumbs from "@/components/founder-intelligence/Breadcrumbs";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import JsonLd from "@/components/seo/JsonLd";
 import { buildMetadata } from "@/lib/seo/metadata";
@@ -9,10 +9,10 @@ import { breadcrumbJsonLd, faqJsonLd } from "@/lib/seo/schema";
 import { founderIntelligenceFaqs } from "@/lib/seo/founder-intelligence-faq";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Strategic Diagnostic | Applied Intelligence",
+  title: "Strategic Diagnostic | Founder Intelligence",
   description:
-    "Apply for an Applied Intelligence Diagnostic. Six steps that map your constraint, signal architecture, AI readiness, and attribution clarity.",
-  path: "/applied-intelligence/diagnostic",
+    "Apply for an Founder Intelligence Diagnostic. Six steps that map your constraint, signal architecture, AI readiness, and attribution clarity.",
+  path: "/founder-intelligence/diagnostic",
 });
 
 export default function DiagnosticPage() {
@@ -21,15 +21,15 @@ export default function DiagnosticPage() {
       <JsonLd
         data={breadcrumbJsonLd([
           { name: "Home", url: "/" },
-          { name: "Applied Intelligence", url: "/applied-intelligence" },
-          { name: "Diagnostic", url: "/applied-intelligence/diagnostic" },
+          { name: "Founder Intelligence", url: "/founder-intelligence" },
+          { name: "Diagnostic", url: "/founder-intelligence/diagnostic" },
         ])}
       />
       <JsonLd data={faqJsonLd(founderIntelligenceFaqs)} />
       <Breadcrumbs
         items={[
           { name: "Home", href: "/" },
-          { name: "Applied Intelligence", href: "/applied-intelligence" },
+          { name: "Founder Intelligence", href: "/founder-intelligence" },
           { name: "Diagnostic" },
         ]}
       />
@@ -54,7 +54,7 @@ export default function DiagnosticPage() {
           <div className="mb-10 rounded-xl border border-border-subtle bg-surface-1 p-6 sm:p-8">
             <Eyebrow>Direct Answer</Eyebrow>
             <h2 className="mt-4 t-h3 text-fg-0">
-              The Applied Intelligence Diagnostic maps the revenue and
+              The Founder Intelligence Diagnostic maps the revenue and
               operating leaks hidden in follow-up, CRM, attribution, and
               business memory.
             </h2>

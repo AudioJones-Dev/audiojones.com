@@ -79,7 +79,7 @@ export const modules: ModuleConfig[] = [
     tagline: "Machine learning meets creative strategy",
     shortDescription: "A/B testing, predictive analytics, and ML-driven insights to maximize ROI.",
     longDescription: "The AI Optimization System uses machine learning to test, measure, and optimize every aspect of your digital presence. From headline testing to audience segmentation to content performance prediction, this system continuously learns what works and automatically adjusts strategies to maximize engagement and conversions.",
-    href: "/applied-intelligence",
+    href: "/founder-intelligence",
     icon: "🤖",
     gradient: {
       from: "#E8FF5A",
@@ -94,7 +94,7 @@ export const modules: ModuleConfig[] = [
     tagline: "Real-time analytics and business intelligence",
     shortDescription: "Unified dashboards, custom reports, and predictive insights across all platforms.",
     longDescription: "The Data Intelligence System aggregates data from every touchpoint—website, social media, email campaigns, client portals, and billing systems—into a single source of truth. Custom dashboards provide real-time visibility into performance metrics, while predictive analytics help forecast trends and identify opportunities before competitors.",
-    href: "/applied-intelligence",
+    href: "/founder-intelligence",
     icon: "📊",
     gradient: {
       from: "#4DACFF",

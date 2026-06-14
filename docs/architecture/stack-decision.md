@@ -86,4 +86,4 @@ templates. Wire it into CI.
   consumer is gone.
 - `src/db/neon.ts` and `src/db/leads.ts` are the canonical NeonDB entry points.
 - The lead capture flow lives at `src/app/api/leads/route.ts` and
-  `src/app/api/applied-intelligence/leads/route.ts` (the diagnostic form).
+  `src/app/api/founder-intelligence/leads/route.ts` (the diagnostic form).

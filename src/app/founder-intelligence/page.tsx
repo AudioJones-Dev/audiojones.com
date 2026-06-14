@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import SignalHero from "@/components/applied-intelligence/SignalHero";
-import ProblemReframe from "@/components/applied-intelligence/ProblemReframe";
-import SignalNoiseModel from "@/components/applied-intelligence/SignalNoiseModel";
-import FrameworkFeature from "@/components/applied-intelligence/FrameworkFeature";
-import SystemModel from "@/components/applied-intelligence/SystemModel";
-import ICPFilter from "@/components/applied-intelligence/ICPFilter";
-import ProcessSteps from "@/components/applied-intelligence/ProcessSteps";
-import OfferCard from "@/components/applied-intelligence/OfferCard";
-import FinalCTA from "@/components/applied-intelligence/FinalCTA";
+import SignalHero from "@/components/founder-intelligence/SignalHero";
+import ProblemReframe from "@/components/founder-intelligence/ProblemReframe";
+import SignalNoiseModel from "@/components/founder-intelligence/SignalNoiseModel";
+import FrameworkFeature from "@/components/founder-intelligence/FrameworkFeature";
+import SystemModel from "@/components/founder-intelligence/SystemModel";
+import ICPFilter from "@/components/founder-intelligence/ICPFilter";
+import ProcessSteps from "@/components/founder-intelligence/ProcessSteps";
+import OfferCard from "@/components/founder-intelligence/OfferCard";
+import FinalCTA from "@/components/founder-intelligence/FinalCTA";
 import JsonLd from "@/components/seo/JsonLd";
 import { buildMetadata } from "@/lib/seo/metadata";
 import {
@@ -20,13 +20,13 @@ import {
 import { ctaLinks } from "@/config/links";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Applied Intelligence Systems for Founder-Led Businesses",
+  title: "Founder Intelligence Systems for Founder-Led Businesses",
   description:
-    "Audio Jones helps founder-led businesses identify causal growth signals, reduce noise, and build Applied Intelligence Systems that scale judgment and execution.",
-  path: "/applied-intelligence",
+    "Audio Jones helps founder-led businesses identify causal growth signals, reduce noise, and build Founder Intelligence Systems that scale judgment and execution.",
+  path: "/founder-intelligence",
 });
 
-export default function AppliedIntelligencePage() {
+export default function FounderIntelligencePage() {
   return (
     <>
       <JsonLd data={organizationJsonLd()} />
@@ -35,12 +35,12 @@ export default function AppliedIntelligencePage() {
       <JsonLd
         data={breadcrumbJsonLd([
           { name: "Home", url: "/" },
-          { name: "Applied Intelligence", url: "/applied-intelligence" },
+          { name: "Founder Intelligence", url: "/founder-intelligence" },
         ])}
       />
 
       <SignalHero
-        eyebrow="Applied Intelligence Systems"
+        eyebrow="Founder Intelligence Systems"
         headline="You don’t have an AI problem. You have a signal problem."
         subheadline="Audio Jones helps founder-led businesses identify the causal inputs behind growth, reduce operational noise, and build systems that scale judgment, execution, and profit."
         primaryCta={{
@@ -55,11 +55,11 @@ export default function AppliedIntelligencePage() {
 
       <ProblemReframe />
 
-      {/* Step 2 cross-link: position Applied Intelligence as the discipline behind Step 2. */}
+      {/* Step 2 cross-link: position Founder Intelligence as the discipline behind Step 2. */}
       <section className="border-t border-border-subtle bg-surface-1 py-10">
         <div className="mx-auto flex max-w-5xl flex-col gap-3 px-5 sm:flex-row sm:items-center sm:justify-between sm:px-8">
           <p className="text-text-muted">
-            Applied Intelligence is the discipline.{" "}
+            Founder Intelligence is the discipline.{" "}
             <Link
               href="/step-2"
               className="font-semibold text-accent-blue hover:text-accent-blue"

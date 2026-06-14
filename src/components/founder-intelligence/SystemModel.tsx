@@ -14,9 +14,9 @@ export default function SystemModel() {
   return (
     <SectionShell
       id="system-model"
-      eyebrow="Applied Intelligence Systems"
+      eyebrow="Founder Intelligence Systems"
       title="Seven layers that turn AI from a tool into leverage."
-      intro="Applied Intelligence Systems are business operating systems that combine human judgment, data signals, AI tools, attribution, and feedback loops to improve decisions and execution."
+      intro="Founder Intelligence Systems are business operating systems that combine human judgment, data signals, AI tools, attribution, and feedback loops to improve decisions and execution."
     >
       <ol className="grid gap-3 sm:grid-cols-2">
         {LAYERS.map((l) => (

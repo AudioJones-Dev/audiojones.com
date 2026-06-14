@@ -37,7 +37,7 @@ export default function InsightArticle({
             Apply this
           </p>
           <p className="mt-2 text-lg font-semibold text-white">
-            Take the Applied Intelligence Diagnostic.
+            Take the Founder Intelligence Diagnostic.
           </p>
           <ButtonLink
             href={ctaLinks.signalDiagnostic}

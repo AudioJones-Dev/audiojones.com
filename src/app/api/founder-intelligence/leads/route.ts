@@ -3,12 +3,12 @@ export const runtime = "nodejs";
 import { NextRequest, NextResponse } from "next/server";
 import { ZodError } from "zod";
 import { appliedIntelligenceLeadSchema } from "@/lib/leads/lead-schema";
-import { scoreAppliedIntelligenceLead } from "@/lib/leads/lead-scoring";
+import { scoreFounderIntelligenceLead } from "@/lib/leads/lead-scoring";
 import {
   hashIp,
-  persistAppliedIntelligenceLead,
+  persistFounderIntelligenceLead,
 } from "@/lib/leads/lead-storage";
-import { notifyAppliedIntelligenceLead } from "@/lib/leads/lead-notifications";
+import { notifyFounderIntelligenceLead } from "@/lib/leads/lead-notifications";
 
 // Crude in-memory rate limiter — sufficient to slow obvious abuse on a single
 // edge node. Cluster-wide protection should sit at the edge (Vercel WAF / CF).
@@ -69,17 +69,17 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: true, leadId: "blocked", priority: "low", totalScore: 0 });
   }
 
-  const scores = scoreAppliedIntelligenceLead(input);
+  const scores = scoreFounderIntelligenceLead(input);
 
   try {
-    const stored = await persistAppliedIntelligenceLead(input, scores, {
+    const stored = await persistFounderIntelligenceLead(input, scores, {
       ipHash: hashIp(ip),
       userAgent,
     });
 
     // Notifications run sequentially after persistence but failures don't
     // block the user response — they're logged inside the notifier.
-    void notifyAppliedIntelligenceLead({
+    void notifyFounderIntelligenceLead({
       leadId: stored.id,
       input,
       scores,
@@ -92,7 +92,7 @@ export async function POST(req: NextRequest) {
       totalScore: scores.totalScore,
     });
   } catch {
-    // Detail is already logged inside persistAppliedIntelligenceLead — do
+    // Detail is already logged inside persistFounderIntelligenceLead — do
     // not echo Neon error text (table names, constraint names) back to the
     // browser. Keep the client message short and useful.
     return NextResponse.json(

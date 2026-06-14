@@ -98,7 +98,7 @@ The calculator:
 
 1. "Signal vs. Noise" — "AI accelerates whatever system already exists. We diagnose the system before recommending automation."
 2. "ROI Before Hype" — "We calculate labor savings, error reduction, payback period, and risk-adjusted impact — not vibes."
-3. "Applied Intelligence" — "Score your workflow on ROI, readiness, and priority. Get one of six clear recommended next steps."
+3. "Founder Intelligence" — "Score your workflow on ROI, readiness, and priority. Get one of six clear recommended next steps."
 
 ### 5.4 Calculator (client component, anchor `#diagnostic`)
 
@@ -491,14 +491,14 @@ The canonical destination for the "Take Signal Diagnostic" CTA — wherever it a
 
 ```ts
 import { ctaLinks } from "@/config/links";
-// → ctaLinks.signalDiagnostic === "/applied-intelligence/diagnostic"
+// → ctaLinks.signalDiagnostic === "/founder-intelligence/diagnostic"
 ```
 
-**Use `ctaLinks.signalDiagnostic` exclusively in v1.** Do NOT hardcode either `/applied-intelligence/diagnostic` (today's value) or `https://diagnostic.audiojones.com` (the future value) directly — both must flow through the constant so the eventual flip is a one-line change.
+**Use `ctaLinks.signalDiagnostic` exclusively in v1.** Do NOT hardcode either `/founder-intelligence/diagnostic` (today's value) or `https://diagnostic.audiojones.com` (the future value) directly — both must flow through the constant so the eventual flip is a one-line change.
 
 #### Policy
 
-- **v1 canonical destination:** `/applied-intelligence/diagnostic` (the internal Next.js route on this app). Consumed exclusively via `ctaLinks.signalDiagnostic`.
+- **v1 canonical destination:** `/founder-intelligence/diagnostic` (the internal Next.js route on this app). Consumed exclusively via `ctaLinks.signalDiagnostic`.
 - **Future canonical destination:** `https://diagnostic.audiojones.com` (standalone Diagnostic OS app on its own subdomain). The constant will flip back to the subdomain **only after all** of the following are proven live:
   1. DNS for `diagnostic.audiojones.com` resolves to a deployed host
   2. Standalone diagnostic app is built and deployed at the subdomain

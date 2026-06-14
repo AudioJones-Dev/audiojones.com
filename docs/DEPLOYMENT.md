@@ -228,10 +228,10 @@ then Sentry, then the relevant integration's dashboard.
 
 ---
 
-## 9. Applied Intelligence diagnostic — preview QA checklist
+## 9. Founder Intelligence diagnostic — preview QA checklist
 
-The diagnostic at `/applied-intelligence/diagnostic` posts to
-`/api/applied-intelligence/leads`, which writes a row to the Neon
+The diagnostic at `/founder-intelligence/diagnostic` posts to
+`/api/founder-intelligence/leads`, which writes a row to the Neon
 `applied_intelligence_leads` table and fires Resend + (optional) n8n
 notifications. Before promoting a preview to production, run this
 checklist against the preview URL.
@@ -272,9 +272,9 @@ psql "$DATABASE_URL" -c "\d applied_intelligence_leads" | head -20
 ### 9.3 Submit a real test diagnostic against the preview
 
 1. Open the Vercel preview URL → `/ai-readiness-diagnostic`.
-2. Click *Start the Diagnostic* → wizard at `/applied-intelligence/diagnostic`.
+2. Click *Start the Diagnostic* → wizard at `/founder-intelligence/diagnostic`.
 3. Complete steps 1–6 using a real test inbox you control. Tick consent.
-4. Submit → expect redirect to `/applied-intelligence/diagnostic/thank-you`.
+4. Submit → expect redirect to `/founder-intelligence/diagnostic/thank-you`.
 
 ### 9.4 Confirm the lead landed in Neon
 
@@ -290,7 +290,7 @@ A row matching the submission must be present.
 
 - Resend dashboard → Logs → filter recipient = `LEAD_NOTIFICATION_EMAIL`.
 - Vercel runtime logs must **not** contain
-  `[applied-intelligence] internal notification skipped: email env missing`
+  `[founder-intelligence] internal notification skipped: email env missing`
   on the happy path. If they do, an email env is unset for that
   environment.
 
@@ -299,12 +299,12 @@ A row matching the submission must be present.
 ```bash
 # Validation error — missing required fields
 curl -s -o /dev/null -w "%{http_code}\n" \
-  -X POST "$PREVIEW/api/applied-intelligence/leads" \
+  -X POST "$PREVIEW/api/founder-intelligence/leads" \
   -H 'content-type: application/json' -d '{"firstName":"x"}'
 # Expect: 400
 
 # Honeypot trap
-curl -s -X POST "$PREVIEW/api/applied-intelligence/leads" \
+curl -s -X POST "$PREVIEW/api/founder-intelligence/leads" \
   -H 'content-type: application/json' \
   -d '{"firstName":"Bot","email":"bot@example.com","consentToContact":true,"website_url":"http://spam"}'
 # Expect: { "ok": true, "leadId": "blocked", ... } and NO Neon row.

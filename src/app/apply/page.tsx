@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import ApplyForm from "@/components/apply/ApplyForm";
-import FAQ from "@/components/applied-intelligence/FAQ";
+import FAQ from "@/components/founder-intelligence/FAQ";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import JsonLd from "@/components/seo/JsonLd";
 import {

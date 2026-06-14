@@ -19,10 +19,10 @@ import { ctaLinks } from "@/config/links";
 // ─── Static cluster fallbacks (render even without Sanity) ────────────────────
 
 const STATIC_CLUSTERS: Record<string, { label: string; description: string; accent: string }> = {
-  "applied-intelligence-systems": {
-    label: "Applied Intelligence Systems",
+  "founder-intelligence-systems": {
+    label: "Founder Intelligence Systems",
     description:
-      "How to identify signal, build operating leverage, and create systems that compound. The full Applied Intelligence Systems framework documented.",
+      "How to identify signal, build operating leverage, and create systems that compound. The full Founder Intelligence Systems framework documented.",
     accent: "#4DACFF",
   },
   "signal-vs-noise": {
@@ -230,7 +230,7 @@ export default async function TopicClusterPage({
           <h2
             style={{ fontFamily: "var(--font-headline)", fontSize: "clamp(1.4rem, 2.5vw, 2.2rem)", fontWeight: 700, letterSpacing: "-0.03em", color: "#FFFFFF", marginBottom: "24px" }}
           >
-            Ready to build your Applied Intelligence System?
+            Ready to build your Founder Intelligence System?
           </h2>
           <ButtonLink href={ctaLinks.signalDiagnostic} variant="glow">
             Book Your Diagnostic
@@ -245,26 +245,26 @@ export default async function TopicClusterPage({
 
 function InternalLinks({ slug, accent }: { slug: string; accent: string }) {
   const links: Record<string, Array<{ label: string; href: string }>> = {
-    "applied-intelligence-systems": [
-      { label: "AIS Framework", href: "/frameworks/applied-intelligence-systems" },
-      { label: "Applied Intelligence", href: "/applied-intelligence" },
+    "founder-intelligence-systems": [
+      { label: "AIS Framework", href: "/frameworks/founder-intelligence-systems" },
+      { label: "Founder Intelligence", href: "/founder-intelligence" },
       { label: "Book Diagnostic", href: ctaLinks.signalDiagnostic },
     ],
     "signal-vs-noise": [
       { label: "Signal vs Noise Framework", href: "/frameworks/signal-vs-noise" },
-      { label: "Applied Intelligence", href: "/applied-intelligence" },
+      { label: "Founder Intelligence", href: "/founder-intelligence" },
     ],
     "map-attribution": [
       { label: "M.A.P Attribution Framework", href: "/frameworks/map-attribution" },
-      { label: "Applied Intelligence", href: "/applied-intelligence" },
+      { label: "Founder Intelligence", href: "/founder-intelligence" },
     ],
     "why-ai-fails": [
-      { label: "Applied Intelligence", href: "/applied-intelligence" },
+      { label: "Founder Intelligence", href: "/founder-intelligence" },
       { label: "AI Readiness Diagnostic", href: ctaLinks.signalDiagnostic },
     ],
     "ai-readiness": [
       { label: "Book Diagnostic", href: ctaLinks.signalDiagnostic },
-      { label: "Applied Intelligence", href: "/applied-intelligence" },
+      { label: "Founder Intelligence", href: "/founder-intelligence" },
     ],
   };
 
