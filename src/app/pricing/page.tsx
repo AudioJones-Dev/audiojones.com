@@ -14,81 +14,189 @@ import { buildMetadata } from "@/lib/seo/metadata";
 import { breadcrumbJsonLd, faqJsonLd } from "@/lib/seo/schema";
 
 const DESCRIPTION =
-  "Start with a diagnostic, then build the system you actually need — revenue recovery, business memory, content, or a full Founder Intelligence System. Scope follows the diagnosis, not a fixed price table.";
+  "Start with a diagnostic — most are publicly priced. Then build the system you need, from ResponseOS to a full Founder Intelligence System. No guessing what it costs to begin.";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Offers",
+  title: "Offers & Pricing",
   description: DESCRIPTION,
   path: "/pricing",
 });
 
-const DIAGNOSTICS = [
-  ["Revenue Leak Diagnostic", "Finds the money slipping through missed calls, slow follow-up, pipeline, and unclear attribution."],
-  ["AI Readiness Diagnostic", "Tests whether your business is ready for AI before you spend a dollar installing it."],
-  ["Founder Intelligence Diagnostic", "Maps your operations, workflows, decision bottlenecks, and data gaps in one read."],
-  ["Content Engine Diagnostic", "Audits your content, podcast, authority, and how well your work gets repurposed."],
-  ["Business Memory Diagnostic", "Audits the SOPs, decisions, and CRM notes your business keeps losing."],
-] as const;
+type Offer = {
+  name: string;
+  price: string;
+  priceNote?: string;
+  designedFor: string;
+  goal: string;
+  outcome?: string;
+  href?: string;
+  cta?: string;
+  featured?: boolean;
+};
 
-const SYSTEMS = [
+// ── Entry: diagnostics (the buying sequence starts here) ──
+const DIAGNOSTICS: Offer[] = [
   {
-    name: "ResponseOS",
-    problem: "Missed calls, slow follow-up, lead leakage, and weak intake.",
-    status: "Live",
-    href: "/agents/responseos",
+    name: "AI Readiness Score",
+    price: "Free",
+    designedFor: "Any founder-led service business wondering where AI and operations actually stand.",
+    goal: "A fast read on how ready your business is — and where the gaps are before you spend anything.",
+    href: "/ai-readiness-diagnostic",
+    cta: "Get your score",
   },
+  {
+    name: "Revenue Leak Diagnostic",
+    price: "$1,997",
+    designedFor: "Founder-led businesses doing $500K–$5M+.",
+    goal: "Identify where revenue is being lost — slow response times, missed follow-up, poor attribution, operational bottlenecks, and reporting gaps.",
+    outcome: "A prioritized action plan showing the highest-leverage opportunities to recover revenue and improve operational efficiency.",
+    href: "/book-a-call",
+    cta: "Book the diagnostic",
+    featured: true,
+  },
+  {
+    name: "AI Readiness Kaizen Diagnostic",
+    price: "$3,500",
+    designedFor: "Businesses ready for a full operating review, not a single-issue read.",
+    goal: "A deeper, continuous-improvement read across workflow, data, SOPs, and adoption — what to fix, and in what order.",
+    href: "/book-a-call",
+    cta: "Book the diagnostic",
+  },
+];
+
+const WORKSHOP: Offer = {
+  name: "AI Readiness Workshop",
+  price: "$2,500–$3,500",
+  designedFor: "Teams who want to learn the model before committing to a build.",
+  goal: "A guided working session that leaves you with a readiness score and a clear next step.",
+  href: "/workshops",
+  cta: "See workshops",
+};
+
+// ── Systems: ResponseOS tiers ──
+const RESPONSEOS: Offer[] = [
+  {
+    name: "ResponseOS Starter",
+    price: "$397/mo",
+    designedFor: "Smaller teams that just need to stop leads going cold.",
+    goal: "Core capture and fast follow-up so no inbound lead falls through the cracks.",
+  },
+  {
+    name: "ResponseOS Core",
+    price: "$797/mo",
+    designedFor: "Growing teams with a real follow-up and recovery problem.",
+    goal: "Adds qualification and a recovery cadence that re-engages stalled and ghosted leads.",
+    featured: true,
+  },
+  {
+    name: "ResponseOS Pro",
+    price: "$1,297/mo",
+    designedFor: "Teams that need the full picture, not just the recovery.",
+    goal: "Full intake, recovery, and attribution reporting so you see what actually drives revenue.",
+  },
+];
+
+// ── Larger engagements ──
+const ENGAGEMENTS: Offer[] = [
   {
     name: "Founder Intelligence System",
-    problem: "A full operating layer across revenue, operations, AI, and reporting.",
-    status: "Live",
+    price: "Custom",
+    priceNote: "Most engagements range $5,000–$25,000+",
+    designedFor: "Businesses ready for a full operating intelligence layer across revenue, ops, AI, and reporting.",
+    goal: "Connect follow-up, CRM, attribution, reporting, and business memory into one system you can see and run.",
     href: "/founder-intelligence",
+    cta: "Explore the system",
   },
   {
-    name: "ReKonr OS",
-    problem: "Lost business memory — scattered docs, decisions, and operational context.",
-    status: "In development",
-    href: null,
+    name: "Strategic Advisory",
+    price: "From $2,000/mo",
+    designedFor: "Founders who want ongoing operating guidance, not a one-time build.",
+    goal: "A steady hand on the system — priorities, decisions, and what to build next.",
+    href: "/book-a-call",
+    cta: "Book a call",
   },
-  {
-    name: "PodcastOS",
-    problem: "Inconsistent content, poor repurposing, and no authority engine.",
-    status: "In development",
-    href: null,
-  },
-] as const;
+];
 
-const WORKSHOPS = [
-  ["Revenue Leak Workshop", "Founders who want to understand where revenue goes missing."],
-  ["AI Readiness Workshop", "Businesses considering AI but unsure where it fits."],
-  ["Founder Intelligence Workshop", "Owners who need operating clarity before they build."],
-  ["ResponseOS Workshop", "Teams with a missed-call and follow-up problem."],
-  ["ReKonr OS Workshop", "Teams with scattered knowledge and weak documentation."],
-  ["PodcastOS Workshop", "Creators and founders who need a content system."],
-  ["Offer Architecture Workshop", "Consultants turning expertise into a clear offer."],
-] as const;
+const PARTNERSHIP: Offer = {
+  name: "Performance Partnership",
+  price: "Application only",
+  designedFor: "A small number of businesses where we tie our upside to your results.",
+  goal: "A performance-based engagement scoped around outcomes. Pricing is bespoke — apply to see if it is a fit.",
+  href: "/apply",
+  cta: "Apply",
+};
 
 const PRICING_FAQS = [
   {
-    question: "How much does it cost?",
+    question: "What does it cost to start?",
     answer:
-      "Pricing is scoped to what the diagnostic finds. You get a decision-ready report and a clear quote for the one system you actually need — not a guess off a generic price table.",
+      "The AI Readiness Score is free. The Revenue Leak Diagnostic is $1,997. Most engagements begin with one of those, then move into a system once you know what to fix.",
   },
   {
-    question: "Why is there no fixed price list?",
+    question: "Why do you publish prices?",
     answer:
-      "Because the right fix depends on where your business is leaking. A missed-call problem and a lost-knowledge problem need different systems. The diagnostic decides which one, then we scope it.",
+      "Because transparency saves everyone time. You can see exactly where to start and what it costs before you ever get on a call.",
   },
   {
-    question: "Do you offer month-to-month?",
+    question: "Can I start small?",
     answer:
-      "Some engagements can start month-to-month. Larger systems work is scoped around the diagnostic and the operating change required to make it stick.",
+      "Yes. ResponseOS starts at $397/month and moves up as it proves out. You do not have to commit to a full build to fix your biggest leak first.",
   },
   {
-    question: "Can you work with the tools we already use?",
+    question: "What is not priced publicly?",
     answer:
-      "Yes. We usually build around the tools already in place, then clarify the workflows, ownership, attribution, and reporting around them.",
+      "Founder Intelligence Systems are scoped to your business (most range $5,000–$25,000+), and the Performance Partnership is application-only because pricing is built around outcomes.",
   },
 ];
+
+function PriceCard({ offer, featured = offer.featured }: { offer: Offer; featured?: boolean }) {
+  const body = (
+    <>
+      <div className="flex items-start justify-between gap-4">
+        <h3 className="font-accent text-xl font-bold tracking-[-0.02em] text-fg-0">
+          {offer.name}
+        </h3>
+        {featured ? <span className="aj-data-label whitespace-nowrap">Popular</span> : null}
+      </div>
+      <p className="mt-3 font-headline text-3xl font-bold text-signal-yellow">{offer.price}</p>
+      {offer.priceNote ? <p className="mt-1 text-xs text-fg-3">{offer.priceNote}</p> : null}
+
+      <dl className="mt-5 space-y-4">
+        <div>
+          <dt className="aj-data-label">Designed for</dt>
+          <dd className="mt-1 text-sm leading-6 text-fg-2">{offer.designedFor}</dd>
+        </div>
+        <div>
+          <dt className="aj-data-label">What it does</dt>
+          <dd className="mt-1 text-sm leading-6 text-fg-2">{offer.goal}</dd>
+        </div>
+        {offer.outcome ? (
+          <div>
+            <dt className="aj-data-label">Typical outcome</dt>
+            <dd className="mt-1 text-sm leading-6 text-fg-2">{offer.outcome}</dd>
+          </div>
+        ) : null}
+      </dl>
+
+      {offer.href && offer.cta ? (
+        <Link
+          href={offer.href}
+          className="mt-5 inline-block text-sm font-semibold text-signal-yellow hover:underline"
+        >
+          {offer.cta} →
+        </Link>
+      ) : null}
+    </>
+  );
+
+  return featured ? (
+    <div className="aj-card-signal">
+      <div className="aj-card-inner">{body}</div>
+    </div>
+  ) : (
+    <div className="aj-product-card">{body}</div>
+  );
+}
 
 export default function OffersPage() {
   return (
@@ -96,7 +204,7 @@ export default function OffersPage() {
       <JsonLd
         data={breadcrumbJsonLd([
           { name: "Home", url: "/" },
-          { name: "Offers", url: "/pricing" },
+          { name: "Offers & Pricing", url: "/pricing" },
         ])}
       />
       <JsonLd data={faqJsonLd(PRICING_FAQS)} />
@@ -105,33 +213,30 @@ export default function OffersPage() {
         title="Start with a diagnostic. Build the system you actually need."
         description={DESCRIPTION}
         primaryHref="/ai-readiness-diagnostic"
-        primaryLabel="Book a Diagnostic"
-        secondaryHref="/roi-calculator"
-        secondaryLabel="Calculate Lost Revenue"
+        primaryLabel="Get your free score"
+        secondaryHref="/book-a-call"
+        secondaryLabel="Book a Diagnostic"
         stats={[
-          { metric: "1", label: "Diagnose where revenue and attention leak." },
-          { metric: "2", label: "Decide the one highest-leverage fix." },
-          { metric: "3", label: "Build it — a workshop or a full install." },
-          { metric: "4", label: "Operate and optimize on a retainer." },
+          { metric: "Free", label: "AI Readiness Score to see where you stand." },
+          { metric: "$1,997", label: "Revenue Leak Diagnostic — find the money leaking out." },
+          { metric: "$397/mo", label: "ResponseOS starts here — stop losing leads." },
         ]}
       />
 
-      {/* Diagnostics */}
+      {/* Step 1 — Diagnostics */}
       <DarkSection>
         <SectionIntro
-          label="Step 1 · Paid diagnostics"
+          label="Step 1 · Start here"
           title="Every engagement starts with a diagnosis."
-          description="A paid diagnostic is a structured read of your business that ends in a decision-ready report — the single highest-leverage system to build next."
+          description="A diagnostic is a structured read of your business that ends in a decision-ready plan — the single highest-leverage thing to fix next. These are the entry point, and most are publicly priced."
         />
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {DIAGNOSTICS.map(([name, copy]) => (
-            <div key={name} className="aj-product-card">
-              <h3 className="font-accent text-xl font-bold tracking-[-0.02em] text-fg-0">
-                {name}
-              </h3>
-              <p className="mt-3 text-sm leading-7 text-fg-2">{copy}</p>
-            </div>
+        <div className="mt-10 grid gap-4 lg:grid-cols-3">
+          {DIAGNOSTICS.map((o) => (
+            <PriceCard key={o.name} offer={o} />
           ))}
+        </div>
+        <div className="mt-4 grid gap-4 lg:grid-cols-3">
+          <PriceCard offer={WORKSHOP} />
         </div>
       </DarkSection>
 
@@ -142,73 +247,49 @@ export default function OffersPage() {
             How pricing works
           </p>
           <h2 className="mt-4 font-accent text-[clamp(2rem,4vw,3.25rem)] font-bold leading-[1.05] tracking-[-0.03em]">
-            We price the fix, not a package.
+            Transparent where it helps. Scoped where it matters.
           </h2>
           <p className="mt-5 text-lg leading-8 text-[#4b5563]">
-            We do not sell one-size plans, because the right system depends on
-            where your business is losing money. The diagnostic tells us — then
-            you get a clear, scoped quote for the system that solves it. No
-            guessing, no padded retainer for work you do not need.
+            Diagnostics and ResponseOS are publicly priced, so you know exactly
+            where to start. Full Founder Intelligence Systems are scoped to your
+            business, because the right build depends on what the diagnostic
+            finds. The Performance Partnership is application-only — pricing
+            there is built around results.
           </p>
         </div>
       </LightProofSection>
 
-      {/* Agent OS systems */}
+      {/* Step 2 — ResponseOS tiers */}
       <DarkSection>
         <SectionIntro
-          label="Step 2 · Agent OS solutions"
-          title="The systems we install."
-          description="These are installed business systems — not software subscriptions. The diagnostic points to the one that fixes your biggest leak first."
+          label="Step 2 · ResponseOS"
+          title="Stop losing the leads you already earned."
+          description="ResponseOS is the revenue-recovery system. Start at the tier that matches your follow-up problem and move up as it proves out."
         />
-        <div className="mt-10 grid gap-4 sm:grid-cols-2">
-          {SYSTEMS.map((s) => (
-            <div key={s.name} className="aj-card-signal">
-              <div className="aj-card-inner">
-                <div className="flex items-center justify-between gap-4">
-                  <h3 className="font-accent text-2xl font-bold tracking-[-0.02em] text-fg-0">
-                    {s.name}
-                  </h3>
-                  <span className="aj-data-label whitespace-nowrap">{s.status}</span>
-                </div>
-                <p className="mt-3 leading-7 text-fg-2">{s.problem}</p>
-                {s.href ? (
-                  <Link
-                    href={s.href}
-                    className="mt-4 inline-block text-sm font-semibold text-signal-yellow hover:underline"
-                  >
-                    Explore {s.name} →
-                  </Link>
-                ) : null}
-              </div>
-            </div>
-          ))}
-        </div>
-      </DarkSection>
-
-      {/* Workshops */}
-      <DarkSection className="bg-bg-1">
-        <SectionIntro
-          label="Optional · Workshops"
-          title="Want to learn before you build?"
-          description="Workshops educate and qualify. They are the lower-cost way in for founders who want clarity before committing to a full install."
-        />
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {WORKSHOPS.map(([name, best]) => (
-            <div key={name} className="aj-product-card">
-              <h3 className="font-accent text-lg font-bold tracking-[-0.02em] text-fg-0">
-                {name}
-              </h3>
-              <p className="mt-2 text-sm leading-6 text-fg-2">{best}</p>
-            </div>
+        <div className="mt-10 grid gap-4 lg:grid-cols-3">
+          {RESPONSEOS.map((o) => (
+            <PriceCard key={o.name} offer={o} />
           ))}
         </div>
         <div className="mt-8">
-          <Link
-            href="/workshops"
-            className="text-sm font-semibold text-signal-yellow hover:underline"
-          >
-            See all workshops →
+          <Link href="/agents/responseos" className="text-sm font-semibold text-signal-yellow hover:underline">
+            Explore ResponseOS in full →
           </Link>
+        </div>
+      </DarkSection>
+
+      {/* Larger engagements */}
+      <DarkSection className="bg-bg-1">
+        <SectionIntro
+          label="Build & operate"
+          title="When you are ready for the whole system."
+          description="Once a diagnostic proves the model, these are the larger builds and ongoing engagements."
+        />
+        <div className="mt-10 grid gap-4 lg:grid-cols-3">
+          {ENGAGEMENTS.map((o) => (
+            <PriceCard key={o.name} offer={o} />
+          ))}
+          <PriceCard offer={PARTNERSHIP} />
         </div>
       </DarkSection>
 
@@ -217,7 +298,7 @@ export default function OffersPage() {
         <SectionIntro
           label="FAQ"
           title="Common questions about cost"
-          description="Straight answers about how engagements are priced and scoped."
+          description="Straight answers about how engagements are priced and where to start."
         />
         <div className="mx-auto mt-10 max-w-3xl">
           <FAQ items={PRICING_FAQS} />
@@ -226,11 +307,11 @@ export default function OffersPage() {
 
       <FinalCta
         title="Find the leak first. Price the fix second."
-        description="Book a diagnostic and get a decision-ready read on where your business is losing revenue — and exactly what to build next."
-        primaryLabel="Book a Diagnostic"
+        description="Start with the free AI Readiness Score, or book the Revenue Leak Diagnostic to find exactly where your business is losing revenue."
+        primaryLabel="Get your free score"
         primaryHref="/ai-readiness-diagnostic"
-        secondaryLabel="Calculate Lost Revenue"
-        secondaryHref="/roi-calculator"
+        secondaryLabel="Book a Diagnostic"
+        secondaryHref="/book-a-call"
       />
     </>
   );
