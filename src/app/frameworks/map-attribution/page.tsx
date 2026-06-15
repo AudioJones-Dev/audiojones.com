@@ -49,7 +49,7 @@ const FAQS = [
 ];
 
 export const metadata: Metadata = buildMetadata({
-  title: `${TITLE} | Audio Jones Framework`,
+  title: TITLE,
   description:
     "M.A.P Attribution: a three-filter framework that decides which metrics earn the right to drive your strategy.",
   path: PATH,

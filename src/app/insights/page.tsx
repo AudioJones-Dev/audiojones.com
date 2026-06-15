@@ -8,7 +8,7 @@ import { buildMetadata } from "@/lib/seo/metadata";
 import { breadcrumbJsonLd } from "@/lib/seo/schema";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Insights | Audio Jones",
+  title: "Insights",
   description:
     "Pillar essays on Founder Intelligence Systems, signal vs noise, AI failure modes, and marketing attribution for founder-led businesses.",
   path: "/insights",

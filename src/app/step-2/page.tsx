@@ -46,7 +46,7 @@ const FAQS = [
 
 export const metadata: Metadata = {
   ...buildMetadata({
-    title: "Step 2: The Missing Layer Between AI Hype and Profit | Audio Jones",
+    title: "Step 2: The Missing Layer Between AI Hype and Profit",
     description:
       "Step 2 is the missing operating layer between AI capability and measurable business outcomes. Audio Jones helps businesses turn AI hype into founder intelligence, attribution, workflow redesign, and profit.",
     path: PATH,

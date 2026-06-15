@@ -39,7 +39,7 @@ const FAQS = [
 ];
 
 export const metadata: Metadata = buildMetadata({
-  title: `${TITLE} | Audio Jones Framework`,
+  title: TITLE,
   description:
     "N.I.C.H.E: a five-stage positioning system for identifying high-signal markets and engineering founder-intelligence engines around them.",
   path: PATH,

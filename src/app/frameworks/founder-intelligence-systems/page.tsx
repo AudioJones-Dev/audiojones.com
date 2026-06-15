@@ -22,14 +22,14 @@ const DEFINITION =
 
 const FAQS = [
   {
-    question: "What is an Founder Intelligence System?",
+    question: "What is a Founder Intelligence System?",
     answer:
-      "An Founder Intelligence System is a business operating model that combines human judgment, data signals, AI tooling, attribution, and feedback loops so the company can make and execute better decisions at scale.",
+      "A Founder Intelligence System is a business operating model that combines human judgment, data signals, AI tooling, attribution, and feedback loops so the company can make and execute better decisions at scale.",
   },
   {
     question: "How is this different from AI automation?",
     answer:
-      "AI automation moves work faster. An Founder Intelligence System changes which work is being done. It rebuilds the underlying decision architecture before adding AI on top, so the AI compounds judgment instead of accelerating dysfunction.",
+      "AI automation moves work faster. A Founder Intelligence System changes which work is being done. It rebuilds the underlying decision architecture before adding AI on top, so the AI compounds judgment instead of accelerating dysfunction.",
   },
   {
     question: "What systems should a founder build before AI?",
@@ -44,7 +44,7 @@ const FAQS = [
 ];
 
 export const metadata: Metadata = buildMetadata({
-  title: `${TITLE} | Audio Jones Framework`,
+  title: TITLE,
   description: DEFINITION.slice(0, 155),
   path: PATH,
   type: "article",

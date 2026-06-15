@@ -11,7 +11,7 @@ import { founderIntelligenceFaqs } from "@/lib/seo/founder-intelligence-faq";
 export const metadata: Metadata = buildMetadata({
   title: "Strategic Diagnostic | Founder Intelligence",
   description:
-    "Apply for an Founder Intelligence Diagnostic. Six steps that map your constraint, signal architecture, AI readiness, and attribution clarity.",
+    "Apply for a Founder Intelligence Diagnostic. Six steps that map your constraint, signal architecture, AI readiness, and attribution clarity.",
   path: "/founder-intelligence/diagnostic",
 });
 
