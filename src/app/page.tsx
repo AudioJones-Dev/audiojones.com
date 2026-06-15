@@ -6,6 +6,7 @@ import {
   RoiLeadMagnet,
   ProcessPipeline,
   ProofStats,
+  HomeFaqSection,
   DiagnosticCTA,
 } from "@/components/home/landing";
 import JsonLd from "@/components/seo/JsonLd";
@@ -62,7 +63,10 @@ export default function HomePage() {
       {/* 6. Proof / Before-After */}
       <ProofStats />
 
-      {/* 7. Final CTA */}
+      {/* 7. FAQ — plain-language, AEO surface */}
+      <HomeFaqSection />
+
+      {/* 8. Final CTA */}
       <DiagnosticCTA />
     </>
   );
