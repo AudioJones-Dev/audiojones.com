@@ -114,22 +114,25 @@ export const caseStudies = [
 
 export const workshops = [
   {
-    title: "AI Readiness for Founder-Led Teams",
+    title: "AI Readiness Kaizen Workshop",
     description:
-      "Diagnose the workflows, data quality, SOP maturity, and adoption blockers that determine whether AI will create leverage.",
+      "Identify operational friction, process gaps, tool sprawl, and automation risk before the business adopts AI.",
     format: "Live operator session",
+    href: "/workshops/ai-readiness-kaizen-workshop",
   },
   {
     title: "Revenue Recovery Systems",
     description:
       "Map where missed calls, slow follow-up, weak routing, and unclear ownership create revenue leaks inside the business.",
     format: "Systems workshop",
+    href: "/workshops",
   },
   {
     title: "Signal Over Noise Operating Model",
     description:
       "Turn scattered marketing, sales, and delivery activity into a practical signal model that guides founder decisions.",
     format: "Executive working session",
+    href: "/workshops",
   },
 ] as const;
 

@@ -34,6 +34,9 @@ export const siteConfig = {
  */
 export const publicRoutes = [
   { path: "/", priority: 1, changeFrequency: "weekly" },
+  { path: "/ai-readiness-diagnostic", priority: 0.9, changeFrequency: "monthly" },
+  { path: "/workshops/ai-readiness-kaizen-workshop", priority: 0.82, changeFrequency: "monthly" },
+  { path: "/diagnostics/ai-readiness-kaizen-diagnostic", priority: 0.86, changeFrequency: "monthly" },
   { path: "/founder-intelligence", priority: 0.95, changeFrequency: "weekly" },
   { path: "/founder-intelligence/diagnostic", priority: 0.9, changeFrequency: "monthly" },
   { path: "/founder-gravity-audit", priority: 0.9, changeFrequency: "monthly" },

@@ -20,8 +20,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${base}/insights`,                          lastModified: now, changeFrequency: "weekly",  priority: 0.85 },
     { url: `${base}/roi-calculator`,                    lastModified: now, changeFrequency: "weekly",  priority: 0.9  },
     { url: `${base}/workshops`,                         lastModified: now, changeFrequency: "weekly",  priority: 0.85 },
+    { url: `${base}/workshops/ai-readiness-kaizen-workshop`, lastModified: now, changeFrequency: "monthly", priority: 0.82 },
     // Right-side header CTAs
     { url: `${base}/ai-readiness-diagnostic`,           lastModified: now, changeFrequency: "monthly", priority: 0.9  },
+    { url: `${base}/diagnostics/ai-readiness-kaizen-diagnostic`, lastModified: now, changeFrequency: "monthly", priority: 0.86 },
     { url: `${base}/book-a-call`,                       lastModified: now, changeFrequency: "monthly", priority: 0.85 },
     // Supporting surfaces
     { url: `${base}/founder-intelligence`,              lastModified: now, changeFrequency: "weekly",  priority: 0.85 },

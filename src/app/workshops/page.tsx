@@ -49,6 +49,7 @@ export default function WorkshopsPage() {
               title={workshop.title}
               description={workshop.description}
               meta={workshop.format}
+              href={workshop.href}
             />
           ))}
         </div>
@@ -82,8 +83,8 @@ export default function WorkshopsPage() {
       <FinalCta
         title="Bring the signal into the room."
         description="Use a workshop when the team needs shared clarity before committing to a systems buildout."
-        primaryLabel="Book a Call"
-        primaryHref="/book-a-call"
+        primaryLabel="View AI Readiness Workshop"
+        primaryHref="/workshops/ai-readiness-kaizen-workshop"
         secondaryLabel="Start the Diagnostic"
         secondaryHref="/ai-readiness-diagnostic"
       />
