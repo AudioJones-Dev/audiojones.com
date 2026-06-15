@@ -1,260 +1,237 @@
-/* app/pricing/page.tsx */
+import type { Metadata } from "next";
+import Link from "next/link";
 
-import type { Metadata } from 'next';
-import Link from 'next/link';
-import JsonLd from '@/components/seo/JsonLd';
-import { ctaLinks } from '@/config/links';
-import { getAllServices, applyMarketRules } from '@/lib/getPricing';
-import { siteConfig } from '@/lib/site';
-import { buildMetadata } from '@/lib/seo/metadata';
+import {
+  DarkSection,
+  FinalCta,
+  LightProofSection,
+  SectionIntro,
+  SignalHero,
+} from "@/components/marketing/DesignSystemSections";
+import FAQ from "@/components/founder-intelligence/FAQ";
+import JsonLd from "@/components/seo/JsonLd";
+import { buildMetadata } from "@/lib/seo/metadata";
+import { breadcrumbJsonLd, faqJsonLd } from "@/lib/seo/schema";
+
+const DESCRIPTION =
+  "Start with a diagnostic, then build the system you actually need — revenue recovery, business memory, content, or a full Founder Intelligence System. Scope follows the diagnosis, not a fixed price table.";
+
+export const metadata: Metadata = buildMetadata({
+  title: "Offers",
+  description: DESCRIPTION,
+  path: "/pricing",
+});
+
+const DIAGNOSTICS = [
+  ["Revenue Leak Diagnostic", "Finds the money slipping through missed calls, slow follow-up, pipeline, and unclear attribution."],
+  ["AI Readiness Diagnostic", "Tests whether your business is ready for AI before you spend a dollar installing it."],
+  ["Founder Intelligence Diagnostic", "Maps your operations, workflows, decision bottlenecks, and data gaps in one read."],
+  ["Content Engine Diagnostic", "Audits your content, podcast, authority, and how well your work gets repurposed."],
+  ["Business Memory Diagnostic", "Audits the SOPs, decisions, and CRM notes your business keeps losing."],
+] as const;
+
+const SYSTEMS = [
+  {
+    name: "ResponseOS",
+    problem: "Missed calls, slow follow-up, lead leakage, and weak intake.",
+    status: "Live",
+    href: "/agents/responseos",
+  },
+  {
+    name: "Founder Intelligence System",
+    problem: "A full operating layer across revenue, operations, AI, and reporting.",
+    status: "Live",
+    href: "/founder-intelligence",
+  },
+  {
+    name: "ReKonr OS",
+    problem: "Lost business memory — scattered docs, decisions, and operational context.",
+    status: "In development",
+    href: null,
+  },
+  {
+    name: "PodcastOS",
+    problem: "Inconsistent content, poor repurposing, and no authority engine.",
+    status: "In development",
+    href: null,
+  },
+] as const;
+
+const WORKSHOPS = [
+  ["Revenue Leak Workshop", "Founders who want to understand where revenue goes missing."],
+  ["AI Readiness Workshop", "Businesses considering AI but unsure where it fits."],
+  ["Founder Intelligence Workshop", "Owners who need operating clarity before they build."],
+  ["ResponseOS Workshop", "Teams with a missed-call and follow-up problem."],
+  ["ReKonr OS Workshop", "Teams with scattered knowledge and weak documentation."],
+  ["PodcastOS Workshop", "Creators and founders who need a content system."],
+  ["Offer Architecture Workshop", "Consultants turning expertise into a clear offer."],
+] as const;
 
 const PRICING_FAQS = [
   {
-    question: 'Do you offer month-to-month?',
+    question: "How much does it cost?",
     answer:
-      'Yes. Some engagements can start month-to-month, but larger systems work is scoped around the diagnostic and the operating change required.',
+      "Pricing is scoped to what the diagnostic finds. You get a decision-ready report and a clear quote for the one system you actually need — not a guess off a generic price table.",
   },
   {
-    question: 'Can you work with our existing tools?',
+    question: "Why is there no fixed price list?",
     answer:
-      'Yes. AJ Digital usually works around the tools already in place, then clarifies the workflows, ownership, attribution, and reporting layer around them.',
+      "Because the right fix depends on where your business is leaking. A missed-call problem and a lost-knowledge problem need different systems. The diagnostic decides which one, then we scope it.",
   },
   {
-    question: "What's included in support?",
+    question: "Do you offer month-to-month?",
     answer:
-      'Support depends on the engagement path. The diagnostic defines the operating gap, the system layer to build, and the level of reporting or adoption support required.',
+      "Some engagements can start month-to-month. Larger systems work is scoped around the diagnostic and the operating change required to make it stick.",
+  },
+  {
+    question: "Can you work with the tools we already use?",
+    answer:
+      "Yes. We usually build around the tools already in place, then clarify the workflows, ownership, attribution, and reporting around them.",
   },
 ];
 
-export const metadata: Metadata = buildMetadata({
-  title: 'Founder Intelligence System Pricing',
-  description:
-    'Transparent diagnostic, systems buildout, automation, attribution, and content-system pricing for founder-led service businesses.',
-  path: '/pricing',
-});
-
-function formatTierPrice(tier: { billing_model: string; price_min: number; price_max: number }) {
-  if (
-    tier.billing_model === 'custom' ||
-    !Number.isFinite(tier.price_min) ||
-    !Number.isFinite(tier.price_max) ||
-    tier.price_min <= 0 ||
-    tier.price_max <= 0
-  ) {
-    return 'Custom';
-  }
-
-  const amount =
-    tier.price_min === tier.price_max
-      ? `$${tier.price_min.toLocaleString()}`
-      : `$${tier.price_min.toLocaleString()} - $${tier.price_max.toLocaleString()}`;
-
-  return tier.billing_model === 'monthly' ? `${amount}/mo` : amount;
-}
-
-export default function PricingPage() {
-  // Load all services and apply market rules
-  const allServices = getAllServices();
-  const servicesWithMarketPricing = allServices.map(service => ({
-    ...service,
-    tiers: service.tiers.map(tier => ({
-      ...tier,
-      price_min: applyMarketRules(service.id, service.market, tier.price_min),
-      price_max: applyMarketRules(service.id, service.market, tier.price_max),
-    }))
-  }));
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebPage",
-        "@id": `${siteConfig.url}/pricing`,
-        "url": `${siteConfig.url}/pricing`,
-        "name": "Founder Intelligence System Pricing",
-        "description": "Transparent diagnostic, systems buildout, automation, attribution, and content-system pricing for founder-led service businesses.",
-        "isPartOf": { "@id": `${siteConfig.url}/#website` },
-        "breadcrumb": {
-          "@type": "BreadcrumbList",
-          "itemListElement": [
-            {
-              "@type": "ListItem",
-              "position": 1,
-              "name": "Home",
-              "item": `${siteConfig.url}/`
-            },
-            {
-              "@type": "ListItem",
-              "position": 2,
-              "name": "Pricing"
-            }
-          ]
-        }
-      },
-      {
-        "@type": "FAQPage",
-        "mainEntity": PRICING_FAQS.map((faq) => ({
-          "@type": "Question",
-          "name": faq.question,
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": faq.answer
-          }
-        }))
-      }
-    ]
-  };
-
+export default function OffersPage() {
   return (
     <>
-      <JsonLd data={jsonLd} />
-      <main className="bg-[#0f0f10] text-white min-h-screen">
-        {/* top spacer if your layout has fixed nav */}
-        <div className="h-16" />
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", url: "/" },
+          { name: "Offers", url: "/pricing" },
+        ])}
+      />
+      <JsonLd data={faqJsonLd(PRICING_FAQS)} />
 
-        {/* hero */}
-        <section className="relative flex w-full justify-center overflow-hidden py-20 sm:py-24 lg:py-32">
-          <div className="absolute inset-0 bg-gradient-to-b from-[#0f0f10] to-[#181818]" />
-          <div className="absolute inset-0 opacity-30">
-            <div className="absolute -left-1/4 top-0 h-full w-full rounded-full bg-gradient-radial from-[#E8FF5A] to-transparent blur-3xl" />
-            <div className="absolute -right-1/4 bottom-0 h-full w-full rounded-full bg-gradient-radial from-[#4DACFF] to-transparent blur-3xl" />
-          </div>
-          <div className="relative z-10 mx-auto flex max-w-5xl flex-col items-center gap-6 px-4 text-center">
-            {/* breadcrumb */}
-            <nav aria-label="Breadcrumb" className="mb-4">
-              <ol className="flex items-center justify-center gap-2 text-sm text-white/50">
-                <li><Link href="/" className="hover:text-white">Home</Link></li>
-                <li>/</li>
-                <li className="text-white">Pricing</li>
-              </ol>
-            </nav>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight">
-              Transparent AI Consulting Plans for 2025
-            </h1>
-            <p className="text-white/70 text-lg max-w-2xl">
-              Choose a system that scales with your brand. Built for creators, founders, and media operators.
-            </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <a
-                href={ctaLinks.bookSession}
-                className="bg-[#ff7847] text-black font-semibold px-6 py-3 rounded-lg hover:scale-[1.02] transition"
-              >
-                Book a Strategy Call
-              </a>
-              <a
-                href="#plans"
-                className="border border-white/30 px-6 py-3 rounded-lg text-sm font-semibold hover:bg-white/10 transition"
-              >
-                Compare Plans
-              </a>
+      <SignalHero
+        title="Start with a diagnostic. Build the system you actually need."
+        description={DESCRIPTION}
+        primaryHref="/ai-readiness-diagnostic"
+        primaryLabel="Book a Diagnostic"
+        secondaryHref="/roi-calculator"
+        secondaryLabel="Calculate Lost Revenue"
+        stats={[
+          { metric: "1", label: "Diagnose where revenue and attention leak." },
+          { metric: "2", label: "Decide the one highest-leverage fix." },
+          { metric: "3", label: "Build it — a workshop or a full install." },
+          { metric: "4", label: "Operate and optimize on a retainer." },
+        ]}
+      />
+
+      {/* Diagnostics */}
+      <DarkSection>
+        <SectionIntro
+          label="Step 1 · Paid diagnostics"
+          title="Every engagement starts with a diagnosis."
+          description="A paid diagnostic is a structured read of your business that ends in a decision-ready report — the single highest-leverage system to build next."
+        />
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {DIAGNOSTICS.map(([name, copy]) => (
+            <div key={name} className="aj-product-card">
+              <h3 className="font-accent text-xl font-bold tracking-[-0.02em] text-fg-0">
+                {name}
+              </h3>
+              <p className="mt-3 text-sm leading-7 text-fg-2">{copy}</p>
             </div>
-          </div>
-        </section>
-
-        {/* Dynamic services from catalog */}
-        <div className="max-w-6xl mx-auto px-4 pb-16 space-y-16">
-          {servicesWithMarketPricing.map((service) => (
-            <section key={service.id} id={service.id} className="space-y-8">
-              <div className="text-center">
-                <h2 className="text-3xl font-bold">{service.label}</h2>
-                <p className="text-white/60 mt-2">
-                  {service.market.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())} Market
-                </p>
-              </div>
-              
-              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-                {service.tiers.filter(tier => tier.active).map((tier, index) => (
-                  <div 
-                    key={tier.id}
-                    className={`rounded-2xl p-6 flex flex-col gap-4 ${
-                      index === 1 
-                        ? 'border border-[#ff7847] bg-gradient-to-b from-[#181818] to-[#101010] relative' 
-                        : 'border border-white/5 bg-[#131313]'
-                    }`}
-                  >
-                    {index === 1 && (
-                      <span className="absolute -top-3 right-4 bg-[#ff7847] text-black text-xs font-bold px-3 py-1 rounded-full">
-                        Popular
-                      </span>
-                    )}
-                    
-                    <div>
-                      <p className="text-xs uppercase tracking-[0.3em] text-white/40">{tier.id.toUpperCase()}</p>
-                      <h3 className="text-lg font-semibold mt-1">{tier.name}</h3>
-                    </div>
-                    
-                    <div className="text-2xl font-bold">
-                      {formatTierPrice(tier)}
-                    </div>
-                    
-                    <p className="text-xs text-white/50 uppercase tracking-wide">
-                      {tier.billing_model.replace('_', ' ')} • {tier.contract_min_months === 0 ? 'No contract' : `${tier.contract_min_months} mo min`}
-                    </p>
-                    
-                    <ul className="space-y-2 text-sm text-white/70 flex-grow">
-                      {tier.deliverables.map((deliverable, i) => (
-                        <li key={i}>• {deliverable}</li>
-                      ))}
-                    </ul>
-                    
-                    <a
-                      href={ctaLinks.bookSession}
-                      className={`mt-auto inline-flex justify-center rounded-lg py-2 text-sm font-semibold transition ${
-                        index === 1
-                          ? 'bg-[#ff7847] text-black hover:opacity-90'
-                          : tier.billing_model === 'custom'
-                          ? 'border border-white/20 hover:bg-white/10'
-                          : 'bg-white/10 hover:bg-white/20'
-                      }`}
-                    >
-                      {tier.billing_model === 'custom' ? 'Contact Sales' : `Get ${tier.name}`}
-                    </a>
-                  </div>
-                ))}
-              </div>
-            </section>
           ))}
         </div>
+      </DarkSection>
 
-        {/* trust */}
-        <section className="bg-[#0b0b0b] border-y border-white/5 py-14">
-          <div className="max-w-6xl mx-auto px-4 space-y-8">
-            <h2 className="text-center text-xl font-semibold">Trusted by South Florida leaders and creators</h2>
-            <div className="grid gap-6 md:grid-cols-3">
-              <div className="bg-white/5 rounded-xl p-5 space-y-3">
-                <p className="text-sm text-white/70">
-                  "Our content cadence finally matched our sales cadence."
-                </p>
-                <p className="text-xs text-white/40">Founder, local media brand</p>
-              </div>
-              <div className="bg-white/5 rounded-xl p-5 space-y-3">
-                <p className="text-sm text-white/70">
-                  "The AI repurposing saved us hours every week."
-                </p>
-                <p className="text-xs text-white/40">Podcast network operator</p>
-              </div>
-              <div className="bg-white/5 rounded-xl p-5 space-y-3">
-                <p className="text-sm text-white/70">
-                  "Portal reporting made it easy to show ROI."
-                </p>
-                <p className="text-xs text-white/40">Service-based business</p>
+      {/* How pricing works */}
+      <LightProofSection>
+        <div className="mx-auto max-w-3xl text-center">
+          <p className="text-xs font-bold uppercase tracking-[0.16em] text-[var(--aj-blue-deep)]">
+            How pricing works
+          </p>
+          <h2 className="mt-4 font-accent text-[clamp(2rem,4vw,3.25rem)] font-bold leading-[1.05] tracking-[-0.03em]">
+            We price the fix, not a package.
+          </h2>
+          <p className="mt-5 text-lg leading-8 text-[#4b5563]">
+            We do not sell one-size plans, because the right system depends on
+            where your business is losing money. The diagnostic tells us — then
+            you get a clear, scoped quote for the system that solves it. No
+            guessing, no padded retainer for work you do not need.
+          </p>
+        </div>
+      </LightProofSection>
+
+      {/* Agent OS systems */}
+      <DarkSection>
+        <SectionIntro
+          label="Step 2 · Agent OS solutions"
+          title="The systems we install."
+          description="These are installed business systems — not software subscriptions. The diagnostic points to the one that fixes your biggest leak first."
+        />
+        <div className="mt-10 grid gap-4 sm:grid-cols-2">
+          {SYSTEMS.map((s) => (
+            <div key={s.name} className="aj-card-signal">
+              <div className="aj-card-inner">
+                <div className="flex items-center justify-between gap-4">
+                  <h3 className="font-accent text-2xl font-bold tracking-[-0.02em] text-fg-0">
+                    {s.name}
+                  </h3>
+                  <span className="aj-data-label whitespace-nowrap">{s.status}</span>
+                </div>
+                <p className="mt-3 leading-7 text-fg-2">{s.problem}</p>
+                {s.href ? (
+                  <Link
+                    href={s.href}
+                    className="mt-4 inline-block text-sm font-semibold text-signal-yellow hover:underline"
+                  >
+                    Explore {s.name} →
+                  </Link>
+                ) : null}
               </div>
             </div>
-          </div>
-        </section>
+          ))}
+        </div>
+      </DarkSection>
 
-        {/* FAQ */}
-        <section className="max-w-4xl mx-auto px-4 py-16 space-y-8">
-          <h2 className="text-2xl font-semibold">Pricing FAQs</h2>
-          <div className="space-y-4">
-            {PRICING_FAQS.map((faq) => (
-              <details key={faq.question} className="bg-white/5 rounded-lg p-4">
-                <summary className="cursor-pointer font-medium">{faq.question}</summary>
-                <p className="mt-2 text-sm text-white/70">{faq.answer}</p>
-              </details>
-            ))}
-          </div>
-        </section>
-      </main>
+      {/* Workshops */}
+      <DarkSection className="bg-bg-1">
+        <SectionIntro
+          label="Optional · Workshops"
+          title="Want to learn before you build?"
+          description="Workshops educate and qualify. They are the lower-cost way in for founders who want clarity before committing to a full install."
+        />
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {WORKSHOPS.map(([name, best]) => (
+            <div key={name} className="aj-product-card">
+              <h3 className="font-accent text-lg font-bold tracking-[-0.02em] text-fg-0">
+                {name}
+              </h3>
+              <p className="mt-2 text-sm leading-6 text-fg-2">{best}</p>
+            </div>
+          ))}
+        </div>
+        <div className="mt-8">
+          <Link
+            href="/workshops"
+            className="text-sm font-semibold text-signal-yellow hover:underline"
+          >
+            See all workshops →
+          </Link>
+        </div>
+      </DarkSection>
+
+      {/* FAQ */}
+      <DarkSection>
+        <SectionIntro
+          label="FAQ"
+          title="Common questions about cost"
+          description="Straight answers about how engagements are priced and scoped."
+        />
+        <div className="mx-auto mt-10 max-w-3xl">
+          <FAQ items={PRICING_FAQS} />
+        </div>
+      </DarkSection>
+
+      <FinalCta
+        title="Find the leak first. Price the fix second."
+        description="Book a diagnostic and get a decision-ready read on where your business is losing revenue — and exactly what to build next."
+        primaryLabel="Book a Diagnostic"
+        primaryHref="/ai-readiness-diagnostic"
+        secondaryLabel="Calculate Lost Revenue"
+        secondaryHref="/roi-calculator"
+      />
     </>
   );
 }
