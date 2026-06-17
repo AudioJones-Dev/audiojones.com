@@ -13,8 +13,8 @@ const insights = [
     href: "/insights/signal-vs-noise-business",
   },
   {
-    q: "What is the M.A.P Attribution Framework?",
-    a: "A decision model for identifying meaningful, actionable, and profitable inputs. If a metric fails any leg of M.A.P, it should not drive strategy.",
+    q: "What is the M.A.P. Attribution Framework?",
+    a: "A decision model for identifying meaningful, actionable, and profitable inputs. If a metric fails any leg of M.A.P., it should not drive strategy.",
     href: "/frameworks/map-attribution",
   },
   {

@@ -32,7 +32,7 @@ const STATIC_CLUSTERS: Record<string, { label: string; description: string; acce
     accent: "#E8FF5A",
   },
   "map-attribution": {
-    label: "M.A.P Attribution",
+    label: "M.A.P. Attribution",
     description:
       "Meaningful. Actionable. Profitable. The Audio Jones attribution framework for identifying exactly what drives growth in your business.",
     accent: "#E8FF5A",
@@ -255,7 +255,7 @@ function InternalLinks({ slug, accent }: { slug: string; accent: string }) {
       { label: "Founder Intelligence", href: "/founder-intelligence" },
     ],
     "map-attribution": [
-      { label: "M.A.P Attribution Framework", href: "/frameworks/map-attribution" },
+      { label: "M.A.P. Attribution Framework", href: "/frameworks/map-attribution" },
       { label: "Founder Intelligence", href: "/founder-intelligence" },
     ],
     "why-ai-fails": [

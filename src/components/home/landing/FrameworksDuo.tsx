@@ -14,27 +14,27 @@ export default function FrameworksDuo() {
             Two frameworks. One operating model.
           </h2>
           <p className="mt-5 t-lead text-fg-2">
-            M.A.P decides what data deserves a decision. N.I.C.H.E decides where the
-            decision actually compounds.
+            M.A.P. (Meaningful. Actionable. Profitable.) decides what data deserves a
+            decision. N.I.C.H.E decides where the decision actually compounds.
           </p>
         </div>
 
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
           {/* M.A.P card with triangle/pyramid diagram */}
           <article className="rounded-[var(--r-card)] border border-[var(--line-2)] bg-bg-2 p-8 sm:p-10 transition-colors hover:border-[var(--line-blue)]">
-            <Eyebrow tone="blue">M.A.P</Eyebrow>
+            <Eyebrow tone="blue">M.A.P.</Eyebrow>
             <h3 className="mt-3 t-h2">Meaningful · Actionable · Profitable</h3>
             <p className="mt-4 t-body text-fg-2">
-              An attribution framework for evaluating whether a metric should drive
-              strategy at all. Most dashboards measure activity. M.A.P measures
-              causal economic impact.
+              An attribution methodology built on the M.A.P. framework for evaluating
+              whether a metric should drive strategy at all. Most dashboards measure
+              activity. M.A.P. measures causal economic impact.
             </p>
             <MAPTriangle className="mx-auto mt-8 w-full max-w-md" />
             <Link
               href="/frameworks/map-attribution"
               className="mt-8 inline-flex items-center gap-2 t-small font-medium text-aj-blue-bright hover:text-fg-0"
             >
-              Read M.A.P framework <span aria-hidden>→</span>
+              Read M.A.P. framework <span aria-hidden>→</span>
             </Link>
           </article>
 
@@ -65,7 +65,7 @@ function MAPTriangle({ className }: { className?: string }) {
   return (
     <svg
       role="img"
-      aria-label="M.A.P pyramid: Meaningful, Actionable, Profitable"
+      aria-label="M.A.P. pyramid: Meaningful, Actionable, Profitable"
       viewBox="0 0 320 200"
       className={className}
     >

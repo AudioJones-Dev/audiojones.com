@@ -68,7 +68,7 @@ export default function MAPAttributionSection() {
       <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
         {/* Header */}
         <div className="mb-16 max-w-3xl">
-          <Eyebrow>M.A.P Attribution</Eyebrow>
+          <Eyebrow>M.A.P. Attribution</Eyebrow>
           <h2 className="mt-4 t-h1 text-balance">
             Attribution is not tracking everything.{" "}
             <span className="text-aj-blue-bright">
@@ -94,7 +94,7 @@ export default function MAPAttributionSection() {
           >
             <Image
               src="/assets/Homepage/06-map-attribution-framework/references/map-attribution-infographic-reference.png"
-              alt="M.A.P Attribution framework visual showing metric qualification through meaningful, actionable, and profitable filters"
+              alt="M.A.P. Attribution framework visual showing metric qualification through meaningful, actionable, and profitable filters"
               width={1672}
               height={941}
               className="h-auto w-full"
@@ -210,7 +210,7 @@ export default function MAPAttributionSection() {
               fontSize: "14px",
             }}
           >
-            Read the full M.A.P framework <span aria-hidden>→</span>
+            Read the full M.A.P. framework <span aria-hidden>→</span>
           </Link>
         </div>
       </div>

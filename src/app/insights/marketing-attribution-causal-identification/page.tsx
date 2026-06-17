@@ -96,7 +96,7 @@ export default function Page() {
             href="/frameworks/map-attribution"
             className="text-accent-blue hover:text-accent-blue"
           >
-            M.A.P filter
+            M.A.P. filter
           </Link>
           . The ones that survive are the inputs you scale.
         </P>

@@ -41,7 +41,7 @@ const STAGES: Stage[] = [
     desc: "Noise removed, signal identified.",
     bullets: [
       "Signal vs noise filtering",
-      "M.A.P attribution scoring",
+      "M.A.P. attribution scoring",
       "Constraint mapping",
     ],
     accent: "#4DACFF",

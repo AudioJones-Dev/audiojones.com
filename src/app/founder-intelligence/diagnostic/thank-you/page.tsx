@@ -57,7 +57,7 @@ export default function ThankYouPage() {
             >
               <Eyebrow>Pre-work</Eyebrow>
               <p className="mt-2 text-lg font-semibold text-text-primary">
-                M.A.P Attribution →
+                M.A.P. Attribution →
               </p>
               <p className="mt-1 text-sm text-text-muted">
                 The filter every metric must pass before driving strategy.

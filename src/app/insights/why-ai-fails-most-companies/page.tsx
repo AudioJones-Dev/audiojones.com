@@ -96,7 +96,7 @@ export default function Page() {
             href="/frameworks/map-attribution"
             className="text-accent-blue hover:text-accent-blue"
           >
-            M.A.P Attribution
+            M.A.P. Attribution
           </Link>
           , and document the workflow. Then deploy AI inside that
           architecture — see the{" "}
