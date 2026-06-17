@@ -29,6 +29,11 @@ export const mainNav: NavItem[] = [
     description: "Audio Jones — Founder Intelligence Systems",
   },
   {
+    label: "Start Here",
+    href: "/ecosystem",
+    description: "The offer ecosystem — from free diagnostic to Agent OS",
+  },
+  {
     label: "Agents",
     href: "/agents",
     description: "Production AI agents for founder-led businesses",
