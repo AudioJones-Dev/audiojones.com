@@ -8,7 +8,7 @@ export type InsightSummary = {
 export const INSIGHTS: InsightSummary[] = [
   {
     slug: "founder-intelligence-systems",
-    title: "What is an Founder Intelligence System?",
+    title: "What is a Founder Intelligence System?",
     excerpt:
       "The category, the seven-layer stack, and why founders should build the system before adopting the tools.",
     pillar: "founder-intelligence",

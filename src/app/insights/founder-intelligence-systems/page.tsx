@@ -13,15 +13,15 @@ import {
 } from "@/lib/seo/schema";
 
 const PATH = "/insights/founder-intelligence-systems";
-const TITLE = "What is an Founder Intelligence System?";
+const TITLE = "What is a Founder Intelligence System?";
 const DESCRIPTION =
-  "An Founder Intelligence System combines human judgment, data signals, AI tools, attribution, and feedback loops into a single business operating model.";
+  "A Founder Intelligence System combines human judgment, data signals, AI tools, attribution, and feedback loops into a single business operating model.";
 
 const FAQS = [
   {
-    question: "What is an Founder Intelligence System?",
+    question: "What is a Founder Intelligence System?",
     answer:
-      "An Founder Intelligence System is a business operating model that combines human judgment, data signals, AI tools, attribution, and feedback loops to improve and execute decisions at scale.",
+      "A Founder Intelligence System is a business operating model that combines human judgment, data signals, AI tools, attribution, and feedback loops to improve and execute decisions at scale.",
   },
   {
     question: "How does Founder Intelligence differ from AI automation?",
@@ -36,7 +36,7 @@ const FAQS = [
 ];
 
 export const metadata: Metadata = buildMetadata({
-  title: `${TITLE} | Audio Jones`,
+  title: TITLE,
   description: DESCRIPTION,
   path: PATH,
   type: "article",
@@ -71,7 +71,7 @@ export default function Page() {
         intro="The category, the seven-layer stack, and why founders should build the system before adopting the tools."
       >
         <P>
-          The fastest answer: an Founder Intelligence System is a business
+          The fastest answer: a Founder Intelligence System is a business
           operating model. It combines human judgment, data signals, AI
           tools, attribution, and feedback loops into a single architecture
           designed to improve decisions and execution. It belongs on the same
