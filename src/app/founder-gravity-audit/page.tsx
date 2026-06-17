@@ -107,12 +107,12 @@ export default function FounderGravityAuditPage() {
           </div>
           <div className="aj-callout is-blue">
             <p className="font-headline text-xl font-bold text-fg-0">
-              Funnel path: ungated start, preview reveal, email gate, full report,
-              segment CTA.
+              No credentials. No sales pressure. Just the diagnostic.
             </p>
             <p className="mt-2 text-fg-1">
-              This implementation keeps phone, payment, SaaS claims, and live CRM
-              credentials out of the diagnostic gate.
+              Start free and see a preview of your result. Share an email only if
+              you want the full report. We never ask for phone numbers, payment,
+              or CRM access to run the audit.
             </p>
           </div>
         </div>
