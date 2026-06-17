@@ -338,8 +338,9 @@ export default function HeroAllSignal() {
             maxWidth: "42ch",
           }}
         >
-          I help founder-led businesses identify what actually
-          creates outcomes and build systems to scale it.
+          Missed calls, slow follow-up, no clear read on which
+          marketing pays off. We build the system that closes the
+          gaps — a Founder Intelligence System.
         </p>
 
         <div
@@ -466,8 +467,9 @@ export default function HeroAllSignal() {
             maxWidth: "44ch",
           }}
         >
-          I help founder-led businesses identify what actually
-          creates outcomes and build systems to scale it.
+          Missed calls, slow follow-up, no clear read on which
+          marketing pays off. We build the system that closes the
+          gaps — a Founder Intelligence System.
         </p>
 
         <div
