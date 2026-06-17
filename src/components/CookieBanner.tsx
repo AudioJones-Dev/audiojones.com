@@ -31,8 +31,8 @@ export default function CookieBanner() {
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50 border-t border-border-subtle bg-surface-1/95 backdrop-blur-sm p-4 text-text-primary shadow-lg">
-      <div className="container mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-        <p className="text-sm text-text-muted">
+      <div className="mx-auto flex w-full max-w-6xl flex-col items-center justify-between gap-4 md:flex-row">
+        <p className="w-full text-center text-sm text-text-muted md:w-auto md:max-w-2xl md:text-left">
           We use cookies to enhance your browsing experience, serve personalized ads, and analyze traffic. By
           clicking “Accept All,” you consent to our cookies.{" "}
           <Link href="/cookie-policy" className="underline hover:text-signal-yellow">

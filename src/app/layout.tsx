@@ -83,7 +83,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="bg-bg-base text-text-primary font-body antialiased">
         <ToastProvider>
           <Header />
-          <main className="min-h-screen pt-20">{children}</main>
+          <main className="min-h-screen overflow-x-clip pt-20">{children}</main>
           <Footer />
           <CookieBanner />
           <JaviChatWidget />
