@@ -4,7 +4,7 @@ export const agentSystems = [
     href: "/agents/responseos",
     category: "Revenue",
     description:
-      "Revenue recovery infrastructure that captures missed inquiries, qualifies intent, and routes follow-up before pipeline leaks.",
+      "Captures missed calls and inquiries, sorts the real buyers, and follows up fast — so leads stop slipping away.",
     signal: "Recover missed revenue",
   },
   {
@@ -12,7 +12,7 @@ export const agentSystems = [
     href: "/agents",
     category: "Intelligence",
     description:
-      "Business signal clarity for founders who need to see which actions are creating real pipeline and which ones are noise.",
+      "Shows founders which actions are creating real sales, and which ones are just noise.",
     signal: "Clarify the signal",
   },
   {
@@ -20,7 +20,7 @@ export const agentSystems = [
     href: "/agents",
     category: "Authority",
     description:
-      "A repeatable content operating layer that turns founder expertise into published proof, distribution, and campaign assets.",
+      "Turns your expertise into published content on a repeatable system, instead of by hand.",
     signal: "Scale authority",
   },
   {
@@ -28,15 +28,15 @@ export const agentSystems = [
     href: "/agents",
     category: "Media",
     description:
-      "A production and repurposing system for founder-led media that moves ideas from recording to market without manual drag.",
-    signal: "Operationalize media",
+      "A system that takes founder-led media from recording to published, without the manual slog.",
+    signal: "Systemize your media",
   },
   {
     name: "ClientOS",
     href: "/agents",
     category: "Operations",
     description:
-      "Client onboarding, delivery visibility, and handoff automation for service businesses that need fewer dropped details.",
+      "Smooth client onboarding, clear delivery, and clean handoffs — so fewer details get dropped.",
     signal: "Stabilize delivery",
   },
   {
@@ -44,7 +44,7 @@ export const agentSystems = [
     href: "/agents",
     category: "Pipeline",
     description:
-      "Lead qualification, booking, and sales follow-up infrastructure for founder-led teams with inconsistent response cadence.",
+      "Qualifies leads, books them, and keeps sales follow-up steady for founder-led teams.",
     signal: "Tighten pipeline",
   },
 ] as const;
@@ -79,15 +79,15 @@ export const responseOsFlow = [
 export const proofSignals = [
   {
     metric: "+38%",
-    label: "Reply rate lift on missed inquiries after ResponseOS.",
+    label: "More replies to missed leads after ResponseOS.",
   },
   {
     metric: "<9 min",
-    label: "Median time-to-first-response on high-intent leads.",
+    label: "Typical time to the first reply on hot leads.",
   },
   {
     metric: "1 inbox",
-    label: "Every channel consolidated into one recovery view.",
+    label: "Every channel pulled into one view.",
   },
 ] as const;
 

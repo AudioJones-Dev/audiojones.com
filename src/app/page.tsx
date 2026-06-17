@@ -20,12 +20,12 @@ import { siteConfig } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Audio Jones — Founder Intelligence Systems for founder-led businesses",
   description:
-    "You don't have a growth problem. You have a signal problem. Audio Jones helps founder-led businesses identify causal growth signals, reduce operational noise, and build Founder Intelligence Systems that compound.",
+    "You don't have a growth problem. You have a signal problem. Audio Jones helps founder-led businesses identify the inputs that actually drive growth, reduce operational noise, and build Founder Intelligence Systems that compound.",
   alternates: { canonical: `${siteConfig.url}/` },
   openGraph: {
     title: "Audio Jones — Founder Intelligence Systems",
     description:
-      "Identify causal growth signals. Reduce noise. Build the system that compounds.",
+      "Identify the inputs that actually drive growth. Reduce noise. Build the system that compounds.",
     url: `${siteConfig.url}/`,
     siteName: "Audio Jones",
     type: "website",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Audio Jones — Founder Intelligence Systems",
     description:
-      "Identify causal growth signals. Reduce noise. Build the system that compounds.",
+      "Identify the inputs that actually drive growth. Reduce noise. Build the system that compounds.",
   },
 };
 

@@ -253,7 +253,7 @@ export default function ProcessPipeline() {
           </h2>
           <p className="mt-5 t-lead text-fg-2">
             Four steps. No tool list. Each phase builds on the last until the
-            loop is causal and the system compounds on its own.
+            loop drives real results and the system compounds on its own.
           </p>
         </div>
 

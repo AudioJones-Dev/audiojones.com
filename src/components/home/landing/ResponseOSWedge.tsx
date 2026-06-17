@@ -61,7 +61,7 @@ export default function ResponseOSWedge() {
     <section className="aj-bg-grid-dark border-t border-[var(--line-2)] py-24 sm:py-40">
       <div className="mx-auto grid max-w-[1280px] gap-10 px-5 sm:px-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
         <div className="min-w-0">
-          <Eyebrow>Flagship - Revenue Recovery Infrastructure</Eyebrow>
+          <Eyebrow>Flagship - Revenue Recovery System</Eyebrow>
           <h2 className="mt-4 t-h1 text-balance max-sm:text-[2rem]">
             ResponseOS recovers the revenue your follow-up is losing.
           </h2>

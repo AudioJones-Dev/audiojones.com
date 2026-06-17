@@ -19,9 +19,9 @@ export const FOUNDER_GRAVITY_ASSET = {
 export const GRAVITY_LAYERS: Record<GravityLayerId, string> = {
   decision: "Decision Gravity",
   approval: "Approval Gravity",
-  accountability: "Accountability Gravity",
+  accountability: "Ownership Gravity",
   revenue: "Revenue Gravity",
-  memory: "Operational Memory Gravity",
+  memory: "Memory Gravity",
   execution: "Execution Gravity",
 };
 

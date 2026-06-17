@@ -104,8 +104,7 @@ export function SignalConsole() {
       <div className="aj-card-inner">
         <div className="flex items-center justify-between border-b border-[var(--line-2)] pb-4">
           <p className="text-xs font-bold uppercase tracking-[0.16em] text-fg-3">
-            Control Plane
-          </p>
+            Command Center          </p>
           <span className="h-2.5 w-2.5 rounded-full bg-[var(--aj-success)] shadow-[0_0_18px_rgba(0,204,102,0.45)]" />
         </div>
         <div className="mt-6 grid gap-3">

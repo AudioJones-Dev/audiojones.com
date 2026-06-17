@@ -22,7 +22,7 @@ import { ctaLinks } from "@/config/links";
 export const metadata: Metadata = buildMetadata({
   title: "Founder Intelligence Systems for Founder-Led Businesses",
   description:
-    "Audio Jones helps founder-led businesses identify causal growth signals, reduce noise, and build Founder Intelligence Systems that scale judgment and execution.",
+    "Audio Jones helps founder-led businesses identify the inputs that actually drive growth, reduce noise, and build Founder Intelligence Systems that scale judgment and execution.",
   path: "/founder-intelligence",
 });
 
@@ -42,7 +42,7 @@ export default function FounderIntelligencePage() {
       <SignalHero
         eyebrow="Founder Intelligence Systems"
         headline="You don’t have an AI problem. You have a signal problem."
-        subheadline="Audio Jones helps founder-led businesses identify the causal inputs behind growth, reduce operational noise, and build systems that scale judgment, execution, and profit."
+        subheadline="Audio Jones helps founder-led businesses identify the inputs that actually drive growth, reduce operational noise, and build systems that scale judgment, execution, and profit."
         primaryCta={{
           label: "Request Strategic Diagnostic",
           href: ctaLinks.signalDiagnostic,

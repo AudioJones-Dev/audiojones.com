@@ -3,10 +3,7 @@ import Link from "next/link";
 import FAQ from "@/components/founder-intelligence/FAQ";
 import JsonLd from "@/components/seo/JsonLd";
 import { ButtonLink } from "@/components/ui/Button";
-import {
-  FOUNDER_GRAVITY_ASSET,
-  GRAVITY_LAYERS,
-} from "@/lib/founder-gravity-audit/content";
+import { GRAVITY_LAYERS } from "@/lib/founder-gravity-audit/content";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { founderIntelligenceFaqs } from "@/lib/seo/founder-intelligence-faq";
 import { breadcrumbJsonLd, faqJsonLd } from "@/lib/seo/schema";
@@ -39,9 +36,9 @@ export default function FounderGravityAuditPage() {
               Find where your business still orbits around you.
             </h1>
             <p className="mt-6 max-w-2xl t-body-lg">
-              Founder Gravity Audit maps decision, approval, revenue, memory,
-              accountability, and execution dependency before asking for
-              contact information.
+              It measures how much the business still runs through you — your
+              decisions, approvals, follow-up, revenue, and memory. No contact
+              details needed to start.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <ButtonLink href="/founder-gravity-audit/diagnostic">
@@ -57,14 +54,27 @@ export default function FounderGravityAuditPage() {
           </div>
 
           <div className="aj-form-panel">
-            <p className="t-label">Runtime Classification</p>
-            <dl className="mt-5 grid gap-4">
-              <Definition label="Record type" value={FOUNDER_GRAVITY_ASSET.recordType} />
-              <Definition label="Asset type" value={FOUNDER_GRAVITY_ASSET.assetType} />
-              <Definition label="Lane" value={FOUNDER_GRAVITY_ASSET.productizationLane} />
-              <Definition label="Readiness" value={FOUNDER_GRAVITY_ASSET.productReadinessStage} />
-              <Definition label="GTM motion" value={FOUNDER_GRAVITY_ASSET.gtmMotion} />
-            </dl>
+            <p className="t-label">What it checks</p>
+            <ul className="mt-5 grid gap-3">
+              {[
+                "Decisions that still wait on you",
+                "Approvals nothing moves without",
+                "Revenue that only moves when you push",
+                "Knowledge that lives only in your head",
+                "Follow-up that depends on you",
+                "Work that stalls when you step away",
+              ].map((item) => (
+                <li
+                  key={item}
+                  className="flex gap-3 border-b border-border-subtle pb-3 text-fg-1 last:border-b-0 last:pb-0"
+                >
+                  <span aria-hidden className="text-signal-yellow">
+                    →
+                  </span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </section>
@@ -72,8 +82,8 @@ export default function FounderGravityAuditPage() {
       <section id="model" className="border-t border-border-subtle bg-surface-1 py-16">
         <div className="mx-auto max-w-[1180px] px-5 sm:px-8">
           <div className="max-w-3xl">
-            <p className="t-label">Six-Layer Dependency Model</p>
-            <h2 className="mt-4 t-h2">The audit measures operating pull, not personality.</h2>
+            <p className="t-label">The six things it measures</p>
+            <h2 className="mt-4 t-h2">It measures how the business pulls on you — not your personality.</h2>
           </div>
           <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {Object.entries(GRAVITY_LAYERS).map(([id, label]) => (
@@ -93,13 +103,12 @@ export default function FounderGravityAuditPage() {
           <div className="mb-10 max-w-3xl">
             <p className="t-label">Direct Answer</p>
             <h2 className="mt-4 t-h2">
-              Founder Gravity Audit identifies where the business still depends
-              on the founder to decide, approve, remember, follow up, or move
-              revenue forward.
+              The audit shows the jobs your business still cannot do without
+              you: decide, approve, remember, follow up, and move money.
             </h2>
             <p className="mt-4 t-body-lg text-fg-2">
-              The result points to the operating layer that should be clarified
-              before a Founder Intelligence System is built.
+              The result points to the one thing to fix before you build a
+              Founder Intelligence System.
             </p>
           </div>
           <div className="mb-10 max-w-3xl">
@@ -118,14 +127,5 @@ export default function FounderGravityAuditPage() {
         </div>
       </section>
     </>
-  );
-}
-
-function Definition({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="border-b border-border-subtle pb-3 last:border-b-0 last:pb-0">
-      <dt className="aj-data-label">{label}</dt>
-      <dd className="mt-1 font-headline text-lg font-bold text-fg-0">{value}</dd>
-    </div>
   );
 }

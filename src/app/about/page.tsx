@@ -38,7 +38,7 @@ export default function AboutPage() {
 
       <SignalHero
         title="Audio Jones builds signal systems for founder-led businesses."
-        description="The brand combines personal authority, applied AI infrastructure, business diagnosis, and operating-system design for teams that need clarity before scale."
+        description="The brand combines personal authority, applied AI systems, business diagnosis, and operating-system design for teams that need clarity before scale."
         primaryHref="/ai-readiness-diagnostic"
         primaryLabel="Start the Diagnostic"
         secondaryHref="/services"
@@ -95,7 +95,7 @@ export default function AboutPage() {
         />
         <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
           {[
-            ["Agents", "Deployable business infrastructure."],
+            ["Agents", "Deployable business systems."],
             ["ResponseOS", "The flagship revenue recovery wedge."],
             ["Services", "Human advisory and implementation."],
             ["Education", "Insights, workshops, ROI, and diagnostic entry points."],

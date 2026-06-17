@@ -9,11 +9,11 @@ export const founderIntelligenceFaqs: FaqItem[] = [
   {
     question: "Who is this for?",
     answer:
-      "It is for founder-led service businesses with fragmented communication, inconsistent follow-up, weak CRM hygiene, and limited visibility into revenue movement.",
+      "It is for founder-led service businesses where messages are scattered, follow-up is inconsistent, the CRM is a mess, and no one can see where revenue is going.",
   },
   {
     question: "What happens after the diagnostic?",
     answer:
-      "AJ Digital reviews the operational gaps, identifies the highest-leverage system fix, and recommends the next step.",
+      "AJ Digital reviews the gaps, finds the one fix with the biggest payoff, and recommends the next step.",
   },
 ];

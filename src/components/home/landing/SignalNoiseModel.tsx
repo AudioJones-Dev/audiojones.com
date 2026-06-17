@@ -31,7 +31,7 @@ const COLUMNS = [
     label: "Signal",
     tone: "blue" as const,
     items: [
-      "Causal inputs that predict qualified pipeline",
+      "Inputs that actually predict qualified pipeline",
       "Behavioral patterns that precede conversion",
       "Constraint data that explains stalled growth",
       "Attribution tied to revenue-generating actions",

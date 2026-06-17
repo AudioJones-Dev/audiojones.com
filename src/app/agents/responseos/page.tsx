@@ -12,10 +12,10 @@ import { proofSignals, responseOsFlow } from "@/data/audiojones-design";
 import { buildMetadata } from "@/lib/seo/metadata";
 
 const DESCRIPTION =
-  "ResponseOS is revenue recovery infrastructure for founder-led businesses that need faster response, better qualification, and measurable follow-up.";
+  "ResponseOS is a revenue recovery system for founder-led businesses that need faster response, better qualification, and measurable follow-up.";
 
 export const metadata: Metadata = buildMetadata({
-  title: "ResponseOS Revenue Recovery Infrastructure",
+  title: "ResponseOS Revenue Recovery System",
   description: DESCRIPTION,
   path: "/agents/responseos",
 });
@@ -38,7 +38,7 @@ export default function ResponseOsPage() {
       <DarkSection>
         <SectionIntro
           label="The Leak"
-          title="Slow follow-up is an infrastructure problem."
+          title="Slow follow-up is a systems problem."
           description="Missed calls, open forms, unqualified messages, and owner-dependent response habits create the same failure pattern: demand exists, but the business cannot turn it into a reliable next action."
         />
         <div className="mt-10 grid gap-6 md:grid-cols-3">
@@ -61,7 +61,7 @@ export default function ResponseOsPage() {
         <SectionIntro
           label="How It Works"
           title="Capture, qualify, route, recover."
-          description="ResponseOS is not a chatbot. It is a follow-up control plane for high-intent demand."
+          description="ResponseOS is not a chatbot. It is the command center for following up on high-intent demand."
         />
         <div className="mt-10 grid gap-5 lg:grid-cols-4">
           {responseOsFlow.map((item) => (
@@ -140,7 +140,7 @@ export default function ResponseOsPage() {
 
       <FinalCta
         title="Recover the revenue already trying to reach you."
-        description="Estimate the leak, then decide whether ResponseOS is the right infrastructure layer."
+        description="Estimate the leak, then decide whether ResponseOS is the right system."
         primaryLabel="Calculate Lost Revenue"
         primaryHref="/roi-calculator"
         secondaryLabel="Book a Call"

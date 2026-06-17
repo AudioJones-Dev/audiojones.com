@@ -190,7 +190,7 @@ export default function ProofStats() {
           />
           <PerfCard
             kind="after"
-            title="Causal system, compounding outcomes"
+            title="Cause-and-effect system, compounding outcomes"
             statusLabel="Signal · Live"
             kpis={[
               { label: "CAC", value: "↓ 37%", trend: "vs baseline", trendUp: true },

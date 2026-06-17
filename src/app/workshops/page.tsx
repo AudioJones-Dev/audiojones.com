@@ -39,7 +39,7 @@ export default function WorkshopsPage() {
       <DarkSection>
         <SectionIntro
           label="Workshop Tracks"
-          title="Education that becomes operating infrastructure."
+          title="Education that becomes how you run the business."
           description="Each session is designed to help a founder-led team see the system they are already running, then decide what intelligence layer belongs on top of it."
         />
         <div className="mt-10 grid gap-6 lg:grid-cols-3">
