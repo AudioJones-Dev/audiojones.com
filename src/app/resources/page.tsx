@@ -48,6 +48,42 @@ const RESOURCES = [
   },
 ] as const;
 
+// The ideas the resource library reinforces. A content hub, not a link dump —
+// every theme routes to the surface that develops it.
+const THEMES = [
+  {
+    label: "Founder Intelligence",
+    href: "/founder-intelligence",
+    blurb: "Operating leverage and systems that compound founder judgment.",
+  },
+  {
+    label: "M.A.P.",
+    href: "/frameworks/map-attribution",
+    blurb:
+      "Meaningful. Actionable. Profitable. — the decision filter every metric must pass.",
+  },
+  {
+    label: "ResponseOS",
+    href: "/agents/responseos",
+    blurb: "Revenue-recovery infrastructure — the AI Receptionist System.",
+  },
+  {
+    label: "Revenue Intelligence",
+    href: "/roi-calculator",
+    blurb: "See where revenue leaks and what recovering it is worth.",
+  },
+  {
+    label: "AI Readiness",
+    href: "/ai-readiness-diagnostic",
+    blurb: "Whether the business is ready for AI — and the gaps to close first.",
+  },
+  {
+    label: "Operational Clarity",
+    href: "/insights/signal-vs-noise-business",
+    blurb: "Separate signal from noise so every decision gets sharper.",
+  },
+] as const;
+
 export const metadata: Metadata = buildMetadata({
   title: TITLE,
   description: DESCRIPTION,
@@ -79,8 +115,48 @@ export default function ResourcesPage() {
         </div>
       </section>
 
+      {/* Themes — what the library reinforces */}
+      <section className="border-b border-[var(--line-2)] py-16 sm:py-24">
+        <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
+          <div className="max-w-3xl">
+            <Eyebrow tone="blue">What it reinforces</Eyebrow>
+            <h2 className="mt-4 t-h2 text-balance text-fg-0">
+              Six ideas the system runs on.
+            </h2>
+            <p className="mt-5 t-body-lg text-fg-2">
+              The library is organized around the concepts behind Founder
+              Intelligence Systems — each links to where it is developed in full.
+            </p>
+          </div>
+          <ul className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {THEMES.map((t) => (
+              <li key={t.label}>
+                <Link
+                  href={t.href}
+                  className="group block h-full rounded-2xl border border-[var(--line-2)] bg-bg-1 p-6 transition-colors hover:border-[var(--line-blue)]"
+                >
+                  <p className="t-h4 text-aj-gold">{t.label}</p>
+                  <p className="mt-2 t-body text-fg-2">{t.blurb}</p>
+                  <span className="mt-4 inline-flex t-small text-aj-orange group-hover:text-aj-orange-soft">
+                    Go deeper →
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
       <section className="py-16 sm:py-24">
-        <div className="mx-auto grid max-w-[1280px] gap-6 px-5 sm:px-8 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
+          <div className="max-w-3xl">
+            <Eyebrow>The library</Eyebrow>
+            <h2 className="mt-4 t-h2 text-balance text-fg-0">
+              Where each idea lives.
+            </h2>
+          </div>
+        </div>
+        <div className="mx-auto mt-10 grid max-w-[1280px] gap-6 px-5 sm:px-8 md:grid-cols-2 lg:grid-cols-3">
           {RESOURCES.map((r) => (
             <Link
               key={r.href}

@@ -262,9 +262,9 @@ export default function OffersPage() {
       {/* Step 2 — ResponseOS tiers */}
       <DarkSection>
         <SectionIntro
-          label="Step 2 · AI Receptionist Systems"
+          label="Step 2 · AI Receptionist System"
           title="Stop losing the leads you already earned."
-          description="AI Receptionist Systems — productized as ResponseOS — capture, qualify, and recover inbound demand. Start at the tier that matches your follow-up problem and move up as it proves out."
+          description="The AI Receptionist System — productized as ResponseOS — is the wedge into revenue-recovery infrastructure: capture, qualify, and recover inbound demand. Start at the tier that matches your follow-up problem and move up as it proves out."
         />
         <div className="mt-10 grid gap-4 lg:grid-cols-3">
           {RESPONSEOS.map((o) => (

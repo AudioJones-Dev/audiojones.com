@@ -29,23 +29,38 @@ type Stage = {
 
 const STAGES: Stage[] = [
   {
-    step: "01",
-    stage: "Diagnose",
+    step: "00",
+    stage: "Free",
     intro:
-      "Every engagement starts with a paid, decision-ready diagnosis — never a tool sold before the constraint is found.",
+      "Start with a free read on where your operations and AI-readiness stand — no spend, no commitment.",
+    offers: [
+      {
+        name: "AI Readiness Scorecard",
+        blurb:
+          "A fast, free read on how ready your business is and where the biggest operational gaps are — before you spend anything. The top of the ladder, and the entry into the diagnostic engine.",
+        href: ctaLinks.signalDiagnostic,
+        cta: "Get your score",
+      },
+    ],
+  },
+  {
+    step: "01",
+    stage: "Audit",
+    intro:
+      "Every paid engagement starts with a decision-ready diagnosis — never a tool sold before the constraint is found.",
     offers: [
       {
         name: "AI Operations Audit",
         blurb:
           "A structured read of where your operations leak revenue, time, and signal — intake, follow-up, data, reporting, and decision cadence — ending in a prioritized plan for exactly what to build next.",
-        href: ctaLinks.signalDiagnostic,
-        cta: "Start the audit",
+        href: "/pricing",
+        cta: "See the audit",
       },
     ],
   },
   {
     step: "02",
-    stage: "Design",
+    stage: "Blueprint",
     intro:
       "The audit prescribes the build. The Blueprint is the architecture before a line of work begins.",
     offers: [
@@ -65,23 +80,23 @@ const STAGES: Stage[] = [
       "The installed systems — scoped and built per engagement around the blueprint.",
     offers: [
       {
-        name: "Custom Application Builds",
+        name: "Custom Application Build",
         blurb:
           "Bespoke internal applications that replace spreadsheets, manual handoffs, and disconnected tools with one system the team actually runs on.",
         href: "/book-a-call",
         cta: "Discuss a build",
       },
       {
-        name: "AI Agent Builds",
+        name: "AI Agent Build",
         blurb:
           "Production AI agents scoped to a specific workflow — responsibilities, prompts, guardrails, handoffs, and escalation paths that support the operator instead of replacing judgment.",
         href: "/agents",
         cta: "See agent systems",
       },
       {
-        name: "AI Receptionist Systems",
+        name: "AI Receptionist System",
         blurb:
-          "Capture, qualify, route, and recover inbound demand across calls, forms, and messages so no lead goes cold. Productized as ResponseOS.",
+          "The wedge into revenue-recovery infrastructure: capture, qualify, route, and recover inbound demand across calls, forms, and messages so no earned lead goes cold. Productized as ResponseOS.",
         href: "/agents/responseos",
         cta: "Explore ResponseOS",
       },
@@ -123,7 +138,7 @@ const ADVANCED: Offer[] = [
   },
 ];
 
-const LADDER = ["Diagnose", "Design", "Build", "Operate"] as const;
+const LADDER = ["Free", "Audit", "Blueprint", "Build", "Operate"] as const;
 
 export const metadata: Metadata = buildMetadata({
   title: TITLE,
@@ -151,9 +166,9 @@ export default function SolutionsPage() {
               installed.
             </h1>
             <p className="mt-6 t-lead text-fg-2">
-              One commercial path for founder-led service businesses. Start with
-              an audit, architect the blueprint, build only what it prescribes,
-              then operate the system as it compounds.
+              One commercial path for founder-led service businesses. Start free,
+              audit the operation, architect the blueprint, build only what it
+              prescribes, then operate the system as it compounds.
             </p>
             <div className="mt-10 flex flex-col gap-3 sm:flex-row">
               <ButtonLink href={ctaLinks.signalDiagnostic} variant="glow">

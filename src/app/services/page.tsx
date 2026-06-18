@@ -30,7 +30,7 @@ const serviceBuckets = [
   },
   {
     category: "Build",
-    title: "AI Agent Builds",
+    title: "AI Agent Build",
     description:
       "Modular tactical work for teams that already know the workflow they need to upgrade. We design the agent responsibilities, handoff points, prompts, guardrails, and escalation paths so automation supports the human operator instead of replacing judgment.",
     meta: "1–2 sprints · SOPs + agents · adoption support",
