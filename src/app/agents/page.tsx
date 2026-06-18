@@ -111,11 +111,11 @@ export default function AgentsPage() {
 
       <FinalCta
         title="Find the system your business is missing."
-        description="Start with the AI Readiness Diagnostic, then route the strongest opportunity into the right agent system."
+        description="Start with the AI Operations Audit, then route the strongest opportunity into the right agent build."
         primaryLabel="Start the Diagnostic"
         primaryHref="/ai-readiness-diagnostic"
-        secondaryLabel="Book a Call"
-        secondaryHref="/book-a-call"
+        secondaryLabel="See all Solutions"
+        secondaryHref="/solutions"
       />
     </>
   );
