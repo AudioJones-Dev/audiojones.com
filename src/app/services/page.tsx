@@ -15,31 +15,31 @@ const DESCRIPTION =
 
 const serviceBuckets = [
   {
-    category: "Diagnostic",
-    title: "AI Business Systems Diagnostic",
+    category: "Diagnose",
+    title: "AI Operations Audit",
     description:
       "A focused review of the operating system your business already runs on: intake, follow-up, fulfillment, content, reporting, and decision cadence. We identify the bottlenecks, quantify the upside, and define where AI belongs before anything is built.",
     meta: "2 weeks · founder + ops lead · readiness map",
   },
   {
-    category: "Buildout",
-    title: "Founder Intelligence Systems Buildout",
+    category: "Operate",
+    title: "Founder Intelligence System Install",
     description:
-      "The core engagement for installing the workflows your team should have had from day one. We turn the diagnostic into connected intake, automation, agent, and reporting layers that reduce manual drag without burying the operator in another tool stack.",
+      "The core engagement for installing the workflows your team should have had from day one. We turn the audit into connected intake, automation, agent, and reporting layers that reduce manual drag without burying the operator in another tool stack.",
     meta: "60–90 days · system sprints · measured rollout",
   },
   {
-    category: "Workflow",
-    title: "AI Agent Workflow Design",
+    category: "Build",
+    title: "AI Agent Builds",
     description:
       "Modular tactical work for teams that already know the workflow they need to upgrade. We design the agent responsibilities, handoff points, prompts, guardrails, and escalation paths so automation supports the human operator instead of replacing judgment.",
     meta: "1–2 sprints · SOPs + agents · adoption support",
   },
   {
-    category: "Measurement",
+    category: "Diagnose",
     title: "Attribution + Signal Audit",
     description:
-      "A measurement-layer audit for founders who cannot see which campaigns, conversations, or systems are producing real pipeline. We clean up the signal path from source to close so future automation has a trustworthy scoreboard.",
+      "A measurement-layer audit for founders who cannot see which campaigns, conversations, or systems are producing real pipeline. We clean up the signal path from source to close so future automation has a trustworthy scoreboard. Part of the AI Operations Audit.",
     meta: "2–4 weeks · attribution map · signal scorecard",
   },
 ] as const;
@@ -76,7 +76,7 @@ const signalMetrics = [
   {
     value: "4",
     label:
-      "engagement paths cover diagnostic, buildout, workflow design, and attribution clarity.",
+      "engagement paths ladder through audit, system install, agent builds, and attribution clarity.",
   },
   {
     value: "1",
@@ -156,10 +156,16 @@ export default function ServicesPage() {
               How we work with founder-led businesses.
             </h2>
             <p className="mt-5 t-body-lg text-fg-2">
-              Four static engagement paths replace the old catalog model. Each
-              path is scoped around operational leverage, not product browsing
-              or off-the-shelf packages.
+              These engagements map into the canonical offer ladder — diagnose,
+              design, build, operate. Each path is scoped around operational
+              leverage, not product browsing or off-the-shelf packages.
             </p>
+            <Link
+              href="/solutions"
+              className="mt-5 inline-flex t-body text-aj-orange hover:text-aj-orange-soft"
+            >
+              See all solutions →
+            </Link>
           </div>
 
           <div className="mt-10 grid gap-6 sm:grid-cols-2">

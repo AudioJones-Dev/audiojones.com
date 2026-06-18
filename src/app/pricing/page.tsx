@@ -99,7 +99,7 @@ const RESPONSEOS: Offer[] = [
 // ── Larger engagements ──
 const ENGAGEMENTS: Offer[] = [
   {
-    name: "Founder Intelligence System",
+    name: "Founder Intelligence System Install",
     price: "Custom",
     priceNote: "Most engagements range $5,000–$25,000+",
     designedFor: "Businesses ready for a full operating intelligence layer across revenue, ops, AI, and reporting.",
@@ -108,7 +108,7 @@ const ENGAGEMENTS: Offer[] = [
     cta: "Explore the system",
   },
   {
-    name: "Strategic Advisory",
+    name: "Managed Intelligence Retainer",
     price: "From $2,000/mo",
     designedFor: "Founders who want ongoing operating guidance, not a one-time build.",
     goal: "A steady hand on the system — priorities, decisions, and what to build next.",
@@ -226,9 +226,9 @@ export default function OffersPage() {
       {/* Step 1 — Diagnostics */}
       <DarkSection>
         <SectionIntro
-          label="Step 1 · Start here"
+          label="Step 1 · AI Operations Audit"
           title="Every engagement starts with a diagnosis."
-          description="A diagnostic is a structured read of your business that ends in a decision-ready plan — the single highest-leverage thing to fix next. These are the entry point, and most are publicly priced."
+          description="The AI Operations Audit is a structured read of your business that ends in a decision-ready plan — the single highest-leverage thing to fix next. These are the entry point, and most are publicly priced."
         />
         <div className="mt-10 grid gap-4 lg:grid-cols-3">
           {DIAGNOSTICS.map((o) => (
@@ -262,9 +262,9 @@ export default function OffersPage() {
       {/* Step 2 — ResponseOS tiers */}
       <DarkSection>
         <SectionIntro
-          label="Step 2 · ResponseOS"
+          label="Step 2 · AI Receptionist Systems"
           title="Stop losing the leads you already earned."
-          description="ResponseOS is the revenue-recovery system. Start at the tier that matches your follow-up problem and move up as it proves out."
+          description="AI Receptionist Systems — productized as ResponseOS — capture, qualify, and recover inbound demand. Start at the tier that matches your follow-up problem and move up as it proves out."
         />
         <div className="mt-10 grid gap-4 lg:grid-cols-3">
           {RESPONSEOS.map((o) => (

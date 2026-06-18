@@ -153,9 +153,9 @@ export default function Footer() {
             © {new Date().getFullYear()} AJ Digital LLC · Audio Jones · All rights reserved.
           </p>
           <p className="t-small text-fg-3 max-w-xl">
-            Audio Jones provides strategic, creative, and systems consulting for
-            informational and educational purposes. No specific financial, ranking,
-            or operational result is guaranteed.
+            Audio Jones provides strategic, operational, and systems
+            implementation for informational and educational purposes. No
+            specific financial, ranking, or operational result is guaranteed.
           </p>
         </div>
       </div>
