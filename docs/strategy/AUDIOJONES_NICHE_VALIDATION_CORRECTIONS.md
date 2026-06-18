@@ -58,7 +58,7 @@ Even SAFE claims must be re-verified at the primary source before publication. A
 | Signal Revenue System | HIGH (Signal app collision) | DEPRECATED — renamed to Founder Revenue System | N/A | **RENAMED.** Use "Founder Revenue System" in all new public copy. Historical references retained only in internal docs / changelog. |
 | Founder Revenue System | LOW — no competing entity | YES | No (compound name is the qualifier) | **NEW canonical public name** for the core installed offer. Build canonical FAQ + schema. |
 | Persistent Business Memory | HIGH — Persistent Systems ($360M+ IT firm), PBM™ (Australian service mark), Intel persistent memory term-of-art | Not as branded product | N/A | Use ONLY as descriptive concept in methodology. Never as a branded product name. |
-| M.A.P. Attribution | MODERATE — MAP (Minimum Advertised Price) dominates the acronym | Risky as acronym-first | YES: spell out full term | Avoid acronym-first language in public copy. Use "Measurement · Attribution · Prediction" verbatim. |
+| M.A.P. Attribution | MODERATE — MAP (Minimum Advertised Price) dominates the acronym | Risky as acronym-first | YES: expand on first mention | Avoid acronym-first language in public copy. On first mention expand as **"M.A.P. (Meaningful. Actionable. Profitable.)"** per the ratified canonical (2026-06-17). **Supersedes the earlier "Measurement · Attribution · Prediction" guidance** — see `docs/strategy/MAP_FRAMEWORK_CORRECTION_AUDIT.md`. |
 | Founder Revenue Leak Diagnostic | LOW-MODERATE — fragmented competitors (Bifrost Agency, SEVAKOR, Kinto Global) at adjacent intersection | YES with "Founder" qualifier | Compound name is the qualifier | **LEAD with this name in public.** Build canonical FAQ + schema. |
 | Founder Operator Under Cognitive Load | LOW — no competing entity | YES — strongest whitespace | No | **Strongest single language asset.** Develop as content pillar. |
 | Signal Doctrine | LOW — no competing entity in SMB/founder space | YES | No | Keep as methodology framework name. |
@@ -74,7 +74,7 @@ Even SAFE claims must be re-verified at the primary source before publication. A
 - Persona / content pillar: **Founder Operator Under Cognitive Load**
 - **Avoid Signal Revenue System** as a public product name (deprecated 2026-05-26 — see §2)
 - Use Persistent Business Memory **descriptively only, not as a branded product**
-- **Avoid M.A.P. acronym-first language** in public copy; spell out Measurement · Attribution · Prediction
+- **Avoid M.A.P. acronym-first language** in public copy; on first mention expand as **M.A.P. (Meaningful. Actionable. Profitable.)** (ratified canonical 2026-06-17; supersedes the earlier "Measurement · Attribution · Prediction" expansion — see `docs/strategy/MAP_FRAMEWORK_CORRECTION_AUDIT.md`)
 
 ---
 
@@ -198,7 +198,7 @@ This document is corrections-only. It does NOT modify product copy, marketing pa
 2. **ResponseOS audit PR** — review `docs/codex/responseos-v1-brief.md` against §2 entity-risk, decide whether ResponseOS as product name needs adjustment or qualifier
 3. **Signal Revenue System rename PR** — if any internal docs/specs reference Signal Revenue System as a product name (none currently published; check `docs/codex/`, `docs/specs/`), update them
 4. **Persistent Business Memory descope PR** — if any current/planned product surface uses PBM as a branded name, rewrite to descriptive use only
-5. **M.A.P. Attribution spell-out PR** — replace acronym-first language with "Measurement · Attribution · Prediction" verbatim on any public surface (likely lands with the framework page rewrite)
+5. **M.A.P. Attribution spell-out PR** — replace acronym-first language with the first-mention expansion **"M.A.P. (Meaningful. Actionable. Profitable.)"** on any public surface (ratified canonical 2026-06-17; supersedes the earlier "Measurement · Attribution · Prediction" — see `docs/strategy/MAP_FRAMEWORK_CORRECTION_AUDIT.md`)
 6. **$250K–$5M ARR qualifier retirement** — sweep public surfaces for the ARR band and replace with signal-maturity criteria framing
 7. **Citation hardening PR** — for the SAFE claims in §1, add primary-source citations to any page that currently publishes them
 

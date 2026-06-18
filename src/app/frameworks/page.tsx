@@ -10,7 +10,7 @@ import { breadcrumbJsonLd } from "@/lib/seo/schema";
 export const metadata: Metadata = buildMetadata({
   title: "Frameworks",
   description:
-    "The Audio Jones framework library: Founder Intelligence Systems, M.A.P Attribution, N.I.C.H.E, and Signal vs Noise.",
+    "The Audio Jones framework library: Founder Intelligence Systems, M.A.P. Attribution, N.I.C.H.E, and Signal vs Noise.",
   path: "/frameworks",
 });
 

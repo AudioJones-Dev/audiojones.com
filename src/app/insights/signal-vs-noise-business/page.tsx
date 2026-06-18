@@ -100,7 +100,7 @@ export default function Page() {
 
         <H2>What to actually track</H2>
         <P>
-          A short list of metrics that pass M.A.P: Meaningful to strategy,
+          A short list of metrics that pass M.A.P. (Meaningful. Actionable. Profitable.): Meaningful to strategy,
           Actionable in a decision, and Profitable in a way you can
           demonstrate. Three to five of those beat thirty informational
           metrics every time. See{" "}
@@ -108,7 +108,7 @@ export default function Page() {
             href="/frameworks/map-attribution"
             className="text-accent-blue hover:text-accent-blue"
           >
-            M.A.P Attribution
+            M.A.P. Attribution
           </Link>{" "}
           for the filter.
         </P>

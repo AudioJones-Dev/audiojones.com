@@ -105,7 +105,7 @@ export default function Page() {
         <H2>C — Causal Clarity</H2>
         <P>
           Distinguish the inputs that cause outcomes from the inputs that
-          merely correlate. M.A.P Attribution lives here. Without causal
+          merely correlate. M.A.P. Attribution lives here. Without causal
           clarity, AI augmentation has nothing reliable to optimize.
         </P>
 

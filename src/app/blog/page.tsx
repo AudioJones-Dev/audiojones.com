@@ -13,14 +13,14 @@ import { siteConfig } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Blog",
   description:
-    "Founder Intelligence, signal systems, M.A.P Attribution, and AI-readiness insights for founder-led businesses. The Audio Jones knowledge base.",
+    "Founder Intelligence, signal systems, M.A.P. Attribution, and AI-readiness insights for founder-led businesses. The Audio Jones knowledge base.",
   alternates: {
     canonical: `${siteConfig.url}/blog`,
   },
   openGraph: {
     title: "Blog | Audio Jones",
     description:
-      "Founder Intelligence, signal systems, M.A.P Attribution, and AI-readiness insights for founder-led businesses.",
+      "Founder Intelligence, signal systems, M.A.P. Attribution, and AI-readiness insights for founder-led businesses.",
     url: `${siteConfig.url}/blog`,
     siteName: "Audio Jones",
     type: "website",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Blog | Audio Jones",
     description:
-      "Founder Intelligence, signal systems, M.A.P Attribution, and AI-readiness insights for founder-led businesses.",
+      "Founder Intelligence, signal systems, M.A.P. Attribution, and AI-readiness insights for founder-led businesses.",
     images: ["/assets/og/audio-jones-og.jpg"],
   },
 };
@@ -55,7 +55,7 @@ const TOPIC_CLUSTERS = [
   },
   {
     slug: "map-attribution",
-    label: "M.A.P Attribution",
+    label: "M.A.P. Attribution",
     description: "Meaningful. Actionable. Profitable. How to identify what actually drives your growth.",
     accent: "#E8FF5A",
     icon: "⬡",
@@ -122,7 +122,7 @@ export default async function BlogPage() {
             }}
           >
             The Audio Jones blog documents Founder Intelligence Systems, signal strategy,
-            M.A.P Attribution, and AI-readiness for founder-led businesses.
+            M.A.P. Attribution, and AI-readiness for founder-led businesses.
           </p>
         </div>
       </section>
@@ -435,7 +435,7 @@ function EmptyState({ configured }: { configured: boolean }) {
               marginBottom: "32px",
             }}
           >
-            Articles on Founder Intelligence Systems, signal strategy, M.A.P Attribution,
+            Articles on Founder Intelligence Systems, signal strategy, M.A.P. Attribution,
             and AI-readiness are being written and structured into topic clusters.
           </p>
           <p

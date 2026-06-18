@@ -52,7 +52,7 @@ This plan operationalizes the corrections layer at `docs/strategy/AUDIOJONES_NIC
 | Founder Intelligence Systems (public) | Founder Intelligence Systems for founder-led service businesses | Same-vertical competitor at appliedintelligencesystems.com |
 | Signal Theory | Signal Doctrine | signaltheory.com (Ad Age agency) — cannot own |
 | Persistent Business Memory (as branded product) | Persistent business memory (descriptive only) | Multiple entity collisions; descriptor only |
-| M.A.P. (acronym-first) | Measurement · Attribution · Prediction (spelled out) | MAP (Minimum Advertised Price) acronym collision dominates retrieval |
+| M.A.P. (acronym-first) | M.A.P. (Meaningful. Actionable. Profitable.) — expanded on first mention | MAP (Minimum Advertised Price) acronym collision dominates retrieval; expansion ratified 2026-06-17 (supersedes "Measurement · Attribution · Prediction") — see `docs/strategy/MAP_FRAMEWORK_CORRECTION_AUDIT.md` |
 
 ---
 

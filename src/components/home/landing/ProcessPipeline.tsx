@@ -19,7 +19,7 @@ const STEPS = [
   {
     n: "02",
     label: "Attribute",
-    desc: "Identify what is actually creating outcomes. Apply M.A.P. Filter every metric through meaningful, actionable, profitable.",
+    desc: "Identify what is actually creating outcomes. Apply the M.A.P. (Meaningful. Actionable. Profitable.) filter to every metric.",
     accent: "#4DACFF",
     border: "rgba(77,172,255,0.45)",
     bg: "linear-gradient(160deg, rgba(77,172,255,0.09) 0%, rgba(15,15,15,0.96) 100%)",

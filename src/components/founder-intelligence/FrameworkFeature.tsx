@@ -22,9 +22,9 @@ const ROWS = [
 export default function FrameworkFeature() {
   return (
     <SectionShell
-      eyebrow="M.A.P Attribution Framework"
+      eyebrow="M.A.P. Attribution Framework"
       title="A metric only earns the right to drive strategy if it passes M.A.P."
-      intro="Most attribution stops at activity. M.A.P keeps you honest by forcing every data point through three filters before it becomes a business input."
+      intro="Most attribution stops at activity. M.A.P. (Meaningful. Actionable. Profitable.) keeps you honest by forcing every data point through three filters before it becomes a business input."
     >
       <div className="overflow-hidden rounded-xl border border-border-subtle">
         <table className="w-full text-left">
@@ -53,7 +53,7 @@ export default function FrameworkFeature() {
           href="/frameworks/map-attribution"
           className="inline-flex items-center gap-2 text-sm font-semibold text-accent-blue hover:opacity-80"
         >
-          Explore the M.A.P framework →
+          Explore the M.A.P. framework →
         </Link>
       </div>
     </SectionShell>

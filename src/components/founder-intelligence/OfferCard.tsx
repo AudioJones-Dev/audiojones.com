@@ -5,7 +5,7 @@ import { ctaLinks } from "@/config/links";
 const DELIVERABLES = [
   "Growth constraint analysis",
   "Signal vs noise audit",
-  "M.A.P attribution review",
+  "M.A.P. attribution review",
   "AI readiness assessment",
   "System architecture recommendation",
   "Sprint roadmap",
