@@ -9,9 +9,9 @@ const CTA_BG =
  * Section 8 — Diagnostic CTA.
  * High-conversion. Inline form preview is non-functional and routes
  * the user to the canonical 6-step diagnostic at
- * /applied-intelligence/diagnostic. We do not collect data here —
+ * /founder-intelligence/diagnostic. We do not collect data here —
  * the field is visual scaffolding only. (Mock-only per Wave 1 rules;
- * real intake stays at the Applied Intelligence diagnostic route.)
+ * real intake stays at the Founder Intelligence diagnostic route.)
  */
 export default function DiagnosticCTA() {
   return (
@@ -36,7 +36,7 @@ export default function DiagnosticCTA() {
       />
       <div
         aria-hidden
-        className="absolute inset-0 -z-20 bg-[radial-gradient(circle_at_50%_30%,rgba(59,91,255,0.18),transparent_50%)]"
+        className="absolute inset-0 -z-20 bg-[radial-gradient(circle_at_50%_30%,rgba(77,172,255,0.18),transparent_50%)]"
       />
 
       <div className="mx-auto max-w-[960px] px-5 sm:px-8 text-center">

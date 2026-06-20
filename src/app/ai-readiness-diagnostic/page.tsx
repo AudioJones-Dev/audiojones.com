@@ -7,8 +7,11 @@ import {
   SignalHero,
 } from "@/components/marketing/DesignSystemSections";
 import { ButtonLink } from "@/components/ui/Button";
+import FAQ from "@/components/founder-intelligence/FAQ";
+import JsonLd from "@/components/seo/JsonLd";
 import { diagnosticDimensions } from "@/data/audiojones-design";
 import { buildMetadata } from "@/lib/seo/metadata";
+import { faqJsonLd } from "@/lib/seo/schema";
 
 const DESCRIPTION =
   "Assess business systems, data maturity, automation gaps, follow-up speed, and readiness for AI-powered execution.";
@@ -19,13 +22,42 @@ export const metadata: Metadata = buildMetadata({
   path: "/ai-readiness-diagnostic",
 });
 
+const DIAGNOSTIC_FAQS = [
+  {
+    question: "What is the AI Readiness Diagnostic?",
+    answer:
+      "A structured review of your business before any AI goes in. It checks where revenue leaks, where work gets repeated, and whether your data and workflows are ready for automation.",
+  },
+  {
+    question: "Why diagnose before installing AI?",
+    answer:
+      "AI added to a messy process just makes the mess faster. The diagnostic finds what to fix first, so the AI compounds results instead of multiplying problems.",
+  },
+  {
+    question: "What do I get from it?",
+    answer:
+      "A clear read on your biggest operational gaps and the single highest-leverage fix to make next — a decision you can act on, not a sales pitch.",
+  },
+  {
+    question: "Who should take it?",
+    answer:
+      "Founder-led service businesses considering AI but unsure where it fits, or why earlier tools never stuck.",
+  },
+  {
+    question: "What happens after the diagnostic?",
+    answer:
+      "AJ Digital reviews the gaps, identifies the highest-leverage system fix, and recommends the next step.",
+  },
+];
+
 export default function AiReadinessDiagnosticPage() {
   return (
     <>
+      <JsonLd data={faqJsonLd(DIAGNOSTIC_FAQS)} />
       <SignalHero
         title="Diagnose the system before you install AI."
         description={DESCRIPTION}
-        primaryHref="/applied-intelligence/diagnostic"
+        primaryHref="/founder-intelligence/diagnostic"
         primaryLabel="Start the Diagnostic"
         secondaryHref="/book-a-call"
         secondaryLabel="Book a Call"
@@ -59,7 +91,7 @@ export default function AiReadinessDiagnosticPage() {
       <LightProofSection>
         <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#0088cc]">
+            <p className="text-xs font-bold uppercase tracking-[0.16em] text-[var(--aj-blue-deep)]">
               Result Routing
             </p>
             <h2 className="mt-4 font-accent text-[clamp(2.25rem,4vw,4rem)] font-bold leading-[1.02] tracking-[-0.035em]">
@@ -97,7 +129,7 @@ export default function AiReadinessDiagnosticPage() {
             The active diagnostic flow is available now. Use it to create the readiness profile and route the next process.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <ButtonLink href="/applied-intelligence/diagnostic" variant="glow">
+            <ButtonLink href="/founder-intelligence/diagnostic" variant="glow">
               Start the Diagnostic
             </ButtonLink>
             <ButtonLink href="/roi-calculator" variant="secondary">
@@ -107,11 +139,22 @@ export default function AiReadinessDiagnosticPage() {
         </div>
       </DarkSection>
 
+      <DarkSection>
+        <SectionIntro
+          label="FAQ"
+          title="Common questions"
+          description="Plain answers about the diagnostic and what it does for your business."
+        />
+        <div className="mx-auto mt-10 max-w-3xl">
+          <FAQ items={DIAGNOSTIC_FAQS} />
+        </div>
+      </DarkSection>
+
       <FinalCta
         title="Do not automate the wrong constraint."
         description="Start with diagnosis, then route the business into the right revenue, signal, content, operations, or pipeline system."
         primaryLabel="Start the Diagnostic"
-        primaryHref="/applied-intelligence/diagnostic"
+        primaryHref="/founder-intelligence/diagnostic"
         secondaryLabel="Book a Call"
         secondaryHref="/book-a-call"
       />

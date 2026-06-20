@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import Breadcrumbs from "@/components/applied-intelligence/Breadcrumbs";
+import Breadcrumbs from "@/components/founder-intelligence/Breadcrumbs";
 import FrameworkArticle, {
   H2,
   P,
   UL,
-} from "@/components/applied-intelligence/FrameworkArticle";
-import FAQ from "@/components/applied-intelligence/FAQ";
+} from "@/components/founder-intelligence/FrameworkArticle";
+import FAQ from "@/components/founder-intelligence/FAQ";
 import JsonLd from "@/components/seo/JsonLd";
 import { buildMetadata } from "@/lib/seo/metadata";
 import {
@@ -39,9 +39,9 @@ const FAQS = [
 ];
 
 export const metadata: Metadata = buildMetadata({
-  title: `${TITLE} in Business | Audio Jones`,
+  title: `${TITLE} in Business`,
   description:
-    "Signal vs Noise: the philosophical anchor behind Applied Intelligence. Identify which inputs actually create outcomes, and remove the rest.",
+    "Signal vs Noise: the philosophical anchor behind Founder Intelligence. Identify which inputs actually create outcomes, and remove the rest.",
   path: PATH,
   type: "article",
 });
@@ -74,7 +74,7 @@ export default function Page() {
 
       <FrameworkArticle
         eyebrow="Framework"
-        title="Signal vs Noise: the lens behind every Applied Intelligence System."
+        title="Signal vs Noise: the lens behind every Founder Intelligence System."
         intro="The goal isn't to eliminate noise. The goal is to identify which noise reveals signal — and then engineer everything around that signal."
         definition={DEFINITION}
       >

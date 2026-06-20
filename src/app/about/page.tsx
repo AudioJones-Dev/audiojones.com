@@ -16,10 +16,10 @@ import {
 } from "@/lib/seo/schema";
 
 const DESCRIPTION =
-  "Audio Jones is the strategist and operator behind applied intelligence systems for founder-led businesses.";
+  "Audio Jones is the strategist and operator behind founder intelligence systems for founder-led businesses.";
 
 export const metadata: Metadata = buildMetadata({
-  title: "About Audio Jones - Applied Intelligence Systems",
+  title: "About Audio Jones - Founder Intelligence Systems",
   description: DESCRIPTION,
   path: "/about",
 });
@@ -74,7 +74,7 @@ export default function AboutPage() {
       <LightProofSection>
         <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#0088cc]">
+            <p className="text-xs font-bold uppercase tracking-[0.16em] text-[var(--aj-blue-deep)]">
               Core Phrase
             </p>
             <h2 className="mt-4 font-accent text-[clamp(2.5rem,5vw,5rem)] font-bold leading-[0.98] tracking-[-0.045em]">

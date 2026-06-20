@@ -2,16 +2,16 @@ export type InsightSummary = {
   slug: string;
   title: string;
   excerpt: string;
-  pillar: "applied-intelligence" | "signal" | "ai-failure" | "attribution";
+  pillar: "founder-intelligence" | "signal" | "ai-failure" | "attribution";
 };
 
 export const INSIGHTS: InsightSummary[] = [
   {
-    slug: "applied-intelligence-systems",
-    title: "What is an Applied Intelligence System?",
+    slug: "founder-intelligence-systems",
+    title: "What is a Founder Intelligence System?",
     excerpt:
       "The category, the seven-layer stack, and why founders should build the system before adopting the tools.",
-    pillar: "applied-intelligence",
+    pillar: "founder-intelligence",
   },
   {
     slug: "signal-vs-noise-business",
@@ -34,5 +34,26 @@ export const INSIGHTS: InsightSummary[] = [
     excerpt:
       "Founder-led companies can't afford to scale unproven inputs. Causal attribution is how you stop guessing.",
     pillar: "attribution",
+  },
+  {
+    slug: "revenue-leak-diagnostic",
+    title: "What is a Revenue Leak Diagnostic?",
+    excerpt:
+      "A structured review that finds where a business loses revenue it already earned — and ranks the fixes.",
+    pillar: "attribution",
+  },
+  {
+    slug: "follow-up-intelligence",
+    title: "What is Follow-Up Intelligence?",
+    excerpt:
+      "The system that knows which leads to contact, when, and why — so no opportunity goes cold.",
+    pillar: "founder-intelligence",
+  },
+  {
+    slug: "business-memory",
+    title: "What is Business Memory?",
+    excerpt:
+      "The system that retains what your business knows, so knowledge doesn't live only in people's heads.",
+    pillar: "founder-intelligence",
   },
 ];

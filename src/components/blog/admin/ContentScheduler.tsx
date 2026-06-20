@@ -110,11 +110,11 @@ export default function ContentScheduler() {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'scheduled': return 'bg-blue-500/20 text-blue-400';
-      case 'publishing': return 'bg-yellow-500/20 text-yellow-400';
-      case 'published': return 'bg-green-500/20 text-green-400';
-      case 'failed': return 'bg-red-500/20 text-red-400';
-      default: return 'bg-gray-500/20 text-gray-400';
+      case 'scheduled': return 'bg-accent-blue/20 text-accent-blue';
+      case 'publishing': return 'bg-accent-amber/20 text-accent-amber';
+      case 'published': return 'bg-accent-green/20 text-accent-green';
+      case 'failed': return 'bg-accent-red/20 text-accent-red';
+      default: return 'bg-text-muted/20 text-text-muted';
     }
   };
 
@@ -122,12 +122,12 @@ export default function ContentScheduler() {
 
   if (loading) {
     return (
-      <div className="bg-gray-900/50 border border-gray-800 rounded-xl p-6">
+      <div className="bg-surface-1 border border-border-subtle rounded-xl p-6">
         <div className="animate-pulse">
-          <div className="h-8 bg-gray-800 rounded w-48 mb-6" />
+          <div className="h-8 bg-surface-2 rounded w-48 mb-6" />
           <div className="grid grid-cols-7 gap-4">
             {Array.from({ length: 7 }).map((_, i) => (
-              <div key={i} className="h-32 bg-gray-800 rounded-lg" />
+              <div key={i} className="h-32 bg-surface-2 rounded-lg" />
             ))}
           </div>
         </div>
@@ -136,27 +136,27 @@ export default function ContentScheduler() {
   }
 
   return (
-    <div className="bg-gray-900/50 border border-gray-800 rounded-xl p-6">
+    <div className="bg-surface-1 border border-border-subtle rounded-xl p-6">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-4">
-          <h2 className="text-xl font-bold text-[#FFD700]">
+          <h2 className="text-xl font-bold text-signal-yellow">
             📅 Content Calendar
           </h2>
-          <span className="px-3 py-1 bg-[#FF4500]/20 text-[#FF4500] text-sm rounded-full">
+          <span className="px-3 py-1 bg-signal-yellow/20 text-signal-yellow text-sm rounded-full">
             {scheduledPosts.length} scheduled
           </span>
         </div>
 
         <div className="flex items-center gap-3">
           {/* View Mode Toggle */}
-          <div className="flex items-center bg-gray-800 rounded-lg p-1">
+          <div className="flex items-center bg-surface-2 rounded-lg p-1">
             <button
               onClick={() => setViewMode('week')}
               className={`px-3 py-1 rounded text-sm font-medium transition-colors ${
-                viewMode === 'week' 
-                  ? 'bg-[#FF4500] text-white' 
-                  : 'text-gray-400 hover:text-white'
+                viewMode === 'week'
+                  ? 'bg-signal-yellow text-bg-base'
+                  : 'text-text-muted hover:text-white'
               }`}
             >
               Week
@@ -164,9 +164,9 @@ export default function ContentScheduler() {
             <button
               onClick={() => setViewMode('month')}
               className={`px-3 py-1 rounded text-sm font-medium transition-colors ${
-                viewMode === 'month' 
-                  ? 'bg-[#FF4500] text-white' 
-                  : 'text-gray-400 hover:text-white'
+                viewMode === 'month'
+                  ? 'bg-signal-yellow text-bg-base'
+                  : 'text-text-muted hover:text-white'
               }`}
             >
               Month
@@ -181,7 +181,7 @@ export default function ContentScheduler() {
                 newDate.setDate(newDate.getDate() - 7);
                 setSelectedDate(newDate);
               }}
-              className="p-2 bg-gray-800 hover:bg-gray-700 rounded-lg transition-colors"
+              className="p-2 bg-surface-2 hover:bg-surface-2 rounded-lg transition-colors"
             >
               ←
             </button>
@@ -198,13 +198,13 @@ export default function ContentScheduler() {
                 newDate.setDate(newDate.getDate() + 7);
                 setSelectedDate(newDate);
               }}
-              className="p-2 bg-gray-800 hover:bg-gray-700 rounded-lg transition-colors"
+              className="p-2 bg-surface-2 hover:bg-surface-2 rounded-lg transition-colors"
             >
               →
             </button>
           </div>
 
-          <button className="bg-[#FF4500] hover:bg-[#FF6500] text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+          <button className="bg-signal-yellow hover:bg-signal-soft text-bg-base px-4 py-2 rounded-lg text-sm font-medium transition-colors">
             + Schedule Post
           </button>
         </div>
@@ -220,17 +220,17 @@ export default function ContentScheduler() {
             return (
               <div
                 key={index}
-                className={`bg-gray-800/50 border rounded-lg p-3 min-h-[200px] ${
-                  isToday ? 'border-[#FF4500] bg-[#FF4500]/5' : 'border-gray-700'
+                className={`bg-surface-2 border rounded-lg p-3 min-h-[200px] ${
+                  isToday ? 'border-signal-yellow bg-signal-yellow/5' : 'border-border-subtle'
                 }`}
               >
                 {/* Day Header */}
                 <div className="text-center mb-3">
-                  <div className="text-xs text-gray-400 mb-1">
+                  <div className="text-xs text-text-muted mb-1">
                     {date.toLocaleDateString('en-US', { weekday: 'short' })}
                   </div>
                   <div className={`text-lg font-semibold ${
-                    isToday ? 'text-[#FF4500]' : 'text-white'
+                    isToday ? 'text-signal-yellow' : 'text-white'
                   }`}>
                     {date.getDate()}
                   </div>
@@ -241,7 +241,7 @@ export default function ContentScheduler() {
                   {postsForDate.map((post) => (
                     <div
                       key={post.id}
-                      className="bg-gray-900/50 border border-gray-600 rounded-lg p-2 cursor-pointer hover:bg-gray-900/70 transition-colors"
+                      className="bg-surface-1 border border-border-subtle rounded-lg p-2 cursor-pointer hover:bg-surface-1 transition-colors"
                     >
                       <div className="flex items-center gap-2 mb-1">
                         <div
@@ -254,7 +254,7 @@ export default function ContentScheduler() {
                       </div>
                       
                       <div className="flex items-center justify-between text-xs">
-                        <span className="text-gray-400">
+                        <span className="text-text-muted">
                           {new Date(post.scheduledFor).toLocaleTimeString('en-US', {
                             hour: '2-digit',
                             minute: '2-digit'
@@ -262,7 +262,7 @@ export default function ContentScheduler() {
                         </span>
                         <div className="flex items-center gap-1">
                           {post.aiGenerated && (
-                            <span className="text-purple-400">🤖</span>
+                            <span className="text-accent-blue">🤖</span>
                           )}
                           <span className={`px-1 py-0.5 rounded text-xs ${getStatusColor(post.status)}`}>
                             {post.status}
@@ -270,14 +270,14 @@ export default function ContentScheduler() {
                         </div>
                       </div>
                       
-                      <div className="text-xs text-gray-500 mt-1">
+                      <div className="text-xs text-text-muted mt-1">
                         Est. {post.estimatedViews.toLocaleString()} views
                       </div>
                     </div>
                   ))}
-                  
+
                   {postsForDate.length === 0 && (
-                    <div className="text-center text-gray-500 text-xs py-4">
+                    <div className="text-center text-text-muted text-xs py-4">
                       No posts scheduled
                     </div>
                   )}
@@ -293,51 +293,51 @@ export default function ContentScheduler() {
         <div className="text-center py-12">
           <div className="text-4xl mb-4">📅</div>
           <h3 className="text-lg font-semibold text-white mb-2">Month View</h3>
-          <p className="text-gray-400">
+          <p className="text-text-muted">
             Month view coming soon. Use week view for detailed scheduling.
           </p>
         </div>
       )}
 
       {/* Scheduling Stats */}
-      <div className="mt-8 pt-6 border-t border-gray-700">
+      <div className="mt-8 pt-6 border-t border-border-subtle">
         <div className="grid md:grid-cols-4 gap-6">
           <div className="text-center">
-            <div className="text-2xl font-bold text-[#FF4500] mb-1">
+            <div className="text-2xl font-bold text-signal-yellow mb-1">
               {scheduledPosts.length}
             </div>
-            <div className="text-sm text-gray-400">Total Scheduled</div>
+            <div className="text-sm text-text-muted">Total Scheduled</div>
           </div>
-          
+
           <div className="text-center">
-            <div className="text-2xl font-bold text-[#FFD700] mb-1">
+            <div className="text-2xl font-bold text-signal-yellow mb-1">
               {Math.round(scheduledPosts.reduce((sum, post) => sum + post.estimatedViews, 0) / 1000)}k
             </div>
-            <div className="text-sm text-gray-400">Est. Total Views</div>
+            <div className="text-sm text-text-muted">Est. Total Views</div>
           </div>
-          
+
           <div className="text-center">
-            <div className="text-2xl font-bold text-purple-400 mb-1">
+            <div className="text-2xl font-bold text-accent-blue mb-1">
               {scheduledPosts.filter(post => post.aiGenerated).length}
             </div>
-            <div className="text-sm text-gray-400">AI Generated</div>
+            <div className="text-sm text-text-muted">AI Generated</div>
           </div>
-          
+
           <div className="text-center">
-            <div className="text-2xl font-bold text-green-400 mb-1">
+            <div className="text-2xl font-bold text-accent-green mb-1">
               {scheduledPosts.filter(post => post.status === 'scheduled').length}
             </div>
-            <div className="text-sm text-gray-400">Ready to Publish</div>
+            <div className="text-sm text-text-muted">Ready to Publish</div>
           </div>
         </div>
       </div>
 
       {/* Footer */}
-      <div className="mt-6 pt-4 border-t border-gray-700 text-center">
-        <p className="text-xs text-gray-400">
-          🔥 <span className="text-[#FF4500]">Audio Jones</span> Content Scheduler • 
-          Automated publishing for predictable growth • 
-          <span className="text-[#FFD700]">Miami operator efficiency</span>
+      <div className="mt-6 pt-4 border-t border-border-subtle text-center">
+        <p className="text-xs text-text-muted">
+          🔥 <span className="text-signal-yellow">Audio Jones</span> Content Scheduler •
+          Automated publishing for predictable growth •
+          <span className="text-signal-yellow">Miami operator efficiency</span>
         </p>
       </div>
     </div>

@@ -1,41 +1,45 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import FAQ from "@/components/founder-intelligence/FAQ";
+import JsonLd from "@/components/seo/JsonLd";
 import { ButtonLink } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { ctaLinks } from "@/config/links";
 import { buildMetadata } from "@/lib/seo/metadata";
+import { founderIntelligenceFaqs } from "@/lib/seo/founder-intelligence-faq";
+import { faqJsonLd } from "@/lib/seo/schema";
 
-const TITLE = "Applied Intelligence Services";
+const TITLE = "Founder Intelligence Services";
 const DESCRIPTION =
   "Strategic operator engagements that diagnose business systems first, then install AI workflows and measurement loops where they create leverage.";
 
 const serviceBuckets = [
   {
-    category: "Diagnostic",
-    title: "AI Business Systems Diagnostic",
+    category: "Diagnose",
+    title: "AI Operations Audit",
     description:
       "A focused review of the operating system your business already runs on: intake, follow-up, fulfillment, content, reporting, and decision cadence. We identify the bottlenecks, quantify the upside, and define where AI belongs before anything is built.",
     meta: "2 weeks · founder + ops lead · readiness map",
   },
   {
-    category: "Buildout",
-    title: "Applied Intelligence Systems Buildout",
+    category: "Operate",
+    title: "Founder Intelligence System Install",
     description:
-      "The core engagement for installing the workflows your team should have had from day one. We turn the diagnostic into connected intake, automation, agent, and reporting layers that reduce manual drag without burying the operator in another tool stack.",
+      "The core engagement for installing the workflows your team should have had from day one. We turn the audit into connected intake, automation, agent, and reporting layers that reduce manual drag without burying the operator in another tool stack.",
     meta: "60–90 days · system sprints · measured rollout",
   },
   {
-    category: "Workflow",
-    title: "AI Agent Workflow Design",
+    category: "Build",
+    title: "AI Agent Build",
     description:
       "Modular tactical work for teams that already know the workflow they need to upgrade. We design the agent responsibilities, handoff points, prompts, guardrails, and escalation paths so automation supports the human operator instead of replacing judgment.",
     meta: "1–2 sprints · SOPs + agents · adoption support",
   },
   {
-    category: "Measurement",
+    category: "Diagnose",
     title: "Attribution + Signal Audit",
     description:
-      "A measurement-layer audit for founders who cannot see which campaigns, conversations, or systems are producing real pipeline. We clean up the signal path from source to close so future automation has a trustworthy scoreboard.",
+      "A measurement-layer audit for founders who cannot see which campaigns, conversations, or systems are producing real pipeline. We clean up the signal path from source to close so future automation has a trustworthy scoreboard. Part of the AI Operations Audit.",
     meta: "2–4 weeks · attribution map · signal scorecard",
   },
 ] as const;
@@ -49,7 +53,7 @@ const processSteps = [
   {
     title: "Prioritize leverage",
     description:
-      "We separate high-signal constraints from noisy tool problems, then choose the workflows where applied intelligence can measurably improve speed, clarity, or conversion.",
+      "We separate high-signal constraints from noisy tool problems, then choose the workflows where founder intelligence can measurably improve speed, clarity, or conversion.",
   },
   {
     title: "Build the system layer",
@@ -72,7 +76,7 @@ const signalMetrics = [
   {
     value: "4",
     label:
-      "engagement paths cover diagnostic, buildout, workflow design, and attribution clarity.",
+      "engagement paths ladder through audit, system install, agent builds, and attribution clarity.",
   },
   {
     value: "1",
@@ -90,6 +94,7 @@ export const metadata: Metadata = buildMetadata({
 export default function ServicesPage() {
   return (
     <main className="min-h-screen bg-bg-0 text-fg-0">
+      <JsonLd data={faqJsonLd(founderIntelligenceFaqs)} />
       <section className="border-b border-[var(--line-2)] py-16 sm:py-24 lg:py-32">
         <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
           <div className="max-w-[var(--copy-max)]">
@@ -151,10 +156,16 @@ export default function ServicesPage() {
               How we work with founder-led businesses.
             </h2>
             <p className="mt-5 t-body-lg text-fg-2">
-              Four static engagement paths replace the old catalog model. Each
-              path is scoped around operational leverage, not product browsing
-              or off-the-shelf packages.
+              These engagements map into the canonical offer ladder — diagnose,
+              design, build, operate. Each path is scoped around operational
+              leverage, not product browsing or off-the-shelf packages.
             </p>
+            <Link
+              href="/solutions"
+              className="mt-5 inline-flex t-body text-aj-orange hover:text-aj-orange-soft"
+            >
+              See all solutions →
+            </Link>
           </div>
 
           <div className="mt-10 grid gap-6 sm:grid-cols-2">
@@ -189,10 +200,10 @@ export default function ServicesPage() {
                 the operating rhythm.
               </p>
               <Link
-                href="/applied-intelligence"
+                href="/founder-intelligence"
                 className="mt-6 inline-flex t-body text-aj-orange hover:text-aj-orange-soft"
               >
-                Read the full Applied Intelligence framework →
+                Read the full Founder Intelligence framework →
               </Link>
             </div>
 
@@ -251,7 +262,7 @@ export default function ServicesPage() {
               href="/insights"
               className="text-aj-orange hover:text-aj-orange-soft"
             >
-              Read Applied Intelligence insights →
+              Read Founder Intelligence insights →
             </Link>
             <Link
               href="/case-studies"
@@ -259,6 +270,25 @@ export default function ServicesPage() {
             >
               Review operator case studies →
             </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-t border-[var(--line-2)] bg-bg-1 py-16 sm:py-24">
+        <div className="mx-auto max-w-3xl px-5 sm:px-8">
+          <Eyebrow>Direct Answer</Eyebrow>
+          <h2 className="mt-4 t-h2 text-balance text-fg-0">
+            AJ Digital builds Founder Intelligence Systems for founder-led
+            service businesses with follow-up, CRM, attribution, and reporting
+            gaps.
+          </h2>
+          <p className="mt-5 t-body-lg text-fg-2">
+            The service path starts with diagnosis, then installs the smallest
+            system layer needed to recover signal, reduce manual drag, and make
+            revenue movement visible.
+          </p>
+          <div className="mt-8">
+            <FAQ items={founderIntelligenceFaqs} />
           </div>
         </div>
       </section>

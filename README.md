@@ -1,7 +1,7 @@
 # audiojones.com
 
 Public marketing site for **AJ Digital LLC** — content, SEO/AEO, the
-Applied Intelligence diagnostic, lead capture, and booking. Built on
+Founder Intelligence diagnostic, lead capture, and booking. Built on
 Next.js 16 (App Router, React 19) and TypeScript, deployed via Vercel
 behind Cloudflare.
 
@@ -10,7 +10,7 @@ behind Cloudflare.
 The repo's source-of-truth docs live under [`docs/`](./docs/):
 
 - **[`docs/PRD.md`](./docs/PRD.md)** — what the site is for.
-- **[`docs/DESIGN.md`](./docs/DESIGN.md)** — brand, tokens, voice.
+- **[`docs/design/DESIGN.md`](./docs/design/DESIGN.md)** — brand, tokens, voice.
 - **[`docs/ROADMAP.md`](./docs/ROADMAP.md)** — what's in flight.
 - **[`docs/SECURITY.md`](./docs/SECURITY.md)** — secrets and posture.
 - **[`docs/DEPLOYMENT.md`](./docs/DEPLOYMENT.md)** — env vars, Vercel,
@@ -83,7 +83,7 @@ Never commit secrets — see [`docs/SECURITY.md`](./docs/SECURITY.md).
 | --------------------------- | ------------------------------------------------ |
 | `src/app/`                  | Next.js App Router pages and API routes.         |
 | `src/components/`           | UI components (canonical primitives in `ui/`).   |
-| `src/lib/`                  | Domain logic (lead scoring, applied-intelligence tokens, integrations). |
+| `src/lib/`                  | Domain logic (lead scoring, founder-intelligence tokens, integrations). |
 | `src/db/`                   | NeonDB clients and lead persistence.             |
 | `db/migrations/`            | SQL migrations for the lead store.               |
 | `packages/`                 | Workspace packages (`@aj/config`, `@aj/whop`, adapters). |

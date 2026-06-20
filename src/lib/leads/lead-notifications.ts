@@ -1,14 +1,14 @@
 import "server-only";
-import type { AppliedIntelligenceLeadInput } from "./lead-schema";
+import type { FounderIntelligenceLeadInput } from "./lead-schema";
 import type { LeadScores } from "./lead-scoring";
 
 type NotifyArgs = {
   leadId: string;
-  input: AppliedIntelligenceLeadInput;
+  input: FounderIntelligenceLeadInput;
   scores: LeadScores;
 };
 
-export async function notifyAppliedIntelligenceLead(args: NotifyArgs) {
+export async function notifyFounderIntelligenceLead(args: NotifyArgs) {
   await Promise.allSettled([sendEmail(args), sendN8nWebhook(args)]);
 }
 
@@ -25,7 +25,7 @@ async function sendEmail({ leadId, input, scores }: NotifyArgs) {
     if (!emailEnvWarned) {
       emailEnvWarned = true;
       console.warn(
-        "[applied-intelligence] internal notification skipped: email env missing",
+        "[founder-intelligence] internal notification skipped: email env missing",
         {
           hasResendApiKey: Boolean(apiKey),
           hasLeadNotificationEmail: Boolean(to),
@@ -35,7 +35,7 @@ async function sendEmail({ leadId, input, scores }: NotifyArgs) {
     return;
   }
 
-  const subject = `[${scores.priority.toUpperCase()}] Applied Intelligence lead: ${input.firstName} (${scores.totalScore})`;
+  const subject = `[${scores.priority.toUpperCase()}] Founder Intelligence lead: ${input.firstName} (${scores.totalScore})`;
   const html = renderEmail({ leadId, input, scores });
 
   try {
@@ -48,7 +48,7 @@ async function sendEmail({ leadId, input, scores }: NotifyArgs) {
       body: JSON.stringify({ from, to, subject, html }),
     });
   } catch (err) {
-    console.error("[applied-intelligence] email notification failed", err);
+    console.error("[founder-intelligence] email notification failed", err);
   }
 }
 
@@ -83,7 +83,7 @@ async function sendN8nWebhook({ leadId, input, scores }: NotifyArgs) {
       body: JSON.stringify(payload),
     });
   } catch (err) {
-    console.error("[applied-intelligence] n8n webhook failed", err);
+    console.error("[founder-intelligence] n8n webhook failed", err);
   }
 }
 
@@ -94,7 +94,7 @@ function renderEmail({ leadId, input, scores }: NotifyArgs) {
       : `<tr><td style="padding:4px 12px 4px 0;color:#94A3B8;">${label}</td><td style="padding:4px 0;">${escape(String(value))}</td></tr>`;
 
   return `
-  <div style="font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:#05070F;color:#F8FAFC;padding:24px;">
+  <div style="font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:#080808;color:#F8FAFC;padding:24px;">
     <h1 style="margin:0 0 8px 0;">${scores.priority.toUpperCase()} priority lead</h1>
     <p style="margin:0 0 16px 0;color:#94A3B8;">Total score ${scores.totalScore} / 100 · ID ${leadId}</p>
     <table style="border-collapse:collapse;font-size:14px;">

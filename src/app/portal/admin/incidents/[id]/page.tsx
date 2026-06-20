@@ -77,10 +77,7 @@ export default function IncidentDetailPage() {
       setLoading(true);
       setError(null);
 
-      const response = await fetch(`/api/admin/incidents/${incidentId}`, {
-        headers: {
-          'admin-key': process.env.NEXT_PUBLIC_ADMIN_KEY || '',
-        },
+      const response = await fetch(`/api/_proxy/admin/incidents/${incidentId}`, {
       });
 
       if (!response.ok) {
@@ -106,10 +103,7 @@ export default function IncidentDetailPage() {
 
   const fetchRunbook = async (runbookId: string) => {
     try {
-      const response = await fetch(`/api/admin/runbooks?id=${runbookId}`, {
-        headers: {
-          'admin-key': process.env.NEXT_PUBLIC_ADMIN_KEY || '',
-        },
+      const response = await fetch(`/api/_proxy/admin/runbooks?id=${runbookId}`, {
       });
 
       if (response.ok) {
@@ -127,11 +121,10 @@ export default function IncidentDetailPage() {
     try {
       setUpdating(true);
 
-      const response = await fetch(`/api/admin/incidents/${incidentId}`, {
+      const response = await fetch(`/api/_proxy/admin/incidents/${incidentId}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
-          'admin-key': process.env.NEXT_PUBLIC_ADMIN_KEY || '',
         },
         body: JSON.stringify({ status: newStatus }),
       });
@@ -157,11 +150,10 @@ export default function IncidentDetailPage() {
     try {
       setUpdating(true);
 
-      const response = await fetch(`/api/admin/incidents/${incidentId}`, {
+      const response = await fetch(`/api/_proxy/admin/incidents/${incidentId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'admin-key': process.env.NEXT_PUBLIC_ADMIN_KEY || '',
         },
         body: JSON.stringify({ 
           message: newNote,
@@ -227,7 +219,7 @@ export default function IncidentDetailPage() {
       case 'alert': return <AlertTriangle className="h-4 w-4 text-red-400" />;
       case 'action': return <Activity className="h-4 w-4 text-blue-400" />;
       case 'note': return <MessageSquare className="h-4 w-4 text-green-400" />;
-      case 'auto': return <RefreshCw className="h-4 w-4 text-gray-400" />;
+      case 'auto': return <RefreshCw className="h-4 w-4 text-text-muted" />;
       default: return <Info className="h-4 w-4" />;
     }
   };
@@ -424,22 +416,22 @@ export default function IncidentDetailPage() {
                           <Badge variant="outline" className="text-xs">
                             {event.type}
                           </Badge>
-                          <span className="text-xs text-gray-500">
+                          <span className="text-xs text-text-muted">
                             {formatTimestamp(event.ts)}
                           </span>
-                          <span className="text-xs text-gray-500">
+                          <span className="text-xs text-text-muted">
                             ({getTimeAgo(event.ts)})
                           </span>
                         </div>
                         
-                        <p className="text-sm text-gray-300 mb-2">
+                        <p className="text-sm text-text-primary mb-2">
                           {event.message}
                         </p>
                         
                         {/* Metadata */}
                         {event.meta && Object.keys(event.meta).length > 0 && (
-                          <details className="text-xs text-gray-500">
-                            <summary className="cursor-pointer hover:text-gray-400">
+                          <details className="text-xs text-text-muted">
+                            <summary className="cursor-pointer hover:text-text-muted">
                               View metadata
                             </summary>
                             <pre className="mt-2 p-2 bg-gray-900 rounded text-xs overflow-x-auto">
@@ -453,7 +445,7 @@ export default function IncidentDetailPage() {
               </div>
 
               {incident.timeline.length === 0 && (
-                <div className="text-center py-8 text-gray-400">
+                <div className="text-center py-8 text-text-muted">
                   <Clock className="h-12 w-12 mx-auto mb-4 opacity-50" />
                   <p>No timeline events yet</p>
                 </div>
@@ -471,7 +463,7 @@ export default function IncidentDetailPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
-                <label className="text-xs text-gray-400 uppercase tracking-wide">
+                <label className="text-xs text-text-muted uppercase tracking-wide">
                   Created
                 </label>
                 <p className="text-sm text-white">
@@ -480,7 +472,7 @@ export default function IncidentDetailPage() {
               </div>
               
               <div>
-                <label className="text-xs text-gray-400 uppercase tracking-wide">
+                <label className="text-xs text-text-muted uppercase tracking-wide">
                   Last Updated
                 </label>
                 <p className="text-sm text-white">
@@ -489,7 +481,7 @@ export default function IncidentDetailPage() {
               </div>
               
               <div>
-                <label className="text-xs text-gray-400 uppercase tracking-wide">
+                <label className="text-xs text-text-muted uppercase tracking-wide">
                   Related Alerts
                 </label>
                 <p className="text-sm text-white">
@@ -498,7 +490,7 @@ export default function IncidentDetailPage() {
               </div>
               
               <div>
-                <label className="text-xs text-gray-400 uppercase tracking-wide">
+                <label className="text-xs text-text-muted uppercase tracking-wide">
                   Timeline Events
                 </label>
                 <p className="text-sm text-white">
@@ -518,7 +510,7 @@ export default function IncidentDetailPage() {
             </CardHeader>
             <CardContent>
               {alerts.length === 0 ? (
-                <p className="text-gray-400 text-sm">No related alerts found</p>
+                <p className="text-text-muted text-sm">No related alerts found</p>
               ) : (
                 <div className="space-y-3">
                   {alerts.map((alert) => (
@@ -531,11 +523,11 @@ export default function IncidentDetailPage() {
                           {alert.severity}
                         </Badge>
                       </div>
-                      <p className="text-sm text-gray-300 mb-2">
+                      <p className="text-sm text-text-primary mb-2">
                         {alert.message}
                       </p>
                       <div className="flex items-center justify-between">
-                        <span className="text-xs text-gray-500">
+                        <span className="text-xs text-text-muted">
                           {getTimeAgo(alert.created_at)}
                         </span>
                         <Link
@@ -574,7 +566,7 @@ export default function IncidentDetailPage() {
                       <span className="flex-shrink-0 w-6 h-6 bg-blue-600 text-white text-xs rounded-full flex items-center justify-center">
                         {index + 1}
                       </span>
-                      <p className="text-sm text-gray-300">{step}</p>
+                      <p className="text-sm text-text-primary">{step}</p>
                     </div>
                   ))}
                 </div>

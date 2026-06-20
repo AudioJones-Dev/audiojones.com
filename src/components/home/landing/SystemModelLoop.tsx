@@ -4,7 +4,7 @@ import { Eyebrow } from "@/components/ui/Eyebrow";
 // ─── Asset ───────────────────────────────────────────────────────────────────
 
 const BG =
-  "/assets/Homepage/07-applied-intelligence-systems/backgrounds/applied-intelligence-systems-background.png";
+  "/assets/Homepage/07-applied-intelligence-systems/backgrounds/founder-intelligence-systems-background.png";
 
 // ─── Stage data ──────────────────────────────────────────────────────────────
 
@@ -30,10 +30,10 @@ const STAGES: Stage[] = [
       "Sales conversation patterns",
       "Attribution & founder intuition",
     ],
-    accent: "#C8A96A",
-    border: "rgba(200,169,106,0.22)",
-    cardBg: "rgba(200,169,106,0.04)",
-    dotColor: "#C8A96A",
+    accent: "#E8FF5A",
+    border: "rgba(232,255,90,0.22)",
+    cardBg: "rgba(232,255,90,0.04)",
+    dotColor: "#E8FF5A",
   },
   {
     n: "02",
@@ -41,15 +41,15 @@ const STAGES: Stage[] = [
     desc: "Noise removed, signal identified.",
     bullets: [
       "Signal vs noise filtering",
-      "M.A.P attribution scoring",
+      "M.A.P. attribution scoring",
       "Constraint mapping",
     ],
-    accent: "#3B5BFF",
-    border: "rgba(59,91,255,0.42)",
-    cardBg: "rgba(59,91,255,0.07)",
+    accent: "#4DACFF",
+    border: "rgba(77,172,255,0.42)",
+    cardBg: "rgba(77,172,255,0.07)",
     dotColor: "#8EA2FF",
     glow:
-      "0 0 32px -8px rgba(59,91,255,0.28), 0 0 16px -4px rgba(59,91,255,0.12), inset 0 0 0 1px rgba(59,91,255,0.08)",
+      "0 0 32px -8px rgba(77,172,255,0.28), 0 0 16px -4px rgba(77,172,255,0.12), inset 0 0 0 1px rgba(77,172,255,0.08)",
   },
   {
     n: "03",
@@ -60,10 +60,10 @@ const STAGES: Stage[] = [
       "AI-augmented workflows",
       "Deployed campaigns",
     ],
-    accent: "#94A3B8",
-    border: "rgba(148,163,184,0.16)",
-    cardBg: "rgba(148,163,184,0.03)",
-    dotColor: "#94A3B8",
+    accent: "#666666",
+    border: "rgba(102,102,102,0.16)",
+    cardBg: "rgba(102,102,102,0.03)",
+    dotColor: "#666666",
   },
   {
     n: "04",
@@ -74,10 +74,10 @@ const STAGES: Stage[] = [
       "Predictive model refinement",
       "Loop compounds over time",
     ],
-    accent: "#FF4500",
-    border: "rgba(255,69,0,0.24)",
-    cardBg: "rgba(255,69,0,0.05)",
-    dotColor: "#FF6A30",
+    accent: "#E8FF5A",
+    border: "rgba(232,255,90,0.24)",
+    cardBg: "rgba(232,255,90,0.05)",
+    dotColor: "#F0FF85",
   },
 ];
 
@@ -171,7 +171,7 @@ function LoopSVG({ className }: { className?: string }) {
   return (
     <svg
       role="img"
-      aria-label="Applied Intelligence Systems loop: input, process, output, feedback"
+      aria-label="Founder Intelligence Systems loop: input, process, output, feedback"
       viewBox="0 0 800 195"
       className={className}
     >
@@ -189,21 +189,21 @@ function LoopSVG({ className }: { className?: string }) {
       <line
         x1="100" y1="105"
         x2="700" y2="105"
-        stroke="#3B5BFF"
+        stroke="#4DACFF"
         strokeWidth="1"
         opacity="0.30"
       />
 
       {/* Midpoint dots between nodes */}
       {[200, 400, 600].map((x) => (
-        <circle key={x} cx={x} cy="105" r="2.5" fill="#3B5BFF" opacity="0.35" />
+        <circle key={x} cx={x} cy="105" r="2.5" fill="#4DACFF" opacity="0.35" />
       ))}
 
       {/* ── Feedback return arc (above) ── */}
       <path
         d="M 700 83 Q 750 22 400 22 Q 60 22 100 83"
         fill="none"
-        stroke="#3B5BFF"
+        stroke="#4DACFF"
         strokeWidth="0.8"
         strokeDasharray="4 4"
         opacity="0.35"
@@ -212,7 +212,7 @@ function LoopSVG({ className }: { className?: string }) {
       <path
         d="M 97 89 L 100 83 L 103 89"
         fill="none"
-        stroke="#3B5BFF"
+        stroke="#4DACFF"
         strokeWidth="0.9"
         opacity="0.35"
       />
@@ -229,7 +229,7 @@ function LoopSVG({ className }: { className?: string }) {
               <circle
                 cx={node.cx} cy="105" r="38"
                 fill="none"
-                stroke="#3B5BFF"
+                stroke="#4DACFF"
                 strokeWidth="0.5"
                 opacity="0.16"
               />
@@ -241,7 +241,7 @@ function LoopSVG({ className }: { className?: string }) {
               cy="105"
               r={r}
               fill={isProcess ? "rgba(14,20,48,0.98)" : "rgba(10,15,30,0.95)"}
-              stroke="#3B5BFF"
+              stroke="#4DACFF"
               strokeWidth={isProcess ? 1.5 : 1}
               opacity={isProcess ? 1 : 0.38}
               filter={isProcess ? "url(#ais-process-glow)" : undefined}
@@ -253,28 +253,28 @@ function LoopSVG({ className }: { className?: string }) {
                 <>
                   {([-4.5, 0, 4.5] as number[]).flatMap((x) =>
                     ([-4, 4] as number[]).map((y) => (
-                      <circle key={`${x}${y}`} cx={x} cy={y} r="1.8" fill="#C8A96A" opacity="0.6" />
+                      <circle key={`${x}${y}`} cx={x} cy={y} r="1.8" fill="#E8FF5A" opacity="0.6" />
                     ))
                   )}
                 </>
               )}
               {node.idx === 1 && (
                 <>
-                  <rect x="-9" y="-8" width="18" height="16" rx="2" fill="none" stroke="#3B5BFF" strokeWidth="1.2" opacity="0.95" />
+                  <rect x="-9" y="-8" width="18" height="16" rx="2" fill="none" stroke="#4DACFF" strokeWidth="1.2" opacity="0.95" />
                   {([-3.5, 3.5] as number[]).map((y) => (
-                    <line key={`L${y}`} x1="-13" y1={y} x2="-9" y2={y} stroke="#3B5BFF" strokeWidth="1.2" opacity="0.95" />
+                    <line key={`L${y}`} x1="-13" y1={y} x2="-9" y2={y} stroke="#4DACFF" strokeWidth="1.2" opacity="0.95" />
                   ))}
                   {([-3.5, 3.5] as number[]).map((y) => (
-                    <line key={`R${y}`} x1="9" y1={y} x2="13" y2={y} stroke="#3B5BFF" strokeWidth="1.2" opacity="0.95" />
+                    <line key={`R${y}`} x1="9" y1={y} x2="13" y2={y} stroke="#4DACFF" strokeWidth="1.2" opacity="0.95" />
                   ))}
-                  <circle cx="0" cy="0" r="3.2" fill="#3B5BFF" opacity="1" />
+                  <circle cx="0" cy="0" r="3.2" fill="#4DACFF" opacity="1" />
                 </>
               )}
               {node.idx === 2 && (
                 <>
-                  <circle cx="0" cy="0" r="13" fill="none" stroke="#94A3B8" strokeWidth="0.8" opacity="0.45" />
-                  <circle cx="0" cy="0" r="7" fill="none" stroke="#94A3B8" strokeWidth="0.8" opacity="0.60" />
-                  <circle cx="0" cy="0" r="2.2" fill="#94A3B8" opacity="0.80" />
+                  <circle cx="0" cy="0" r="13" fill="none" stroke="#666666" strokeWidth="0.8" opacity="0.45" />
+                  <circle cx="0" cy="0" r="7" fill="none" stroke="#666666" strokeWidth="0.8" opacity="0.60" />
+                  <circle cx="0" cy="0" r="2.2" fill="#666666" opacity="0.80" />
                 </>
               )}
               {node.idx === 3 && (
@@ -282,7 +282,7 @@ function LoopSVG({ className }: { className?: string }) {
                   <path
                     d="M 0 -10 A 10 10 0 1 1 9 5"
                     fill="none"
-                    stroke="#FF4500"
+                    stroke="#E8FF5A"
                     strokeWidth="1.3"
                     strokeLinecap="round"
                     opacity="0.65"
@@ -290,7 +290,7 @@ function LoopSVG({ className }: { className?: string }) {
                   <path
                     d="M 6 1 L 9 5 L 12 1"
                     fill="none"
-                    stroke="#FF4500"
+                    stroke="#E8FF5A"
                     strokeWidth="1.3"
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -308,7 +308,7 @@ function LoopSVG({ className }: { className?: string }) {
               fontSize="10"
               fontFamily="ui-monospace, monospace"
               letterSpacing="0.18em"
-              fill={isProcess ? "#E5E7EB" : "#C8A96A"}
+              fill={isProcess ? "#E8E8E8" : "#E8FF5A"}
               fontWeight={isProcess ? "600" : "400"}
               opacity={isProcess ? 0.9 : 0.65}
             >
@@ -328,7 +328,7 @@ export default function SystemModelLoop() {
     <section
       id="system-model"
       className="overflow-hidden border-t border-[var(--line-2)] py-24 sm:py-32"
-      style={{ position: "relative", background: "#030509" }}
+      style={{ position: "relative", background: "#080808" }}
     >
       {/* ── Layer 1: Background image — z:1 ── */}
       <div
@@ -367,13 +367,13 @@ export default function SystemModelLoop() {
       <div style={{ position: "relative", zIndex: 3 }} className="mx-auto max-w-[1280px] px-5 sm:px-8">
         {/* Header */}
         <div className="mb-14 max-w-3xl">
-          <Eyebrow>Applied Intelligence Systems</Eyebrow>
+          <Eyebrow>Founder Intelligence Systems</Eyebrow>
           <h2 className="mt-4 t-h1 text-balance">
             AI only works when the system is ready.
           </h2>
           <p className="mt-5 t-lead text-fg-2">
             Automation applied to broken systems accelerates dysfunction.
-            Applied Intelligence Systems align human judgment, data signals,
+            Founder Intelligence Systems align human judgment, data signals,
             and feedback loops before automation scales the work.
           </p>
         </div>
@@ -384,7 +384,7 @@ export default function SystemModelLoop() {
           style={{
             background: "rgba(5,8,20,0.52)",
             backdropFilter: "blur(18px)",
-            boxShadow: "0 0 0 1px rgba(59,91,255,0.12), inset 0 1px 0 rgba(255,255,255,0.04)",
+            boxShadow: "0 0 0 1px rgba(77,172,255,0.12), inset 0 1px 0 rgba(255,255,255,0.04)",
           }}
         >
           {/* Inner blue glow — Process node zone */}
@@ -397,7 +397,7 @@ export default function SystemModelLoop() {
               width: "36%",
               height: "55%",
               background:
-                "radial-gradient(ellipse 80% 70% at 50% 20%, rgba(59,91,255,0.10), transparent 75%)",
+                "radial-gradient(ellipse 80% 70% at 50% 20%, rgba(77,172,255,0.10), transparent 75%)",
             }}
           />
 
@@ -437,7 +437,7 @@ export default function SystemModelLoop() {
                 <div
                   className="t-h4"
                   style={{
-                    color: stage.label === "Process" ? "#E5E7EB" : undefined,
+                    color: stage.label === "Process" ? "var(--text-primary)" : undefined,
                   }}
                 >
                   {stage.label}

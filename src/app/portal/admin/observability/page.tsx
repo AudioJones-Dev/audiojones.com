@@ -192,7 +192,7 @@ export default function ObservabilityDashboard() {
       case 'success': return 'text-green-400';
       case 'error': return 'text-red-400';
       case 'timeout': return 'text-yellow-400';
-      default: return 'text-gray-400';
+      default: return 'text-text-muted';
     }
   };
 
@@ -222,7 +222,7 @@ export default function ObservabilityDashboard() {
             </label>
             <div className="flex items-center space-x-2">
               <div className={`w-2 h-2 rounded-full ${autoRefresh ? 'bg-green-500 animate-pulse' : 'bg-gray-500'}`}></div>
-              <span className="text-sm text-gray-400">
+              <span className="text-sm text-text-muted">
                 {autoRefresh ? 'Live' : 'Paused'}
               </span>
             </div>
@@ -252,7 +252,7 @@ export default function ObservabilityDashboard() {
               className={`px-4 py-2 border-b-2 ${
                 activeTab === tab.id
                   ? 'border-blue-500 text-blue-400'
-                  : 'border-transparent text-gray-400 hover:text-white'
+                  : 'border-transparent text-text-muted hover:text-white'
               }`}
             >
               {tab.label}
@@ -264,7 +264,7 @@ export default function ObservabilityDashboard() {
         {loading && (
           <div className="mb-6 text-center">
             <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
-            <p className="mt-2 text-gray-400">Loading observability data...</p>
+            <p className="mt-2 text-text-muted">Loading observability data...</p>
           </div>
         )}
 
@@ -276,24 +276,24 @@ export default function ObservabilityDashboard() {
               <div className="bg-gray-900 p-6 rounded-lg">
                 <h3 className="text-lg font-semibold mb-2">Requests (24h)</h3>
                 <p className="text-3xl font-bold text-blue-400">{systemMetrics.total_requests_24h.toLocaleString()}</p>
-                <p className="text-sm text-gray-400">HTTP requests processed</p>
+                <p className="text-sm text-text-muted">HTTP requests processed</p>
               </div>
               <div className="bg-gray-900 p-6 rounded-lg">
                 <h3 className="text-lg font-semibold mb-2">Avg Response Time</h3>
                 <p className="text-3xl font-bold text-green-400">{systemMetrics.avg_response_time_ms.toFixed(1)}ms</p>
-                <p className="text-sm text-gray-400">Overall performance</p>
+                <p className="text-sm text-text-muted">Overall performance</p>
               </div>
               <div className="bg-gray-900 p-6 rounded-lg">
                 <h3 className="text-lg font-semibold mb-2">Error Rate</h3>
                 <p className={`text-3xl font-bold ${systemMetrics.error_rate_percent > 5 ? 'text-red-400' : 'text-green-400'}`}>
                   {systemMetrics.error_rate_percent.toFixed(2)}%
                 </p>
-                <p className="text-sm text-gray-400">Request failures</p>
+                <p className="text-sm text-text-muted">Request failures</p>
               </div>
               <div className="bg-gray-900 p-6 rounded-lg">
                 <h3 className="text-lg font-semibold mb-2">Active Traces</h3>
                 <p className="text-3xl font-bold text-purple-400">{systemMetrics.active_traces}</p>
-                <p className="text-sm text-gray-400">Current operations</p>
+                <p className="text-sm text-text-muted">Current operations</p>
               </div>
             </div>
 
@@ -302,17 +302,17 @@ export default function ObservabilityDashboard() {
               <div className="bg-gray-900 p-6 rounded-lg">
                 <h3 className="text-lg font-semibold mb-2">Webhook Events</h3>
                 <p className="text-2xl font-bold text-yellow-400">{systemMetrics.webhook_events_24h.toLocaleString()}</p>
-                <p className="text-sm text-gray-400">24h webhook processing</p>
+                <p className="text-sm text-text-muted">24h webhook processing</p>
               </div>
               <div className="bg-gray-900 p-6 rounded-lg">
                 <h3 className="text-lg font-semibold mb-2">Database Ops</h3>
                 <p className="text-2xl font-bold text-indigo-400">{systemMetrics.database_operations_24h.toLocaleString()}</p>
-                <p className="text-sm text-gray-400">24h Firestore operations</p>
+                <p className="text-sm text-text-muted">24h Firestore operations</p>
               </div>
               <div className="bg-gray-900 p-6 rounded-lg">
                 <h3 className="text-lg font-semibold mb-2">Feature Flags</h3>
                 <p className="text-2xl font-bold text-cyan-400">{systemMetrics.feature_flag_evaluations_24h.toLocaleString()}</p>
-                <p className="text-sm text-gray-400">24h flag evaluations</p>
+                <p className="text-sm text-text-muted">24h flag evaluations</p>
               </div>
             </div>
 
@@ -323,13 +323,13 @@ export default function ObservabilityDashboard() {
                 {systemMetrics.top_operations.map((op, index) => (
                   <div key={op.name} className="flex items-center justify-between p-3 bg-gray-800 rounded">
                     <div>
-                      <span className="text-sm text-gray-400">#{index + 1}</span>
+                      <span className="text-sm text-text-muted">#{index + 1}</span>
                       <span className="ml-3 font-medium">{op.name}</span>
                     </div>
                     <div className="flex items-center space-x-4 text-sm">
                       <span className="text-blue-400">{op.count.toLocaleString()} calls</span>
                       <span className="text-green-400">{op.avg_duration_ms.toFixed(1)}ms avg</span>
-                      <span className={`${op.error_rate > 5 ? 'text-red-400' : 'text-gray-400'}`}>
+                      <span className={`${op.error_rate > 5 ? 'text-red-400' : 'text-text-muted'}`}>
                         {op.error_rate.toFixed(1)}% errors
                       </span>
                     </div>
@@ -347,10 +347,10 @@ export default function ObservabilityDashboard() {
                     <div key={index} className="flex items-start justify-between p-3 bg-red-900/20 border border-red-800 rounded">
                       <div>
                         <p className="font-medium text-red-400">{error.operation}</p>
-                        <p className="text-sm text-gray-300 mt-1">{error.error}</p>
-                        <p className="text-xs text-gray-400 mt-1">Trace ID: {error.trace_id}</p>
+                        <p className="text-sm text-text-primary mt-1">{error.error}</p>
+                        <p className="text-xs text-text-muted mt-1">Trace ID: {error.trace_id}</p>
                       </div>
-                      <div className="text-sm text-gray-400">
+                      <div className="text-sm text-text-muted">
                         {formatTimestamp(error.timestamp)}
                       </div>
                     </div>
@@ -439,9 +439,9 @@ export default function ObservabilityDashboard() {
                       <span className="text-2xl">{getStatusIcon(trace.status)}</span>
                       <div>
                         <p className="font-medium">{trace.operationName}</p>
-                        <p className="text-sm text-gray-400">Trace ID: {trace.traceId}</p>
+                        <p className="text-sm text-text-muted">Trace ID: {trace.traceId}</p>
                         {trace.userId && (
-                          <p className="text-xs text-gray-500">User: {trace.userId}</p>
+                          <p className="text-xs text-text-muted">User: {trace.userId}</p>
                         )}
                       </div>
                     </div>
@@ -449,10 +449,10 @@ export default function ObservabilityDashboard() {
                       <p className={`font-medium ${getStatusColor(trace.status)}`}>
                         {trace.status.toUpperCase()}
                       </p>
-                      <p className="text-sm text-gray-400">
+                      <p className="text-sm text-text-muted">
                         {trace.duration ? formatDuration(trace.duration) : 'In Progress'}
                       </p>
-                      <p className="text-xs text-gray-500">
+                      <p className="text-xs text-text-muted">
                         {formatTimestamp(trace.startTime)}
                       </p>
                     </div>
@@ -468,7 +468,7 @@ export default function ObservabilityDashboard() {
                   <h3 className="text-lg font-semibold">Trace Details</h3>
                   <button
                     onClick={() => setSelectedTrace(null)}
-                    className="text-gray-400 hover:text-white"
+                    className="text-text-muted hover:text-white"
                   >
                     ✕
                   </button>
@@ -477,23 +477,23 @@ export default function ObservabilityDashboard() {
                   <div>
                     <h4 className="font-semibold mb-2">Basic Information</h4>
                     <div className="space-y-2 text-sm">
-                      <p><span className="text-gray-400">Operation:</span> {selectedTrace.operationName}</p>
-                      <p><span className="text-gray-400">Trace ID:</span> {selectedTrace.traceId}</p>
-                      <p><span className="text-gray-400">Span ID:</span> {selectedTrace.spanId}</p>
-                      <p><span className="text-gray-400">Status:</span> 
+                      <p><span className="text-text-muted">Operation:</span> {selectedTrace.operationName}</p>
+                      <p><span className="text-text-muted">Trace ID:</span> {selectedTrace.traceId}</p>
+                      <p><span className="text-text-muted">Span ID:</span> {selectedTrace.spanId}</p>
+                      <p><span className="text-text-muted">Status:</span>
                         <span className={`ml-2 ${getStatusColor(selectedTrace.status)}`}>
                           {selectedTrace.status}
                         </span>
                       </p>
-                      <p><span className="text-gray-400">Duration:</span> 
+                      <p><span className="text-text-muted">Duration:</span>
                         {selectedTrace.duration ? formatDuration(selectedTrace.duration) : 'N/A'}
                       </p>
-                      <p><span className="text-gray-400">Start Time:</span> {formatTimestamp(selectedTrace.startTime)}</p>
+                      <p><span className="text-text-muted">Start Time:</span> {formatTimestamp(selectedTrace.startTime)}</p>
                       {selectedTrace.userId && (
-                        <p><span className="text-gray-400">User ID:</span> {selectedTrace.userId}</p>
+                        <p><span className="text-text-muted">User ID:</span> {selectedTrace.userId}</p>
                       )}
                       {selectedTrace.organizationId && (
-                        <p><span className="text-gray-400">Organization:</span> {selectedTrace.organizationId}</p>
+                        <p><span className="text-text-muted">Organization:</span> {selectedTrace.organizationId}</p>
                       )}
                     </div>
                   </div>
@@ -533,7 +533,7 @@ export default function ObservabilityDashboard() {
                   <div key={index} className="flex items-center justify-between p-3 bg-gray-800 rounded">
                     <div>
                       <p className="font-medium">{metric.name}</p>
-                      <p className="text-sm text-gray-400">
+                      <p className="text-sm text-text-muted">
                         {Object.entries(metric.labels).map(([key, value]) => `${key}: ${value}`).join(', ')}
                       </p>
                     </div>
@@ -541,7 +541,7 @@ export default function ObservabilityDashboard() {
                       <p className="text-lg font-bold text-blue-400">
                         {metric.value.toLocaleString()} {metric.unit}
                       </p>
-                      <p className="text-xs text-gray-400">
+                      <p className="text-xs text-text-muted">
                         {formatTimestamp(metric.timestamp)}
                       </p>
                     </div>
@@ -557,7 +557,7 @@ export default function ObservabilityDashboard() {
           <div className="space-y-6">
             <h2 className="text-2xl font-bold">Alerts & Anomalies</h2>
             <div className="bg-gray-900 p-6 rounded-lg">
-              <p className="text-center text-gray-400">
+              <p className="text-center text-text-muted">
                 Advanced alerting system coming soon...
               </p>
             </div>

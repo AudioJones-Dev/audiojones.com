@@ -23,13 +23,13 @@ export default function ModulesShowcase() {
   ]
 
   return (
-    <section className="py-20 bg-gray-900">
+    <section className="py-20 bg-surface-1">
       <div className="container mx-auto px-6">
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6">
             Your brand runs on{" "}
-            <span className="text-[#008080]">4 modules</span>
+            <span className="text-accent-blue">4 modules</span>
           </h2>
         </div>
 
@@ -38,7 +38,7 @@ export default function ModulesShowcase() {
           {modules.map((module, index) => (
             <div
               key={index}
-              className="bg-black/50 border border-gray-800 rounded-xl p-6 hover:border-[#008080]/50 transition-all duration-300 hover:transform hover:scale-105"
+              className="bg-black/50 border border-border-subtle rounded-xl p-6 hover:border-accent-blue/50 transition-all duration-300 hover:transform hover:scale-105"
             >
               {/* Icon */}
               <div className="text-4xl mb-4 text-center">
@@ -51,15 +51,15 @@ export default function ModulesShowcase() {
               </h3>
               
               {/* Purpose */}
-              <p className="text-gray-300 text-sm text-center mb-6 leading-relaxed">
+              <p className="text-text-muted text-sm text-center mb-6 leading-relaxed">
                 {module.purpose}
               </p>
 
               {/* Link */}
               <div className="text-center">
                 <a
-                  href="/applied-intelligence"
-                  className="inline-flex items-center text-[#008080] hover:text-[#FFD700] font-medium text-sm transition-colors duration-200"
+                  href="/founder-intelligence"
+                  className="inline-flex items-center text-accent-blue hover:text-signal-yellow font-medium text-sm transition-colors duration-200"
                 >
                   Learn More
                   <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -74,8 +74,8 @@ export default function ModulesShowcase() {
         {/* Bottom CTA */}
         <div className="text-center mt-12">
           <a
-            href="/applied-intelligence"
-            className="inline-flex items-center justify-center px-8 py-4 bg-[#008080] hover:bg-[#008080]/90 text-white font-semibold rounded-lg transition-colors duration-200"
+            href="/founder-intelligence"
+            className="inline-flex items-center justify-center px-8 py-4 bg-accent-blue hover:bg-accent-blue/90 text-white font-semibold rounded-lg transition-colors duration-200"
           >
             Explore All Systems
           </a>

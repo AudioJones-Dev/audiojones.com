@@ -8,8 +8,8 @@ export type FrameworkSummary = {
 
 export const FRAMEWORKS: FrameworkSummary[] = [
   {
-    slug: "applied-intelligence-systems",
-    title: "Applied Intelligence Systems",
+    slug: "founder-intelligence-systems",
+    title: "Founder Intelligence Systems",
     shortTitle: "AIS",
     tagline: "The category — business OS for the AI era.",
     description:
@@ -17,11 +17,11 @@ export const FRAMEWORKS: FrameworkSummary[] = [
   },
   {
     slug: "map-attribution",
-    title: "M.A.P Attribution Framework",
-    shortTitle: "M.A.P",
-    tagline: "Meaningful. Actionable. Profitable.",
+    title: "M.A.P. (Meaningful. Actionable. Profitable.)",
+    shortTitle: "M.A.P.",
+    tagline: "The master decision framework.",
     description:
-      "A filter that decides whether a metric earns the right to drive business strategy — before it gets a budget line or a dashboard tile.",
+      "M.A.P. — Meaningful. Actionable. Profitable. — is the master decision framework: the filter every metric, channel, and AI initiative must pass before it earns the right to drive a decision. Its child M.A.P. Attribution Framework applies that filter to marketing channels, campaigns, and activities.",
   },
   {
     slug: "niche-framework",
@@ -29,7 +29,7 @@ export const FRAMEWORKS: FrameworkSummary[] = [
     shortTitle: "N.I.C.H.E",
     tagline: "Position around the highest-signal market.",
     description:
-      "A positioning system for identifying high-signal markets and engineering business engines around causal clarity, human leverage, and applied intelligence.",
+      "A positioning system for identifying high-signal markets and engineering business engines around causal clarity, human leverage, and founder intelligence.",
   },
   {
     slug: "signal-vs-noise",

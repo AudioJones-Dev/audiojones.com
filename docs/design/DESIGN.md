@@ -10,18 +10,18 @@ last_updated: "2026-05-23"
 
 # Audio Jones DESIGN.md
 
-The canonical design-system + implementation guide for AudioJones.com. Reflects the actual implementation in `src/app/globals.css` and `src/lib/applied-intelligence/tokens.ts` first; target-state recommendations are clearly marked.
+The canonical design-system + implementation guide for AudioJones.com. Reflects the actual implementation in `src/app/globals.css` and `src/lib/founder-intelligence/tokens.ts` first; target-state recommendations are clearly marked.
 
 ## 1. Overview
 
-Audio Jones is the public marketing site and product surface for AJ Digital LLC, an Applied Intelligence Systems partner for founder-led businesses. The site needs to feel **authored, intelligent, weight-bearing, cinematic, intentional, analytical, psychologically sharp** — and convert without theater.
+Audio Jones is the public marketing site and product surface for AJ Digital LLC, an Founder Intelligence Systems partner for founder-led businesses. The site needs to feel **authored, intelligent, weight-bearing, cinematic, intentional, analytical, psychologically sharp** — and convert without theater.
 
 This document is the source of truth for visual, typographic, and component decisions. Future Claude / Codex / human contributors must read this before designing or implementing UI.
 
 The implementation lives in:
 
 - `src/app/globals.css` — canonical CSS variables + Tailwind v4 `@theme inline` bridge
-- `src/lib/applied-intelligence/tokens.ts` — TypeScript-side token mirror (must stay in sync with `globals.css`)
+- `src/lib/founder-intelligence/tokens.ts` — TypeScript-side token mirror (must stay in sync with `globals.css`)
 - `src/components/ui/` — shared primitives
 - `src/components/Header.tsx` / `src/components/Footer.tsx` — chrome
 - `src/app/layout.tsx` — typography registration + chrome composition
@@ -52,7 +52,7 @@ Three layers:
 2. **Surface / text / line / spacing / type / motion roles** — `--bg-base` / `--surface-1` / `--surface-2` (V2 canonical) or the legacy `--bg-0` through `--bg-4` aliases; `--text-primary` / `--text-muted` or legacy `--fg-0` through `--fg-3`; `--border-subtle` / `--border-strong` or legacy `--line-1` through `--line-3`; `--sp-md` etc. Components reference these.
 3. **Semantic aliases** — `--signal`, `--system`, `--metric`, `--success`, `--warning`, `--danger`. Use these for state-bearing UI.
 
-Tailwind v4's `@theme inline` block in `globals.css` maps these CSS vars to Tailwind utilities (`bg-bg-2`, `text-fg-1`, `text-signal-yellow`, `bg-surface-1`, `border-accent-blue`, etc.). Legacy utility names (`text-aj-orange`, `border-aj-blue-bright`) still resolve via the alias layer. New utility tokens go in **both** the `:root` block and the `@theme inline` block. Note: `src/lib/applied-intelligence/tokens.ts` is intended to mirror this — see §17.5 for current drift state.
+Tailwind v4's `@theme inline` block in `globals.css` maps these CSS vars to Tailwind utilities (`bg-bg-2`, `text-fg-1`, `text-signal-yellow`, `bg-surface-1`, `border-accent-blue`, etc.). Legacy utility names (`text-aj-orange`, `border-aj-blue-bright`) still resolve via the alias layer. New utility tokens go in **both** the `:root` block and the `@theme inline` block. Note: `src/lib/founder-intelligence/tokens.ts` is intended to mirror this — see §17.5 for current drift state.
 
 ## 5. Tokens
 

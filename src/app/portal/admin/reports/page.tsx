@@ -59,10 +59,7 @@ export default function ReportsPage() {
     try {
       setLoading(true);
       
-      const response = await fetch(`/api/admin/reports/summary?period=${period}`, {
-        headers: {
-          'admin-key': 'gGho3TE8ztiSAMvORfyCDem62Fk0xpW1'
-        }
+      const response = await fetch(`/api/_proxy/admin/reports/summary?period=${period}`, {
       });
 
       if (response.ok) {
@@ -83,10 +80,7 @@ export default function ReportsPage() {
     setExporting(prev => new Set([...prev, type]));
     
     try {
-      const response = await fetch(`/api/admin/export/${type}?format=${format}`, {
-        headers: {
-          'admin-key': 'gGho3TE8ztiSAMvORfyCDem62Fk0xpW1'
-        }
+      const response = await fetch(`/api/_proxy/admin/export/${type}?format=${format}`, {
       });
 
       if (response.ok) {
@@ -125,10 +119,7 @@ export default function ReportsPage() {
     setExporting(prev => new Set([...prev, 'comprehensive']));
     
     try {
-      const response = await fetch('/api/admin/reports/export', {
-        headers: {
-          'admin-key': 'gGho3TE8ztiSAMvORfyCDem62Fk0xpW1'
-        }
+      const response = await fetch('/api/_proxy/admin/reports/export', {
       });
 
       if (response.ok) {
@@ -192,7 +183,7 @@ export default function ReportsPage() {
   if (!summary) {
     return (
       <div className="p-6">
-        <div className="text-center text-gray-400">
+        <div className="text-center text-text-muted">
           <AlertTriangle className="h-12 w-12 mx-auto mb-4 opacity-50" />
           <p>Failed to load report data</p>
         </div>
@@ -208,7 +199,7 @@ export default function ReportsPage() {
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-2xl font-bold">Reports & Analytics</h1>
-          <p className="text-gray-400 mt-1">Business insights and data exports</p>
+          <p className="text-text-muted mt-1">Business insights and data exports</p>
         </div>
         <div className="flex items-center gap-2">
           <select
@@ -231,7 +222,7 @@ export default function ReportsPage() {
       </div>
 
       {/* Date Range */}
-      <div className="flex items-center gap-2 text-sm text-gray-400">
+      <div className="flex items-center gap-2 text-sm text-text-muted">
         <Calendar className="h-4 w-4" />
         <span>
           {formatDate(summary.date_range.from)} - {formatDate(summary.date_range.to)}
@@ -252,7 +243,7 @@ export default function ReportsPage() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">${mrr.toLocaleString()}</div>
-            <p className="text-xs text-gray-400 mt-1">
+            <p className="text-xs text-text-muted mt-1">
               {summary.customers.active} active customers
             </p>
           </CardContent>
@@ -287,7 +278,7 @@ export default function ReportsPage() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{summary.customers.churn_rate}%</div>
-            <p className="text-xs text-gray-400 mt-1">
+            <p className="text-xs text-text-muted mt-1">
               {summary.customers.canceled} canceled customers
             </p>
           </CardContent>
@@ -302,7 +293,7 @@ export default function ReportsPage() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{summary.pricing.active_skus}</div>
-            <p className="text-xs text-gray-400 mt-1">
+            <p className="text-xs text-text-muted mt-1">
               of {summary.pricing.total_skus} total SKUs
             </p>
           </CardContent>
@@ -346,7 +337,7 @@ export default function ReportsPage() {
                   <span className="text-sm">{service}</span>
                   <div className="flex items-center gap-2">
                     <Badge variant="default">{count} customers</Badge>
-                    <span className="text-xs text-gray-400">
+                    <span className="text-xs text-text-muted">
                       ${(count * 50).toLocaleString()}/mo
                     </span>
                   </div>
@@ -376,7 +367,7 @@ export default function ReportsPage() {
                 Recommended
               </Badge>
             </div>
-            <p className="text-sm text-gray-300 mb-4">
+            <p className="text-sm text-text-primary mb-4">
               Download all customers, events, and alerts in a single comprehensive JSON file.
             </p>
             <button
@@ -406,10 +397,10 @@ export default function ReportsPage() {
             ].map(({ type, label, description }) => (
               <div key={type} className="p-4 border border-gray-700 rounded-lg">
                 <div className="flex items-center gap-2 mb-2">
-                  <FileText className="h-4 w-4 text-gray-400" />
+                  <FileText className="h-4 w-4 text-text-muted" />
                   <h3 className="font-medium">{label}</h3>
                 </div>
-                <p className="text-xs text-gray-400 mb-3">{description}</p>
+                <p className="text-xs text-text-muted mb-3">{description}</p>
                 <div className="flex gap-2">
                   <button
                     onClick={() => exportData(type, 'csv')}
@@ -451,7 +442,7 @@ export default function ReportsPage() {
       </Card>
 
       {/* Summary Info */}
-      <div className="text-center text-sm text-gray-400">
+      <div className="text-center text-sm text-text-muted">
         <p>Report generated at {new Date(summary.generated_at).toLocaleString()}</p>
       </div>
     </div>

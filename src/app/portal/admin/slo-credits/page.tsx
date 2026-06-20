@@ -186,7 +186,7 @@ export default function SLOCreditsPage() {
     <div className="container mx-auto px-4 py-8">
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-white mb-2">SLO Auto-Credits</h1>
-        <p className="text-gray-400">
+        <p className="text-text-muted">
           Automatic billing credits for SLO violations and burn rate management
         </p>
       </div>
@@ -204,7 +204,7 @@ export default function SLOCreditsPage() {
             className={`px-4 py-2 rounded-lg font-medium transition-colors ${
               activeTab === tab.key
                 ? 'bg-white text-black'
-                : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
+                : 'bg-gray-800 text-text-primary hover:bg-gray-700'
             }`}
           >
             {tab.label}
@@ -235,7 +235,7 @@ export default function SLOCreditsPage() {
           {/* Summary Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div className="bg-gray-800 p-6 rounded-lg border border-gray-700">
-              <h3 className="text-sm font-medium text-gray-400 mb-2">
+              <h3 className="text-sm font-medium text-text-muted mb-2">
                 This Month Credits
               </h3>
               <div className="text-2xl font-bold text-white">
@@ -244,7 +244,7 @@ export default function SLOCreditsPage() {
             </div>
 
             <div className="bg-gray-800 p-6 rounded-lg border border-gray-700">
-              <h3 className="text-sm font-medium text-gray-400 mb-2">
+              <h3 className="text-sm font-medium text-text-muted mb-2">
                 This Week Credits
               </h3>
               <div className="text-2xl font-bold text-white">
@@ -253,7 +253,7 @@ export default function SLOCreditsPage() {
             </div>
 
             <div className="bg-gray-800 p-6 rounded-lg border border-gray-700">
-              <h3 className="text-sm font-medium text-gray-400 mb-2">
+              <h3 className="text-sm font-medium text-text-muted mb-2">
                 Clients Credited
               </h3>
               <div className="text-2xl font-bold text-white">
@@ -262,7 +262,7 @@ export default function SLOCreditsPage() {
             </div>
 
             <div className="bg-gray-800 p-6 rounded-lg border border-gray-700">
-              <h3 className="text-sm font-medium text-gray-400 mb-2">
+              <h3 className="text-sm font-medium text-text-muted mb-2">
                 Active Rules
               </h3>
               <div className="text-2xl font-bold text-white">
@@ -280,22 +280,22 @@ export default function SLOCreditsPage() {
               <table className="w-full">
                 <thead className="bg-gray-900">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">
                       Client
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">
                       Service
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">
                       SLO
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">
                       Amount
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">
                       Applied
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">
                       Type
                     </th>
                   </tr>
@@ -306,16 +306,16 @@ export default function SLOCreditsPage() {
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-white">
                         {app.client_id}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-text-primary">
                         {app.service}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-text-primary">
                         {app.slo_id}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-green-400">
                         ${app.credit_amount}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-text-primary">
                         {new Date(app.applied_at).toLocaleDateString()}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
@@ -341,7 +341,7 @@ export default function SLOCreditsPage() {
         <div className="bg-gray-800 rounded-lg border border-gray-700">
           <div className="p-6 border-b border-gray-700">
             <h3 className="text-lg font-semibold text-white">SLO Credit Rules</h3>
-            <p className="text-sm text-gray-400 mt-1">
+            <p className="text-sm text-text-muted mt-1">
               Configure automatic credit rules for SLO violations
             </p>
           </div>
@@ -349,22 +349,22 @@ export default function SLOCreditsPage() {
             <table className="w-full">
               <thead className="bg-gray-900">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">
                     SLO ID
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">
                     Service
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">
                     Threshold
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">
                     Credit %
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">
                     Max/Month
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">
                     Status
                   </th>
                 </tr>
@@ -375,16 +375,16 @@ export default function SLOCreditsPage() {
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-white">
                       {rule.slo_id}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-text-primary">
                       {rule.service}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-text-primary">
                       {rule.violation_threshold}%
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-text-primary">
                       {rule.credit_percentage}%
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-text-primary">
                       ${rule.max_credits_per_month}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
@@ -412,7 +412,7 @@ export default function SLOCreditsPage() {
         <div className="bg-gray-800 rounded-lg border border-gray-700">
           <div className="p-6 border-b border-gray-700">
             <h3 className="text-lg font-semibold text-white">Credit Application History</h3>
-            <p className="text-sm text-gray-400 mt-1">
+            <p className="text-sm text-text-muted mt-1">
               All automatic and manual credit applications
             </p>
           </div>
@@ -420,25 +420,25 @@ export default function SLOCreditsPage() {
             <table className="w-full">
               <thead className="bg-gray-900">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">
                     Client
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">
                     Service
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">
                     SLO
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">
                     Amount
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">
                     Reason
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">
                     Applied
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">
                     Type
                   </th>
                 </tr>
@@ -449,19 +449,19 @@ export default function SLOCreditsPage() {
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-white">
                       {app.client_id}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-text-primary">
                       {app.service}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-text-primary">
                       {app.slo_id}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-green-400">
                       ${app.credit_amount}
                     </td>
-                    <td className="px-6 py-4 text-sm text-gray-300 max-w-xs truncate">
+                    <td className="px-6 py-4 text-sm text-text-primary max-w-xs truncate">
                       {app.reason}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-text-primary">
                       {new Date(app.applied_at).toLocaleDateString()}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">

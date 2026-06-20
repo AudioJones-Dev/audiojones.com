@@ -13,8 +13,8 @@ const insights = [
     href: "/insights/signal-vs-noise-business",
   },
   {
-    q: "What is the M.A.P Attribution Framework?",
-    a: "A decision model for identifying meaningful, actionable, and profitable inputs. If a metric fails any leg of M.A.P, it should not drive strategy.",
+    q: "What is the M.A.P. Attribution Framework?",
+    a: "A decision model for identifying meaningful, actionable, and profitable inputs. If a metric fails any leg of M.A.P., it should not drive strategy.",
     href: "/frameworks/map-attribution",
   },
   {
@@ -23,9 +23,9 @@ const insights = [
     href: "/insights/marketing-attribution-causal-identification",
   },
   {
-    q: "What is Applied Intelligence?",
+    q: "What is Founder Intelligence?",
     a: "The integration of human judgment, data signals, and feedback loops into a repeatable operating system. Not a tool. A system.",
-    href: "/insights/applied-intelligence-systems",
+    href: "/insights/founder-intelligence-systems",
   },
   {
     q: "Why is AI not the first step?",

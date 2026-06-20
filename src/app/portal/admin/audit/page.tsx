@@ -42,10 +42,7 @@ export default function AuditPage() {
       if (selectedAction) params.append('action', selectedAction);
       if (selectedTarget) params.append('target', selectedTarget);
       
-      const response = await fetch(`/api/admin/audit?${params}`, {
-        headers: {
-          'admin-key': 'gGho3TE8ztiSAMvORfyCDem62Fk0xpW1'
-        }
+      const response = await fetch(`/api/_proxy/admin/audit?${params}`, {
       });
 
       if (response.ok) {
@@ -128,7 +125,7 @@ export default function AuditPage() {
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-2xl font-bold">Admin Audit Log</h1>
-          <p className="text-gray-400 mt-1">Track all administrative actions and changes</p>
+          <p className="text-text-muted mt-1">Track all administrative actions and changes</p>
         </div>
         <button 
           onClick={fetchAuditLogs}
@@ -145,7 +142,7 @@ export default function AuditPage() {
           <div className="flex items-center gap-2">
             <Activity className="h-5 w-5 text-blue-400" />
             <div>
-              <p className="text-sm text-gray-400">Total Actions</p>
+              <p className="text-sm text-text-muted">Total Actions</p>
               <p className="text-2xl font-bold">{stats.total}</p>
             </div>
           </div>
@@ -155,7 +152,7 @@ export default function AuditPage() {
           <div className="flex items-center gap-2">
             <Clock className="h-5 w-5 text-green-400" />
             <div>
-              <p className="text-sm text-gray-400">Last 24 Hours</p>
+              <p className="text-sm text-text-muted">Last 24 Hours</p>
               <p className="text-2xl font-bold">{stats.recent_24h}</p>
             </div>
           </div>
@@ -165,7 +162,7 @@ export default function AuditPage() {
           <div className="flex items-center gap-2">
             <User className="h-5 w-5 text-purple-400" />
             <div>
-              <p className="text-sm text-gray-400">Customers</p>
+              <p className="text-sm text-text-muted">Customers</p>
               <p className="text-2xl font-bold">{stats.action_counts.customer_update || 0}</p>
             </div>
           </div>
@@ -175,7 +172,7 @@ export default function AuditPage() {
           <div className="flex items-center gap-2">
             <RefreshCw className="h-5 w-5 text-orange-400" />
             <div>
-              <p className="text-sm text-gray-400">Replays</p>
+              <p className="text-sm text-text-muted">Replays</p>
               <p className="text-2xl font-bold">{stats.action_counts.webhook_replay || 0}</p>
             </div>
           </div>
@@ -186,7 +183,7 @@ export default function AuditPage() {
       <div className="bg-gray-900 p-4 rounded-lg border border-gray-700">
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2">
-            <Filter className="h-4 w-4 text-gray-400" />
+            <Filter className="h-4 w-4 text-text-muted" />
             <span className="text-sm font-medium">Filters:</span>
           </div>
           
@@ -236,7 +233,7 @@ export default function AuditPage() {
       <div className="bg-gray-900 rounded-lg border border-gray-700">
         <div className="p-4 border-b border-gray-700">
           <h2 className="text-lg font-semibold">Audit Trail</h2>
-          <p className="text-sm text-gray-400">
+          <p className="text-sm text-text-muted">
             Showing {logs.length} of {stats.total} total actions
           </p>
         </div>
@@ -245,11 +242,11 @@ export default function AuditPage() {
           <table className="w-full">
             <thead>
               <tr className="border-b border-gray-700">
-                <th className="text-left p-4 font-medium text-gray-300">Action</th>
-                <th className="text-left p-4 font-medium text-gray-300">Target</th>
-                <th className="text-left p-4 font-medium text-gray-300">Actor</th>
-                <th className="text-left p-4 font-medium text-gray-300">Timestamp</th>
-                <th className="text-left p-4 font-medium text-gray-300">Details</th>
+                <th className="text-left p-4 font-medium text-text-primary">Action</th>
+                <th className="text-left p-4 font-medium text-text-primary">Target</th>
+                <th className="text-left p-4 font-medium text-text-primary">Actor</th>
+                <th className="text-left p-4 font-medium text-text-primary">Timestamp</th>
+                <th className="text-left p-4 font-medium text-text-primary">Details</th>
               </tr>
             </thead>
             <tbody>
@@ -267,14 +264,14 @@ export default function AuditPage() {
                     
                     <td className="p-4">
                       <div className="flex items-center gap-2">
-                        <Mail className="h-4 w-4 text-gray-400" />
+                        <Mail className="h-4 w-4 text-text-muted" />
                         <span className="text-sm">{log.target_email}</span>
                       </div>
                     </td>
                     
                     <td className="p-4">
                       <div className="flex items-center gap-2">
-                        <User className="h-4 w-4 text-gray-400" />
+                        <User className="h-4 w-4 text-text-muted" />
                         <Badge variant="outline" className="text-xs">
                           {log.actor}
                         </Badge>
@@ -284,7 +281,7 @@ export default function AuditPage() {
                     <td className="p-4">
                       <div className="text-sm">
                         <div className="flex items-center gap-2">
-                          <Clock className="h-4 w-4 text-gray-400" />
+                          <Clock className="h-4 w-4 text-text-muted" />
                           {formatTimestamp(log.created_at)}
                         </div>
                       </div>
@@ -310,7 +307,7 @@ export default function AuditPage() {
                       <td colSpan={5} className="p-4">
                         <div className="bg-gray-800 rounded p-3">
                           <h4 className="text-sm font-medium mb-2">Payload Details:</h4>
-                          <pre className="text-xs text-gray-300 overflow-x-auto">
+                          <pre className="text-xs text-text-primary overflow-x-auto">
                             {JSON.stringify(log.payload, null, 2)}
                           </pre>
                         </div>
@@ -323,7 +320,7 @@ export default function AuditPage() {
           </table>
           
           {logs.length === 0 && (
-            <div className="p-8 text-center text-gray-400">
+            <div className="p-8 text-center text-text-muted">
               <Clock className="h-12 w-12 mx-auto mb-4 opacity-50" />
               <p>No audit logs found</p>
               <p className="text-sm">

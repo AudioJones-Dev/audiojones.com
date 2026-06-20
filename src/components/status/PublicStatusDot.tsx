@@ -18,9 +18,9 @@ export function PublicStatusDot() {
     return (
       <Link 
         href="/status" 
-        className="flex items-center text-sm text-white/60 hover:text-white/80 transition no-underline"
+        className="flex items-center text-sm text-text-muted hover:text-text-primary transition no-underline"
       >
-        <div className="w-2 h-2 rounded-full bg-gray-500 animate-pulse mr-2" />
+        <div className="w-2 h-2 rounded-full bg-surface-2 animate-pulse mr-2" />
         Status
       </Link>
     );
@@ -31,13 +31,13 @@ export function PublicStatusDot() {
   return (
     <Link 
       href="/status"
-      className="flex items-center text-sm text-white/80 hover:text-white transition no-underline"
+      className="flex items-center text-sm text-text-primary hover:text-text-primary transition no-underline"
       title={`System status: ${status}. Click to view details.`}
     >
       <div className={`w-2 h-2 rounded-full mr-2 ${
-        status === 'operational' ? 'bg-green-400' :
-        status === 'degraded' ? 'bg-amber-400' :
-        'bg-red-400'
+        status === 'operational' ? 'bg-accent-green' :
+        status === 'degraded' ? 'bg-accent-amber' :
+        'bg-accent-red'
       }`} />
       Status
     </Link>

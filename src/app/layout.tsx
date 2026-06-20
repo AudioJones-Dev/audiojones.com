@@ -33,40 +33,41 @@ const dmMono = DM_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: "Audio Jones — Applied Intelligence Systems",
+    default: "Audio Jones — Founder Intelligence Systems",
     template: "%s | Audio Jones",
   },
   description: siteConfig.description,
   openGraph: {
     type: "website",
     siteName: siteConfig.name,
-    title: "Audio Jones — Applied Intelligence Systems",
+    title: "Audio Jones — Founder Intelligence Systems",
     description: siteConfig.description,
     images: [
       {
         url: siteConfig.ogImage,
         width: 1200,
         height: 630,
-        alt: "Audio Jones — Applied Intelligence Systems",
+        alt: "Audio Jones — Founder Intelligence Systems",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Audio Jones — Applied Intelligence Systems",
+    title: "Audio Jones — Founder Intelligence Systems",
     description: siteConfig.description,
     images: [siteConfig.ogImage],
   },
   icons: {
     icon: [
-      { url: "/favicon.ico" },
-      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
-      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
-      { url: "/android-chrome-192x192.png", sizes: "192x192", type: "image/png" },
-      { url: "/android-chrome-512x512.png", sizes: "512x512", type: "image/png" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico?v=2", sizes: "any" },
+      { url: "/favicon-16x16.png?v=2", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-32x32.png?v=2", sizes: "32x32", type: "image/png" },
+      { url: "/android-chrome-192x192.png?v=2", sizes: "192x192", type: "image/png" },
+      { url: "/android-chrome-512x512.png?v=2", sizes: "512x512", type: "image/png" },
     ],
-    shortcut: "/favicon-32x32.png",
-    apple: "/apple-touch-icon.png",
+    shortcut: "/favicon-32x32.png?v=2",
+    apple: "/apple-touch-icon.png?v=2",
     other: [
       { rel: "manifest", url: "/site.webmanifest" },
     ],
@@ -82,7 +83,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="bg-bg-base text-text-primary font-body antialiased">
         <ToastProvider>
           <Header />
-          <main className="min-h-screen pt-20">{children}</main>
+          <main className="min-h-screen overflow-x-clip pt-20">{children}</main>
           <Footer />
           <CookieBanner />
           <JaviChatWidget />

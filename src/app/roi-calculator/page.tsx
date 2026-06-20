@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import FAQ from "@/components/founder-intelligence/FAQ";
 import RoiCalculator from "@/components/roi-calculator/RoiCalculator";
 import { ctaLinks } from "@/config/links";
 import { buildMetadata } from "@/lib/seo/metadata";
 import JsonLd from "@/components/seo/JsonLd";
-import { breadcrumbJsonLd, organizationJsonLd, webSiteJsonLd } from "@/lib/seo/schema";
+import { breadcrumbJsonLd, faqJsonLd, organizationJsonLd, webSiteJsonLd } from "@/lib/seo/schema";
+import { founderIntelligenceFaqs } from "@/lib/seo/founder-intelligence-faq";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Operational Waste Recovery Calculator for Founder-Led Businesses",
+  title: "Operational Waste Recovery Calculator",
   description:
     "Quantify the operational waste hiding inside manual work, slow follow-up, rework, and founder bottlenecks — before adding another AI tool.",
   path: "/roi-calculator",
@@ -24,6 +26,7 @@ export default function RoiCalculatorPage() {
           { name: "ROI Calculator", url: "/roi-calculator" },
         ])}
       />
+      <JsonLd data={faqJsonLd(founderIntelligenceFaqs)} />
 
       <section className="bg-bg-0 py-24 sm:py-32">
         <div className="mx-auto grid max-w-[1280px] gap-10 px-5 sm:px-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
@@ -65,6 +68,26 @@ export default function RoiCalculatorPage() {
       </section>
 
       <RoiCalculator />
+
+      <section className="bg-bg-0 py-16 sm:py-24">
+        <div className="mx-auto max-w-3xl px-5 sm:px-8">
+          <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[var(--metric)]">
+            Direct Answer
+          </p>
+          <h2 className="mt-4 t-h2 text-fg-0">
+            The calculator estimates recoverable waste before recommending a
+            Founder Intelligence System.
+          </h2>
+          <p className="mt-4 t-body-lg text-fg-2">
+            It is for founder-led service businesses where manual work, slow
+            follow-up, rework, and founder bottlenecks are hiding measurable
+            operating capacity.
+          </p>
+          <div className="mt-8">
+            <FAQ items={founderIntelligenceFaqs} />
+          </div>
+        </div>
+      </section>
     </>
   );
 }

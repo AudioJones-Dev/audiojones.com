@@ -17,4 +17,5 @@ export { default as ResponseOSWedge } from "./ResponseOSWedge";
 export { default as RoiLeadMagnet } from "./RoiLeadMagnet";
 export { default as ProcessPipeline } from "./ProcessPipeline";
 export { default as ProofStats } from "./ProofStats";
+export { default as HomeFaqSection } from "./HomeFaqSection";
 export { default as DiagnosticCTA } from "./DiagnosticCTA";

@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Breadcrumbs from "@/components/applied-intelligence/Breadcrumbs";
-import InsightArticle from "@/components/applied-intelligence/InsightArticle";
-import { H2, P, UL } from "@/components/applied-intelligence/FrameworkArticle";
-import FAQ from "@/components/applied-intelligence/FAQ";
+import Breadcrumbs from "@/components/founder-intelligence/Breadcrumbs";
+import InsightArticle from "@/components/founder-intelligence/InsightArticle";
+import { H2, P, UL } from "@/components/founder-intelligence/FrameworkArticle";
+import FAQ from "@/components/founder-intelligence/FAQ";
 import JsonLd from "@/components/seo/JsonLd";
 import { buildMetadata } from "@/lib/seo/metadata";
 import {
@@ -36,7 +36,7 @@ const FAQS = [
 ];
 
 export const metadata: Metadata = buildMetadata({
-  title: `${TITLE} | Audio Jones`,
+  title: TITLE,
   description: DESCRIPTION,
   path: PATH,
   type: "article",
@@ -82,7 +82,7 @@ export default function Page() {
           For the philosophical anchor and the extraction process, see the{" "}
           <Link
             href="/frameworks/signal-vs-noise"
-            className="text-[#3B5BFF] hover:text-[#5B7AFF]"
+            className="text-accent-blue hover:text-accent-blue"
           >
             Signal vs Noise framework
           </Link>
@@ -100,15 +100,15 @@ export default function Page() {
 
         <H2>What to actually track</H2>
         <P>
-          A short list of metrics that pass M.A.P: Meaningful to strategy,
+          A short list of metrics that pass M.A.P. (Meaningful. Actionable. Profitable.): Meaningful to strategy,
           Actionable in a decision, and Profitable in a way you can
           demonstrate. Three to five of those beat thirty informational
           metrics every time. See{" "}
           <Link
             href="/frameworks/map-attribution"
-            className="text-[#3B5BFF] hover:text-[#5B7AFF]"
+            className="text-accent-blue hover:text-accent-blue"
           >
-            M.A.P Attribution
+            M.A.P. Attribution
           </Link>{" "}
           for the filter.
         </P>

@@ -35,7 +35,9 @@ export function middleware(request: NextRequest) {
 
   // Existing admin auth logic
   const isAdminUI = pathname.startsWith('/portal/admin')
-  const isAdminAPI = pathname.startsWith('/api/admin')
+  // Trailing slash so the pre-auth login endpoint /api/admin-auth (which
+  // establishes the session) is not itself gated by this check.
+  const isAdminAPI = pathname.startsWith('/api/admin/')
   
   if (isAdminUI || isAdminAPI) {
     // Check if we have auth signal

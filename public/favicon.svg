@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Audio Jones signal mark">
+  <title>Audio Jones — Signal Mark</title>
+  <rect width="512" height="512" fill="#1A1D29"/>
+  <g stroke="#C2F23B" stroke-width="62" stroke-linecap="round" fill="none">
+    <line x1="116" y1="127" x2="264" y2="399"/>
+    <line x1="221" y1="173" x2="318" y2="351"/>
+    <line x1="310" y1="213" x2="378" y2="335"/>
+  </g>
+  <circle cx="386" cy="436" r="44" fill="#C2F23B"/>
+</svg>

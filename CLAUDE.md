@@ -42,7 +42,7 @@ locally — it runs `pnpm packages:build && next build`.
 ## Reading order for new tasks
 
 1. [`docs/PRD.md`](./docs/PRD.md) — what the site is for.
-2. [`docs/DESIGN.md`](./docs/DESIGN.md) — visual + voice contract.
+2. [`docs/design/DESIGN.md`](./docs/design/DESIGN.md) — visual + voice contract.
 3. [`docs/DEPLOYMENT.md`](./docs/DEPLOYMENT.md) — env + Vercel rules.
 4. [`docs/SECURITY.md`](./docs/SECURITY.md) — what must never leak.
 5. [`docs/DECISIONS.md`](./docs/DECISIONS.md) — why the stack looks like this.

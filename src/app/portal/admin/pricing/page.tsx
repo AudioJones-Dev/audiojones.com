@@ -42,10 +42,7 @@ export default function AdminPricingPage() {
       setLoading(true);
       setError(null);
 
-      const response = await fetch('/api/admin/pricing', {
-        headers: {
-          'admin-key': 'gGho3TE8ztiSAMvORfyCDem62Fk0xpW1',
-        },
+      const response = await fetch('/api/_proxy/admin/pricing', {
       });
 
       if (!response.ok) {
@@ -69,11 +66,10 @@ export default function AdminPricingPage() {
     try {
       setSaving(true);
 
-      const response = await fetch('/api/admin/pricing', {
+      const response = await fetch('/api/_proxy/admin/pricing', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'admin-key': 'gGho3TE8ztiSAMvORfyCDem62Fk0xpW1',
         },
         body: JSON.stringify(skuData),
       });

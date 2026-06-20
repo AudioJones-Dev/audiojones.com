@@ -18,8 +18,8 @@ export function PortalStatusPill() {
   
   if (loading) {
     return (
-      <div className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-gray-800 text-gray-400 border border-gray-700">
-        <div className="w-2 h-2 rounded-full bg-gray-500 animate-pulse mr-2" />
+      <div className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-surface-2 text-text-muted border border-border-subtle">
+        <div className="w-2 h-2 rounded-full bg-surface-2 animate-pulse mr-2" />
         Status
       </div>
     );
@@ -56,10 +56,10 @@ export function StatusCard() {
   
   if (loading) {
     return (
-      <div className="p-4 bg-gray-900 border border-gray-800 rounded-lg">
+      <div className="p-4 bg-surface-1 border border-border-subtle rounded-lg">
         <div className="animate-pulse">
-          <div className="h-4 bg-gray-700 rounded w-1/3 mb-2" />
-          <div className="h-3 bg-gray-700 rounded w-2/3" />
+          <div className="h-4 bg-surface-2 rounded w-1/3 mb-2" />
+          <div className="h-3 bg-surface-2 rounded w-2/3" />
         </div>
       </div>
     );
@@ -67,12 +67,12 @@ export function StatusCard() {
   
   if (error) {
     return (
-      <div className="p-4 bg-gray-900 border border-gray-800 rounded-lg">
-        <div className="flex items-center space-x-2 text-gray-400">
+      <div className="p-4 bg-surface-1 border border-border-subtle rounded-lg">
+        <div className="flex items-center space-x-2 text-text-muted">
           <StatusIcon status="operational" className="w-4 h-4" />
           <span className="text-sm">Status unavailable</span>
         </div>
-        <p className="text-xs text-gray-500 mt-1">
+        <p className="text-xs text-text-muted mt-1">
           Unable to fetch current status
         </p>
       </div>
@@ -82,12 +82,12 @@ export function StatusCard() {
   const styles = getStatusIndicatorStyles(overallStatus);
   
   return (
-    <div className="p-4 bg-gray-900 border border-gray-800 rounded-lg">
+    <div className="p-4 bg-surface-1 border border-border-subtle rounded-lg">
       <div className="flex items-center justify-between mb-3">
         <h3 className="font-medium text-white">System Status</h3>
-        <Link 
+        <Link
           href="/status"
-          className="text-xs text-blue-400 hover:text-blue-300 no-underline"
+          className="text-xs text-accent-blue hover:text-accent-blue/80 no-underline"
         >
           View Details →
         </Link>
@@ -104,18 +104,18 @@ export function StatusCard() {
       
       {activeIncidents.length > 0 && (
         <div className="mt-3 space-y-2">
-          <p className="text-xs text-gray-400">
+          <p className="text-xs text-text-muted">
             {activeIncidents.length} active incident{activeIncidents.length !== 1 ? 's' : ''}:
           </p>
           {activeIncidents.slice(0, 2).map((incident: IncidentFeedItem) => (
-            <div key={incident.id} className="text-xs text-gray-300">
+            <div key={incident.id} className="text-xs text-text-primary">
               • {incident.title}
               {incident.severity && (
                 <span className={`ml-2 px-1 py-0.5 rounded text-xs ${
-                  incident.severity === 'critical' ? 'bg-red-900 text-red-200' :
-                  incident.severity === 'high' ? 'bg-orange-900 text-orange-200' :
-                  incident.severity === 'medium' ? 'bg-amber-900 text-amber-200' :
-                  'bg-yellow-900 text-yellow-200'
+                  incident.severity === 'critical' ? 'bg-accent-red/20 text-accent-red' :
+                  incident.severity === 'high' ? 'bg-signal-yellow/20 text-signal-yellow' :
+                  incident.severity === 'medium' ? 'bg-accent-amber/20 text-accent-amber' :
+                  'bg-signal-soft/20 text-signal-soft'
                 }`}>
                   {incident.severity}
                 </span>
@@ -123,7 +123,7 @@ export function StatusCard() {
             </div>
           ))}
           {activeIncidents.length > 2 && (
-            <p className="text-xs text-gray-500">
+            <p className="text-xs text-text-muted">
               +{activeIncidents.length - 2} more incidents
             </p>
           )}
@@ -131,7 +131,7 @@ export function StatusCard() {
       )}
       
       {lastUpdated && (
-        <p className="text-xs text-gray-500 mt-3">
+        <p className="text-xs text-text-muted mt-3">
           Updated {formatStatusTime(lastUpdated)}
         </p>
       )}

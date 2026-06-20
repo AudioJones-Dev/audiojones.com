@@ -1,4 +1,4 @@
-﻿# Applied Intelligence Systems — Asset Map
+﻿# Founder Intelligence Systems — Asset Map
 
 ## Background
 
@@ -9,7 +9,7 @@ Dimensions: 1672x941
 Size: ~1.5 MB
 
 Role:
-Desktop atmospheric background for the Applied Intelligence Systems section.
+Desktop atmospheric background for the Founder Intelligence Systems section.
 
 Usage:
 Used as an absolutely positioned 

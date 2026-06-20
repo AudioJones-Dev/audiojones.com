@@ -12,7 +12,7 @@ it inherits everything below.
 ## 1. What this repo is
 
 `audiojones.com` is the public marketing site for **AJ Digital LLC** —
-content, SEO/AEO, the Applied Intelligence diagnostic, lead capture, and
+content, SEO/AEO, the Founder Intelligence diagnostic, lead capture, and
 booking. It is **not** an admin/portal monolith.
 
 Stack (canonical — see [`docs/DECISIONS.md`](./docs/DECISIONS.md) and
@@ -34,7 +34,7 @@ Cloudflare → Vercel + Next.js 16 (App Router, React 19)
 
 Some legacy `/portal/*` and `/api/admin/*` routes exist from a previous
 Firebase era; they are being phased out. New work targets the marketing
-surface and Applied Intelligence flows.
+surface and Founder Intelligence flows.
 
 ---
 
@@ -62,7 +62,7 @@ surface and Applied Intelligence flows.
 | Concern              | Source of truth                                             |
 | -------------------- | ----------------------------------------------------------- |
 | Product brief        | [`docs/PRD.md`](./docs/PRD.md)                              |
-| Design system        | [`docs/DESIGN.md`](./docs/DESIGN.md)                        |
+| Design system        | [`docs/design/DESIGN.md`](./docs/design/DESIGN.md)          |
 | Roadmap              | [`docs/ROADMAP.md`](./docs/ROADMAP.md)                      |
 | Security posture     | [`docs/SECURITY.md`](./docs/SECURITY.md)                    |
 | Deployment / env     | [`docs/DEPLOYMENT.md`](./docs/DEPLOYMENT.md)                |
@@ -73,11 +73,11 @@ surface and Applied Intelligence flows.
 | Stack decision       | [`docs/architecture/stack-decision.md`](./docs/architecture/stack-decision.md) |
 | Marketing IA         | [`docs/archive/MARKETING-IA.md`](./docs/archive/MARKETING-IA.md) |
 | Nav config           | `src/config/nav.ts`                                         |
-| Lead intake          | `src/app/api/applied-intelligence/leads/route.ts`           |
+| Lead intake          | `src/app/api/founder-intelligence/leads/route.ts`           |
 | Lead persistence     | `src/db/leads.ts`, `db/migrations/`                         |
 
 Older root-level docs (`AUDIOJONES_DESIGN.md`, `DEPLOYMENT.md`,
-`VERCEL_ENV_SETUP.md`, `secrets.md`, `docs/design.md`,
+`VERCEL_ENV_SETUP.md`, `secrets.md`, `docs/DESIGN.md`,
 `docs/VERCEL_ENV_SOP.md`, `docs/env.example`, `docs/env/env-template.md`)
 are now redirect stubs pointing at the canonical files above.
 
@@ -87,7 +87,7 @@ are now redirect stubs pointing at the canonical files above.
 
 ### Before changing code
 
-1. Skim [`docs/PRD.md`](./docs/PRD.md), [`docs/DESIGN.md`](./docs/DESIGN.md),
+1. Skim [`docs/PRD.md`](./docs/PRD.md), [`docs/design/DESIGN.md`](./docs/design/DESIGN.md),
    and the relevant architecture doc.
 2. Read the surrounding files; match the existing patterns.
 3. If a change feels architectural, append a short entry to
@@ -205,7 +205,7 @@ Every PR body should include:
 
 ## 6. Tone for AI-authored content
 
-Match the brand voice documented in [`docs/DESIGN.md`](./docs/DESIGN.md):
+Match the brand voice documented in [`docs/design/DESIGN.md`](./docs/design/DESIGN.md):
 **signal over noise**. Marketing copy is direct, founder-led, technical, and
 free of generic AI-agency clichés ("unlock", "harness", "supercharge",
 "revolutionize", emoji decoration). Code comments stay short and load-bearing.

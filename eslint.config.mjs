@@ -13,9 +13,16 @@ const eslintConfig = defineConfig([
   globalIgnores([
     // Default ignores of eslint-config-next:
     ".next/**",
+    "**/.next/**",
     "out/**",
     "build/**",
+    "**/out/**",
+    "**/build/**",
     "next-env.d.ts",
+    // Local agent worktrees and runtime artifacts are not production source.
+    ".claude/**",
+    ".codex/**",
+    "repos/**",
     // Throwaway test scripts and local tooling
     "test-*.js",
     "test-*.ts",

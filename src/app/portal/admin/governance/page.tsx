@@ -174,7 +174,7 @@ export default function GovernancePage() {
               onClick={() => setActiveTab(tab.key as any)}
               className={`flex items-center px-4 py-2 rounded-md transition-colors ${
                 activeTab === tab.key
-                  ? 'bg-[#008080] text-white'
+                  ? 'bg-accent-blue text-white'
                   : 'text-white/70 hover:text-white hover:bg-white/10'
               }`}
             >
@@ -189,7 +189,7 @@ export default function GovernancePage() {
           <div className="space-y-6">
             {/* System Status Overview */}
             <div className="grid md:grid-cols-4 gap-6">
-              <div className="bg-white/5 rounded-lg p-6 border border-white/10">
+              <div className="bg-white/5 rounded-lg p-6 border border-border-subtle">
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="text-lg font-semibold">System Status</h3>
                   <div className={`w-3 h-3 rounded-full ${
@@ -204,16 +204,16 @@ export default function GovernancePage() {
                 </div>
               </div>
 
-              <div className="bg-white/5 rounded-lg p-6 border border-white/10">
+              <div className="bg-white/5 rounded-lg p-6 border border-border-subtle">
                 <h3 className="text-lg font-semibold mb-4">Performance</h3>
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span className="text-white/70">Response Time</span>
-                    <span className="text-[#008080]">{healthData.performance.responseTime}</span>
+                    <span className="text-accent-blue">{healthData.performance.responseTime}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-white/70">Throughput</span>
-                    <span className="text-[#FFD700]">{healthData.performance.throughput}</span>
+                    <span className="text-signal-yellow">{healthData.performance.throughput}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-white/70">Error Rate</span>
@@ -222,21 +222,21 @@ export default function GovernancePage() {
                 </div>
               </div>
 
-              <div className="bg-white/5 rounded-lg p-6 border border-white/10">
+              <div className="bg-white/5 rounded-lg p-6 border border-border-subtle">
                 <h3 className="text-lg font-semibold mb-4">Resources</h3>
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span className="text-white/70">CPU Usage</span>
-                    <span className="text-[#008080]">{healthData.performance.cpuUsage}</span>
+                    <span className="text-accent-blue">{healthData.performance.cpuUsage}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-white/70">Memory Usage</span>
-                    <span className="text-[#FFD700]">{healthData.performance.memoryUsage}</span>
+                    <span className="text-signal-yellow">{healthData.performance.memoryUsage}</span>
                   </div>
                 </div>
               </div>
 
-              <div className="bg-white/5 rounded-lg p-6 border border-white/10">
+              <div className="bg-white/5 rounded-lg p-6 border border-border-subtle">
                 <h3 className="text-lg font-semibold mb-4">Security</h3>
                 <div className="space-y-2">
                   <div className="flex justify-between">
@@ -252,7 +252,7 @@ export default function GovernancePage() {
             </div>
 
             {/* Services Status */}
-            <div className="bg-white/5 rounded-lg p-6 border border-white/10">
+            <div className="bg-white/5 rounded-lg p-6 border border-border-subtle">
               <h3 className="text-xl font-semibold mb-6">Service Health</h3>
               <div className="grid md:grid-cols-3 gap-4">
                 {Object.entries(healthData.services).map(([service, status]) => (
@@ -270,24 +270,24 @@ export default function GovernancePage() {
             </div>
 
             {/* Maintenance Actions */}
-            <div className="bg-white/5 rounded-lg p-6 border border-white/10">
+            <div className="bg-white/5 rounded-lg p-6 border border-border-subtle">
               <h3 className="text-xl font-semibold mb-6">Maintenance Actions</h3>
               <div className="flex flex-wrap gap-4">
                 <button
                   onClick={() => triggerMaintenance('restart')}
-                  className="px-4 py-2 bg-[#FF4500] text-white rounded-lg hover:bg-[#FF4500]/80"
+                  className="px-4 py-2 bg-signal-yellow text-bg-base rounded-lg hover:bg-signal-soft"
                 >
                   Restart System
                 </button>
                 <button
                   onClick={() => triggerMaintenance('clear_cache')}
-                  className="px-4 py-2 bg-[#008080] text-white rounded-lg hover:bg-[#008080]/80"
+                  className="px-4 py-2 bg-accent-blue text-white rounded-lg hover:bg-accent-blue/80"
                 >
                   Clear Cache
                 </button>
                 <button
                   onClick={() => triggerMaintenance('backup')}
-                  className="px-4 py-2 bg-[#FFD700] text-black rounded-lg hover:bg-[#FFD700]/80"
+                  className="px-4 py-2 bg-signal-yellow text-black rounded-lg hover:bg-signal-soft"
                 >
                   Create Backup
                 </button>
@@ -300,7 +300,7 @@ export default function GovernancePage() {
         {activeTab === 'backup' && backupData && (
           <div className="space-y-6">
             {/* Current Backup Status */}
-            <div className="bg-white/5 rounded-lg p-6 border border-white/10">
+            <div className="bg-white/5 rounded-lg p-6 border border-border-subtle">
               <h3 className="text-xl font-semibold mb-6">Current Backup Status</h3>
               <div className="grid md:grid-cols-4 gap-4">
                 <div>
@@ -329,12 +329,12 @@ export default function GovernancePage() {
             </div>
 
             {/* Backup History */}
-            <div className="bg-white/5 rounded-lg p-6 border border-white/10">
+            <div className="bg-white/5 rounded-lg p-6 border border-border-subtle">
               <h3 className="text-xl font-semibold mb-6">Backup History</h3>
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead>
-                    <tr className="border-b border-white/10">
+                    <tr className="border-b border-border-subtle">
                       <th className="text-left py-3">Date</th>
                       <th className="text-left py-3">Type</th>
                       <th className="text-left py-3">Status</th>
@@ -344,7 +344,7 @@ export default function GovernancePage() {
                   </thead>
                   <tbody>
                     {backupData.history.slice(0, 10).map((backup) => (
-                      <tr key={backup.id} className="border-b border-white/5">
+                      <tr key={backup.id} className="border-b border-border-subtle">
                         <td className="py-3">
                           {new Date(backup.timestamp).toLocaleDateString()}
                         </td>
@@ -374,9 +374,9 @@ export default function GovernancePage() {
           <div className="space-y-6">
             {/* Compliance Overview */}
             <div className="grid md:grid-cols-4 gap-6">
-              <div className="bg-white/5 rounded-lg p-6 border border-white/10">
+              <div className="bg-white/5 rounded-lg p-6 border border-border-subtle">
                 <h3 className="text-lg font-semibold mb-4">Overall Score</h3>
-                <div className="text-3xl font-bold text-[#008080] mb-2">
+                <div className="text-3xl font-bold text-accent-blue mb-2">
                   {complianceData.overview.overall_score}%
                 </div>
                 <div className="text-sm text-white/60">
@@ -384,7 +384,7 @@ export default function GovernancePage() {
                 </div>
               </div>
 
-              <div className="bg-white/5 rounded-lg p-6 border border-white/10">
+              <div className="bg-white/5 rounded-lg p-6 border border-border-subtle">
                 <h3 className="text-lg font-semibold mb-4">Critical Issues</h3>
                 <div className="text-3xl font-bold text-green-500 mb-2">
                   {complianceData.overview.critical_issues}
@@ -392,7 +392,7 @@ export default function GovernancePage() {
                 <div className="text-sm text-white/60">No critical issues</div>
               </div>
 
-              <div className="bg-white/5 rounded-lg p-6 border border-white/10">
+              <div className="bg-white/5 rounded-lg p-6 border border-border-subtle">
                 <h3 className="text-lg font-semibold mb-4">Warnings</h3>
                 <div className="text-3xl font-bold text-yellow-500 mb-2">
                   {complianceData.overview.warnings}
@@ -400,9 +400,9 @@ export default function GovernancePage() {
                 <div className="text-sm text-white/60">Minor issues to address</div>
               </div>
 
-              <div className="bg-white/5 rounded-lg p-6 border border-white/10">
+              <div className="bg-white/5 rounded-lg p-6 border border-border-subtle">
                 <h3 className="text-lg font-semibold mb-4">Frameworks</h3>
-                <div className="text-3xl font-bold text-[#FFD700] mb-2">
+                <div className="text-3xl font-bold text-signal-yellow mb-2">
                   {Object.keys(complianceData.frameworks).length}
                 </div>
                 <div className="text-sm text-white/60">Active compliance frameworks</div>
@@ -410,7 +410,7 @@ export default function GovernancePage() {
             </div>
 
             {/* Framework Details */}
-            <div className="bg-white/5 rounded-lg p-6 border border-white/10">
+            <div className="bg-white/5 rounded-lg p-6 border border-border-subtle">
               <h3 className="text-xl font-semibold mb-6">Compliance Frameworks</h3>
               <div className="grid md:grid-cols-2 gap-6">
                 {Object.entries(complianceData.frameworks).map(([framework, data]) => (
@@ -427,7 +427,7 @@ export default function GovernancePage() {
                     </div>
                     <div className="flex justify-between items-center">
                       <span className="text-white/70">Score</span>
-                      <span className="text-[#008080] font-bold">{data.score}%</span>
+                      <span className="text-accent-blue font-bold">{data.score}%</span>
                     </div>
                     <div className="flex justify-between items-center mt-2">
                       <span className="text-white/70">Last Review</span>
@@ -445,7 +445,7 @@ export default function GovernancePage() {
         {/* Audit Tab */}
         {activeTab === 'audit' && (
           <div className="space-y-6">
-            <div className="bg-white/5 rounded-lg p-6 border border-white/10">
+            <div className="bg-white/5 rounded-lg p-6 border border-border-subtle">
               <h3 className="text-xl font-semibold mb-6">Audit Logs</h3>
               <div className="text-white/60">
                 Audit log functionality will be implemented with real-time log streaming and filtering capabilities.

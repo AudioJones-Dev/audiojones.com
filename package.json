@@ -8,7 +8,7 @@
         "build": "pnpm packages:build && next build",
         "start": "next start",
         "lint": "eslint",
-        "dx:init": "echo 'Setting up Doppler and environment...' && doppler setup --project ajdigital --config dev; doppler secrets download --no-file --format env > .env.development.local",
+        "dx:init": "echo 'Setting up Doppler and environment...' && doppler setup --no-interactive && doppler secrets download --no-file --format env > .env.development.local",
         "env:check": "tsx -e \"require('./packages/config/dist/index.js')\" && echo \"âœ… Environment validation successful\"",
         "prestart": "tsx -e \"require('./packages/config/dist/index.js')\"",
         "packages:build": "pnpm -r --filter='@aj/*' build",
@@ -50,7 +50,10 @@
         "deploy:prod": "pnpm vercel:patch-win && npx vercel --prod",
         "release:check": "bash scripts/release-check.sh",
         "validate": "tsx scripts/validate-local.ts",
-        "validate:summary": "tsx scripts/render-validation-summary.ts"
+        "validate:summary": "tsx scripts/render-validation-summary.ts",
+        "visual:qa:capture": "tsx scripts/visual-qa/capture-site-shot.ts",
+        "visual:qa:review": "tsx scripts/visual-qa/review-screenshots.ts",
+        "visual:qa": "pnpm visual:qa:capture && pnpm visual:qa:review"
     },
     "dependencies": {
         "@aj/config": "workspace:*",
@@ -67,7 +70,7 @@
         "groq": "^5.23.0",
         "imagekit": "^6.0.0",
         "lucide-react": "^0.546.0",
-        "next": "16.2.3",
+        "next": "16.2.6",
         "next-sanity": "^12.4.0",
         "react": "19.2.0",
         "react-dom": "19.2.0",

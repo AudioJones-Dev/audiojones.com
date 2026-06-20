@@ -22,41 +22,41 @@ export type NavItem = {
 // "Home" is included explicitly per the 2026-05-10 nav restructure brief
 // (overrides DESIGN.md §11.6's wordmark-as-home convention by deliberate
 // product decision).
+// One primary commercial path: Solutions is the canonical "what we sell"
+// surface (2026-06-18 canonical offer model alignment). Content surfaces
+// (Insights, Frameworks, Blog, Workshops, Case Studies, ROI Calculator) live
+// under Resources. "Contact" routes to the existing booking page; there is no
+// separate /contact route by design.
 export const mainNav: NavItem[] = [
   {
     label: "Home",
     href: "/",
-    description: "Audio Jones — Applied Intelligence Systems",
+    description: "Audio Jones — Founder Intelligence Systems",
   },
   {
-    label: "Agents",
-    href: "/agents",
-    description: "Production AI agents for founder-led businesses",
+    label: "Solutions",
+    href: "/solutions",
+    description: "What AJ Digital builds — the canonical offer ladder",
   },
   {
-    label: "Services",
-    href: "/services",
-    description: "Service offerings and engagement packages",
+    label: "Pricing",
+    href: "/pricing",
+    description: "Offers and pricing — start with a diagnostic",
   },
   {
-    label: "Case Studies",
-    href: "/case-studies",
-    description: "How operators apply intelligence — in their own words",
+    label: "About",
+    href: "/about",
+    description: "The strategist and operator behind the systems",
   },
   {
-    label: "Insights",
-    href: "/insights",
-    description: "Pillar essays on Applied Intelligence Systems",
+    label: "Resources",
+    href: "/resources",
+    description: "Insights, frameworks, blog, workshops, and the ROI calculator",
   },
   {
-    label: "ROI Calculator",
-    href: "/roi-calculator",
-    description: "Estimate AI ROI, readiness, and payback period",
-  },
-  {
-    label: "Workshops",
-    href: "/workshops",
-    description: "Operator workshops and live training sessions",
+    label: "Contact",
+    href: "/book-a-call",
+    description: "Book a call to scope the right system",
   },
 ];
 

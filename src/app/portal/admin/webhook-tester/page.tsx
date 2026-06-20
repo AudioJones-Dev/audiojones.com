@@ -81,7 +81,7 @@ export default function WebhookTesterPage() {
     <div className="max-w-4xl mx-auto p-6">
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-white mb-2">Webhook Signature Tester</h1>
-        <p className="text-gray-400">
+        <p className="text-text-muted">
           Test and validate AJ Event Bus webhook signatures for development and debugging.
         </p>
       </div>
@@ -94,7 +94,7 @@ export default function WebhookTesterPage() {
             
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-text-primary mb-2">
                   JSON Payload
                 </label>
                 <textarea
@@ -106,7 +106,7 @@ export default function WebhookTesterPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-text-primary mb-2">
                   Signature (x-aj-signature)
                 </label>
                 <input
@@ -119,7 +119,7 @@ export default function WebhookTesterPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-text-primary mb-2">
                   Timestamp (x-aj-timestamp) - Optional
                 </label>
                 <div className="flex gap-2">
@@ -164,19 +164,19 @@ export default function WebhookTesterPage() {
             <div className="space-y-2">
               <button
                 onClick={() => setPayload('{\n  "event": "user.created",\n  "data": {\n    "user_id": "user_123",\n    "email": "test@example.com"\n  }\n}')}
-                className="block w-full text-left px-3 py-2 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded text-sm"
+                className="block w-full text-left px-3 py-2 bg-gray-800 hover:bg-gray-700 text-text-primary rounded text-sm"
               >
                 User Created Event
               </button>
               <button
                 onClick={() => setPayload('{\n  "event": "order.completed",\n  "data": {\n    "order_id": "ord_456",\n    "amount": 99.99\n  }\n}')}
-                className="block w-full text-left px-3 py-2 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded text-sm"
+                className="block w-full text-left px-3 py-2 bg-gray-800 hover:bg-gray-700 text-text-primary rounded text-sm"
               >
                 Order Completed Event
               </button>
               <button
                 onClick={() => setPayload('{\n  "event": "misc.test",\n  "data": {\n    "test": true,\n    "timestamp": "' + new Date().toISOString() + '"\n  }\n}')}
-                className="block w-full text-left px-3 py-2 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded text-sm"
+                className="block w-full text-left px-3 py-2 bg-gray-800 hover:bg-gray-700 text-text-primary rounded text-sm"
               >
                 Misc Test Event
               </button>
@@ -218,25 +218,25 @@ export default function WebhookTesterPage() {
                   <div className="grid grid-cols-2 gap-4 text-sm">
                     {result.event_type && (
                       <div>
-                        <span className="text-gray-400">Event Type:</span>
+                        <span className="text-text-muted">Event Type:</span>
                         <div className="text-white font-mono">{result.event_type}</div>
                       </div>
                     )}
                     {result.payload_size && (
                       <div>
-                        <span className="text-gray-400">Payload Size:</span>
+                        <span className="text-text-muted">Payload Size:</span>
                         <div className="text-white font-mono">{result.payload_size} bytes</div>
                       </div>
                     )}
                     {result.signature_method && (
                       <div>
-                        <span className="text-gray-400">Signature Method:</span>
+                        <span className="text-text-muted">Signature Method:</span>
                         <div className="text-white font-mono">{result.signature_method}</div>
                       </div>
                     )}
                     {result.timestamp && (
                       <div>
-                        <span className="text-gray-400">Verified At:</span>
+                        <span className="text-text-muted">Verified At:</span>
                         <div className="text-white font-mono text-xs">{result.timestamp}</div>
                       </div>
                     )}
@@ -249,7 +249,7 @@ export default function WebhookTesterPage() {
           {/* Documentation */}
           <div className="bg-gray-900 rounded-lg p-6 mt-6">
             <h3 className="text-lg font-semibold text-white mb-3">How to Generate Signatures</h3>
-            <div className="text-sm text-gray-300 space-y-3">
+            <div className="text-sm text-text-primary space-y-3">
               <p>
                 AJ Event Bus uses HMAC-SHA256 signatures with the format:
               </p>
@@ -274,7 +274,7 @@ console.log('sha256=' + signature);`}
               <p className="pt-2">
                 <strong className="text-white">Required Headers:</strong>
               </p>
-              <ul className="list-disc list-inside space-y-1 text-gray-400">
+              <ul className="list-disc list-inside space-y-1 text-text-muted">
                 <li><code>x-aj-signature</code> - HMAC signature</li>
                 <li><code>x-aj-timestamp</code> - Unix timestamp (optional)</li>
                 <li><code>x-aj-id</code> - Unique event ID (optional)</li>

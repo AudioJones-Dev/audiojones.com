@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import Breadcrumbs from "@/components/applied-intelligence/Breadcrumbs";
+import Breadcrumbs from "@/components/founder-intelligence/Breadcrumbs";
 import FrameworkArticle, {
   H2,
   P,
   UL,
-} from "@/components/applied-intelligence/FrameworkArticle";
-import FAQ from "@/components/applied-intelligence/FAQ";
+} from "@/components/founder-intelligence/FrameworkArticle";
+import FAQ from "@/components/founder-intelligence/FAQ";
 import JsonLd from "@/components/seo/JsonLd";
 import { buildMetadata } from "@/lib/seo/metadata";
 import {
@@ -16,20 +16,20 @@ import {
 } from "@/lib/seo/schema";
 
 const PATH = "/frameworks/map-attribution";
-const TITLE = "M.A.P Attribution Framework";
+const TITLE = "M.A.P. Attribution Framework";
 const DEFINITION =
-  "M.A.P Attribution is an Audio Jones methodology for evaluating whether a metric or data point is Meaningful, Actionable, and Profitable before it drives business strategy.";
+  "The M.A.P. Attribution Framework is an Audio Jones methodology built on the M.A.P. (Meaningful. Actionable. Profitable.) decision framework. It applies that filter to determine whether a marketing channel, campaign, or metric is Meaningful, Actionable, and Profitable before it drives business strategy.";
 
 const FAQS = [
   {
-    question: "What is the M.A.P Attribution Framework?",
+    question: "What is the M.A.P. Attribution Framework?",
     answer:
-      "M.A.P is a three-question filter — Meaningful, Actionable, Profitable — that every metric must pass before it earns the right to drive a business decision. It separates causal signal from vanity activity.",
+      "M.A.P. (Meaningful. Actionable. Profitable.) is a three-question filter that every metric must pass before it earns the right to drive a business decision. It separates causal signal from vanity activity.",
   },
   {
-    question: "How is M.A.P different from marketing analytics?",
+    question: "How is M.A.P. different from marketing analytics?",
     answer:
-      "Marketing analytics typically measures activity. M.A.P measures decision quality. A click-through rate may be tracked, but if it can't move a decision and can't be tied to profit, M.A.P retires it from the dashboard.",
+      "Marketing analytics typically measures activity. M.A.P. measures decision quality. A click-through rate may be tracked, but if it can't move a decision and can't be tied to profit, M.A.P. retires it from the dashboard.",
   },
   {
     question: "Why does attribution matter for small businesses?",
@@ -44,14 +44,14 @@ const FAQS = [
   {
     question: "What is a high-signal metric?",
     answer:
-      "A high-signal metric passes all three M.A.P filters: it matters to the business, it can change a decision, and it ties to profit. Most dashboards contain two or three of these surrounded by noise.",
+      "A high-signal metric passes all three M.A.P. filters: it matters to the business, it can change a decision, and it ties to profit. Most dashboards contain two or three of these surrounded by noise.",
   },
 ];
 
 export const metadata: Metadata = buildMetadata({
-  title: `${TITLE} | Audio Jones Framework`,
+  title: TITLE,
   description:
-    "M.A.P Attribution: a three-filter framework that decides which metrics earn the right to drive your strategy.",
+    "M.A.P. Attribution: a three-filter framework that decides which metrics earn the right to drive your strategy.",
   path: PATH,
   type: "article",
 });
@@ -84,8 +84,8 @@ export default function Page() {
 
       <FrameworkArticle
         eyebrow="Framework"
-        title="M.A.P Attribution: the filter every metric must earn its way through."
-        intro="Most dashboards are confidence theatre. M.A.P is the filter that strips them down to the data that actually moves the business."
+        title="M.A.P. Attribution: the filter every metric must earn its way through."
+        intro="Most dashboards are confidence theatre. M.A.P. (Meaningful. Actionable. Profitable.) is the filter that strips them down to the data that actually moves the business."
         definition={DEFINITION}
       >
         <H2>Why most attribution is wrong</H2>
@@ -93,7 +93,7 @@ export default function Page() {
           Most attribution models track which channel a lead touched last —
           not which channel caused the lead. They reward whichever surface had
           the cookie when conversion happened, regardless of where the
-          intent was actually formed. M.A.P forces a different question: did
+          intent was actually formed. M.A.P. forces a different question: did
           this metric move a decision, and did the decision move profit?
         </P>
 
@@ -124,7 +124,7 @@ export default function Page() {
         <H2>Signal vs noise scoring</H2>
         <UL
           items={[
-            "Score every dashboard tile against M, A, and P (0 or 1 each).",
+            "Score every dashboard tile against M.A.P. — Meaningful, Actionable, Profitable (0 or 1 each).",
             "0–1: noise — remove or relegate to diagnostics.",
             "2: borderline — keep, but instrument for the missing dimension.",
             "3: signal — protect, automate, and tie to a named decision owner.",

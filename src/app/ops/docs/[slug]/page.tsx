@@ -71,7 +71,7 @@ export default async function DocPage({ params }: DocPageProps) {
               <li key={`${file.source}-${file.name}`}>
                 <a
                   href={`/ops/docs/${file.name.replace(".md", "")}`}
-                  className="text-orange-500 underline"
+                  className="text-signal-yellow underline"
                 >
                   {file.name}
                 </a>

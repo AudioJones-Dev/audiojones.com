@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Breadcrumbs from "@/components/applied-intelligence/Breadcrumbs";
-import FAQ from "@/components/applied-intelligence/FAQ";
-import FinalCTA from "@/components/applied-intelligence/FinalCTA";
-import MissingMiddleDiagram from "@/components/applied-intelligence/MissingMiddleDiagram";
-import Step2Framework from "@/components/applied-intelligence/Step2Framework";
+import Breadcrumbs from "@/components/founder-intelligence/Breadcrumbs";
+import FAQ from "@/components/founder-intelligence/FAQ";
+import FinalCTA from "@/components/founder-intelligence/FinalCTA";
+import MissingMiddleDiagram from "@/components/founder-intelligence/MissingMiddleDiagram";
+import Step2Framework from "@/components/founder-intelligence/Step2Framework";
 import JsonLd from "@/components/seo/JsonLd";
 import { buildMetadata } from "@/lib/seo/metadata";
 import {
@@ -28,14 +28,14 @@ const FAQS = [
       "AI projects often fail because businesses automate unclear workflows, skip operational diagnosis, lack attribution, and do not define measurable outcomes before implementation.",
   },
   {
-    question: "What is the difference between AI hype and applied intelligence?",
+    question: "What is the difference between AI hype and founder intelligence?",
     answer:
       "AI hype focuses on tools and promises. Applied intelligence focuses on using tools inside real workflows to produce measurable business outcomes.",
   },
   {
     question: "How does Audio Jones help businesses with AI?",
     answer:
-      "Audio Jones helps businesses identify bottlenecks, redesign workflows, build applied intelligence systems, create attribution loops, and measure whether AI improves revenue, margin, speed, or decision quality.",
+      "Audio Jones helps businesses identify bottlenecks, redesign workflows, build founder intelligence systems, create attribution loops, and measure whether AI improves revenue, margin, speed, or decision quality.",
   },
   {
     question: "What should a business do before adopting AI?",
@@ -46,9 +46,9 @@ const FAQS = [
 
 export const metadata: Metadata = {
   ...buildMetadata({
-    title: "Step 2: The Missing Layer Between AI Hype and Profit | Audio Jones",
+    title: "Step 2: The Missing Layer Between AI Hype and Profit",
     description:
-      "Step 2 is the missing operating layer between AI capability and measurable business outcomes. Audio Jones helps businesses turn AI hype into applied intelligence, attribution, workflow redesign, and profit.",
+      "Step 2 is the missing operating layer between AI capability and measurable business outcomes. Audio Jones helps businesses turn AI hype into founder intelligence, attribution, workflow redesign, and profit.",
     path: PATH,
     type: "article",
   }),
@@ -81,43 +81,43 @@ export default function Step2Page() {
       />
 
       {/* Hero */}
-      <section className="relative isolate overflow-hidden bg-[#05070F] pt-20 pb-16">
+      <section className="relative isolate overflow-hidden bg-bg-base pt-20 pb-16">
         <div
           aria-hidden
-          className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_15%_20%,rgba(59,91,255,0.18),transparent_55%),radial-gradient(circle_at_85%_85%,rgba(200,169,106,0.10),transparent_60%)]"
+          className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_15%_20%,rgba(77,172,255,0.18),transparent_55%),radial-gradient(circle_at_85%_85%,rgba(232,255,90,0.10),transparent_60%)]"
         />
         <div className="mx-auto max-w-4xl px-5 sm:px-8">
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.22em] text-[#C8A96A]">
-            Applied Intelligence for the missing middle
+          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.22em] text-signal-yellow">
+            Founder Intelligence for the missing middle
           </p>
           <h1 className="text-balance text-4xl font-semibold leading-[1.05] text-white sm:text-5xl lg:text-6xl">
             Step 2: The Missing Layer Between AI Hype and Profit
           </h1>
-          <p className="mt-6 text-lg text-slate-300 sm:text-xl">
+          <p className="mt-6 text-lg text-text-muted sm:text-xl">
             AI has Step 1 — powerful tools. AI promises Step 3 — profit,
             leverage, and transformation. But most businesses are missing
             Step 2: the operating layer that turns AI capability into
             measurable business outcomes.
           </p>
-          <p className="mt-4 text-lg text-slate-300">
+          <p className="mt-4 text-lg text-text-muted">
             Audio Jones builds Step 2 through{" "}
             <Link
-              href="/applied-intelligence"
-              className="text-[#3B5BFF] hover:text-[#5B7AFF]"
+              href="/founder-intelligence"
+              className="text-accent-blue hover:text-accent-blue"
             >
-              applied intelligence
+              founder intelligence
             </Link>
             ,{" "}
             <Link
               href="/frameworks/map-attribution"
-              className="text-[#3B5BFF] hover:text-[#5B7AFF]"
+              className="text-accent-blue hover:text-accent-blue"
             >
               attribution
             </Link>
             , workflow redesign, and{" "}
             <Link
               href={ctaLinks.signalDiagnostic}
-              className="text-[#3B5BFF] hover:text-[#5B7AFF]"
+              className="text-accent-blue hover:text-accent-blue"
             >
               AI readiness
             </Link>
@@ -126,27 +126,27 @@ export default function Step2Page() {
           <div className="mt-10 flex flex-wrap items-center gap-3">
             <Link
               href={ctaLinks.signalDiagnostic}
-              className="inline-flex items-center justify-center rounded-md bg-[#3B5BFF] px-6 py-3 text-sm font-semibold text-white shadow-[0_10px_40px_-10px_rgba(59,91,255,0.7)] transition hover:bg-[#5B7AFF]"
+              className="inline-flex items-center justify-center rounded-md bg-accent-blue px-6 py-3 text-sm font-semibold text-white shadow-[0_10px_40px_-10px_rgba(77,172,255,0.7)] transition hover:bg-accent-blue"
             >
               Build Your Step 2 System
             </Link>
             <Link
-              href="/applied-intelligence"
-              className="inline-flex items-center justify-center rounded-md border border-white/15 px-6 py-3 text-sm font-semibold text-white transition hover:border-white/30 hover:bg-white/5"
+              href="/founder-intelligence"
+              className="inline-flex items-center justify-center rounded-md border border-border-subtle px-6 py-3 text-sm font-semibold text-white transition hover:border-border-strong hover:bg-white/5"
             >
-              Explore Applied Intelligence
+              Explore Founder Intelligence
             </Link>
           </div>
         </div>
       </section>
 
       {/* Direct answer block (AEO) */}
-      <section className="bg-[#0B1020] py-14">
+      <section className="bg-surface-1 py-14">
         <div className="mx-auto max-w-3xl px-5 sm:px-8">
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#C8A96A]">
+          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-signal-yellow">
             Direct answer
           </p>
-          <p className="text-lg leading-relaxed text-slate-100">
+          <p className="text-lg leading-relaxed text-text-primary">
             Step 2 is the missing operating layer between AI capability and
             measurable business outcomes. It includes workflow redesign,
             business diagnosis, AI readiness, attribution, implementation
@@ -158,13 +158,13 @@ export default function Step2Page() {
       </section>
 
       {/* Diagram */}
-      <section className="border-t border-white/5 bg-[#05070F] py-20">
+      <section className="border-t border-border-subtle bg-bg-base py-20">
         <div className="mx-auto max-w-6xl px-5 sm:px-8">
           <div className="mb-10 max-w-3xl">
             <h2 className="text-balance text-3xl font-semibold leading-tight text-white sm:text-4xl">
               The missing layer between AI hype and profit.
             </h2>
-            <p className="mt-3 text-lg text-slate-300">
+            <p className="mt-3 text-lg text-text-muted">
               AI tools do not create transformation by themselves. They need
               to be connected to real business bottlenecks, redesigned
               workflows, and evidence-based measurement systems.
@@ -175,16 +175,16 @@ export default function Step2Page() {
       </section>
 
       {/* What is Step 2? */}
-      <section className="border-t border-white/5 bg-[#0B1020] py-20">
+      <section className="border-t border-border-subtle bg-surface-1 py-20">
         <div className="mx-auto max-w-3xl px-5 sm:px-8">
           <h2 className="text-3xl font-semibold text-white sm:text-4xl">
             What is Step 2?
           </h2>
-          <p className="mt-4 text-lg text-slate-300">
+          <p className="mt-4 text-lg text-text-muted">
             Step 2 is the missing operating layer between AI capability and
             measurable profit. It includes:
           </p>
-          <ul className="mt-6 grid gap-2 text-slate-200 sm:grid-cols-2">
+          <ul className="mt-6 grid gap-2 text-text-primary sm:grid-cols-2">
             {[
               "business diagnosis",
               "bottleneck identification",
@@ -199,29 +199,29 @@ export default function Step2Page() {
             ].map((item) => (
               <li
                 key={item}
-                className="rounded-md border border-white/10 bg-[#101827] px-4 py-3"
+                className="rounded-md border border-border-subtle bg-surface-2 px-4 py-3"
               >
                 — {item}
               </li>
             ))}
           </ul>
-          <p className="mt-6 text-lg text-slate-300">
+          <p className="mt-6 text-lg text-text-muted">
             Without Step 2, AI remains hype. With Step 2, AI becomes
-            applied intelligence.
+            founder intelligence.
           </p>
         </div>
       </section>
 
       {/* S.T.E.P. 2 framework */}
-      <section className="border-t border-white/5 bg-[#05070F] py-20">
+      <section className="border-t border-border-subtle bg-bg-base py-20">
         <div className="mx-auto max-w-5xl px-5 sm:px-8">
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#C8A96A]">
+          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-signal-yellow">
             Framework
           </p>
           <h2 className="text-balance text-3xl font-semibold text-white sm:text-4xl">
             The S.T.E.P. 2 Framework
           </h2>
-          <p className="mt-4 max-w-2xl text-lg text-slate-300">
+          <p className="mt-4 max-w-2xl text-lg text-text-muted">
             Audio Jones uses the S.T.E.P. 2 Framework to convert AI from hype
             into business leverage. Signal identifies the real bottleneck.
             Translation converts AI capability into usable workflows.
@@ -235,18 +235,18 @@ export default function Step2Page() {
       </section>
 
       {/* AI is not the strategy */}
-      <section className="border-t border-white/5 bg-[#0B1020] py-20">
+      <section className="border-t border-border-subtle bg-surface-1 py-20">
         <div className="mx-auto max-w-3xl px-5 sm:px-8">
           <h2 className="text-3xl font-semibold text-white sm:text-4xl">
             AI is not the strategy.
           </h2>
-          <p className="mt-4 text-lg text-slate-300">
+          <p className="mt-4 text-lg text-text-muted">
             AI is the amplifier. If your workflow is broken, AI scales the
             break. If your attribution is weak, AI scales the confusion. If
             your offer is unclear, AI scales the noise.
           </p>
-          <p className="mt-4 text-lg text-slate-300">Step 2 is where the money is:</p>
-          <ul className="mt-4 grid gap-2 text-slate-200 sm:grid-cols-2">
+          <p className="mt-4 text-lg text-text-muted">Step 2 is where the money is:</p>
+          <ul className="mt-4 grid gap-2 text-text-primary sm:grid-cols-2">
             {[
               "diagnosis",
               "redesign",
@@ -257,7 +257,7 @@ export default function Step2Page() {
             ].map((item) => (
               <li
                 key={item}
-                className="rounded-md border border-white/10 bg-[#101827] px-4 py-3"
+                className="rounded-md border border-border-subtle bg-surface-2 px-4 py-3"
               >
                 — {item}
               </li>
@@ -267,16 +267,16 @@ export default function Step2Page() {
       </section>
 
       {/* Why most AI implementations fail */}
-      <section className="border-t border-white/5 bg-[#05070F] py-20">
+      <section className="border-t border-border-subtle bg-bg-base py-20">
         <div className="mx-auto max-w-3xl px-5 sm:px-8">
           <h2 className="text-3xl font-semibold text-white sm:text-4xl">
             Why most AI implementations fail
           </h2>
-          <p className="mt-4 text-lg text-slate-300">
+          <p className="mt-4 text-lg text-text-muted">
             Most AI projects fail because businesses skip the operational
             layer. They:
           </p>
-          <ul className="mt-4 list-disc space-y-2 pl-6 text-slate-300">
+          <ul className="mt-4 list-disc space-y-2 pl-6 text-text-muted">
             <li>buy tools before diagnosing bottlenecks,</li>
             <li>automate workflows before redesigning them,</li>
             <li>chase productivity before defining attribution,</li>
@@ -284,22 +284,22 @@ export default function Step2Page() {
             <li>confuse demos with deployment,</li>
             <li>confuse automation with profit.</li>
           </ul>
-          <p className="mt-4 text-lg text-slate-300">Step 2 fixes that.</p>
+          <p className="mt-4 text-lg text-text-muted">Step 2 fixes that.</p>
         </div>
       </section>
 
       {/* What Audio Jones builds */}
-      <section className="border-t border-white/5 bg-[#0B1020] py-20">
+      <section className="border-t border-border-subtle bg-surface-1 py-20">
         <div className="mx-auto max-w-3xl px-5 sm:px-8">
           <h2 className="text-3xl font-semibold text-white sm:text-4xl">
             What Audio Jones builds
           </h2>
-          <p className="mt-4 text-lg text-slate-300">
+          <p className="mt-4 text-lg text-text-muted">
             Audio Jones helps businesses install the missing operational
             layer between AI capability and measurable outcomes. That
             includes:
           </p>
-          <ul className="mt-4 list-disc space-y-2 pl-6 text-slate-300">
+          <ul className="mt-4 list-disc space-y-2 pl-6 text-text-muted">
             <li>identifying where profit is leaking,</li>
             <li>mapping the current workflow,</li>
             <li>removing unnecessary complexity,</li>
@@ -314,24 +314,24 @@ export default function Step2Page() {
       </section>
 
       {/* Offer bridge */}
-      <section className="border-t border-white/5 bg-[#05070F] py-20">
+      <section className="border-t border-border-subtle bg-bg-base py-20">
         <div className="mx-auto max-w-3xl px-5 sm:px-8">
           <h2 className="text-3xl font-semibold text-white sm:text-4xl">
             From Step 2 to implementation
           </h2>
-          <p className="mt-4 text-lg text-slate-300">
+          <p className="mt-4 text-lg text-text-muted">
             Step 2 is not theory. It becomes an implementation system. Audio
             Jones can help diagnose, design, and build the operating layer
             your business needs before AI can produce meaningful leverage.
           </p>
-          <p className="mt-4 text-lg text-slate-300">
+          <p className="mt-4 text-lg text-text-muted">
             If you are trying to use AI but cannot clearly connect it to
             revenue, margin, speed, or decision quality, you do not have an
             AI problem. You have a Step 2 problem.
           </p>
           <Link
             href={ctaLinks.signalDiagnostic}
-            className="mt-8 inline-flex items-center justify-center rounded-md bg-[#3B5BFF] px-6 py-3 text-sm font-semibold text-white shadow-[0_10px_40px_-10px_rgba(59,91,255,0.7)] transition hover:bg-[#5B7AFF]"
+            className="mt-8 inline-flex items-center justify-center rounded-md bg-accent-blue px-6 py-3 text-sm font-semibold text-white shadow-[0_10px_40px_-10px_rgba(77,172,255,0.7)] transition hover:bg-accent-blue"
           >
             Build Your Step 2 System
           </Link>
@@ -339,7 +339,7 @@ export default function Step2Page() {
       </section>
 
       {/* FAQ */}
-      <section className="border-t border-white/5 bg-[#0B1020] py-20">
+      <section className="border-t border-border-subtle bg-surface-1 py-20">
         <div className="mx-auto max-w-3xl px-5 sm:px-8">
           <h2 className="mb-8 text-3xl font-semibold text-white sm:text-4xl">
             Frequently asked questions

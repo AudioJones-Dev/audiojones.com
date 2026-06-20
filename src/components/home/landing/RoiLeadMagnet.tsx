@@ -42,18 +42,18 @@ export default function RoiLeadMagnet() {
         </div>
 
         <div
-          className="rounded-[var(--r-panel)] border border-[rgba(148,163,184,0.16)] p-6 sm:p-8"
+          className="rounded-[var(--r-panel)] border border-[rgba(102,102,102,0.16)] p-6 sm:p-8"
           style={{
             background: "rgba(10,14,28,0.72)",
             backdropFilter: "blur(14px)",
             boxShadow: "0 24px 80px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.04)",
           }}
         >
-          <div className="flex items-center justify-between border-b border-[rgba(148,163,184,0.14)] pb-4">
+          <div className="flex items-center justify-between border-b border-[rgba(102,102,102,0.14)] pb-4">
             <p className="font-mono text-xs font-bold uppercase tracking-[0.14em] text-fg-3">
               Signal Output
             </p>
-            <span className="rounded-full border border-[rgba(0,164,255,0.28)] bg-[rgba(0,164,255,0.10)] px-3 py-1 font-mono text-xs font-bold text-[var(--aj-blue)]">
+            <span className="rounded-full border border-[rgba(77,172,255,0.28)] bg-[rgba(77,172,255,0.10)] px-3 py-1 font-mono text-xs font-bold text-[var(--aj-blue)]">
               ROI PREVIEW
             </span>
           </div>
@@ -63,7 +63,7 @@ export default function RoiLeadMagnet() {
                 <span className="mb-2 block text-xs font-bold uppercase tracking-[0.12em] text-fg-3">
                   {label}
                 </span>
-                <span className="flex min-h-12 items-center rounded-xl border border-[rgba(148,163,184,0.14)] bg-[rgba(5,7,15,0.55)] px-4 font-mono text-lg font-bold text-fg-0">
+                <span className="flex min-h-12 items-center rounded-xl border border-[rgba(102,102,102,0.14)] bg-[rgba(5,7,15,0.55)] px-4 font-mono text-lg font-bold text-fg-0">
                   {value}
                 </span>
               </label>

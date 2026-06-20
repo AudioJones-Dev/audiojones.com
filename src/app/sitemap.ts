@@ -13,6 +13,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticRoutes: MetadataRoute.Sitemap = [
     // Primary nav
     { url: base,                                        lastModified: now, changeFrequency: "weekly",  priority: 1    },
+    { url: `${base}/solutions`,                         lastModified: now, changeFrequency: "weekly",  priority: 0.95 },
+    { url: `${base}/resources`,                         lastModified: now, changeFrequency: "weekly",  priority: 0.7  },
     { url: `${base}/agents`,                            lastModified: now, changeFrequency: "weekly",  priority: 0.9  },
     { url: `${base}/agents/responseos`,                 lastModified: now, changeFrequency: "weekly",  priority: 0.9  },
     { url: `${base}/services`,                          lastModified: now, changeFrequency: "weekly",  priority: 0.9  },
@@ -24,8 +26,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${base}/ai-readiness-diagnostic`,           lastModified: now, changeFrequency: "monthly", priority: 0.9  },
     { url: `${base}/book-a-call`,                       lastModified: now, changeFrequency: "monthly", priority: 0.85 },
     // Supporting surfaces
-    { url: `${base}/applied-intelligence`,              lastModified: now, changeFrequency: "weekly",  priority: 0.85 },
-    { url: `${base}/applied-intelligence/diagnostic`,   lastModified: now, changeFrequency: "monthly", priority: 0.85 },
+    { url: `${base}/founder-intelligence`,              lastModified: now, changeFrequency: "weekly",  priority: 0.85 },
+    { url: `${base}/founder-intelligence/diagnostic`,   lastModified: now, changeFrequency: "monthly", priority: 0.85 },
+    { url: `${base}/founder-gravity-audit`,             lastModified: now, changeFrequency: "monthly", priority: 0.9  },
+    { url: `${base}/founder-gravity-audit/diagnostic`,  lastModified: now, changeFrequency: "monthly", priority: 0.9  },
     { url: `${base}/apply`,                             lastModified: now, changeFrequency: "monthly", priority: 0.85 },
     { url: `${base}/pricing`,                           lastModified: now, changeFrequency: "monthly", priority: 0.85 },
     { url: `${base}/frameworks`,                        lastModified: now, changeFrequency: "monthly", priority: 0.8  },

@@ -12,7 +12,7 @@ import { proofSignals, responseOsFlow } from "@/data/audiojones-design";
 import { buildMetadata } from "@/lib/seo/metadata";
 
 const DESCRIPTION =
-  "ResponseOS is revenue recovery infrastructure for founder-led businesses that need faster response, better qualification, and measurable follow-up.";
+  "ResponseOS is the AI Receptionist System for founder-led businesses: revenue-recovery infrastructure for faster response, better qualification, and measurable follow-up.";
 
 export const metadata: Metadata = buildMetadata({
   title: "ResponseOS Revenue Recovery Infrastructure",
@@ -85,7 +85,7 @@ export default function ResponseOsPage() {
       <LightProofSection>
         <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#0088cc]">
+            <p className="text-xs font-bold uppercase tracking-[0.16em] text-[var(--aj-blue-deep)]">
               ROI Snapshot
             </p>
             <h2 className="mt-4 font-accent text-[clamp(2.25rem,4vw,4rem)] font-bold leading-[1.02] tracking-[-0.035em]">
@@ -140,7 +140,7 @@ export default function ResponseOsPage() {
 
       <FinalCta
         title="Recover the revenue already trying to reach you."
-        description="Estimate the leak, then decide whether ResponseOS is the right infrastructure layer."
+        description="Estimate the leak, then decide whether ResponseOS — the AI Receptionist System — is the right build. See how it fits the full offer ladder on Solutions."
         primaryLabel="Calculate Lost Revenue"
         primaryHref="/roi-calculator"
         secondaryLabel="Book a Call"

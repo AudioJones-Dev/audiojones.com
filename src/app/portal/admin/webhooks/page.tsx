@@ -37,10 +37,7 @@ export default function WebhooksPage() {
 
   const fetchEvents = async () => {
     try {
-      const response = await fetch('/api/admin/webhooks', {
-        headers: {
-          'admin-key': 'gGho3TE8ztiSAMvORfyCDem62Fk0xpW1'
-        }
+      const response = await fetch('/api/_proxy/admin/webhooks', {
       });
 
       if (response.ok) {
@@ -68,11 +65,10 @@ export default function WebhooksPage() {
     setReplayingIds(prev => new Set([...prev, eventId]));
     
     try {
-      const response = await fetch('/api/admin/webhooks/replay', {
+      const response = await fetch('/api/_proxy/admin/webhooks/replay', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'admin-key': 'gGho3TE8ztiSAMvORfyCDem62Fk0xpW1'
         },
         body: JSON.stringify({ event_id: eventId })
       });
@@ -134,7 +130,7 @@ export default function WebhooksPage() {
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-2xl font-bold">Webhook Replayer</h1>
-          <p className="text-gray-400 mt-1">Debug and replay webhook events</p>
+          <p className="text-text-muted mt-1">Debug and replay webhook events</p>
         </div>
         <button 
           onClick={fetchEvents}
@@ -151,7 +147,7 @@ export default function WebhooksPage() {
           <div className="flex items-center gap-2">
             <RefreshCw className="h-5 w-5 text-blue-400" />
             <div>
-              <p className="text-sm text-gray-400">Total Events</p>
+              <p className="text-sm text-text-muted">Total Events</p>
               <p className="text-2xl font-bold">{stats.total}</p>
             </div>
           </div>
@@ -161,7 +157,7 @@ export default function WebhooksPage() {
           <div className="flex items-center gap-2">
             <CheckCircle className="h-5 w-5 text-green-400" />
             <div>
-              <p className="text-sm text-gray-400">Processed</p>
+              <p className="text-sm text-text-muted">Processed</p>
               <p className="text-2xl font-bold">{stats.successful}</p>
             </div>
           </div>
@@ -171,7 +167,7 @@ export default function WebhooksPage() {
           <div className="flex items-center gap-2">
             <Play className="h-5 w-5 text-purple-400" />
             <div>
-              <p className="text-sm text-gray-400">Replayed</p>
+              <p className="text-sm text-text-muted">Replayed</p>
               <p className="text-2xl font-bold">{stats.replayed}</p>
             </div>
           </div>
@@ -182,19 +178,19 @@ export default function WebhooksPage() {
       <div className="bg-gray-900 rounded-lg border border-gray-700">
         <div className="p-4 border-b border-gray-700">
           <h2 className="text-lg font-semibold">Recent Webhook Events</h2>
-          <p className="text-sm text-gray-400">Last 50 events with replay capabilities</p>
+          <p className="text-sm text-text-muted">Last 50 events with replay capabilities</p>
         </div>
         
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
               <tr className="border-b border-gray-700">
-                <th className="text-left p-4 font-medium text-gray-300">Event</th>
-                <th className="text-left p-4 font-medium text-gray-300">Customer</th>
-                <th className="text-left p-4 font-medium text-gray-300">Timestamp</th>
-                <th className="text-left p-4 font-medium text-gray-300">Status</th>
-                <th className="text-left p-4 font-medium text-gray-300">Replays</th>
-                <th className="text-left p-4 font-medium text-gray-300">Actions</th>
+                <th className="text-left p-4 font-medium text-text-primary">Event</th>
+                <th className="text-left p-4 font-medium text-text-primary">Customer</th>
+                <th className="text-left p-4 font-medium text-text-primary">Timestamp</th>
+                <th className="text-left p-4 font-medium text-text-primary">Status</th>
+                <th className="text-left p-4 font-medium text-text-primary">Replays</th>
+                <th className="text-left p-4 font-medium text-text-primary">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -206,14 +202,14 @@ export default function WebhooksPage() {
                         {event.event_type}
                       </Badge>
                       {event.tier && (
-                        <span className="text-sm text-gray-400">• {event.tier}</span>
+                        <span className="text-sm text-text-muted">• {event.tier}</span>
                       )}
                     </div>
                   </td>
                   
                   <td className="p-4">
                     <div className="flex items-center gap-2">
-                      <Mail className="h-4 w-4 text-gray-400" />
+                      <Mail className="h-4 w-4 text-text-muted" />
                       <span className="text-sm">{event.customer_email}</span>
                     </div>
                   </td>
@@ -221,11 +217,11 @@ export default function WebhooksPage() {
                   <td className="p-4">
                     <div className="text-sm">
                       <div className="flex items-center gap-2">
-                        <Clock className="h-4 w-4 text-gray-400" />
+                        <Clock className="h-4 w-4 text-text-muted" />
                         {formatTimestamp(event.timestamp)}
                       </div>
                       {event.processing_time_ms && (
-                        <div className="text-xs text-gray-500 mt-1">
+                        <div className="text-xs text-text-muted mt-1">
                           {event.processing_time_ms}ms
                         </div>
                       )}
@@ -261,7 +257,7 @@ export default function WebhooksPage() {
                     <div className="text-sm">
                       <div className="font-medium">{event.replay_count}</div>
                       {event.last_replay_at && (
-                        <div className="text-xs text-gray-500">
+                        <div className="text-xs text-text-muted">
                           Last: {formatTimestamp(event.last_replay_at)}
                         </div>
                       )}
@@ -297,7 +293,7 @@ export default function WebhooksPage() {
           </table>
           
           {events.length === 0 && (
-            <div className="p-8 text-center text-gray-400">
+            <div className="p-8 text-center text-text-muted">
               <RefreshCw className="h-12 w-12 mx-auto mb-4 opacity-50" />
               <p>No webhook events found</p>
               <p className="text-sm">Events will appear here once webhooks are received</p>

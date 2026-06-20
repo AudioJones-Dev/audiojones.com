@@ -51,11 +51,11 @@ The current `src/app/services/page.tsx` is the worst-offending DESIGN.md-drift f
 ### Anti-goals
 
 - ❌ No nav restructure (PR #50 owns `src/config/nav.ts` + Header/Footer single-source — do not touch).
-- ❌ No CTA destination changes to `signalDiagnostic` (PR #51 unified the constant; PR #53 set its value to `/applied-intelligence/diagnostic`. Both diagnostic and ROI CTAs must continue to flow through `ctaLinks` in `src/config/links.ts`).
+- ❌ No CTA destination changes to `signalDiagnostic` (PR #51 unified the constant; PR #53 set its value to `/founder-intelligence/diagnostic`. Both diagnostic and ROI CTAs must continue to flow through `ctaLinks` in `src/config/links.ts`).
 - ❌ No new routes added — `/services` stays at `/services`.
 - ❌ No new font dependencies (DESIGN.md §15).
 - ❌ No new color tokens introduced — work within the existing `--bg-*`, `--fg-*`, `--line-*`, `--signal`, `--system`, `--metric` palette.
-- ❌ No changes to `/applied-intelligence`, `/roi-calculator`, `/apply`, `/blog`, or other existing routes.
+- ❌ No changes to `/founder-intelligence`, `/roi-calculator`, `/apply`, `/blog`, or other existing routes.
 - ❌ No DESIGN.md edits in this PR (those land in their own PR if needed).
 
 ---
@@ -99,7 +99,7 @@ Move from ecommerce framing → strategic-operator framing. The user is a founde
 
 | # | Candidate | Rationale |
 |---|---|---|
-| **A** | **"Applied Intelligence Services"** | Mirrors the existing `/applied-intelligence` framework page; reinforces the AJ thesis; clean and operator-clinical. |
+| **A** | **"Founder Intelligence Services"** | Mirrors the existing `/founder-intelligence` framework page; reinforces the AJ thesis; clean and operator-clinical. |
 | **B** | **"Operating Systems for Founder-Led Businesses"** | Most descriptive of what AJ actually delivers; longest of the three; emphasizes "operating systems" framing. |
 | **C** | **"How We Work With Founders"** | Most warm and direct; positions the page as engagement framing rather than a catalog. |
 
@@ -108,14 +108,14 @@ Move from ecommerce framing → strategic-operator framing. The user is a founde
 | # | Candidate |
 |---|---|
 | **a** | "We don't sell tools. We build the operating systems founder-led businesses run on — diagnosed first, automated second, measured continuously." |
-| **b** | "Engagements anchored in signal — diagnostic first, applied intelligence buildout second, measurement and durability third. No retainers, no template solutions, no AI theater." |
+| **b** | "Engagements anchored in signal — diagnostic first, founder intelligence buildout second, measurement and durability third. No retainers, no template solutions, no AI theater." |
 
 ### Service-bucket framing principles
 
 For each bucket (current Whop products OR new buckets per §10 Q3), reframe from "buy this" to "this is how we work with you." Examples of the reframe pattern:
 
 - ❌ Old: "AI Branding System – $999/mo. Includes podcast production, automation, content."
-- ✅ New: "**Applied Intelligence Buildout.** A 90-day engagement to install the operating system your business already needs but isn't running. We diagnose the bottleneck, deploy the AI agent that resolves it, and instrument the measurement loop. Most engagements ship in 60 days."
+- ✅ New: "**Founder Intelligence Buildout.** A 90-day engagement to install the operating system your business already needs but isn't running. We diagnose the bottleneck, deploy the AI agent that resolves it, and instrument the measurement loop. Most engagements ship in 60 days."
 
 - ❌ Old: "Podcast Production Package – $499/mo. Episodes, edits, distribution."
 - ✅ New: "**Authority + Content Systems.** A monthly cadence that turns your operator perspective into compounding signal. We don't sell episodes — we install the editorial system that makes thought leadership a byproduct of how you already work."
@@ -128,7 +128,7 @@ The exact buckets + their canonical descriptions are an open question (see §10 
 |---|---|---|---|---|
 | Primary (hero) | **"Calculate Your AI ROI"** | `/roi-calculator` (internal) | `<ButtonLink variant="glow">` | Matches the site Header CTA; leverages the just-shipped (PR #52) ROI calculator; primary conversion path; signal-orange = "the most important next step" per §6. |
 | Secondary (hero) | **"Apply for Engagement"** | `/apply` (internal) | `<ButtonLink variant="secondary">` | Transparent + border per §11.1; the next-best action for founders who already know they want a conversation. |
-| Footer (page-bottom CTA section) | **"Take the Signal Diagnostic"** | `ctaLinks.signalDiagnostic` (= `/applied-intelligence/diagnostic` — see §17.1 of `docs/codex/roi-calculator-v1-brief.md` for canonical-CTA policy) | `<ButtonLink variant="glow">` | Page-bottom recovery CTA for users who've read the page but haven't yet engaged. Same canonical destination used by ROI Calculator + applied-intelligence + blog. |
+| Footer (page-bottom CTA section) | **"Take the Signal Diagnostic"** | `ctaLinks.signalDiagnostic` (= `/founder-intelligence/diagnostic` — see §17.1 of `docs/codex/roi-calculator-v1-brief.md` for canonical-CTA policy) | `<ButtonLink variant="glow">` | Page-bottom recovery CTA for users who've read the page but haven't yet engaged. Same canonical destination used by ROI Calculator + founder-intelligence + blog. |
 
 **Hard rule: zero `<a>` tags with hardcoded URLs for these three destinations. All three flow through `<ButtonLink>` with `href` from `ctaLinks` (or the literal internal route for `/roi-calculator` and `/apply`).**
 
@@ -168,7 +168,7 @@ Proposed page architecture (in render order):
     - `t-h3` heading with the bucket name
     - 2-3 sentence description (`t-body`, `text-fg-2`)
     - Optional metadata row at card bottom: typical engagement length, cadence, fit ("90 days · 1-2 sprints · founder + ops lead")
-    - Optional inline link `<Link>...</Link>` (text-only, no orange) → relevant section of `/applied-intelligence` if the bucket maps cleanly
+    - Optional inline link `<Link>...</Link>` (text-only, no orange) → relevant section of `/founder-intelligence` if the bucket maps cleanly
 - **No prices on cards in v1.** Pricing-as-design-element is ecommerce-coded; engagement pricing is conversation-driven (see §10 Q3 for "retain Whop products?" decision).
 
 ### 4.4 How we work (process / methodology callout)
@@ -179,7 +179,7 @@ Proposed page architecture (in render order):
   - Number + phase name (`t-h4`)
   - 1-2 sentence description (`t-body`)
 - No decorative icons. No timeline graphic. The list IS the diagram.
-- Trailing inline text link → `/applied-intelligence` (text-only, e.g., "Read the full Applied Intelligence framework →")
+- Trailing inline text link → `/founder-intelligence` (text-only, e.g., "Read the full Founder Intelligence framework →")
 
 ### 4.5 Proof / signal section
 
@@ -415,7 +415,7 @@ The current `WhopProduct` / `WhopPrice` types are loosely defined (most fields o
 
 ### 9.2 SEO impact from H1 + meta change
 
-`/services` is a live indexed route. Changing the H1 + meta description will cause a Google re-crawl and possible temporary ranking fluctuation. **Mitigation:** the new title (§3 candidates A/B/C) is more keyword-aligned with operator/founder/applied-intelligence search intent, so the long-term effect is expected positive. No 301 redirects needed (route unchanged).
+`/services` is a live indexed route. Changing the H1 + meta description will cause a Google re-crawl and possible temporary ranking fluctuation. **Mitigation:** the new title (§3 candidates A/B/C) is more keyword-aligned with operator/founder/founder-intelligence search intent, so the long-term effect is expected positive. No 301 redirects needed (route unchanged).
 
 ### 9.3 Visual regression across viewports
 
@@ -431,7 +431,7 @@ If the Whop API is unreachable at the moment Vercel builds the page, ISR's first
 
 ### 9.6 Internal-link drift during copy migration
 
-The `/applied-intelligence`, `/insights`, `/apply`, `/roi-calculator` internal links must continue to resolve correctly. **Mitigation:** Codex implementation PR includes a smoke-check that all internal hrefs resolve to existing routes (no 404s in the rendered HTML).
+The `/founder-intelligence`, `/insights`, `/apply`, `/roi-calculator` internal links must continue to resolve correctly. **Mitigation:** Codex implementation PR includes a smoke-check that all internal hrefs resolve to existing routes (no 404s in the rendered HTML).
 
 ---
 
@@ -443,29 +443,29 @@ The following decisions must be locked **before Codex begins implementation**. T
 
 ### Q1 — Page title (pick one)
 
-- [ ] **A: "Applied Intelligence Services"** — clinical, mirrors the existing framework page
+- [ ] **A: "Founder Intelligence Services"** — clinical, mirrors the existing framework page
 - [ ] **B: "Operating Systems for Founder-Led Businesses"** — most descriptive, longest
 - [ ] **C: "How We Work With Founders"** — warm, engagement-framed
 
-> **Decided (2026-05-08): Option A — "Applied Intelligence Services"**. Matches the site brand thesis, leverages the existing `/applied-intelligence` route, and aligns with the established framework section vocabulary.
+> **Decided (2026-05-08): Option A — "Founder Intelligence Services"**. Matches the site brand thesis, leverages the existing `/founder-intelligence` route, and aligns with the established framework section vocabulary.
 
 ### Q2 — Hero subhead (pick one)
 
 - [ ] **a:** "We don't sell tools. We build the operating systems founder-led businesses run on — diagnosed first, automated second, measured continuously."
-- [ ] **b:** "Engagements anchored in signal — diagnostic first, applied intelligence buildout second, measurement and durability third. No retainers, no template solutions, no AI theater."
+- [ ] **b:** "Engagements anchored in signal — diagnostic first, founder intelligence buildout second, measurement and durability third. No retainers, no template solutions, no AI theater."
 
-> **Decided (2026-05-08): Option a — tools-vs-systems framing.** Anchors operator language ("We don't sell tools, we build systems") and aligns directly with the brand thesis. Carries the Q1 "Applied Intelligence Services" headline cleanly into the subhead.
+> **Decided (2026-05-08): Option a — tools-vs-systems framing.** Anchors operator language ("We don't sell tools, we build systems") and aligns directly with the brand thesis. Carries the Q1 "Founder Intelligence Services" headline cleanly into the subhead.
 
 ### Q3 — Service buckets (pick approach + count)
 
-- [ ] **Approach 1:** Static buckets only (retire Whop product list display from `/services`; keep Whop API integration for backend / portal / internal use). Static buckets sourced from the audit's recommended IA: AI Business Systems Diagnostic, Applied Intelligence Systems Buildout, AI Agent Workflow Design, Content + Authority Systems, Attribution + Signal Audit. **Pick count: 3 / 4 / 5.**
+- [ ] **Approach 1:** Static buckets only (retire Whop product list display from `/services`; keep Whop API integration for backend / portal / internal use). Static buckets sourced from the audit's recommended IA: AI Business Systems Diagnostic, Founder Intelligence Systems Buildout, AI Agent Workflow Design, Content + Authority Systems, Attribution + Signal Audit. **Pick count: 3 / 4 / 5.**
 - [ ] **Approach 2:** Hybrid — static bucket framing section + Whop product grid below (with §6.3 fallback). User-decided ordering: static-first / Whop-first.
 - [ ] **Approach 3:** Whop products only (retain current Whop-driven bucket grid; reframe per §3 copy direction; no static buckets layer).
 
 > **Decided (2026-05-08): Approach 2 — Hybrid (static-first), 4 buckets.** Static bucket section renders above the Whop product grid; if the Whop API is down, the page still works with the 4 strategic buckets visible. The 4 locked buckets are:
 >
 > 1. **AI Business Systems Diagnostic** (entry point)
-> 2. **Applied Intelligence Systems Buildout** (the core engagement)
+> 2. **Founder Intelligence Systems Buildout** (the core engagement)
 > 3. **AI Agent Workflow Design** (modular tactical work)
 > 4. **Attribution + Signal Audit** (measurement layer)
 >
@@ -493,7 +493,7 @@ For each non-hero section, the user locks the H2 from a 2-candidate proposal. Su
   - **a:** "Start with a diagnostic. Most engagements begin there."
   - **b:** "If you're ready, the diagnostic is the front door."
 
-> **Decided (2026-05-08): Defer per-section H2 copy to Codex** within the locked Q1/Q2/Q3 framing. Codex picks reasonable H2s consistent with "Applied Intelligence Services" + tools-vs-systems framing + the 4 locked buckets; reviewer can refine specific lines in Phase 1's PR. This keeps spec review lighter and lets Codex make tactical wording calls inside the locked strategy.
+> **Decided (2026-05-08): Defer per-section H2 copy to Codex** within the locked Q1/Q2/Q3 framing. Codex picks reasonable H2s consistent with "Founder Intelligence Services" + tools-vs-systems framing + the 4 locked buckets; reviewer can refine specific lines in Phase 1's PR. This keeps spec review lighter and lets Codex make tactical wording calls inside the locked strategy.
 
 ### Q5 — Implementation strategy
 
@@ -530,7 +530,7 @@ For each non-hero section, the user locks the H2 from a 2-candidate proposal. Su
 These rules apply throughout implementation. Violations require user re-approval.
 
 - **No nav restructure.** PR #50 owns `src/config/nav.ts` + Header/Footer single-source. Do not touch.
-- **No CTA destination changes to `signalDiagnostic`.** PR #51 unified the constant; PR #53 set its value to `/applied-intelligence/diagnostic`. Both must continue to flow through `ctaLinks` in `src/config/links.ts`. No hardcoded URLs to either `/applied-intelligence/diagnostic` or `https://diagnostic.audiojones.com`.
+- **No CTA destination changes to `signalDiagnostic`.** PR #51 unified the constant; PR #53 set its value to `/founder-intelligence/diagnostic`. Both must continue to flow through `ctaLinks` in `src/config/links.ts`. No hardcoded URLs to either `/founder-intelligence/diagnostic` or `https://diagnostic.audiojones.com`.
 - **No new routes.** `/services` stays at `/services`.
 - **No app code changes in THIS spec PR.** Spec only.
 - **No new dependencies.** No `package.json` changes, no `pnpm-lock.yaml` changes.
@@ -546,7 +546,7 @@ These rules apply throughout implementation. Violations require user re-approval
 - `docs/design/DESIGN.md` — the parent design system; especially §5 (tokens), §6 (color roles), §7 (typography), §9 (radius), §11 (component rules), §16 (anti-patterns), §17.5 (drift risks).
 - `docs/design/design-principles.md` — decision framework when this spec is ambiguous.
 - `docs/codex/roi-calculator-v1-brief.md` — format reference for spec-to-Codex handoff (NOT a content reference).
-- `docs/codex/roi-calculator-v1-brief.md §17.1` — canonical-CTA policy (locked: `/applied-intelligence/diagnostic` is canonical via `ctaLinks.signalDiagnostic` in v1).
+- `docs/codex/roi-calculator-v1-brief.md §17.1` — canonical-CTA policy (locked: `/founder-intelligence/diagnostic` is canonical via `ctaLinks.signalDiagnostic` in v1).
 - PR #50 (`077b2a5`) — nav.ts single-source consolidation. Do not regress.
 - PR #51 (`cc74a12`) — CTA unification through `ctaLinks`. Do not regress.
 - PR #52 (`e30e2c2`) — ROI Calculator v1 (the Primary CTA destination from this spec).

@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Breadcrumbs from "@/components/applied-intelligence/Breadcrumbs";
-import InsightArticle from "@/components/applied-intelligence/InsightArticle";
-import { H2, P, UL } from "@/components/applied-intelligence/FrameworkArticle";
-import FAQ from "@/components/applied-intelligence/FAQ";
+import Breadcrumbs from "@/components/founder-intelligence/Breadcrumbs";
+import InsightArticle from "@/components/founder-intelligence/InsightArticle";
+import { H2, P, UL } from "@/components/founder-intelligence/FrameworkArticle";
+import FAQ from "@/components/founder-intelligence/FAQ";
 import JsonLd from "@/components/seo/JsonLd";
 import { buildMetadata } from "@/lib/seo/metadata";
 import {
@@ -36,7 +36,7 @@ const FAQS = [
 ];
 
 export const metadata: Metadata = buildMetadata({
-  title: `${TITLE} | Audio Jones`,
+  title: TITLE,
   description: DESCRIPTION,
   path: PATH,
   type: "article",
@@ -94,17 +94,17 @@ export default function Page() {
           the signal layer, run every metric through{" "}
           <Link
             href="/frameworks/map-attribution"
-            className="text-[#3B5BFF] hover:text-[#5B7AFF]"
+            className="text-accent-blue hover:text-accent-blue"
           >
-            M.A.P Attribution
+            M.A.P. Attribution
           </Link>
           , and document the workflow. Then deploy AI inside that
           architecture — see the{" "}
           <Link
-            href="/frameworks/applied-intelligence-systems"
-            className="text-[#3B5BFF] hover:text-[#5B7AFF]"
+            href="/frameworks/founder-intelligence-systems"
+            className="text-accent-blue hover:text-accent-blue"
           >
-            Applied Intelligence Systems framework
+            Founder Intelligence Systems framework
           </Link>{" "}
           for the order.
         </P>

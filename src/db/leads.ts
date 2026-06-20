@@ -1,10 +1,10 @@
-// Lead persistence — Applied Intelligence diagnostic.
+// Lead persistence — Founder Intelligence diagnostic.
 //
 // Writes to the `applied_intelligence_leads` table on NeonDB. Schema lives in
 // db/migrations/001_applied_intelligence_leads.sql.
 
 import "server-only";
-import type { AppliedIntelligenceLeadInput } from "@/lib/leads/lead-schema";
+import type { FounderIntelligenceLeadInput } from "@/lib/leads/lead-schema";
 import type { LeadScores } from "@/lib/leads/lead-scoring";
 import { getSql } from "./neon";
 
@@ -18,8 +18,8 @@ export type LeadContext = {
   userAgent: string | null;
 };
 
-export async function insertAppliedIntelligenceLead(
-  input: AppliedIntelligenceLeadInput,
+export async function insertFounderIntelligenceLead(
+  input: FounderIntelligenceLeadInput,
   scores: LeadScores,
   ctx: LeadContext,
 ): Promise<StoredLead> {

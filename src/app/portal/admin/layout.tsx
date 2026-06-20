@@ -50,10 +50,10 @@ export default async function AdminLayout({ children }: AdminLayoutProps) {
               </div>
               
               <div className="flex items-center space-x-4">
-                <span className="text-sm text-gray-400">
+                <span className="text-sm text-text-muted">
                   {new Date().toLocaleDateString()}
                 </span>
-                <a href="/portal" className="text-gray-300 hover:text-white transition text-sm">
+                <a href="/portal" className="text-text-primary hover:text-white transition text-sm">
                   Back to Portal
                 </a>
               </div>

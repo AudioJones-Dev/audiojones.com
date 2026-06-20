@@ -58,6 +58,10 @@ parallel templates.
 
 ### 3.2 Local setup
 
+Two supported paths. Pick one.
+
+**Option A — manual `.env.local` (no extra tooling):**
+
 ```bash
 cp .env.example .env.local
 # Fill in the values you actually need. The minimum to run lead capture
@@ -65,6 +69,33 @@ cp .env.example .env.local
 pnpm install
 pnpm dev
 ```
+
+**Option B — Doppler (shared secrets, no hand-copying):**
+
+The repo is pinned to the `audiojones-com` project / `dev` config via
+[`doppler.yaml`](../doppler.yaml), so the CLI resolves automatically
+inside the repo — no interactive `doppler setup` is needed.
+
+```bash
+# One-time: install the CLI (https://docs.doppler.com/docs/install-cli)
+# and authenticate against the AJ Digital workspace:
+doppler login
+
+pnpm install
+pnpm dx:init   # links Doppler from doppler.yaml and writes
+               # .env.development.local (gitignored) from the dev config
+pnpm dev
+```
+
+To run a one-off command with secrets injected without writing a file:
+
+```bash
+doppler run -- pnpm dev
+```
+
+`.env.development.local` is gitignored (matched by `.env*.local`); never
+commit it. `doppler.yaml` holds only project/config names — no secrets —
+and is safe to commit.
 
 ### 3.3 Adding a new variable
 
@@ -197,10 +228,10 @@ then Sentry, then the relevant integration's dashboard.
 
 ---
 
-## 9. Applied Intelligence diagnostic — preview QA checklist
+## 9. Founder Intelligence diagnostic — preview QA checklist
 
-The diagnostic at `/applied-intelligence/diagnostic` posts to
-`/api/applied-intelligence/leads`, which writes a row to the Neon
+The diagnostic at `/founder-intelligence/diagnostic` posts to
+`/api/founder-intelligence/leads`, which writes a row to the Neon
 `applied_intelligence_leads` table and fires Resend + (optional) n8n
 notifications. Before promoting a preview to production, run this
 checklist against the preview URL.
@@ -241,9 +272,9 @@ psql "$DATABASE_URL" -c "\d applied_intelligence_leads" | head -20
 ### 9.3 Submit a real test diagnostic against the preview
 
 1. Open the Vercel preview URL → `/ai-readiness-diagnostic`.
-2. Click *Start the Diagnostic* → wizard at `/applied-intelligence/diagnostic`.
+2. Click *Start the Diagnostic* → wizard at `/founder-intelligence/diagnostic`.
 3. Complete steps 1–6 using a real test inbox you control. Tick consent.
-4. Submit → expect redirect to `/applied-intelligence/diagnostic/thank-you`.
+4. Submit → expect redirect to `/founder-intelligence/diagnostic/thank-you`.
 
 ### 9.4 Confirm the lead landed in Neon
 
@@ -259,7 +290,7 @@ A row matching the submission must be present.
 
 - Resend dashboard → Logs → filter recipient = `LEAD_NOTIFICATION_EMAIL`.
 - Vercel runtime logs must **not** contain
-  `[applied-intelligence] internal notification skipped: email env missing`
+  `[founder-intelligence] internal notification skipped: email env missing`
   on the happy path. If they do, an email env is unset for that
   environment.
 
@@ -268,12 +299,12 @@ A row matching the submission must be present.
 ```bash
 # Validation error — missing required fields
 curl -s -o /dev/null -w "%{http_code}\n" \
-  -X POST "$PREVIEW/api/applied-intelligence/leads" \
+  -X POST "$PREVIEW/api/founder-intelligence/leads" \
   -H 'content-type: application/json' -d '{"firstName":"x"}'
 # Expect: 400
 
 # Honeypot trap
-curl -s -X POST "$PREVIEW/api/applied-intelligence/leads" \
+curl -s -X POST "$PREVIEW/api/founder-intelligence/leads" \
   -H 'content-type: application/json' \
   -d '{"firstName":"Bot","email":"bot@example.com","consentToContact":true,"website_url":"http://spam"}'
 # Expect: { "ok": true, "leadId": "blocked", ... } and NO Neon row.

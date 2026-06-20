@@ -36,11 +36,11 @@ genuinely needed.
 
 1. Visitor submits a form on the marketing site.
 2. Next.js API route (`src/app/api/leads/route.ts` or
-   `src/app/api/applied-intelligence/leads/route.ts`) validates the payload
+   `src/app/api/founder-intelligence/leads/route.ts`) validates the payload
    with Zod and rate-limits per IP.
 3. The handler scores the lead (`src/lib/leads/lead-scoring.ts`).
 4. The lead is persisted to NeonDB via
-   `src/db/leads.ts → insertAppliedIntelligenceLead` against the
+   `src/db/leads.ts → insertFounderIntelligenceLead` against the
    `applied_intelligence_leads` table (schema:
    `db/migrations/001_applied_intelligence_leads.sql`).
 5. The handler sends an internal notification via Resend

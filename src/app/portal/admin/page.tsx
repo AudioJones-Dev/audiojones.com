@@ -80,7 +80,7 @@ export default function AdminDashboard() {
       {/* Page Header */}
       <div>
         <h1 className="text-3xl font-bold text-white">Admin Dashboard</h1>
-        <p className="mt-2 text-gray-400">
+        <p className="mt-2 text-text-muted">
           Monitor and manage all Audio Jones operations
         </p>
       </div>
@@ -103,7 +103,7 @@ export default function AdminDashboard() {
               </div>
             </div>
             <div className="ml-4">
-              <p className="text-sm font-medium text-gray-300">Total Users</p>
+              <p className="text-sm font-medium text-text-primary">Total Users</p>
               <p className="text-2xl font-bold text-white">{stats.totalUsers}</p>
             </div>
           </div>
@@ -117,7 +117,7 @@ export default function AdminDashboard() {
               </div>
             </div>
             <div className="ml-4">
-              <p className="text-sm font-medium text-gray-300">Admin Users</p>
+              <p className="text-sm font-medium text-text-primary">Admin Users</p>
               <p className="text-2xl font-bold text-white">{stats.adminUsers}</p>
             </div>
           </div>
@@ -131,7 +131,7 @@ export default function AdminDashboard() {
               </div>
             </div>
             <div className="ml-4">
-              <p className="text-sm font-medium text-gray-300">Pending Approvals</p>
+              <p className="text-sm font-medium text-text-primary">Pending Approvals</p>
               <p className="text-2xl font-bold text-white">{stats.pendingApprovals}</p>
             </div>
           </div>
@@ -145,7 +145,7 @@ export default function AdminDashboard() {
               </div>
             </div>
             <div className="ml-4">
-              <p className="text-sm font-medium text-gray-300">Active Projects</p>
+              <p className="text-sm font-medium text-text-primary">Active Projects</p>
               <p className="text-2xl font-bold text-white">{stats.activeProjects}</p>
             </div>
           </div>
@@ -165,16 +165,16 @@ export default function AdminDashboard() {
           </div>
           <div className="mt-4 space-y-2">
             <div className="flex justify-between text-sm">
-              <span className="text-gray-400">Firebase Admin</span>
+              <span className="text-text-muted">Firebase Admin</span>
               <span className="text-green-400">Connected</span>
             </div>
             <div className="flex justify-between text-sm">
-              <span className="text-gray-400">Database</span>
+              <span className="text-text-muted">Database</span>
               <span className="text-green-400">Connected</span>
             </div>
             <div className="flex justify-between text-sm">
-              <span className="text-gray-400">Last Webhook</span>
-              <span className="text-gray-300">{stats.lastWebhook}</span>
+              <span className="text-text-muted">Last Webhook</span>
+              <span className="text-text-primary">{stats.lastWebhook}</span>
             </div>
           </div>
         </div>
@@ -211,21 +211,21 @@ export default function AdminDashboard() {
           <div className="flex items-center justify-between border-b border-gray-700 pb-3">
             <div>
               <p className="text-sm font-medium text-white">New user registration</p>
-              <p className="text-xs text-gray-400">2 minutes ago</p>
+              <p className="text-xs text-text-muted">2 minutes ago</p>
             </div>
             <span className="rounded-full bg-blue-600 px-2 py-1 text-xs text-white">USER</span>
           </div>
           <div className="flex items-center justify-between border-b border-gray-700 pb-3">
             <div>
               <p className="text-sm font-medium text-white">Content approval required</p>
-              <p className="text-xs text-gray-400">15 minutes ago</p>
+              <p className="text-xs text-text-muted">15 minutes ago</p>
             </div>
             <span className="rounded-full bg-yellow-600 px-2 py-1 text-xs text-white">APPROVAL</span>
           </div>
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-white">Webhook received from Whop</p>
-              <p className="text-xs text-gray-400">1 hour ago</p>
+              <p className="text-xs text-text-muted">1 hour ago</p>
             </div>
             <span className="rounded-full bg-green-600 px-2 py-1 text-xs text-white">WEBHOOK</span>
           </div>

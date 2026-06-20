@@ -128,6 +128,11 @@ const INTRO_RESPONSE: JaviResponse = {
   followUps: JAVI_SUGGESTED_PROMPTS,
 };
 
+const ERROR_RESPONSE: JaviResponse = {
+  text:
+    "Something went wrong reaching me just now. Please try again in a moment — or start with the diagnostic below.",
+};
+
 export default function JaviChatWidget() {
   const pathname = usePathname();
   const [open, setOpen] = React.useState(false);
@@ -161,11 +166,15 @@ export default function JaviChatWidget() {
     };
   }, [open]);
 
+  // Return focus to the launcher only on an open→close transition — not on
+  // the initial mount, which would otherwise steal focus to the launcher on
+  // every page load (the widget is mounted site-wide).
+  const wasOpen = React.useRef(false);
   React.useEffect(() => {
-    if (!open) {
-      // Return focus to launcher when closing.
+    if (!open && wasOpen.current) {
       launcherRef.current?.focus({ preventScroll: true });
     }
+    wasOpen.current = open;
   }, [open]);
 
   // Keep the chat scrolled to the latest turn.
@@ -178,42 +187,45 @@ export default function JaviChatWidget() {
     return null;
   }
 
-  const send = async (text: string) => {
-    const trimmed = text.trim();
-    if (!trimmed || sending) return;
+  // Single send pipeline: `display` is what the user sees in their bubble,
+  // `payload` is what goes to the backend (a suggestion id for chips, the raw
+  // text otherwise). Guards against concurrent in-flight requests and always
+  // surfaces a reply — including an error bubble if the request fails — so the
+  // typing indicator can never strand without a response.
+  const dispatch = async (display: string, payload: string) => {
+    if (sending) return;
     setSending(true);
     setTurns((prev) => [
       ...prev,
-      { role: "user", id: nextId("u"), text: trimmed },
+      { role: "user", id: nextId("u"), text: display },
     ]);
-    setDraft("");
     try {
-      const response = await sendJaviMessage(trimmed);
+      const response = await sendJaviMessage(payload);
       setTurns((prev) => [
         ...prev,
         { role: "javi", id: nextId("j"), response },
+      ]);
+    } catch {
+      setTurns((prev) => [
+        ...prev,
+        { role: "javi", id: nextId("j"), response: ERROR_RESPONSE },
       ]);
     } finally {
       setSending(false);
     }
   };
 
+  const send = (text: string) => {
+    const trimmed = text.trim();
+    if (!trimmed || sending) return;
+    setDraft("");
+    void dispatch(trimmed, trimmed);
+  };
+
+  // The matcher in mockJaviResponses keys off the suggestion id for exact
+  // matches; the label is what the user sees in the bubble.
   const sendSuggestion = (s: JaviSuggestion) => {
-    // The matcher in mockJaviResponses keys off the suggestion id for
-    // exact matches; the label is what the user sees in the bubble.
-    setTurns((prev) => [
-      ...prev,
-      { role: "user", id: nextId("u"), text: s.label },
-    ]);
-    setSending(true);
-    sendJaviMessage(s.id)
-      .then((response) => {
-        setTurns((prev) => [
-          ...prev,
-          { role: "javi", id: nextId("j"), response },
-        ]);
-      })
-      .finally(() => setSending(false));
+    void dispatch(s.label, s.id);
   };
 
   return (
@@ -226,7 +238,7 @@ export default function JaviChatWidget() {
         onClick={() => setOpen((v) => !v)}
         aria-label={open ? "Close Javi chat" : "Open Javi chat — AI Executive Assistant"}
         aria-expanded={open}
-        aria-controls="javi-chat-panel"
+        aria-controls={open ? "javi-chat-panel" : undefined}
         className="fixed bottom-5 right-5 z-40 inline-flex items-center gap-2 rounded-full bg-surface-1 border border-border-strong pl-1.5 pr-4 py-1.5 shadow-[0_10px_40px_-10px_rgba(232,255,90,0.45)] hover:border-signal-yellow transition-colors focus-visible:outline-none focus-visible:[box-shadow:0_0_0_2px_var(--signal-yellow)]"
       >
         <JaviAvatar size={32} />

@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import Breadcrumbs from "@/components/applied-intelligence/Breadcrumbs";
+import Breadcrumbs from "@/components/founder-intelligence/Breadcrumbs";
 import FrameworkArticle, {
   H2,
   P,
   UL,
-} from "@/components/applied-intelligence/FrameworkArticle";
-import FAQ from "@/components/applied-intelligence/FAQ";
+} from "@/components/founder-intelligence/FrameworkArticle";
+import FAQ from "@/components/founder-intelligence/FAQ";
 import JsonLd from "@/components/seo/JsonLd";
 import { buildMetadata } from "@/lib/seo/metadata";
 import {
@@ -18,7 +18,7 @@ import {
 const PATH = "/frameworks/niche-framework";
 const TITLE = "N.I.C.H.E Framework";
 const DEFINITION =
-  "The N.I.C.H.E Framework is an Audio Jones positioning system for identifying high-signal markets and engineering business engines around causal clarity, human leverage, and applied intelligence.";
+  "The N.I.C.H.E Framework is an Audio Jones positioning system for identifying high-signal markets and engineering business engines around causal clarity, human leverage, and founder intelligence.";
 
 const FAQS = [
   {
@@ -39,9 +39,9 @@ const FAQS = [
 ];
 
 export const metadata: Metadata = buildMetadata({
-  title: `${TITLE} | Audio Jones Framework`,
+  title: TITLE,
   description:
-    "N.I.C.H.E: a five-stage positioning system for identifying high-signal markets and engineering applied-intelligence engines around them.",
+    "N.I.C.H.E: a five-stage positioning system for identifying high-signal markets and engineering founder-intelligence engines around them.",
   path: PATH,
   type: "article",
 });
@@ -105,7 +105,7 @@ export default function Page() {
         <H2>C — Causal Clarity</H2>
         <P>
           Distinguish the inputs that cause outcomes from the inputs that
-          merely correlate. M.A.P Attribution lives here. Without causal
+          merely correlate. M.A.P. Attribution lives here. Without causal
           clarity, AI augmentation has nothing reliable to optimize.
         </P>
 

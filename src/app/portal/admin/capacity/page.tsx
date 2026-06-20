@@ -97,7 +97,7 @@ export default function AdminCapacityPage() {
       case 'full':
         return <AlertCircle className="h-5 w-5 text-red-500" />;
       default:
-        return <AlertCircle className="h-5 w-5 text-gray-500" />;
+        return <AlertCircle className="h-5 w-5 text-text-muted" />;
     }
   };
 
@@ -136,7 +136,7 @@ export default function AdminCapacityPage() {
       case 'high':
         return <AlertTriangle className="h-4 w-4 text-red-500" />;
       default:
-        return <AlertCircle className="h-4 w-4 text-gray-500" />;
+        return <AlertCircle className="h-4 w-4 text-text-muted" />;
     }
   };
 

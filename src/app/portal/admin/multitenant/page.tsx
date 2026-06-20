@@ -394,7 +394,7 @@ export default function MultiTenantAdminPage() {
               className={`px-4 py-2 border-b-2 ${
                 activeTab === tab.id
                   ? 'border-blue-500 text-blue-400'
-                  : 'border-transparent text-gray-400 hover:text-white'
+                  : 'border-transparent text-text-muted hover:text-white'
               }`}
             >
               {tab.label}
@@ -406,7 +406,7 @@ export default function MultiTenantAdminPage() {
         {loading && (
           <div className="mb-6 text-center">
             <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
-            <p className="mt-2 text-gray-400">Loading...</p>
+            <p className="mt-2 text-text-muted">Loading...</p>
           </div>
         )}
 
@@ -417,22 +417,22 @@ export default function MultiTenantAdminPage() {
               <div className="bg-gray-900 p-6 rounded-lg">
                 <h3 className="text-lg font-semibold mb-2">Total Organizations</h3>
                 <p className="text-3xl font-bold text-blue-400">{metrics.total_orgs}</p>
-                <p className="text-sm text-gray-400">{metrics.active_orgs} active</p>
+                <p className="text-sm text-text-muted">{metrics.active_orgs} active</p>
               </div>
               <div className="bg-gray-900 p-6 rounded-lg">
                 <h3 className="text-lg font-semibold mb-2">Total Members</h3>
                 <p className="text-3xl font-bold text-green-400">{metrics.total_members}</p>
-                <p className="text-sm text-gray-400">Avg: {metrics.avg_members_per_org} per org</p>
+                <p className="text-sm text-text-muted">Avg: {metrics.avg_members_per_org} per org</p>
               </div>
               <div className="bg-gray-900 p-6 rounded-lg">
                 <h3 className="text-lg font-semibold mb-2">API Keys</h3>
                 <p className="text-3xl font-bold text-purple-400">{metrics.total_api_keys}</p>
-                <p className="text-sm text-gray-400">{metrics.api_requests_24h} requests today</p>
+                <p className="text-sm text-text-muted">{metrics.api_requests_24h} requests today</p>
               </div>
               <div className="bg-gray-900 p-6 rounded-lg">
                 <h3 className="text-lg font-semibold mb-2">Data Usage</h3>
                 <p className="text-3xl font-bold text-orange-400">{metrics.data_usage_total_gb} GB</p>
-                <p className="text-sm text-gray-400">Total across all orgs</p>
+                <p className="text-sm text-text-muted">Total across all orgs</p>
               </div>
             </div>
 
@@ -443,7 +443,7 @@ export default function MultiTenantAdminPage() {
                 {metrics.top_orgs_by_activity.map((org, index) => (
                   <div key={org.org_id} className="flex items-center justify-between p-3 bg-gray-800 rounded">
                     <div>
-                      <span className="text-sm text-gray-400">#{index + 1}</span>
+                      <span className="text-sm text-text-muted">#{index + 1}</span>
                       <span className="ml-3 font-medium">{org.name}</span>
                     </div>
                     <span className="text-blue-400">{org.activity_score} pts</span>
@@ -463,7 +463,7 @@ export default function MultiTenantAdminPage() {
                 <div className="flex items-center justify-between mb-6">
                   <div>
                     <h2 className="text-2xl font-bold">{selectedOrg.name}</h2>
-                    <p className="text-gray-400">/{selectedOrg.slug}</p>
+                    <p className="text-text-muted">/{selectedOrg.slug}</p>
                   </div>
                   <button
                     onClick={() => setSelectedOrg(null)}
@@ -478,17 +478,17 @@ export default function MultiTenantAdminPage() {
                   <div className="bg-gray-900 p-4 rounded-lg">
                     <h3 className="font-semibold mb-2">Plan & Status</h3>
                     <p className="text-lg">{selectedOrg.subscription?.plan || 'free'}</p>
-                    <p className="text-sm text-gray-400">{selectedOrg.subscription?.status || 'active'}</p>
+                    <p className="text-sm text-text-muted">{selectedOrg.subscription?.status || 'active'}</p>
                   </div>
                   <div className="bg-gray-900 p-4 rounded-lg">
                     <h3 className="font-semibold mb-2">Members</h3>
                     <p className="text-lg">{selectedOrg.metadata.total_users} / {selectedOrg.settings.max_users}</p>
-                    <p className="text-sm text-gray-400">users</p>
+                    <p className="text-sm text-text-muted">users</p>
                   </div>
                   <div className="bg-gray-900 p-4 rounded-lg">
                     <h3 className="font-semibold mb-2">API Keys</h3>
                     <p className="text-lg">{selectedOrg.metadata.total_api_keys} / {selectedOrg.settings.max_api_keys}</p>
-                    <p className="text-sm text-gray-400">keys</p>
+                    <p className="text-sm text-text-muted">keys</p>
                   </div>
                 </div>
 
@@ -560,7 +560,7 @@ export default function MultiTenantAdminPage() {
                       <div key={member.id} className="flex items-center justify-between p-3 bg-gray-800 rounded">
                         <div>
                           <p className="font-medium">{member.email}</p>
-                          <p className="text-sm text-gray-400">
+                          <p className="text-sm text-text-muted">
                             {member.role} • Joined {formatDate(member.joined_at)}
                           </p>
                         </div>
@@ -650,11 +650,11 @@ export default function MultiTenantAdminPage() {
                       <div key={apiKey.id} className="flex items-center justify-between p-3 bg-gray-800 rounded">
                         <div>
                           <p className="font-medium">{apiKey.name}</p>
-                          <p className="text-sm text-gray-400">
+                          <p className="text-sm text-text-muted">
                             {apiKey.key_prefix}... • {apiKey.usage_stats.total_requests} requests
                             {apiKey.expires_at && ` • Expires ${formatDate(apiKey.expires_at)}`}
                           </p>
-                          <p className="text-xs text-gray-500">
+                          <p className="text-xs text-text-muted">
                             Scopes: {apiKey.scopes.join(', ')}
                           </p>
                         </div>
@@ -677,8 +677,8 @@ export default function MultiTenantAdminPage() {
                     <div className="flex items-center justify-between">
                       <div>
                         <h3 className="text-lg font-semibold">{org.name}</h3>
-                        <p className="text-gray-400">/{org.slug}</p>
-                        <div className="mt-2 flex space-x-4 text-sm text-gray-400">
+                        <p className="text-text-muted">/{org.slug}</p>
+                        <div className="mt-2 flex space-x-4 text-sm text-text-muted">
                           <span>{org.metadata.total_users} members</span>
                           <span>{org.metadata.total_api_keys} API keys</span>
                           <span>{org.subscription?.plan || 'free'} plan</span>
@@ -761,12 +761,12 @@ export default function MultiTenantAdminPage() {
         {activeTab === 'api-keys' && (
           <div className="space-y-6">
             <h2 className="text-2xl font-bold">Global API Key Management</h2>
-            <p className="text-gray-400">
+            <p className="text-text-muted">
               This section shows all API keys across all organizations for system-wide monitoring.
             </p>
             {/* Implementation would show all API keys with organization context */}
             <div className="bg-gray-900 p-6 rounded-lg">
-              <p className="text-center text-gray-400">
+              <p className="text-center text-text-muted">
                 Select an organization from the Organizations tab to manage API keys.
               </p>
             </div>

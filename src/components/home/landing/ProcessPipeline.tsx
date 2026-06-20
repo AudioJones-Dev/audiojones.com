@@ -8,36 +8,36 @@ const STEPS = [
     n: "01",
     label: "Diagnose",
     desc: "Find the real constraint. Map the existing system — surface noise, gaps, and false signals before touching tools.",
-    accent: "#94A3B8",
-    border: "rgba(148,163,184,0.22)",
-    bg: "linear-gradient(160deg, rgba(148,163,184,0.05) 0%, rgba(11,15,26,0.96) 100%)",
-    glow: "0 0 28px -10px rgba(148,163,184,0.12), inset 0 0 0 1px rgba(148,163,184,0.03)",
-    nodeColor: "#94A3B8",
-    nodeBg: "rgba(148,163,184,0.10)",
+    accent: "#666666",
+    border: "rgba(102,102,102,0.22)",
+    bg: "linear-gradient(160deg, rgba(102,102,102,0.05) 0%, rgba(15,15,15,0.96) 100%)",
+    glow: "0 0 28px -10px rgba(102,102,102,0.12), inset 0 0 0 1px rgba(102,102,102,0.03)",
+    nodeColor: "#666666",
+    nodeBg: "rgba(102,102,102,0.10)",
     active: false,
   },
   {
     n: "02",
     label: "Attribute",
-    desc: "Identify what is actually creating outcomes. Apply M.A.P. Filter every metric through meaningful, actionable, profitable.",
-    accent: "#3B5BFF",
-    border: "rgba(59,91,255,0.45)",
-    bg: "linear-gradient(160deg, rgba(59,91,255,0.09) 0%, rgba(11,15,26,0.96) 100%)",
-    glow: "0 0 40px -10px rgba(59,91,255,0.28), 0 0 16px -6px rgba(232,255,90,0.06), inset 0 0 0 1px rgba(59,91,255,0.08)",
+    desc: "Identify what is actually creating outcomes. Apply the M.A.P. (Meaningful. Actionable. Profitable.) filter to every metric.",
+    accent: "#4DACFF",
+    border: "rgba(77,172,255,0.45)",
+    bg: "linear-gradient(160deg, rgba(77,172,255,0.09) 0%, rgba(15,15,15,0.96) 100%)",
+    glow: "0 0 40px -10px rgba(77,172,255,0.28), 0 0 16px -6px rgba(232,255,90,0.06), inset 0 0 0 1px rgba(77,172,255,0.08)",
     nodeColor: "#8EA2FF",
-    nodeBg: "rgba(59,91,255,0.16)",
+    nodeBg: "rgba(77,172,255,0.16)",
     active: true,
   },
   {
     n: "03",
     label: "Design",
     desc: "Build the system around the signal. Architect the operating model — signal → process → output → feedback.",
-    accent: "#94A3B8",
-    border: "rgba(148,163,184,0.22)",
-    bg: "linear-gradient(160deg, rgba(148,163,184,0.05) 0%, rgba(11,15,26,0.96) 100%)",
-    glow: "0 0 28px -10px rgba(148,163,184,0.12), inset 0 0 0 1px rgba(148,163,184,0.03)",
-    nodeColor: "#94A3B8",
-    nodeBg: "rgba(148,163,184,0.10)",
+    accent: "#666666",
+    border: "rgba(102,102,102,0.22)",
+    bg: "linear-gradient(160deg, rgba(102,102,102,0.05) 0%, rgba(15,15,15,0.96) 100%)",
+    glow: "0 0 28px -10px rgba(102,102,102,0.12), inset 0 0 0 1px rgba(102,102,102,0.03)",
+    nodeColor: "#666666",
+    nodeBg: "rgba(102,102,102,0.10)",
     active: false,
   },
   {
@@ -46,7 +46,7 @@ const STEPS = [
     desc: "Turn the system into repeatable execution. Instrument everything. Compound the loop.",
     accent: "#E8FF5A",
     border: "rgba(232,255,90,0.32)",
-    bg: "linear-gradient(160deg, rgba(232,255,90,0.06) 0%, rgba(11,15,26,0.96) 100%)",
+    bg: "linear-gradient(160deg, rgba(232,255,90,0.06) 0%, rgba(15,15,15,0.96) 100%)",
     glow: "0 0 28px -10px rgba(232,255,90,0.18), inset 0 0 0 1px rgba(232,255,90,0.04)",
     nodeColor: "#E8FF5A",
     nodeBg: "rgba(232,255,90,0.12)",
@@ -90,9 +90,9 @@ function ProcessRail() {
       <defs>
         {/* Rail gradient: slate → blue → steel → signal-yellow */}
         <linearGradient id="pp-rail-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#94A3B8" stopOpacity="0.30" />
-          <stop offset="33%" stopColor="#3B5BFF" stopOpacity="0.50" />
-          <stop offset="66%" stopColor="#94A3B8" stopOpacity="0.28" />
+          <stop offset="0%" stopColor="#666666" stopOpacity="0.30" />
+          <stop offset="33%" stopColor="#4DACFF" stopOpacity="0.50" />
+          <stop offset="66%" stopColor="#666666" stopOpacity="0.28" />
           <stop offset="100%" stopColor="#E8FF5A" stopOpacity="0.38" />
         </linearGradient>
 
@@ -198,7 +198,7 @@ export default function ProcessPipeline() {
             width: "70%",
             height: "60%",
             background:
-              "radial-gradient(ellipse 80% 50% at 50% 55%, rgba(59,91,255,0.07), transparent 70%)",
+              "radial-gradient(ellipse 80% 50% at 50% 55%, rgba(77,172,255,0.07), transparent 70%)",
           }}
         />
         {/* Muted warmth — lower left, Diagnose anchor */}
@@ -342,7 +342,7 @@ export default function ProcessPipeline() {
                         position: "absolute",
                         inset: "-4px",
                         borderRadius: "50%",
-                        border: "1px solid rgba(59,91,255,0.25)",
+                        border: "1px solid rgba(77,172,255,0.25)",
                       }}
                     />
                     <span
@@ -351,8 +351,8 @@ export default function ProcessPipeline() {
                         width: "8px",
                         height: "8px",
                         borderRadius: "50%",
-                        background: "#3B5BFF",
-                        boxShadow: "0 0 10px 2px rgba(59,91,255,0.50)",
+                        background: "#4DACFF",
+                        boxShadow: "0 0 10px 2px rgba(77,172,255,0.50)",
                       }}
                     />
                   </div>
@@ -380,7 +380,7 @@ export default function ProcessPipeline() {
                   fontWeight: 700,
                   lineHeight: 1.15,
                   letterSpacing: "-0.02em",
-                  color: "#E5E7EB",
+                  color: "var(--text-primary)",
                 }}
               >
                 {s.label}
@@ -393,7 +393,7 @@ export default function ProcessPipeline() {
                   fontFamily: "var(--font-body)",
                   fontSize: "13px",
                   lineHeight: 1.65,
-                  color: "#94A3B8",
+                  color: "var(--fg-2)",
                 }}
               >
                 {s.desc}

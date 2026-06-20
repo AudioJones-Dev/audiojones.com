@@ -2,15 +2,25 @@
  * site.ts — Single source of truth for canonical domain, site name,
  * and public route map. Used by sitemap, robots, metadata, and schema.
  *
- * SITE_URL is also exported from src/lib/applied-intelligence/tokens.ts
+ * SITE_URL is also exported from src/lib/founder-intelligence/tokens.ts
  * for backward compatibility — do not remove that export.
  */
 
+function normalizeSiteUrl(url: string) {
+  return url
+    .replace(/^https:\/\/audiojones\.com\/?$/, "https://www.audiojones.com")
+    .replace(/\/$/, "");
+}
+
+const canonicalSiteUrl = normalizeSiteUrl(
+  process.env.NEXT_PUBLIC_SITE_URL || "https://www.audiojones.com"
+);
+
 export const siteConfig = {
   name: "Audio Jones",
-  url: process.env.NEXT_PUBLIC_SITE_URL || "https://audiojones.com",
+  url: canonicalSiteUrl,
   description:
-    "Applied Intelligence Systems for founder-led businesses. Identify causal growth signals, reduce operational noise, and build the system that compounds.",
+    "Founder Intelligence Systems for founder-led businesses. Identify causal growth signals, reduce operational noise, and build the system that compounds.",
   ogImage: "/assets/og/audio-jones-og.jpg",
   twitterHandle: "@audiojones",
 } as const;
@@ -24,8 +34,10 @@ export const siteConfig = {
  */
 export const publicRoutes = [
   { path: "/", priority: 1, changeFrequency: "weekly" },
-  { path: "/applied-intelligence", priority: 0.95, changeFrequency: "weekly" },
-  { path: "/applied-intelligence/diagnostic", priority: 0.9, changeFrequency: "monthly" },
+  { path: "/founder-intelligence", priority: 0.95, changeFrequency: "weekly" },
+  { path: "/founder-intelligence/diagnostic", priority: 0.9, changeFrequency: "monthly" },
+  { path: "/founder-gravity-audit", priority: 0.9, changeFrequency: "monthly" },
+  { path: "/founder-gravity-audit/diagnostic", priority: 0.9, changeFrequency: "monthly" },
   { path: "/frameworks", priority: 0.85, changeFrequency: "monthly" },
   { path: "/insights", priority: 0.85, changeFrequency: "weekly" },
   { path: "/blog", priority: 0.85, changeFrequency: "weekly" },

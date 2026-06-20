@@ -61,10 +61,7 @@ export default function IncidentSubscriptionManager({
       setLoading(true);
       setError(null);
 
-      const response = await fetch(`/api/admin/incidents/${incidentId}/subscribers`, {
-        headers: {
-          'admin-key': process.env.NEXT_PUBLIC_ADMIN_KEY || '',
-        },
+      const response = await fetch(`/api/_proxy/admin/incidents/${incidentId}/subscribers`, {
       });
 
       if (!response.ok) {
@@ -88,11 +85,10 @@ export default function IncidentSubscriptionManager({
     try {
       setActionLoading('subscribe');
 
-      const response = await fetch(`/api/admin/incidents/${incidentId}/subscribe`, {
+      const response = await fetch(`/api/_proxy/admin/incidents/${incidentId}/subscribe`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'admin-key': process.env.NEXT_PUBLIC_ADMIN_KEY || '',
         },
         body: JSON.stringify(newSubscriber),
       });
@@ -127,11 +123,8 @@ export default function IncidentSubscriptionManager({
     try {
       setActionLoading(`unsubscribe-${subscriber}`);
 
-      const response = await fetch(`/api/admin/incidents/${incidentId}/subscribe?subscriber=${encodeURIComponent(subscriber)}`, {
+      const response = await fetch(`/api/_proxy/admin/incidents/${incidentId}/subscribe?subscriber=${encodeURIComponent(subscriber)}`, {
         method: 'DELETE',
-        headers: {
-          'admin-key': process.env.NEXT_PUBLIC_ADMIN_KEY || '',
-        },
       });
 
       if (!response.ok) {
@@ -198,7 +191,7 @@ export default function IncidentSubscriptionManager({
           </div>
           
           <div className="flex items-center gap-2">
-            <Badge variant="outline" className="text-gray-300">
+            <Badge variant="outline" className="text-text-primary">
               {subscribers.length} subscriber{subscribers.length !== 1 ? 's' : ''}
             </Badge>
             
@@ -239,7 +232,7 @@ export default function IncidentSubscriptionManager({
             
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-text-primary mb-2">
                   Email or Slack User
                 </label>
                 <input
@@ -252,7 +245,7 @@ export default function IncidentSubscriptionManager({
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-text-primary mb-2">
                   Notification Channel
                 </label>
                 <select
@@ -266,7 +259,7 @@ export default function IncidentSubscriptionManager({
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-text-primary mb-2">
                   Notification Preferences
                 </label>
                 <div className="space-y-2">
@@ -280,7 +273,7 @@ export default function IncidentSubscriptionManager({
                       }))}
                       className="rounded border-gray-600 bg-gray-800 text-blue-600 focus:ring-blue-500"
                     />
-                    <span className="text-sm text-gray-300">Status changes</span>
+                    <span className="text-sm text-text-primary">Status changes</span>
                   </label>
                   
                   <label className="flex items-center gap-2">
@@ -293,7 +286,7 @@ export default function IncidentSubscriptionManager({
                       }))}
                       className="rounded border-gray-600 bg-gray-800 text-blue-600 focus:ring-blue-500"
                     />
-                    <span className="text-sm text-gray-300">Timeline updates</span>
+                    <span className="text-sm text-text-primary">Timeline updates</span>
                   </label>
                   
                   <label className="flex items-center gap-2">
@@ -306,7 +299,7 @@ export default function IncidentSubscriptionManager({
                       }))}
                       className="rounded border-gray-600 bg-gray-800 text-blue-600 focus:ring-blue-500"
                     />
-                    <span className="text-sm text-gray-300">Resolution only</span>
+                    <span className="text-sm text-text-primary">Resolution only</span>
                   </label>
                 </div>
               </div>
@@ -341,12 +334,12 @@ export default function IncidentSubscriptionManager({
 
         {/* Subscribers List */}
         {loading && subscribers.length === 0 ? (
-          <div className="flex items-center justify-center py-8 text-gray-400">
+          <div className="flex items-center justify-center py-8 text-text-muted">
             <RefreshCw className="h-5 w-5 animate-spin mr-2" />
             Loading subscribers...
           </div>
         ) : subscribers.length === 0 ? (
-          <div className="text-center py-8 text-gray-400">
+          <div className="text-center py-8 text-text-muted">
             <Users className="h-12 w-12 mx-auto mb-3 opacity-50" />
             <p>No subscribers yet</p>
             <p className="text-sm">Add subscribers to notify them about incident updates</p>
@@ -368,10 +361,10 @@ export default function IncidentSubscriptionManager({
                       {subscription.active ? (
                         <CheckCircle className="h-4 w-4 text-green-400" />
                       ) : (
-                        <BellOff className="h-4 w-4 text-gray-400" />
+                        <BellOff className="h-4 w-4 text-text-muted" />
                       )}
                     </div>
-                    <div className="text-sm text-gray-400 flex items-center gap-2">
+                    <div className="text-sm text-text-muted flex items-center gap-2">
                       <span>{formatPreferences(subscription.preferences)}</span>
                       <span>•</span>
                       <span>{new Date(subscription.created_at).toLocaleDateString()}</span>

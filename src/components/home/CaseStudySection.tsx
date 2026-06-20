@@ -17,30 +17,30 @@ export default function CaseStudySection() {
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-20">
           {/* Copy */}
           <div className="flex flex-col items-start gap-6">
-            <span className="font-bold uppercase tracking-wider text-[#FF7A33]">Real Results</span>
+            <span className="font-bold uppercase tracking-wider text-signal-yellow">Real Results</span>
             <h2 className="text-4xl sm:text-5xl font-extrabold leading-tight">
               Why a Podcast Is the Smartest Marketing Investment of 2026
             </h2>
-            <p className="text-base sm:text-lg text-gray-100/90 max-w-xl">
+            <p className="text-base sm:text-lg text-text-primary max-w-xl">
               One recording day → a month of content and measurable pipeline. We combine podcast-first
               production, AI repurposing, and automated distribution to turn attention into leads.
             </p>
 
             <ul className="mt-1 space-y-4 text-white">
               <li className="flex items-start gap-3">
-                <span className="mt-0.5 h-2 w-2 rounded-full bg-gradient-to-r from-[#FF4500] to-[#FFD700]" />
+                <span className="mt-0.5 h-2 w-2 rounded-full bg-gradient-to-r from-[#E8FF5A] to-[#4DACFF]" />
                 <span className="text-lg">34% Conversion Rate — highest of any content channel</span>
               </li>
               <li className="flex items-start gap-3">
-                <span className="mt-0.5 h-2 w-2 rounded-full bg-gradient-to-r from-[#FF4500] to-[#FFD700]" />
+                <span className="mt-0.5 h-2 w-2 rounded-full bg-gradient-to-r from-[#E8FF5A] to-[#4DACFF]" />
                 <span className="text-lg">+38% Revenue Growth — AI-powered podcast workflows</span>
               </li>
               <li className="flex items-start gap-3">
-                <span className="mt-0.5 h-2 w-2 rounded-full bg-gradient-to-r from-[#FF4500] to-[#FFD700]" />
+                <span className="mt-0.5 h-2 w-2 rounded-full bg-gradient-to-r from-[#E8FF5A] to-[#4DACFF]" />
                 <span className="text-lg">+89% Brand Awareness — outperforms traditional media</span>
               </li>
               <li className="flex items-start gap-3">
-                <span className="mt-0.5 h-2 w-2 rounded-full bg-gradient-to-r from-[#FF4500] to-[#FFD700]" />
+                <span className="mt-0.5 h-2 w-2 rounded-full bg-gradient-to-r from-[#E8FF5A] to-[#4DACFF]" />
                 <span className="text-lg">10% Guest → Client Conversion — predictable B2B leads</span>
               </li>
             </ul>
@@ -48,7 +48,7 @@ export default function CaseStudySection() {
             <div className="mt-6 flex flex-wrap gap-4">
               <a
                 href="/book"
-                className="inline-flex h-12 items-center justify-center rounded-full bg-gradient-to-r from-[#FF4500] to-[#FFD700] px-6 text-base font-bold text-black shadow-md hover:opacity-90 transition"
+                className="inline-flex h-12 items-center justify-center rounded-full bg-signal-yellow hover:bg-signal-soft px-6 text-base font-bold text-black shadow-md transition"
               >
                 Book a Consultation
               </a>

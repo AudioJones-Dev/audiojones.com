@@ -45,15 +45,15 @@ export default function EpmHero({ title, subtitle, primaryCta, secondaryCta }: E
       {/* Animated Background Elements */}
       <div className="absolute inset-0">
         {/* Gradient Orbs */}
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-br from-[#FF4500] to-[#FFD700] rounded-full opacity-10 blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-br from-[#008080] to-[#FFD700] rounded-full opacity-10 blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-br from-[#E8FF5A] to-[#4DACFF] rounded-full opacity-10 blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-br from-[#4DACFF] to-[#E8FF5A] rounded-full opacity-10 blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
         
         {/* Neural Network Grid */}
         <div className="absolute inset-0 opacity-5">
           <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
             <defs>
               <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
-                <path d="M 10 0 L 0 0 0 10" fill="none" stroke="#FFD700" strokeWidth="0.5"/>
+                <path d="M 10 0 L 0 0 0 10" fill="none" stroke="#E8FF5A" strokeWidth="0.5"/>
               </pattern>
             </defs>
             <rect width="100" height="100" fill="url(#grid)" />
@@ -64,20 +64,20 @@ export default function EpmHero({ title, subtitle, primaryCta, secondaryCta }: E
       {/* Content */}
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         {/* Pre-title */}
-        <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#FF4500] to-[#FFD700] text-black px-4 py-2 rounded-full text-sm font-semibold mb-8">
+        <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#E8FF5A] to-[#4DACFF] text-black px-4 py-2 rounded-full text-sm font-semibold mb-8">
           <span className="animate-pulse">🧠</span>
           Revolutionary Marketing Framework
         </div>
 
         {/* Main Title */}
         <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-8 leading-tight">
-          <span className="bg-gradient-to-r from-[#FF4500] via-[#FFD700] to-[#008080] bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-[#E8FF5A] via-[#E8FF5A] to-[#4DACFF] bg-clip-text text-transparent">
             {title}
           </span>
         </h1>
 
         {/* Subtitle */}
-        <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed mb-12">
+        <p className="text-xl md:text-2xl text-text-muted max-w-4xl mx-auto leading-relaxed mb-12">
           {subtitle}
         </p>
 
@@ -85,7 +85,7 @@ export default function EpmHero({ title, subtitle, primaryCta, secondaryCta }: E
         <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
           <button
             onClick={handlePrimaryCta}
-            className="bg-gradient-to-r from-[#FF4500] to-[#FFD700] hover:from-[#E03D00] hover:to-[#E6C200] text-black font-bold py-4 px-8 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
+            className="bg-signal-yellow hover:bg-signal-soft text-bg-base font-bold py-4 px-8 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
           >
             {primaryCta}
           </button>
@@ -93,7 +93,7 @@ export default function EpmHero({ title, subtitle, primaryCta, secondaryCta }: E
           {secondaryCta && (
             <button
               onClick={handleSecondaryCta}
-              className="border-2 border-[#008080] hover:bg-[#008080] text-[#008080] hover:text-white font-semibold py-4 px-8 rounded-lg transition-all duration-200"
+              className="border-2 border-accent-blue hover:bg-accent-blue text-accent-blue hover:text-white font-semibold py-4 px-8 rounded-lg transition-all duration-200"
             >
               {secondaryCta}
             </button>
@@ -102,7 +102,7 @@ export default function EpmHero({ title, subtitle, primaryCta, secondaryCta }: E
 
         {/* Scroll Indicator */}
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <svg className="w-6 h-6 text-[#FFD700]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-6 h-6 text-signal-yellow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
           </svg>
         </div>

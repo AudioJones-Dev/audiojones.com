@@ -30,7 +30,7 @@ function RecoveryDiagram() {
           <stop offset="100%" stopColor="#4DACFF" />
         </linearGradient>
       </defs>
-      <rect x="18" y="28" width="584" height="304" rx="28" fill="rgba(5,7,15,0.72)" stroke="rgba(148,163,184,0.18)" />
+      <rect x="18" y="28" width="584" height="304" rx="28" fill="rgba(5,7,15,0.72)" stroke="rgba(102,102,102,0.18)" />
       <path d="M108 180 H512" stroke="url(#responseosRoute)" strokeWidth="8" strokeLinecap="round" />
       <path d="M492 160 L520 180 L492 200" fill="none" stroke="#4DACFF" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round" />
       {[
@@ -39,9 +39,9 @@ function RecoveryDiagram() {
         [512, "RECOVERY"],
       ].map(([x, label], index) => (
         <g key={label}>
-          <circle cx={Number(x)} cy="180" r="46" fill={index === 0 ? "rgba(232,255,90,0.14)" : index === 1 ? "rgba(148,163,184,0.10)" : "rgba(77,172,255,0.14)"} stroke={index === 0 ? "#E8FF5A" : index === 1 ? "#94A3B8" : "#4DACFF"} strokeOpacity=".72" />
-          <circle cx={Number(x)} cy="180" r="10" fill={index === 0 ? "#E8FF5A" : index === 1 ? "#94A3B8" : "#4DACFF"} />
-          <text x={Number(x)} y="262" textAnchor="middle" fill="#94a3b8" fontFamily="ui-monospace, monospace" fontSize="12" letterSpacing="3">
+          <circle cx={Number(x)} cy="180" r="46" fill={index === 0 ? "rgba(232,255,90,0.14)" : index === 1 ? "rgba(102,102,102,0.10)" : "rgba(77,172,255,0.14)"} stroke={index === 0 ? "#E8FF5A" : index === 1 ? "#666666" : "#4DACFF"} strokeOpacity=".72" />
+          <circle cx={Number(x)} cy="180" r="10" fill={index === 0 ? "#E8FF5A" : index === 1 ? "#666666" : "#4DACFF"} />
+          <text x={Number(x)} y="262" textAnchor="middle" fill="#666666" fontFamily="ui-monospace, monospace" fontSize="12" letterSpacing="3">
             {label}
           </text>
         </g>
@@ -49,7 +49,7 @@ function RecoveryDiagram() {
       <text x="310" y="82" textAnchor="middle" fill="#4DACFF" fontFamily="ui-monospace, monospace" fontSize="12" letterSpacing="4">
         AGENT LAYER
       </text>
-      <text x="310" y="304" textAnchor="middle" fill="#f8fafc" fontFamily="Inter, sans-serif" fontSize="16">
+      <text x="310" y="304" textAnchor="middle" fill="#E8E8E8" fontFamily="Inter, sans-serif" fontSize="16">
         capture - qualify - route - recover
       </text>
     </svg>
@@ -60,9 +60,9 @@ export default function ResponseOSWedge() {
   return (
     <section className="aj-bg-grid-dark border-t border-[var(--line-2)] py-24 sm:py-40">
       <div className="mx-auto grid max-w-[1280px] gap-10 px-5 sm:px-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
-        <div>
+        <div className="min-w-0">
           <Eyebrow>Flagship - Revenue Recovery Infrastructure</Eyebrow>
-          <h2 className="mt-4 t-h1 text-balance">
+          <h2 className="mt-4 t-h1 text-balance max-sm:text-[2rem]">
             ResponseOS recovers the revenue your follow-up is losing.
           </h2>
           <p className="mt-5 t-lead text-fg-2">
@@ -88,7 +88,7 @@ export default function ResponseOSWedge() {
             </Link>
           </div>
         </div>
-        <div className="aj-card-signal">
+        <div className="aj-card-signal min-w-0">
           <div className="aj-card-inner">
             <RecoveryDiagram />
           </div>

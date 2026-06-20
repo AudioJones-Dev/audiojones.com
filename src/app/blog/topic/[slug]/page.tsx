@@ -19,35 +19,35 @@ import { ctaLinks } from "@/config/links";
 // ─── Static cluster fallbacks (render even without Sanity) ────────────────────
 
 const STATIC_CLUSTERS: Record<string, { label: string; description: string; accent: string }> = {
-  "applied-intelligence-systems": {
-    label: "Applied Intelligence Systems",
+  "founder-intelligence-systems": {
+    label: "Founder Intelligence Systems",
     description:
-      "How to identify signal, build operating leverage, and create systems that compound. The full Applied Intelligence Systems framework documented.",
-    accent: "#3B5BFF",
+      "How to identify signal, build operating leverage, and create systems that compound. The full Founder Intelligence Systems framework documented.",
+    accent: "#4DACFF",
   },
   "signal-vs-noise": {
     label: "Signal vs Noise",
     description:
       "Causal vs vanity metrics. Separating what actually creates revenue from what consumes attention and budget without producing outcomes.",
-    accent: "#FF4500",
+    accent: "#E8FF5A",
   },
   "map-attribution": {
-    label: "M.A.P Attribution",
+    label: "M.A.P. Attribution",
     description:
       "Meaningful. Actionable. Profitable. The Audio Jones attribution framework for identifying exactly what drives growth in your business.",
-    accent: "#C8A96A",
+    accent: "#E8FF5A",
   },
   "why-ai-fails": {
     label: "Why AI Fails",
     description:
       "AI fails before it starts — when automation precedes systems, processes, and signal clarity. Everything founder-led businesses need to know before adopting AI.",
-    accent: "#94A3B8",
+    accent: "#666666",
   },
   "ai-readiness": {
     label: "AI Readiness for Founder-Led Businesses",
     description:
       "The diagnostic framework for knowing whether your business is ready for AI. Processes, attribution, data hygiene, and operating model — all before the tools.",
-    accent: "#10B981",
+    accent: "#3DFFB0",
   },
 };
 
@@ -75,12 +75,13 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
+  const { slug } = await params;
   const sanityCluster = await safeFetch<TopicCluster>(TOPIC_CLUSTER_BY_SLUG_QUERY, {
-    slug: params.slug,
+    slug,
   });
-  const staticFallback = STATIC_CLUSTERS[params.slug];
+  const staticFallback = STATIC_CLUSTERS[slug];
 
   const title = sanityCluster?.seoTitle ?? sanityCluster?.title ?? staticFallback?.label;
   const description = sanityCluster?.seoDescription ?? sanityCluster?.description ?? staticFallback?.description;
@@ -90,7 +91,7 @@ export async function generateMetadata({
   return buildMetadata({
     title: `${title} | Audio Jones Blog`,
     description: description ?? `Audio Jones articles on ${title}.`,
-    path: `/blog/topic/${params.slug}`,
+    path: `/blog/topic/${slug}`,
   });
 }
 
@@ -99,14 +100,15 @@ export async function generateMetadata({
 export default async function TopicClusterPage({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
-  const staticFallback = STATIC_CLUSTERS[params.slug];
+  const { slug } = await params;
+  const staticFallback = STATIC_CLUSTERS[slug];
 
   // Fetch Sanity data in parallel
   const [sanityCluster, posts] = await Promise.all([
-    safeFetch<TopicCluster>(TOPIC_CLUSTER_BY_SLUG_QUERY, { slug: params.slug }),
-    safeFetch<PostStub[]>(POSTS_BY_TOPIC_QUERY, { topicSlug: params.slug }),
+    safeFetch<TopicCluster>(TOPIC_CLUSTER_BY_SLUG_QUERY, { slug }),
+    safeFetch<PostStub[]>(POSTS_BY_TOPIC_QUERY, { topicSlug: slug }),
   ]);
 
   // 404 if neither Sanity nor static fallback recognises this slug
@@ -114,16 +116,16 @@ export default async function TopicClusterPage({
 
   const title = sanityCluster?.title ?? staticFallback!.label;
   const description = sanityCluster?.description ?? staticFallback!.description;
-  const accent = staticFallback?.accent ?? "#3B5BFF";
+  const accent = staticFallback?.accent ?? "#4DACFF";
   const hasPosts = Array.isArray(posts) && posts.length > 0;
 
   return (
-    <div className="min-h-screen" style={{ background: "#05070F" }}>
+    <div className="min-h-screen" style={{ background: "#080808" }}>
       <JsonLd
         data={breadcrumbJsonLd([
           { name: "Home", url: "/" },
           { name: "Blog", url: "/blog" },
-          { name: title, url: `/blog/topic/${params.slug}` },
+          { name: title, url: `/blog/topic/${slug}` },
         ])}
       />
 
@@ -170,7 +172,7 @@ export default async function TopicClusterPage({
           </p>
 
           {/* Internal links to related framework pages */}
-          <InternalLinks slug={params.slug} accent={accent} />
+          <InternalLinks slug={slug} accent={accent} />
         </div>
       </section>
 
@@ -221,14 +223,14 @@ export default async function TopicClusterPage({
       <section className="border-t border-[var(--line-2)] py-16">
         <div className="mx-auto max-w-[1280px] px-5 sm:px-8 text-center">
           <p
-            style={{ fontFamily: "var(--font-body)", fontSize: "9px", fontWeight: 700, letterSpacing: "0.22em", textTransform: "uppercase", color: "#C8A96A", marginBottom: "16px" }}
+            style={{ fontFamily: "var(--font-body)", fontSize: "9px", fontWeight: 700, letterSpacing: "0.22em", textTransform: "uppercase", color: "#E8FF5A", marginBottom: "16px" }}
           >
             Apply the framework
           </p>
           <h2
             style={{ fontFamily: "var(--font-headline)", fontSize: "clamp(1.4rem, 2.5vw, 2.2rem)", fontWeight: 700, letterSpacing: "-0.03em", color: "#FFFFFF", marginBottom: "24px" }}
           >
-            Ready to build your Applied Intelligence System?
+            Ready to build your Founder Intelligence System?
           </h2>
           <ButtonLink href={ctaLinks.signalDiagnostic} variant="glow">
             Book Your Diagnostic
@@ -243,26 +245,26 @@ export default async function TopicClusterPage({
 
 function InternalLinks({ slug, accent }: { slug: string; accent: string }) {
   const links: Record<string, Array<{ label: string; href: string }>> = {
-    "applied-intelligence-systems": [
-      { label: "AIS Framework", href: "/frameworks/applied-intelligence-systems" },
-      { label: "Applied Intelligence", href: "/applied-intelligence" },
+    "founder-intelligence-systems": [
+      { label: "AIS Framework", href: "/frameworks/founder-intelligence-systems" },
+      { label: "Founder Intelligence", href: "/founder-intelligence" },
       { label: "Book Diagnostic", href: ctaLinks.signalDiagnostic },
     ],
     "signal-vs-noise": [
       { label: "Signal vs Noise Framework", href: "/frameworks/signal-vs-noise" },
-      { label: "Applied Intelligence", href: "/applied-intelligence" },
+      { label: "Founder Intelligence", href: "/founder-intelligence" },
     ],
     "map-attribution": [
-      { label: "M.A.P Attribution Framework", href: "/frameworks/map-attribution" },
-      { label: "Applied Intelligence", href: "/applied-intelligence" },
+      { label: "M.A.P. Attribution Framework", href: "/frameworks/map-attribution" },
+      { label: "Founder Intelligence", href: "/founder-intelligence" },
     ],
     "why-ai-fails": [
-      { label: "Applied Intelligence", href: "/applied-intelligence" },
+      { label: "Founder Intelligence", href: "/founder-intelligence" },
       { label: "AI Readiness Diagnostic", href: ctaLinks.signalDiagnostic },
     ],
     "ai-readiness": [
       { label: "Book Diagnostic", href: ctaLinks.signalDiagnostic },
-      { label: "Applied Intelligence", href: "/applied-intelligence" },
+      { label: "Founder Intelligence", href: "/founder-intelligence" },
     ],
   };
 
@@ -300,7 +302,7 @@ function TopicPostCard({ post, accent }: { post: PostStub; accent: string }) {
     <article
       className="group flex flex-col rounded-2xl overflow-hidden"
       style={{
-        background: "rgba(10,14,28,0.72)",
+        background: "rgba(15,15,15,0.72)",
         border: "1px solid rgba(255,255,255,0.06)",
         borderTop: `2px solid ${accent}`,
       }}
@@ -308,7 +310,7 @@ function TopicPostCard({ post, accent }: { post: PostStub; accent: string }) {
       <div className="flex flex-1 flex-col p-6">
         <Link href={`/blog/${post.slug.current}`} className="flex-1">
           <h2
-            className="mb-3 leading-snug transition-colors group-hover:text-[#FF4500]"
+            className="mb-3 leading-snug transition-colors group-hover:text-signal-yellow"
             style={{
               fontFamily: "var(--font-headline)",
               fontSize: "17px",
@@ -351,4 +353,3 @@ function TopicPostCard({ post, accent }: { post: PostStub; accent: string }) {
     </article>
   );
 }
-

@@ -14,11 +14,6 @@
 import { useState, useEffect } from 'react';
 import { RefreshCw, CheckCircle2, XCircle, Clock, AlertTriangle, Play, Plus, Edit, Trash2, Settings } from 'lucide-react';
 
-// Helper to get admin key
-const getAdminKey = (): string => {
-  return process.env.NEXT_PUBLIC_ADMIN_KEY || '';
-};
-
 interface WebhookDeliveryAttempt {
   event_id: string;
   url: string;
@@ -90,14 +85,11 @@ export default function StatusWebhooksPage() {
       setError(null);
 
       const [deliveriesRes, statsRes, targetsRes] = await Promise.all([
-        fetch('/api/admin/status-webhooks/deliveries', {
-          headers: { 'admin-key': getAdminKey() }
+        fetch('/api/_proxy/admin/status-webhooks/deliveries', {
         }),
-        fetch('/api/admin/status-webhooks/stats', {
-          headers: { 'admin-key': getAdminKey() }
+        fetch('/api/_proxy/admin/status-webhooks/stats', {
         }),
-        fetch('/api/admin/status-webhooks/targets', {
-          headers: { 'admin-key': getAdminKey() }
+        fetch('/api/_proxy/admin/status-webhooks/targets', {
         })
       ]);
 
@@ -127,10 +119,9 @@ export default function StatusWebhooksPage() {
       setRetryResult(null);
       setError(null);
 
-      const response = await fetch('/api/admin/status-webhooks/retry', {
+      const response = await fetch('/api/_proxy/admin/status-webhooks/retry', {
         method: 'POST',
         headers: { 
-          'admin-key': getAdminKey(),
           'Content-Type': 'application/json'
         }
       });
@@ -160,10 +151,9 @@ export default function StatusWebhooksPage() {
     try {
       setError(null);
 
-      const response = await fetch('/api/admin/status-webhooks/targets', {
+      const response = await fetch('/api/_proxy/admin/status-webhooks/targets', {
         method: 'POST',
         headers: {
-          'admin-key': getAdminKey(),
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
@@ -195,10 +185,9 @@ export default function StatusWebhooksPage() {
     try {
       setError(null);
 
-      const response = await fetch(`/api/admin/status-webhooks/targets/${targetId}`, {
+      const response = await fetch(`/api/_proxy/admin/status-webhooks/targets/${targetId}`, {
         method: 'PATCH',
         headers: {
-          'admin-key': getAdminKey(),
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({ active })
@@ -227,9 +216,8 @@ export default function StatusWebhooksPage() {
     try {
       setError(null);
 
-      const response = await fetch(`/api/admin/status-webhooks/targets/${targetId}`, {
+      const response = await fetch(`/api/_proxy/admin/status-webhooks/targets/${targetId}`, {
         method: 'DELETE',
-        headers: { 'admin-key': getAdminKey() }
       });
 
       const result = await response.json();
@@ -365,7 +353,7 @@ export default function StatusWebhooksPage() {
     <div className="container mx-auto p-6 max-w-6xl">
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-white mb-2">Status Webhook Management</h1>
-        <p className="text-gray-400">Monitor deliveries and manage webhook targets</p>
+        <p className="text-text-muted">Monitor deliveries and manage webhook targets</p>
       </div>
 
       {/* Tab Navigation */}
@@ -377,7 +365,7 @@ export default function StatusWebhooksPage() {
               className={`py-2 px-1 border-b-2 font-medium text-sm ${
                 activeTab === 'deliveries'
                   ? 'border-blue-500 text-blue-400'
-                  : 'border-transparent text-gray-400 hover:text-gray-300 hover:border-gray-300'
+                  : 'border-transparent text-text-muted hover:text-text-primary hover:border-gray-300'
               }`}
             >
               Webhook Deliveries
@@ -387,7 +375,7 @@ export default function StatusWebhooksPage() {
               className={`py-2 px-1 border-b-2 font-medium text-sm ${
                 activeTab === 'targets'
                   ? 'border-blue-500 text-blue-400'
-                  : 'border-transparent text-gray-400 hover:text-gray-300 hover:border-gray-300'
+                  : 'border-transparent text-text-muted hover:text-text-primary hover:border-gray-300'
               }`}
             >
               Webhook Targets
@@ -426,7 +414,7 @@ export default function StatusWebhooksPage() {
               <h3 className="text-lg font-medium text-white mb-4">Add Webhook Target</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">URL *</label>
+                  <label className="block text-sm font-medium text-text-primary mb-2">URL *</label>
                   <input
                     type="url"
                     value={newTarget.url}
@@ -436,7 +424,7 @@ export default function StatusWebhooksPage() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">Secret (optional)</label>
+                  <label className="block text-sm font-medium text-text-primary mb-2">Secret (optional)</label>
                   <input
                     type="password"
                     value={newTarget.secret || ''}
@@ -446,7 +434,7 @@ export default function StatusWebhooksPage() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">Events (comma-separated)</label>
+                  <label className="block text-sm font-medium text-text-primary mb-2">Events (comma-separated)</label>
                   <input
                     type="text"
                     value={newTarget.events?.join(', ') || ''}
@@ -459,7 +447,7 @@ export default function StatusWebhooksPage() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">Description</label>
+                  <label className="block text-sm font-medium text-text-primary mb-2">Description</label>
                   <input
                     type="text"
                     value={newTarget.description || ''}
@@ -495,19 +483,19 @@ export default function StatusWebhooksPage() {
               <table className="w-full">
                 <thead className="bg-gray-700">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-text-primary uppercase tracking-wider">
                       Status
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-text-primary uppercase tracking-wider">
                       URL
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-text-primary uppercase tracking-wider">
                       Events
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-text-primary uppercase tracking-wider">
                       Security
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-text-primary uppercase tracking-wider">
                       Actions
                     </th>
                   </tr>
@@ -515,7 +503,7 @@ export default function StatusWebhooksPage() {
                 <tbody className="divide-y divide-gray-700">
                   {targets.length === 0 ? (
                     <tr>
-                      <td colSpan={5} className="px-6 py-8 text-center text-gray-400">
+                      <td colSpan={5} className="px-6 py-8 text-center text-text-muted">
                         No webhook targets configured
                       </td>
                     </tr>
@@ -529,25 +517,25 @@ export default function StatusWebhooksPage() {
                             ) : (
                               <XCircle className="w-4 h-4 text-red-500" />
                             )}
-                            <span className="text-sm text-gray-300">
+                            <span className="text-sm text-text-primary">
                               {target.active ? 'Active' : 'Inactive'}
                             </span>
                           </div>
                         </td>
                         <td className="px-6 py-4">
                           <div>
-                            <div className="text-sm text-gray-300 font-mono">
+                            <div className="text-sm text-text-primary font-mono">
                               {target.url}
                             </div>
                             {target.description && (
-                              <div className="text-xs text-gray-500 mt-1">
+                              <div className="text-xs text-text-muted mt-1">
                                 {target.description}
                               </div>
                             )}
                           </div>
                         </td>
                         <td className="px-6 py-4">
-                          <span className="text-sm text-gray-300">
+                          <span className="text-sm text-text-primary">
                             {target.events && target.events.length > 0 
                               ? target.events.join(', ') 
                               : 'All events'
@@ -555,7 +543,7 @@ export default function StatusWebhooksPage() {
                           </span>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <span className="text-sm text-gray-300">
+                          <span className="text-sm text-text-primary">
                             {target.secret ? 'HMAC Signed' : 'Unsigned'}
                           </span>
                         </td>
@@ -600,7 +588,7 @@ export default function StatusWebhooksPage() {
         <div className="bg-gray-800 rounded-lg p-4">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-400">Pending</p>
+              <p className="text-sm text-text-muted">Pending</p>
               <p className="text-2xl font-bold text-yellow-400">{queueStats.pending}</p>
             </div>
             <Clock className="w-8 h-8 text-yellow-400" />
@@ -610,7 +598,7 @@ export default function StatusWebhooksPage() {
         <div className="bg-gray-800 rounded-lg p-4">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-400">Failed</p>
+              <p className="text-sm text-text-muted">Failed</p>
               <p className="text-2xl font-bold text-red-400">{queueStats.failed}</p>
             </div>
             <XCircle className="w-8 h-8 text-red-400" />
@@ -620,7 +608,7 @@ export default function StatusWebhooksPage() {
         <div className="bg-gray-800 rounded-lg p-4">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-400">Total Queued</p>
+              <p className="text-sm text-text-muted">Total Queued</p>
               <p className="text-2xl font-bold text-blue-400">{queueStats.total}</p>
             </div>
             <AlertTriangle className="w-8 h-8 text-blue-400" />
@@ -685,7 +673,7 @@ export default function StatusWebhooksPage() {
             {testResult.message}
           </p>
           {testResult.eventId && (
-            <p className="text-xs text-gray-400 mt-1">
+            <p className="text-xs text-text-muted mt-1">
               Check the aj_webhook_events collection for event: {testResult.eventId}
             </p>
           )}
@@ -698,15 +686,15 @@ export default function StatusWebhooksPage() {
           <h3 className="text-lg font-medium text-white mb-2">Last Retry Run Results</h3>
           <div className="grid grid-cols-3 gap-4 text-sm">
             <div>
-              <span className="text-gray-400">Processed:</span>
+              <span className="text-text-muted">Processed:</span>
               <span className="ml-2 text-white">{retryResult.processed}</span>
             </div>
             <div>
-              <span className="text-gray-400">Succeeded:</span>
+              <span className="text-text-muted">Succeeded:</span>
               <span className="ml-2 text-green-400">{retryResult.succeeded}</span>
             </div>
             <div>
-              <span className="text-gray-400">Failed:</span>
+              <span className="text-text-muted">Failed:</span>
               <span className="ml-2 text-red-400">{retryResult.failed}</span>
             </div>
           </div>
@@ -721,7 +709,7 @@ export default function StatusWebhooksPage() {
             <button
               onClick={fetchData}
               disabled={loading}
-              className="flex items-center space-x-2 text-gray-300 hover:text-white transition-colors"
+              className="flex items-center space-x-2 text-text-primary hover:text-white transition-colors"
             >
               <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
               <span>Refresh</span>
@@ -733,22 +721,22 @@ export default function StatusWebhooksPage() {
           <table className="w-full">
             <thead className="bg-gray-700">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-text-primary uppercase tracking-wider">
                   Status
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-text-primary uppercase tracking-wider">
                   Event ID
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-text-primary uppercase tracking-wider">
                   URL
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-text-primary uppercase tracking-wider">
                   Timestamp
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-text-primary uppercase tracking-wider">
                   Response Time
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-text-primary uppercase tracking-wider">
                   Error
                 </th>
               </tr>
@@ -756,7 +744,7 @@ export default function StatusWebhooksPage() {
             <tbody className="divide-y divide-gray-700">
               {deliveries.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="px-6 py-8 text-center text-gray-400">
+                  <td colSpan={6} className="px-6 py-8 text-center text-text-muted">
                     No webhook deliveries found
                   </td>
                 </tr>
@@ -766,26 +754,26 @@ export default function StatusWebhooksPage() {
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center space-x-2">
                         {getStatusIcon(delivery.status, delivery.error)}
-                        <span className="text-sm text-gray-300">
+                        <span className="text-sm text-text-primary">
                           {getStatusText(delivery.status, delivery.error)}
                         </span>
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <span className="text-sm font-mono text-gray-300">{delivery.event_id}</span>
+                      <span className="text-sm font-mono text-text-primary">{delivery.event_id}</span>
                     </td>
                     <td className="px-6 py-4">
-                      <span className="text-sm text-gray-300" title={delivery.url}>
+                      <span className="text-sm text-text-primary" title={delivery.url}>
                         {formatUrl(delivery.url)}
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <span className="text-sm text-gray-300">
+                      <span className="text-sm text-text-primary">
                         {formatTimestamp(delivery.timestamp)}
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <span className="text-sm text-gray-300">
+                      <span className="text-sm text-text-primary">
                         {delivery.response_time_ms ? `${delivery.response_time_ms}ms` : '-'}
                       </span>
                     </td>
