@@ -15,6 +15,15 @@ Entries are reverse chronological. Format follows
 
 ## Unreleased
 
+### Tooling
+- Added `.github/workflows/validation-summary.yml` (Phase 1 of
+  `docs/ops/AUTOMATED_VALIDATION_REVIEW_LOOP.md`): aggregates `CI`,
+  `Build & Lint`, and `Smoke Test (Preview)` check results into a
+  single sticky PR comment + `validation-summary.json` artifact, and
+  classifies the next actor (`codex-fix` / `claude-review` /
+  `human-approval` / `none`). Local mirror via `pnpm validate` and
+  `pnpm validate:summary`. No new secrets; Phase 2 webhook deferred.
+
 ### Documentation
 - Promoted `docs/design/DESIGN.md` as the canonical design-system file,
   kept `docs/DESIGN.md` as a redirect stub, and removed the tracked

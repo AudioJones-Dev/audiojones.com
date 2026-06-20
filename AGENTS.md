@@ -114,6 +114,11 @@ pnpm build
 If any step fails, **fix the cause**, do not bypass it (no `--no-verify`,
 no skipping the Firebase guard).
 
+`pnpm validate` runs the same four-command contract sequentially and
+writes a `validation-summary.json` artifact that mirrors what the
+`PR Validation Summary` workflow posts on the PR. See
+[`docs/ops/AUTOMATED_VALIDATION_REVIEW_LOOP.md`](./docs/ops/AUTOMATED_VALIDATION_REVIEW_LOOP.md).
+
 ### Commit & branch hygiene
 
 - One concern per branch. Branch names: `chore/...`, `feat/...`,

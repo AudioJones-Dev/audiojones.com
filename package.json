@@ -49,6 +49,8 @@
         "build:prod": "pnpm vercel:patch-win && npx vercel build --prod",
         "deploy:prod": "pnpm vercel:patch-win && npx vercel --prod",
         "release:check": "bash scripts/release-check.sh",
+        "validate": "tsx scripts/validate-local.ts",
+        "validate:summary": "tsx scripts/render-validation-summary.ts",
         "visual:qa:capture": "tsx scripts/visual-qa/capture-site-shot.ts",
         "visual:qa:review": "tsx scripts/visual-qa/review-screenshots.ts",
         "visual:qa": "pnpm visual:qa:capture && pnpm visual:qa:review"
