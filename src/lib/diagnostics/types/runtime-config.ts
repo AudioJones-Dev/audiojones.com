@@ -29,7 +29,13 @@ export type DiagnosticRuntimeConfig = {
   session: { idPrefix: string };
   draft: { storageKey: string };
   report: { storageKey: string };
-  events: { prefix: string; names: readonly string[] };
+  events: {
+    /** dataLayer event prefix, e.g. "fga" -> dataLayer { event: "fga_<name>" }. */
+    prefix: string;
+    /** window CustomEvent name, e.g. "audiojones:fga_event". */
+    customEventName: string;
+    names: readonly string[];
+  };
   honeypotField: string;
   verification?: "none" | "recompute";
   scoringAdapter: DiagnosticScoringAdapter;

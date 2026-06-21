@@ -29,7 +29,11 @@ export const founderGravityRuntimeConfig: DiagnosticRuntimeConfig = {
   session: { idPrefix: "fga" },
   draft: { storageKey: "audiojones:fga:draft" },
   report: { storageKey: "audiojones:fga:last-report" },
-  events: { prefix: "fga", names: FOUNDER_GRAVITY_EVENT_NAMES },
+  events: {
+    prefix: "fga",
+    customEventName: "audiojones:fga_event",
+    names: FOUNDER_GRAVITY_EVENT_NAMES,
+  },
   honeypotField: "website_url",
   verification: "none",
   scoringAdapter: founderGravityScoringAdapter,
