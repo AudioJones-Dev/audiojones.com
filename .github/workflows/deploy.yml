@@ -93,9 +93,18 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
+    # Serialize production deploys so a slower/older run cannot finish after a
+    # newer one and publish stale code over it.
+    concurrency:
+      group: production-deploy
+      cancel-in-progress: false
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+        with:
+          # Full history so we can compare the checked-out SHA against the
+          # current tip of origin/main in the deploy guard below.
+          fetch-depth: 0
 
       - name: Enable Corepack
         run: corepack enable
@@ -118,10 +127,23 @@ jobs:
       - name: Build packages
         run: pnpm packages:build
 
-      - name: Deploy to Vercel
+      - name: Deploy to Vercel (production)
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-        run: npx vercel@latest deploy --prod --token="${VERCEL_TOKEN}" --cwd .
+        # Guard against publishing stale code: only deploy when this checkout
+        # is the current tip of origin/main. Re-running an older workflow run
+        # (which checks out an older SHA) is skipped instead of rolling
+        # production back — the failure mode that previously pinned production
+        # to old commits.
+        run: |
+          git fetch origin main --quiet
+          head_sha="$(git rev-parse HEAD)"
+          main_sha="$(git rev-parse origin/main)"
+          if [ "$head_sha" != "$main_sha" ]; then
+            echo "::warning::Refusing to deploy: HEAD ${head_sha} is not the tip of origin/main (${main_sha}). Skipping to avoid publishing stale code to production."
+            exit 0
+          fi
+          npx vercel@latest deploy --prod --token="${VERCEL_TOKEN}" --cwd .
 
   # Branch previews — the Vercel Git integration only auto-deploys `main`
   # to production, so pull requests never got a preview URL. This job
