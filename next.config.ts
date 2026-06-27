@@ -25,23 +25,28 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      // /services retired 2026-06-27 in favour of /solutions (the canonical
+      // "what we sell" surface per the 2026-06-18 offer model). All legacy
+      // paths that previously landed on /services now target /solutions
+      // directly so no redirect chains form.
+      { source: "/services", destination: "/solutions", permanent: true },
       // Pre-redesign /modules/* — retired (already redirected pre-existing).
       { source: "/modules/ai-optimization", destination: "/founder-intelligence", permanent: true },
-      { source: "/modules/client-delivery", destination: "/services", permanent: true },
+      { source: "/modules/client-delivery", destination: "/solutions", permanent: true },
       { source: "/modules/data-intelligence", destination: "/founder-intelligence", permanent: true },
-      { source: "/modules/marketing-automation", destination: "/services", permanent: true },
+      { source: "/modules/marketing-automation", destination: "/solutions", permanent: true },
       // /systems index + leaves — retired by 2026-05-10 nav restructure.
       { source: "/systems", destination: "/founder-intelligence", permanent: true },
       { source: "/systems/ai-optimization", destination: "/founder-intelligence", permanent: true },
-      { source: "/systems/client-delivery", destination: "/services", permanent: true },
+      { source: "/systems/client-delivery", destination: "/solutions", permanent: true },
       { source: "/systems/data-intelligence", destination: "/founder-intelligence", permanent: true },
-      { source: "/systems/marketing-automation", destination: "/services", permanent: true },
+      { source: "/systems/marketing-automation", destination: "/solutions", permanent: true },
       // Pre-redesign legacy marketing pages — retired by 2026-05-10 nav
       // restructure. Backlinks transfer to the closest semantic replacement.
       { source: "/book", destination: "/book-a-call", permanent: true },
-      { source: "/business", destination: "/services", permanent: true },
-      { source: "/creators", destination: "/services", permanent: true },
-      { source: "/artisthub", destination: "/services", permanent: true },
+      { source: "/business", destination: "/solutions", permanent: true },
+      { source: "/creators", destination: "/solutions", permanent: true },
+      { source: "/artisthub", destination: "/solutions", permanent: true },
       // Brand rename: "Applied Intelligence" → "Founder Intelligence".
       // 308 (permanent: true) preserves request method so existing POSTs to
       // the API endpoint keep working through the redirect.

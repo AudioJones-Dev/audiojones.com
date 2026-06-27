@@ -49,7 +49,7 @@ export const modules: ModuleConfig[] = [
     tagline: "Project management meets client experience",
     shortDescription: "Seamless onboarding, project tracking, and file delivery for professional creative services.",
     longDescription: "The Client Delivery System handles everything from initial onboarding through final deliverable handoff. Clients get a branded portal for project updates, file access, and milestone tracking. Admins get centralized project management with automated workflows, status tracking, and integrated billing.",
-    href: "/services",
+    href: "/solutions",
     icon: "📦",
     gradient: {
       from: "#E8FF5A",
@@ -64,7 +64,7 @@ export const modules: ModuleConfig[] = [
     tagline: "AI-powered content distribution at scale",
     shortDescription: "Multi-channel marketing campaigns with intelligent scheduling and performance tracking.",
     longDescription: "The Marketing Automation System powers content creation, scheduling, and distribution across multiple platforms. From social media to email campaigns to podcast distribution, this system ensures your message reaches your audience at the right time. AI-driven optimization continuously improves performance based on engagement data.",
-    href: "/services",
+    href: "/solutions",
     icon: "🚀",
     gradient: {
       from: "#4DACFF",

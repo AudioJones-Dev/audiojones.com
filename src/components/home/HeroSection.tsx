@@ -29,7 +29,7 @@ export default function HeroSection() {
                 Book a Consultation
               </a>
               <a
-                href="/services"
+                href="/solutions"
                 className="rounded-full border border-border-subtle px-6 py-3 font-bold text-white
                          hover:bg-white/10 transition"
               >

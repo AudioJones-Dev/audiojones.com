@@ -61,8 +61,8 @@ export default function RealBlockersSection() {
               >
                 Fix This Now
               </a>
-              <a 
-                href="/services"
+              <a
+                href="/solutions"
                 className="inline-flex items-center justify-center px-6 py-3 border border-white/30 text-white font-semibold rounded-full hover:bg-white/10 transition"
               >
                 See How It Works

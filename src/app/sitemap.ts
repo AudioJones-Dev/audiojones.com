@@ -17,7 +17,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${base}/resources`,                         lastModified: now, changeFrequency: "weekly",  priority: 0.7  },
     { url: `${base}/agents`,                            lastModified: now, changeFrequency: "weekly",  priority: 0.9  },
     { url: `${base}/agents/responseos`,                 lastModified: now, changeFrequency: "weekly",  priority: 0.9  },
-    { url: `${base}/services`,                          lastModified: now, changeFrequency: "weekly",  priority: 0.9  },
     { url: `${base}/case-studies`,                      lastModified: now, changeFrequency: "weekly",  priority: 0.9  },
     { url: `${base}/insights`,                          lastModified: now, changeFrequency: "weekly",  priority: 0.85 },
     { url: `${base}/roi-calculator`,                    lastModified: now, changeFrequency: "weekly",  priority: 0.9  },

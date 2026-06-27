@@ -16,7 +16,7 @@ export const ctaLinks = {
   bookSession: "/book-a-call", // Internal booking page (2026-05-10 nav restructure)
   signalDiagnostic: "/ai-readiness-diagnostic", // Canonical public diagnostic flow
   roiCalculator: "/roi-calculator", // Internal ROI calculator
-  viewServices: "/services", // Services catalog
+  viewServices: "/solutions", // /services retired 2026-06-27 → canonical /solutions
   viewPricing: "/pricing", // Pricing page
   contactUs: "/contact", // Contact form (if exists)
 } as const;

@@ -534,7 +534,7 @@ TONE: Confident operator sharing proven systems, not consultant selling services
     const links = {
       newsletter: '/newsletter',
       podcast: '/podcast',
-      services: '/services',
+      services: '/solutions',
       lead_magnet: '/resources/growth-framework'
     };
     return links[ctaType];

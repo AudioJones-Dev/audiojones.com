@@ -84,7 +84,7 @@ export default function AuthorCard() {
       </div>
 
       <div className="mt-6 pt-6 border-t border-border-subtle text-center">
-        <ButtonLink href="/services" variant="primary">
+        <ButtonLink href="/solutions" variant="primary">
           Work with Audio Jones
         </ButtonLink>
       </div>

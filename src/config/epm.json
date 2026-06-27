@@ -65,17 +65,17 @@
     {
       "module": "Marketing Automation",
       "description": "EPM integrates with our marketing automation to add emotional intelligence to your funnels",
-      "href": "/services#marketing-automation"
+      "href": "/solutions"
     },
     {
       "module": "Data Intelligence",
       "description": "Advanced analytics provide the data foundation for EPM emotional predictions",
-      "href": "/services#data-intelligence"
+      "href": "/solutions"
     },
     {
       "module": "AI Optimization",
       "description": "AI systems continuously optimize EPM strategies based on real-world performance",
-      "href": "/services#ai-optimization"
+      "href": "/solutions"
     }
   ]
 }

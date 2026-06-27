@@ -67,7 +67,7 @@ export const SEGMENT_CTAS: Record<FounderGravitySegment, FounderGravityCta> = {
   Drift: {
     label: "Explore Founder Intelligence Systems",
     event: "trial_or_subscription_interest",
-    href: "/services?source=founder-gravity-audit&segment=drift",
+    href: "/solutions?source=founder-gravity-audit&segment=drift",
     pathway: "founder_intelligence_systems",
   },
   Stabilizing: {

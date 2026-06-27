@@ -27,8 +27,8 @@ export default function CaseStudiesPage() {
         description={DESCRIPTION}
         primaryHref="/ai-readiness-diagnostic"
         primaryLabel="Start the Diagnostic"
-        secondaryHref="/services"
-        secondaryLabel="See Services"
+        secondaryHref="/solutions"
+        secondaryLabel="See Solutions"
         stats={proofSignals}
       />
 

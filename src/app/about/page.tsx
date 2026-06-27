@@ -41,8 +41,8 @@ export default function AboutPage() {
         description="The brand combines personal authority, applied AI infrastructure, business diagnosis, and operating-system design for teams that need clarity before scale."
         primaryHref="/ai-readiness-diagnostic"
         primaryLabel="Start the Diagnostic"
-        secondaryHref="/services"
-        secondaryLabel="See Services"
+        secondaryHref="/solutions"
+        secondaryLabel="See Solutions"
       >
         <SignalConsole />
       </SignalHero>
