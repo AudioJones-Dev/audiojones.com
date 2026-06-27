@@ -1,5 +1,6 @@
 // SEO Head Component - Structured data and meta tags for blog posts
 import { PillarType } from '@/lib/models/blog';
+import { siteConfig } from '@/lib/site';
 
 interface BlogPost {
   id: string;
@@ -21,6 +22,15 @@ interface SEOHeadProps {
 }
 
 export default function SEOHead({ post, structuredData }: SEOHeadProps) {
+  const baseUrl = siteConfig.url;
+  const blogUrl = `${baseUrl}/blog/${post.slug}`;
+  const logoUrl = `${baseUrl}/assets/logo.png`;
+  const ogImageUrl = post.ogImage
+    ? post.ogImage.startsWith('http')
+      ? post.ogImage
+      : `${baseUrl}${post.ogImage}`
+    : undefined;
+
   // Generate structured data if not provided
   const defaultStructuredData = {
     '@context': 'https://schema.org',
@@ -29,14 +39,14 @@ export default function SEOHead({ post, structuredData }: SEOHeadProps) {
     author: {
       '@type': 'Organization',
       name: 'Audio Jones / AJ DIGITAL LLC',
-      url: 'https://audiojones.com',
+      url: baseUrl,
     },
     publisher: {
       '@type': 'Organization',
       name: 'Audio Jones',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://audiojones.com/assets/logo.png',
+        url: logoUrl,
         width: 200,
         height: 60,
       },
@@ -45,11 +55,11 @@ export default function SEOHead({ post, structuredData }: SEOHeadProps) {
     dateModified: post.publishedAt,
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `https://audiojones.com/blog/${post.slug}`,
+      '@id': blogUrl,
     },
     image: post.ogImage ? {
       '@type': 'ImageObject',
-      url: `https://audiojones.com${post.ogImage}`,
+      url: ogImageUrl,
       width: 1200,
       height: 630,
     } : undefined,
@@ -75,19 +85,19 @@ export default function SEOHead({ post, structuredData }: SEOHeadProps) {
         '@type': 'ListItem',
         position: 1,
         name: 'Home',
-        item: 'https://audiojones.com',
+        item: baseUrl,
       },
       {
         '@type': 'ListItem',
         position: 2,
         name: 'Blog',
-        item: 'https://audiojones.com/blog',
+        item: `${baseUrl}/blog`,
       },
       {
         '@type': 'ListItem',
         position: 3,
         name: post.title,
-        item: `https://audiojones.com/blog/${post.slug}`,
+        item: blogUrl,
       },
     ],
   };
@@ -98,8 +108,8 @@ export default function SEOHead({ post, structuredData }: SEOHeadProps) {
     '@type': 'Organization',
     name: 'Audio Jones',
     alternateName: 'AJ DIGITAL LLC',
-    url: 'https://audiojones.com',
-    logo: 'https://audiojones.com/assets/logo.png',
+    url: baseUrl,
+    logo: logoUrl,
     foundingLocation: {
       '@type': 'Place',
       name: 'Miami, FL',
@@ -144,7 +154,7 @@ export default function SEOHead({ post, structuredData }: SEOHeadProps) {
       <meta name="googlebot" content="index, follow" />
       
       {/* Article-specific meta tags */}
-      <meta property="article:publisher" content="https://audiojones.com" />
+      <meta property="article:publisher" content={baseUrl} />
       <meta property="article:author" content="Audio Jones Team" />
       <meta property="article:published_time" content={post.publishedAt} />
       <meta property="article:modified_time" content={post.publishedAt} />
@@ -164,7 +174,7 @@ export default function SEOHead({ post, structuredData }: SEOHeadProps) {
       <meta property="og:locale" content="en_US" />
       
       {/* Canonical URL */}
-      <link rel="canonical" href={`https://audiojones.com/blog/${post.slug}`} />
+      <link rel="canonical" href={blogUrl} />
       
       {/* Preconnect to external domains for performance */}
       <link rel="preconnect" href="https://ik.imagekit.io" />

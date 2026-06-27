@@ -6,6 +6,9 @@ const ASSET_VERSION = process.env.NEXT_PUBLIC_ASSET_VERSION || COMMIT.slice(0, 7
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  turbopack: {
+    root: __dirname,
+  },
   images: {
     formats: ["image/avif", "image/webp"],
     remotePatterns: [

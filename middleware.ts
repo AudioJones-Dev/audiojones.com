@@ -11,6 +11,12 @@ export function middleware(request: NextRequest) {
     console.log("[middleware:incoming]", { host, pathname });
   }
 
+  if (host === "audiojones.com") {
+    url.protocol = "https:";
+    url.hostname = "www.audiojones.com";
+    return NextResponse.redirect(url, 308);
+  }
+
   // Handle admin subdomain routing
   if (host.startsWith("admin.")) {
     // Admin homepage -> portal/admin

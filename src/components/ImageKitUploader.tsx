@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Script from "next/script";
 import { useToast } from "@/components/Toast";
 
 declare global {
@@ -33,9 +32,19 @@ export default function ImageKitUploader() {
     // If the script was already loaded
     if (typeof window !== "undefined" && (window as any).ImageKit) {
       onReady();
+      return () => {};
     }
 
-    return () => {};
+    const script = document.createElement("script");
+    script.src = "https://unpkg.com/imagekit-javascript/dist/imagekit.min.js";
+    script.async = true;
+    script.addEventListener("load", onReady);
+    document.head.appendChild(script);
+
+    return () => {
+      script.removeEventListener("load", onReady);
+      script.remove();
+    };
   }, []);
 
   const onUpload = async () => {
@@ -67,7 +76,6 @@ export default function ImageKitUploader() {
 
   return (
     <div className="mt-6">
-      <Script src="https://unpkg.com/imagekit-javascript/dist/imagekit.min.js" onLoad={() => setReady(true)} />
       <div className="flex items-center gap-3">
         <input id="ik-file" type="file" accept="image/*" className="text-white" />
         <button

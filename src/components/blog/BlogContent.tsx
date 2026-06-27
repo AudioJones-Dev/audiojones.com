@@ -50,7 +50,7 @@ export default function BlogContent({ content }: BlogContentProps) {
         className="prose prose-lg prose-invert max-w-none"
       />
       
-      <style jsx global>{`
+      <style>{`
         .blog-content {
           line-height: 1.8;
           color: #E8E8E8;
