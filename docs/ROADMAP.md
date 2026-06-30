@@ -10,6 +10,12 @@ entries ([`DECISIONS.md`](./DECISIONS.md)), and the changelog
 
 ## Now (in flight)
 
+- **ADFIP diagnostic acquisition planning.** ADFIP is the accepted program
+  frame. The first route slice is the Founder Revenue Leak Diagnostic; the next
+  assessment slice is Founder Intelligence Assessment v1. See
+  [`docs/specs/founder-intelligence-assessment-v1.md`](./specs/founder-intelligence-assessment-v1.md)
+  and
+  [`docs/specs/founder-revenue-leak-diagnostic-route.md`](./specs/founder-revenue-leak-diagnostic-route.md).
 - **Docs readiness bootstrap.** Establish AGENTS.md, CLAUDE.md, and the
   canonical `docs/` hierarchy. Stub legacy/duplicated docs to a single
   source of truth. *(this PR)*
@@ -19,9 +25,18 @@ entries ([`DECISIONS.md`](./DECISIONS.md)), and the changelog
 - **Lead-capture hardening.** Continue ensuring all forms route through
   `src/app/api/founder-intelligence/leads/route.ts` and persist to Neon
   before any optional integrations fire.
+- **Founder Intelligence Assessment v1.** Show diagnostic submitters a
+  session-backed result page with score dimensions and next-step routing while
+  keeping the existing Neon/Resend/n8n lead API intact.
 
 ## Next (queued, not started)
 
+- **Founder Revenue Leak Diagnostic canonical route.** After ADFIP approval,
+  scope `/diagnostics/founder-revenue-leak-diagnostic` with metadata, FAQ,
+  JSON-LD, CTA, pricing reference, breadcrumbs, sitemap, and internal links.
+- **Diagnostic routing engine.** Promote the simple v1 assessment
+  recommendation map into a shared Free Score -> Paid Diagnostic -> ResponseOS
+  -> Founder Intelligence System decision tree.
 - **Sanity content cluster expansion.** Topic clusters per persona
   (founder, creator, operator). Schema lives in
   [`docs/sanity-blog-content-model.md`](./sanity-blog-content-model.md).

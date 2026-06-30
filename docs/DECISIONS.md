@@ -149,6 +149,34 @@ destination to avoid avoidable redirect hops and mixed host signals.
 
 ---
 
+## 2026-06-29 — Treat discoverability and diagnostics as a platform program
+
+**Status:** accepted
+**Decision:** Organize the next phase of AudioJones.com work under the AI
+Discoverability & Founder Intelligence Platform (ADFIP) program instead of as
+isolated page tasks. AudioJones.com remains the public marketing and
+discoverability surface; diagnostics, structured knowledge, Business Memory,
+entity authority, competitive intelligence, content production, agent
+readiness, and measurement become sequenced platform layers.
+
+**Rationale:** the current direction spans acquisition, SEO/AEO, structured
+data, diagnostics, CRM/email handoff, knowledge normalization, future agent
+readiness, and measurement. Treating those as unrelated page requests would
+increase route sprawl and deferred-integration churn.
+
+**Consequences:**
+- New implementation work should identify which ADFIP layer it strengthens.
+- The Founder Revenue Leak Diagnostic becomes the first recommended
+  implementation slice after program approval.
+- Business Memory and agent-readiness work must not turn this repo into a
+  private admin portal.
+- Program detail lives in
+  [`docs/specs/ai-discoverability-founder-intelligence-platform.md`](./specs/ai-discoverability-founder-intelligence-platform.md).
+- The first implementation-ready route spec is
+  [`docs/specs/founder-revenue-leak-diagnostic-route.md`](./specs/founder-revenue-leak-diagnostic-route.md).
+
+---
+
 ## How to add an entry
 
 1. Append to the bottom of this file with today's date.

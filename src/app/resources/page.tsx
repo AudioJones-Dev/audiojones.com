@@ -69,8 +69,8 @@ const THEMES = [
   },
   {
     label: "Revenue Intelligence",
-    href: "/roi-calculator",
-    blurb: "See where revenue leaks and what recovering it is worth.",
+    href: "/diagnostics/founder-revenue-leak-diagnostic",
+    blurb: "See where revenue leaks, what recovering it is worth, and which system fixes it.",
   },
   {
     label: "AI Readiness",

@@ -6,6 +6,15 @@ import { aiEntity, SITE_URL } from "@/lib/founder-intelligence/tokens";
 export type BreadcrumbItem = { name: string; url: string };
 export type FaqItem = { question: string; answer: string };
 
+export type ServiceJsonLdInput = {
+  name: string;
+  description: string;
+  url: string;
+  price?: string;
+  priceCurrency?: string;
+  areaServed?: string;
+};
+
 export function organizationJsonLd() {
   return {
     "@context": "https://schema.org",
@@ -136,6 +145,33 @@ export function definedTermJsonLd(args: {
       name: "Audio Jones Founder Intelligence Glossary",
       url: `${SITE_URL}/frameworks`,
     },
+  } as const;
+}
+
+export function serviceJsonLd(args: ServiceJsonLdInput) {
+  const url = args.url.startsWith("http") ? args.url : `${SITE_URL}${args.url}`;
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: args.name,
+    description: args.description,
+    url,
+    provider: {
+      "@type": "Organization",
+      name: aiEntity.brandName,
+      legalName: aiEntity.legalName,
+      url: SITE_URL,
+    },
+    areaServed: args.areaServed || "United States",
+    offers: args.price
+      ? {
+          "@type": "Offer",
+          price: args.price,
+          priceCurrency: args.priceCurrency || "USD",
+          availability: "https://schema.org/InStock",
+          url,
+        }
+      : undefined,
   } as const;
 }
 

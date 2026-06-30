@@ -50,8 +50,8 @@ const DIAGNOSTICS: Offer[] = [
     designedFor: "Founder-led businesses doing $500K–$5M+.",
     goal: "Identify where revenue is being lost — slow response times, missed follow-up, poor attribution, operational bottlenecks, and reporting gaps.",
     outcome: "A prioritized action plan showing the highest-leverage opportunities to recover revenue and improve operational efficiency.",
-    href: "/book-a-call",
-    cta: "Book the diagnostic",
+    href: "/diagnostics/founder-revenue-leak-diagnostic",
+    cta: "Explore the diagnostic",
     featured: true,
   },
   {

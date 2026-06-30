@@ -114,7 +114,14 @@ export default function Page() {
         <P>
           You can usually recover revenue faster by fixing leaks than by buying
           more leads. The diagnostic tells you which leak returns the most
-          money, first. See{" "}
+          money, first. Start with the{" "}
+          <Link
+            href="/diagnostics/founder-revenue-leak-diagnostic"
+            className="text-accent-blue hover:text-accent-blue"
+          >
+            Founder Revenue Leak Diagnostic
+          </Link>
+          , see{" "}
           <Link href="/pricing" className="text-accent-blue hover:text-accent-blue">
             offers and pricing
           </Link>

@@ -3,11 +3,16 @@
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
+  FOUNDER_INTELLIGENCE_ASSESSMENT_RESULT_KEY,
+  type FounderIntelligenceAssessmentResult,
+} from "@/lib/founder-intelligence/assessment-result";
+import {
   AI_USAGE_LEVELS,
   PRIMARY_CONSTRAINTS,
   REVENUE_RANGES,
   TIMELINE_OPTIONS,
 } from "@/lib/leads/lead-schema";
+import type { LeadPriority, LeadScores } from "@/lib/leads/lead-scoring";
 
 type FormState = {
   firstName: string;
@@ -49,6 +54,16 @@ type FormState = {
   consentToContact: boolean;
 
   website_url: string; // honeypot
+};
+
+type LeadSubmitResponse = {
+  ok?: boolean;
+  leadId?: string;
+  priority?: LeadPriority;
+  totalScore?: number;
+  scores?: LeadScores;
+  message?: string;
+  error?: string;
 };
 
 const INITIAL: FormState = {
@@ -151,9 +166,32 @@ export default function DiagnosticForm() {
           ...utm,
         }),
       });
-      const data = await res.json();
+      const data = (await res.json()) as LeadSubmitResponse;
       if (!res.ok || !data.ok) {
         throw new Error(data?.message || data?.error || "Submission failed.");
+      }
+      if (data.leadId && data.scores && typeof window !== "undefined") {
+        const result: FounderIntelligenceAssessmentResult = {
+          leadId: data.leadId,
+          submittedAt: new Date().toISOString(),
+          scores: data.scores,
+          founder: {
+            firstName: state.firstName || undefined,
+            companyName: state.companyName || undefined,
+          },
+          context: {
+            sourcePage: "/founder-intelligence/diagnostic",
+            annualRevenueRange: state.annualRevenueRange || undefined,
+            primaryConstraint: state.primaryConstraint || undefined,
+            timeline: state.timeline || undefined,
+          },
+        };
+        sessionStorage.setItem(
+          FOUNDER_INTELLIGENCE_ASSESSMENT_RESULT_KEY,
+          JSON.stringify(result),
+        );
+        router.push("/founder-intelligence/diagnostic/result");
+        return;
       }
       router.push("/founder-intelligence/diagnostic/thank-you");
     } catch (err) {
