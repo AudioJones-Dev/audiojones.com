@@ -4,9 +4,16 @@
 // Update both together — keep in sync.
 
 export const aiColors = {
-  // Brand — V2 (signal yellow primary, accent blue system).
+  // Portable Audio Jones design system.
   // `orange`/`gold` names are preserved as aliases for call sites that
-  // haven't been renamed yet; in V2 they resolve to signal yellow.
+  // haven't been renamed yet; they resolve to signal yellow.
+  signal: "#E8FF5A",
+  signalInk: "#080808",
+  data: "#4DACFF",
+  critical: "#FF4545",
+  warning: "#FFB340",
+  success: "#3DFFB0",
+
   orange: "#E8FF5A",
   orangeSoft: "#F0FF85",
   blue: "#4DACFF",
@@ -18,31 +25,31 @@ export const aiColors = {
   bg1: "#0F0F0F",
   bg2: "#0F0F0F",
   bg3: "#161616",
-  bg4: "#161616",
+  bg4: "#1E1E1E",
 
   // Surfaces — light split (paired clarity layer, opt-in)
-  paper: "#F8FAFC",
-  surface: "#F5F5F5",
-  surfaceSoft: "#EEF2F6",
-  ink: "#111111",
-  inkMuted: "#4B5563",
-  borderLight: "rgba(17,17,17,0.10)",
+  paper: "#F4F1E9",
+  surface: "#F4F1E9",
+  surfaceSoft: "#ECE7DA",
+  ink: "#080808",
+  inkMuted: "#3F3A31",
+  borderLight: "#D8D3C6",
 
   // Legacy aliases (deprecated — call sites migrating)
-  bgLight0: "#F8FAFC",
-  bgLight1: "#F5F5F5",
-  bgLight2: "#EEF2F6",
+  bgLight0: "#F4F1E9",
+  bgLight1: "#F4F1E9",
+  bgLight2: "#ECE7DA",
 
   // Text — dark (canonical V2)
-  fg0: "#FFFFFF",
-  fg1: "#E8E8E8",
-  fg2: "#666666",
-  fg3: "#666666",
+  fg0: "#F2F2F2",
+  fg1: "#F2F2F2",
+  fg2: "#A8A8A8",
+  fg3: "#6E6E6E",
 
   // Text — light (legacy aliases)
-  fgLight0: "#111111",
-  fgLight1: "#1E2A3A",
-  fgLight2: "#4B5563",
+  fgLight0: "#080808",
+  fgLight1: "#080808",
+  fgLight2: "#3F3A31",
 
   // Brand identity aliases (canonical names) — V2
   orangePrimary: "#E8FF5A",
@@ -51,18 +58,15 @@ export const aiColors = {
   darkSecondary: "#0F0F0F",
 
   // Borders
-  line1: "rgba(255,255,255,0.06)",
-  line2: "rgba(255,255,255,0.10)",
-  line3: "rgba(255,255,255,0.18)",
+  line1: "rgba(255,255,255,0.08)",
+  line2: "#222222",
+  line3: "#333333",
   lineBlue: "rgba(77,172,255,0.40)",
   lineGold: "rgba(232,255,90,0.40)",
 
   // Semantic — V2 canonical palette
-  signal: "#E8FF5A",
   system: "#4DACFF",
   metric: "#E8FF5A",
-  success: "#3DFFB0",
-  warning: "#FFB340",
   danger: "#FF4545",
 
   // Legacy aliases (kept until call sites migrate). All resolve to V2.
@@ -72,26 +76,40 @@ export const aiColors = {
   primary: "#4DACFF",
   primaryBright: "#4DACFF",
   accent: "#E8FF5A",
-  text: "#FFFFFF",
-  muted: "#666666",
-  border: "rgba(255,255,255,0.10)",
+  text: "#F2F2F2",
+  muted: "#6E6E6E",
+  border: "#222222",
 } as const;
 
 // V2 §03 — Syne for display/headers, DM Sans for body, DM Mono for
 // eyebrows/labels. Mirrors the next/font variables wired in layout.tsx.
 export const aiFonts = {
-  headline: 'var(--font-syne, "Syne"), "Space Grotesk", ui-sans-serif, system-ui, sans-serif',
-  accent: 'var(--font-syne, "Syne"), "Space Grotesk", ui-sans-serif, system-ui, sans-serif',
-  body: 'var(--font-dm-sans, "DM Sans"), ui-sans-serif, system-ui, sans-serif',
-  mono: 'var(--font-dm-mono, "DM Mono"), ui-monospace, "SF Mono", Menlo, Consolas, monospace',
+  headline: 'var(--font-syne, "Syne"), "DM Sans", ui-sans-serif, system-ui, sans-serif',
+  accent: 'var(--font-syne, "Syne"), "DM Sans", ui-sans-serif, system-ui, sans-serif',
+  body: 'var(--font-dm-sans, "DM Sans"), ui-sans-serif, system-ui, -apple-system, sans-serif',
+  mono: 'var(--font-dm-mono, "DM Mono"), ui-monospace, "SFMono-Regular", Consolas, monospace',
+} as const;
+
+export const aiRadii = {
+  none: "0",
+  control: "4px",
+  card: "8px",
+  pill: "999px",
+} as const;
+
+export const aiContainers = {
+  prose: "680px",
+  app: "1280px",
+  wide: "1440px",
+  gutter: "24px",
 } as const;
 
 export const aiMotion = {
-  easeOut: "cubic-bezier(0.22, 1, 0.36, 1)",
-  easeInOut: "cubic-bezier(0.65, 0, 0.35, 1)",
+  easeOut: "cubic-bezier(0.2, 0, 0, 1)",
+  easeInOut: "cubic-bezier(0.2, 0, 0, 1)",
   durFast: "120ms",
   durBase: "180ms",
-  durSlow: "320ms",
+  durSlow: "180ms",
 } as const;
 
 function normalizeSiteUrl(url: string) {
