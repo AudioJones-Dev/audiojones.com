@@ -20,9 +20,9 @@ type AsLinkProps = CommonProps & {
 };
 
 /**
- * Glow variants use plain CSS classes (.btn-glow / .btn-glow-sys)
- * defined in globals.css — they must not be mixed with the Tailwind
- * base stack or the shadow/color cascade breaks.
+ * Legacy glow variants use plain CSS classes (.btn-glow / .btn-glow-sys)
+ * defined in globals.css. The portable design-system migration keeps
+ * those class names but renders them as flat signal/data buttons.
  *
  * Tailwind variants (primary / secondary / ghost) keep their own base.
  */
@@ -41,7 +41,7 @@ function twStyles(variant: Exclude<Variant, "glow" | "system-glow">, size: Size,
     "rounded select-none whitespace-nowrap " +
     "transition-[opacity,border-color,color,background-color,transform] " +
     "duration-[var(--dur-base)] ease-[var(--ease-out)] " +
-    "focus-visible:outline-none focus-visible:[box-shadow:0_0_0_2px_var(--signal-yellow)] " +
+    "focus-visible:outline-none focus-visible:[box-shadow:0_0_0_2px_var(--aj-signal)] " +
     "active:translate-y-px disabled:opacity-50 disabled:pointer-events-none";
 
   // Heights satisfy iOS 44pt minimum touch-target on `md` and `lg`.
@@ -53,16 +53,15 @@ function twStyles(variant: Exclude<Variant, "glow" | "system-glow">, size: Size,
     lg: "h-12 px-7 text-[16px]",
   };
 
-  // V2 (§07): primary CTA leads with signal yellow on near-black text.
-  // Secondary keeps a dark surface with a border-strong outline that
-  // promotes to signal yellow on hover.
+  // Portable design system: primary CTA leads with flat signal yellow.
+  // Secondary keeps a dark surface with a strong border and no glow.
   const variantMap: Record<Exclude<Variant, "glow" | "system-glow">, string> = {
     primary:
-      "bg-signal-yellow text-bg-base border border-signal-yellow shadow-[0_10px_40px_-10px_rgba(232,255,90,0.55)] hover:bg-signal-soft hover:border-signal-soft",
+      "bg-aj-signal text-aj-signal-ink border border-aj-signal hover:bg-transparent hover:text-aj-signal",
     secondary:
-      "bg-transparent text-text-primary border border-border-strong hover:border-signal-yellow hover:text-signal-yellow",
+      "bg-transparent text-aj-text border border-aj-border-strong hover:border-aj-signal hover:text-aj-signal",
     ghost:
-      "bg-transparent text-fg-1 hover:text-fg-0 hover:bg-[rgba(232,255,90,0.06)]",
+      "bg-transparent text-aj-text hover:text-aj-signal hover:bg-transparent",
   };
 
   return [base, sizeMap[size], variantMap[variant], extra].filter(Boolean).join(" ");
