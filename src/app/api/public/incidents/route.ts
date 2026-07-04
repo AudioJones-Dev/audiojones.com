@@ -7,8 +7,6 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { getDb } from '@/lib/server/firebaseAdmin';
-import { serializeIncidentsForFeed, applyFeedFilters } from '@/lib/server/incidentFeed';
 import type { 
   IncidentFeedResponse, 
   IncidentFeedErrorResponse, 
@@ -32,27 +30,10 @@ export async function GET(request: NextRequest) {
     // Check for status page token (optional enhanced access)
     const isEnhanced = tokenParam === process.env.STATUS_PAGE_SECRET;
     
-    // Build Firestore query
-    let query = getDb().collection('incidents').orderBy('updated_at', 'desc');
-    
-    // Apply since filter if provided
-    const sinceDate = since ? new Date(since) : null;
-    if (sinceDate && !isNaN(sinceDate.getTime())) {
-      query = query.where('updated_at', '>=', sinceDate.toISOString());
-    }
-    
-    // Execute query with extra buffer for filtering
-    const snapshot = await query.limit(limit * 2).get();
-    
-    // Serialize incidents using existing helper
-    const allIncidents = serializeIncidentsForFeed(snapshot.docs);
-    
-    // Apply filters using existing helper
-    const incidents = applyFeedFilters(allIncidents, {
-      status: statusFilter || undefined,
-      since: sinceDate || undefined,
-      limit,
-    });
+    // Firebase/Firestore was removed from audiojones.com (see docs/architecture/stack-decision.md)
+    // and no NeonDB-backed incident store has been built yet. Until it is, the feed reports
+    // no active incidents instead of throwing, so the public status page stays up.
+    const incidents: IncidentFeedResponse['incidents'] = [];
     
     // Build response
     const response: IncidentFeedResponse = {
