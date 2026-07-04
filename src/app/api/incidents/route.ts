@@ -10,8 +10,6 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { getDb } from '@/lib/server/firebaseAdmin';
-import { serializeIncidentsForFeed, applyFeedFilters } from '@/lib/server/incidentFeed';
 import type { 
   IncidentFeedResponse, 
   IncidentFeedErrorResponse, 
@@ -62,8 +60,10 @@ export async function GET(req: NextRequest): Promise<NextResponse<IncidentFeedRe
 
     console.log(`📡 Incident feed request: ${JSON.stringify(filters.data)}`);
 
-    // Fetch incidents from Firestore
-    const incidents = await fetchIncidentsFromFirestore(filters.data);
+    // Firebase/Firestore was removed from audiojones.com (see docs/architecture/stack-decision.md)
+    // and no NeonDB-backed incident store has been built yet. Until it is, the feed reports
+    // no active incidents instead of throwing, so the public status page stays up.
+    const incidents: IncidentFeedResponse['incidents'] = [];
 
     // Build response
     const response: IncidentFeedResponse = {
@@ -215,53 +215,6 @@ function parseQueryFilters(query: IncidentFeedQuery): {
     success: true,
     data: filters
   };
-}
-
-/**
- * Fetch incidents from Firestore with basic filtering
- */
-async function fetchIncidentsFromFirestore(filters: {
-  status?: string[];
-  since?: Date;
-  limit?: number;
-}) {
-  try {
-    // Start with base query - fetch recent incidents
-    let query = getDb().collection('incidents')
-      .orderBy('updated_at', 'desc')
-      .limit(Math.min(filters.limit! * 2, MAX_LIMIT)); // Fetch extra to account for filtering
-
-    // Apply since filter at Firestore level if provided
-    if (filters.since) {
-      query = query.where('updated_at', '>', filters.since.toISOString());
-    }
-
-    console.log(`🔍 Querying Firestore for incidents...`);
-    
-    const snapshot = await query.get();
-    
-    console.log(`📊 Firestore returned ${snapshot.size} incident documents`);
-
-    // Serialize to safe format
-    const incidents = serializeIncidentsForFeed(snapshot.docs);
-    
-    console.log(`✅ Serialized ${incidents.length} valid incidents`);
-
-    // Apply additional filters in memory
-    const filteredIncidents = applyFeedFilters(incidents, {
-      status: filters.status,
-      since: filters.since,
-      limit: filters.limit
-    });
-
-    console.log(`🎯 Final filtered result: ${filteredIncidents.length} incidents`);
-
-    return filteredIncidents;
-
-  } catch (error) {
-    console.error('❌ Failed to fetch incidents from Firestore:', error);
-    throw error;
-  }
 }
 
 // Handle CORS preflight requests
