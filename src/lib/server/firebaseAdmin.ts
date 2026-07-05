@@ -2,6 +2,9 @@
 // This module is a no-op shim kept so admin/portal tooling that has not yet
 // been migrated to NeonDB / Supabase still type-checks. Any call into one of
 // these accessors throws at runtime — see docs/architecture/stack-decision.md.
+//
+// Migration targets: user verification → @/lib/server/requireClient (Supabase
+// JWT/cookies); admin gating → @/lib/server/requireAdminUser.
 import "server-only";
 import {
   auth as adminAuthFn,
