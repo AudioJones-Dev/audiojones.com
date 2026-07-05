@@ -108,8 +108,8 @@ export default function ServicesPage() {
               <ButtonLink href={ctaLinks.roiCalculator} variant="glow">
                 Calculate Your AI ROI
               </ButtonLink>
-              <ButtonLink href="/apply" variant="secondary">
-                Apply for Engagement
+              <ButtonLink href={ctaLinks.revenueLeakDiagnostic} variant="secondary">
+                Start Founder Diagnostic
               </ButtonLink>
             </div>
             <p className="mt-6 t-small text-fg-3">
@@ -204,6 +204,12 @@ export default function ServicesPage() {
                 className="mt-6 inline-flex t-body text-aj-orange hover:text-aj-orange-soft"
               >
                 Read the full Founder Intelligence framework →
+              </Link>
+              <Link
+                href={ctaLinks.revenueLeakDiagnostic}
+                className="mt-4 inline-flex t-body text-aj-orange hover:text-aj-orange-soft"
+              >
+                See the Founder Revenue Leak Diagnostic →
               </Link>
             </div>
 
@@ -305,8 +311,8 @@ export default function ServicesPage() {
             buildout.
           </p>
           <div className="mt-10 flex justify-center">
-            <ButtonLink href={ctaLinks.signalDiagnostic} variant="glow">
-              Take Signal Diagnostic
+            <ButtonLink href={ctaLinks.revenueLeakDiagnostic} variant="glow">
+              Start Founder Diagnostic
             </ButtonLink>
           </div>
           <Link

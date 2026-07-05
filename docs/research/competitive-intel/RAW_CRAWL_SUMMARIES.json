@@ -1,0 +1,1518 @@
+{
+  "generatedAt": "2026-06-29T00:00:00-04:00",
+  "tool": "Firecrawl CLI v1.19.21",
+  "repo": "C:\\dev\\audiojones-clean",
+  "scope": "Public pages only. No private, login-gated, paywalled, or restricted content intentionally scraped.",
+  "crawlTargets": [
+    "https://www.audiojones.com/",
+    "https://www.ninjaai.com/",
+    "https://www.fame.so/podcast-agency-miami",
+    "https://contentallies.com/",
+    "https://www.sweetfishmedia.com/",
+    "https://buenavistacreative.com/podcast-production/",
+    "https://appwt.com/services/podcast-production/florida-miami/"
+  ],
+  "mapInventory": [
+    {
+      "file": "appwt-podcast-production-florida-miami.json",
+      "discoveredUrlCount": 0
+    },
+    {
+      "file": "appwt-root.json",
+      "discoveredUrlCount": 100
+    },
+    {
+      "file": "audiojones.json",
+      "discoveredUrlCount": 35
+    },
+    {
+      "file": "buenavistacreative-podcast-production.json",
+      "discoveredUrlCount": 0
+    },
+    {
+      "file": "buenavistacreative-root.json",
+      "discoveredUrlCount": 100
+    },
+    {
+      "file": "contentallies.json",
+      "discoveredUrlCount": 90
+    },
+    {
+      "file": "fame-podcast-agency-miami.json",
+      "discoveredUrlCount": 1
+    },
+    {
+      "file": "ninjaai.json",
+      "discoveredUrlCount": 100
+    },
+    {
+      "file": "sweetfishmedia.json",
+      "discoveredUrlCount": 97
+    }
+  ],
+  "scrapeSummary": [
+    {
+      "site": "appwt",
+      "classification": "Local SERP competitor; AEO competitor; category creation reference",
+      "file": "appwt-podcast-production-miami.json",
+      "url": "https://appwt.com/services/podcast-production/florida-miami/",
+      "status": 200,
+      "title": "Podcast Production in Miami, Florida | AppWT Web & AI Solutions",
+      "metaDescription": "Professional podcast production services in Miami, Florida. AppWT Web & AI Solutions - BBB A+ rated. In business since 1997. Starting at $747. Free consultation. Call +1 (888) 565-0171.",
+      "h1": [
+        "Podcast Production in Miami, Florida"
+      ],
+      "h2": [
+        "Podcast Production for Miami Businesses",
+        "Podcast Production in Miami, Florida",
+        "AppWT Web & AI Solutions Clients in Miami",
+        "Podcast Production Pricing",
+        "Why Miami Chooses AppWT",
+        "Related Services in Miami",
+        "Podcast Production in Miami FAQ",
+        "Ready for Podcast Production in Miami?"
+      ],
+      "h3": [
+        "Audio editing",
+        "Intro/outro music",
+        "Show notes",
+        "Platform distribution",
+        "Episode artwork",
+        "Transcription",
+        "Miami Business Districts We Serve",
+        "Launch Package"
+      ],
+      "headingCount": 47,
+      "linkCount": 124,
+      "ctas": [
+        "Call 24/7 · Toll-Free(888) 565-0171",
+        "Pricing",
+        "Quote",
+        "Contact",
+        "Schedule",
+        "Get Started",
+        "Start a Project Inquiry",
+        "Get a Free Quote"
+      ],
+      "detectedSchemaTypesInFirecrawlHtml": [],
+      "flags": {
+        "hasFAQText": true,
+        "hasPricingOrCostText": true,
+        "hasProofSignals": true
+      },
+      "notes": "No JSON-LD @type detected in Firecrawl body/html extraction; verify rendered source separately before concluding schema is absent."
+    },
+    {
+      "site": "audiojones",
+      "classification": "Subject site",
+      "file": "audiojones-about.json",
+      "url": "https://www.audiojones.com/about",
+      "status": 200,
+      "title": "About Audio Jones - Founder Intelligence Systems | Audio Jones",
+      "metaDescription": "Audio Jones is the strategist and operator behind founder intelligence systems for founder-led businesses.",
+      "h1": [
+        "Audio Jones builds signal systems for founder-led businesses."
+      ],
+      "h2": [
+        "The work starts where strategy meets operations.",
+        "Signal over noise.",
+        "What the site now has to communicate.",
+        "Start with the signal."
+      ],
+      "h3": [
+        "Strategist",
+        "Operator",
+        "Builder",
+        "Agents",
+        "ResponseOS",
+        "Services",
+        "Education",
+        "Site"
+      ],
+      "headingCount": 16,
+      "linkCount": 15,
+      "ctas": [
+        "Pricing",
+        "Contact",
+        "AI Readiness Diagnostic",
+        "Book a Call",
+        "Start the Diagnostic",
+        "Learn more."
+      ],
+      "detectedSchemaTypesInFirecrawlHtml": [],
+      "flags": {
+        "hasFAQText": false,
+        "hasPricingOrCostText": true,
+        "hasProofSignals": true
+      },
+      "notes": "No JSON-LD @type detected in Firecrawl body/html extraction; verify rendered source separately before concluding schema is absent."
+    },
+    {
+      "site": "audiojones",
+      "classification": "Subject site",
+      "file": "audiojones-blog.json",
+      "url": "https://www.audiojones.com/blog",
+      "status": 200,
+      "title": "Blog | Audio Jones",
+      "metaDescription": "Founder Intelligence, signal systems, M.A.P. Attribution, and AI-readiness insights for founder-led businesses. The Audio Jones knowledge base.",
+      "h1": [
+        "Founder Intelligence, documented."
+      ],
+      "h2": [
+        "The Audio Jones knowledge base is being structured.",
+        "From insight to operating system."
+      ],
+      "h3": [
+        "Site",
+        "Connect",
+        "Legal",
+        "Subscribe"
+      ],
+      "headingCount": 7,
+      "linkCount": 20,
+      "ctas": [
+        "Pricing",
+        "Contact",
+        "AI Readiness Diagnostic",
+        "Book a Call",
+        "Book Diagnostic",
+        "Learn more."
+      ],
+      "detectedSchemaTypesInFirecrawlHtml": [],
+      "flags": {
+        "hasFAQText": false,
+        "hasPricingOrCostText": true,
+        "hasProofSignals": false
+      },
+      "notes": "No JSON-LD @type detected in Firecrawl body/html extraction; verify rendered source separately before concluding schema is absent."
+    },
+    {
+      "site": "audiojones",
+      "classification": "Subject site",
+      "file": "audiojones-case-studies.json",
+      "url": "https://www.audiojones.com/case-studies",
+      "status": 200,
+      "title": "Case Studies | Audio Jones",
+      "metaDescription": "Operator proof for Audio Jones systems: lead capture, follow-up, content operations, attribution clarity, and business signal diagnosis.",
+      "h1": [
+        "Proof should show the system, not just the result."
+      ],
+      "h2": [
+        "Every case study is organized around signal, leak, and system.",
+        "What matters is whether the operating rhythm changed.",
+        "Find the case your business is becoming."
+      ],
+      "h3": [
+        "Local service pipeline recovery",
+        "Expertise to authority engine",
+        "Attribution signal cleanup",
+        "Signal",
+        "Leak",
+        "System",
+        "Site",
+        "Connect"
+      ],
+      "headingCount": 14,
+      "linkCount": 15,
+      "ctas": [
+        "Pricing",
+        "Contact",
+        "AI Readiness Diagnostic",
+        "Book a Call",
+        "Start the Diagnostic",
+        "Learn more."
+      ],
+      "detectedSchemaTypesInFirecrawlHtml": [],
+      "flags": {
+        "hasFAQText": false,
+        "hasPricingOrCostText": true,
+        "hasProofSignals": true
+      },
+      "notes": "No JSON-LD @type detected in Firecrawl body/html extraction; verify rendered source separately before concluding schema is absent."
+    },
+    {
+      "site": "audiojones",
+      "classification": "Subject site",
+      "file": "audiojones-diagnostic.json",
+      "url": "https://www.audiojones.com/ai-readiness-diagnostic",
+      "status": 200,
+      "title": "AI Readiness Diagnostic | Audio Jones",
+      "metaDescription": "Assess business systems, data maturity, automation gaps, follow-up speed, and readiness for AI-powered execution.",
+      "h1": [
+        "Diagnose the system before you install AI."
+      ],
+      "h2": [
+        "A business MRI, not a generic form.",
+        "The result should activate the next process.",
+        "Ready to run the assessment?",
+        "Common questions",
+        "Do not automate the wrong constraint."
+      ],
+      "h3": [
+        "Workflow clarity",
+        "Data quality",
+        "Follow-up speed",
+        "SOP maturity",
+        "Tool fragmentation",
+        "Team adoption",
+        "Foundation",
+        "Growth"
+      ],
+      "headingCount": 20,
+      "linkCount": 16,
+      "ctas": [
+        "Pricing",
+        "Contact",
+        "AI Readiness Diagnostic",
+        "Book a Call",
+        "Start the Diagnostic",
+        "Calculate Lost Revenue"
+      ],
+      "detectedSchemaTypesInFirecrawlHtml": [],
+      "flags": {
+        "hasFAQText": true,
+        "hasPricingOrCostText": true,
+        "hasProofSignals": true
+      },
+      "notes": "No JSON-LD @type detected in Firecrawl body/html extraction; verify rendered source separately before concluding schema is absent."
+    },
+    {
+      "site": "audiojones",
+      "classification": "Subject site",
+      "file": "audiojones-founder-intelligence.json",
+      "url": "https://www.audiojones.com/founder-intelligence",
+      "status": 200,
+      "title": "Founder Intelligence Systems for Founder-Led Businesses | Audio Jones",
+      "metaDescription": "Audio Jones helps founder-led businesses identify causal growth signals, reduce noise, and build Founder Intelligence Systems that scale judgment and execution.",
+      "h1": [
+        "You don’t have an AI problem. You have a signal problem."
+      ],
+      "h2": [
+        "Most companies don't fail at AI. They fail at signal architecture.",
+        "Identify which noise reveals signal.",
+        "A metric only earns the right to drive strategy if it passes M.A.P.",
+        "Seven layers that turn AI from a tool into leverage.",
+        "A diagnostic, not a sales call.",
+        "Diagnose. Identify. Build. Compound.",
+        "Founder Intelligence Diagnostic",
+        "Stop scaling noise."
+      ],
+      "h3": [
+        "Causal inputs tied to outcomes.",
+        "Unavoidable complexity that reveals what matters.",
+        "Activity that obscures judgment.",
+        "Diagnose the constraint",
+        "Map signal vs noise",
+        "Identify causal inputs",
+        "Design the system",
+        "Deploy AI where it creates leverage"
+      ],
+      "headingCount": 22,
+      "linkCount": 17,
+      "ctas": [
+        "Pricing",
+        "Contact",
+        "AI Readiness Diagnostic",
+        "Book a Call",
+        "Request Strategic Diagnostic",
+        "Learn more."
+      ],
+      "detectedSchemaTypesInFirecrawlHtml": [],
+      "flags": {
+        "hasFAQText": false,
+        "hasPricingOrCostText": true,
+        "hasProofSignals": false
+      },
+      "notes": "No JSON-LD @type detected in Firecrawl body/html extraction; verify rendered source separately before concluding schema is absent."
+    },
+    {
+      "site": "audiojones",
+      "classification": "Subject site",
+      "file": "audiojones-framework-founder-intelligence.json",
+      "url": "https://www.audiojones.com/frameworks/founder-intelligence-systems",
+      "status": 200,
+      "title": "Founder Intelligence Systems | Audio Jones",
+      "metaDescription": "Founder Intelligence Systems are business operating systems that combine human judgment, data signals, AI tools, attribution, and feedback loops to improve",
+      "h1": [
+        "Founder Intelligence Systems: the operating model behind every engagement."
+      ],
+      "h2": [
+        "Founder Intelligence vs AI automation",
+        "Why AI fails without systems",
+        "The seven-layer Founder Intelligence stack",
+        "Examples",
+        "FAQ"
+      ],
+      "h3": [
+        "Site",
+        "Connect",
+        "Legal",
+        "Subscribe"
+      ],
+      "headingCount": 10,
+      "linkCount": 15,
+      "ctas": [
+        "Pricing",
+        "Contact",
+        "AI Readiness Diagnostic",
+        "Book a Call",
+        "Request Strategic Diagnostic",
+        "Learn more."
+      ],
+      "detectedSchemaTypesInFirecrawlHtml": [],
+      "flags": {
+        "hasFAQText": true,
+        "hasPricingOrCostText": true,
+        "hasProofSignals": false
+      },
+      "notes": "No JSON-LD @type detected in Firecrawl body/html extraction; verify rendered source separately before concluding schema is absent."
+    },
+    {
+      "site": "audiojones",
+      "classification": "Subject site",
+      "file": "audiojones-homepage.json",
+      "url": "https://www.audiojones.com/",
+      "status": 200,
+      "title": "Audio Jones — Founder Intelligence Systems for founder-led businesses",
+      "metaDescription": "You don't have a growth problem. You have a signal problem. Audio Jones helps founder-led businesses identify causal growth signals, reduce operational noise, and build Founder Intelligence Systems that compound.",
+      "h1": [
+        "You don't have a growth problem. You have a signal problem."
+      ],
+      "h2": [
+        "Identify which noise reveals signal.",
+        "ResponseOS recovers the revenue your follow-up is losing.",
+        "How much revenue is leaking through slow follow-up?",
+        "Diagnose. Design. Deploy.",
+        "From fragmented activity to measurable signal.",
+        "Questions founders ask first.",
+        "Build around what actually works."
+      ],
+      "h3": [
+        "Diagnose",
+        "Attribute",
+        "Design",
+        "Deploy",
+        "Activity without leverage",
+        "Causal system, compounding outcomes",
+        "Site",
+        "Connect"
+      ],
+      "headingCount": 18,
+      "linkCount": 18,
+      "ctas": [
+        "Pricing",
+        "Contact",
+        "AI Readiness Diagnostic",
+        "Book a Call",
+        "Book Your Diagnostic",
+        "Calculate Lost Revenue",
+        "Start the AI Readiness Diagnostic"
+      ],
+      "detectedSchemaTypesInFirecrawlHtml": [],
+      "flags": {
+        "hasFAQText": true,
+        "hasPricingOrCostText": true,
+        "hasProofSignals": true
+      },
+      "notes": "No JSON-LD @type detected in Firecrawl body/html extraction; verify rendered source separately before concluding schema is absent."
+    },
+    {
+      "site": "audiojones",
+      "classification": "Subject site",
+      "file": "audiojones-insight-revenue-leak.json",
+      "url": "https://www.audiojones.com/insights/revenue-leak-diagnostic",
+      "status": 200,
+      "title": "What is a Revenue Leak Diagnostic? | Audio Jones",
+      "metaDescription": "A Revenue Leak Diagnostic finds where a business loses revenue it already earned — missed calls, slow follow-up, weak qualification, and broken attribution — and ranks the fixes.",
+      "h1": [
+        "What is a Revenue Leak Diagnostic?"
+      ],
+      "h2": [
+        "Where revenue leaks",
+        "How the diagnostic works",
+        "Example",
+        "Business implication",
+        "FAQ"
+      ],
+      "h3": [
+        "Site",
+        "Connect",
+        "Legal",
+        "Subscribe"
+      ],
+      "headingCount": 10,
+      "linkCount": 16,
+      "ctas": [
+        "Pricing",
+        "Contact",
+        "AI Readiness Diagnostic",
+        "Book a Call",
+        "offers and pricing",
+        "Request Strategic Diagnostic",
+        "Learn more."
+      ],
+      "detectedSchemaTypesInFirecrawlHtml": [],
+      "flags": {
+        "hasFAQText": true,
+        "hasPricingOrCostText": true,
+        "hasProofSignals": false
+      },
+      "notes": "No JSON-LD @type detected in Firecrawl body/html extraction; verify rendered source separately before concluding schema is absent."
+    },
+    {
+      "site": "audiojones",
+      "classification": "Subject site",
+      "file": "audiojones-pricing.json",
+      "url": "https://www.audiojones.com/pricing",
+      "status": 200,
+      "title": "Offers & Pricing | Audio Jones",
+      "metaDescription": "Start with a diagnostic — most are publicly priced. Then build the system you need, from ResponseOS to a full Founder Intelligence System. No guessing what it costs to begin.",
+      "h1": [
+        "Start with a diagnostic. Build the system you actually need."
+      ],
+      "h2": [
+        "Every engagement starts with a diagnosis.",
+        "Transparent where it helps. Scoped where it matters.",
+        "Stop losing the leads you already earned.",
+        "When you are ready for the whole system.",
+        "Common questions about cost",
+        "Find the leak first. Price the fix second."
+      ],
+      "h3": [
+        "AI Readiness Score",
+        "Revenue Leak Diagnostic",
+        "AI Readiness Kaizen Diagnostic",
+        "AI Readiness Workshop",
+        "ResponseOS Starter",
+        "ResponseOS Core",
+        "ResponseOS Pro",
+        "Founder Intelligence System Install"
+      ],
+      "headingCount": 21,
+      "linkCount": 18,
+      "ctas": [
+        "Pricing",
+        "Contact",
+        "AI Readiness Diagnostic",
+        "Book a Call",
+        "Get your free score",
+        "Book a Diagnostic",
+        "Get your score →",
+        "Book the diagnostic →",
+        "Book a call →",
+        "Apply →"
+      ],
+      "detectedSchemaTypesInFirecrawlHtml": [],
+      "flags": {
+        "hasFAQText": true,
+        "hasPricingOrCostText": true,
+        "hasProofSignals": true
+      },
+      "notes": "No JSON-LD @type detected in Firecrawl body/html extraction; verify rendered source separately before concluding schema is absent."
+    },
+    {
+      "site": "audiojones",
+      "classification": "Subject site",
+      "file": "audiojones-services.json",
+      "url": "https://www.audiojones.com/services",
+      "status": 200,
+      "title": "Founder Intelligence Services | Audio Jones",
+      "metaDescription": "Strategic operator engagements that diagnose business systems first, then install AI workflows and measurement loops where they create leverage.",
+      "h1": [
+        "Founder Intelligence Services"
+      ],
+      "h2": [
+        "We diagnose your operating system, then install what is missing.",
+        "How we work with founder-led businesses.",
+        "Diagnostic first. Automation second. Measurement always.",
+        "What working with us looks like in practice.",
+        "AJ Digital builds Founder Intelligence Systems for founder-led service businesses with follow-up, CRM, attribution, and reporting gaps.",
+        "Start with a diagnostic. Most engagements begin there."
+      ],
+      "h3": [
+        "AI Operations Audit",
+        "Founder Intelligence System Install",
+        "AI Agent Build",
+        "Attribution + Signal Audit",
+        "Map the operating system",
+        "Prioritize leverage",
+        "Build the system layer",
+        "Measure and harden"
+      ],
+      "headingCount": 19,
+      "linkCount": 19,
+      "ctas": [
+        "Pricing",
+        "Contact",
+        "AI Readiness Diagnostic",
+        "Book a Call",
+        "Calculate Your AI ROI",
+        "Apply for Engagement",
+        "Take Signal Diagnostic",
+        "Or apply for an engagement directly →",
+        "Learn more."
+      ],
+      "detectedSchemaTypesInFirecrawlHtml": [],
+      "flags": {
+        "hasFAQText": false,
+        "hasPricingOrCostText": true,
+        "hasProofSignals": true
+      },
+      "notes": "No JSON-LD @type detected in Firecrawl body/html extraction; verify rendered source separately before concluding schema is absent."
+    },
+    {
+      "site": "buenavista",
+      "classification": "Local SERP competitor; direct competitor for podcast production Miami queries",
+      "file": "buenavista-local-seo-miami.json",
+      "url": "https://buenavistacreative.com/why-partnering-with-a-local-seo-agency-in-miami-can-transform-your-online-visibility",
+      "status": 200,
+      "title": "Why Partnering with a Local SEO Agency in Miami Can Transform Your Online Visibility - Buena Vista Creative",
+      "metaDescription": "Boost your rankings with a local SEO agency in Miami. Improve visibility, drive targeted traffic, and grow your business with expert strategies.",
+      "h1": [
+        "Why Partnering with a Local SEO Agency in Miami Can Transform Your Online Visibility",
+        "Why Partnering with a Local SEO Agency in Miami Can Transform Your Online Visibility",
+        "Why Partnering with a Local SEO Agency in Miami Can Transform Your Online Visibility"
+      ],
+      "h2": [
+        "Local Insight and Industry Knowledge",
+        "A Complete SEO Audit Process That Reveals Opportunities",
+        "On-Page and Off-Page SEO That Fits Miami Businesses",
+        "Content Marketing for SEO That Builds Trust",
+        "Why a Local Partner Offers Better Long-Term Value",
+        "Final Thoughts",
+        "Frequently Asked Questions",
+        "How does a local SEO agency in Miami improve my visibility?"
+      ],
+      "h3": [
+        "Why Local Knowledge Matters",
+        "Industry Specific Strategy That Fits the Miami Market",
+        "When Comparing SEO Agency vs In-House SEO",
+        "What an SEO Audit Includes",
+        "Using SEO Tools and Local Expertise",
+        "Turning SEO Analysis Into Action",
+        "Localized On-Page SEO",
+        "Off-Page Signals That Build Local Trust"
+      ],
+      "headingCount": 37,
+      "linkCount": 40,
+      "ctas": [
+        "Contact",
+        "GET FREE SEO AUDIT"
+      ],
+      "detectedSchemaTypesInFirecrawlHtml": [],
+      "flags": {
+        "hasFAQText": true,
+        "hasPricingOrCostText": true,
+        "hasProofSignals": true
+      },
+      "notes": "No JSON-LD @type detected in Firecrawl body/html extraction; verify rendered source separately before concluding schema is absent."
+    },
+    {
+      "site": "buenavista",
+      "classification": "Local SERP competitor; direct competitor for podcast production Miami queries",
+      "file": "buenavista-podcast-production.json",
+      "url": "https://buenavistacreative.com/podcast-production/",
+      "status": 200,
+      "title": "Podcast Production Agency | Launch & Grow Your Show - Buena Vista Creative",
+      "metaDescription": "Professional podcast production agency in Miami, FL – from recording and editing to publishing, we make your show sound amazing.",
+      "h1": [
+        "Podcast Production Create, Launch, and Grow Your Podcast With Confidence"
+      ],
+      "h2": [
+        "Professional Podcasting Made Simple",
+        "Complete Podcast Production Services",
+        "Why Choose Our Podcast Production Agency",
+        "What You Can Expect From Us",
+        "Professional Audio Editing",
+        "Growth Guidance",
+        "Publishing Assistance",
+        "Custom Podcast Plan"
+      ],
+      "h3": [
+        "Podcast Planning",
+        "Recording Support",
+        "Editing and Mixing",
+        "Direct Publishing",
+        "Promotion and Growth",
+        "Planning",
+        "Production",
+        "Editing"
+      ],
+      "headingCount": 35,
+      "linkCount": 42,
+      "ctas": [
+        "DOWNLOAD OUR INTRO DECK",
+        "Contact",
+        "GET FREE SEO AUDIT",
+        "Get a Consultation",
+        "Get Started Today",
+        "Watch on",
+        "CONTACT US TODAY",
+        "Facebook"
+      ],
+      "detectedSchemaTypesInFirecrawlHtml": [],
+      "flags": {
+        "hasFAQText": true,
+        "hasPricingOrCostText": true,
+        "hasProofSignals": true
+      },
+      "notes": "No JSON-LD @type detected in Firecrawl body/html extraction; verify rendered source separately before concluding schema is absent."
+    },
+    {
+      "site": "contentallies",
+      "classification": "Direct competitor; offer model reference; content-cluster reference",
+      "file": "contentallies-case-study-leaders.json",
+      "url": "https://contentallies.com/leaders-of-b2b-case-study",
+      "status": 200,
+      "title": "Leaders of B2B Case Study — Content Allies - The Top B2B Podcast Production Agency ",
+      "metaDescription": "How the Leaders of B2B podcast generated over $100k of revenue in 4 months., How the Leaders of B2B podcast generated over $100k of revenue in 4 months. ",
+      "h1": [
+        "Predictable growth for Content Allies",
+        "[Helping Startups Get Funded and Enriching the Community with Lloyed Lobo of Boast.ai and Tractionconf.io](https://open.spotify.com/episode/0lN8O5JtAsOhdBHNhvUmrD?go=1&sp_cid=4f74614dacf3a85581e7242e8353b3b7&utm_source=embed_player_p&utm_medium=desktop)",
+        "[A World Without Credit Scores with Shmulik Fishman of Argyle](https://open.spotify.com/episode/0EhmMF8Jwy8mImunAiNSnO?go=1&sp_cid=d4a90c3f0fc4e925c5dcfc88a872ccfd&utm_source=embed_player_p&utm_medium=desktop)"
+      ],
+      "h2": [
+        "Listen to the show",
+        "Apr 5· [Leaders of B2B Podcast - Interviews on Business Leadership, B2B Sales, B2B Marketing and Revenue Growth](https://open.spotify.com/show/3W2K0QqkNwIBaBYD0HFDdV?go=1&sp_cid=4f74614dacf3a85581e7242e8353b3b7&utm_source=embed_player_p&utm_medium=desktop)",
+        "Mar 11· [Leaders of B2B Podcast - Interviews on Business Leadership, B2B Sales, B2B Marketing and Revenue Growth](https://open.spotify.com/show/3W2K0QqkNwIBaBYD0HFDdV?go=1&sp_cid=d4a90c3f0fc4e925c5dcfc88a872ccfd&utm_source=embed_player_p&utm_medium=desktop)",
+        "Examples of social media assets",
+        "Quote blocks for social media"
+      ],
+      "h3": [
+        null
+      ],
+      "headingCount": 9,
+      "linkCount": 32,
+      "ctas": [
+        "Contact",
+        "Learn more",
+        "**Contact**"
+      ],
+      "detectedSchemaTypesInFirecrawlHtml": [],
+      "flags": {
+        "hasFAQText": false,
+        "hasPricingOrCostText": true,
+        "hasProofSignals": true
+      },
+      "notes": "No JSON-LD @type detected in Firecrawl body/html extraction; verify rendered source separately before concluding schema is absent."
+    },
+    {
+      "site": "contentallies",
+      "classification": "Direct competitor; offer model reference; content-cluster reference",
+      "file": "contentallies-case-study-upshift.json",
+      "url": "https://contentallies.com/upshift-case-study",
+      "status": 200,
+      "title": null,
+      "metaDescription": ", On this episode of the Hospitality Leaders podcast, I’m joined by Tom Gallagher, General Manager at Columbus Country Club.\n\nI asked Tom how he handles employee burnout. He told me that he can often get ahead of burnout by communicating his team’s needs ahead of time.\n\nHospitality can be an exhausting business, and Tom knows this. By understanding the needs of his staff, Tom is able to create a schedule that accounts for burnout. His open communication policy means everyone is honest about when they’re feeling exhausted and what’s going on in their personal lives.\n\nHonesty means Tom knows his team well. When he knows his team, he can anticipate and satisfy their needs, On this episode of the Hospitality Leaders podcast, I’m joined by Tom Gallagher, General Manager at Columbus Country Club.\n\nTom has an outstanding way of communicating with his team. He often treats them like his guests. He remembers their birthdays, asks about their families, and gets gift cards to their favorite restaurants.\n\nHe also has an open communication policy, and anyone on his team is free to share their concerns with him. Tom makes his team feel like he really trusts them, and that motivates them to go above and beyond for their guests.\n\nColumbus Country Club exudes hospitality. That’s all thanks to communication, and to the relationship it has helped Tom develop with his team.",
+      "h1": [
+        "**Converting Over Half of All Interviews into Revenue Streams for Chris Cano and Upshift**",
+        "[Welcome to the Hospitality Leaders Podcast](https://open.spotify.com/episode/1fvPUrPnmU32YDD8fYXEK9?go=1&sp_cid=d5151b748095390266725b187f6376bd&utm_source=embed_player_p&utm_medium=desktop)",
+        "li.protechts.net is blocked"
+      ],
+      "h2": [
+        "Sep 8· [Hospitality Leaders - Interviews with leaders, entrepreneurs, and supporters of hospitality.](https://open.spotify.com/show/6bvRoN7ctiwc7bGNEeiKvV?go=1&sp_cid=d5151b748095390266725b187f6376bd&utm_source=embed_player_p&utm_medium=desktop)",
+        "**Strategy**",
+        "**Guest Procurement**",
+        "Share this post",
+        "Share this post"
+      ],
+      "h3": [
+        "Over the course of a few months, the _Hospitality Leaders_ podcast opened new doors for Upshift:",
+        "**Audio and Visual Editing**",
+        "**Show Branding**",
+        "**Hosting and Distribution**",
+        "**Shareable Graphics**",
+        "**Video Shorts**",
+        "**LinkedIn Management**",
+        "**Time-Saving Collaboration**"
+      ],
+      "headingCount": 19,
+      "linkCount": 52,
+      "ctas": [
+        "Contact",
+        "Watch on",
+        "contact us",
+        "**Contact**"
+      ],
+      "detectedSchemaTypesInFirecrawlHtml": [],
+      "flags": {
+        "hasFAQText": false,
+        "hasPricingOrCostText": false,
+        "hasProofSignals": true
+      },
+      "notes": "No JSON-LD @type detected in Firecrawl body/html extraction; verify rendered source separately before concluding schema is absent."
+    },
+    {
+      "site": "contentallies",
+      "classification": "Direct competitor; offer model reference; content-cluster reference",
+      "file": "contentallies-cost.json",
+      "url": "https://contentallies.com/learn/how-much-does-podcasting-cost-for-b2b-companies",
+      "status": 200,
+      "title": "How Much Does Podcasting Cost? A Guide for B2B Companies (2026 Edition) — Content Allies - The Top B2B Podcast Production Agency ",
+      "metaDescription": "Explore budget-friendly ways to launch a podcast, from free tools to higher-end setups aligned with your podcasting goals., Explore budget-friendly ways to launch a podcast, from free tools to higher-end setups aligned with your podcasting goals.",
+      "h1": [
+        "How Much Does Podcasting Cost? A Guide for B2B Companies (2026 Edition)"
+      ],
+      "h2": [
+        "How Much Does Podcasting Cost?",
+        "Podcasting Costs",
+        "Factors that affect podcasting costs",
+        "Distribution Is Where Most B2B Podcast Budgets Should Go",
+        "How Content Allies Can Help You Get More Out of Your Podcast",
+        "FAQs"
+      ],
+      "h3": [
+        "Podcasting Cost: A Quick Overview",
+        "Small Starter Podcasting Costs",
+        "DIY High Quality Podcasting Costs",
+        "High Quality Presenter Podcasting Costs",
+        "Enterprise Podcasting Costs",
+        "1\\. In-House or Outsourced",
+        "2\\. Interview Style or Journalistic (NPR) Style",
+        "3\\. Podcast Microphones"
+      ],
+      "headingCount": 26,
+      "linkCount": 53,
+      "ctas": [
+        "Contact",
+        "Watch on",
+        "**contact us**",
+        "Facebook0",
+        "**Contact**"
+      ],
+      "detectedSchemaTypesInFirecrawlHtml": [],
+      "flags": {
+        "hasFAQText": false,
+        "hasPricingOrCostText": true,
+        "hasProofSignals": true
+      },
+      "notes": "No JSON-LD @type detected in Firecrawl body/html extraction; verify rendered source separately before concluding schema is absent."
+    },
+    {
+      "site": "contentallies",
+      "classification": "Direct competitor; offer model reference; content-cluster reference",
+      "file": "contentallies-homepage.json",
+      "url": "https://contentallies.com/",
+      "status": 200,
+      "title": "Content Allies - The Top B2B Podcast Production Agency ",
+      "metaDescription": "Podcast Production Agency & Service. We help companies  & brands produce revenue-generating podcasts. Leading companies trust Content Allies to launch, produce and promote their podcasts because we focus on impacting the bottom line., Podcast Production Agency & Service. We help companies  & brands produce revenue-generating podcasts. Leading companies trust Content Allies to launch, produce and promote their podcasts because we focus on impacting the bottom line. ",
+      "h1": [
+        "Drive Revenue with a B2B Podcast Agency",
+        "Some of Our Happy Customers",
+        "**But podcasts sound like a lot of work...**"
+      ],
+      "h2": [
+        "Join other B2B executives who are growing their revenue through podcasting.",
+        "Strategy",
+        "Production",
+        "Promotion",
+        "Happy Customers"
+      ],
+      "h3": [
+        "**Podcasting is one of the fastest-growing mediums**",
+        "**Generate revenue through podcast networking**",
+        "**Repurpose content across multiple mediums**"
+      ],
+      "headingCount": 17,
+      "linkCount": 95,
+      "ctas": [
+        "Contact",
+        "![Learning Leader Spotlight",
+        "![Get In the Mode ",
+        "Contact us",
+        "**Contact**"
+      ],
+      "detectedSchemaTypesInFirecrawlHtml": [],
+      "flags": {
+        "hasFAQText": false,
+        "hasPricingOrCostText": false,
+        "hasProofSignals": true
+      },
+      "notes": "No JSON-LD @type detected in Firecrawl body/html extraction; verify rendered source separately before concluding schema is absent."
+    },
+    {
+      "site": "contentallies",
+      "classification": "Direct competitor; offer model reference; content-cluster reference",
+      "file": "contentallies-roi.json",
+      "url": "https://contentallies.com/learn/roi-b2b-podcasting-metrics",
+      "status": 200,
+      "title": "The ROI of B2B Podcasting: Metrics That Matter for Business Growth — Content Allies - The Top B2B Podcast Production Agency ",
+      "metaDescription": "Discover how B2B podcasting drives real ROI through brand authority, sales influence, and pipeline growth. Learn the key metrics that matter—from reach to revenue—and why thought leadership via podcasts is reshaping buyer decisions in 2024. Measure what truly impacts business growth., Discover how B2B podcasting drives real ROI through brand authority, sales influence, and pipeline growth. Learn the key metrics that matter—from reach to revenue—and why thought leadership via podcasts is reshaping buyer decisions in 2024. Measure what truly impacts business growth.",
+      "h1": [
+        "The ROI of B2B Podcasting: Metrics That Matter for Business Growth"
+      ],
+      "h2": [
+        null
+      ],
+      "h3": [
+        "Table of Contents",
+        "The Rise of Thought Leadership in the Buyer Journey",
+        "2\\. Account-Based Marketing",
+        "3\\. Internal Enablement & Evangelism",
+        "Mid Funnel: Podcast Engagement & Audience Quality",
+        "Bottom of Funnel: Revenue Impact & Attribution"
+      ],
+      "headingCount": 7,
+      "linkCount": 50,
+      "ctas": [
+        "Contact",
+        "How to Calculate Podcast ROI",
+        "**64% of B2B buyers**",
+        "**Click here to get in touch**",
+        "Facebook0",
+        "**Contact**"
+      ],
+      "detectedSchemaTypesInFirecrawlHtml": [],
+      "flags": {
+        "hasFAQText": false,
+        "hasPricingOrCostText": true,
+        "hasProofSignals": true
+      },
+      "notes": "No JSON-LD @type detected in Firecrawl body/html extraction; verify rendered source separately before concluding schema is absent."
+    },
+    {
+      "site": "contentallies",
+      "classification": "Direct competitor; offer model reference; content-cluster reference",
+      "file": "contentallies-top-agencies.json",
+      "url": "https://contentallies.com/learn/top-b2b-podcast-production-agencies",
+      "status": 200,
+      "title": "Top 20 B2B Podcast Production Agencies & Companies in 2026 — Content Allies - The Top B2B Podcast Production Agency ",
+      "metaDescription": "Discover the best B2B podcast production agencies of 2026. Compare top companies offering strategy, editing, promotion, and full-service podcast solutions., Discover the best B2B podcast production agencies of 2026. Compare top companies offering strategy, editing, promotion, and full-service podcast solutions.",
+      "h1": [
+        "Top 20 B2B Podcast Production Agencies & Companies in 2026"
+      ],
+      "h2": [
+        "Podcast Production Company Comparison Table",
+        "What Changed in 2026 and Why This List Was Updated",
+        "How We Selected These Podcast Production Companies",
+        "Best B2B Podcast Production Agencies",
+        "What Are B2B Podcast Production Agencies?",
+        "Why Work with a B2B Podcast Production Agency?",
+        "How to Choose a Good B2B Podcast Agency",
+        "Which B2B Podcasting Agency Will You Pick?"
+      ],
+      "h3": [
+        "1\\. Content Allies. Best for B2B teams that want a full-service, revenue-aligned podcast partner",
+        "2\\. StudioPod. Best for: Brands scaling audio + video with a hands-on “extension of your team” model",
+        "3\\. JAR Audio. Best for: Brands that want award-winning, purpose-driven audio/video with measurable outcomes",
+        "4\\. Jony Studios. Best for: B2B brands using podcasts + audiobooks as content marketing",
+        "5\\. Podigy. Best for: Businesses, thought leaders, coaches focused on authority-building",
+        "6\\. Lower Street. Best for: B2B, enterprise, and founder-led branded podcasts",
+        "7\\. Resonate Recordings. Best for: Creators + businesses that want an all-in-one production partner (incl. lead-gen support)",
+        "8\\. Podglomerate. Best for: Brands looking for production + marketing + monetization"
+      ],
+      "headingCount": 52,
+      "linkCount": 100,
+      "ctas": [
+        "Contact",
+        "Watch on",
+        "Think Fast, Talk Smart: The Podcast",
+        "**Contact Content Allies**",
+        "Facebook0",
+        "**Contact**"
+      ],
+      "detectedSchemaTypesInFirecrawlHtml": [],
+      "flags": {
+        "hasFAQText": true,
+        "hasPricingOrCostText": true,
+        "hasProofSignals": true
+      },
+      "notes": "No JSON-LD @type detected in Firecrawl body/html extraction; verify rendered source separately before concluding schema is absent."
+    },
+    {
+      "site": "fame",
+      "classification": "Local SERP competitor; direct competitor for podcast-agency Miami queries",
+      "file": "fame-local-podcast-agency-miami.json",
+      "url": "https://www.fame.so/podcast-agency-miami",
+      "status": 200,
+      "title": "Podcast Agency Miami | Fame",
+      "metaDescription": "We are the most ROI focused podcast agency with team members based in Miami, US. We start and grow the world's most profitable podcasts - whilst making you and your B2B business famous.",
+      "h1": [
+        "Miami's Most ROI Focused Podcast Agency"
+      ],
+      "h2": [
+        "Here are some B2B businesses that we have grown",
+        "Happy Clients",
+        "Frequently Asked Questions"
+      ],
+      "h3": [
+        null
+      ],
+      "headingCount": 4,
+      "linkCount": 37,
+      "ctas": [
+        "Get Proposal",
+        "Get a proposal"
+      ],
+      "detectedSchemaTypesInFirecrawlHtml": [],
+      "flags": {
+        "hasFAQText": true,
+        "hasPricingOrCostText": true,
+        "hasProofSignals": true
+      },
+      "notes": "No JSON-LD @type detected in Firecrawl body/html extraction; verify rendered source separately before concluding schema is absent."
+    },
+    {
+      "site": "ninjaai",
+      "classification": "AEO competitor; category creation reference; platform threat",
+      "file": "ninjaai-ai-visibility-case-study.json",
+      "url": "https://www.ninjaai.com/florida-slice-ai-visibility-case-study-orlando-pizza",
+      "status": 200,
+      "title": "NinjaAI | AI Visibility, AI SEO, GEO, AEO & HEO Agency — Jason Todd Wade",
+      "metaDescription": "NinjaAI is Jason Todd Wade's AI Visibility agency, helping brands become discoverable, interpretable, and citable across ChatGPT, Gemini, Perplexity, Google AI Overviews, and the generative search systems reshaping modern discovery. Based in Orlando, Florida.",
+      "h1": [
+        "Florida Slice AI Visibility Case Study Orlando Pizza"
+      ],
+      "h2": [
+        "AI Visibility Architecture for Florida Slice AI Visibility Case Study Orlando Pizza",
+        "Ready to become visible to AI?"
+      ],
+      "h3": [
+        "Is your business visible to AI?"
+      ],
+      "headingCount": 4,
+      "linkCount": 73,
+      "ctas": [
+        "Get Free AI Visibility Audit →",
+        "AI Visibility Playbook",
+        "Contact"
+      ],
+      "detectedSchemaTypesInFirecrawlHtml": [],
+      "flags": {
+        "hasFAQText": true,
+        "hasPricingOrCostText": false,
+        "hasProofSignals": true
+      },
+      "notes": "No JSON-LD @type detected in Firecrawl body/html extraction; verify rendered source separately before concluding schema is absent."
+    },
+    {
+      "site": "ninjaai",
+      "classification": "AEO competitor; category creation reference; platform threat",
+      "file": "ninjaai-case-studies.json",
+      "url": "https://www.ninjaai.com/case-studies",
+      "status": 200,
+      "title": "Case Studies | NinjaAI — AI Visibility Results",
+      "metaDescription": "Real AI Visibility engagements — entity engineering, AEO, and GEO builds that moved businesses from invisible to AI-recommended across ChatGPT, Perplexity, and Google AI Overviews.",
+      "h1": [
+        "Case Studies"
+      ],
+      "h2": [
+        "Professional Services Firm",
+        "Florida Slice"
+      ],
+      "h3": [
+        "Additional case studies are in documentation."
+      ],
+      "headingCount": 4,
+      "linkCount": 70,
+      "ctas": [
+        "Start Your Engagement →",
+        "AI Visibility Playbook",
+        "Contact"
+      ],
+      "detectedSchemaTypesInFirecrawlHtml": [],
+      "flags": {
+        "hasFAQText": false,
+        "hasPricingOrCostText": false,
+        "hasProofSignals": true
+      },
+      "notes": "No JSON-LD @type detected in Firecrawl body/html extraction; verify rendered source separately before concluding schema is absent."
+    },
+    {
+      "site": "ninjaai",
+      "classification": "AEO competitor; category creation reference; platform threat",
+      "file": "ninjaai-heo-faq.json",
+      "url": "https://www.ninjaai.com/heo-faq",
+      "status": 200,
+      "title": "HEO FAQ — Hybrid Engine Optimization Questions & Answers | NinjaAI",
+      "metaDescription": "20 authoritative questions and answers about Hybrid Engine Optimization (HEO) — covering definition, implementation, metrics, strategy, and advanced topics. Authored by Jason Todd Wade.",
+      "h1": [
+        "HEO Frequently Asked Questions"
+      ],
+      "h2": [
+        "Complete HEO FAQ Index",
+        "What Is Your Entity Representation Score?"
+      ],
+      "h3": [
+        null
+      ],
+      "headingCount": 3,
+      "linkCount": 70,
+      "ctas": [
+        "AI Visibility Playbook",
+        "Contact"
+      ],
+      "detectedSchemaTypesInFirecrawlHtml": [],
+      "flags": {
+        "hasFAQText": true,
+        "hasPricingOrCostText": false,
+        "hasProofSignals": true
+      },
+      "notes": "No JSON-LD @type detected in Firecrawl body/html extraction; verify rendered source separately before concluding schema is absent."
+    },
+    {
+      "site": "ninjaai",
+      "classification": "AEO competitor; category creation reference; platform threat",
+      "file": "ninjaai-homepage.json",
+      "url": "https://www.ninjaai.com/",
+      "status": 200,
+      "title": "NinjaAI | AI Visibility, AI SEO, GEO, AEO & HEO Agency",
+      "metaDescription": "NinjaAI is Jason Todd Wade's AI Visibility agency, helping brands become discoverable, interpretable, and citable across ChatGPT, Gemini, Perplexity, Google AI Overviews, and generative search systems.",
+      "h1": [
+        "NinjaAI is now BackTier · AI Visibility · GEO · AEO · Entity EngineeringNinjaAI HasBecome BackTier.The work continues at backtier.com.NinjaAI was the execution surface for AI Visibility Architecture™, Entity Lock Protocol™, and the BackTier Visibility Path™. That work is now unified under BackTier — the parent discipline for AI Visibility, GEO, AEO, and entity engineering. All frameworks, research, and canonical definitions remain available here as a legacy resource library. New client work, implementation, and consulting are delivered through BackTier."
+      ],
+      "h2": [
+        "Traditional SEO Helps Pages Rank. _AI Visibility Helps Entities Get Selected._",
+        "Search Behavior Has Shifted from Links to Answers.",
+        "Entity Engineering Is the Foundation of Everything.",
+        "The NinjaAI Service Stack",
+        "Built Around This Shift _From the Start._",
+        "AI Visibility in Practice",
+        "Building Infrastructure for AI-Era Discovery",
+        "What Clients Say"
+      ],
+      "h3": [
+        "The Three Layers of AI Visibility",
+        "What is AI Visibility?",
+        "What is Generative Engine Optimization (GEO)?",
+        "What is Answer Engine Optimization (AEO)?",
+        "What is entity-based SEO?",
+        "How does NinjaAI differ from a traditional SEO agency?",
+        "How long does it take to see results from AI Visibility work?",
+        "What is Hybrid Engine Optimization (HEO)?"
+      ],
+      "headingCount": 23,
+      "linkCount": 76,
+      "ctas": [
+        "Get a Free Audit →",
+        "Watch on YouTube →",
+        "Watch on",
+        "Get Free AI Visibility Audit →",
+        "Read the Playbook →",
+        "AI Visibility Playbook",
+        "Contact"
+      ],
+      "detectedSchemaTypesInFirecrawlHtml": [],
+      "flags": {
+        "hasFAQText": true,
+        "hasPricingOrCostText": false,
+        "hasProofSignals": true
+      },
+      "notes": "No JSON-LD @type detected in Firecrawl body/html extraction; verify rendered source separately before concluding schema is absent."
+    },
+    {
+      "site": "ninjaai",
+      "classification": "AEO competitor; category creation reference; platform threat",
+      "file": "ninjaai-podcast-manifesto.json",
+      "url": "https://www.ninjaai.com/the-2026-podcast-manifesto-from-media-channel-to-business-infrastructure",
+      "status": 200,
+      "title": "The 2026 Podcast Manifesto: From Media Channel to Business Infrastructure | NinjaAI — AI Visibility Architecture",
+      "metaDescription": "In 2026, podcasts transcend their traditional role as mere media channels, evolving into critical business infrastructure. This manifesto explores how businesse",
+      "h1": [
+        "The 2026 Podcast Manifesto: From Media Channel to Business Infrastructure"
+      ],
+      "h2": [
+        "The 2026 Podcast Manifesto: From Media Channel to Business Infrastructure",
+        "The Evolution of Podcasting: Beyond the Earbuds",
+        "The AI Visibility Imperative: Why Podcasting Matters More Than Ever",
+        "Strategic Implementation: Crafting Your AI-Optimized Podcast",
+        "The NinjaAI Approach: Engineering AI Visibility Through Podcasting",
+        "Case Study: Florida Business X's AI Visibility Transformation",
+        "The Future is Auditory and Intelligent: A Call to Action",
+        "Key Takeaways"
+      ],
+      "h3": [
+        "From Media Channel to Business Infrastructure: A New Definition",
+        "Generating Entity Signals: The Building Blocks of AI Understanding",
+        "Building Authority Graphs: Connecting the Dots for AI",
+        "Feeding AI Training Data: The Future of Content Creation",
+        "Content Architecture: Structuring for AI Consumption",
+        "Guest Selection and Interview Strategy: Amplifying Authority",
+        "Distribution and Indexing: Ensuring AI Discoverability",
+        "The Entity-First Podcasting Model"
+      ],
+      "headingCount": 22,
+      "linkCount": 75,
+      "ctas": [
+        "AI Visibility Playbook",
+        "Contact"
+      ],
+      "detectedSchemaTypesInFirecrawlHtml": [],
+      "flags": {
+        "hasFAQText": true,
+        "hasPricingOrCostText": true,
+        "hasProofSignals": true
+      },
+      "notes": "No JSON-LD @type detected in Firecrawl body/html extraction; verify rendered source separately before concluding schema is absent."
+    },
+    {
+      "site": "ninjaai",
+      "classification": "AEO competitor; category creation reference; platform threat",
+      "file": "ninjaai-podcast.json",
+      "url": "https://www.ninjaai.com/podcast",
+      "status": 200,
+      "title": "AI Visibility Podcast | 28 Episodes — Jason Todd Wade, BackTier & NinjaAI",
+      "metaDescription": "The AI Visibility Podcast — 28 episodes hosted by Jason Todd Wade (founder of BackTier and NinjaAI) on AI Visibility, GEO, AEO, HEO, entity engineering, and the systems that determine whether brands are found and cited by AI.",
+      "h1": [
+        "AI Visibility Intelligence"
+      ],
+      "h2": [
+        "International SEO, Dubai Real Estate, and AI Agency Automation: What Ayoub Rhillane Gets Right About the Next Agency Model",
+        "Built for Practitioners Who Are Building the AI-First Future",
+        "Is Your Business Visible to AI Systems?"
+      ],
+      "h3": [
+        null
+      ],
+      "headingCount": 4,
+      "linkCount": 100,
+      "ctas": [
+        "Watch Latest Episode",
+        "Apply to Be a Guest",
+        "Watch on",
+        "Watch on YouTube",
+        "AI Visibility Playbook",
+        "Contact"
+      ],
+      "detectedSchemaTypesInFirecrawlHtml": [],
+      "flags": {
+        "hasFAQText": false,
+        "hasPricingOrCostText": false,
+        "hasProofSignals": true
+      },
+      "notes": "No JSON-LD @type detected in Firecrawl body/html extraction; verify rendered source separately before concluding schema is absent."
+    },
+    {
+      "site": "sweetfish",
+      "classification": "Direct competitor; offer model reference; content-cluster reference",
+      "file": "sweetfish-ai-search.json",
+      "url": "https://www.sweetfishmedia.com/blog/how-to-use-video-to-rank-in-ai-powered-search",
+      "status": 200,
+      "title": "How to Use Video to Rank in AI-Powered Search (And Outpace Your Competitors)",
+      "metaDescription": "Learn how to use video content to boost your brand’s visibility in AI search results. We break down the strategy, tools, and best practices for ranking in AI-driven discovery engines like Google SGE, Perplexity and ChatGPT., ",
+      "h1": [
+        "How to Use Video to Rank in AI-Powered Search (And Outpace Your Competitors)"
+      ],
+      "h2": [
+        "**Why AI Search Changes the SEO Game**",
+        "**How AI Search Engines “See” and Rank Video**",
+        "**The Video SEO Stack: What You Need to Optimize**",
+        "**Creating Video Content That Ranks (and Converts)**",
+        "**How to Pair Video with Written Content for Max Visibility**",
+        "**Distributing Your Video Content for AI Discovery**",
+        "**Tools & Tips for Video + AI Optimization**",
+        "**Sweet Fish's POV: Our AI-First Video Strategy**"
+      ],
+      "h3": [
+        "**AI Looks for Context, Not Just Content**",
+        "**Structured Data = AI Fuel**",
+        "**Discovery Happens Beyond YouTube**",
+        "**Titles & Descriptions: Be Clear, Be Clickable**",
+        "**Transcripts & Captions: Make It Machine-Readable**",
+        "**Thumbnails & Visual Cues: Attract Humans (and Signal Topics)**",
+        "**Structured Data & Schema Markup: Speak AI’s Language**",
+        "**Video Sitemaps: Help Search Engines Find Your Stuff**"
+      ],
+      "headingCount": 49,
+      "linkCount": 45,
+      "ctas": [
+        "Book a call",
+        "Get your free strategy call on the books today!",
+        "Book a Call"
+      ],
+      "detectedSchemaTypesInFirecrawlHtml": [],
+      "flags": {
+        "hasFAQText": true,
+        "hasPricingOrCostText": true,
+        "hasProofSignals": true
+      },
+      "notes": "No JSON-LD @type detected in Firecrawl body/html extraction; verify rendered source separately before concluding schema is absent."
+    },
+    {
+      "site": "sweetfish",
+      "classification": "Direct competitor; offer model reference; content-cluster reference",
+      "file": "sweetfish-blog.json",
+      "url": "https://www.sweetfishmedia.com/blog",
+      "status": 200,
+      "title": "Blog | Sweet Fish Media",
+      "metaDescription": "Whether you’re committed to building a complete media brand or simply looking for content ideas, our marketing experts have got you covered.",
+      "h1": [
+        "Find tips, tools, and strategies to elevate your video marketing."
+      ],
+      "h2": [
+        "Want to go deeper? Check out Video Podcasts."
+      ],
+      "h3": [
+        null
+      ],
+      "headingCount": 2,
+      "linkCount": 31,
+      "ctas": [
+        "Book a call",
+        "Book a Strategy Call",
+        "![YouTube Subscriber Growth Strategy for B2B (That Actually Works)",
+        "YouTube Subscriber Growth Strategy for B2B (That Actually Works)",
+        "Book a Call"
+      ],
+      "detectedSchemaTypesInFirecrawlHtml": [],
+      "flags": {
+        "hasFAQText": false,
+        "hasPricingOrCostText": false,
+        "hasProofSignals": true
+      },
+      "notes": "No JSON-LD @type detected in Firecrawl body/html extraction; verify rendered source separately before concluding schema is absent."
+    },
+    {
+      "site": "sweetfish",
+      "classification": "Direct competitor; offer model reference; content-cluster reference",
+      "file": "sweetfish-clients.json",
+      "url": "https://www.sweetfishmedia.com/clients",
+      "status": 200,
+      "title": "B2B Video Clients & Case Studies | Sweet Fish Media",
+      "metaDescription": "See Sweet Fish client work, case studies, and B2B video examples across podcasts, social shorts, ads, events, testimonials, and thought leadership., , , , , , , , , , , , , ",
+      "h1": [
+        "**Video Built for B2B Brands That Take Marketing Seriously**"
+      ],
+      "h2": [
+        "Real examples of how B2B teams use video to build visibility, trust, and demand.",
+        "Featured Video Work",
+        "**Built Across B2B Categories**",
+        "How Kreate used strategic content to unlock brand visibility",
+        "How Sonar Software built visibility in a highly niche B2B market",
+        "How Holt Law turned video into a sales support system",
+        "Ready to see what a dedicated B2B video team can do for your brand?"
+      ],
+      "h3": [
+        "45k",
+        "5M+",
+        "20k",
+        "100k",
+        "13k",
+        "250k",
+        "300k+"
+      ],
+      "headingCount": 15,
+      "linkCount": 18,
+      "ctas": [
+        "Book a call",
+        "Book a Strategy Call",
+        "upstart logo",
+        "They Learn You Win",
+        "Startup Field Guide",
+        "learning differently fusion academy podcast cover",
+        "Book a strategy call",
+        "Book a Call"
+      ],
+      "detectedSchemaTypesInFirecrawlHtml": [],
+      "flags": {
+        "hasFAQText": false,
+        "hasPricingOrCostText": true,
+        "hasProofSignals": true
+      },
+      "notes": "No JSON-LD @type detected in Firecrawl body/html extraction; verify rendered source separately before concluding schema is absent."
+    },
+    {
+      "site": "sweetfish",
+      "classification": "Direct competitor; offer model reference; content-cluster reference",
+      "file": "sweetfish-executive-thought-leadership.json",
+      "url": "https://www.sweetfishmedia.com/services/executive-thought-leadership",
+      "status": 200,
+      "title": "Executive Thought Leadership Video | Sweet Fish Media",
+      "metaDescription": "Turn executive perspective into B2B thought leadership video with strategy, production, editing, and repurposing built for brand, demand, and sales., ",
+      "h1": [
+        "**Executive Thought Leadership Video for B2B Leaders**"
+      ],
+      "h2": [
+        "Executive visibility should be more than a talking head.",
+        "Your Marketing Team’s Video Team",
+        "Executive Thought Leadership At Every Stage of Marketing",
+        "How Kreate used strategic content to unlock brand visibility",
+        "How Sonar Software built visibility in a highly niche B2B market",
+        "How Holt Law turned video into a sales support system",
+        "Let’s turn executive perspective into a video strategy that scales."
+      ],
+      "h3": [
+        "Strategy",
+        "Production",
+        "Distribution Assets",
+        "Build Visibility",
+        "Shape the Market Conversation",
+        "Support Brand & Demand Efforts",
+        "Create Long-Term Brand Equity"
+      ],
+      "headingCount": 15,
+      "linkCount": 17,
+      "ctas": [
+        "Book a call",
+        "Book a Strategy Call",
+        "upstart logo",
+        "Book a strategy call",
+        "Book a Call"
+      ],
+      "detectedSchemaTypesInFirecrawlHtml": [],
+      "flags": {
+        "hasFAQText": false,
+        "hasPricingOrCostText": false,
+        "hasProofSignals": true
+      },
+      "notes": "No JSON-LD @type detected in Firecrawl body/html extraction; verify rendered source separately before concluding schema is absent."
+    },
+    {
+      "site": "sweetfish",
+      "classification": "Direct competitor; offer model reference; content-cluster reference",
+      "file": "sweetfish-homepage.json",
+      "url": "https://www.sweetfishmedia.com/",
+      "status": 200,
+      "title": "Sweet Fish Media | Your Marketing Team’s Video Team",
+      "metaDescription": "Strategic video for B2B marketing teams. Sweet Fish builds your always-on video engine to drive trust, reach, and demand., , ",
+      "h1": [
+        "Your Marketing Team’s Video Team"
+      ],
+      "h2": [
+        "Trusted by leading B2B marketing teams",
+        "One Partner, All Your Videos",
+        "Whether you need one recurring format or a full video engine, we scale with your goals.",
+        "We own the entire video lifecycle",
+        "Wherever Your Team Works",
+        "Our work",
+        "How Kreate used strategic content to unlock brand visibility",
+        "How Sonar Software built visibility in a highly niche B2B market"
+      ],
+      "h3": [
+        "Video Podcasts",
+        "ABM & Sales Enablement",
+        "Brand & Product Explainers",
+        "Customer Stories & Case Studies",
+        "Employer Brand & Recruiting",
+        "Events & Live Productions",
+        "Executive Thought Leadership",
+        "Social Shorts & Cut-Downs"
+      ],
+      "headingCount": 36,
+      "linkCount": 17,
+      "ctas": [
+        "Book a call",
+        "Book an intro call",
+        "upstart logo",
+        "Book a Call"
+      ],
+      "detectedSchemaTypesInFirecrawlHtml": [],
+      "flags": {
+        "hasFAQText": false,
+        "hasPricingOrCostText": true,
+        "hasProofSignals": true
+      },
+      "notes": "No JSON-LD @type detected in Firecrawl body/html extraction; verify rendered source separately before concluding schema is absent."
+    },
+    {
+      "site": "sweetfish",
+      "classification": "Direct competitor; offer model reference; content-cluster reference",
+      "file": "sweetfish-podcast-seo.json",
+      "url": "https://www.sweetfishmedia.com/blog/seo-for-podcasts-how-to-get-your-podcast-to-rank-in-search",
+      "status": 200,
+      "title": "SEO for Podcasts: Master Podcast Rankings",
+      "metaDescription": "Boost your podcast's visibility with essential SEO for podcasts! Learn podcast SEO tips to optimize AI search, improve engagement, and expand your audience.",
+      "h1": [
+        "SEO for Podcasts: How to Get Your Podcast to Rank in Search"
+      ],
+      "h2": [
+        "**Why SEO for Podcasts Matters in 2025**",
+        "**How AI Search Engines Are Changing Podcast Discovery**",
+        "**Are Podcasts Good for SEO? Heck Yes—Here’s Why**",
+        "**Podcast SEO Basics: What Every Podcaster Needs to Know**",
+        "**Podcast Keyword Research: Finding the Right Topics and Phrases**",
+        "**Optimizing Podcast Titles, Descriptions, and Metadata**",
+        "**The Power of Show Notes and Transcriptions for Podcast Discoverability**",
+        "**Creating a Podcast Website or Landing Page for SEO**"
+      ],
+      "h3": [
+        "**Why Podcast SEO Matters (A Lot)**",
+        "**Getting Started with Podcast SEO (No Guru Required)**",
+        "**The Role of SEO in the AI Era**",
+        "**Your Podcast = The Content Engine**",
+        "**What AI Search Prioritizes**",
+        "**Be the Early Mover**",
+        "**1\\. Podcasts Diversify Your Content (and Your Channels)**",
+        "**2\\. Podcasts Boost Website Traffic + Engagement**"
+      ],
+      "headingCount": 75,
+      "linkCount": 32,
+      "ctas": [
+        "Book a call",
+        "SEO for Podcasts: How to Get Your Podcast to Rank in Search",
+        "**Book a strategy call with Sweet Fish**",
+        "Book a Call"
+      ],
+      "detectedSchemaTypesInFirecrawlHtml": [],
+      "flags": {
+        "hasFAQText": true,
+        "hasPricingOrCostText": true,
+        "hasProofSignals": true
+      },
+      "notes": "No JSON-LD @type detected in Firecrawl body/html extraction; verify rendered source separately before concluding schema is absent."
+    },
+    {
+      "site": "sweetfish",
+      "classification": "Direct competitor; offer model reference; content-cluster reference",
+      "file": "sweetfish-video-podcast.json",
+      "url": "https://www.sweetfishmedia.com/services/video-podcast",
+      "status": 200,
+      "title": "B2B Video Podcast Production | Sweet Fish Media",
+      "metaDescription": "Launch a premium B2B video podcast with strategy, production, repurposing, and distribution built to grow your audience and support demand., , , , , , , , , , ",
+      "h1": [
+        "Video Podcasts for B2B Marketers"
+      ],
+      "h2": [
+        "Video Podcasts Built for Long-Term Impact",
+        "One Show. Video At Every Stage of the Funnel.",
+        "We've created top 3% shows for 450+ industry-leading brands",
+        "Wherever Your Team Works",
+        "From Concept to Distribution",
+        "How Kreate used strategic content to unlock brand visibility",
+        "How Sonar Software built visibility in a highly niche B2B market",
+        "How Holt Law turned video into a sales support system"
+      ],
+      "h3": [
+        "Strategy",
+        "Production",
+        "Promotion",
+        "Awareness",
+        "Consideration",
+        "Evaluation",
+        "Sales",
+        "Growth"
+      ],
+      "headingCount": 26,
+      "linkCount": 17,
+      "ctas": [
+        "Book a call",
+        "Book a Strategy Call",
+        "upstart logo",
+        "Book a strategy call",
+        "Book a Call"
+      ],
+      "detectedSchemaTypesInFirecrawlHtml": [],
+      "flags": {
+        "hasFAQText": true,
+        "hasPricingOrCostText": true,
+        "hasProofSignals": true
+      },
+      "notes": "No JSON-LD @type detected in Firecrawl body/html extraction; verify rendered source separately before concluding schema is absent."
+    }
+  ],
+  "failedScrapes": [
+    {
+      "url": "https://appwt.com/blog/aivo-explained-ai-visibility-optimization-gets-you-found",
+      "reason": "Firecrawl timeout at 300000 ms on full and lighter extraction retries."
+    },
+    {
+      "url": "https://appwt.com/blog/death-of-traditional-seo-why-geo-is-future",
+      "reason": "Firecrawl socket hang up on lighter extraction retry."
+    }
+  ],
+  "limitations": [
+    "No ranking claims were verified; this is a structural crawl and content architecture comparison.",
+    "Firecrawl body/html extraction did not reliably expose JSON-LD schema blocks, so schema findings for competitors are detection notes, not definitive absence claims.",
+    "Raw competitor markdown and HTML are intentionally kept in ignored .firecrawl scratch files and are not committed."
+  ]
+}

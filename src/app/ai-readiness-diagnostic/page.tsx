@@ -7,6 +7,7 @@ import {
   SignalHero,
 } from "@/components/marketing/DesignSystemSections";
 import { ButtonLink } from "@/components/ui/Button";
+import { ctaLinks } from "@/config/links";
 import FAQ from "@/components/founder-intelligence/FAQ";
 import JsonLd from "@/components/seo/JsonLd";
 import { diagnosticDimensions } from "@/data/audiojones-design";
@@ -140,6 +141,39 @@ export default function AiReadinessDiagnosticPage() {
       </DarkSection>
 
       <DarkSection>
+        <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+          <SectionIntro
+            label="Paid next step"
+            title="If revenue leakage is already visible, move from readiness to diagnosis."
+            description="The free diagnostic gives orientation. The Founder Revenue Leak Diagnostic is the paid operating review for response speed, follow-up, qualification, attribution, CRM process, and reporting gaps."
+          />
+          <div className="aj-card-signal">
+            <div className="aj-card-inner">
+              <p className="text-xs font-bold uppercase tracking-[0.14em] text-[var(--aj-blue)]">
+                Founder Revenue Leak Diagnostic
+              </p>
+              <h3 className="mt-3 font-accent text-2xl font-bold tracking-[-0.02em] text-fg-0">
+                $1,997 diagnostic before system scope.
+              </h3>
+              <p className="mt-4 text-sm leading-7 text-fg-2">
+                Use this when leads are coming in but the business cannot see
+                where demand becomes booked work, stalled opportunity, or lost
+                revenue.
+              </p>
+              <ButtonLink
+                href={ctaLinks.revenueLeakDiagnostic}
+                variant="primary"
+                size="sm"
+                className="mt-5"
+              >
+                View the Diagnostic
+              </ButtonLink>
+            </div>
+          </div>
+        </div>
+      </DarkSection>
+
+      <DarkSection>
         <SectionIntro
           label="FAQ"
           title="Common questions"
@@ -155,8 +189,8 @@ export default function AiReadinessDiagnosticPage() {
         description="Start with diagnosis, then route the business into the right revenue, signal, content, operations, or pipeline system."
         primaryLabel="Start the Diagnostic"
         primaryHref="/founder-intelligence/diagnostic"
-        secondaryLabel="Book a Call"
-        secondaryHref="/book-a-call"
+        secondaryLabel="View Founder Diagnostic"
+        secondaryHref={ctaLinks.revenueLeakDiagnostic}
       />
     </>
   );

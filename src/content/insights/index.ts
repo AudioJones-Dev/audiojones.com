@@ -37,9 +37,16 @@ export const INSIGHTS: InsightSummary[] = [
   },
   {
     slug: "revenue-leak-diagnostic",
-    title: "What is a Revenue Leak Diagnostic?",
+    title: "What is a Founder Revenue Leak Diagnostic?",
     excerpt:
-      "A structured review that finds where a business loses revenue it already earned — and ranks the fixes.",
+      "A structured review that checks where a founder-led business may be losing earned demand — and ranks the fixes.",
+    pillar: "attribution",
+  },
+  {
+    slug: "revenue-leak-diagnostic-cost",
+    title: "What does a Founder Revenue Leak Diagnostic cost?",
+    excerpt:
+      "The diagnostic is publicly priced at $1,997. Implementation is scoped separately after likely leaks are ranked.",
     pillar: "attribution",
   },
   {

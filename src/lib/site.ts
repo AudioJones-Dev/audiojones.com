@@ -36,13 +36,13 @@ export const publicRoutes = [
   { path: "/", priority: 1, changeFrequency: "weekly" },
   { path: "/founder-intelligence", priority: 0.95, changeFrequency: "weekly" },
   { path: "/founder-intelligence/diagnostic", priority: 0.9, changeFrequency: "monthly" },
+  { path: "/diagnostics/founder-revenue-leak-diagnostic", priority: 0.9, changeFrequency: "monthly" },
   { path: "/founder-gravity-audit", priority: 0.9, changeFrequency: "monthly" },
   { path: "/founder-gravity-audit/diagnostic", priority: 0.9, changeFrequency: "monthly" },
   { path: "/frameworks", priority: 0.85, changeFrequency: "monthly" },
   { path: "/insights", priority: 0.85, changeFrequency: "weekly" },
   { path: "/blog", priority: 0.85, changeFrequency: "weekly" },
   { path: "/about", priority: 0.6, changeFrequency: "monthly" },
-  // /pricing — include only once route is confirmed final for launch
   // /step-2  — intentionally excluded: funnel/internal, noindexed
   // /podcast — intentionally excluded: route does not exist
 ] as const;

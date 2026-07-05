@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import Breadcrumbs from "@/components/founder-intelligence/Breadcrumbs";
 import FrameworkArticle, {
   H2,
@@ -7,6 +8,7 @@ import FrameworkArticle, {
 } from "@/components/founder-intelligence/FrameworkArticle";
 import FAQ from "@/components/founder-intelligence/FAQ";
 import JsonLd from "@/components/seo/JsonLd";
+import { ctaLinks } from "@/config/links";
 import { buildMetadata } from "@/lib/seo/metadata";
 import {
   articleJsonLd,
@@ -136,6 +138,23 @@ export default function Page() {
             "A SaaS startup that builds attribution before building lifecycle automations, so every AI-generated touch is tied to a measurable conversion event.",
           ]}
         />
+
+        <div className="rounded-xl border border-border-subtle bg-surface-1 p-6">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-signal-yellow">
+            Apply the framework
+          </p>
+          <p className="mt-2 text-text-primary">
+            Start with the Founder Revenue Leak Diagnostic when the immediate
+            business question is lead response, follow-up, attribution, or
+            reporting clarity.
+          </p>
+          <Link
+            href={ctaLinks.revenueLeakDiagnostic}
+            className="mt-4 inline-flex text-sm font-semibold text-accent-blue hover:text-accent-blue"
+          >
+            View the diagnostic →
+          </Link>
+        </div>
 
         <H2>FAQ</H2>
         <FAQ items={FAQS} />

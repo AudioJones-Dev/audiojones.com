@@ -139,6 +139,56 @@ export function definedTermJsonLd(args: {
   } as const;
 }
 
+export function serviceJsonLd(args: {
+  name: string;
+  description: string;
+  url: string;
+  serviceType?: string;
+  audience?: string;
+  offers?: {
+    price: string;
+    priceCurrency: string;
+    url?: string;
+    description?: string;
+  };
+}) {
+  const url = args.url.startsWith("http") ? args.url : `${SITE_URL}${args.url}`;
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: args.name,
+    description: args.description,
+    url,
+    serviceType: args.serviceType,
+    provider: {
+      "@type": "Organization",
+      name: aiEntity.brandName,
+      url: SITE_URL,
+    },
+    audience: args.audience
+      ? {
+          "@type": "BusinessAudience",
+          name: args.audience,
+        }
+      : undefined,
+    offers: args.offers
+      ? {
+          "@type": "Offer",
+          price: args.offers.price,
+          priceCurrency: args.offers.priceCurrency,
+          url: args.offers.url
+            ? args.offers.url.startsWith("http")
+              ? args.offers.url
+              : `${SITE_URL}${args.offers.url}`
+            : url,
+          description: args.offers.description,
+          availability: "https://schema.org/InStock",
+        }
+      : undefined,
+  } as const;
+}
+
 export function speakableSpec(cssSelectors: string[]) {
   return {
     "@type": "SpeakableSpecification",

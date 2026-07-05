@@ -24,6 +24,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${base}/workshops`,                         lastModified: now, changeFrequency: "weekly",  priority: 0.85 },
     // Right-side header CTAs
     { url: `${base}/ai-readiness-diagnostic`,           lastModified: now, changeFrequency: "monthly", priority: 0.9  },
+    { url: `${base}/diagnostics/founder-revenue-leak-diagnostic`, lastModified: now, changeFrequency: "monthly", priority: 0.9  },
     { url: `${base}/book-a-call`,                       lastModified: now, changeFrequency: "monthly", priority: 0.85 },
     // Supporting surfaces
     { url: `${base}/founder-intelligence`,              lastModified: now, changeFrequency: "weekly",  priority: 0.85 },

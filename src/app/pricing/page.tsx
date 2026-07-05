@@ -10,6 +10,7 @@ import {
 } from "@/components/marketing/DesignSystemSections";
 import FAQ from "@/components/founder-intelligence/FAQ";
 import JsonLd from "@/components/seo/JsonLd";
+import { ctaLinks } from "@/config/links";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { breadcrumbJsonLd, faqJsonLd } from "@/lib/seo/schema";
 
@@ -45,13 +46,13 @@ const DIAGNOSTICS: Offer[] = [
     cta: "Get your score",
   },
   {
-    name: "Revenue Leak Diagnostic",
+    name: "Founder Revenue Leak Diagnostic",
     price: "$1,997",
     designedFor: "Founder-led businesses doing $500K–$5M+.",
-    goal: "Identify where revenue is being lost — slow response times, missed follow-up, poor attribution, operational bottlenecks, and reporting gaps.",
-    outcome: "A prioritized action plan showing the highest-leverage opportunities to recover revenue and improve operational efficiency.",
-    href: "/book-a-call",
-    cta: "Book the diagnostic",
+    goal: "Check for revenue leakage across slow response times, missed follow-up, poor attribution, operational bottlenecks, and reporting gaps.",
+    outcome: "A prioritized action plan showing the highest-leverage opportunities to improve revenue capture and operational visibility.",
+    href: ctaLinks.revenueLeakDiagnostic,
+    cta: "View the diagnostic",
     featured: true,
   },
   {
@@ -130,7 +131,7 @@ const PRICING_FAQS = [
   {
     question: "What does it cost to start?",
     answer:
-      "The AI Readiness Score is free. The Revenue Leak Diagnostic is $1,997. Most engagements begin with one of those, then move into a system once you know what to fix.",
+      "The AI Readiness Score is free. The Founder Revenue Leak Diagnostic is $1,997. Most engagements begin with one of those, then move into a Founder Intelligence System once you know what to fix.",
   },
   {
     question: "Why do you publish prices?",
@@ -214,14 +215,48 @@ export default function OffersPage() {
         description={DESCRIPTION}
         primaryHref="/ai-readiness-diagnostic"
         primaryLabel="Get your free score"
-        secondaryHref="/book-a-call"
-        secondaryLabel="Book a Diagnostic"
+        secondaryHref={ctaLinks.revenueLeakDiagnostic}
+        secondaryLabel="View Founder Diagnostic"
         stats={[
           { metric: "Free", label: "AI Readiness Score to see where you stand." },
-          { metric: "$1,997", label: "Revenue Leak Diagnostic — find the money leaking out." },
+          { metric: "$1,997", label: "Founder Revenue Leak Diagnostic — check where revenue may be leaking." },
           { metric: "$397/mo", label: "ResponseOS starts here — stop losing leads." },
         ]}
       />
+
+      <DarkSection className="bg-bg-1">
+        <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
+          <SectionIntro
+            label="Which diagnostic first?"
+            title="Use the free score for orientation. Use the paid diagnostic when revenue leakage is the active problem."
+            description="The free AI Readiness Score tells you whether the business is ready for AI-enabled systems. The Founder Revenue Leak Diagnostic is the paid review for missed demand, slow follow-up, weak attribution, and unclear reporting."
+          />
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Link href="/ai-readiness-diagnostic" className="aj-product-card block">
+              <p className="aj-data-label">Free entry point</p>
+              <h3 className="mt-3 font-accent text-2xl font-bold tracking-[-0.02em] text-fg-0">
+                AI Readiness Score
+              </h3>
+              <p className="mt-4 text-sm leading-7 text-fg-2">
+                Best when you need a broad read on workflow, data, SOPs, and
+                adoption before buying anything.
+              </p>
+            </Link>
+            <Link href={ctaLinks.revenueLeakDiagnostic} className="aj-card-signal block">
+              <div className="aj-card-inner">
+                <p className="aj-data-label">Paid operating review</p>
+                <h3 className="mt-3 font-accent text-2xl font-bold tracking-[-0.02em] text-fg-0">
+                  Founder Revenue Leak Diagnostic
+                </h3>
+                <p className="mt-4 text-sm leading-7 text-fg-2">
+                  Best when inbound demand exists, but response, follow-up,
+                  attribution, or reporting may be leaking revenue.
+                </p>
+              </div>
+            </Link>
+          </div>
+        </div>
+      </DarkSection>
 
       {/* Step 1 — Diagnostics */}
       <DarkSection>
@@ -307,11 +342,11 @@ export default function OffersPage() {
 
       <FinalCta
         title="Find the leak first. Price the fix second."
-        description="Start with the free AI Readiness Score, or book the Revenue Leak Diagnostic to find exactly where your business is losing revenue."
+        description="Start with the free AI Readiness Score, or review the Founder Revenue Leak Diagnostic when response, follow-up, attribution, or reporting may be leaking revenue."
         primaryLabel="Get your free score"
         primaryHref="/ai-readiness-diagnostic"
-        secondaryLabel="Book a Diagnostic"
-        secondaryHref="/book-a-call"
+        secondaryLabel="View Founder Diagnostic"
+        secondaryHref={ctaLinks.revenueLeakDiagnostic}
       />
     </>
   );

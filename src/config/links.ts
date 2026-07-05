@@ -15,6 +15,7 @@ export const portalLinks = {
 export const ctaLinks = {
   bookSession: "/book-a-call", // Internal booking page (2026-05-10 nav restructure)
   signalDiagnostic: "/ai-readiness-diagnostic", // Canonical public diagnostic flow
+  revenueLeakDiagnostic: "/diagnostics/founder-revenue-leak-diagnostic", // Canonical paid diagnostic offer page
   roiCalculator: "/roi-calculator", // Internal ROI calculator
   viewServices: "/services", // Services catalog
   viewPricing: "/pricing", // Pricing page

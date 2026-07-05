@@ -118,7 +118,7 @@ export default function Page() {
             href="/insights/revenue-leak-diagnostic"
             className="text-accent-blue hover:text-accent-blue"
           >
-            Revenue Leak Diagnostic
+            Founder Revenue Leak Diagnostic
           </Link>{" "}
           usually surfaces it as the first fix.
         </P>
