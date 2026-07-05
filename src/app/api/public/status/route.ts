@@ -8,7 +8,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { getDb } from '@/lib/server/firebaseAdmin';
+import { listIncidentRecords } from '@/db/incidents';
 import { serializeIncidentsForFeed } from '@/lib/server/incidentFeed';
 import { getCachedStatus } from '@/lib/server/statusEvents';
 
@@ -34,14 +34,10 @@ export async function GET(request: NextRequest) {
 
     try {
       // Fetch recent incidents to determine status
-      const snapshot = await getDb()
-        .collection('incidents')
-        .orderBy('updated_at', 'desc')
-        .limit(25) // Only need recent incidents for status determination
-        .get();
+      const records = await listIncidentRecords({ limit: 25 });
 
       // Serialize incidents using existing helper
-      const incidents = serializeIncidentsForFeed(snapshot.docs);
+      const incidents = serializeIncidentsForFeed(records);
 
       // Filter to active incidents only
       activeIncidents = incidents.filter(incident =>

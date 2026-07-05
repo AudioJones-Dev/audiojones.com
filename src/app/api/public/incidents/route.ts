@@ -7,7 +7,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { getDb } from '@/lib/server/firebaseAdmin';
+import { listIncidentRecords } from '@/db/incidents';
 import { serializeIncidentsForFeed, applyFeedFilters } from '@/lib/server/incidentFeed';
 import type { 
   IncidentFeedResponse, 
@@ -32,25 +32,22 @@ export async function GET(request: NextRequest) {
     // Check for status page token (optional enhanced access)
     const isEnhanced = tokenParam === process.env.STATUS_PAGE_SECRET;
     
-    // Build Firestore query
-    let query = getDb().collection('incidents').orderBy('updated_at', 'desc');
-    
-    // Apply since filter if provided
+    // Query NeonDB with extra buffer for in-memory status filtering
     const sinceDate = since ? new Date(since) : null;
-    if (sinceDate && !isNaN(sinceDate.getTime())) {
-      query = query.where('updated_at', '>=', sinceDate.toISOString());
-    }
-    
-    // Execute query with extra buffer for filtering
-    const snapshot = await query.limit(limit * 2).get();
-    
+    const validSince = sinceDate && !isNaN(sinceDate.getTime()) ? sinceDate : null;
+
+    const records = await listIncidentRecords({
+      sinceIso: validSince?.toISOString(),
+      limit: limit * 2,
+    });
+
     // Serialize incidents using existing helper
-    const allIncidents = serializeIncidentsForFeed(snapshot.docs);
-    
+    const allIncidents = serializeIncidentsForFeed(records);
+
     // Apply filters using existing helper
     const incidents = applyFeedFilters(allIncidents, {
       status: statusFilter || undefined,
-      since: sinceDate || undefined,
+      since: validSince || undefined,
       limit,
     });
     
@@ -89,21 +86,23 @@ export async function GET(request: NextRequest) {
     });
     
   } catch (error) {
-    console.error('Error in public incidents API:', error);
-    
-    const errorResponse = {
-      ok: false,
-      error: 'Internal server error',
+    // DB unreachable / not provisioned: degrade honestly to an empty feed
+    // rather than a 500 so status consumers keep rendering.
+    console.error('Error in public incidents API, returning empty feed:', error);
+
+    const fallback: IncidentFeedResponse = {
+      ok: true,
       incidents: [],
       count: 0,
       timestamp: new Date().toISOString(),
     };
-    
-    return new NextResponse(JSON.stringify(errorResponse), {
-      status: 500,
+
+    return new NextResponse(JSON.stringify(fallback), {
+      status: 200,
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
+        'Cache-Control': 'no-store',
       },
     });
   }

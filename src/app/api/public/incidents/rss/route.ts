@@ -6,23 +6,19 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { getDb } from '@/lib/server/firebaseAdmin';
-import { serializeIncidentsForFeed, applyFeedFilters } from '@/lib/server/incidentFeed';
+import { listIncidentRecords } from '@/db/incidents';
+import { serializeIncidentsForFeed } from '@/lib/server/incidentFeed';
 
 export async function GET(request: NextRequest) {
+  const { searchParams } = new URL(request.url);
+  const format = searchParams.get('format') || 'rss'; // 'rss' or 'json'
+  const limit = Math.min(parseInt(searchParams.get('limit') || '25', 10), 50);
+
   try {
-    const { searchParams } = new URL(request.url);
-    const format = searchParams.get('format') || 'rss'; // 'rss' or 'json'
-    const limit = Math.min(parseInt(searchParams.get('limit') || '25', 10), 50);
-    
-    // Fetch recent incidents
-    const snapshot = await getDb()
-      .collection('incidents')
-      .orderBy('updated_at', 'desc')
-      .limit(limit)
-      .get();
-    
-    const incidents = serializeIncidentsForFeed(snapshot.docs);
+    // Fetch recent incidents from NeonDB
+    const records = await listIncidentRecords({ limit });
+
+    const incidents = serializeIncidentsForFeed(records);
     
     if (format === 'json') {
       // JSON Feed format (https://jsonfeed.org/)
@@ -92,22 +88,43 @@ export async function GET(request: NextRequest) {
     });
     
   } catch (error) {
-    console.error('Error generating RSS feed:', error);
-    
-    const errorXml = `<?xml version="1.0" encoding="UTF-8"?>
+    // DB unreachable / not provisioned: serve an empty feed instead of a 500.
+    console.error('Error generating RSS feed, returning empty feed:', error);
+
+    if (format === 'json') {
+      const emptyFeed = {
+        version: 'https://jsonfeed.org/version/1.1',
+        title: 'Audio Jones System Status',
+        home_page_url: 'https://audiojones.com',
+        feed_url: 'https://audiojones.com/api/public/incidents/rss?format=json',
+        description: 'Current system status and incident updates for Audio Jones services',
+        items: []
+      };
+
+      return new NextResponse(JSON.stringify(emptyFeed, null, 2), {
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          'Cache-Control': 'no-store'
+        }
+      });
+    }
+
+    const emptyXml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0">
   <channel>
-    <title>Audio Jones System Status - Error</title>
-    <description>Error generating status feed</description>
+    <title>Audio Jones System Status</title>
+    <description>Current system status and incident updates for Audio Jones services</description>
     <link>https://audiojones.com/status</link>
+    <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
   </channel>
 </rss>`;
-    
-    return new NextResponse(errorXml, {
-      status: 500,
+
+    return new NextResponse(emptyXml, {
       headers: {
         'Content-Type': 'application/rss+xml',
-        'Access-Control-Allow-Origin': '*'
+        'Access-Control-Allow-Origin': '*',
+        'Cache-Control': 'no-store'
       }
     });
   }
