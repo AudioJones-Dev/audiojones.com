@@ -15,6 +15,25 @@ Entries are reverse chronological. Format follows
 
 ## Unreleased
 
+### Payments
+- Enabled direct Stripe checkout: `/api/stripe/checkout` now takes a
+  product slug against a server-side catalog (price IDs from
+  `STRIPE_PRICE_*` env vars, redirect URLs derived from the site
+  origin) instead of arbitrary client-supplied `priceId`/URLs. Both
+  Stripe routes read the validated `STRIPE_SECRET_KEY` (was the
+  unvalidated `stripe_secret`) and return 503 when unconfigured.
+- Pricing page: Revenue Leak Diagnostic and the three ResponseOS tiers
+  gained buy CTAs (`CheckoutButton`) that fall back to `/book-a-call`
+  when Stripe isn't configured; booking CTAs kept alongside.
+- `/api/webhooks/stripe-enhanced` now persists to NeonDB
+  (`db/migrations/004_stripe_payments.sql`: `stripe_webhook_events` +
+  `stripe_payments` + `stripe_subscriptions`, idempotent on
+  `stripe_event_id`) via `src/db/stripe.ts`, replacing the throwing
+  Firebase-stub `getDb()` and Firestore-backed event streaming that
+  500'd on every event.
+- Removed dead `src/components/home/PackagesSection.tsx` (unreferenced,
+  stale pricing, dead `/book` links).
+
 ### Tooling
 - Added `.github/workflows/validation-summary.yml` (Phase 1 of
   `docs/ops/AUTOMATED_VALIDATION_REVIEW_LOOP.md`): aggregates `CI`,
