@@ -1,7 +1,7 @@
 /**
  * Incident Feed Serializer
- * 
- * Converts internal Firestore incident documents to safe, client-facing objects.
+ *
+ * Converts internal incident records to safe, client-facing objects.
  * Excludes admin-only fields and provides null-safe serialization.
  */
 
@@ -10,27 +10,23 @@ import type { IncidentFeedItem, IncidentFeedTimelineItem } from '@/types/inciden
 import type { Incident, IncidentTimelineEvent } from '@/lib/server/incidents';
 
 /**
- * Serialize a Firestore incident document to a safe feed item
- * 
- * @param doc - Firestore document snapshot
+ * Serialize an internal incident record to a safe feed item
+ *
+ * @param record - Internal incident record (NeonDB row)
  * @returns Safe incident feed item or null if invalid
  */
 export function serializeIncidentForFeed(
-  doc: FirebaseFirestore.DocumentSnapshot
+  record: Incident
 ): IncidentFeedItem | null {
-  if (!doc.exists) {
-    return null;
-  }
-
   try {
-    const data = doc.data();
-    if (!data) {
+    const data = record;
+    if (!data || !data.id) {
       return null;
     }
 
     // Map internal incident to safe external shape
     const incident: IncidentFeedItem = {
-      id: doc.id,
+      id: data.id,
       title: data.title || 'Unknown Incident',
       status: mapStatus(data.status),
     };
@@ -66,22 +62,22 @@ export function serializeIncidentForFeed(
     return incident;
 
   } catch (error) {
-    console.error(`❌ Failed to serialize incident ${doc.id}:`, error);
+    console.error(`❌ Failed to serialize incident ${record.id}:`, error);
     return null;
   }
 }
 
 /**
- * Serialize multiple incident documents
- * 
- * @param docs - Array of Firestore document snapshots
+ * Serialize multiple incident records
+ *
+ * @param records - Array of internal incident records
  * @returns Array of safe incident feed items (filters out nulls)
  */
 export function serializeIncidentsForFeed(
-  docs: FirebaseFirestore.DocumentSnapshot[]
+  records: Incident[]
 ): IncidentFeedItem[] {
-  return docs
-    .map(doc => serializeIncidentForFeed(doc))
+  return records
+    .map(record => serializeIncidentForFeed(record))
     .filter((item): item is IncidentFeedItem => item !== null);
 }
 
@@ -161,11 +157,6 @@ function normalizeTimestamp(timestamp: any): string {
       // Already a string, validate it's a valid date
       const date = new Date(timestamp);
       return isNaN(date.getTime()) ? new Date().toISOString() : timestamp;
-    }
-    
-    if (timestamp && typeof timestamp.toDate === 'function') {
-      // Firestore Timestamp
-      return timestamp.toDate().toISOString();
     }
     
     if (timestamp instanceof Date) {
