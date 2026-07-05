@@ -1,10 +1,11 @@
 export const runtime = 'nodejs';
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
+import { env } from "@aj/config";
 
 export async function POST(req: NextRequest) {
-  const stripeSecret = process.env.stripe_secret;
-  if (!stripeSecret) return NextResponse.json({ error: "Missing stripe_secret" }, { status: 500 });
+  const stripeSecret = env.STRIPE_SECRET_KEY;
+  if (!stripeSecret) return NextResponse.json({ error: "Billing portal not configured" }, { status: 503 });
   const stripe = new Stripe(stripeSecret);
 
   const { customerId, return_url } = await req.json();

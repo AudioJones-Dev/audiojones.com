@@ -46,6 +46,11 @@ export const EnvSchema = z.object({
     STRIPE_SECRET_KEY: z.string().min(1).optional(),
     NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: z.string().min(1).optional(),
     STRIPE_WEBHOOK_SECRET: z.string().min(1).optional(),
+    // Stripe price IDs — server-side product catalog (src/app/api/stripe/checkout)
+    STRIPE_PRICE_DIAGNOSTIC: z.string().min(1).optional(),
+    STRIPE_PRICE_RESPONSEOS_STARTER: z.string().min(1).optional(),
+    STRIPE_PRICE_RESPONSEOS_CORE: z.string().min(1).optional(),
+    STRIPE_PRICE_RESPONSEOS_PRO: z.string().min(1).optional(),
     // ImageKit CDN
     IMAGEKIT_ENDPOINT: z.string().url().optional(),
     IMAGEKIT_PUBLIC_KEY: z.string().optional(),
