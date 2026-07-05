@@ -27,6 +27,8 @@ export const EnvSchema = z.object({
   NEXT_PUBLIC_SUPABASE_URL: z.string().min(1).optional(),
   NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string().min(1).optional(),
   SUPABASE_SERVICE_ROLE_KEY: z.string().min(1).optional(),
+  // Comma-separated email allowlist for the admin portal (server-only).
+  ADMIN_EMAILS: z.string().min(1).optional(),
 
   // Whop integration
   WHOP_API_KEY: z.string().min(1).optional(),
