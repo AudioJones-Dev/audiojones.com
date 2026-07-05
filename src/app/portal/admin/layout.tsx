@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation';
-import { cookies } from 'next/headers';
-import { adminAuth } from '@/lib/server/firebaseAdmin';
+import { createSupabaseServerClient } from '@/lib/supabase/server';
+import { isAdminUser } from '@/lib/server/requireAdminUser';
 import AdminSidebar from '@/app/portal/components/AdminSidebar';
 
 interface AdminLayoutProps {
@@ -8,25 +8,20 @@ interface AdminLayoutProps {
 }
 
 export default async function AdminLayout({ children }: AdminLayoutProps) {
-  // Server-side session cookie verification for admin access
-  const cookieStore = await cookies();
-  const sessionCookie = cookieStore.get('session')?.value;
-  
-  if (!sessionCookie) {
+  // Server-side Supabase session verification for admin access.
+  // Fail closed: no configured Supabase or no verified user → login.
+  const supabase = await createSupabaseServerClient();
+  if (!supabase) {
     redirect('/portal/admin/login');
   }
 
-  try {
-    // Verify session cookie and check admin claims
-    const decoded = await adminAuth().verifySessionCookie(sessionCookie, true);
-    
-    // Require admin custom claim
-    if (decoded.admin !== true) {
-      redirect('/not-authorized');
-    }
-  } catch (error) {
-    console.error('Admin auth verification failed:', error);
+  const { data, error } = await supabase.auth.getUser();
+  if (error || !data.user) {
     redirect('/portal/admin/login');
+  }
+
+  if (!isAdminUser(data.user)) {
+    redirect('/not-authorized');
   }
 
   return (

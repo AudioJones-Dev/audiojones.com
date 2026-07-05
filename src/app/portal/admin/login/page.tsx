@@ -2,8 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { auth, googleProvider } from "@/lib/firebase/client";
-import { onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup } from "@/lib/legacy-stubs";
+import { getSupabaseBrowserClient } from "@/lib/supabase/client";
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -13,12 +12,21 @@ export default function AdminLoginPage() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (user: any) => {
-      if (user) {
+    const supabase = getSupabaseBrowserClient();
+    if (!supabase) return;
+
+    supabase.auth.getSession().then(({ data }) => {
+      if (data.session) {
         router.replace("/portal/admin");
       }
     });
-    return () => unsub();
+
+    const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (session) {
+        router.replace("/portal/admin");
+      }
+    });
+    return () => sub.subscription.unsubscribe();
   }, [router]);
 
   const handleEmailSignIn = async (e: React.FormEvent) => {
@@ -26,25 +34,20 @@ export default function AdminLoginPage() {
     setError(null);
     setLoading(true);
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      const supabase = getSupabaseBrowserClient();
+      if (!supabase) {
+        throw new Error("Authentication is not configured.");
+      }
+      const { error: signInError } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+      if (signInError) throw signInError;
       router.replace("/portal/admin");
-    } catch (err: any) {
+      router.refresh();
+    } catch (err) {
       console.error(err);
-      setError(err.message ?? "Failed to sign in");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleGoogleSignIn = async () => {
-    setError(null);
-    setLoading(true);
-    try {
-      await signInWithPopup(auth, googleProvider);
-      router.replace("/portal/admin");
-    } catch (err: any) {
-      console.error(err);
-      setError(err.message ?? "Failed to sign in with Google");
+      setError(err instanceof Error ? err.message : "Failed to sign in");
     } finally {
       setLoading(false);
     }
@@ -99,21 +102,6 @@ export default function AdminLoginPage() {
             {loading ? "Signing in..." : "Sign in"}
           </button>
         </form>
-
-        <div className="flex items-center gap-2">
-          <div className="flex-1 h-px bg-slate-700" />
-          <span className="text-text-muted text-xs">or</span>
-          <div className="flex-1 h-px bg-slate-700" />
-        </div>
-
-        <button
-          type="button"
-          onClick={handleGoogleSignIn}
-          disabled={loading}
-          className="w-full border border-slate-600 hover:border-slate-400 transition text-white py-2 rounded-md"
-        >
-          Continue with Google
-        </button>
       </div>
     </main>
   );
