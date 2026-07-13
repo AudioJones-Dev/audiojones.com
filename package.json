@@ -3,6 +3,9 @@
     "version": "0.1.0",
     "packageManager": "pnpm@10.30.3",
     "private": true,
+    "engines": {
+        "node": ">=22"
+    },
     "scripts": {
         "dev": "next dev",
         "build": "pnpm packages:build && next build",
@@ -108,15 +111,15 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/AJDIGITALllc/audiojones.com.git"
+        "url": "git+https://github.com/AudioJones-Dev/audiojones.com.git"
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
     "bugs": {
-        "url": "https://github.com/AJDIGITALllc/audiojones.com/issues"
+        "url": "https://github.com/AudioJones-Dev/audiojones.com/issues"
     },
-    "homepage": "https://github.com/AJDIGITALllc/audiojones.com#readme",
+    "homepage": "https://github.com/AudioJones-Dev/audiojones.com#readme",
     "pnpm": {
         "overrides": {
             "fast-xml-parser": ">=4.5.4",

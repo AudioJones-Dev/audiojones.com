@@ -34,6 +34,10 @@ dev_server.log
 .env.production
 env/.env.master
 
+# legacy secret-suggestive files — must never be tracked (kept on disk as stubs)
+vercel.env
+secrets.md
+
 # vercel
 .vercel
 
@@ -53,6 +57,7 @@ audiojones.com/
 
 # Local CLI capture output and dev scratch (never commit).
 # Caught a bunch of these in the W1.6 sweep — preventing recurrence.
+.firecrawl/
 *_out.txt
 *_err.txt
 _tmp_*
