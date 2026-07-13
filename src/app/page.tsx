@@ -57,7 +57,7 @@ export default function HomePage() {
       {/* 4. ROI lead magnet */}
       <RoiLeadMagnet />
 
-      {/* 5. Process — Diagnose / Design / Deploy */}
+      {/* 5. Process — Diagnose / Attribute / Design / Deploy */}
       <ProcessPipeline />
 
       {/* 6. Proof / Before-After */}
