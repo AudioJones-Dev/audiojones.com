@@ -1,6 +1,6 @@
 // Barrel file for homepage landing components.
 //
-// Scope (2026-05-12 redesign): exports only the 7 components currently
+// Scope: exports only the components currently
 // imported by src/app/page.tsx. Other landing components on this branch
 // (TrustedByStrip, ProblemReframeSplit, AgentSystemsOverview, etc.) are
 // preserved on disk but intentionally not re-exported here — they were
@@ -12,10 +12,13 @@
 // codebase in this PR — do not re-export it.
 
 export { default as HeroAllSignal } from "./HeroAllSignal";
-export { default as SignalNoiseModel } from "./SignalNoiseModel";
+export {
+  ProblemFramingSection,
+  CapabilitiesSection,
+  CommercialPathSection,
+  TrustSection,
+} from "./RI001Sections";
+export { default as SystemModelLoop } from "./SystemModelLoop";
 export { default as ResponseOSWedge } from "./ResponseOSWedge";
-export { default as RoiLeadMagnet } from "./RoiLeadMagnet";
 export { default as ProcessPipeline } from "./ProcessPipeline";
-export { default as ProofStats } from "./ProofStats";
-export { default as HomeFaqSection } from "./HomeFaqSection";
 export { default as DiagnosticCTA } from "./DiagnosticCTA";

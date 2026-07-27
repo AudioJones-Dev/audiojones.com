@@ -4,15 +4,15 @@ import { Eyebrow } from "@/components/ui/Eyebrow";
 const pillars = [
   [
     "Capture",
-    "Every inbound lead routed and timestamped — no missed signal in the gap between channel and CRM.",
+    "Bring calls, forms, and messages into one visible intake path.",
   ],
   [
     "Qualify",
-    "Intent scored against your ICP before a human touches it, so the team works the calls worth working.",
+    "Apply agreed criteria so the right demand reaches the right person.",
   ],
   [
     "Recover",
-    "Stalled and ghosted leads re-engaged on a recovery cadence designed around your offer, not generic drip.",
+    "Keep stalled demand visible and route it into a defined follow-up path.",
   ],
 ] as const;
 
@@ -61,13 +61,14 @@ export default function ResponseOSWedge() {
     <section className="aj-bg-grid-dark border-t border-[var(--line-2)] py-24 sm:py-40">
       <div className="mx-auto grid max-w-[1280px] gap-10 px-5 sm:px-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
         <div className="min-w-0">
-          <Eyebrow>Flagship - Revenue Recovery Infrastructure</Eyebrow>
+          <Eyebrow>Founder Intelligence in Practice</Eyebrow>
           <h2 className="mt-4 t-h1 text-balance max-sm:text-[2rem]">
-            ResponseOS recovers the revenue your follow-up is losing.
+            ResponseOS is what Founder Intelligence looks like when follow-up is the leak.
           </h2>
           <p className="mt-5 t-lead text-fg-2">
-            The leak is not just missed calls. It is scattered intent, slow
-            response, weak qualification, and no recovery memory.
+            When earned demand is being lost, ResponseOS creates a structured
+            path for capture, qualification, routing, and recovery. It is not
+            the whole Audio Jones offering, and it is not simply a chatbot.
           </p>
           <div className="mt-8 grid gap-4 sm:grid-cols-3">
             {pillars.map(([label, description]) => (
@@ -79,12 +80,9 @@ export default function ResponseOSWedge() {
               </div>
             ))}
           </div>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Link href="/agents/responseos" className="aj-btn-signal">
+          <div className="mt-8">
+            <Link href="/agents/responseos" className="aj-btn-intel">
               Explore ResponseOS
-            </Link>
-            <Link href="/roi-calculator" className="aj-btn-intel">
-              Calculate Lost Revenue
             </Link>
           </div>
         </div>

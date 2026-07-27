@@ -9,12 +9,10 @@ import { ctaLinks } from "@/config/links";
  *  1. White background (subtle signal-tint glow, no dark imagery)
  *  2. "ALL SIGNAL" watermark typography (behind portrait) — desktop + tablet
  *  3. Portrait transparent cutout (same asset across breakpoints)
- *  4. Metrics strip — one per breakpoint, never duplicated
- *  5. Content block (headline / copy / CTAs)
+ *  4. Content block (headline / copy / CTAs)
  *
  * On a white field every foreground text role flips to dark ink for
- * readability — signal-yellow only survives where it sits on its own
- * dark surface (the metrics chip) or as a highlighter behind dark ink.
+ * readability — signal-yellow is used as a highlighter behind dark ink.
  *
  * ⚠ IMPORTANT — inline style vs Tailwind visibility:
  *   Inline `display:` values override Tailwind's `hidden` / `md:hidden` /
@@ -32,12 +30,6 @@ const INK_SOFT = "rgba(10,10,10,0.66)";
 const INK_FAINT = "rgba(10,10,10,0.34)";
 const INK_LINE = "rgba(10,10,10,0.18)";
 const SIGNAL = "#E8FF5A";
-
-const METRICS = [
-  { pct: "37%", dir: "↓", label: "CAC Reduction" },
-  { pct: "28%", dir: "↑", label: "Pipeline Growth" },
-  { pct: "42%", dir: "↑", label: "Conversion Rate" },
-];
 
 export default function HeroAllSignal() {
   return (
@@ -195,65 +187,7 @@ export default function HeroAllSignal() {
         </div>
       </div>
 
-      {/* ── 4. Metrics strip — desktop >= 1024px ──
-           Self-contained dark chip: signal-yellow stays readable on its own
-           dark surface, and the chip anchors the otherwise-white field.
-           NOTE: display value MUST stay in className (hidden lg:flex). ── */}
-      <div
-        className="hidden lg:flex"
-        style={{
-          position: "absolute",
-          right: "3.5rem",
-          bottom: "10%",
-          zIndex: 6,
-          alignItems: "center",
-          gap: "0",
-          background: "rgba(8, 10, 20, 0.92)",
-          border: "1px solid rgba(255,255,255,0.08)",
-          borderRadius: "10px",
-          padding: "14px 20px",
-          boxShadow: "0 18px 48px rgba(10,12,24,0.18)",
-        }}
-      >
-        {METRICS.map((m, i) => (
-          <div
-            key={m.label}
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "3px",
-              padding: "0 18px",
-              borderLeft: i > 0 ? "1px solid rgba(255,255,255,0.10)" : "none",
-            }}
-          >
-            <span
-              style={{
-                fontFamily: "var(--font-headline)",
-                fontSize: "22px",
-                fontWeight: 700,
-                lineHeight: 1,
-                letterSpacing: "-0.02em",
-                color: SIGNAL,
-              }}
-            >
-              {m.dir}&thinsp;{m.pct}
-            </span>
-            <span
-              style={{
-                fontFamily: "var(--font-body)",
-                fontSize: "10px",
-                letterSpacing: "0.12em",
-                textTransform: "uppercase",
-                color: "rgba(255,255,255,0.55)",
-              }}
-            >
-              {m.label}
-            </span>
-          </div>
-        ))}
-      </div>
-
-      {/* ── 5. Left content block — desktop >= 1024px ── */}
+      {/* ── 4. Left content block — desktop >= 1024px ── */}
       <div
         className="hidden lg:flex"
         style={{
@@ -291,7 +225,7 @@ export default function HeroAllSignal() {
               display: "inline-block",
             }}
           />
-          Founder Intelligence Systems
+          Founder Intelligence for founder-led businesses
         </span>
 
         {/* Desktop heading — same content as the canonical mobile <h1>
@@ -311,7 +245,7 @@ export default function HeroAllSignal() {
             margin: 0,
           }}
         >
-          You don&apos;t have<br />a growth problem.
+          You don&apos;t have <br />a growth problem.
           <br />
           <span
             style={{
@@ -338,9 +272,10 @@ export default function HeroAllSignal() {
             maxWidth: "42ch",
           }}
         >
-          Missed calls, slow follow-up, no clear read on which
-          marketing pays off. We build the system that closes the
-          gaps — a Founder Intelligence System.
+          When follow-up breaks, decisions stay trapped in the founder&apos;s
+          head, and reports cannot explain what to do next, adding more tools
+          creates more noise. See what is actually happening before you
+          automate it.
         </p>
 
         <div
@@ -352,11 +287,11 @@ export default function HeroAllSignal() {
             marginTop: "28px",
           }}
         >
-          <ButtonLink href={ctaLinks.signalDiagnostic} variant="glow">
-            Book Your Diagnostic
+          <ButtonLink href={ctaLinks.founderIntelligenceDiagnostic} variant="glow">
+            Start the Founder Intelligence Diagnostic
           </ButtonLink>
           <a
-            href="#system-model"
+            href="#diagnose-first"
             style={{
               fontFamily: "var(--font-body)",
               fontSize: "13px",
@@ -372,7 +307,7 @@ export default function HeroAllSignal() {
               paddingBottom: "2px",
             }}
           >
-            See how it works <span aria-hidden>→</span>
+            See how the diagnostic works <span aria-hidden>→</span>
           </a>
         </div>
 
@@ -387,7 +322,7 @@ export default function HeroAllSignal() {
             marginTop: "32px",
           }}
         >
-          ↓ Data to Decisions &nbsp;·&nbsp; Clarity creates leverage.
+          ↓ See what is happening &nbsp;·&nbsp; Decide what to fix first.
         </p>
       </div>
 
@@ -425,7 +360,7 @@ export default function HeroAllSignal() {
               display: "inline-block",
             }}
           />
-          Founder Intelligence Systems
+          Founder Intelligence for founder-led businesses
         </span>
 
         <h1
@@ -467,9 +402,10 @@ export default function HeroAllSignal() {
             maxWidth: "44ch",
           }}
         >
-          Missed calls, slow follow-up, no clear read on which
-          marketing pays off. We build the system that closes the
-          gaps — a Founder Intelligence System.
+          When follow-up breaks, decisions stay trapped in the founder&apos;s
+          head, and reports cannot explain what to do next, adding more tools
+          creates more noise. See what is actually happening before you
+          automate it.
         </p>
 
         <div
@@ -481,11 +417,11 @@ export default function HeroAllSignal() {
             marginTop: "24px",
           }}
         >
-          <ButtonLink href={ctaLinks.signalDiagnostic} variant="glow">
-            Book Your Diagnostic
+          <ButtonLink href={ctaLinks.founderIntelligenceDiagnostic} variant="glow">
+            Start the Founder Intelligence Diagnostic
           </ButtonLink>
           <a
-            href="#system-model"
+            href="#diagnose-first"
             style={{
               fontFamily: "var(--font-body)",
               fontSize: "12px",
@@ -501,7 +437,7 @@ export default function HeroAllSignal() {
               paddingBottom: "2px",
             }}
           >
-            See how it works <span aria-hidden>→</span>
+            See how the diagnostic works <span aria-hidden>→</span>
           </a>
         </div>
       </div>
@@ -550,99 +486,6 @@ export default function HeroAllSignal() {
         </div>
       </div>
 
-      {/* ── 4. Metrics strip — mobile < 768px ── */}
-      <div
-        className="flex md:hidden"
-        style={{
-          position: "relative",
-          zIndex: 6,
-          background: "rgba(8, 10, 20, 0.92)",
-          borderTop: "1px solid rgba(255,255,255,0.08)",
-          justifyContent: "space-around",
-          padding: "14px 12px",
-          marginTop: "auto",
-        }}
-      >
-        {METRICS.map((m) => (
-          <div key={m.label} style={{ display: "flex", flexDirection: "column", gap: "3px", textAlign: "center" }}>
-            <span
-              style={{
-                fontFamily: "var(--font-headline)",
-                fontSize: "20px",
-                fontWeight: 700,
-                lineHeight: 1,
-                letterSpacing: "-0.02em",
-                color: SIGNAL,
-              }}
-            >
-              {m.dir}&thinsp;{m.pct}
-            </span>
-            <span
-              style={{
-                fontFamily: "var(--font-body)",
-                fontSize: "9px",
-                letterSpacing: "0.10em",
-                textTransform: "uppercase",
-                color: "rgba(255,255,255,0.5)",
-              }}
-            >
-              {m.label}
-            </span>
-          </div>
-        ))}
-      </div>
-
-      {/* ── 4. Metrics strip — tablet 768–1023px ── */}
-      <div
-        className="hidden md:flex lg:hidden"
-        style={{
-          position: "relative",
-          zIndex: 6,
-          background: "rgba(8, 10, 20, 0.92)",
-          borderTop: "1px solid rgba(255,255,255,0.08)",
-          justifyContent: "space-around",
-          padding: "14px 2rem",
-          marginTop: "auto",
-        }}
-      >
-        {METRICS.map((m, i) => (
-          <div
-            key={m.label}
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "3px",
-              textAlign: "center",
-              padding: "0 16px",
-              borderLeft: i > 0 ? "1px solid rgba(255,255,255,0.1)" : "none",
-            }}
-          >
-            <span
-              style={{
-                fontFamily: "var(--font-headline)",
-                fontSize: "22px",
-                fontWeight: 700,
-                lineHeight: 1,
-                letterSpacing: "-0.02em",
-                color: SIGNAL,
-              }}
-            >
-              {m.dir}&thinsp;{m.pct}
-            </span>
-            <span
-              style={{
-                fontFamily: "var(--font-body)",
-                fontSize: "10px",
-                letterSpacing: "0.12em",
-                textTransform: "uppercase",
-                color: "rgba(255,255,255,0.5)",
-              }}
-            >
-              {m.label}
-            </span>
-          </div>
-        ))}
-      </div>
     </section>
   );
 }

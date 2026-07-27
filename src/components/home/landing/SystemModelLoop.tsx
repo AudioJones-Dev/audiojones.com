@@ -23,12 +23,12 @@ type Stage = {
 const STAGES: Stage[] = [
   {
     n: "01",
-    label: "Input",
-    desc: "Raw data enters the system.",
+    label: "See",
+    desc: "Make the business visible.",
     bullets: [
-      "Customer behavior signals",
+      "Customer and revenue signals",
       "Sales conversation patterns",
-      "Attribution & founder intuition",
+      "Attribution and operating friction",
     ],
     accent: "#E8FF5A",
     border: "rgba(232,255,90,0.22)",
@@ -37,12 +37,12 @@ const STAGES: Stage[] = [
   },
   {
     n: "02",
-    label: "Process",
-    desc: "Noise removed, signal identified.",
+    label: "Remember",
+    desc: "Keep the context that matters.",
     bullets: [
-      "Signal vs noise filtering",
-      "M.A.P. attribution scoring",
-      "Constraint mapping",
+      "Decisions and their reasoning",
+      "Customer and project context",
+      "Operating knowledge beyond one person",
     ],
     accent: "#4DACFF",
     border: "rgba(77,172,255,0.42)",
@@ -53,12 +53,12 @@ const STAGES: Stage[] = [
   },
   {
     n: "03",
-    label: "Output",
-    desc: "Clarity drives execution.",
+    label: "Decide",
+    desc: "Turn evidence into priorities.",
     bullets: [
-      "Prioritized decisions",
-      "AI-augmented workflows",
-      "Deployed campaigns",
+      "Identify the real constraint",
+      "Choose what deserves attention",
+      "Define the operating blueprint",
     ],
     accent: "#666666",
     border: "rgba(102,102,102,0.16)",
@@ -67,12 +67,12 @@ const STAGES: Stage[] = [
   },
   {
     n: "04",
-    label: "Feedback",
-    desc: "Outcomes update the model.",
+    label: "Act",
+    desc: "Execute and learn consistently.",
     bullets: [
-      "Revenue-linked validation",
-      "Predictive model refinement",
-      "Loop compounds over time",
+      "Reliable workflows and handoffs",
+      "AI where it improves the system",
+      "Outcomes feed the next decision",
     ],
     accent: "#E8FF5A",
     border: "rgba(232,255,90,0.24)",
@@ -152,26 +152,26 @@ function FeedbackIcon({ color }: { color: string }) {
 }
 
 const STAGE_ICONS: Record<string, (color: string) => React.ReactNode> = {
-  Input: (c) => <InputIcon color={c} />,
-  Process: (c) => <ProcessIcon color={c} />,
-  Output: (c) => <OutputIcon color={c} />,
-  Feedback: (c) => <FeedbackIcon color={c} />,
+  See: (c) => <InputIcon color={c} />,
+  Remember: (c) => <ProcessIcon color={c} />,
+  Decide: (c) => <OutputIcon color={c} />,
+  Act: (c) => <FeedbackIcon color={c} />,
 };
 
 // ─── Loop SVG ─────────────────────────────────────────────────────────────────
 
 const LOOP_NODES = [
-  { cx: 100, label: "Input",    idx: 0 },
-  { cx: 300, label: "Process",  idx: 1 },
-  { cx: 500, label: "Output",   idx: 2 },
-  { cx: 700, label: "Feedback", idx: 3 },
+  { cx: 100, label: "See",      idx: 0 },
+  { cx: 300, label: "Remember", idx: 1 },
+  { cx: 500, label: "Decide",   idx: 2 },
+  { cx: 700, label: "Act",      idx: 3 },
 ] as const;
 
 function LoopSVG({ className }: { className?: string }) {
   return (
     <svg
       role="img"
-      aria-label="Founder Intelligence Systems loop: input, process, output, feedback"
+      aria-label="Founder Intelligence loop: see, remember, decide, act"
       viewBox="0 0 800 195"
       className={className}
     >
@@ -367,14 +367,15 @@ export default function SystemModelLoop() {
       <div style={{ position: "relative", zIndex: 3 }} className="mx-auto max-w-[1280px] px-5 sm:px-8">
         {/* Header */}
         <div className="mb-14 max-w-3xl">
-          <Eyebrow>Founder Intelligence Systems</Eyebrow>
+          <Eyebrow>Founder Intelligence</Eyebrow>
           <h2 className="mt-4 t-h1 text-balance">
-            AI only works when the system is ready.
+            See, remember, decide, and act with greater consistency.
           </h2>
           <p className="mt-5 t-lead text-fg-2">
-            Automation applied to broken systems accelerates dysfunction.
-            Founder Intelligence Systems align human judgment, data signals,
-            and feedback loops before automation scales the work.
+            Founder Intelligence is decision support for founder-led
+            businesses. It connects the information your company already
+            produces so you can recognize what matters and act on it. AI is
+            one tool used to strengthen that system, not the starting point.
           </p>
         </div>
 
@@ -437,7 +438,7 @@ export default function SystemModelLoop() {
                 <div
                   className="t-h4"
                   style={{
-                    color: stage.label === "Process" ? "var(--text-primary)" : undefined,
+                    color: stage.label === "Remember" ? "var(--text-primary)" : undefined,
                   }}
                 >
                   {stage.label}
