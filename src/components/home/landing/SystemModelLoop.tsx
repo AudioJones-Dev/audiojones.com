@@ -406,7 +406,7 @@ export default function SystemModelLoop() {
           <LoopSVG className="relative mx-auto w-full max-w-3xl" />
 
           {/* Stage cards */}
-          <div className="mt-12 grid grid-cols-2 gap-5 lg:grid-cols-4">
+          <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {STAGES.map((stage) => (
               <div
                 key={stage.n}
