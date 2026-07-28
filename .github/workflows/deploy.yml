@@ -12,6 +12,9 @@ on:
 env:
   VERCEL_ORG_ID: team_BHxIkAGPW6qEKKQBAt9c0NGz
   VERCEL_PROJECT_ID: prj_o5mnBAlWyR5Cgi2A3gc9ertoGyJX
+  # Corepack activates the pnpm version pinned in package.json on first use;
+  # without this it can block on a download confirmation prompt.
+  COREPACK_ENABLE_DOWNLOAD_PROMPT: 0
 
 jobs:
   validate:
@@ -23,14 +26,24 @@ jobs:
       - name: Enable Corepack
         run: corepack enable
 
-      - name: Activate pnpm
-        run: corepack prepare pnpm@10.30.3 --activate
-
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
           node-version: '22'
-          cache: 'pnpm'
+
+      - name: Resolve pnpm store path
+        id: pnpm-store
+        run: echo "path=$(pnpm store path --silent)" >> "$GITHUB_OUTPUT"
+
+      # `restore-keys` is why this is a hand-rolled cache rather than
+      # setup-node's `cache: 'pnpm'`: a lockfile change still restores the
+      # previous store and fetches only the delta.
+      - name: Cache pnpm store
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.pnpm-store.outputs.path }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -52,14 +65,21 @@ jobs:
       - name: Enable Corepack
         run: corepack enable
 
-      - name: Activate pnpm
-        run: corepack prepare pnpm@10.30.3 --activate
-
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
           node-version: '22'
-          cache: 'pnpm'
+
+      - name: Resolve pnpm store path
+        id: pnpm-store
+        run: echo "path=$(pnpm store path --silent)" >> "$GITHUB_OUTPUT"
+
+      - name: Cache pnpm store
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.pnpm-store.outputs.path }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -81,14 +101,21 @@ jobs:
       - name: Enable Corepack
         run: corepack enable
 
-      - name: Activate pnpm
-        run: corepack prepare pnpm@10.30.3 --activate
-
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
           node-version: '22'
-          cache: 'pnpm'
+
+      - name: Resolve pnpm store path
+        id: pnpm-store
+        run: echo "path=$(pnpm store path --silent)" >> "$GITHUB_OUTPUT"
+
+      - name: Cache pnpm store
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.pnpm-store.outputs.path }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -119,14 +146,21 @@ jobs:
       - name: Enable Corepack
         run: corepack enable
 
-      - name: Activate pnpm
-        run: corepack prepare pnpm@10.30.3 --activate
-
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
           node-version: '22'
-          cache: 'pnpm'
+
+      - name: Resolve pnpm store path
+        id: pnpm-store
+        run: echo "path=$(pnpm store path --silent)" >> "$GITHUB_OUTPUT"
+
+      - name: Cache pnpm store
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.pnpm-store.outputs.path }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
