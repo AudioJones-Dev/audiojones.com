@@ -68,10 +68,9 @@ function CtaOrReceipt(props: Props) {
     searchParams.get("product") === props.product;
 
   if (justPurchased) {
-    // TODO(copy): placeholder wording — brand voice review pending.
     return (
       <span className="inline-block text-sm font-semibold text-fg-3">
-        Purchased — check your email
+        Purchased
       </span>
     );
   }

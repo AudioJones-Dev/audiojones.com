@@ -3,6 +3,8 @@
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 
+import { Eyebrow } from "@/components/ui/Eyebrow";
+
 /**
  * Confirmation strip for the ?checkout= redirect that Stripe Checkout
  * returns to (see /api/stripe/checkout). Without it the buyer lands back
@@ -20,25 +22,36 @@ function Notice({ productNames }: { productNames: Record<string, string> }) {
   const product = searchParams.get("product");
   const purchased = product ? productNames[product] : undefined;
 
-  // TODO(copy): placeholder wording — brand voice review pending.
-  const message =
-    state === "success"
-      ? purchased
-        ? `Payment received for ${purchased}. A receipt is on its way to your email, and we'll be in touch to schedule.`
-        : "Payment received. A receipt is on its way to your email, and we'll be in touch to schedule."
-      : "Checkout was cancelled — you have not been charged. Pick up where you left off whenever you're ready.";
-
   return (
     <div className="border-b border-white/10 bg-bg-1">
       <div
-        className="mx-auto max-w-5xl px-6 py-5"
         role="status"
         aria-live="polite"
+        className="mx-auto flex max-w-5xl flex-col gap-2 px-6 py-6"
       >
-        <p className="aj-data-label">
-          {state === "success" ? "Order confirmed" : "Checkout cancelled"}
-        </p>
-        <p className="mt-2 text-sm leading-6 text-fg-2">{message}</p>
+        {state === "success" ? (
+          <>
+            <Eyebrow tone="signal">Payment received</Eyebrow>
+            <p className="t-lead text-fg-1">
+              You&apos;re in. Your receipt is on its way, and we&apos;ll be in
+              touch to schedule.
+            </p>
+            {purchased && (
+              <p className="t-small text-fg-3">
+                Confirmed for{" "}
+                <span className="font-medium text-fg-1">{purchased}</span>.
+              </p>
+            )}
+          </>
+        ) : (
+          <>
+            <Eyebrow tone="muted">Checkout cancelled</Eyebrow>
+            <p className="t-lead text-fg-1">
+              No charge was made. Pick up where you left off whenever
+              you&apos;re ready.
+            </p>
+          </>
+        )}
       </div>
     </div>
   );
