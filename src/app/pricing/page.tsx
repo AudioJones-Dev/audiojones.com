@@ -9,6 +9,7 @@ import {
   SignalHero,
 } from "@/components/marketing/DesignSystemSections";
 import CheckoutButton from "@/components/marketing/CheckoutButton";
+import CheckoutNotice from "@/components/marketing/CheckoutNotice";
 import FAQ from "@/components/founder-intelligence/FAQ";
 import JsonLd from "@/components/seo/JsonLd";
 import { buildMetadata } from "@/lib/seo/metadata";
@@ -167,6 +168,14 @@ const PRICING_FAQS = [
   },
 ];
 
+// Catalog slug → offer name, so the post-checkout notice can say what was
+// bought. Only buyable offers carry a `product`.
+const PRODUCT_NAMES: Record<string, string> = Object.fromEntries(
+  [...DIAGNOSTICS, ...RESPONSEOS]
+    .filter((o) => o.product)
+    .map((o) => [o.product as string, o.name]),
+);
+
 function PriceCard({ offer, featured = offer.featured }: { offer: Offer; featured?: boolean }) {
   const body = (
     <>
@@ -231,6 +240,8 @@ export default function OffersPage() {
         ])}
       />
       <JsonLd data={faqJsonLd(PRICING_FAQS)} />
+
+      <CheckoutNotice productNames={PRODUCT_NAMES} />
 
       <SignalHero
         title="Start with a diagnostic. Build the system you actually need."

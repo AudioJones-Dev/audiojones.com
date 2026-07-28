@@ -1,16 +1,19 @@
 /**
  * Stripe webhook handler.
  *
- * Verifies the signature, records every event in stripe_webhook_events
- * (idempotent on stripe_event_id), and projects payment/subscription
- * state into NeonDB. Schema: db/migrations/004_stripe_payments.sql.
+ * Verifies the signature, claims the event in stripe_webhook_events, and
+ * projects payment/subscription state into NeonDB, marking the event
+ * processed only once that projection commits — so a retry after a failed
+ * projection redoes the work instead of acking it away.
+ * Schema: db/migrations/004_stripe_payments.sql.
  */
 
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { env } from '@aj/config';
 import {
-  insertStripeWebhookEvent,
+  claimStripeWebhookEvent,
+  markStripeWebhookEventProcessed,
   upsertStripePayment,
   upsertStripeSubscription,
 } from '@/db/stripe';
@@ -60,16 +63,22 @@ export async function POST(request: NextRequest) {
     );
   }
 
+  // Stripe.Event.created is the ordering key for state projections —
+  // delivery order is not guaranteed, so a delayed older event must not
+  // overwrite a newer one.
+  const eventCreatedAt = new Date(event.created * 1000);
+
   try {
-    const stored = await insertStripeWebhookEvent({
+    const claimed = await claimStripeWebhookEvent({
       stripeEventId: event.id,
       type: event.type,
       payload: event.data,
     });
 
-    // Already recorded — Stripe retry or duplicate delivery. Ack without
-    // reprocessing so state projections stay idempotent.
-    if (!stored) {
+    // Only skip when a previous delivery actually finished projecting.
+    // An event that was recorded but never projected (projection threw,
+    // Stripe retried) still has work to do.
+    if (claimed.alreadyProcessed) {
       return NextResponse.json({ received: true, duplicate: true });
     }
 
@@ -86,6 +95,8 @@ export async function POST(request: NextRequest) {
           amount: paymentIntent.amount,
           currency: paymentIntent.currency,
           status: paymentIntent.status,
+          product: paymentIntent.metadata?.product ?? null,
+          eventCreatedAt,
         });
         break;
       }
@@ -105,6 +116,8 @@ export async function POST(request: NextRequest) {
           cancelledAt: subscription.canceled_at
             ? new Date(subscription.canceled_at * 1000)
             : null,
+          product: subscription.metadata?.product ?? null,
+          eventCreatedAt,
         });
         break;
       }
@@ -114,9 +127,11 @@ export async function POST(request: NextRequest) {
         break;
     }
 
+    await markStripeWebhookEventProcessed(claimed.id);
+
     return NextResponse.json({
       received: true,
-      eventId: stored.id,
+      eventId: claimed.id,
       stripeEventId: event.id,
     });
   } catch (error) {

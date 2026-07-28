@@ -37,12 +37,35 @@ export async function POST(req: NextRequest) {
   }
 
   const stripe = new Stripe(stripeSecret);
-  const session = await stripe.checkout.sessions.create({
-    mode: entry.mode,
-    line_items: [{ price: entry.priceId, quantity: 1 }],
-    success_url: `${siteConfig.url}/pricing?checkout=success&product=${product}`,
-    cancel_url: `${siteConfig.url}/pricing?checkout=cancelled`,
-    metadata: { product },
-  });
+
+  // Session metadata does not reach the PaymentIntent or Subscription on
+  // its own, and those are the objects the webhook actually sees — so the
+  // slug is attached to the mode-appropriate child object too.
+  const slug = encodeURIComponent(product);
+  let session: Stripe.Checkout.Session;
+  try {
+    session = await stripe.checkout.sessions.create({
+      mode: entry.mode,
+      line_items: [{ price: entry.priceId, quantity: 1 }],
+      success_url: `${siteConfig.url}/pricing?checkout=success&product=${slug}`,
+      cancel_url: `${siteConfig.url}/pricing?checkout=cancelled`,
+      metadata: { product },
+      ...(entry.mode === "payment"
+        ? { payment_intent_data: { metadata: { product } } }
+        : { subscription_data: { metadata: { product } } }),
+    });
+  } catch (error) {
+    // A bad, archived, or wrong-mode price ID lands here. Distinguish it
+    // from the 503 "not configured" path so an operator can tell a
+    // deliberate degradation from a broken catalog entry.
+    console.error(`Stripe checkout session failed for "${product}":`, error);
+    return NextResponse.json({ error: "Checkout unavailable" }, { status: 502 });
+  }
+
+  if (!session.url) {
+    console.error(`Stripe returned no checkout URL for "${product}"`);
+    return NextResponse.json({ error: "Checkout unavailable" }, { status: 502 });
+  }
+
   return NextResponse.json({ url: session.url });
 }
