@@ -1,6 +1,11 @@
 name: Build & Lint
 on: [push, pull_request]
 
+env:
+  # Corepack activates the pnpm version pinned in package.json on first use;
+  # without this it can block on a download confirmation prompt.
+  COREPACK_ENABLE_DOWNLOAD_PROMPT: 0
+
 jobs:
   verify:
     runs-on: ubuntu-latest
@@ -10,9 +15,6 @@ jobs:
 
       - name: Enable Corepack
         run: corepack enable
-
-      - name: Activate pnpm
-        run: corepack prepare pnpm@10.30.3 --activate
 
       - name: Setup Node.js
         uses: actions/setup-node@v6
