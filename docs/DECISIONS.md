@@ -149,6 +149,62 @@ destination to avoid avoidable redirect hops and mixed host signals.
 
 ---
 
+## 2026-07-28 — Ratify website messaging and offer strategy
+
+**Status:** accepted
+**Decision:** Adopt
+[`docs/strategy/WEBSITE_MESSAGING_AND_OFFER_INTEGRATION_SPEC.md`](./strategy/WEBSITE_MESSAGING_AND_OFFER_INTEGRATION_SPEC.md)
+v1.0 as the single canonical strategic baseline for Audio Jones website
+messaging and offer architecture. Supersede the older canonical-offer proposal
+and top-level Offer Ecosystem SOP without deleting their history.
+
+**Rationale:** the live site and repository exposed competing offer models,
+diagnostic names, product catalogs, and commercial paths. The ratified
+specification preserves the signal/revenue-recovery wedge while adding
+Business Memory and SOP Architecture, governed AI systems, the expanded
+ResponseOS intelligence loop, and one staged buying sequence.
+
+**Consequences:**
+- The canonical paid entry is Founder Intelligence Diagnostic.
+- The buying sequence is Assess → Diagnose → Architect → Install → Improve.
+- ResponseOS remains the proof product and uses
+  Capture → Understand → Route → Recover → Learn.
+- `/solutions` is the canonical future "what we sell" surface.
+- Pricing, public copy, routes, redirects, schema, implementation, deployment,
+  commit, push, and pull-request creation remain separately gated and
+  unauthorized by this decision.
+
+---
+
+## 2026-07-28 — Ratify commercial-unit and margin policy
+
+**Status:** accepted
+**Decision:** Adopt
+[`docs/strategy/COMMERCIAL_UNIT_AND_MARGIN_REVIEW.md`](./strategy/COMMERCIAL_UNIT_AND_MARGIN_REVIEW.md)
+v1.0 as the canonical internal commercial-unit and margin policy. D1–D8 are
+approved with no amendments.
+
+**Rationale:** the canonical offer ladder contains distinct diagnostic,
+architecture, installation, and managed-service economics. A software-style
+monthly price cannot safely absorb custom discovery, integration, governance,
+support, and variable usage. The ratified policy defines costable units,
+founder labor at replacement cost, P50/P80 delivery COGS, provisional margin
+bands, scope boundaries, and separate ResponseOS installation, management,
+usage, and change-order economics.
+
+**Consequences:**
+- Diagnose and Architect use bounded fixed-fee units.
+- Install uses one-time base-plus-module economics.
+- Operate uses capacity-bounded monthly management with separately governed
+  usage and net-new change scope.
+- Current website prices remain unchanged and commercially unratified.
+- Cost inputs, completed cost cards, dollar fees, private or public pricing,
+  discounts, contracts, pilots, client delivery, website changes,
+  implementation, deployment, commit, push, and pull-request creation remain
+  separately gated and unauthorized by this decision.
+
+---
+
 ## How to add an entry
 
 1. Append to the bottom of this file with today's date.

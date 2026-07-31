@@ -1,16 +1,24 @@
 ---
 title: AJ Digital — Canonical Offer Ratification Proposal
-status: proposal-awaiting-approval
+status: superseded
 version: v0.1
 date: 2026-06-17
+superseded_on: 2026-07-28
+superseded_by: docs/strategy/WEBSITE_MESSAGING_AND_OFFER_INTEGRATION_SPEC.md
 owner: AJ Digital LLC
-approver: Audio (founder) — approval required before any implementation
+approver: Audio (founder)
 companion: docs/strategy/AUDIOJONES_DOCTRINE_ALIGNMENT_AUDIT.md (PR #174)
 scope: docs-only — no website copy, components, or config changed
-supersedes-on-approval: docs/sop/offer-ecosystem/* (see §6)
+implementation_authority: none
 ---
 
 # AJ Digital — Canonical Offer Ratification Proposal
+
+> **Superseded 2026-07-28.** This proposal is preserved as historical
+> decision context. The founder-ratified canonical strategic baseline is
+> [`WEBSITE_MESSAGING_AND_OFFER_INTEGRATION_SPEC.md`](./WEBSITE_MESSAGING_AND_OFFER_INTEGRATION_SPEC.md).
+> Do not use this proposal as current offer authority. It authorizes no
+> implementation.
 
 > **Purpose.** PR #174 found that AudioJones.com is running **three
 > non-aligned offer models at once**. This document proposes a **single

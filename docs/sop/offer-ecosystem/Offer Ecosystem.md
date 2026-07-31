@@ -2,11 +2,19 @@
 title: Offer Ecosystem
 type: moc
 tags: [aj/offer-ecosystem, sop, foundational]
-status: canonical
-updated: 2026-06-14
+status: superseded
+updated: 2026-07-28
+superseded_by: ../../strategy/WEBSITE_MESSAGING_AND_OFFER_INTEGRATION_SPEC.md
 ---
 
 # Offer Ecosystem — Map of Content
+
+> [!IMPORTANT]
+> **Superseded 2026-07-28.** This map is preserved as historical offer-system
+> context. The founder-ratified canonical strategic baseline is
+> [Website Messaging and Offer Integration
+> Specification](../../strategy/WEBSITE_MESSAGING_AND_OFFER_INTEGRATION_SPEC.md).
+> The linked tier and product records do not override that specification.
 
 > [!abstract] Foundational SOP
 > The canonical model for how AJ Digital / Audio Jones offers connect — from free demand capture to installed Agent OS systems. This is the source of truth when building offers, pages, funnels, campaigns, or scripts. If a new offer doesn't map cleanly into a tier below, it isn't ready.
