@@ -9,7 +9,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { listIncidentRecords } from '@/db/incidents';
 import { serializeIncidentsForFeed, applyFeedFilters } from '@/lib/server/incidentFeed';
-import type { 
+import type {
   IncidentFeedResponse, 
   IncidentFeedErrorResponse, 
   IncidentFeedQuery 

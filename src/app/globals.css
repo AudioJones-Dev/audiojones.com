@@ -26,59 +26,111 @@
 /* ---------- TOKENS ---------- */
 :root {
   /* ──────────────────────────────────────────────────────────
-     V2 CANONICAL PALETTE (from Brand Guidelines 2.0, §02)
+     PORTABLE AUDIO JONES TOKENS (canonical `--aj-*` layer)
      ────────────────────────────────────────────────────────── */
-  --signal-yellow:   #E8FF5A;   /* primary accent — the brand */
-  --signal-soft:     #F0FF85;   /* hover / lighter signal */
-  --bg-base:         #080808;   /* page background */
-  --surface-1:       #0F0F0F;   /* card */
-  --surface-2:       #161616;   /* secondary card */
-  --border-strong:   #2A2A2A;   /* dividers */
-  --border-subtle:   #1E1E1E;   /* subtle borders */
-  --text-primary:    #E8E8E8;   /* body copy */
-  --text-muted:      #808080;   /* labels, secondary — ~5:1 on --bg-base for WCAG AA */
+  --aj-signal: #E8FF5A;
+  --aj-signal-ink: #080808;
+  --aj-data: #4DACFF;
+  --aj-critical: #FF4545;
+  --aj-warning: #FFB340;
+  --aj-success: #3DFFB0;
 
-  --accent-blue:     #4DACFF;   /* data · links */
-  --accent-red:      #FF4545;   /* critical · P0 */
-  --accent-amber:    #FFB340;   /* warning · P1 */
-  --accent-green:    #3DFFB0;   /* positive · wins */
+  --aj-base: #080808;
+  --aj-surface-1: #0F0F0F;
+  --aj-surface-2: #161616;
+  --aj-surface-3: #1E1E1E;
+
+  --aj-text: #F2F2F2;
+  --aj-text-secondary: #A8A8A8;
+  --aj-text-muted: #6E6E6E;
+
+  --aj-border: #222222;
+  --aj-border-strong: #333333;
+
+  --aj-paper: #F4F1E9;
+  --aj-ink: #080808;
+  --aj-paper-rule: #D8D3C6;
+
+  --aj-font-display: var(--font-syne, "Syne"), "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --aj-font-body: var(--font-dm-sans, "DM Sans"), ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --aj-font-mono: var(--font-dm-mono, "DM Mono"), ui-monospace, "SFMono-Regular", Consolas, monospace;
+  --aj-fw-regular: 400; --aj-fw-medium: 500; --aj-fw-semibold: 600;
+  --aj-fw-bold: 700; --aj-fw-display: 800;
+  --aj-ls-label: 0.14em; --aj-ls-display: -0.02em;
+  --aj-lh-tight: 1.05; --aj-lh-heading: 1.2; --aj-lh-body: 1.6;
+
+  --aj-fs-label: 12px; --aj-fs-caption: 13px; --aj-fs-small: 14px;
+  --aj-fs-body: 16px; --aj-fs-lead: 18px; --aj-fs-subhead: 20px;
+  --aj-fs-h4: 24px; --aj-fs-h3: 32px; --aj-fs-h2: 40px; --aj-fs-h1: 48px;
+  --aj-fs-display: 64px; --aj-fs-hero: 84px;
+
+  --aj-space-1: 4px; --aj-space-2: 8px; --aj-space-3: 12px; --aj-space-4: 16px;
+  --aj-space-5: 20px; --aj-space-6: 24px; --aj-space-8: 32px; --aj-space-10: 40px;
+  --aj-space-12: 48px; --aj-space-16: 64px; --aj-space-20: 80px;
+
+  --aj-radius-none: 0;
+  --aj-radius-control: 4px;
+  --aj-radius-card: 8px;
+  --aj-radius-pill: 999px;
+
+  --aj-elevation-flat: none;
+  --aj-elevation-overlay: 0 16px 40px rgba(0, 0, 0, 0.55);
+
+  --aj-container-prose: 680px;
+  --aj-container-app: 1280px;
+  --aj-container-gutter: 24px;
+
+  --aj-motion-fast: 120ms; --aj-motion-base: 180ms;
+  --aj-ease: cubic-bezier(0.2, 0, 0, 1);
+
+  /* Legacy implementation aliases — kept so existing markup compiles. */
+  --signal-yellow:   var(--aj-signal);
+  --signal-soft:     #F0FF85;
+  --bg-base:         var(--aj-base);
+  --surface-1:       var(--aj-surface-1);
+  --surface-2:       var(--aj-surface-2);
+  --surface-3:       var(--aj-surface-3);
+  --border-strong:   var(--aj-border-strong);
+  --border-subtle:   var(--aj-border);
+  --text-primary:    var(--aj-text);
+  --text-secondary:  var(--aj-text-secondary);
+  --text-muted:      var(--aj-text-muted);
+
+  --accent-blue:     var(--aj-data);
+  --accent-red:      var(--aj-critical);
+  --accent-amber:    var(--aj-warning);
+  --accent-green:    var(--aj-success);
 
   /* ──────────────────────────────────────────────────────────
      Legacy aliases — retargeted to V2 values so the existing
      component layer (Header, cards, buttons, ~300 call sites)
      picks up the new palette without per-file edits.
      ────────────────────────────────────────────────────────── */
-  --aj-bg:          var(--bg-base);
-  --aj-bg-elevated: var(--surface-1);
-  --aj-surface:     var(--surface-1);
-  --aj-surface-2:   var(--surface-2);
-  --aj-ink:         var(--text-primary);
-  --aj-muted:       var(--text-muted);
-  --aj-border:      var(--border-subtle);
+  --aj-bg:          var(--aj-base);
+  --aj-bg-elevated: var(--aj-surface-1);
+  --aj-surface:     var(--aj-surface-1);
+  --aj-muted:       var(--aj-text-muted);
   --aj-blue-deep:   #2E8FE0;
   --aj-amber:       var(--accent-amber);
-  --aj-success:     var(--accent-green);
-  --aj-paper:       #F5F5F5;
   --aj-charcoal:    #262626;
-  --aj-container:      1200px;
-  --aj-container-wide: 1440px;
+  --aj-container:      var(--aj-container-app);
 
   /* Atmospheric gradients — re-tinted around signal yellow
      and the V2 dark base. Kept as named tokens so utilities
      (.aj-bg-signal-control-room etc.) continue to compose. */
-  --aj-gradient-signal:            linear-gradient(135deg, #E8FF5A 0%, #F0FF85 45%, #4DACFF 100%);
-  --aj-gradient-data:              linear-gradient(135deg, rgba(77, 172, 255, 0.18), rgba(232, 255, 90, 0.16));
-  --aj-gradient-dark:              radial-gradient(circle at top left, rgba(232, 255, 90, 0.14), transparent 32%), radial-gradient(circle at bottom right, rgba(77, 172, 255, 0.12), transparent 30%), #080808;
-  --aj-gradient-card-border:       linear-gradient(135deg, rgba(232, 255, 90, 0.55), rgba(77, 172, 255, 0.32));
-  --aj-gradient-signal-control-room: radial-gradient(circle at 18% 18%, rgba(232, 255, 90, 0.18), transparent 34%), radial-gradient(circle at 82% 72%, rgba(77, 172, 255, 0.16), transparent 32%), linear-gradient(180deg, #080808 0%, #0F0F0F 55%, #080808 100%);
-  --aj-gradient-revenue-recovery:  radial-gradient(circle at 15% 30%, rgba(232, 255, 90, 0.20), transparent 28%), radial-gradient(circle at 85% 20%, rgba(255, 179, 64, 0.10), transparent 26%), linear-gradient(135deg, #080808 0%, #161616 48%, #080808 100%);
-  --aj-gradient-intelligence-layer: radial-gradient(circle at 70% 20%, rgba(77, 172, 255, 0.20), transparent 34%), radial-gradient(circle at 22% 80%, rgba(232, 255, 90, 0.12), transparent 30%), linear-gradient(180deg, #080808 0%, #0F0F0F 100%);
-  --aj-gradient-luxury-graphite:   radial-gradient(circle at top left, rgba(232, 255, 90, 0.12), transparent 30%), linear-gradient(135deg, #080808 0%, #161616 45%, #262626 100%);
-  --aj-gradient-orange-blue-field: linear-gradient(135deg, rgba(232, 255, 90, 0.85) 0%, rgba(240, 255, 133, 0.62) 38%, rgba(77, 172, 255, 0.72) 100%);
-  --aj-gradient-executive-paper:   radial-gradient(circle at 80% 20%, rgba(232, 255, 90, 0.10), transparent 32%), linear-gradient(180deg, #ffffff 0%, #f5f5f5 52%, rgba(232, 255, 90, 0.06) 100%);
-  --aj-gradient-signal-noise:      radial-gradient(circle at 12% 45%, rgba(232, 255, 90, 0.18), transparent 28%), radial-gradient(circle at 88% 50%, rgba(77, 172, 255, 0.14), transparent 30%), linear-gradient(90deg, #080808 0%, #0F0F0F 48%, #080808 100%);
-  --aj-gradient-workshop-amber:    radial-gradient(circle at 24% 20%, rgba(255, 179, 64, 0.16), transparent 28%), radial-gradient(circle at 76% 75%, rgba(232, 255, 90, 0.16), transparent 30%), linear-gradient(180deg, #080808 0%, #1A1A1A 100%);
-  --aj-gradient-black-glass:       linear-gradient(180deg, rgba(15, 15, 15, 0.92), rgba(8, 8, 8, 0.94)), radial-gradient(circle at top right, rgba(232, 255, 90, 0.08), transparent 28%);
+  --aj-gradient-signal:            var(--aj-signal);
+  --aj-gradient-data:              var(--aj-surface-1);
+  --aj-gradient-dark:              var(--aj-base);
+  --aj-gradient-card-border:       var(--aj-border);
+  --aj-gradient-signal-control-room: var(--aj-base);
+  --aj-gradient-revenue-recovery:  var(--aj-base);
+  --aj-gradient-intelligence-layer: var(--aj-base);
+  --aj-gradient-luxury-graphite:   var(--aj-base);
+  --aj-gradient-orange-blue-field: var(--aj-signal);
+  --aj-gradient-executive-paper:   var(--aj-paper);
+  --aj-gradient-signal-noise:      var(--aj-base);
+  --aj-gradient-workshop-amber:    var(--aj-base);
+  --aj-gradient-black-glass:       rgba(15, 15, 15, 0.94);
 
   /* Legacy brand palette aliases → V2 signal yellow.
      `--aj-orange` historically meant "primary accent"; in V2 the
@@ -100,12 +152,12 @@
   /* Surfaces — light split (paired clarity layer; opt-in via `.surface-light`).
      Dark is non-negotiable per V2 §07. Light is reserved for callouts /
      diagram contrast only — never apply to full sections. */
-  --paper:        #F8FAFC;
-  --surface:      #F5F5F5;
-  --surface-soft: #EEF2F6;
-  --ink:          #111111;
-  --ink-muted:    #4B5563;
-  --border-light: rgba(17,17,17,0.10);
+  --paper:        var(--aj-paper);
+  --surface:      var(--aj-paper);
+  --surface-soft: #ECE7DA;
+  --ink:          var(--aj-ink);
+  --ink-muted:    #3F3A31;
+  --border-light: var(--aj-paper-rule);
 
   /* Legacy aliases (kept until call sites migrate) */
   --bg-light-0: var(--paper);
@@ -113,18 +165,18 @@
   --bg-light-2: var(--surface-soft);
 
   /* Text — dark (V2: #E8E8E8 primary, #666 muted) */
-  --fg-0:   #FFFFFF;
+  --fg-0:   var(--aj-text);
   --fg-1:   var(--text-primary);
-  --fg-2:   #9A9A9A;
+  --fg-2:   var(--aj-text-secondary);
   --fg-3:   var(--text-muted);
 
   /* Text — light */
   --fg-light-0: var(--ink);
-  --fg-light-1: #1F1F1F;
+  --fg-light-1: var(--ink);
   --fg-light-2: var(--ink-muted);
 
   /* Borders (V2 §04) */
-  --line-1: rgba(255,255,255,0.06);
+  --line-1: rgba(255,255,255,0.08);
   --line-2: var(--border-subtle);
   --line-3: var(--border-strong);
   --line-blue: rgba(77, 172, 255, 0.40);
@@ -152,63 +204,63 @@
      (then system stack) when next/font hasn't run (e.g. plain CSS
      preview). The legacy V1 families remain at the tail of the stack
      so partially-built environments still render gracefully. */
-  --font-headline: var(--font-syne, "Syne"), "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
-  --font-accent:   var(--font-syne, "Syne"), "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
-  --font-body:     var(--font-dm-sans, "DM Sans"), "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-mono:     var(--font-dm-mono, "DM Mono"), ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --font-headline: var(--aj-font-display);
+  --font-accent:   var(--aj-font-display);
+  --font-body:     var(--aj-font-body);
+  --font-mono:     var(--aj-font-mono);
 
   /* Type scale (desktop) */
-  --fs-display-xl: 96px;
-  --fs-display-lg: 72px;
-  --fs-h1: 60px;
-  --fs-h2: 44px;
-  --fs-h3: 32px;
-  --fs-h4: 24px;
-  --fs-lead: 22px;
-  --fs-body-lg: 18px;
-  --fs-body: 16px;
-  --fs-small: 14px;
-  --fs-label: 12px;
+  --fs-display-xl: var(--aj-fs-hero);
+  --fs-display-lg: var(--aj-fs-display);
+  --fs-h1: var(--aj-fs-h1);
+  --fs-h2: var(--aj-fs-h2);
+  --fs-h3: var(--aj-fs-h3);
+  --fs-h4: var(--aj-fs-h4);
+  --fs-lead: var(--aj-fs-lead);
+  --fs-body-lg: var(--aj-fs-lead);
+  --fs-body: var(--aj-fs-body);
+  --fs-small: var(--aj-fs-small);
+  --fs-label: var(--aj-fs-label);
 
   /* Spacing scale */
-  --sp-xs:  4px;
-  --sp-sm:  8px;
-  --sp-md:  16px;
-  --sp-lg:  24px;
-  --sp-xl:  32px;
-  --sp-2xl: 48px;
-  --sp-3xl: 64px;
-  --sp-4xl: 96px;
-  --sp-5xl: 128px;
+  --sp-xs:  var(--aj-space-1);
+  --sp-sm:  var(--aj-space-2);
+  --sp-md:  var(--aj-space-4);
+  --sp-lg:  var(--aj-space-6);
+  --sp-xl:  var(--aj-space-8);
+  --sp-2xl: var(--aj-space-12);
+  --sp-3xl: var(--aj-space-16);
+  --sp-4xl: var(--aj-space-20);
+  --sp-5xl: var(--aj-space-20);
 
   /* Radii */
-  --r-sm: 6px;
-  --r-md: 10px;
-  --r-lg: 16px;
-  --r-card: 20px;
-  --r-panel: 24px;
-  --r-pill: 9999px;
+  --r-sm: var(--aj-radius-control);
+  --r-md: var(--aj-radius-control);
+  --r-lg: var(--aj-radius-card);
+  --r-card: var(--aj-radius-card);
+  --r-panel: var(--aj-radius-card);
+  --r-pill: var(--aj-radius-pill);
 
   /* Layout */
-  --page-max: 1280px;
-  --copy-max: 720px;
-  --hero-max: 780px;
-  --gutter-desktop: 32px;
-  --gutter-tablet:  24px;
+  --page-max: var(--aj-container-app);
+  --copy-max: var(--aj-container-prose);
+  --hero-max: var(--aj-container-prose);
+  --gutter-desktop: var(--aj-container-gutter);
+  --gutter-tablet:  var(--aj-container-gutter);
   --gutter-mobile:  20px;
 
   /* Shadows (retargeted to V2: signal-yellow glow + data-blue glow) */
-  --shadow-glow-blue:   0 10px 40px -10px rgba(77, 172, 255, 0.55);
-  --shadow-glow-orange: 0 10px 40px -10px rgba(232, 255, 90, 0.45);
-  --shadow-glow-signal: 0 10px 40px -10px rgba(232, 255, 90, 0.55);
-  --shadow-card: inset 0 1px 0 rgba(255,255,255,0.04), 0 30px 80px -40px rgba(0,0,0,0.6);
+  --shadow-glow-blue:   var(--aj-elevation-flat);
+  --shadow-glow-orange: var(--aj-elevation-flat);
+  --shadow-glow-signal: var(--aj-elevation-flat);
+  --shadow-card: var(--aj-elevation-flat);
 
   /* Motion */
-  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
-  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
-  --dur-fast: 120ms;
-  --dur-base: 180ms;
-  --dur-slow: 320ms;
+  --ease-out: var(--aj-ease);
+  --ease-in-out: var(--aj-ease);
+  --dur-fast: var(--aj-motion-fast);
+  --dur-base: var(--aj-motion-base);
+  --dur-slow: var(--aj-motion-base);
 
   /* Layout aliases used by Tailwind theme */
   --background: var(--bg-0);
@@ -221,6 +273,24 @@
   --color-foreground: var(--foreground);
 
   /* V2 canonical color names — preferred for new code. */
+  --color-aj-signal:      var(--aj-signal);
+  --color-aj-signal-ink:  var(--aj-signal-ink);
+  --color-aj-data:        var(--aj-data);
+  --color-aj-critical:    var(--aj-critical);
+  --color-aj-warning:     var(--aj-warning);
+  --color-aj-success:     var(--aj-success);
+  --color-aj-base:        var(--aj-base);
+  --color-aj-surface-1:   var(--aj-surface-1);
+  --color-aj-surface-2:   var(--aj-surface-2);
+  --color-aj-surface-3:   var(--aj-surface-3);
+  --color-aj-text:        var(--aj-text);
+  --color-aj-text-secondary: var(--aj-text-secondary);
+  --color-aj-text-muted:  var(--aj-text-muted);
+  --color-aj-border:      var(--aj-border);
+  --color-aj-border-strong: var(--aj-border-strong);
+  --color-aj-paper:       var(--aj-paper);
+  --color-aj-ink:         var(--aj-ink);
+
   --color-signal-yellow:  var(--signal-yellow);
   --color-signal-soft:    var(--signal-soft);
   --color-bg-base:        var(--bg-base);
@@ -286,13 +356,30 @@
 
 /* ---------- BASE ---------- */
 html, body {
-  background: var(--bg-0);
-  color: var(--fg-1);
-  font-family: var(--font-body);
+  background: var(--aj-base);
+  color: var(--aj-text);
+  font-family: var(--aj-font-body);
   font-size: var(--fs-body);
-  line-height: 1.6;
+  line-height: var(--aj-lh-body);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--aj-font-display);
+  letter-spacing: var(--aj-ls-display);
+}
+
+a {
+  color: inherit;
+}
+
+::selection {
+  background: var(--aj-signal);
+  color: var(--aj-signal-ink);
 }
 
 /* ---------- OPT-IN LIGHT SECTIONS ----------
@@ -451,15 +538,40 @@ html, body {
 /* Mobile scale overrides */
 @media (max-width: 640px) {
   :root {
-    --fs-display-xl: 54px;
-    --fs-display-lg: 46px;
-    --fs-h1: 42px;
-    --fs-h2: 34px;
+    --fs-display-xl: 56px;
+    --fs-display-lg: 48px;
+    --fs-h1: 40px;
+    --fs-h2: 32px;
     --fs-h3: 26px;
     --fs-h4: 22px;
-    --fs-lead: 19px;
+    --fs-lead: 18px;
     --fs-body-lg: 17px;
   }
+}
+
+/* Portable doctrine migration: sharper geometry and flat hierarchy. */
+.rounded-md,
+.rounded-lg {
+  border-radius: var(--aj-radius-control);
+}
+
+.rounded-xl,
+.rounded-2xl,
+.rounded-3xl {
+  border-radius: var(--aj-radius-card);
+}
+
+.rounded-full {
+  border-radius: var(--aj-radius-pill);
+}
+
+.shadow,
+.shadow-sm,
+.shadow-md,
+.shadow-lg,
+.shadow-xl,
+.shadow-2xl {
+  box-shadow: var(--aj-elevation-flat);
 }
 
 /* ---------- ATMOSPHERIC GLOW UTILITIES (Wave-1.6) ----------
@@ -469,27 +581,13 @@ html, body {
    input. Saturation mirrors the design system (Signal orange / system
    blue / metric gold) at the muted opacity used across the brand. */
 .bg-glow-blue {
-  background: radial-gradient(
-    ellipse 65% 55% at 70% 50%,
-    rgba(77, 172, 255, 0.10),
-    transparent 70%
-  );
+  background: none;
 }
 .bg-glow-orange {
-  /* Legacy name — retargeted to V2 signal yellow. */
-  background: radial-gradient(
-    ellipse 65% 55% at 30% 50%,
-    rgba(232, 255, 90, 0.10),
-    transparent 70%
-  );
+  background: none;
 }
 .bg-glow-gold {
-  /* Legacy name — retargeted to V2 signal yellow. */
-  background: radial-gradient(
-    ellipse 60% 50% at 15% 80%,
-    rgba(232, 255, 90, 0.08),
-    transparent 65%
-  );
+  background: none;
 }
 .bg-grid-fine {
   background-image:
@@ -557,19 +655,15 @@ html, body {
 }
 
 .aj-bg-dark-diagnostic-grid {
-  background-color: #05070f;
+  background-color: var(--aj-base);
   background-image:
     var(--aj-bg-image, none),
     linear-gradient(rgba(148, 163, 184, 0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(148, 163, 184, 0.08) 1px, transparent 1px),
-    radial-gradient(circle at 20% 20%, rgba(255, 69, 0, 0.18), transparent 30%),
-    radial-gradient(circle at 80% 70%, rgba(0, 164, 255, 0.16), transparent 30%);
+    linear-gradient(90deg, rgba(148, 163, 184, 0.08) 1px, transparent 1px);
   background-size:
     cover,
     56px 56px,
-    56px 56px,
-    auto,
-    auto;
+    56px 56px;
 }
 
 .aj-bg-executive-paper {
@@ -608,7 +702,7 @@ html, body {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  opacity: 0.08;
+  opacity: 0;
   mix-blend-mode: screen;
   background-image:
     radial-gradient(circle at 12% 18%, rgba(255, 255, 255, 0.18) 0 1px, transparent 1px),
@@ -618,13 +712,13 @@ html, body {
 
 /* ---------- LEGACY UTILITIES (retargeted to V2 signal yellow) ---------- */
 .gradient-bg {
-  background: linear-gradient(90deg, var(--signal-yellow), var(--signal-soft));
+  background: var(--aj-signal);
 }
 .gradient-text {
-  background: linear-gradient(135deg, var(--signal-yellow), var(--signal-soft));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  background: none;
+  -webkit-background-clip: initial;
+  background-clip: initial;
+  color: var(--aj-signal);
 }
 @keyframes scroll-x {
   0% { transform: translateX(0); }
@@ -836,6 +930,53 @@ html, body {
   }
 }
 
+/* Portable edition: keep legacy class names, remove glow treatment. */
+.btn-glow,
+.btn-glow-sys {
+  border-width: 1px;
+  border-radius: var(--aj-radius-control);
+  box-shadow: none;
+  text-shadow: none;
+  transform: none;
+  transition: border-color var(--aj-motion-base) var(--aj-ease),
+    background-color var(--aj-motion-base) var(--aj-ease),
+    color var(--aj-motion-base) var(--aj-ease),
+    opacity var(--aj-motion-base) var(--aj-ease);
+}
+
+.btn-glow::after,
+.btn-glow-sys::after {
+  display: none;
+}
+
+.btn-glow {
+  background: var(--aj-signal);
+  border-color: var(--aj-signal);
+  color: var(--aj-signal-ink);
+}
+
+.btn-glow:hover,
+.btn-glow:active {
+  background: transparent;
+  border-color: var(--aj-signal);
+  color: var(--aj-signal);
+  box-shadow: none;
+}
+
+.btn-glow-sys {
+  background: transparent;
+  border-color: var(--aj-data);
+  color: var(--aj-data);
+}
+
+.btn-glow-sys:hover,
+.btn-glow-sys:active {
+  background: var(--aj-data);
+  border-color: var(--aj-data);
+  color: var(--aj-signal-ink);
+  box-shadow: none;
+}
+
 /* ---------- V2 COMPONENT CLASSES (Brand Guidelines 2.0 §05) ---------- */
 .aj-btn-signal {
   position: relative;
@@ -914,6 +1055,39 @@ html, body {
   background: rgba(232, 255, 90, 0.06);
 }
 
+.aj-btn-signal {
+  border-radius: var(--aj-radius-control);
+  background: var(--aj-signal);
+  border-color: var(--aj-signal);
+  color: var(--aj-signal-ink);
+  box-shadow: none;
+  transition: border-color var(--aj-motion-base) var(--aj-ease),
+    background-color var(--aj-motion-base) var(--aj-ease),
+    color var(--aj-motion-base) var(--aj-ease),
+    opacity var(--aj-motion-base) var(--aj-ease);
+}
+
+.aj-btn-signal::after {
+  display: none;
+}
+
+.aj-btn-signal:hover {
+  transform: none;
+  background: transparent;
+  border-color: var(--aj-signal);
+  color: var(--aj-signal);
+  box-shadow: none;
+}
+
+.aj-btn-intel {
+  border-radius: var(--aj-radius-control);
+  box-shadow: none;
+}
+
+.aj-btn-intel:hover {
+  transform: none;
+}
+
 .aj-card-signal {
   position: relative;
   border-radius: 4px;
@@ -933,7 +1107,7 @@ html, body {
 .aj-card-signal:hover {
   transform: translateY(-2px);
   border-color: var(--border-strong);
-  box-shadow: 0 0 24px rgba(232, 255, 90, 0.10), 0 18px 60px rgba(0, 0, 0, 0.32);
+  box-shadow: none;
 }
 
 .aj-product-card {
@@ -941,7 +1115,7 @@ html, body {
   border-radius: 4px;
   background: var(--surface-1);
   padding: 1.5rem;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.24);
+  box-shadow: none;
   transition: border-color 180ms ease;
 }
 .aj-product-card:hover {
@@ -954,7 +1128,7 @@ html, body {
   background: var(--surface-2);
   color: var(--text-primary);
   padding: 1.5rem;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.24);
+  box-shadow: none;
 }
 
 .aj-form-panel {
@@ -962,7 +1136,7 @@ html, body {
   border-radius: 4px;
   background: var(--surface-1);
   padding: clamp(1.25rem, 3vw, 2rem);
-  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.32);
+  box-shadow: none;
 }
 
 .aj-data-panel {
@@ -1020,7 +1194,7 @@ html, body {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  color: var(--aj-ink);
+  color: var(--aj-text);
   font-size: 0.95rem;
   font-weight: 650;
 }
@@ -1079,7 +1253,7 @@ html, body {
 .aj-toggle input[type="checkbox"]:checked::before {
   transform: translateX(1.45rem);
   background: var(--signal-yellow);
-  box-shadow: 0 0 18px rgba(232, 255, 90, 0.42);
+  box-shadow: none;
 }
 
 .aj-code-block,
@@ -1093,7 +1267,7 @@ html, body {
   color: var(--text-primary);
   font-family: var(--font-mono);
   padding: 1.25rem;
-  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.28);
+  box-shadow: none;
 }
 
 .aj-code-block::before,
@@ -1110,11 +1284,7 @@ html, body {
 
 /* ---------- V2 ATMOSPHERIC GLOWS (signal-yellow accented) ---------- */
 .bg-glow-signal {
-  background: radial-gradient(
-    ellipse 65% 55% at 30% 50%,
-    rgba(232, 255, 90, 0.10),
-    transparent 70%
-  );
+  background: none;
 }
 
 /* ---------- V2 NEW COMPONENTS (Brand Guidelines 2.0 §04) ---------- */
