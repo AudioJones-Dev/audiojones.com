@@ -1,13 +1,15 @@
 import Image from "next/image";
 import { Eyebrow } from "@/components/ui/Eyebrow";
+import { ButtonLink } from "@/components/ui/Button";
+import { ctaLinks } from "@/config/links";
 
 // ─── Step data ────────────────────────────────────────────────────────────────
 
 const STEPS = [
   {
     n: "01",
-    label: "Diagnose",
-    desc: "Find the real constraint. Map the existing system — surface noise, gaps, and false signals before touching tools.",
+    label: "Observe",
+    desc: "Collect the evidence. Map the existing system, handoffs, decisions, and outcomes before touching tools.",
     accent: "#666666",
     border: "rgba(102,102,102,0.22)",
     bg: "linear-gradient(160deg, rgba(102,102,102,0.05) 0%, rgba(15,15,15,0.96) 100%)",
@@ -18,8 +20,8 @@ const STEPS = [
   },
   {
     n: "02",
-    label: "Attribute",
-    desc: "Identify what is actually creating outcomes. Apply the M.A.P. (Meaningful. Actionable. Profitable.) filter to every metric.",
+    label: "Diagnose",
+    desc: "Identify the real constraint. Separate recurring operating patterns from isolated symptoms and assumptions.",
     accent: "#4DACFF",
     border: "rgba(77,172,255,0.45)",
     bg: "linear-gradient(160deg, rgba(77,172,255,0.09) 0%, rgba(15,15,15,0.96) 100%)",
@@ -31,7 +33,7 @@ const STEPS = [
   {
     n: "03",
     label: "Design",
-    desc: "Build the system around the signal. Architect the operating model — signal → process → output → feedback.",
+    desc: "Create the operating blueprint around the constraint, with clear ownership, handoffs, and measures.",
     accent: "#666666",
     border: "rgba(102,102,102,0.22)",
     bg: "linear-gradient(160deg, rgba(102,102,102,0.05) 0%, rgba(15,15,15,0.96) 100%)",
@@ -42,8 +44,8 @@ const STEPS = [
   },
   {
     n: "04",
-    label: "Deploy",
-    desc: "Turn the system into repeatable execution. Instrument everything. Compound the loop.",
+    label: "Implement",
+    desc: "Build only what the evidence supports, then measure the outcome before expanding the system.",
     accent: "#E8FF5A",
     border: "rgba(232,255,90,0.32)",
     bg: "linear-gradient(160deg, rgba(232,255,90,0.06) 0%, rgba(15,15,15,0.96) 100%)",
@@ -171,8 +173,8 @@ function ProcessRail() {
 export default function ProcessPipeline() {
   return (
     <section
-      id="process"
-      className="relative border-t border-[var(--line-2)] bg-bg-0 py-24 sm:py-32"
+      id="diagnose-first"
+      className="relative scroll-mt-24 border-t border-[var(--line-2)] bg-bg-0 py-24 sm:py-32"
       style={{ overflow: "hidden" }}
     >
       {/* ── Atmospheric glows ── */}
@@ -234,7 +236,7 @@ export default function ProcessPipeline() {
       <div className="relative mx-auto max-w-[1280px] px-5 sm:px-8" style={{ zIndex: 1 }}>
         {/* ── Header ── */}
         <div className="mb-14 max-w-3xl">
-          <Eyebrow>The Process</Eyebrow>
+          <Eyebrow>Diagnose Before Building</Eyebrow>
 
           {/* Signal-path rule */}
           <div
@@ -249,12 +251,20 @@ export default function ProcessPipeline() {
           />
 
           <h2 className="t-h1 text-balance">
-            Diagnose. Design. Deploy.
+            Diagnose the constraint before you automate the process.
           </h2>
           <p className="mt-5 t-lead text-fg-2">
-            Four steps. No tool list. Each phase builds on the last until the
-            loop is causal and the system compounds on its own.
+            Automating the wrong workflow does not remove the problem. It makes
+            the wrong process move faster. The Founder Intelligence Diagnostic
+            identifies what should be fixed, designed, or built.
           </p>
+          <ButtonLink
+            href={ctaLinks.founderIntelligenceDiagnostic}
+            variant="glow"
+            className="mt-8"
+          >
+            Start the Founder Intelligence Diagnostic
+          </ButtonLink>
         </div>
 
         {/* ── Desktop process rail — hidden below lg ── */}
@@ -484,9 +494,9 @@ export default function ProcessPipeline() {
               letterSpacing: "-0.01em",
             }}
           >
-            The system is not built in phases.{" "}
+            The first investment is understanding.{" "}
             <span style={{ color: "var(--signal-yellow)", fontWeight: 600 }}>
-              It is built in sequence — and it compounds.
+              Build only after the constraint is clear.
             </span>
           </p>
         </div>

@@ -75,13 +75,13 @@ export default function Header() {
           ))}
         </ul>
 
-        {/* Desktop CTAs — secondary + primary glow per DESIGN.md §11.1 */}
+        {/* Desktop CTAs — booking secondary, RI-001 diagnostic primary. */}
         <div className="hidden items-center gap-3 lg:flex">
-          <ButtonLink href={headerCtas.diagnostic.href} variant="secondary" size="md">
-            {headerCtas.diagnostic.label}
-          </ButtonLink>
-          <ButtonLink href={headerCtas.bookCall.href} variant="glow">
+          <ButtonLink href={headerCtas.bookCall.href} variant="secondary" size="md">
             {headerCtas.bookCall.label}
+          </ButtonLink>
+          <ButtonLink href={headerCtas.diagnostic.href} variant="glow">
+            {headerCtas.diagnostic.label}
           </ButtonLink>
         </div>
 
@@ -129,18 +129,18 @@ export default function Header() {
             ))}
             <li className="flex flex-col gap-3 pt-4">
               <ButtonLink
-                href={headerCtas.diagnostic.href}
+                href={headerCtas.bookCall.href}
                 variant="secondary"
                 className="w-full"
               >
-                {headerCtas.diagnostic.label}
+                {headerCtas.bookCall.label}
               </ButtonLink>
               <ButtonLink
-                href={headerCtas.bookCall.href}
+                href={headerCtas.diagnostic.href}
                 variant="glow"
                 className="w-full"
               >
-                {headerCtas.bookCall.label}
+                {headerCtas.diagnostic.label}
               </ButtonLink>
             </li>
           </ul>

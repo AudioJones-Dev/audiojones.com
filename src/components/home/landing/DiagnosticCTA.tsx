@@ -6,12 +6,8 @@ const CTA_BG =
   "/assets/Homepage/12-final-diagnostic-cta/backgrounds/final-cta-bg-v2.webp";
 
 /**
- * Section 8 — Diagnostic CTA.
- * High-conversion. Inline form preview is non-functional and routes
- * the user to the canonical 6-step diagnostic at
- * /founder-intelligence/diagnostic. We do not collect data here —
- * the field is visual scaffolding only. (Mock-only per Wave 1 rules;
- * real intake stays at the Founder Intelligence diagnostic route.)
+ * RI-001 final diagnostic CTA. Intake remains on the canonical
+ * Founder Intelligence diagnostic route.
  */
 export default function DiagnosticCTA() {
   return (
@@ -40,7 +36,7 @@ export default function DiagnosticCTA() {
       />
 
       <div className="mx-auto max-w-[960px] px-5 sm:px-8 text-center">
-        <Eyebrow>Apply</Eyebrow>
+        <Eyebrow>Start With Diagnosis</Eyebrow>
         <h2
           className="mt-4 text-fg-0 text-balance"
           style={{
@@ -51,7 +47,7 @@ export default function DiagnosticCTA() {
             letterSpacing: "-0.035em",
           }}
         >
-          Build around what actually works.
+          Stop guessing at the fix.
         </h2>
         <p
           className="mt-4 text-fg-2 max-w-[56ch] mx-auto"
@@ -63,41 +59,25 @@ export default function DiagnosticCTA() {
             letterSpacing: "-0.01em",
           }}
         >
-          Run the diagnostic, identify the signal, and build the system that
-          turns it into measurable growth.
+          If the problem is unclear, the responsible next step is diagnosis,
+          not another tool, workflow, or disconnected automation.
         </p>
         <p className="mt-4 t-body text-fg-2 max-w-2xl mx-auto">
-          Choose the live call path when you are ready to scope the system.
-          Choose the diagnostic path when the leak still needs to be mapped.
+          The Founder Intelligence Diagnostic maps the constraint before any
+          implementation is recommended.
         </p>
 
         <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Link href="/book-a-call" className="aj-btn-signal w-full sm:w-auto">
-            Book a Call
+          <Link href="/founder-intelligence/diagnostic" className="aj-btn-signal w-full sm:w-auto">
+            Start the Founder Intelligence Diagnostic
           </Link>
-          <Link href="/ai-readiness-diagnostic" className="aj-btn-intel w-full sm:w-auto">
-            Start the AI Readiness Diagnostic
+          <Link href="/founder-intelligence" className="aj-btn-intel w-full sm:w-auto">
+            Explore Founder Intelligence
           </Link>
         </div>
         <p className="mt-6 t-small text-fg-3">
-          Free fit review. No commitment. Reviewed personally by Audio Jones.
+          Six focused steps. Reviewed before any system is prescribed.
         </p>
-
-        {/* ── Quiet divider ── */}
-        <div
-          aria-hidden
-          className="mx-auto mt-16 h-px w-32 bg-gradient-to-r from-transparent via-[var(--line-2)] to-transparent"
-        />
-
-        <div className="mx-auto mt-10 max-w-[480px] text-center">
-          <Eyebrow tone="muted">Insights</Eyebrow>
-          <p className="mt-3 t-small text-fg-2">
-            Read the latest signal notes on AI systems, attribution, and revenue recovery.
-          </p>
-          <Link href="/insights" className="aj-btn-intel mt-5">
-            Read Insights
-          </Link>
-        </div>
       </div>
     </section>
   );

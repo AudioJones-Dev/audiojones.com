@@ -60,14 +60,13 @@ export const mainNav: NavItem[] = [
   },
 ];
 
-// Right-side header CTAs. Two slots: a soft (secondary) discovery CTA and a
-// hard (primary glow) booking CTA. DESIGN.md §11.1 says "one signal-glow CTA
-// per major section" — Book a Call carries the glow, Diagnostic is the
-// secondary read-the-room option.
+// Right-side header CTAs. RI-001 makes the Founder Intelligence Diagnostic
+// the primary strategic engagement. Booking remains available as the
+// secondary path for visitors who are already ready to talk.
 export const headerCtas = {
   diagnostic: {
-    label: "AI Readiness Diagnostic",
-    href: "/ai-readiness-diagnostic",
+    label: "Start the Diagnostic",
+    href: "/founder-intelligence/diagnostic",
   },
   bookCall: {
     label: "Book a Call",
