@@ -73,7 +73,7 @@
         "groq": "^5.23.0",
         "imagekit": "^6.0.0",
         "lucide-react": "^0.546.0",
-        "next": "16.2.6",
+        "next": "16.2.11",
         "next-sanity": "^12.4.0",
         "react": "19.2.0",
         "react-dom": "19.2.0",
