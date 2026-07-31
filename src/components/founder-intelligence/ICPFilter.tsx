@@ -1,7 +1,7 @@
 import SectionShell from "./SectionShell";
 
 const GOOD = [
-  "Founder-led company doing $250K–$5M",
+  "Founder-led service business, typically generating $500K–$5M+ in annual revenue",
   "Has revenue but unclear growth drivers",
   "Wants AI leverage without tool chaos",
   "Needs attribution, systems, and strategic clarity",

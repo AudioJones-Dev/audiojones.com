@@ -23,7 +23,7 @@ for someone to correlate three or four workflow runs.
 | Workflow                            | Triggers                       | Checks                                                                                  | Surfaces result via |
 | ----------------------------------- | ------------------------------ | --------------------------------------------------------------------------------------- | ------------------- |
 | `.github/workflows/ci.yml`          | PR → main, push → main         | `pnpm install --frozen-lockfile`, `tsc --noEmit`, `pnpm build` (with full env secrets)  | Check run only      |
-| `.github/workflows/build-and-lint.yml` | push, pull_request          | `pnpm lint`, `tsc --noEmit`, `pnpm packages:build`, `pnpm check:no-firebase`, inline greps for Firebase Admin / admin-key duplication | Check run only |
+| `.github/workflows/build-and-lint.yml` | push, pull_request          | `pnpm lint`, `tsc --noEmit`, pricing-offer contract, `pnpm packages:build`, `pnpm check:no-firebase`, inline greps for Firebase Admin / admin-key duplication | Check run only |
 | `.github/workflows/deploy.yml`      | PR → main, push → main         | install + `packages:build` + `lint` (validate), then `build` and `vercel deploy --prod` on `main` | Check run + Vercel deployment |
 | `.github/workflows/smoke-preview.yml` | PR → main                    | Polls Deployments API up to 5m for a `Preview` env URL, then curls 4 routes (`/`, `/status`, `/portal/billing`, `/api/public/incidents`) | Check run + `::notice` annotation |
 | `.github/workflows/smoke-prod.yml`  | `*/30 * * * *`, manual         | curls 5 prod URLs + sitemap                                                              | Check run only      |
@@ -537,7 +537,8 @@ Responsibilities:
   1. `pnpm typecheck`
   2. `pnpm lint`
   3. `pnpm check:no-firebase`
-  4. `pnpm build` *(skippable via `--no-build` for the inner loop;
+  4. `pnpm exec tsx --test test/pricing-offers.test.ts`
+  5. `pnpm build` *(skippable via `--no-build` for the inner loop;
      defaults to running)*
 - For each step record `{ name, command, started_at, ended_at,
   duration_ms, exit_code, conclusion: 'success'|'failure', log_tail:
@@ -770,7 +771,7 @@ a PR opened after the change:
      green — `next_action: human-approval`.
 6. `pnpm validate` locally produces a `validation-summary.json` whose
    `steps[].name` set is a superset of `{typecheck, lint,
-   check-no-firebase, build}` and whose schema matches §7 (minus the
+   check-no-firebase, pricing-offer-contract, build}` and whose schema matches §7 (minus the
    PR-only fields, which are `null` when run locally).
 7. `pnpm validate:summary` prints the §8 comment body to stdout
    identical (modulo whitespace) to what the workflow posts.

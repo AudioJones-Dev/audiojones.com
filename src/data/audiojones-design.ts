@@ -72,22 +72,28 @@ export const responseOsFlow = [
     step: "04",
     title: "Recover",
     description:
-      "The system closes the response gap, records outcomes, and shows where revenue was recovered or still leaking.",
+      "Follow-up, booking, callback, and human-escalation paths keep legitimate opportunities from disappearing after the first response.",
+  },
+  {
+    step: "05",
+    title: "Learn",
+    description:
+      "Attribution and recovery reporting compare agreed outcomes with the client baseline so the managed workflow can be improved with evidence.",
   },
 ] as const;
 
 export const proofSignals = [
   {
-    metric: "+38%",
-    label: "Reply rate lift on missed inquiries after ResponseOS.",
+    metric: "Target KPI",
+    label: "First-response time measured against the client baseline.",
   },
   {
-    metric: "<9 min",
-    label: "Median time-to-first-response on high-intent leads.",
+    metric: "Tracked outcome",
+    label: "Qualified opportunities recovered by source and workflow.",
   },
   {
-    metric: "1 inbox",
-    label: "Every channel consolidated into one recovery view.",
+    metric: "Operational goal",
+    label: "One accountable recovery path for every legitimate inquiry.",
   },
 ] as const;
 
@@ -96,19 +102,19 @@ export const caseStudies = [
     title: "Local service pipeline recovery",
     description:
       "A founder-led service business needed faster inbound response and clearer lead status. The system map exposed follow-up leaks before a tool was added.",
-    outcome: "Follow-up gap identified",
+    outcome: "Illustrative workflow — not a client result",
   },
   {
     title: "Expertise to authority engine",
     description:
       "A consulting brand had strong expertise but weak publishing rhythm. The operating model turned founder ideas into repeatable content and offers.",
-    outcome: "Content operating loop defined",
+    outcome: "Illustrative workflow — not a client result",
   },
   {
     title: "Attribution signal cleanup",
     description:
       "A growth team could see activity but not causality. The audit separated vanity metrics from pipeline signals and clarified the next system layer.",
-    outcome: "Signal scorecard created",
+    outcome: "Illustrative workflow — not a client result",
   },
 ] as const;
 
@@ -144,14 +150,10 @@ export const diagnosticDimensions = [
 
 export const agentsProofStrip = {
   quote: {
-    body: "We did not need another tool. We needed a system that owned the follow-up. ResponseOS closed the gap in three weeks.",
-    attribution: "Founder, professional services, $1.2M run-rate",
+    body: "The operating question is whether every legitimate inquiry has an accountable next action, not whether another tool was installed.",
+    attribution: "ResponseOS operating principle — not a client result",
   },
-  stats: [
-    { metric: "+38%", label: "Reply rate lift on missed inquiries" },
-    { metric: "<9 min", label: "Median time-to-first-response on high-intent leads" },
-    { metric: "$214K", label: "Recovered revenue, first 90 days (representative deployment)" },
-  ],
+  stats: proofSignals,
 } as const;
 
 export const systemComparison = {

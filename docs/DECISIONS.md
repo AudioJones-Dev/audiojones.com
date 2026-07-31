@@ -149,6 +149,34 @@ destination to avoid avoidable redirect hops and mixed host signals.
 
 ---
 
+## 2026-07-31 — Diagnostic-led public pricing enters controlled testing
+
+**Status:** accepted for implementation testing; publication requires Audio approval
+**Decision:** The public pricing model follows diagnosis → evidence-supported
+implementation → managed improvement → controlled expansion. ResponseOS is a
+managed Revenue Recovery System, not a self-service receptionist subscription.
+All numerical prices are starting-price hypotheses with internal status
+`Testing`; provider usage is separate; no outcome fee, success fee,
+recovered-revenue percentage, or guarantee is publicly offered.
+
+**Rationale:** AJ Digital's delivery responsibility includes diagnosis,
+workflow design, integration, data quality, attribution, implementation,
+monitoring, support, and optimization. Commodity software tiers obscure that
+scope before repeated delivery has established standardization, support burden,
+margin, retention, and low founder dependence.
+
+**Consequences:**
+- `src/content/pricing.ts` is the public offer/price source for `/pricing` and
+  its structured data and CTA event contract.
+- Pricing evidence remains governed by
+  [`docs/strategy/PRICE_VALIDATION_LEDGER.md`](./strategy/PRICE_VALIDATION_LEDGER.md).
+- The prior public prices and terminology are reconciled in
+  [`docs/strategy/PRICING_OFFER_RECONCILIATION_2026-07-31.md`](./strategy/PRICING_OFFER_RECONCILIATION_2026-07-31.md).
+- Merge, preview deployment, production deployment, and publication remain
+  separate human approval gates.
+
+---
+
 ## How to add an entry
 
 1. Append to the bottom of this file with today's date.

@@ -15,6 +15,13 @@ Entries are reverse chronological. Format follows
 
 ## Unreleased
 
+### Changed
+- Rebuilt `/pricing` around diagnosis, evidence-supported managed
+  implementation, Managed Intelligence, and controlled expansion; replaced
+  commodity ResponseOS tiers and unsupported performance proof with scoped
+  starting prices, evidence guardrails, conservative structured data, tracked
+  CTAs, and a price-validation ledger. Publication remains human-gated.
+
 ### Tooling
 - Added `.github/workflows/validation-summary.yml` (Phase 1 of
   `docs/ops/AUTOMATED_VALIDATION_REVIEW_LOOP.md`): aggregates `CI`,

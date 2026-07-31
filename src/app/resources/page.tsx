@@ -65,7 +65,7 @@ const THEMES = [
   {
     label: "ResponseOS",
     href: "/agents/responseos",
-    blurb: "Revenue-recovery infrastructure — the AI Receptionist System.",
+    blurb: "A managed Revenue Recovery System for capture, qualification, routing, follow-up, attribution, and reporting.",
   },
   {
     label: "Revenue Intelligence",

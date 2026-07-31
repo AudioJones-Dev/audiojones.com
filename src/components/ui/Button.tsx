@@ -14,10 +14,14 @@ type CommonProps = {
 type AsButtonProps = CommonProps &
   Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "className" | "children">;
 
-type AsLinkProps = CommonProps & {
-  href: string;
-  external?: boolean;
-};
+type AsLinkProps = CommonProps &
+  Omit<
+    React.AnchorHTMLAttributes<HTMLAnchorElement>,
+    "className" | "children" | "href"
+  > & {
+    href: string;
+    external?: boolean;
+  };
 
 /**
  * Legacy glow variants use plain CSS classes (.btn-glow / .btn-glow-sys)
@@ -92,6 +96,7 @@ export function ButtonLink({
   children,
   href,
   external,
+  ...rest
 }: AsLinkProps) {
   const cls = isGlowVariant(variant)
     ? glowClass(variant, className)
@@ -99,13 +104,19 @@ export function ButtonLink({
 
   if (external || /^https?:\/\//.test(href)) {
     return (
-      <a className={cls} href={href} target="_blank" rel="noopener noreferrer">
+      <a
+        className={cls}
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        {...rest}
+      >
         {children}
       </a>
     );
   }
   return (
-    <Link className={cls} href={href}>
+    <Link className={cls} href={href} {...rest}>
       {children}
     </Link>
   );

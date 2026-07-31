@@ -10,23 +10,23 @@ interface FAQ {
 const faqs: FAQ[] = [
   {
     question: "How quickly can you get our AI systems up and running?",
-    answer: "Most clients see their first AI automation live within 2 weeks. Complex multi-system integrations typically take 4-6 weeks. We prioritize quick wins first, then layer in advanced functionality."
+    answer: "Timing depends on access, data quality, integrations, workflow complexity, and approval speed. We define the implementation plan after diagnosis instead of promising one universal timeline."
   },
   {
     question: "Do you work with businesses outside of Miami?",
-    answer: "Absolutely! While we're based in Miami, we serve clients worldwide. All our systems are built remotely and can be managed from anywhere. We've built AI systems for creators in over 15 countries."
+    answer: "AJ Digital can deliver remote diagnostic and systems work when the workflow, access, data, and operating requirements support it. Fit is confirmed during intake."
   },
   {
     question: "What makes your AI systems different from other marketing automation?",
-    answer: "We don't use generic templates. Every AI system is custom-built for your specific business model, audience, and goals. Our systems learn and adapt, becoming more effective over time. Plus, everything integrates—your content, marketing, sales, and operations work as one machine."
+    answer: "We start with the operating constraint and install only the workflow, integration, governance, and measurement layer the evidence supports. Existing systems are retained or integrated where practical."
   },
   {
     question: "How much technical knowledge do I need to manage these systems?",
-    answer: "Zero. We build everything with user-friendly dashboards and provide complete training. If you can use a smartphone, you can manage our AI systems. We also offer ongoing support to ensure everything runs smoothly."
+    answer: "The required operator skill depends on the installed workflow. Training, human approval states, documentation, and a defined support window are scoped into the engagement where needed."
   },
   {
-    question: "What's your typical ROI for AI automation projects?",
-    answer: "Our clients typically see 25x ROI within the first 6 months. This comes from reduced manual work, increased conversion rates, and new revenue streams our AI systems identify and capture automatically."
+    question: "Do you guarantee ROI for AI automation projects?",
+    answer: "No. AJ Digital establishes a baseline, agrees on measurable outcomes, and reports what changed. Modeled ROI may help prioritize an investigation, but it is not a guaranteed client result."
   },
   {
     question: "Can you integrate with our existing tools and platforms?",
@@ -89,7 +89,7 @@ export default function HomeFAQ() {
         <div className="mt-12 text-center">
           <p className="text-text-muted mb-6">Still have questions?</p>
           <a
-            href="/book"
+            href="/book-a-call"
             className="inline-flex h-12 items-center justify-center rounded-full px-8 bg-signal-yellow hover:bg-signal-soft text-black text-sm font-bold tracking-wide hover:scale-105 transition"
           >
             Book a Strategy Call
