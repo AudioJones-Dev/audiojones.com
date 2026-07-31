@@ -18,7 +18,7 @@ AJ Digital sells diagnosis, evidence-supported implementation, integration, oper
 ## What was intentionally not changed
 
 - No merge, preview promotion, production deployment, secret, credential, provider, or production environment change.
-- No diagnostic credit, outcome fee, recovered-revenue percentage, guarantee, or SaaS tier was invented.
+- No outcome fee, recovered-revenue percentage, guarantee, or SaaS tier was invented. The ratified diagnostic policy is no automatic implementation credit; ReKonr remains independently deliverable.
 - No dependency, package script, lockfile, route name, CRM, legacy portal/admin surface, or historical document was broadly rewritten.
 - Application revenue-range options remain broader than the directional public ICP so qualification data and free-access paths are not narrowed prematurely.
 
@@ -45,7 +45,7 @@ The complete old-versus-new table and claim disposition are in [`PRICING_OFFER_R
 - `pnpm check:no-firebase` — clean.
 - Current-public-source stale-price/term scan — zero hits.
 - Browser QA — pricing and ResponseOS desktop/mobile, pricing tablet, keyboard sequence, reduced motion, 44px pricing CTAs, no overflow/clipped cards, correct metadata/canonical/JSON-LD, correct CTA route/context/event, 0 console errors/warnings.
-- `git diff --check` and staged secret scan — required immediately before commit.
+- `git diff --check` and staged secret scan — pass for the commercial-decision ratification commit.
 
 Build notes: the isolated worktree does not contain deployment `NEXT_PUBLIC_SITE_URL`; build mode reported it and continued successfully. Existing `/status` dynamic-render and removed-Firebase legacy portal diagnostics also logged without failing the build. These are deployment/legacy gates, not defects introduced here.
 
@@ -53,23 +53,23 @@ Build notes: the isolated worktree does not contain deployment `NEXT_PUBLIC_SITE
 
 See [`docs/visual-evidence/pricing-2026-07-31`](../../visual-evidence/pricing-2026-07-31/) for full desktop/mobile pricing and ResponseOS pages, the FAQ, all changed offer groups, and the managed-pilot application CTA flow.
 
-## Remaining uncertainties and human gates
+## Commercial decisions ratified by Audio
 
-1. Final public starting prices.
-2. Diagnostic-credit policy.
-3. Final directional ICP wording.
-4. Whether detailed ResponseOS prices remain public.
-5. Whether removed performance claims remain removed unless verified evidence is approved.
-6. Stable-source/evidence-register ownership and timing.
-7. Final pricing-review trigger.
-8. Confirmation that all prices remain internally `Testing`.
-9. Human visual/copy approval for publication readiness.
-10. Whether a preview deployment is authorized.
+1. The displayed starting prices are approved for controlled testing, not commercially validated.
+2. ReKonr is independently deliverable and receives no automatic implementation credit; revisit after three comparable paid engagements.
+3. The directional `$500K–$5M+` annual-revenue ICP wording is approved as a strategic assumption.
+4. Detailed ResponseOS Managed Pilot and Core prices remain public during testing.
+5. Unsupported performance claims remain removed unless verified and explicitly approved for publication.
+6. Audio owns claim/publication approval; AJ Digital Ops maintains the evidence register.
+7. Review occurs after three comparable paid acceptances or on 2026-10-31, whichever occurs first.
+8. Every numerical price remains internally `Testing`.
+9. The change is ready for final preview review, not production publication.
+10. The existing automatic preview is approved for human QA only.
 
 ## Pricing review trigger
 
-Proposed: after three comparable paid acceptances for an offer or on 2026-10-31, whichever occurs first. Commercial validation still requires 3–5 comparable clients plus measured scope, delivery/support hours, margin, outcomes, discounting, client understanding, and one review cycle.
+Approved: after three comparable paid acceptances for an offer or on 2026-10-31, whichever occurs first. Commercial validation still requires 3–5 comparable clients plus measured scope, delivery/support hours, margin, outcomes, discounting, client understanding, and one review cycle.
 
 ## Deployment gate
 
-Draft review only. Merge and production deployment are not authorized. No new pricing is approved for publication by this branch or PR.
+The automatic preview is approved for human QA only. The PR remains draft. Merge and production deployment are not authorized and require separate `proceed` gates.

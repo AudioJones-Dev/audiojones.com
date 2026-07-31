@@ -151,7 +151,7 @@ destination to avoid avoidable redirect hops and mixed host signals.
 
 ## 2026-07-31 — Diagnostic-led public pricing enters controlled testing
 
-**Status:** accepted for implementation testing; publication requires Audio approval
+**Status:** accepted for controlled testing; preview QA approved; merge and production publication require separate Audio approval
 **Decision:** The public pricing model follows diagnosis → evidence-supported
 implementation → managed improvement → controlled expansion. ResponseOS is a
 managed Revenue Recovery System, not a self-service receptionist subscription.
@@ -172,8 +172,16 @@ margin, retention, and low founder dependence.
   [`docs/strategy/PRICE_VALIDATION_LEDGER.md`](./strategy/PRICE_VALIDATION_LEDGER.md).
 - The prior public prices and terminology are reconciled in
   [`docs/strategy/PRICING_OFFER_RECONCILIATION_2026-07-31.md`](./strategy/PRICING_OFFER_RECONCILIATION_2026-07-31.md).
-- Merge, preview deployment, production deployment, and publication remain
-  separate human approval gates.
+- Public starting prices, directional ICP wording, public ResponseOS detail,
+  unsupported-claim disposition, evidence ownership, the review trigger, and
+  internal `Testing` status were ratified by Audio on 2026-07-31.
+- The ReKonr diagnostic is independently deliverable and is not automatically
+  credited toward implementation; revisit after three comparable paid ReKonr
+  engagements.
+- Audio owns claim and publication approval; AJ Digital Ops maintains the
+  engagement evidence register.
+- The existing automatic preview is approved for human QA only. Merge and
+  production deployment remain separate `proceed` gates.
 
 ---
 

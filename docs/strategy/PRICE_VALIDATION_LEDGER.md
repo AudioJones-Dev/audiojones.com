@@ -1,9 +1,11 @@
 # AJ Digital Price Validation Ledger
 
-Status: testing baseline
-Owner: Audio / AJ Digital LLC
+Status: approved for controlled testing; every numerical price remains `Testing`
+Claim and publication approval owner: Audio / AJ Digital LLC
+Evidence recordkeeping owner: AJ Digital Ops
 Established: 2026-07-31
 Next scheduled review: 2026-10-31, or after three comparable paid acceptances for any offer, whichever occurs first
+Decision ratified: 2026-07-31
 
 ## Evidence rule
 
@@ -27,6 +29,17 @@ Application-only offers carry no public numerical price. The free AI Readiness S
 | Strategic Partnership | Application only | No public numerical price | None | High-touch scope; no performance compensation | 0 documented | 0 documented | Unknown | Unknown | Unknown | Unknown | Unknown | Low | First approved engagement and post-delivery review | Testing |
 
 `0 documented` means no qualifying acceptance or discount is present in the inspected evidence. It must not be interpreted as a claim that no private commercial discussion has ever occurred.
+
+## Ratified commercial policy
+
+- The published figures are approved starting points for controlled willingness-to-pay testing. They are not externally benchmarked or commercially validated.
+- ResponseOS Managed Pilot and Core prices remain public during testing.
+- The directional ICP is founder-led service businesses, typically generating `$500K–$5M+` in annual revenue. This remains a strategic assumption.
+- The ReKonr diagnostic is independently deliverable and is not automatically credited toward implementation. Revisit this policy after three comparable paid ReKonr engagements.
+- Unsupported performance claims remain removed. A numerical result may return only after evidence verification and explicit publication approval by Audio.
+- Audio owns claim and publication approval. AJ Digital Ops maintains acceptance, discount, scope, hours, margin, outcome, and retention evidence.
+- The next pricing review occurs after three comparable paid acceptances for an offer or on 2026-10-31, whichever occurs first.
+- The automatic preview is approved for human QA only. Merge and production deployment require separate `proceed` gates.
 
 ## Commercial-validation threshold
 

@@ -443,7 +443,7 @@ export const pricingFaqs = [
   {
     question: "Is the diagnostic credited toward implementation?",
     answer:
-      "No public diagnostic-credit policy is currently published. The diagnostic is independently deliverable and required before implementation; no credit should be assumed unless a future written policy is separately approved.",
+      "No. The diagnostic is independently deliverable and is not automatically credited toward implementation. Diagnosis remains required before implementation. AJ Digital will revisit this policy after three comparable paid ReKonr engagements.",
   },
 ] as const;
 

@@ -184,7 +184,9 @@ test("publishes provider, diagnostic, FAQ, and modeled-price guardrails", () => 
   const faqText = pricingFaqs.map(({ question, answer }) => `${question} ${answer}`).join("\n");
   assert.match(faqText, /No public self-service ResponseOS plan/);
   assert.match(faqText, /does not guarantee recovered revenue, ROI, or revenue improvement/);
-  assert.match(faqText, /No public diagnostic-credit policy/);
+  assert.match(faqText, /independently deliverable/);
+  assert.match(faqText, /not automatically credited/);
+  assert.match(faqText, /three comparable paid ReKonr engagements/);
   assert.match(faqText, /modeled starting prices being tested/);
 
   for (const responseOsOffer of implementationOffers.slice(0, 2)) {

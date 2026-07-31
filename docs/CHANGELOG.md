@@ -20,7 +20,9 @@ Entries are reverse chronological. Format follows
   implementation, Managed Intelligence, and controlled expansion; replaced
   commodity ResponseOS tiers and unsupported performance proof with scoped
   starting prices, evidence guardrails, conservative structured data, tracked
-  CTAs, and a price-validation ledger. Publication remains human-gated.
+  CTAs, and a price-validation ledger. Audio ratified the commercial testing
+  decisions and automatic preview QA on 2026-07-31; merge and production
+  publication remain separately gated.
 
 ### Tooling
 - Added `.github/workflows/validation-summary.yml` (Phase 1 of

@@ -1,6 +1,6 @@
 # AJ Digital Pricing and Offer Reconciliation — 2026-07-31
 
-Status: implementation draft; human approval required before preview, merge, or publication
+Status: commercial decisions approved for controlled testing; automatic preview approved for human QA; merge and production publication remain separately gated
 Authority: 2026-07-31 AJ Digital Pricing and Offer Architecture Website Update execution contract
 Public source of truth: `src/content/pricing.ts`
 Evidence ledger: [`PRICE_VALIDATION_LEDGER.md`](./PRICE_VALIDATION_LEDGER.md)
@@ -17,17 +17,17 @@ Revenue Leak Snapshot → ReKonr Paid Diagnostic → Evidence-Supported Implemen
 
 | Old offer | Old public price | New offer | New public price | Price truth state | Terminology change | Reason | Historical references | Human approval |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| AI Readiness Score | Free | AI Readiness Score | Free | Qualification entry | Description clarified | Keep the no-cost orientation path without presenting it as a complete diagnostic | Retained | Required before publication |
-| Revenue Leak Diagnostic | $1,997 | Revenue Leak Assessment | $1,997 | Pilot hypothesis | Diagnostic → bounded assessment | Separate one-workflow assessment from the complete ReKonr diagnostic | Superseded in current public source; historical strategy references retained | Required before publication |
-| AI Readiness Kaizen Diagnostic | $3,500 | ReKonr Revenue Recovery Diagnostic | From $3,500 | Pilot hypothesis | Kaizen diagnostic → ReKonr | Establish the first complete paid diagnostic engagement and 90-day blueprint | Superseded in current public source; historical strategy references retained | Required before publication |
-| AI Readiness Workshop | $2,500–$3,500 | Team AI Readiness Workshop | From $2,500 | Pilot hypothesis | Workshop clarified | Separate education/alignment from the diagnostic progression | Superseded in current public source | Required before publication |
-| ResponseOS Starter | $397/month | ResponseOS Managed Pilot | From $8,500 implementation + from $1,500/month + provider usage | Pilot hypothesis | SaaS tier → managed pilot | Price implementation, integration, monitoring, support, and operating responsibility separately from usage | Superseded in current public source; proposal-era references retained as historical | Required before publication |
-| ResponseOS Core | $797/month | ResponseOS Core | From $12,500 implementation + from $2,500/month + provider usage | Pilot hypothesis | Subscription tier → managed core deployment | Make multi-channel, multi-workflow, integration, volume, reporting, and support scope explicit | Superseded in current public source; proposal-era references retained as historical | Required before publication |
-| ResponseOS Pro | $1,297/month | No direct tier | Superseded by Managed Pilot/Core scope distinction | No current price | Commodity tier removed | Avoid an unsupported third software tier before standardization evidence exists | Historical proposal only | Resolved by execution contract; publication still requires approval |
-| Founder Intelligence System Install | Custom; most $5,000–$25,000+ | Founder Intelligence System | From $15,000 | Pilot hypothesis | Install → governed system | Avoid anchoring a complete system at $5,000 and clarify component variability | Superseded in current public source; proposal-era references retained as historical | Required before publication |
-| Managed Intelligence Retainer | From $2,000/month | Managed Intelligence | From $2,500/month | Pilot hypothesis | Retainer → recurring service layer | Define monitoring, reporting, optimization, memory maintenance, support, and decision support | Superseded in current public source; proposal-era references retained as historical | Required before publication |
-| No current public offer | None | Worksie Reference Pilot | Application only | No public numerical price | New controlled reference | Keep Worksie narrow, workflow-specific, and evidence-gated | New | Required before publication |
-| Performance Partnership | Application only; result-based language | Strategic Partnership | Application only | No public numerical price | Performance → strategic | Remove outcome fees, recovered-revenue percentages, performance compensation, and guarantees | Superseded in current public source; proposal-era references retained as historical | Required before publication |
+| AI Readiness Score | Free | AI Readiness Score | Free | Qualification entry | Description clarified | Keep the no-cost orientation path without presenting it as a complete diagnostic | Retained | Approved for controlled testing |
+| Revenue Leak Diagnostic | $1,997 | Revenue Leak Assessment | $1,997 | Pilot hypothesis | Diagnostic → bounded assessment | Separate one-workflow assessment from the complete ReKonr diagnostic | Superseded in current public source; historical strategy references retained | Approved for controlled testing |
+| AI Readiness Kaizen Diagnostic | $3,500 | ReKonr Revenue Recovery Diagnostic | From $3,500 | Pilot hypothesis | Kaizen diagnostic → ReKonr | Establish the first complete paid diagnostic engagement and 90-day blueprint | Superseded in current public source; historical strategy references retained | Approved for controlled testing |
+| AI Readiness Workshop | $2,500–$3,500 | Team AI Readiness Workshop | From $2,500 | Pilot hypothesis | Workshop clarified | Separate education/alignment from the diagnostic progression | Superseded in current public source | Approved for controlled testing |
+| ResponseOS Starter | $397/month | ResponseOS Managed Pilot | From $8,500 implementation + from $1,500/month + provider usage | Pilot hypothesis | SaaS tier → managed pilot | Price implementation, integration, monitoring, support, and operating responsibility separately from usage | Superseded in current public source; proposal-era references retained as historical | Approved for controlled testing |
+| ResponseOS Core | $797/month | ResponseOS Core | From $12,500 implementation + from $2,500/month + provider usage | Pilot hypothesis | Subscription tier → managed core deployment | Make multi-channel, multi-workflow, integration, volume, reporting, and support scope explicit | Superseded in current public source; proposal-era references retained as historical | Approved for controlled testing |
+| ResponseOS Pro | $1,297/month | No direct tier | Superseded by Managed Pilot/Core scope distinction | No current price | Commodity tier removed | Avoid an unsupported third software tier before standardization evidence exists | Historical proposal only | Resolved; no replacement tier approved |
+| Founder Intelligence System Install | Custom; most $5,000–$25,000+ | Founder Intelligence System | From $15,000 | Pilot hypothesis | Install → governed system | Avoid anchoring a complete system at $5,000 and clarify component variability | Superseded in current public source; proposal-era references retained as historical | Approved for controlled testing |
+| Managed Intelligence Retainer | From $2,000/month | Managed Intelligence | From $2,500/month | Pilot hypothesis | Retainer → recurring service layer | Define monitoring, reporting, optimization, memory maintenance, support, and decision support | Superseded in current public source; proposal-era references retained as historical | Approved for controlled testing |
+| No current public offer | None | Worksie Reference Pilot | Application only | No public numerical price | New controlled reference | Keep Worksie narrow, workflow-specific, and evidence-gated | New | Approved for controlled testing |
+| Performance Partnership | Application only; result-based language | Strategic Partnership | Application only | No public numerical price | Performance → strategic | Remove outcome fees, recovered-revenue percentages, performance compensation, and guarantees | Superseded in current public source; proposal-era references retained as historical | Approved for controlled testing |
 
 ## Pricing evidence state
 
@@ -66,7 +66,7 @@ This is a strategic ICP assumption, not a statistically validated segmentation b
 
 ## Diagnostic-credit policy
 
-No approved policy was found in current canonical documentation or the separately ratified documentation worktree. Public copy states only that diagnosis is required before implementation. No credit, percentage, expiration period, or eligible implementation is promised.
+The ReKonr diagnostic is independently deliverable and is not automatically credited toward implementation. Diagnosis remains required before implementation. The policy will be revisited after three comparable paid ReKonr engagements.
 
 ## Validation and review triggers
 
@@ -123,17 +123,19 @@ Complete intentional branch file set:
 
 Transient Playwright state and baseline capture files under `.playwright-cli/` and `output/` are not part of the branch file set and must remain unstaged.
 
-## Decisions still requiring Audio
+## Ratified decisions
 
-1. Final public starting prices.
-2. Whether a diagnostic-credit policy should exist.
-3. Final directional ICP wording.
-4. Whether detailed ResponseOS pricing remains public.
-5. Whether removed performance claims stay removed or return only with approved evidence.
-6. Ownership and timing for stable-source/evidence-register gaps.
-7. Whether the next review trigger is three paid acceptances, 2026-10-31, or a different approved threshold.
-8. Whether every numerical price remains internally marked `Testing`.
-9. Whether the preview is publication-ready after human QA.
-10. Whether a preview deployment is authorized.
+Audio approved the following commercial decisions on 2026-07-31:
 
-No item above is approved merely because the implementation exists in a branch or draft PR.
+1. The displayed starting prices are approved for controlled willingness-to-pay testing and are not commercially validated.
+2. The diagnostic is not automatically credited; it remains independently deliverable, with policy review after three comparable paid ReKonr engagements.
+3. The directional ICP wording is approved as written and remains a strategic assumption.
+4. Detailed ResponseOS Managed Pilot and Core pricing remains public during testing.
+5. Unsupported performance claims remain removed and may return only after evidence verification and explicit publication approval.
+6. Audio owns claim and publication approval; AJ Digital Ops owns evidence-register maintenance.
+7. The review trigger is three comparable paid acceptances or 2026-10-31, whichever occurs first.
+8. Every numerical price remains internally marked `Testing`.
+9. The update is not approved for production; it is ready for final preview review.
+10. The existing automatic preview is approved for human QA only.
+
+This ratification does not authorize merge or production deployment. Those remain separate `proceed` gates.

@@ -258,8 +258,8 @@ export default function ResponseOsPage() {
           ))}
         </div>
         <p className="mt-8 max-w-4xl text-sm leading-7 text-fg-2">
-          {providerUsagePolicy} No diagnostic credit is promised because no public
-          diagnostic-credit policy has been approved.
+          {providerUsagePolicy} The diagnostic is independently deliverable and is
+          not automatically credited toward implementation.
         </p>
       </DarkSection>
 

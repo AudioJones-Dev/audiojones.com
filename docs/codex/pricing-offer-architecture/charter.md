@@ -25,13 +25,13 @@ In scope:
 Out of scope:
 
 - Merging any pull request.
-- Creating or promoting a preview deployment without separate Audio approval.
+- Promoting a preview deployment beyond the automatic human-QA preview approved by Audio on 2026-07-31.
 - Deploying or promoting to production.
 - Changing secrets, credentials, provider accounts, or production environment variables.
 - Publishing outcome-based, success-fee, recovered-revenue-percentage, guarantee, or SaaS pricing.
 - Reintroducing Firebase or deepening legacy portal/admin surfaces.
 - Globally rewriting historical documents that are clearly historical or superseded.
-- Inventing a diagnostic-credit policy, client evidence, benchmark, attribution result, or commercial validation.
+- Inventing client evidence, a benchmark, an attribution result, or commercial validation beyond the ratified no-automatic-credit diagnostic policy.
 - Replacing an existing CRM or system of record by default.
 
 ### Voice of the customer
@@ -52,7 +52,7 @@ Founder-led service-business buyers need a clear low-risk path from preliminary 
 10. Repository validation passes: frozen-lockfile install, typecheck, lint, no-Firebase guard, production build, relevant tests/checks, secret scan, and `git diff --check`.
 11. Browser QA covers desktop, tablet, common mobile widths, keyboard/focus, overflow, console errors, CTA routes, and screenshots for pricing, ResponseOS, FAQ, and each changed offer group.
 12. Documentation includes a complete old-to-new reconciliation, a price-validation ledger with all new prices at `Testing`, claim disposition, review triggers, remaining decisions, and no unsupported benchmark or validation language.
-13. Git handoff ends at a pushed branch and draft PR; merge, preview deployment, and production deployment remain not authorized.
+13. Git handoff ends at a pushed branch and draft PR; the automatic preview may be used for approved human QA, while merge and production deployment remain not authorized.
 
 ### Constraints and non-goals
 
@@ -126,7 +126,7 @@ Tracked-repository search counts before implementation:
 - `$500K-$5M+`: strategic ICP assumption.
 - `+38%`, `<9 min`, and related achieved-result wording: unsupported public claims in the inspected evidence.
 - `1 inbox`: unlabeled operational target, not verified client proof.
-- Diagnostic credit: no approved policy found in current canonical docs or the ratified documentation worktree.
+- Diagnostic credit baseline: no approved policy existed before implementation. Audio subsequently ratified no automatic implementation credit, with ReKonr independently deliverable and review after three comparable paid engagements.
 
 ### Repeatable measurement methods
 
@@ -259,7 +259,7 @@ Main risk: a ten-offer page can become dense on small screens. Mitigation: use j
 
 ### Runbook and owner
 
-If old price tiers, retired categories, unsupported proof, mismatched schema, or lost CTA context recur, run `pnpm exec tsx --test test/pricing-offers.test.ts`, inspect `src/content/pricing.ts`, then compare the public surfaces with the reconciliation and ledger before changing copy. Audio / AJ Digital LLC owns price evidence, publication approval, review-trigger decisions, and the diagnostic-credit policy. Repository maintainers own the automated guard.
+If old price tiers, retired categories, unsupported proof, mismatched schema, or lost CTA context recur, run `pnpm exec tsx --test test/pricing-offers.test.ts`, inspect `src/content/pricing.ts`, then compare the public surfaces with the reconciliation and ledger before changing copy. Audio / AJ Digital LLC owns claim and publication approval. AJ Digital Ops owns evidence-register maintenance, and repository maintainers own the automated guard. Audio ratified the commercial decisions and automatic preview for human QA on 2026-07-31; merge and production remain separately gated.
 
 ### Control exit gate
 
@@ -269,4 +269,4 @@ If old price tiers, retired categories, unsupported proof, mismatched schema, or
 - [x] The recurrence runbook and owners are named.
 - [x] Final signals are recorded baseline to result.
 
-Charter status: complete for branch implementation and human review. Publication remains human-gated.
+Charter status: complete for branch implementation and final preview review. Commercial decisions and automatic preview QA are approved. Merge and production publication remain separate `proceed` gates.
