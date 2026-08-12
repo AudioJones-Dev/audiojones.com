@@ -33,8 +33,8 @@ export default function RoiLeadMagnet() {
             How much revenue is leaking through slow follow-up?
           </h2>
           <p className="mt-5 text-lg leading-8 text-fg-2">
-            Estimate the cost of missed demand before deciding whether
-            ResponseOS is the right recovery layer.
+            Estimate what missed demand is costing you before you decide
+            what to fix first.
           </p>
           <Link href="/roi-calculator" className="aj-btn-signal mt-8">
             Calculate Lost Revenue
