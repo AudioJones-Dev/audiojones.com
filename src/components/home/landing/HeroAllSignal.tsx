@@ -273,6 +273,7 @@ export default function HeroAllSignal() {
             fontSize: "11px",
             fontWeight: 600,
             letterSpacing: "0.22em",
+            lineHeight: 1.6,
             textTransform: "uppercase",
             color: INK,
             marginBottom: "20px",
@@ -286,12 +287,13 @@ export default function HeroAllSignal() {
             style={{
               width: "22px",
               height: "8px",
+              flexShrink: 0,
               background: SIGNAL,
               borderRadius: "2px",
               display: "inline-block",
             }}
           />
-          Founder Intelligence Systems
+          Founder Intelligence Systems for founder-led service businesses
         </span>
 
         {/* Desktop heading — same content as the canonical mobile <h1>
@@ -356,7 +358,7 @@ export default function HeroAllSignal() {
             Book Your Diagnostic
           </ButtonLink>
           <a
-            href="#system-model"
+            href="#process"
             style={{
               fontFamily: "var(--font-body)",
               fontSize: "13px",
@@ -407,6 +409,7 @@ export default function HeroAllSignal() {
             fontSize: "10px",
             fontWeight: 600,
             letterSpacing: "0.22em",
+            lineHeight: 1.6,
             textTransform: "uppercase",
             color: INK,
             marginBottom: "16px",
@@ -420,12 +423,13 @@ export default function HeroAllSignal() {
             style={{
               width: "20px",
               height: "8px",
+              flexShrink: 0,
               background: SIGNAL,
               borderRadius: "2px",
               display: "inline-block",
             }}
           />
-          Founder Intelligence Systems
+          Founder Intelligence Systems for founder-led service businesses
         </span>
 
         <h1
@@ -485,7 +489,7 @@ export default function HeroAllSignal() {
             Book Your Diagnostic
           </ButtonLink>
           <a
-            href="#system-model"
+            href="#process"
             style={{
               fontFamily: "var(--font-body)",
               fontSize: "12px",
