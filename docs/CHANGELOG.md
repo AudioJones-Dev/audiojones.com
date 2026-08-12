@@ -24,7 +24,19 @@ Entries are reverse chronological. Format follows
   `human-approval` / `none`). Local mirror via `pnpm validate` and
   `pnpm validate:summary`. No new secrets; Phase 2 webhook deferred.
 
+### Changed
+- Reordered the homepage narrative to pain → economic cost → diagnosis →
+  proof → system → architecture (`src/app/page.tsx`). Section components
+  are unchanged and unmoved on disk; only their order and the ROI
+  section's lead sentence changed. Repointed the hero's dead
+  `#system-model` link to `#process`.
+
 ### Documentation
+- Added `docs/strategy/AJ_DIGITAL_S_CURVE_POSITIONING.md`: separates the
+  commercial, research, and platform theses, and adds the portfolio
+  filter used to decide whether a new product idea compounds. Recorded
+  as an ADR in `docs/DECISIONS.md` (2026-08-12). Does not resolve the
+  open offer-ladder ratification.
 - Promoted `docs/design/DESIGN.md` as the canonical design-system file,
   kept `docs/DESIGN.md` as a redirect stub, and removed the tracked
   lowercase `docs/design.md` duplicate that cannot coexist cleanly on
