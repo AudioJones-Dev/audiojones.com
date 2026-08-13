@@ -203,13 +203,19 @@ export default function HeroAllSignal() {
       {/* ── 4. Metrics strip — desktop >= 1024px ──
            Self-contained dark chip: signal-yellow stays readable on its own
            dark surface, and the chip anchors the otherwise-white field.
-           NOTE: display value MUST stay in className (hidden lg:flex). ── */}
+           NOTE: display value MUST stay in className (hidden lg:flex).
+           NOTE: bottom must clear the Javi launcher, which is fixed to the
+           viewport's bottom-right corner (JaviChatWidget, bottom-5 right-5,
+           ~142x66px). The hero is `clamp(820px, 100vh - 40px, 1040px)` tall
+           and starts below the 80px header, so a bottom offset under ~34%
+           puts this chip under the launcher on every viewport shorter than
+           about 1100px. ── */}
       <div
         className="hidden lg:flex"
         style={{
           position: "absolute",
           right: "3.5rem",
-          bottom: "10%",
+          bottom: "34%",
           zIndex: 6,
           flexDirection: "column",
           gap: "5px",
