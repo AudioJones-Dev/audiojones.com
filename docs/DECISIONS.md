@@ -153,8 +153,14 @@ destination to avoid avoidable redirect hops and mixed host signals.
 
 **Status:** accepted
 **Decision:** Public surfaces lead with the buyer's problem and its economic
-cost. The category name and the system architecture appear after the proof,
-not before it. The long-horizon thesis — machine-readable operating models,
+cost. Concretely: the `h1` is problem-anchored, and the sections that explain
+the category and the system architecture come after the proof rather than
+before it. This governs the narrative order and the headline — not the
+category label itself, which still appears as the hero eyebrow, verbatim and
+qualified, per the naming rules and
+[`docs/codex/responseos-v1-brief.md`](./codex/responseos-v1-brief.md) §6
+("the H1 is problem-anchored, not category-anchored").
+The long-horizon thesis — machine-readable operating models,
 agentic business operations — stays in `docs/strategy/` and is not published
 as page copy, product naming, or metadata. Canonical statement:
 [`docs/strategy/AJ_DIGITAL_S_CURVE_POSITIONING.md`](./strategy/AJ_DIGITAL_S_CURVE_POSITIONING.md).

@@ -88,8 +88,8 @@ export default function RoiLeadMagnet() {
               $28,224
             </p>
             <p className="mt-2 text-sm leading-6 text-fg-2">
-              Preview only. The calculator routes the result into ResponseOS or
-              the AI Readiness Diagnostic.
+              Preview only. The calculator routes the result into your
+              recommended next step.
             </p>
           </div>
         </div>

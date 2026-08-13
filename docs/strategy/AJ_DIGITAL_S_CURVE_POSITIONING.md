@@ -19,7 +19,7 @@ related:
 > might **become**. Collapsing them is what produces abstract homepage copy
 > and an ever-growing product list. This document keeps them apart and adds
 > a pass/fail filter for new product ideas.
-
+>
 > **What this document does not do.** It does not resolve the offer-ladder
 > conflict recorded in `AJ_DIGITAL_CANONICAL_OFFER_RATIFICATION_PROPOSAL.md`
 > §8 (still `proposal-awaiting-approval`). It names no prices, renames no
@@ -67,7 +67,7 @@ issue or PR with an owner. This has neither, by design.
 The three theses are not alternatives. They are stages of one loop, and
 the loop is the reason the frontier stays unpublished.
 
-```
+```text
 TODAY'S BUYER
 missed leads · revenue leaks · founder as bottleneck
         │ funds
@@ -111,7 +111,7 @@ produces a successful outcome.
 
 The moat is therefore a product, not a sum:
 
-```
+```text
 domain access
   × operational discovery
   × workflow architecture
