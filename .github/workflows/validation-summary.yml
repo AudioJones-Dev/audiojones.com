@@ -150,32 +150,41 @@ jobs:
             const headSha = process.env.HEAD_SHA;
             const watched = new Set(['CI', 'Build & Lint', 'Smoke Test (Preview)']);
 
-            const checks = await github.paginate(
-              github.rest.checks.listForRef,
-              { ...context.repo, ref: headSha, per_page: 100 },
+            // `watched` holds WORKFLOW names, so read workflow runs. Check runs
+            // carry the JOB name (`validate`, `verify`, `build`, `Preflight`, …),
+            // which never matches — that mismatch left `steps` empty and made
+            // every PR report a failure.
+            const runs = await github.paginate(
+              github.rest.actions.listWorkflowRunsForRepo,
+              { ...context.repo, head_sha: headSha, per_page: 100 },
             );
 
             const byWorkflow = {};
-            for (const c of checks) {
-              if (!watched.has(c.name)) continue;
-              const existing = byWorkflow[c.name];
-              if (!existing || new Date(c.completed_at || 0) > new Date(existing.completed_at || 0)) {
-                byWorkflow[c.name] = c;
+            for (const r of runs) {
+              if (!watched.has(r.name)) continue;
+              const existing = byWorkflow[r.name];
+              if (!existing || new Date(r.updated_at || 0) > new Date(existing.updated_at || 0)) {
+                byWorkflow[r.name] = r;
               }
             }
 
-            const steps = Object.values(byWorkflow).map((c) => ({
-              name: c.name,
-              status: c.status,
-              conclusion: c.conclusion,
-              url: c.html_url,
+            const steps = Object.values(byWorkflow).map((r) => ({
+              name: r.name,
+              status: r.status,
+              conclusion: r.conclusion,
+              url: r.html_url,
             }));
 
             const isFailure = (c) =>
               c && c.conclusion && !['success', 'skipped', 'neutral'].includes(c.conclusion);
             const failed = steps.filter((s) => isFailure(s));
             const skipped = steps.filter((s) => s.conclusion === 'skipped' || s.conclusion === 'neutral');
-            const allGreen = failed.length === 0 && steps.length > 0;
+            // A run still in flight has no conclusion yet, and an empty set means
+            // nothing has reported. Neither is a failure — treating them as one is
+            // what produced the false red.
+            const pending = steps.filter((s) => s.status !== 'completed');
+            const allGreen = failed.length === 0 && pending.length === 0 && steps.length > 0;
+            const isPending = failed.length === 0 && (pending.length > 0 || steps.length === 0);
 
             const pr = await github.rest.pulls.get({ ...context.repo, pull_number: prNumber });
             const files = await github.paginate(github.rest.pulls.listFiles, {
@@ -207,7 +216,12 @@ jobs:
             let nextAction = 'none';
             let nextActionReason = 'All checks green; ready for review or merge.';
 
-            if (!allGreen) {
+            if (isPending) {
+              nextAction = 'none';
+              nextActionReason = steps.length === 0
+                ? 'No watched workflow run has reported for this commit yet; nothing to classify.'
+                : `Still running: ${pending.map((p) => p.name).join(', ')}.`;
+            } else if (!allGreen) {
               const failedNames = failed.map((f) => f.name);
               const codeGateFailed = failedNames.some((n) => /^(CI|Build & Lint)$/.test(n));
               const smokeFailed = failedNames.some((n) => /Smoke Test/.test(n));
@@ -243,7 +257,7 @@ jobs:
               triggering_workflow: context.payload.workflow_run.name,
               triggering_run_id: context.payload.workflow_run.id,
               generated_at: new Date().toISOString(),
-              overall_status: allGreen ? 'pass' : 'fail',
+              overall_status: allGreen ? 'pass' : isPending ? 'pending' : 'fail',
               steps,
               failed_steps: failed,
               skipped_steps: skipped,
