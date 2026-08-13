@@ -15,6 +15,17 @@ Entries are reverse chronological. Format follows
 
 ## Unreleased
 
+### Changed
+- Removed the remaining unsourced performance figures from `/agents`,
+  `/agents/responseos`, and `/case-studies`. The shared `proofSignals`
+  hero stats published a `+38%` reply-rate lift and a `<9 min` median
+  first response as measured outcomes; neither has a source. They now
+  describe how the installed system behaves, matching the treatment the
+  homepage `ProofStats` section received. `agentsProofStrip` — unused by
+  any surface, and holding `$214K` plus an unattributable testimonial —
+  is annotated in place as not publishable rather than wired up.
+  Recorded in `docs/strategy/CLAIM_VERIFICATION_LOG.md`.
+
 ### Fixed
 - The validation-summary circuit breaker never worked. It counted runs
   via `workflow_id: context.workflow` — a display name where the Actions
