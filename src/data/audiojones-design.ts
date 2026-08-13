@@ -76,18 +76,22 @@ export const responseOsFlow = [
   },
 ] as const;
 
+// Rendered as hero stats on /agents, /agents/responseos and /case-studies.
+// These describe how the installed system behaves — they are not measured
+// client outcomes. A performance figure belongs here only once it has an
+// entry in docs/strategy/CLAIM_VERIFICATION_LOG.md.
 export const proofSignals = [
   {
-    metric: "+38%",
-    label: "Reply rate lift on missed inquiries after ResponseOS.",
+    metric: "One inbox",
+    label: "Every channel consolidated into a single recovery view.",
   },
   {
-    metric: "<9 min",
-    label: "Median time-to-first-response on high-intent leads.",
+    metric: "On an SLA",
+    label: "Inbound answered on a defined clock, not when someone is free.",
   },
   {
-    metric: "1 inbox",
-    label: "Every channel consolidated into one recovery view.",
+    metric: "Recovery cadence",
+    label: "Stalled leads are re-engaged on a schedule, not when somebody remembers.",
   },
 ] as const;
 
@@ -142,6 +146,12 @@ export const diagnosticDimensions = [
   "Team adoption",
 ] as const;
 
+// ⚠ NOT RENDERED, AND NOT PUBLISHABLE AS-IS. No consumer imports this today.
+// The figures below have no source and the quote has no identified client or
+// consent on record, so wiring this up would publish an unverifiable
+// testimonial alongside unsourced numbers. Before any surface renders it,
+// every figure needs an entry in docs/strategy/CLAIM_VERIFICATION_LOG.md and
+// the quote needs a named, consenting client.
 export const agentsProofStrip = {
   quote: {
     body: "We did not need another tool. We needed a system that owned the follow-up. ResponseOS closed the gap in three weeks.",

@@ -100,6 +100,43 @@ businesses — the qualifier has to be prominent, not a footnote.
 
 ---
 
+## Withdrawn from publication — no source exists
+
+These were published as measured outcomes. Nothing in the repository
+supports them, and the doctrine audit
+(`AUDIOJONES_DOCTRINE_ALIGNMENT_AUDIT.md`) had already recorded that there
+is "effectively no hard proof on doctrine terms." They are removed rather
+than cited, because a citation cannot be attached to a number that was
+never measured.
+
+| Claim | Was published on | Action |
+|---|---|---|
+| `↓37%` CAC, `↑28%` pipeline, `↑42%` conversion | homepage hero + `ProofStats` | Removed (#206) |
+| `↑41%` pipeline drift | homepage `ProofStats` "before" card | Removed (#206) |
+| `+38%` reply-rate lift | `/agents`, `/agents/responseos`, `/case-studies` hero | Replaced with a capability statement |
+| `<9 min` median first response | same three pages | Replaced with a capability statement |
+
+`proofSignals` in `src/data/audiojones-design.ts` now describes how the
+installed system behaves rather than asserting outcomes, matching the
+treatment `ProofStats` received.
+
+### Held back, not published
+
+`agentsProofStrip` in the same file carries `+38%`, `<9 min`, `$214K`
+"recovered revenue, first 90 days", and a testimonial attributed only to
+"Founder, professional services, $1.2M run-rate". **No surface imports
+it**, so none of this has been published. It is annotated in place rather
+than deleted: the figures need entries in this log, and the quote needs a
+named client with consent on record, before anything renders it. A
+fabricated testimonial is a worse exposure than a fabricated metric.
+
+The three `/case-studies` entries carry qualitative outcomes only
+("Follow-up gap identified", "Signal scorecard created"), so they need no
+change here — but they remain anonymous placeholders rather than real
+proof.
+
+---
+
 ## How to add an entry
 
 1. Open the canonical source URL and read the figure in the source itself.
