@@ -15,6 +15,25 @@ Entries are reverse chronological. Format follows
 
 ## Unreleased
 
+### Changed
+- Removed the unsourced performance figures from the homepage. The hero's
+  ↓37% / ↑28% / ↑42% chip and the `ProofStats` tiles presented numbers
+  that were never measured — the doctrine audit had already recorded that
+  there is "effectively no hard proof on doctrine terms." The hero now
+  carries one third-party claim verified at its primary source, with its
+  qualifier and a `<cite>` link; `ProofStats` keeps its before/after
+  structure but describes what the system does instead of asserting
+  outcomes.
+
+### Documentation
+- Added `docs/strategy/CLAIM_VERIFICATION_LOG.md`, the citations file
+  required by `AUDIOJONES_NICHE_VALIDATION_CORRECTIONS.md` §1. Records
+  primary-source checks and, notably, two claims the corrections table
+  marks SAFE that did **not** verify — the 9.3 hrs/week context-switching
+  figure is absent from Asana's index, and the MIT NANDA 95% figure has
+  no openable primary URL. Both are blocked from publication pending an
+  amendment to §1.
+
 ### Tooling
 - Added `.github/workflows/validation-summary.yml` (Phase 1 of
   `docs/ops/AUTOMATED_VALIDATION_REVIEW_LOOP.md`): aggregates `CI`,
