@@ -7,7 +7,9 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import type { 
+import { listIncidentRecords } from '@/db/incidents';
+import { serializeIncidentsForFeed, applyFeedFilters } from '@/lib/server/incidentFeed';
+import type {
   IncidentFeedResponse, 
   IncidentFeedErrorResponse, 
   IncidentFeedQuery 
@@ -30,10 +32,24 @@ export async function GET(request: NextRequest) {
     // Check for status page token (optional enhanced access)
     const isEnhanced = tokenParam === process.env.STATUS_PAGE_SECRET;
     
-    // Firebase/Firestore was removed from audiojones.com (see docs/architecture/stack-decision.md)
-    // and no NeonDB-backed incident store has been built yet. Until it is, the feed reports
-    // no active incidents instead of throwing, so the public status page stays up.
-    const incidents: IncidentFeedResponse['incidents'] = [];
+    // Query NeonDB with extra buffer for in-memory status filtering
+    const sinceDate = since ? new Date(since) : null;
+    const validSince = sinceDate && !isNaN(sinceDate.getTime()) ? sinceDate : null;
+
+    const records = await listIncidentRecords({
+      sinceIso: validSince?.toISOString(),
+      limit: limit * 2,
+    });
+
+    // Serialize incidents using existing helper
+    const allIncidents = serializeIncidentsForFeed(records);
+
+    // Apply filters using existing helper
+    const incidents = applyFeedFilters(allIncidents, {
+      status: statusFilter || undefined,
+      since: validSince || undefined,
+      limit,
+    });
     
     // Build response
     const response: IncidentFeedResponse = {
@@ -70,21 +86,23 @@ export async function GET(request: NextRequest) {
     });
     
   } catch (error) {
-    console.error('Error in public incidents API:', error);
-    
-    const errorResponse = {
-      ok: false,
-      error: 'Internal server error',
+    // DB unreachable / not provisioned: degrade honestly to an empty feed
+    // rather than a 500 so status consumers keep rendering.
+    console.error('Error in public incidents API, returning empty feed:', error);
+
+    const fallback: IncidentFeedResponse = {
+      ok: true,
       incidents: [],
       count: 0,
       timestamp: new Date().toISOString(),
     };
-    
-    return new NextResponse(JSON.stringify(errorResponse), {
-      status: 500,
+
+    return new NextResponse(JSON.stringify(fallback), {
+      status: 200,
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
+        'Cache-Control': 'no-store',
       },
     });
   }

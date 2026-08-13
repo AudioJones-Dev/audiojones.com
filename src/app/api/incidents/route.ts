@@ -10,7 +10,9 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import type { 
+import { listIncidentRecords } from '@/db/incidents';
+import { serializeIncidentsForFeed, applyFeedFilters } from '@/lib/server/incidentFeed';
+import type {
   IncidentFeedResponse, 
   IncidentFeedErrorResponse, 
   IncidentFeedQuery 
@@ -60,10 +62,8 @@ export async function GET(req: NextRequest): Promise<NextResponse<IncidentFeedRe
 
     console.log(`📡 Incident feed request: ${JSON.stringify(filters.data)}`);
 
-    // Firebase/Firestore was removed from audiojones.com (see docs/architecture/stack-decision.md)
-    // and no NeonDB-backed incident store has been built yet. Until it is, the feed reports
-    // no active incidents instead of throwing, so the public status page stays up.
-    const incidents: IncidentFeedResponse['incidents'] = [];
+    // Fetch incidents from NeonDB
+    const incidents = await fetchIncidents(filters.data);
 
     // Build response
     const response: IncidentFeedResponse = {
@@ -90,16 +90,25 @@ export async function GET(req: NextRequest): Promise<NextResponse<IncidentFeedRe
     });
 
   } catch (error) {
-    console.error('❌ Incident feed API error:', error);
-    
-    return NextResponse.json(
-      {
-        ok: false,
-        error: 'internal-error',
-        message: 'Failed to fetch incidents'
-      },
-      { status: 500 }
-    );
+    // DB unreachable / not provisioned: degrade honestly to an empty feed so
+    // the status page renders "operational" instead of erroring.
+    console.error('❌ Incident feed API error, returning empty feed:', error);
+
+    const fallback: IncidentFeedResponse = {
+      ok: true,
+      incidents: [],
+      count: 0,
+      timestamp: new Date().toISOString()
+    };
+
+    return NextResponse.json(fallback, {
+      headers: {
+        'Cache-Control': 'no-store',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET',
+        'Access-Control-Allow-Headers': 'Content-Type, x-incident-feed-token'
+      }
+    });
   }
 }
 
@@ -215,6 +224,31 @@ function parseQueryFilters(query: IncidentFeedQuery): {
     success: true,
     data: filters
   };
+}
+
+/**
+ * Fetch incidents from NeonDB with basic filtering
+ */
+async function fetchIncidents(filters: {
+  status?: string[];
+  since?: Date;
+  limit?: number;
+}) {
+  // Fetch extra to account for in-memory status filtering
+  const records = await listIncidentRecords({
+    sinceIso: filters.since?.toISOString(),
+    limit: Math.min(filters.limit! * 2, MAX_LIMIT)
+  });
+
+  // Serialize to safe format
+  const incidents = serializeIncidentsForFeed(records);
+
+  // Apply additional filters in memory
+  return applyFeedFilters(incidents, {
+    status: filters.status,
+    since: filters.since,
+    limit: filters.limit
+  });
 }
 
 // Handle CORS preflight requests

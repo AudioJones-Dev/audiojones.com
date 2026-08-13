@@ -1,12 +1,29 @@
 /**
  * Incident Management System
- * 
+ *
  * Groups related alerts into incidents with chronological timeline.
  * Provides runbook attachment and status management.
+ *
+ * Persistence lives on NeonDB (db/migrations/003_incidents.sql) via the
+ * query helpers in src/db/incidents.ts.
  */
 
 import 'server-only';
-import { getDb } from '@/lib/server/firebaseAdmin';
+import {
+  attachIncidentRunbook,
+  deactivateSubscriptionRecord,
+  findActiveRunbookBySource,
+  findOpenIncidentRecordBySource,
+  getIncidentById,
+  getSubscriptionRecord,
+  insertIncident,
+  listActiveSubscriptionsForIncident,
+  listActiveSubscriptionsForSubscriber,
+  listIncidentRecords,
+  updateIncidentStatusRecord,
+  updateIncidentTimeline,
+  upsertSubscriptionRecord,
+} from '@/db/incidents';
 import type { Alert } from '@/lib/server/alertRules';
 
 export interface IncidentTimelineEvent {
@@ -23,10 +40,13 @@ export interface Incident {
   severity: 'info' | 'warning' | 'critical';
   priority?: 'low' | 'medium' | 'high' | 'critical';
   source: string; // e.g. "capacity", "webhook", "billing"
+  description?: string;
+  affected_components?: string[];
   related_alert_ids: string[];
   timeline: IncidentTimelineEvent[];
   created_at: string;
   updated_at: string;
+  resolved_at?: string;
   runbook_id?: string;
 }
 
@@ -55,18 +75,25 @@ export interface IncidentSubscription {
 }
 
 /**
+ * Build the composite subscription id used for deduplication.
+ */
+function subscriptionIdFor(incidentId: string, subscriber: string): string {
+  return `${incidentId}_${subscriber.replace(/[^a-zA-Z0-9]/g, '_')}`;
+}
+
+/**
  * Create a new incident from an alert
- * 
+ *
  * @param alert - The alert that triggered the incident
  * @returns Promise with the created incident ID
  */
 export async function createIncidentFromAlert(alert: Alert): Promise<string> {
   const now = new Date().toISOString();
   const alertId = alert.id || 'unknown';
-  
+
   // Generate incident title based on alert
   const title = generateIncidentTitle(alert);
-  
+
   // Create initial timeline event
   const initialEvent: IncidentTimelineEvent = {
     ts: now,
@@ -110,16 +137,14 @@ export async function createIncidentFromAlert(alert: Alert): Promise<string> {
   });
 
   try {
-    // Save to Firestore
-    const docRef = await getDb().collection('incidents').add(incident);
-    const incidentId = docRef.id;
+    const incidentId = await insertIncident(incident);
 
     // Try to attach runbook if available
     await attachRunbookIfExists(incidentId, incident.source);
 
     console.log(`✅ Incident created successfully: ${incidentId}`);
     return incidentId;
-    
+
   } catch (error) {
     console.error('❌ Failed to create incident:', error);
     throw new Error(`Failed to create incident: ${error instanceof Error ? error.message : 'Unknown error'}`);
@@ -128,13 +153,13 @@ export async function createIncidentFromAlert(alert: Alert): Promise<string> {
 
 /**
  * Append an event to an incident's timeline
- * 
+ *
  * @param incidentId - The incident to update
  * @param event - The timeline event to add
  * @param notifySubscribers - Whether to notify subscribers (default: true)
  */
 export async function appendIncidentEvent(
-  incidentId: string, 
+  incidentId: string,
   event: Omit<IncidentTimelineEvent, 'ts'>,
   notifySubscribers: boolean = true
 ): Promise<void> {
@@ -145,30 +170,25 @@ export async function appendIncidentEvent(
   };
 
   try {
-    const incidentRef = getDb().collection('incidents').doc(incidentId);
-    const incidentDoc = await incidentRef.get();
-    
-    if (!incidentDoc.exists) {
+    const incident = await getIncidentById(incidentId);
+
+    if (!incident) {
       console.warn(`⚠️ Incident ${incidentId} not found, cannot append event`);
       return;
     }
 
-    const incident = { id: incidentDoc.id, ...incidentDoc.data() } as Incident;
     let timeline = incident.timeline || [];
-    
+
     // Add new event
     timeline.push(fullEvent);
-    
+
     // Cap timeline at 50 entries (keep most recent)
     if (timeline.length > 50) {
       timeline = timeline.slice(-50);
     }
 
-    // Update incident with new timeline and updated_at
-    await incidentRef.update({
-      timeline,
-      updated_at: now
-    });
+    // Update incident with new timeline (updated_at bumps via trigger)
+    await updateIncidentTimeline(incidentId, timeline);
 
     console.log(`📝 Event appended to incident ${incidentId}:`, {
       type: event.type,
@@ -192,7 +212,7 @@ export async function appendIncidentEvent(
         });
 
         console.log(`📧 Timeline update notifications: ${notificationResults.sent} sent, ${notificationResults.failed} failed, ${notificationResults.skipped} skipped`);
-        
+
         if (notificationResults.errors.length > 0) {
           console.error(`❌ Timeline notification errors:`, notificationResults.errors);
         }
@@ -210,31 +230,13 @@ export async function appendIncidentEvent(
 
 /**
  * Find the most recent open incident for a given source
- * 
+ *
  * @param source - The incident source to search for
- * @returns Promise with the incident document or null if none found
+ * @returns Promise with the incident or null if none found
  */
 export async function findOpenIncidentBySource(source: string): Promise<Incident | null> {
   try {
-    const query = getDb().collection('incidents')
-      .where('source', '==', source)
-      .where('status', '!=', 'resolved')
-      .orderBy('status')
-      .orderBy('created_at', 'desc')
-      .limit(1);
-
-    const snapshot = await query.get();
-    
-    if (snapshot.empty) {
-      return null;
-    }
-
-    const doc = snapshot.docs[0];
-    return {
-      id: doc.id,
-      ...doc.data()
-    } as Incident;
-
+    return await findOpenIncidentRecordBySource(source);
   } catch (error) {
     console.error(`❌ Failed to find open incident for source ${source}:`, error);
     return null;
@@ -243,42 +245,29 @@ export async function findOpenIncidentBySource(source: string): Promise<Incident
 
 /**
  * Attach a runbook to an incident if one exists for the source
- * 
+ *
  * @param incidentId - The incident to update
  * @param source - The source to match against runbooks
  */
 export async function attachRunbookIfExists(incidentId: string, source: string): Promise<void> {
   try {
-    const runbookQuery = getDb().collection('runbooks')
-      .where('source', '==', source)
-      .where('active', '==', true)
-      .limit(1);
+    const runbook = await findActiveRunbookBySource(source);
 
-    const runbookSnapshot = await runbookQuery.get();
-    
-    if (!runbookSnapshot.empty) {
-      const runbookDoc = runbookSnapshot.docs[0];
-      const runbookId = runbookDoc.id;
-      const runbookData = runbookDoc.data() as Runbook;
-
-      // Update incident with runbook_id
-      await getDb().collection('incidents').doc(incidentId).update({
-        runbook_id: runbookId,
-        updated_at: new Date().toISOString()
-      });
+    if (runbook) {
+      await attachIncidentRunbook(incidentId, runbook.id);
 
       // Add timeline event about runbook attachment
       await appendIncidentEvent(incidentId, {
         type: 'auto',
-        message: `Runbook attached: ${runbookData.name}`,
+        message: `Runbook attached: ${runbook.name}`,
         meta: {
-          runbook_id: runbookId,
-          runbook_name: runbookData.name,
-          steps_count: runbookData.steps.length
+          runbook_id: runbook.id,
+          runbook_name: runbook.name,
+          steps_count: runbook.steps.length
         }
       });
 
-      console.log(`📚 Runbook ${runbookId} attached to incident ${incidentId}`);
+      console.log(`📚 Runbook ${runbook.id} attached to incident ${incidentId}`);
     }
 
   } catch (error) {
@@ -289,14 +278,14 @@ export async function attachRunbookIfExists(incidentId: string, source: string):
 
 /**
  * Update incident status and log the change
- * 
+ *
  * @param incidentId - The incident to update
  * @param newStatus - The new status
  * @param actor - Who made the change (e.g., "admin", "system")
  * @param notifySubscribers - Whether to notify subscribers (default: true)
  */
 export async function updateIncidentStatus(
-  incidentId: string, 
+  incidentId: string,
   newStatus: Incident['status'],
   actor: string = 'system',
   notifySubscribers: boolean = true
@@ -305,14 +294,12 @@ export async function updateIncidentStatus(
 
   try {
     // Get current incident to capture previous state
-    const incidentRef = getDb().collection('incidents').doc(incidentId);
-    const incidentDoc = await incidentRef.get();
-    
-    if (!incidentDoc.exists) {
+    const currentIncident = await getIncidentById(incidentId);
+
+    if (!currentIncident) {
       throw new Error(`Incident ${incidentId} not found`);
     }
 
-    const currentIncident = { id: incidentDoc.id, ...incidentDoc.data() } as Incident;
     const previousStatus = currentIncident.status;
 
     // Skip if status is already the same
@@ -321,11 +308,8 @@ export async function updateIncidentStatus(
       return;
     }
 
-    // Update the incident
-    await incidentRef.update({
-      status: newStatus,
-      updated_at: now
-    });
+    // Update the incident (sets resolved_at when resolved)
+    await updateIncidentStatusRecord(incidentId, newStatus);
 
     // Get updated incident for notifications
     const updatedIncident = {
@@ -359,7 +343,7 @@ export async function updateIncidentStatus(
         });
 
         console.log(`� Status change notifications: ${notificationResults.sent} sent, ${notificationResults.failed} failed, ${notificationResults.skipped} skipped`);
-        
+
         if (notificationResults.errors.length > 0) {
           console.error(`❌ Notification errors:`, notificationResults.errors);
         }
@@ -377,7 +361,7 @@ export async function updateIncidentStatus(
 
 /**
  * Get incident with related alerts populated
- * 
+ *
  * @param incidentId - The incident to fetch
  * @returns Promise with incident and related alerts
  */
@@ -386,36 +370,15 @@ export async function getIncidentWithAlerts(incidentId: string): Promise<{
   alerts: Alert[];
 } | null> {
   try {
-    const incidentDoc = await getDb().collection('incidents').doc(incidentId).get();
-    
-    if (!incidentDoc.exists) {
+    const incident = await getIncidentById(incidentId);
+
+    if (!incident) {
       return null;
     }
 
-    const incident = {
-      id: incidentDoc.id,
-      ...incidentDoc.data()
-    } as Incident;
-
-    // Fetch related alerts
+    // The legacy Firestore alert store was retired with the Firebase removal;
+    // related alert ids remain on the incident but the alert documents are gone.
     const alerts: Alert[] = [];
-    
-    if (incident.related_alert_ids.length > 0) {
-      // Batch fetch alerts (Firestore supports up to 10 in a single `in` query)
-      const alertIds = incident.related_alert_ids.slice(0, 10); // Limit for safety
-      
-      if (alertIds.length > 0) {
-        const alertsQuery = getDb().collection('alerts').where('__name__', 'in', alertIds);
-        const alertsSnapshot = await alertsQuery.get();
-        
-        alertsSnapshot.forEach((doc: any) => {
-          alerts.push({
-            id: doc.id,
-            ...doc.data()
-          } as Alert);
-        });
-      }
-    }
 
     return { incident, alerts };
 
@@ -427,7 +390,7 @@ export async function getIncidentWithAlerts(incidentId: string): Promise<{
 
 /**
  * List incidents with optional filtering
- * 
+ *
  * @param options - Query options
  * @returns Promise with incidents array
  */
@@ -437,29 +400,11 @@ export async function listIncidents(options: {
   limit?: number;
 } = {}): Promise<Incident[]> {
   try {
-    let query = getDb().collection('incidents').orderBy('updated_at', 'desc');
-
-    if (options.status) {
-      query = query.where('status', '==', options.status);
-    }
-
-    if (options.source) {
-      query = query.where('source', '==', options.source);
-    }
-
-    if (options.limit) {
-      query = query.limit(options.limit);
-    } else {
-      query = query.limit(50); // Default limit
-    }
-
-    const snapshot = await query.get();
-    
-    return snapshot.docs.map((doc: any) => ({
-      id: doc.id,
-      ...doc.data()
-    })) as Incident[];
-
+    return await listIncidentRecords({
+      status: options.status,
+      source: options.source,
+      limit: options.limit ?? 50
+    });
   } catch (error) {
     console.error('❌ Failed to list incidents:', error);
     return [];
@@ -472,7 +417,7 @@ export async function listIncidents(options: {
 function generateIncidentTitle(alert: Alert): string {
   const source = alert.source || alert.type || 'system';
   const severity = alert.severity || 'unknown';
-  
+
   // Generate title based on alert type and severity
   if (alert.type === 'capacity') {
     if (severity === 'critical') {
@@ -495,7 +440,7 @@ function generateIncidentTitle(alert: Alert): string {
 
 /**
  * Add a subscription to an incident
- * 
+ *
  * @param incidentId - The incident to subscribe to
  * @param subscriber - Email or Slack user ID of subscriber
  * @param options - Subscription options
@@ -510,8 +455,8 @@ export async function addIncidentSubscription(
   } = {}
 ): Promise<string> {
   const now = new Date().toISOString();
-  
-  const subscription: Omit<IncidentSubscription, 'id'> = {
+
+  const subscription: IncidentSubscription = {
     incident_id: incidentId,
     subscriber,
     channel: options.channel || "slack",
@@ -527,35 +472,23 @@ export async function addIncidentSubscription(
 
   try {
     // Use composite key approach for deduplication
-    const subscriptionId = `${incidentId}_${subscriber.replace(/[^a-zA-Z0-9]/g, '_')}`;
-    
-    const subscriptionRef = getDb()
-      .collection('incident_subscriptions')
-      .doc(subscriptionId);
+    const subscriptionId = subscriptionIdFor(incidentId, subscriber);
 
     // Check if subscription already exists
-    const existingDoc = await subscriptionRef.get();
-    
-    if (existingDoc.exists) {
-      const existingData = existingDoc.data() as IncidentSubscription;
-      if (existingData.active) {
-        console.log(`📧 Subscription already exists for ${subscriber} on incident ${incidentId}`);
-        return subscriptionId;
-      } else {
-        // Reactivate existing subscription
-        await subscriptionRef.update({
-          active: true,
-          created_at: now,
-          created_by: options.created_by,
-          preferences: subscription.preferences
-        });
-        console.log(`📧 Reactivated subscription for ${subscriber} on incident ${incidentId}`);
-        return subscriptionId;
-      }
+    const existing = await getSubscriptionRecord(subscriptionId);
+
+    if (existing?.active) {
+      console.log(`📧 Subscription already exists for ${subscriber} on incident ${incidentId}`);
+      return subscriptionId;
     }
 
-    // Create new subscription
-    await subscriptionRef.set(subscription);
+    // Create new subscription (or reactivate a deactivated one)
+    await upsertSubscriptionRecord(subscriptionId, subscription);
+
+    if (existing) {
+      console.log(`📧 Reactivated subscription for ${subscriber} on incident ${incidentId}`);
+      return subscriptionId;
+    }
 
     // Add timeline event to incident
     await appendIncidentEvent(incidentId, {
@@ -579,7 +512,7 @@ export async function addIncidentSubscription(
 
 /**
  * Remove or deactivate a subscription to an incident
- * 
+ *
  * @param incidentId - The incident to unsubscribe from
  * @param subscriber - Email or Slack user ID of subscriber
  */
@@ -587,25 +520,16 @@ export async function removeIncidentSubscription(
   incidentId: string,
   subscriber: string
 ): Promise<void> {
-  const subscriptionId = `${incidentId}_${subscriber.replace(/[^a-zA-Z0-9]/g, '_')}`;
-  
-  try {
-    const subscriptionRef = getDb()
-      .collection('incident_subscriptions')
-      .doc(subscriptionId);
+  const subscriptionId = subscriptionIdFor(incidentId, subscriber);
 
-    const doc = await subscriptionRef.get();
-    
-    if (!doc.exists) {
+  try {
+    // Deactivate rather than delete (for audit trail)
+    const deactivated = await deactivateSubscriptionRecord(subscriptionId);
+
+    if (!deactivated) {
       console.log(`⚠️ No subscription found for ${subscriber} on incident ${incidentId}`);
       return;
     }
-
-    // Deactivate rather than delete (for audit trail)
-    await subscriptionRef.update({
-      active: false,
-      unsubscribed_at: new Date().toISOString()
-    });
 
     // Add timeline event to incident
     await appendIncidentEvent(incidentId, {
@@ -627,21 +551,13 @@ export async function removeIncidentSubscription(
 
 /**
  * Get all active subscribers for an incident
- * 
+ *
  * @param incidentId - The incident to get subscribers for
  * @returns Promise with array of active subscriptions
  */
 export async function getIncidentSubscribers(incidentId: string): Promise<IncidentSubscription[]> {
   try {
-    const query = getDb()
-      .collection('incident_subscriptions')
-      .where('incident_id', '==', incidentId)
-      .where('active', '==', true);
-
-    const snapshot = await query.get();
-    
-    return snapshot.docs.map((doc: any) => doc.data() as IncidentSubscription);
-
+    return await listActiveSubscriptionsForIncident(incidentId);
   } catch (error) {
     console.error(`❌ Failed to get subscribers for incident ${incidentId}:`, error);
     return [];
@@ -650,7 +566,7 @@ export async function getIncidentSubscribers(incidentId: string): Promise<Incide
 
 /**
  * Check if a user is subscribed to an incident
- * 
+ *
  * @param incidentId - The incident to check
  * @param subscriber - Email or Slack user ID to check
  * @returns Promise with subscription or null if not subscribed
@@ -659,25 +575,16 @@ export async function getIncidentSubscription(
   incidentId: string,
   subscriber: string
 ): Promise<IncidentSubscription | null> {
-  const subscriptionId = `${incidentId}_${subscriber.replace(/[^a-zA-Z0-9]/g, '_')}`;
-  
+  const subscriptionId = subscriptionIdFor(incidentId, subscriber);
+
   try {
-    const doc = await getDb()
-      .collection('incident_subscriptions')
-      .doc(subscriptionId)
-      .get();
+    const subscription = await getSubscriptionRecord(subscriptionId);
 
-    if (!doc.exists) {
+    if (!subscription || !subscription.active) {
       return null;
     }
 
-    const data = doc.data() as IncidentSubscription;
-    
-    if (!data.active) {
-      return null;
-    }
-
-    return data;
+    return subscription;
 
   } catch (error) {
     console.error(`❌ Failed to get subscription for ${subscriber} on incident ${incidentId}:`, error);
@@ -687,22 +594,13 @@ export async function getIncidentSubscription(
 
 /**
  * Get all incidents a user is subscribed to
- * 
+ *
  * @param subscriber - Email or Slack user ID
  * @returns Promise with array of subscriptions
  */
 export async function getUserIncidentSubscriptions(subscriber: string): Promise<IncidentSubscription[]> {
   try {
-    const query = getDb()
-      .collection('incident_subscriptions')
-      .where('subscriber', '==', subscriber)
-      .where('active', '==', true)
-      .orderBy('created_at', 'desc');
-
-    const snapshot = await query.get();
-    
-    return snapshot.docs.map((doc: any) => doc.data() as IncidentSubscription);
-
+    return await listActiveSubscriptionsForSubscriber(subscriber);
   } catch (error) {
     console.error(`❌ Failed to get subscriptions for user ${subscriber}:`, error);
     return [];
@@ -730,11 +628,11 @@ export function formatIncidentNotificationForSlack(data: IncidentNotificationDat
   blocks: any[];
 } {
   const { incident, change_type, previous_value, new_value, timeline_entry, triggered_by } = data;
-  
+
   // Status emoji mapping
   const statusEmojis = {
     'investigating': '🔍',
-    'identified': '🎯', 
+    'identified': '🎯',
     'monitoring': '👀',
     'resolved': '✅',
     'cancelled': '❌'
@@ -761,7 +659,7 @@ export function formatIncidentNotificationForSlack(data: IncidentNotificationDat
         type: "mrkdwn",
         text: `*Previous Status:*\n${previous_value}`
       }, {
-        type: "mrkdwn", 
+        type: "mrkdwn",
         text: `*New Status:*\n${new_value}`
       });
       break;
@@ -841,7 +739,7 @@ export function formatIncidentNotificationForSlack(data: IncidentNotificationDat
           text: `*Status:*\n${incident.status}`
         },
         {
-          type: "mrkdwn", 
+          type: "mrkdwn",
           text: `*Priority:*\n${priorityEmoji} ${incident.priority}`
         },
         {
@@ -891,21 +789,21 @@ const NOTIFICATION_RATE_CACHE = new Map<string, { count: number; resetTime: numb
 setInterval(() => {
   const now = Date.now();
   const cutoffTime = now - (DEBOUNCE_WINDOW_MS * 2);
-  
+
   // Clean notification cache
   for (const [hash, entry] of notificationCache.entries()) {
     if (entry.timestamp < cutoffTime) {
       notificationCache.delete(hash);
     }
   }
-  
+
   // Clean rate limit cache
   for (const [subscriber, entry] of NOTIFICATION_RATE_CACHE.entries()) {
     if (now > entry.resetTime) {
       NOTIFICATION_RATE_CACHE.delete(subscriber);
     }
   }
-  
+
   if (notificationCache.size > 0 || NOTIFICATION_RATE_CACHE.size > 0) {
     console.log(`🧹 Cleaned notification caches: ${notificationCache.size} debounce entries, ${NOTIFICATION_RATE_CACHE.size} rate limit entries`);
   }
@@ -932,14 +830,14 @@ function shouldDebounceNotification(
 ): boolean {
   const cached = notificationCache.get(notificationHash);
   const now = Date.now();
-  
+
   if (cached && (now - cached.timestamp) < debounceMs) {
     return true; // Should debounce
   }
-  
+
   // Update cache
   notificationCache.set(notificationHash, { timestamp: now, hash: notificationHash });
-  
+
   // Clean up old entries every 100 operations
   if (notificationCache.size > 1000) {
     const cutoff = now - (debounceMs * 2);
@@ -949,7 +847,7 @@ function shouldDebounceNotification(
       }
     }
   }
-  
+
   return false;
 }
 
@@ -960,7 +858,7 @@ function checkRateLimit(subscriber: string): boolean {
   const now = Date.now();
   const hourMs = 60 * 60 * 1000;
   const cached = NOTIFICATION_RATE_CACHE.get(subscriber);
-  
+
   if (!cached || now > cached.resetTime) {
     // Reset or initialize rate limit
     NOTIFICATION_RATE_CACHE.set(subscriber, {
@@ -969,11 +867,11 @@ function checkRateLimit(subscriber: string): boolean {
     });
     return true; // Allow
   }
-  
+
   if (cached.count >= MAX_NOTIFICATIONS_PER_HOUR) {
     return false; // Rate limited
   }
-  
+
   // Increment count
   cached.count++;
   return true; // Allow
@@ -1012,7 +910,7 @@ export async function notifyIncidentSubscribers(
   try {
     // Get all subscribers for this incident
     const subscribers = await getIncidentSubscribers(incidentId);
-    
+
     if (subscribers.length === 0) {
       console.log(`📧 No subscribers found for incident ${incidentId}`);
       return results;
@@ -1051,7 +949,7 @@ export async function notifyIncidentSubscribers(
           return false;
         }
 
-        // Timeline update notifications  
+        // Timeline update notifications
         if (!prefs.timeline_updates && notificationData.change_type === 'timeline_update') {
           results.skipped++;
           return false;
@@ -1065,7 +963,7 @@ export async function notifyIncidentSubscribers(
         sub.subscriber,
         notificationData.new_value
       );
-      
+
       if (shouldDebounceNotification(notificationHash, debounceMs)) {
         results.debounced++;
         console.log(`⏱️ Debounced notification for ${sub.subscriber} (${notificationData.change_type})`);
@@ -1112,7 +1010,7 @@ export async function notifyIncidentSubscribers(
       await Promise.allSettled(slackNotifications);
     }
 
-    // Execute all email notifications  
+    // Execute all email notifications
     if (emailNotifications.length > 0) {
       await Promise.allSettled(emailNotifications);
     }
@@ -1137,26 +1035,26 @@ async function sendSlackIncidentNotification(
   retryAttempts: number = 3
 ): Promise<void> {
   let lastError: Error | null = null;
-  
+
   for (let attempt = 1; attempt <= retryAttempts; attempt++) {
     try {
-      // Import Slack notification utility  
+      // Import Slack notification utility
       const { sendSlackWebApiNotification } = await import('@/lib/server/notify');
-      
+
       // Format message for Slack
       const { text, blocks } = formatIncidentNotificationForSlack(notificationData);
-      
+
       // Get Slack credentials from environment
       const slackToken = process.env.SLACK_BOT_TOKEN;
       if (!slackToken) {
         throw new Error('SLACK_BOT_TOKEN not configured');
       }
-      
+
       // Determine the channel - could be direct message or channel
-      const channel = subscription.subscriber.includes('@') 
+      const channel = subscription.subscriber.includes('@')
         ? subscription.subscriber  // Email - send as DM
         : `@${subscription.subscriber}`; // User ID - send as DM
-      
+
       // Convert to alert notification format for the existing function
       const alertNotification = {
         type: 'incident_update',
@@ -1172,7 +1070,7 @@ async function sendSlackIncidentNotification(
           new_value: notificationData.new_value
         }
       };
-      
+
       // Send the notification using the existing Slack API function
       await sendSlackWebApiNotification(alertNotification, slackToken, channel);
 
@@ -1182,14 +1080,14 @@ async function sendSlackIncidentNotification(
     } catch (error) {
       lastError = error instanceof Error ? error : new Error('Unknown error');
       console.error(`❌ Failed to send Slack notification to ${subscription.subscriber} (attempt ${attempt}):`, error);
-      
+
       // Don't retry on certain errors
-      if (lastError.message.includes('SLACK_BOT_TOKEN not configured') || 
+      if (lastError.message.includes('SLACK_BOT_TOKEN not configured') ||
           lastError.message.includes('channel_not_found') ||
           lastError.message.includes('invalid_auth')) {
         break; // Don't retry configuration or permanent errors
       }
-      
+
       // Wait before retry (exponential backoff)
       if (attempt < retryAttempts) {
         const delayMs = Math.min(1000 * Math.pow(2, attempt - 1), 30000); // Max 30s delay
@@ -1198,7 +1096,7 @@ async function sendSlackIncidentNotification(
       }
     }
   }
-  
+
   // All retries failed
   throw lastError || new Error('Failed to send notification after retries');
 }
@@ -1212,15 +1110,15 @@ async function sendSlackIncidentNotification(
  */
 export function getNotificationStats() {
   const now = Date.now();
-  
+
   // Count active debounce entries
   const activeDebounceEntries = Array.from(notificationCache.values())
     .filter(entry => (now - entry.timestamp) < DEBOUNCE_WINDOW_MS).length;
-  
+
   // Count active rate limit entries
   const activeRateLimitEntries = Array.from(NOTIFICATION_RATE_CACHE.values())
     .filter(entry => now <= entry.resetTime).length;
-  
+
   return {
     debounce_cache: {
       total_entries: notificationCache.size,
@@ -1243,12 +1141,12 @@ export function getNotificationStats() {
  */
 export function clearNotificationCaches(): { cleared: number } {
   const totalCleared = notificationCache.size + NOTIFICATION_RATE_CACHE.size;
-  
+
   notificationCache.clear();
   NOTIFICATION_RATE_CACHE.clear();
-  
+
   console.log(`🧹 Manually cleared notification caches: ${totalCleared} entries`);
-  
+
   return { cleared: totalCleared };
 }
 

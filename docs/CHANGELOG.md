@@ -15,6 +15,19 @@ Entries are reverse chronological. Format follows
 
 ## Unreleased
 
+### Architecture
+- Ported the incident store from the retired Firestore collections to
+  NeonDB (`db/migrations/003_incidents.sql`: `incidents`, `runbooks`,
+  `incident_subscriptions`; timeline embedded as JSONB). Query helpers
+  live in `src/db/incidents.ts`; `src/lib/server/incidents.ts` and
+  `src/lib/server/incidentFeed.ts` no longer touch the Firebase shim.
+  `/api/incidents`, `/api/public/incidents`, `/api/public/incidents/rss`,
+  and `/api/public/status` now read NeonDB and degrade to an honest
+  empty feed (HTTP 200) when the database is unreachable instead of
+  returning 500. Response shapes for the `/status` page are unchanged.
+  Requires the migration to be applied against `DATABASE_URL` before
+  live incident data appears.
+
 ### Tooling
 - Added `.github/workflows/validation-summary.yml` (Phase 1 of
   `docs/ops/AUTOMATED_VALIDATION_REVIEW_LOOP.md`): aggregates `CI`,
