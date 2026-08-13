@@ -30,6 +30,10 @@ declare const env: {
     STRIPE_SECRET_KEY?: string | undefined;
     NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY?: string | undefined;
     STRIPE_WEBHOOK_SECRET?: string | undefined;
+    STRIPE_PRICE_DIAGNOSTIC?: string | undefined;
+    STRIPE_PRICE_RESPONSEOS_STARTER?: string | undefined;
+    STRIPE_PRICE_RESPONSEOS_CORE?: string | undefined;
+    STRIPE_PRICE_RESPONSEOS_PRO?: string | undefined;
     IMAGEKIT_ENDPOINT?: string | undefined;
     IMAGEKIT_PUBLIC_KEY?: string | undefined;
     IMAGEKIT_PRIVATE_KEY?: string | undefined;

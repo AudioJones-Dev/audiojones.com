@@ -15,6 +15,46 @@ Entries are reverse chronological. Format follows
 
 ## Unreleased
 
+### Payments
+- Enabled direct Stripe checkout: `/api/stripe/checkout` now takes a
+  product slug against a server-side catalog (price IDs from
+  `STRIPE_PRICE_*` env vars, redirect URLs derived from the site
+  origin) instead of arbitrary client-supplied `priceId`/URLs. Both
+  Stripe routes read the validated `STRIPE_SECRET_KEY` (was the
+  unvalidated `stripe_secret`) and return 503 when unconfigured.
+- Pricing page: Revenue Leak Diagnostic and the three ResponseOS tiers
+  gained buy CTAs (`CheckoutButton`) that fall back to `/book-a-call`
+  when Stripe isn't configured; booking CTAs kept alongside.
+- `/api/webhooks/stripe-enhanced` now persists to NeonDB
+  (`db/migrations/004_stripe_payments.sql`: `stripe_webhook_events` +
+  `stripe_payments` + `stripe_subscriptions`, idempotent on
+  `stripe_event_id`) via `src/db/stripe.ts`, replacing the throwing
+  Firebase-stub `getDb()` and Firestore-backed event streaming that
+  500'd on every event.
+- Removed dead `src/components/home/PackagesSection.tsx` (unreferenced,
+  stale pricing, dead `/book` links).
+- Webhook idempotency is now a claim/mark pair rather than a bare insert:
+  `stripe_webhook_events.processed_at` is set only after the state
+  projection commits, so a retry following a failed projection redoes the
+  work instead of being acked away as a duplicate.
+- Webhook state projections are ordered by `Stripe.Event.created`
+  (`last_event_at` on both state tables). Stripe does not guarantee
+  delivery order; without this a delayed `subscription.updated` could
+  overwrite a later `subscription.deleted` and resurrect a cancelled
+  subscription as active.
+- Checkout attaches the catalog slug to the PaymentIntent/Subscription
+  via `payment_intent_data`/`subscription_data` metadata (session
+  metadata does not propagate to them), and the webhook persists it to
+  `stripe_payments.product` / `stripe_subscriptions.product` — one-time
+  payments were previously recorded with no record of what was bought.
+- Checkout session creation is wrapped: a bad, archived, or wrong-mode
+  price ID now returns 502 and logs, distinct from the 503 "not
+  configured" degradation it was previously indistinguishable from.
+- `/pricing` acknowledges the `?checkout=` redirect (`CheckoutNotice`,
+  plus the buy CTA settling once purchased) so a paying customer is not
+  returned to an unchanged page that reads as a failed payment. Both read
+  the params client-side under Suspense, so `/pricing` stays static.
+
 ### Tooling
 - Added `.github/workflows/validation-summary.yml` (Phase 1 of
   `docs/ops/AUTOMATED_VALIDATION_REVIEW_LOOP.md`): aggregates `CI`,

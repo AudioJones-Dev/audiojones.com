@@ -8,6 +8,8 @@ import {
   SectionIntro,
   SignalHero,
 } from "@/components/marketing/DesignSystemSections";
+import CheckoutButton from "@/components/marketing/CheckoutButton";
+import CheckoutNotice from "@/components/marketing/CheckoutNotice";
 import FAQ from "@/components/founder-intelligence/FAQ";
 import JsonLd from "@/components/seo/JsonLd";
 import { buildMetadata } from "@/lib/seo/metadata";
@@ -32,6 +34,9 @@ type Offer = {
   href?: string;
   cta?: string;
   featured?: boolean;
+  /** Catalog slug for /api/stripe/checkout — renders a direct buy CTA. */
+  product?: string;
+  buyCta?: string;
 };
 
 // ── Entry: diagnostics (the buying sequence starts here) ──
@@ -53,6 +58,8 @@ const DIAGNOSTICS: Offer[] = [
     href: "/book-a-call",
     cta: "Book the diagnostic",
     featured: true,
+    product: "revenue-leak-diagnostic",
+    buyCta: "Buy the diagnostic",
   },
   {
     name: "AI Readiness Kaizen Diagnostic",
@@ -80,6 +87,10 @@ const RESPONSEOS: Offer[] = [
     price: "$397/mo",
     designedFor: "Smaller teams that just need to stop leads going cold.",
     goal: "Core capture and fast follow-up so no inbound lead falls through the cracks.",
+    href: "/book-a-call",
+    cta: "Book a call",
+    product: "responseos-starter",
+    buyCta: "Start now",
   },
   {
     name: "ResponseOS Core",
@@ -87,12 +98,20 @@ const RESPONSEOS: Offer[] = [
     designedFor: "Growing teams with a real follow-up and recovery problem.",
     goal: "Adds qualification and a recovery cadence that re-engages stalled and ghosted leads.",
     featured: true,
+    href: "/book-a-call",
+    cta: "Book a call",
+    product: "responseos-core",
+    buyCta: "Start now",
   },
   {
     name: "ResponseOS Pro",
     price: "$1,297/mo",
     designedFor: "Teams that need the full picture, not just the recovery.",
     goal: "Full intake, recovery, and attribution reporting so you see what actually drives revenue.",
+    href: "/book-a-call",
+    cta: "Book a call",
+    product: "responseos-pro",
+    buyCta: "Start now",
   },
 ];
 
@@ -149,6 +168,14 @@ const PRICING_FAQS = [
   },
 ];
 
+// Catalog slug → offer name, so the post-checkout notice can say what was
+// bought. Only buyable offers carry a `product`.
+const PRODUCT_NAMES: Record<string, string> = Object.fromEntries(
+  [...DIAGNOSTICS, ...RESPONSEOS]
+    .filter((o) => o.product)
+    .map((o) => [o.product as string, o.name]),
+);
+
 function PriceCard({ offer, featured = offer.featured }: { offer: Offer; featured?: boolean }) {
   const body = (
     <>
@@ -178,14 +205,19 @@ function PriceCard({ offer, featured = offer.featured }: { offer: Offer; feature
         ) : null}
       </dl>
 
-      {offer.href && offer.cta ? (
-        <Link
-          href={offer.href}
-          className="mt-5 inline-block text-sm font-semibold text-signal-yellow hover:underline"
-        >
-          {offer.cta} →
-        </Link>
-      ) : null}
+      <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2">
+        {offer.product && offer.buyCta ? (
+          <CheckoutButton product={offer.product} label={offer.buyCta} />
+        ) : null}
+        {offer.href && offer.cta ? (
+          <Link
+            href={offer.href}
+            className="inline-block text-sm font-semibold text-signal-yellow hover:underline"
+          >
+            {offer.cta} →
+          </Link>
+        ) : null}
+      </div>
     </>
   );
 
@@ -208,6 +240,8 @@ export default function OffersPage() {
         ])}
       />
       <JsonLd data={faqJsonLd(PRICING_FAQS)} />
+
+      <CheckoutNotice productNames={PRODUCT_NAMES} />
 
       <SignalHero
         title="Start with a diagnostic. Build the system you actually need."

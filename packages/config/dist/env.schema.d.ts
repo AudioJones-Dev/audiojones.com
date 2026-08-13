@@ -29,6 +29,10 @@ export declare const EnvSchema: z.ZodObject<{
     STRIPE_SECRET_KEY: z.ZodOptional<z.ZodString>;
     NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: z.ZodOptional<z.ZodString>;
     STRIPE_WEBHOOK_SECRET: z.ZodOptional<z.ZodString>;
+    STRIPE_PRICE_DIAGNOSTIC: z.ZodOptional<z.ZodString>;
+    STRIPE_PRICE_RESPONSEOS_STARTER: z.ZodOptional<z.ZodString>;
+    STRIPE_PRICE_RESPONSEOS_CORE: z.ZodOptional<z.ZodString>;
+    STRIPE_PRICE_RESPONSEOS_PRO: z.ZodOptional<z.ZodString>;
     IMAGEKIT_ENDPOINT: z.ZodOptional<z.ZodString>;
     IMAGEKIT_PUBLIC_KEY: z.ZodOptional<z.ZodString>;
     IMAGEKIT_PRIVATE_KEY: z.ZodOptional<z.ZodString>;
@@ -68,6 +72,10 @@ export declare const EnvSchema: z.ZodObject<{
     STRIPE_SECRET_KEY?: string | undefined;
     NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY?: string | undefined;
     STRIPE_WEBHOOK_SECRET?: string | undefined;
+    STRIPE_PRICE_DIAGNOSTIC?: string | undefined;
+    STRIPE_PRICE_RESPONSEOS_STARTER?: string | undefined;
+    STRIPE_PRICE_RESPONSEOS_CORE?: string | undefined;
+    STRIPE_PRICE_RESPONSEOS_PRO?: string | undefined;
     IMAGEKIT_ENDPOINT?: string | undefined;
     IMAGEKIT_PUBLIC_KEY?: string | undefined;
     IMAGEKIT_PRIVATE_KEY?: string | undefined;
@@ -105,6 +113,10 @@ export declare const EnvSchema: z.ZodObject<{
     STRIPE_SECRET_KEY?: string | undefined;
     NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY?: string | undefined;
     STRIPE_WEBHOOK_SECRET?: string | undefined;
+    STRIPE_PRICE_DIAGNOSTIC?: string | undefined;
+    STRIPE_PRICE_RESPONSEOS_STARTER?: string | undefined;
+    STRIPE_PRICE_RESPONSEOS_CORE?: string | undefined;
+    STRIPE_PRICE_RESPONSEOS_PRO?: string | undefined;
     IMAGEKIT_ENDPOINT?: string | undefined;
     IMAGEKIT_PUBLIC_KEY?: string | undefined;
     IMAGEKIT_PRIVATE_KEY?: string | undefined;
