@@ -15,6 +15,17 @@ Entries are reverse chronological. Format follows
 
 ## Unreleased
 
+### Fixed
+- The validation-summary circuit breaker never worked. It counted runs
+  via `workflow_id: context.workflow` — a display name where the Actions
+  API wants an ID or filename — so the workflow filter matched nothing
+  and every run on the PR was counted. It tripped after roughly two
+  pushes and suppressed the summary on essentially every PR. The count
+  now lives in the sticky comment, keyed to the commit being summarised,
+  because a `workflow_run`-triggered run carries no PR identity of its
+  own. Notice text and `docs/ops/AUTOMATED_VALIDATION_REVIEW_LOOP.md`
+  §9.11 corrected to match.
+
 ### Tooling
 - Added `.github/workflows/validation-summary.yml` (Phase 1 of
   `docs/ops/AUTOMATED_VALIDATION_REVIEW_LOOP.md`): aggregates `CI`,
