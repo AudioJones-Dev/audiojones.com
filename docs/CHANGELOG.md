@@ -24,7 +24,27 @@ Entries are reverse chronological. Format follows
   `human-approval` / `none`). Local mirror via `pnpm validate` and
   `pnpm validate:summary`. No new secrets; Phase 2 webhook deferred.
 
+### Changed
+- Reordered the homepage narrative to pain → economic cost → diagnosis →
+  proof → system → architecture (`src/app/page.tsx`). No section component
+  was added, removed, or moved on disk, and the barrel is untouched.
+- Repointed the hero's dead `#system-model` link — no such id exists on
+  the homepage — to `#process`, and gave that section a scroll offset so
+  the anchor clears the fixed header.
+- Qualified the hero's category eyebrow as "Founder Intelligence Systems
+  for founder-led service businesses" per the entity plan's
+  first-mention rule, in both responsive blocks.
+- Dropped the ROI section's forward references to ResponseOS, which now
+  appears later in the page than the ROI section does.
+- Corrected the process headline, which named three steps while
+  rendering four.
+
 ### Documentation
+- Added `docs/strategy/AJ_DIGITAL_S_CURVE_POSITIONING.md`: separates the
+  commercial, research, and platform theses, and adds the portfolio
+  filter used to decide whether a new product idea compounds. Recorded
+  as an ADR in `docs/DECISIONS.md` (2026-08-12). Does not resolve the
+  open offer-ladder ratification.
 - Promoted `docs/design/DESIGN.md` as the canonical design-system file,
   kept `docs/DESIGN.md` as a redirect stub, and removed the tracked
   lowercase `docs/design.md` duplicate that cannot coexist cleanly on

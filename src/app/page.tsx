@@ -45,23 +45,27 @@ export default function HomePage() {
       <JsonLd data={personJsonLd()} />
       <JsonLd data={webSiteJsonLd()} />
 
-      {/* 1. Hero */}
+      {/* Narrative spine: the reader meets the problem and its cost before
+          the system, and the architecture last. See docs/DECISIONS.md
+          (2026-08-12 — Sell the pain first; keep the frontier internal). */}
+
+      {/* 1. Pain — the symptoms a founder already feels */}
       <HeroAllSignal />
 
-      {/* 2. Problem reframe — signal vs noise */}
-      <SignalNoiseModel />
-
-      {/* 3. Flagship offer — ResponseOS */}
-      <ResponseOSWedge />
-
-      {/* 4. ROI lead magnet */}
+      {/* 2. Economic cost — what those symptoms are worth */}
       <RoiLeadMagnet />
 
-      {/* 5. Process — Diagnose / Design / Deploy */}
+      {/* 3. Diagnosis — how the constraint gets found */}
       <ProcessPipeline />
 
-      {/* 6. Proof / Before-After */}
+      {/* 4. Visible result — what the diagnosis produced */}
       <ProofStats />
+
+      {/* 5. System — the flagship that produces the result */}
+      <ResponseOSWedge />
+
+      {/* 6. Architecture — signal vs noise, as depth, not as entry price */}
+      <SignalNoiseModel />
 
       {/* 7. FAQ — plain-language, AEO surface */}
       <HomeFaqSection />
