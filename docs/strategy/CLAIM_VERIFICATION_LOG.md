@@ -120,15 +120,23 @@ never measured.
 installed system behaves rather than asserting outcomes, matching the
 treatment `ProofStats` received.
 
-### Held back, not published
+### Deleted — `agentsProofStrip`
 
-`agentsProofStrip` in the same file carries `+38%`, `<9 min`, `$214K`
-"recovered revenue, first 90 days", and a testimonial attributed only to
-"Founder, professional services, $1.2M run-rate". **No surface imports
-it**, so none of this has been published. It is annotated in place rather
-than deleted: the figures need entries in this log, and the quote needs a
-named client with consent on record, before anything renders it. A
-fabricated testimonial is a worse exposure than a fabricated metric.
+This export carried `+38%`, `<9 min`, `$214K` "recovered revenue, first 90
+days", and a testimonial attributed only to "Founder, professional
+services, $1.2M run-rate". No surface ever imported it, so none of it was
+published.
+
+It was briefly annotated in place, then **deleted outright** — dead data
+holding an unattributable endorsement is a trap, not a resource, and the
+annotation only helped if someone read it before wiring the export up.
+Git history preserves the content if a real, consented version of that
+testimonial ever surfaces.
+
+Restoring any part of it requires the same bar as anything else here: each
+figure needs a VERIFIED entry in this log, and the quote needs a named
+client with consent on record. A fabricated testimonial is a worse
+exposure than a fabricated metric.
 
 The three `/case-studies` entries carry qualitative outcomes only
 ("Follow-up gap identified", "Signal scorecard created"), so they need no
