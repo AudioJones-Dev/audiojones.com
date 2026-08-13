@@ -15,6 +15,17 @@ Entries are reverse chronological. Format follows
 
 ## Unreleased
 
+### Documentation
+- Amended §1 of `AUDIOJONES_NICHE_VALIDATION_CORRECTIONS.md` (v1.0 → v1.1)
+  after running its own rule 1 against three rows marked SAFE. The
+  9.3 hrs/week context-switching figure does not appear in Asana's index
+  at all and is now **REMOVE**; the MIT NANDA 95% figure has no openable
+  primary URL and is now **BLOCKED** pending one; the 62% missed-calls
+  claim keeps SAFE but must now carry its **2016** date, which the
+  approved wording omitted. The verification rule now points at the
+  citations file and states that a SAFE verdict is not evidence anyone
+  checked. No other section changed.
+
 ### Changed
 - Removed the remaining unsourced performance figures from `/agents`,
   `/agents/responseos`, and `/case-studies`. The shared `proofSignals`
