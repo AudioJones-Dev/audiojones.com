@@ -1,11 +1,13 @@
 ---
 title: Audio Jones Niche Validation Corrections
 status: canonical
-version: v1.0
+version: v1.1
 date: 2026-05-26
+amended: 2026-08-13 — §1 verdicts corrected after primary-source checks (95% MIT NANDA → BLOCKED pending an openable URL; 9.3 hrs/wk Asana → REMOVE, figure absent from the source; 62% calls → date qualifier now mandatory). No other section changed.
 source: Perplexity senior strategic validation audit
 scope: docs-only — claim safety + entity risk + terminology corrections
 related:
+  - docs/strategy/CLAIM_VERIFICATION_LOG.md (citations file — the evidence behind the 2026-08-13 amendments)
   - docs/governance/GIT_WORKFLOW_OPERATING_STANDARD.md
   - docs/strategy/audiojones-strategy-v1.5.1.md (if present — codified strategy doc)
   - docs/specs/services-rebrand-spec-2026-05-08.md (services rebrand spec, superseded scope but historical reference)
@@ -24,14 +26,14 @@ Approved wedge (preserved): **Founder Intelligence Systems for founder-led servi
 
 | Claim | Verdict | Original Source | Safe Public Form |
 |---|---|---|---|
-| 95% AI pilots fail | SAFE with qualifier | MIT NANDA Initiative 2025, Aditya Challapally | "MIT's NANDA Initiative found 95% of enterprise generative AI pilots fail to deliver measurable P&L impact." Add: enterprise-scope qualifier. |
+| 95% AI pilots fail | **BLOCKED — no primary URL** *(was SAFE with qualifier; amended 2026-08-13)* | MIT NANDA, *The GenAI Divide: State of AI in Business 2025* (July 2025) | Do not publish yet. The report is real and widely corroborated (52 interviews, 153 survey responses, ~300 deployments), but no official MIT/NANDA URL could be opened — a third-party PDF mirror returns 403 and the referenced `nandapapers` GitHub location returns 404. Rule 1 below requires opening the canonical source; news coverage is not the primary document. Clears the moment an official URL is confirmed. Enterprise-scope qualifier remains mandatory, and must be prominent: the site's audience is founder-led small businesses, not enterprises. |
 | 73% fail without readiness assessment | **REMOVE** | No traceable primary source — vendor-constructed talking point | Do not publish. |
 | 41.8M solopreneurs / $1.3T | REQUIRE QUALIFICATION | MBO Partners 2019 — outdated | Use current: 29.8M solopreneurs / $1.7T (US Census via CNBC 2025). Original figure only if explicitly dated 2019. |
 | 38% of 7-figure businesses use AI workflows | **REMOVE** | LinkedIn post by Vedant Patel — no study | Do not publish. |
-| 62% calls unanswered | SAFE with qualifier | 411 Locals, 85 small businesses over 30 days | "A study of local small businesses found 62% of inbound calls go unanswered." Add small-sample qualifier. |
+| 62% calls unanswered | SAFE with qualifier *(date qualifier added 2026-08-13)* | 411 Locals, published **18 January 2016** — 85 businesses, 58 industries, 30 days | "62% of inbound calls to small businesses go unanswered." Qualifier must carry **both the sample size and the 2016 date** — e.g. "411 Locals, Jan 2016 · 85 businesses, 30 days". The study is a decade old and secondary roundups routinely misdate it to 2023/2024; omitting the year overstates its currency, the same failure this table already flags on the 2019 MBO figure. Verified at source 2026-08-13. |
 | $126K/yr missed calls | SAFE if framed as modeled | bizrnr.com industry calculation, transparent assumptions | "Modeling based on call-response and close-rate data suggests the average service business loses six figures annually." Frame as modeled estimate, not measured study. |
 | 80% B2B podcasts abandoned | **REMOVE** | Fame.so editorial commentary, not a study | Do not publish. Replace with verifiable: "fewer than 8% of podcasts get past 10 episodes" (Spotify/Apple data). |
-| 9.3 hrs/wk context switching | SAFE | Asana Anatomy of Work Index (2024/2025) | Cite Asana, not the 2012 McKinsey study. |
+| 9.3 hrs/wk context switching | **REMOVE** *(was SAFE; amended 2026-08-13)* | Not traceable to Asana — the figure does not appear in the Anatomy of Work Index | Do not publish. Asana reports ~4 hrs/week reorienting after app switching, and 308 hrs/year on duplicated or no-longer-relevant work. No 9.3 hrs/week figure exists there; it can only be reached by summing two unrelated metrics, which is a derivation, not a citation. If the underlying point is needed, cite one of Asana's own figures with Asana's own framing. |
 | Aging-in-place market $9.2B by 2032 | SAFE | Verified Market Research | OK to publish with source. |
 | 73% remodelers report aging-in-place increase | SAFE | NAHB | OK to publish with source. |
 
@@ -47,6 +49,18 @@ Even SAFE claims must be re-verified at the primary source before publication. A
 2. Confirm the cited figure matches the source as of the publication date
 3. Capture the source URL + access date in a citations file or inline footnote
 4. If the source has been retracted, updated, or moved — escalate before publishing
+
+The citations file is
+[`docs/strategy/CLAIM_VERIFICATION_LOG.md`](./CLAIM_VERIFICATION_LOG.md).
+A row in the table above records that a claim *may* be publishable; the log
+records that someone actually opened the source and checked. **A figure ships
+only when it appears in the log with a VERIFIED verdict.**
+
+This is not hypothetical. The 2026-08-13 amendments came from running rule 1
+against three rows that had been marked SAFE for months: one figure could not
+be found at its named source at all, one had no openable primary URL, and one
+was a decade older than its approved wording implied. Marking a claim SAFE is
+not the same as having checked it.
 
 ---
 
@@ -144,7 +158,7 @@ ResponseOS is currently published as a product name across 10 files including th
 
 - The corrections preserved-wedge does NOT mention ResponseOS as a public-facing product
 - "Signal Revenue System" IS flagged HIGH-risk in §2 — if ResponseOS positioning relies on "Signal Revenue System" framing, that connection must be unwound
-- Any ResponseOS copy that frames the offering using REMOVE-class claims from §1 (95%, 73%, 41.8M, $1.3T, 38%, 62% calls, $126K modeled, 80% podcasts) requires removal or qualification
+- Any ResponseOS copy that frames the offering using restricted claims from §1 (95%, 73%, 41.8M, $1.3T, 38%, 62% calls, $126K modeled, 80% podcasts, 9.3 hrs/wk) requires removal or qualification. Note the 2026-08-13 amendments: 95% is now BLOCKED pending an openable primary URL, 9.3 hrs/wk is now REMOVE, and 62% calls requires the 2016 date alongside the sample size.
 
 **Files to audit (separate scoped PR):**
 
