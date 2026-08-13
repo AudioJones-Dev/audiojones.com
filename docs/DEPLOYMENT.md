@@ -115,6 +115,40 @@ and is safe to commit.
    the same change.
 3. Remove from Vercel scopes after the deploy is live.
 
+### 3.5 Supabase Auth setup
+
+Auth for `/portal/*` (admin gate, client hooks) runs on Supabase Auth
+via `@supabase/ssr`. Everything degrades to signed-out / fail-closed
+when these vars are unset, so the marketing surface never depends on
+them.
+
+1. **Create the project.** In the Supabase dashboard, create a project
+   for audiojones.com (one per environment if you want prod/preview
+   separation).
+2. **Get the keys.** Project Settings → API: copy the Project URL and
+   the `anon` public key. The `service_role` key is server-only — never
+   expose it to the browser, and only set it if a server feature needs it.
+3. **Set env vars** in Doppler (`audiojones-com` project) and/or Vercel
+   (production, preview, development):
+   - `NEXT_PUBLIC_SUPABASE_URL`
+   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+   - `SUPABASE_SERVICE_ROLE_KEY` (optional, server-only)
+   - `ADMIN_EMAILS` — comma-separated allowlist of admin emails
+     (server-only)
+4. **Create the first admin user.** Supabase dashboard →
+   Authentication → Users → "Add user" (email + password, confirm the
+   email). Then either add that email to `ADMIN_EMAILS`, or set the
+   role in the user's `app_metadata` (`{ "role": "admin" }`) via the
+   dashboard or the Admin API.
+5. **Verify.** Visit `/portal/admin` — you should be redirected to
+   `/portal/admin/login`; signing in with the admin user should land on
+   the admin dashboard. A non-admin user is redirected to
+   `/not-authorized`.
+
+Google/Apple OAuth buttons in `AuthForm`/`AuthWidget` additionally
+require enabling those providers under Authentication → Providers;
+email/password works without further configuration.
+
 ---
 
 ## 4. Long secrets (PEM keys, JWT private keys)

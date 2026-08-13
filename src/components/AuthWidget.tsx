@@ -1,11 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { auth, googleProvider } from "@/lib/firebase/client";
 import { useToast } from "@/components/Toast";
-import { signInWithPopup, signOut, onAuthStateChanged, type User } from "@/lib/legacy-stubs";
-
-type AuthUser = User & { photoURL?: string | null; displayName?: string | null };
+import { getSupabaseBrowserClient } from "@/lib/supabase/client";
+import { toAuthUser, type AuthUser } from "@/hooks/useAuth";
 
 export default function AuthWidget() {
   const [user, setUser] = useState<AuthUser | null>(null);
@@ -13,16 +11,34 @@ export default function AuthWidget() {
   const { show } = useToast();
 
   useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (u: any) => {
-      setUser(u);
+    const supabase = getSupabaseBrowserClient();
+    if (!supabase) {
+      setUser(null);
+      setLoading(false);
+      return;
+    }
+
+    supabase.auth.getSession().then(({ data }) => {
+      setUser(data.session ? toAuthUser(data.session.user, data.session) : null);
       setLoading(false);
     });
-    return () => unsub();
+
+    const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session ? toAuthUser(session.user, session) : null);
+      setLoading(false);
+    });
+    return () => sub.subscription.unsubscribe();
   }, []);
 
   const signIn = async () => {
     try {
-      await signInWithPopup(auth, googleProvider);
+      const supabase = getSupabaseBrowserClient();
+      if (!supabase) throw new Error("Authentication is not configured.");
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: { redirectTo: window.location.origin },
+      });
+      if (error) throw error;
     } catch (e) {
       // eslint-disable-next-line no-console
       console.error(e);
@@ -32,7 +48,10 @@ export default function AuthWidget() {
 
   const signOutUser = async () => {
     try {
-      await signOut(auth);
+      const supabase = getSupabaseBrowserClient();
+      if (!supabase) throw new Error("Authentication is not configured.");
+      const { error } = await supabase.auth.signOut();
+      if (error) throw error;
     } catch (e) {
       // eslint-disable-next-line no-console
       console.error(e);

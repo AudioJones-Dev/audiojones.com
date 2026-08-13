@@ -1,75 +1,62 @@
 import { NextRequest } from 'next/server';
-import { adminAuth } from './firebaseAdmin';
+import { createServerClient } from '@supabase/ssr';
+import { createClient } from '@supabase/supabase-js';
 
 /**
  * Client Authentication Helper
- * 
- * Verifies Firebase Auth JWT from Authorization Bearer header.
- * Returns the decoded email on success, throws on failure.
- * 
- * This follows the same pattern as admin authentication but without
- * requiring custom claims - any authenticated Firebase user can access
- * client endpoints.
+ *
+ * Verifies a Supabase Auth JWT from the Authorization Bearer header, falling
+ * back to the Supabase session cookies. Returns the verified email on
+ * success, throws AuthError on failure.
+ *
+ * Any authenticated Supabase user can access client endpoints — no admin
+ * role required (see requireAdmin.ts for the admin gate).
  */
 export async function requireClient(request: NextRequest): Promise<string> {
-  const authHeader = request.headers.get('authorization');
-  
-  // Primary: Check for Authorization Bearer token
-  if (authHeader?.startsWith('Bearer ')) {
-    const token = authHeader.split(' ')[1];
-    
-    if (token) {
-      try {
-        // Verify the Firebase ID token
-        const decodedToken = await adminAuth().verifyIdToken(token, true);
-        
-        if (!decodedToken.email) {
-          throw new AuthError('Email not found in token', 401);
-        }
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-        return decodedToken.email;
-        
-      } catch (error) {
-        console.error('Bearer token verification failed:', error);
-        
-        if (error instanceof AuthError) {
-          throw error;
-        }
-        
-        // Firebase verification errors
-        if (error instanceof Error) {
-          if (error.message.includes('Firebase ID token')) {
-            throw new AuthError('Invalid authentication token', 401);
-          }
-          if (error.message.includes('expired')) {
-            throw new AuthError('Authentication token expired', 401);
-          }
-        }
-        
-        throw new AuthError('Authentication failed', 401);
+  if (!url || !anonKey) {
+    throw new AuthError('Authentication is not configured', 503);
+  }
+
+  // Primary: Authorization Bearer token.
+  const authHeader = request.headers.get('authorization');
+  if (authHeader?.startsWith('Bearer ')) {
+    const token = authHeader.slice('Bearer '.length);
+
+    if (token) {
+      const supabase = createClient(url, anonKey, {
+        auth: { persistSession: false, autoRefreshToken: false },
+      });
+      const { data, error } = await supabase.auth.getUser(token);
+
+      if (error || !data.user) {
+        throw new AuthError('Invalid authentication token', 401);
       }
+      if (!data.user.email) {
+        throw new AuthError('Email not found in token', 401);
+      }
+      return data.user.email;
     }
   }
 
-  // Fallback: Check for session cookie
-  const sessionCookie = request.cookies.get('client-session')?.value;
-  
-  if (sessionCookie) {
-    try {
-      // Verify the session cookie
-      const decodedToken = await adminAuth().verifySessionCookie(sessionCookie, true);
-      
-      if (!decodedToken.email) {
-        throw new AuthError('Email not found in session', 401);
-      }
+  // Fallback: Supabase session cookies on the request.
+  const supabase = createServerClient(url, anonKey, {
+    cookies: {
+      getAll() {
+        return request.cookies.getAll();
+      },
+      setAll() {
+        // Route handlers cannot persist refreshed cookies here; the
+        // middleware owns session refresh.
+      },
+    },
+  });
 
-      return decodedToken.email;
-      
-    } catch (error) {
-      console.error('Session cookie verification failed:', error);
-      
-      // Don't throw here, fall through to the final error
-    }
+  const { data, error } = await supabase.auth.getUser();
+  if (!error && data.user?.email) {
+    return data.user.email;
   }
 
   // No valid authentication found
@@ -94,10 +81,10 @@ export class AuthError extends Error {
  */
 export function createAuthErrorResponse(error: AuthError) {
   return Response.json(
-    { 
-      ok: false, 
-      error: error.message === 'Authentication failed' 
-        ? 'unauthorized' 
+    {
+      ok: false,
+      error: error.message === 'Authentication failed'
+        ? 'unauthorized'
         : error.message.toLowerCase().replace(/\s+/g, '_')
     },
     { status: error.statusCode }

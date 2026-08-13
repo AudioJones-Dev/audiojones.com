@@ -2,18 +2,7 @@
 import { useState } from "react";
 import InputField from "@/components/InputField";
 import { useRouter } from "next/navigation";
-import {
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-  updateProfile,
-  GoogleAuthProvider,
-  OAuthProvider,
-  signInWithPopup,
-  sendPasswordResetEmail,
-  setDoc,
-  doc,
-} from "@/lib/legacy-stubs";
-import { auth, db } from "@/lib/firebase/client";
+import { getSupabaseBrowserClient } from "@/lib/supabase/client";
 
 export default function AuthForm({ mode }: { mode: "login" | "register" }) {
   const router = useRouter();
@@ -24,68 +13,58 @@ export default function AuthForm({ mode }: { mode: "login" | "register" }) {
   const [loading, setLoading] = useState(false);
   const [resetSent, setResetSent] = useState(false);
 
+  function requireSupabase() {
+    const supabase = getSupabaseBrowserClient();
+    if (!supabase) {
+      throw new Error("Authentication is not configured.");
+    }
+    return supabase;
+  }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
     setError(null);
     try {
+      const supabase = requireSupabase();
       if (mode === "register") {
-        const cred = await createUserWithEmailAndPassword(auth, email, password);
-        if (name) await updateProfile(cred.user, { displayName: name });
-        await setDoc(doc(db, "users", cred.user.uid), {
+        const { error: signUpError } = await supabase.auth.signUp({
           email,
-          name,
-          role: "client",
-          createdAt: new Date(),
+          password,
+          options: {
+            data: { full_name: name, role: "client" },
+          },
         });
+        if (signUpError) throw signUpError;
       } else {
-        await signInWithEmailAndPassword(auth, email, password);
+        const { error: signInError } = await supabase.auth.signInWithPassword({
+          email,
+          password,
+        });
+        if (signInError) throw signInError;
       }
       router.push("/portal");
-    } catch (err: any) {
-      setError(err.message);
+      router.refresh();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Authentication failed");
     } finally {
       setLoading(false);
     }
   }
 
-  async function handleGoogle() {
+  async function handleOAuth(provider: "google" | "apple") {
+    setError(null);
     try {
-      const provider = new GoogleAuthProvider();
-      const cred = await signInWithPopup(auth, provider);
-      await setDoc(
-        doc(db, "users", cred.user.uid),
-        {
-          email: cred.user.email,
-          name: cred.user.displayName,
-          role: "client",
-          updatedAt: new Date(),
+      const supabase = requireSupabase();
+      const { error: oauthError } = await supabase.auth.signInWithOAuth({
+        provider,
+        options: {
+          redirectTo: `${window.location.origin}/portal`,
         },
-        { merge: true }
-      );
-      router.push("/portal");
-    } catch (err: any) {
-      setError(err.message);
-    }
-  }
-
-  async function handleApple() {
-    try {
-      const provider = new OAuthProvider("apple.com");
-      const cred = await signInWithPopup(auth, provider);
-      await setDoc(
-        doc(db, "users", cred.user.uid),
-        {
-          email: cred.user.email,
-          name: cred.user.displayName,
-          role: "client",
-          updatedAt: new Date(),
-        },
-        { merge: true }
-      );
-      router.push("/portal");
-    } catch (err: any) {
-      setError(err.message);
+      });
+      if (oauthError) throw oauthError;
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Authentication failed");
     }
   }
 
@@ -95,10 +74,12 @@ export default function AuthForm({ mode }: { mode: "login" | "register" }) {
       return;
     }
     try {
-      await sendPasswordResetEmail(auth, email);
+      const supabase = requireSupabase();
+      const { error: resetError } = await supabase.auth.resetPasswordForEmail(email);
+      if (resetError) throw resetError;
       setResetSent(true);
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Password reset failed");
     }
   }
 
@@ -154,22 +135,19 @@ export default function AuthForm({ mode }: { mode: "login" | "register" }) {
       <div className="flex flex-col gap-2 mt-4">
         <button
           type="button"
-          onClick={handleGoogle}
+          onClick={() => handleOAuth("google")}
           className="flex items-center justify-center gap-2 bg-white text-black rounded-full py-2 font-medium hover:opacity-90"
         >
-          <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="" className="h-4 w-4" />
           Continue with Google
         </button>
         <button
           type="button"
-          onClick={handleApple}
+          onClick={() => handleOAuth("apple")}
           className="flex items-center justify-center gap-2 bg-white text-black rounded-full py-2 font-medium hover:opacity-90"
         >
-          <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="" className="h-4 w-4" />
           Continue with Apple
         </button>
       </div>
     </form>
   );
 }
-

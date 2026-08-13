@@ -15,6 +15,16 @@ Entries are reverse chronological. Format follows
 
 ## Unreleased
 
+### Added
+- Wired Supabase Auth (`@supabase/ssr`) to replace the removed Firebase
+  auth: browser/server clients (`src/lib/supabase/`), middleware session
+  refresh, Supabase-verified admin gate on `/portal/admin`
+  (`ADMIN_EMAILS` allowlist or `app_metadata.role === "admin"`),
+  email/password admin login, and Supabase-backed
+  `requireClient`/`requireAdminUser` server helpers plus client auth
+  hooks/components. New env key: `ADMIN_EMAILS`. Routes still importing
+  the `firebaseAdmin` shim are unchanged this pass.
+
 ### Tooling
 - Added `.github/workflows/validation-summary.yml` (Phase 1 of
   `docs/ops/AUTOMATED_VALIDATION_REVIEW_LOOP.md`): aggregates `CI`,
