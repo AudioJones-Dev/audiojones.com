@@ -8,23 +8,26 @@ const BG =
 
 // ─── Metric data ─────────────────────────────────────────────────────────────
 
+// These describe what the installed system does, not measured client
+// outcomes. No performance figure appears here until it can be sourced —
+// see docs/strategy/AUDIOJONES_NICHE_VALIDATION_CORRECTIONS.md §1.
 const stats = [
   {
-    metric: "CAC Reduction",
-    display: "↓ 37%",
-    label: "Customer acquisition cost",
+    metric: "Response",
+    display: "On an SLA",
+    label: "Inbound answered on a defined clock, not when someone is free",
     accent: "#E8FF5A",
   },
   {
-    metric: "Pipeline Growth",
-    display: "↑ 28%",
-    label: "Qualified pipeline per quarter",
+    metric: "Follow-up",
+    display: "Every lead",
+    label: "Recovery cadence runs without anyone remembering to run it",
     accent: "#666666",
   },
   {
-    metric: "Conversion Rate",
-    display: "↑ 42%",
-    label: "Lead-to-call conversion rate",
+    metric: "Attribution",
+    display: "Causal",
+    label: "Revenue traced to the action that caused it, not to last click",
     accent: "#4DACFF",
   },
   {
@@ -122,13 +125,14 @@ export default function ProofStats() {
       >
         {/* Header */}
         <div className="mb-10 max-w-3xl">
-          <Eyebrow>Proof / Metrics</Eyebrow>
+          <Eyebrow>Before / After</Eyebrow>
           <h2 className="mt-4 t-h1 text-balance">
             From fragmented activity to measurable signal.
           </h2>
           <p className="mt-5 t-lead text-fg-2">
-            Numbers from in-flight engagements. Names withheld until publication
-            consent. Audited where the engagement permits.
+            What changes once the system is installed. Engagement results are
+            published here only when a client consents and the numbers can be
+            sourced.
           </p>
         </div>
 
@@ -176,7 +180,7 @@ export default function ProofStats() {
             title="Activity without leverage"
             statusLabel="Noise"
             kpis={[
-              { label: "Pipeline Drift", value: "High", trend: "↑ 41%", trendUp: false },
+              { label: "Pipeline Drift", value: "High", trend: "drivers unclear", trendUp: false },
               { label: "Attribution Conf.", value: "Low", trend: "Last-click", trendUp: false },
             ]}
             chart={<ChaoticChart />}
@@ -193,8 +197,8 @@ export default function ProofStats() {
             title="Causal system, compounding outcomes"
             statusLabel="Signal · Live"
             kpis={[
-              { label: "CAC", value: "↓ 37%", trend: "vs baseline", trendUp: true },
-              { label: "Conversion", value: "↑ 42%", trend: "lead → call", trendUp: true },
+              { label: "Response", value: "On SLA", trend: "defined, not ad hoc", trendUp: true },
+              { label: "Attribution", value: "Causal", trend: "not last-click", trendUp: true },
             ]}
             chart={<CleanChart />}
             range="Post-system, in-flight"
@@ -268,8 +272,8 @@ export default function ProofStats() {
             letterSpacing: "0.04em",
           }}
         >
-          Representative system outcomes. Actual results depend on
-          implementation, offer, market, and operational maturity.
+          Describes the installed system, not measured client results. Outcomes
+          depend on implementation, offer, market, and operational maturity.
         </p>
       </div>
     </section>
