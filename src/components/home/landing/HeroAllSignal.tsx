@@ -33,11 +33,16 @@ const INK_FAINT = "rgba(10,10,10,0.34)";
 const INK_LINE = "rgba(10,10,10,0.18)";
 const SIGNAL = "#E8FF5A";
 
-const METRICS = [
-  { pct: "37%", dir: "↓", label: "CAC Reduction" },
-  { pct: "28%", dir: "↑", label: "Pipeline Growth" },
-  { pct: "42%", dir: "↑", label: "Conversion Rate" },
-];
+// Any figure published here must map to a SAFE row in
+// docs/strategy/AUDIOJONES_NICHE_VALIDATION_CORRECTIONS.md §1, carry that
+// row's required qualifier, and link its primary source — not a vendor or
+// news retelling. Verification record: docs/strategy/CLAIM_VERIFICATION_LOG.md
+const CITED_STAT = {
+  value: "62%",
+  claim: "of inbound calls to small businesses go unanswered",
+  source: "411 Locals, Jan 2016 · 85 businesses, 30 days",
+  href: "https://411locals.us/small-business-owners-dont-answer-62-of-phone-calls/",
+};
 
 export default function HeroAllSignal() {
   return (
@@ -206,51 +211,55 @@ export default function HeroAllSignal() {
           right: "3.5rem",
           bottom: "10%",
           zIndex: 6,
-          alignItems: "center",
-          gap: "0",
+          flexDirection: "column",
+          gap: "5px",
+          maxWidth: "330px",
           background: "rgba(8, 10, 20, 0.92)",
           border: "1px solid rgba(255,255,255,0.08)",
           borderRadius: "10px",
-          padding: "14px 20px",
+          padding: "16px 20px",
           boxShadow: "0 18px 48px rgba(10,12,24,0.18)",
         }}
       >
-        {METRICS.map((m, i) => (
-          <div
-            key={m.label}
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "3px",
-              padding: "0 18px",
-              borderLeft: i > 0 ? "1px solid rgba(255,255,255,0.10)" : "none",
-            }}
-          >
-            <span
-              style={{
-                fontFamily: "var(--font-headline)",
-                fontSize: "22px",
-                fontWeight: 700,
-                lineHeight: 1,
-                letterSpacing: "-0.02em",
-                color: SIGNAL,
-              }}
-            >
-              {m.dir}&thinsp;{m.pct}
-            </span>
-            <span
-              style={{
-                fontFamily: "var(--font-body)",
-                fontSize: "10px",
-                letterSpacing: "0.12em",
-                textTransform: "uppercase",
-                color: "rgba(255,255,255,0.55)",
-              }}
-            >
-              {m.label}
-            </span>
-          </div>
-        ))}
+        <span
+          style={{
+            fontFamily: "var(--font-headline)",
+            fontSize: "26px",
+            fontWeight: 700,
+            lineHeight: 1,
+            letterSpacing: "-0.02em",
+            color: SIGNAL,
+          }}
+        >
+          {CITED_STAT.value}
+        </span>
+        <span
+          style={{
+            fontFamily: "var(--font-body)",
+            fontSize: "11px",
+            lineHeight: 1.5,
+            letterSpacing: "0.08em",
+            textTransform: "uppercase",
+            color: "rgba(255,255,255,0.62)",
+          }}
+        >
+          {CITED_STAT.claim}
+        </span>
+        <a
+          href={CITED_STAT.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            fontFamily: "var(--font-body)",
+            fontSize: "9px",
+            letterSpacing: "0.06em",
+            color: "rgba(255,255,255,0.42)",
+            textDecoration: "underline",
+            textUnderlineOffset: "2px",
+          }}
+        >
+          <cite style={{ fontStyle: "normal" }}>{CITED_STAT.source}</cite>
+        </a>
       </div>
 
       {/* ── 5. Left content block — desktop >= 1024px ── */}
@@ -562,38 +571,54 @@ export default function HeroAllSignal() {
           zIndex: 6,
           background: "rgba(8, 10, 20, 0.92)",
           borderTop: "1px solid rgba(255,255,255,0.08)",
-          justifyContent: "space-around",
-          padding: "14px 12px",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: "4px",
+          textAlign: "center",
+          padding: "14px 16px",
           marginTop: "auto",
         }}
       >
-        {METRICS.map((m) => (
-          <div key={m.label} style={{ display: "flex", flexDirection: "column", gap: "3px", textAlign: "center" }}>
-            <span
-              style={{
-                fontFamily: "var(--font-headline)",
-                fontSize: "20px",
-                fontWeight: 700,
-                lineHeight: 1,
-                letterSpacing: "-0.02em",
-                color: SIGNAL,
-              }}
-            >
-              {m.dir}&thinsp;{m.pct}
-            </span>
-            <span
-              style={{
-                fontFamily: "var(--font-body)",
-                fontSize: "9px",
-                letterSpacing: "0.10em",
-                textTransform: "uppercase",
-                color: "rgba(255,255,255,0.5)",
-              }}
-            >
-              {m.label}
-            </span>
-          </div>
-        ))}
+        <span
+          style={{
+            fontFamily: "var(--font-headline)",
+            fontSize: "22px",
+            fontWeight: 700,
+            lineHeight: 1,
+            letterSpacing: "-0.02em",
+            color: SIGNAL,
+          }}
+        >
+          {CITED_STAT.value}
+        </span>
+        <span
+          style={{
+            fontFamily: "var(--font-body)",
+            fontSize: "10px",
+            lineHeight: 1.5,
+            letterSpacing: "0.08em",
+            textTransform: "uppercase",
+            color: "rgba(255,255,255,0.55)",
+            maxWidth: "34ch",
+          }}
+        >
+          {CITED_STAT.claim}
+        </span>
+        <a
+          href={CITED_STAT.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            fontFamily: "var(--font-body)",
+            fontSize: "9px",
+            letterSpacing: "0.06em",
+            color: "rgba(255,255,255,0.42)",
+            textDecoration: "underline",
+            textUnderlineOffset: "2px",
+          }}
+        >
+          <cite style={{ fontStyle: "normal" }}>{CITED_STAT.source}</cite>
+        </a>
       </div>
 
       {/* ── 4. Metrics strip — tablet 768–1023px ── */}
@@ -604,48 +629,52 @@ export default function HeroAllSignal() {
           zIndex: 6,
           background: "rgba(8, 10, 20, 0.92)",
           borderTop: "1px solid rgba(255,255,255,0.08)",
-          justifyContent: "space-around",
+          alignItems: "baseline",
+          justifyContent: "center",
+          flexWrap: "wrap",
+          gap: "10px",
           padding: "14px 2rem",
           marginTop: "auto",
         }}
       >
-        {METRICS.map((m, i) => (
-          <div
-            key={m.label}
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "3px",
-              textAlign: "center",
-              padding: "0 16px",
-              borderLeft: i > 0 ? "1px solid rgba(255,255,255,0.1)" : "none",
-            }}
-          >
-            <span
-              style={{
-                fontFamily: "var(--font-headline)",
-                fontSize: "22px",
-                fontWeight: 700,
-                lineHeight: 1,
-                letterSpacing: "-0.02em",
-                color: SIGNAL,
-              }}
-            >
-              {m.dir}&thinsp;{m.pct}
-            </span>
-            <span
-              style={{
-                fontFamily: "var(--font-body)",
-                fontSize: "10px",
-                letterSpacing: "0.12em",
-                textTransform: "uppercase",
-                color: "rgba(255,255,255,0.5)",
-              }}
-            >
-              {m.label}
-            </span>
-          </div>
-        ))}
+        <span
+          style={{
+            fontFamily: "var(--font-headline)",
+            fontSize: "22px",
+            fontWeight: 700,
+            lineHeight: 1,
+            letterSpacing: "-0.02em",
+            color: SIGNAL,
+          }}
+        >
+          {CITED_STAT.value}
+        </span>
+        <span
+          style={{
+            fontFamily: "var(--font-body)",
+            fontSize: "10px",
+            letterSpacing: "0.10em",
+            textTransform: "uppercase",
+            color: "rgba(255,255,255,0.55)",
+          }}
+        >
+          {CITED_STAT.claim}
+        </span>
+        <a
+          href={CITED_STAT.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            fontFamily: "var(--font-body)",
+            fontSize: "9px",
+            letterSpacing: "0.06em",
+            color: "rgba(255,255,255,0.42)",
+            textDecoration: "underline",
+            textUnderlineOffset: "2px",
+          }}
+        >
+          <cite style={{ fontStyle: "normal" }}>{CITED_STAT.source}</cite>
+        </a>
       </div>
     </section>
   );
