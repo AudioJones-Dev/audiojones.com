@@ -15,6 +15,16 @@ Entries are reverse chronological. Format follows
 
 ## Unreleased
 
+### Removed
+- Deleted the `agentsProofStrip` export from
+  `src/data/audiojones-design.ts`. It held `$214K` "recovered revenue",
+  a `+38%` reply-rate lift, a `<9 min` response time, and a testimonial
+  attributed only to "Founder, professional services, $1.2M run-rate" —
+  no named client, no consent on record. Nothing imported it, so none of
+  it was ever published. Annotating it was not enough: dead data holding
+  an unattributable endorsement is a trap for whoever wires it up next.
+  Git history keeps the content if a consented version ever exists.
+
 ### Documentation
 - Amended §1 of `AUDIOJONES_NICHE_VALIDATION_CORRECTIONS.md` (v1.0 → v1.1)
   after running its own rule 1 against three rows marked SAFE. The

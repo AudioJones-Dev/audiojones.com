@@ -146,24 +146,6 @@ export const diagnosticDimensions = [
   "Team adoption",
 ] as const;
 
-// ⚠ NOT RENDERED, AND NOT PUBLISHABLE AS-IS. No consumer imports this today.
-// The figures below have no source and the quote has no identified client or
-// consent on record, so wiring this up would publish an unverifiable
-// testimonial alongside unsourced numbers. Before any surface renders it,
-// every figure needs an entry in docs/strategy/CLAIM_VERIFICATION_LOG.md and
-// the quote needs a named, consenting client.
-export const agentsProofStrip = {
-  quote: {
-    body: "We did not need another tool. We needed a system that owned the follow-up. ResponseOS closed the gap in three weeks.",
-    attribution: "Founder, professional services, $1.2M run-rate",
-  },
-  stats: [
-    { metric: "+38%", label: "Reply rate lift on missed inquiries" },
-    { metric: "<9 min", label: "Median time-to-first-response on high-intent leads" },
-    { metric: "$214K", label: "Recovered revenue, first 90 days (representative deployment)" },
-  ],
-} as const;
-
 export const systemComparison = {
   rows: [
     "Business diagnosis before tooling",
