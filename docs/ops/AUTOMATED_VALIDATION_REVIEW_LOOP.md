@@ -753,6 +753,14 @@ ambiguity. The following are hard rules.
     failing to filter to this workflow) or count zero (by filtering
     correctly on an empty field).
 
+    Because that count is a read-modify-write, the workflow declares a
+    `concurrency` group keyed on the head branch with
+    `cancel-in-progress: false`. Several watched workflows finish within
+    seconds of each other, and unserialised jobs would read the same
+    count, both write `N+1`, and undercount. Do not remove the group or
+    switch it to `cancel-in-progress: true` — cancelling a queued run
+    drops a summary update rather than deferring it.
+
 ---
 
 ## 10. Acceptance criteria

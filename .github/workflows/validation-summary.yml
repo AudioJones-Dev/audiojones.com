@@ -14,6 +14,16 @@ permissions:
   actions: read
   checks: read
 
+# The breaker count is a read-modify-write against the sticky comment, and
+# several watched workflows can finish within seconds of each other. Without
+# serialisation two summary jobs read the same count, both write N+1, and the
+# guard silently undercounts. Grouping on the head branch — rather than the
+# head SHA — also serialises runs still draining from an earlier commit, which
+# would otherwise overwrite the marker for the current one.
+concurrency:
+  group: aj-validation-summary-${{ github.event.workflow_run.head_branch }}
+  cancel-in-progress: false
+
 jobs:
   summarize:
     if: github.event.workflow_run.event == 'pull_request'
