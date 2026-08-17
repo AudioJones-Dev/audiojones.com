@@ -169,6 +169,47 @@ no CRM/calendar mutation, and no verified-revenue result.
 
 ---
 
+## 2026-08-12 — Sell the pain first; keep the frontier internal
+
+**Status:** accepted
+**Decision:** Public surfaces lead with the buyer's problem and its economic
+cost. Concretely: the `h1` is problem-anchored, and the sections that explain
+the category and the system architecture come after the proof rather than
+before it. This governs the narrative order and the headline — not the
+category label itself, which still appears as the hero eyebrow, verbatim and
+qualified, per the naming rules and
+[`docs/codex/responseos-v1-brief.md`](./codex/responseos-v1-brief.md) §6
+("the H1 is problem-anchored, not category-anchored").
+The long-horizon thesis — machine-readable operating models,
+agentic business operations — stays in `docs/strategy/` and is not published
+as page copy, product naming, or metadata. Canonical statement:
+[`docs/strategy/AJ_DIGITAL_S_CURVE_POSITIONING.md`](./strategy/AJ_DIGITAL_S_CURVE_POSITIONING.md).
+
+**Rationale:** the homepage opened on a category, then an abstract
+signal-vs-noise taxonomy, then the flagship system, and only then the
+economic cost — asking a visitor to understand the architecture before
+feeling the problem. `HomeFaqSection.tsx` already encoded the correct rule
+in a code comment ("leads with what the business does in everyday terms,
+then names the framework"); the page as a whole did not follow it. The
+frontier thesis is real but has no fundable buyer today, so it is funded by
+the commercial wedge rather than sold alongside it.
+
+**Consequences:**
+- Homepage section order is pain → economic cost → diagnosis → proof →
+  system → architecture. New homepage sections must state which beat they
+  serve.
+- New product ideas are subject to the portfolio filter in
+  `AJ_DIGITAL_S_CURVE_POSITIONING.md` §4; capability alone is not a reason
+  to build.
+- "business graph" / "business memory" / "persistent business memory" stay
+  descriptive concepts, never branded product names (entity-collision risk
+  per `AUDIOJONES_NICHE_VALIDATION_CORRECTIONS.md` §2).
+- **This decision does not resolve the offer ladder.**
+  `AJ_DIGITAL_CANONICAL_OFFER_RATIFICATION_PROPOSAL.md` §8 Q1–Q7 remain
+  open, and no offer name, price, tier, or route changed here.
+
+---
+
 ## How to add an entry
 
 1. Append to the bottom of this file with today's date.

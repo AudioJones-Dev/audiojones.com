@@ -76,18 +76,22 @@ export const responseOsFlow = [
   },
 ] as const;
 
+// Rendered as hero stats on /agents, /agents/responseos and /case-studies.
+// These describe how the installed system behaves — they are not measured
+// client outcomes. A performance figure belongs here only once it has an
+// entry in docs/strategy/CLAIM_VERIFICATION_LOG.md.
 export const proofSignals = [
   {
-    metric: "+38%",
-    label: "Reply rate lift on missed inquiries after ResponseOS.",
+    metric: "One inbox",
+    label: "Every channel consolidated into a single recovery view.",
   },
   {
-    metric: "<9 min",
-    label: "Median time-to-first-response on high-intent leads.",
+    metric: "On an SLA",
+    label: "Inbound answered on a defined clock, not when someone is free.",
   },
   {
-    metric: "1 inbox",
-    label: "Every channel consolidated into one recovery view.",
+    metric: "Recovery cadence",
+    label: "Stalled leads are re-engaged on a schedule, not when somebody remembers.",
   },
 ] as const;
 
@@ -141,18 +145,6 @@ export const diagnosticDimensions = [
   "Tool fragmentation",
   "Team adoption",
 ] as const;
-
-export const agentsProofStrip = {
-  quote: {
-    body: "We did not need another tool. We needed a system that owned the follow-up. ResponseOS closed the gap in three weeks.",
-    attribution: "Founder, professional services, $1.2M run-rate",
-  },
-  stats: [
-    { metric: "+38%", label: "Reply rate lift on missed inquiries" },
-    { metric: "<9 min", label: "Median time-to-first-response on high-intent leads" },
-    { metric: "$214K", label: "Recovered revenue, first 90 days (representative deployment)" },
-  ],
-} as const;
 
 export const systemComparison = {
   rows: [
