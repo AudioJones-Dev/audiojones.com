@@ -149,6 +149,26 @@ destination to avoid avoidable redirect hops and mixed host signals.
 
 ---
 
+## 2026-08-17 — Founder Intelligence Diagnostic is the primary GTM CTA
+
+**Status:** accepted
+**Decision:** The paid-entry CTA on the primary marketing and ResponseOS
+surfaces is **Start the Founder Intelligence Diagnostic** at
+`/founder-intelligence/diagnostic`. The AI Readiness Scorecard remains a free
+secondary entry. ResponseOS is supporting proof and links secondarily to its
+controlled sandbox walkthrough.
+
+**Rationale:** A diagnostic-first path keeps the recommendation tied to the
+founder's actual operating constraint and prevents a planned system or demo
+from being presented as an already-proven customer implementation.
+
+**Consequences:** Public CTA changes preserve the existing diagnostic form,
+Neon persistence, and two-business-day response SLA. Pricing is not changed.
+The ResponseOS demo must disclose fictional persisted data, no live providers,
+no CRM/calendar mutation, and no verified-revenue result.
+
+---
+
 ## How to add an entry
 
 1. Append to the bottom of this file with today's date.

@@ -8,11 +8,18 @@ import {
   SignalHero,
 } from "@/components/marketing/DesignSystemSections";
 import { ButtonLink } from "@/components/ui/Button";
-import { proofSignals, responseOsFlow } from "@/data/audiojones-design";
+import { responseOsFlow } from "@/data/audiojones-design";
 import { buildMetadata } from "@/lib/seo/metadata";
+import { ctaLinks } from "@/config/links";
 
 const DESCRIPTION =
-  "ResponseOS is the AI Receptionist System for founder-led businesses: revenue-recovery infrastructure for faster response, better qualification, and measurable follow-up.";
+  "ResponseOS is AJ Digital's revenue-recovery system in development. Explore a fictional persisted sandbox showing the intended capture, qualification, and follow-up path.";
+
+const controlledProofSignals = [
+  { metric: "Sandbox", label: "Fictional tenant-scoped persisted records." },
+  { metric: "$0", label: "Verified recovered revenue claimed by the demo." },
+  { metric: "No live", label: "Telephony, CRM, calendar, or SMS provider effects." },
+] as const;
 
 export const metadata: Metadata = buildMetadata({
   title: "ResponseOS Revenue Recovery Infrastructure",
@@ -24,13 +31,13 @@ export default function ResponseOsPage() {
   return (
     <>
       <SignalHero
-        title="ResponseOS turns missed demand into a recovery path."
+        title="See how ResponseOS is designed to turn missed demand into a recovery path."
         description={DESCRIPTION}
-        primaryHref="/roi-calculator"
-        primaryLabel="Calculate Lost Revenue"
-        secondaryHref="/book-a-call"
-        secondaryLabel="Book a Call"
-        stats={proofSignals}
+        primaryHref={ctaLinks.founderDiagnostic}
+        primaryLabel="Start the Founder Intelligence Diagnostic"
+        secondaryHref={ctaLinks.responseOsDemo}
+        secondaryLabel="View the controlled demo"
+        stats={controlledProofSignals}
       >
         <SignalConsole />
       </SignalHero>
@@ -61,7 +68,7 @@ export default function ResponseOsPage() {
         <SectionIntro
           label="How It Works"
           title="Capture, qualify, route, recover."
-          description="ResponseOS is not a chatbot. It is a follow-up control plane for high-intent demand."
+          description="ResponseOS is being built as a follow-up control plane for high-intent demand. The current prospect demo uses fictional persisted fixtures, not live provider traffic."
         />
         <div className="mt-10 grid gap-5 lg:grid-cols-4">
           {responseOsFlow.map((item) => (
@@ -123,7 +130,7 @@ export default function ResponseOsPage() {
         />
         <div className="mt-10 grid gap-4 md:grid-cols-2">
           {[
-            ["Is this a chatbot?", "No. A chat interface can be one input, but ResponseOS is the operational layer behind capture, qualification, routing, and recovery."],
+            ["Is this a chatbot?", "No. A chat interface can be one input, but ResponseOS is being built as an operational layer for capture, qualification, routing, and recovery."],
             ["Who is it for?", "Founder-led businesses with enough inbound demand to feel the cost of slow follow-up, unclear ownership, or scattered response channels."],
             ["What comes first?", "The ROI calculator or diagnostic. The system should be justified by the size and urgency of the revenue leak."],
             ["Does it replace the team?", "No. It gives the team cleaner signal, faster next actions, and a more accountable follow-up path."],
@@ -141,10 +148,10 @@ export default function ResponseOsPage() {
       <FinalCta
         title="Recover the revenue already trying to reach you."
         description="Estimate the leak, then decide whether ResponseOS — the AI Receptionist System — is the right build. See how it fits the full offer ladder on Solutions."
-        primaryLabel="Calculate Lost Revenue"
-        primaryHref="/roi-calculator"
-        secondaryLabel="Book a Call"
-        secondaryHref="/book-a-call"
+        primaryLabel="Start the Founder Intelligence Diagnostic"
+        primaryHref={ctaLinks.founderDiagnostic}
+        secondaryLabel="View the controlled demo"
+        secondaryHref={ctaLinks.responseOsDemo}
       />
     </>
   );

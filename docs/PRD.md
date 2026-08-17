@@ -23,8 +23,9 @@ mechanisms:
 
 1. **Authority content** — insights, frameworks, case studies, ROI
    calculator.
-2. **Diagnostic** — the AI Readiness Diagnostic captures structured
-   intent and routes leads to the appropriate tier.
+2. **Diagnostic** — the Founder Intelligence Diagnostic captures structured
+   intent and routes leads to the appropriate next step. The AI Readiness
+   Scorecard remains a free supporting entry point.
 3. **Direct booking** — the `Book a Call` CTA opens a scheduling flow
    for high-intent visitors.
 
@@ -48,7 +49,8 @@ Every surface should drive toward one of these three exits.
 ### 4.1 Lead capture (primary)
 
 1. Visitor lands on a marketing page.
-2. CTA opens a form (`/ai-readiness-diagnostic`, contact, or inline).
+2. The primary CTA opens `/founder-intelligence/diagnostic`; the free AI
+   Readiness Scorecard and generic contact surfaces remain secondary entries.
 3. Submission goes to `src/app/api/founder-intelligence/leads/route.ts`
    (or `src/app/api/leads/route.ts` for generic intake).
 4. Server validates with Zod, rate-limits per IP, scores the lead

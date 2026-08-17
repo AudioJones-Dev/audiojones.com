@@ -10,6 +10,12 @@ entries ([`DECISIONS.md`](./DECISIONS.md)), and the changelog
 
 ## Now (in flight)
 
+- **Founder Intelligence Diagnostic GTM sprint.** Align the primary CTA,
+  preserve durable Neon intake, document two-business-day manual follow-up,
+  and use the controlled persisted ResponseOS sandbox as proof. No automated
+  CRM sync or live-provider claim. See
+  [`ops/FOUNDER_INTELLIGENCE_GTM_SPRINT.md`](./ops/FOUNDER_INTELLIGENCE_GTM_SPRINT.md).
+
 - **Docs readiness bootstrap.** Establish AGENTS.md, CLAUDE.md, and the
   canonical `docs/` hierarchy. Stub legacy/duplicated docs to a single
   source of truth. *(this PR)*

@@ -15,6 +15,17 @@ Entries are reverse chronological. Format follows
 
 ## Unreleased
 
+### GTM
+- Made the Founder Intelligence Diagnostic the primary paid-entry CTA on the
+  homepage, Solutions, header, and ResponseOS surfaces; retained the AI
+  Readiness Scorecard as a secondary free entry.
+- Added the verified controlled ResponseOS demo URL as secondary proof with
+  explicit fictional-sandbox and no-live-provider language.
+- Added the two-week GTM operating brief covering lead reconciliation,
+  two-business-day follow-up, demo script, claims boundaries, discovery
+  questions, outreach targets, and evidence requirements. No pricing,
+  automated CRM synchronization, external submission, or deployment changed.
+
 ### Tooling
 - Added `.github/workflows/validation-summary.yml` (Phase 1 of
   `docs/ops/AUTOMATED_VALIDATION_REVIEW_LOOP.md`): aggregates `CI`,
