@@ -103,7 +103,16 @@ Use and reconcile evidence from:
 - CRM/forms/email inquiry language,
 - Reddit/forums/community discussions when useful,
 - first-party site analytics,
-- additional keyword tools where available.
+- **DataForSEO MCP** for structured keyword, SERP, local, competitor, and related search-demand data,
+- **Firecrawl MCP** for competitor/site discovery, crawling, scraping, page inventory, and structured content extraction,
+- additional keyword tools where useful.
+
+#### MCP operating status
+
+- **Firecrawl:** installed and available as an MCP research capability. In ChatGPT sessions where the connector is exposed, it may be called directly for search, scrape, map, crawl, structured extraction, and related research operations.
+- **DataForSEO:** installed as an MCP research capability in the Audio Jones toolchain. Availability can vary by execution environment/session; when exposed, use it as a primary structured SEO data provider. If not exposed in a given session, run collection from the environment where the MCP is available and persist/import the resulting evidence rather than replacing it with unsupported estimates.
+
+The research architecture is tool-agnostic: MCP/tool availability must not change the evidentiary standard or the canonical data model.
 
 ### 4.3 Commercial search territories
 
@@ -145,6 +154,8 @@ Evaluate several competitor classes, not only direct AI consultants:
 - business systems / operations consultants.
 
 Capture both keyword gaps and **page architecture gaps**.
+
+Use Firecrawl for site-level evidence collection and DataForSEO for SERP/keyword/competitor evidence where each materially improves coverage. Do not treat either vendor's output as ground truth without HDIKIT classification and corroboration where material.
 
 ### 4.6 Local + scalable architecture
 
@@ -198,7 +209,7 @@ Until a separate implementation task is approved, do not:
 Use an HDIKIT-style truth-state discipline for material claims:
 
 - **Known** — first-party observed data or confirmed repo state.
-- **Retrieved** — external/tool evidence.
+- **Retrieved** — external/tool evidence, including Firecrawl and DataForSEO outputs.
 - **Inferred** — reasoned interpretation of evidence.
 - **Assumed** — working premise not yet validated.
 - **Unknown** — unresolved.
@@ -273,8 +284,8 @@ Raw exports/snapshots should be kept separate from canonical conclusions.
 4. Establish ICP language hypotheses.
 5. Build a controlled seed universe (~40–60 initial concepts).
 6. Collect first-party evidence from GSC/GBP where available.
-7. Expand with QuestionFinder / PAA / SERP evidence.
-8. Run competitor keyword + money-page gap analysis.
+7. Expand and validate demand with QuestionFinder / PAA / SERP evidence and **DataForSEO MCP** where available.
+8. Run competitor keyword + money-page gap analysis using **DataForSEO + Firecrawl** as complementary evidence sources.
 9. Build customer-language corpus from calls/forms/emails where authorized.
 10. Cluster queries by ICP, pain, outcome, solution, intent, geography, and offer.
 11. Map queries to existing/new canonical URLs.
