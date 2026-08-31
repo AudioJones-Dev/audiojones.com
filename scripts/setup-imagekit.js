@@ -25,7 +25,6 @@ console.log(`   .env.local exists: ${fs.existsSync(envPath) ? '✅ Yes' : '❌ N
 const componentsExist = {
   loader: fs.existsSync('src/lib/imagekit.ts'),
   component: fs.existsSync('src/components/IKImage.tsx'),
-  buildStamp: fs.existsSync('src/components/BuildStamp.tsx'),
   conversionScript: fs.existsSync('scripts/convert-to-ikimage.js')
 };
 
