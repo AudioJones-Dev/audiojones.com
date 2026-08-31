@@ -11,9 +11,10 @@
  * and 15 merges while every deploy job reported success.
  *
  * So this script does two things, and the second matters more than the first:
- * completes the rollout when one is active, then asserts the alias actually
- * points at the deployment we just made. A production deploy that does not
- * reach production is a failed deploy and should be a red run.
+ * drives the deployment to 100% of traffic — starting a rollout when none is
+ * running and completing it — then asserts production actually serves the
+ * deployment we just made. A production deploy that does not reach production
+ * is a failed deploy and should be a red run.
  */
 
 const API = "https://api.vercel.com";
@@ -112,31 +113,52 @@ async function resolveDeploymentId(): Promise<string> {
 }
 
 /**
- * Returns true when a rollout was completed. A project with no rolling release
- * configured is normal — the alias moves on its own — so that is not an error
- * here. The verification step below is what decides whether it worked.
+ * Drives this deployment to 100% of production traffic.
+ *
+ * There are two shapes to handle, and only the first was covered originally:
+ *
+ *   state ACTIVE   — a rollout is already running for this deployment; finish it.
+ *   state COMPLETE — the previous rollout finished and this deployment is
+ *                    merely STAGED behind it. There is nothing to complete, so
+ *                    a rollout has to be started for it first. Skipping this is
+ *                    what left `3691343` staged while production served an
+ *                    older deployment.
+ *
+ * A project with no rolling release configured needs neither call — the alias
+ * moves on its own — so that is not an error. Verification decides either way.
  */
-async function completeRollout(deploymentId: string): Promise<boolean> {
+async function driveRollout(deploymentId: string): Promise<boolean> {
   const { rollingRelease } = await api<RollingRelease>(
     `/v1/projects/${projectId}/rolling-release`,
   );
 
-  if (!rollingRelease || rollingRelease.state !== "ACTIVE") {
-    console.log(
-      `No active rolling release (state: ${rollingRelease?.state ?? "none"}).`,
-    );
+  if (!rollingRelease) {
+    console.log("No rolling release configured for this project.");
     return false;
   }
 
-  const canaryId = rollingRelease.canaryDeployment?.id;
-  if (canaryId !== deploymentId) {
-    // Completing someone else's in-flight rollout would promote a deployment
-    // this run never built. Refuse and let a human look.
-    throw new Error(
-      `A rolling release is active for a different deployment.\n` +
-        `  canary:    ${canaryId ?? "unknown"}\n` +
-        `  this run:  ${deploymentId}\n` +
-        `Resolve it in the Vercel dashboard before re-running.`,
+  if (rollingRelease.state === "ACTIVE") {
+    const canaryId = rollingRelease.canaryDeployment?.id;
+    if (canaryId !== deploymentId) {
+      // Advancing someone else's in-flight rollout would promote a deployment
+      // this run never built. Refuse and let a human look.
+      throw new Error(
+        `A rolling release is active for a different deployment.\n` +
+          `  canary:    ${canaryId ?? "unknown"}\n` +
+          `  this run:  ${deploymentId}\n` +
+          `Resolve it in the Vercel dashboard before re-running.`,
+      );
+    }
+  } else {
+    // Safe to call unconditionally in this branch: start is documented as
+    // returning current state without side effects when a rollout is already
+    // active for the same canary.
+    await api(`/v1/projects/${projectId}/rolling-release/start`, {
+      method: "POST",
+      body: JSON.stringify({ canaryDeploymentId: deploymentId }),
+    });
+    console.log(
+      `Started a rolling release for ${deploymentId} (previous state: ${rollingRelease.state ?? "unknown"}).`,
     );
   }
 
@@ -198,7 +220,7 @@ async function main(): Promise<void> {
   loadConfig();
   const deploymentId = await resolveDeploymentId();
   console.log(`Deployment ${deploymentId} (${deploymentUrl})`);
-  await completeRollout(deploymentId);
+  await driveRollout(deploymentId);
   await verifyAliasAdvanced(deploymentId);
 }
 
