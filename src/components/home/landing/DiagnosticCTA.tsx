@@ -67,20 +67,20 @@ export default function DiagnosticCTA() {
           turns it into measurable growth.
         </p>
         <p className="mt-4 t-body text-fg-2 max-w-2xl mx-auto">
-          Choose the live call path when you are ready to scope the system.
-          Choose the diagnostic path when the leak still needs to be mapped.
+          Start with the Founder Intelligence Diagnostic. I review the signal,
+          constraint, and operating context before recommending a system.
         </p>
 
         <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Link href="/book-a-call" className="aj-btn-signal w-full sm:w-auto">
-            Book a Call
+          <Link href="/founder-intelligence/diagnostic" className="aj-btn-signal w-full sm:w-auto">
+            Start the Founder Intelligence Diagnostic
           </Link>
-          <Link href="/ai-readiness-diagnostic" className="aj-btn-intel w-full sm:w-auto">
-            Start the AI Readiness Diagnostic
+          <Link href="https://responseos.ajdigital.app/demo/walkthrough" className="aj-btn-intel w-full sm:w-auto">
+            View the controlled ResponseOS demo
           </Link>
         </div>
         <p className="mt-6 t-small text-fg-3">
-          Free fit review. No commitment. Reviewed personally by Audio Jones.
+          Application reviewed personally by Audio Jones within two business days.
         </p>
 
         {/* ── Quiet divider ── */}

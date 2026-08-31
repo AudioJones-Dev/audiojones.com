@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Eyebrow } from "@/components/ui/Eyebrow";
+import { ctaLinks } from "@/config/links";
 
 const pillars = [
   [
@@ -63,7 +64,7 @@ export default function ResponseOSWedge() {
         <div className="min-w-0">
           <Eyebrow>Flagship - Revenue Recovery Infrastructure</Eyebrow>
           <h2 className="mt-4 t-h1 text-balance max-sm:text-[2rem]">
-            ResponseOS recovers the revenue your follow-up is losing.
+            ResponseOS is designed to recover demand your follow-up is losing.
           </h2>
           <p className="mt-5 t-lead text-fg-2">
             The leak is not just missed calls. It is scattered intent, slow
@@ -80,11 +81,11 @@ export default function ResponseOSWedge() {
             ))}
           </div>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Link href="/agents/responseos" className="aj-btn-signal">
-              Explore ResponseOS
+            <Link href={ctaLinks.founderDiagnostic} className="aj-btn-signal">
+              Start the Founder Intelligence Diagnostic
             </Link>
-            <Link href="/roi-calculator" className="aj-btn-intel">
-              Calculate Lost Revenue
+            <Link href={ctaLinks.responseOsDemo} className="aj-btn-intel">
+              View the controlled demo
             </Link>
           </div>
         </div>

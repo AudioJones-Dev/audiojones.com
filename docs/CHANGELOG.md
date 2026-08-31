@@ -15,6 +15,16 @@ Entries are reverse chronological. Format follows
 
 ## Unreleased
 
+### GTM
+- Made the Founder Intelligence Diagnostic the primary paid-entry CTA on the
+  homepage, Solutions, header, and ResponseOS surfaces; retained the AI
+  Readiness Scorecard as a secondary free entry.
+- Added the verified controlled ResponseOS demo URL as secondary proof with
+  explicit fictional-sandbox and no-live-provider language.
+- Added the two-week GTM operating brief covering lead reconciliation,
+  two-business-day follow-up, demo script, claims boundaries, discovery
+  questions, outreach targets, and evidence requirements. No pricing,
+  automated CRM synchronization, external submission, or deployment changed.
 ### Removed
 - Deleted the `agentsProofStrip` export from
   `src/data/audiojones-design.ts`. It held `$214K` "recovered revenue",
@@ -76,7 +86,6 @@ Entries are reverse chronological. Format follows
   figure is absent from Asana's index, and the MIT NANDA 95% figure has
   no openable primary URL. Both are blocked from publication pending an
   amendment to §1.
-
 ### Tooling
 - Added `.github/workflows/validation-summary.yml` (Phase 1 of
   `docs/ops/AUTOMATED_VALIDATION_REVIEW_LOOP.md`): aggregates `CI`,

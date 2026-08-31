@@ -171,8 +171,8 @@ export default function SolutionsPage() {
               prescribes, then operate the system as it compounds.
             </p>
             <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-              <ButtonLink href={ctaLinks.signalDiagnostic} variant="glow">
-                Start the Diagnostic
+              <ButtonLink href={ctaLinks.founderDiagnostic} variant="glow">
+                Start the Founder Intelligence Diagnostic
               </ButtonLink>
               <ButtonLink href="/book-a-call" variant="secondary">
                 Book a Call
@@ -284,8 +284,8 @@ export default function SolutionsPage() {
             build is scoped. See how the offers ladder, or review pricing.
           </p>
           <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <ButtonLink href={ctaLinks.signalDiagnostic} variant="glow">
-              Start the Diagnostic
+            <ButtonLink href={ctaLinks.founderDiagnostic} variant="glow">
+              Start the Founder Intelligence Diagnostic
             </ButtonLink>
             <ButtonLink href="/pricing" variant="secondary">
               View Pricing
