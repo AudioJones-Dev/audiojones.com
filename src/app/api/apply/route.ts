@@ -1,12 +1,13 @@
 // POST /api/apply — submit the deeper-intent qualification form.
 //
-// Reads LEAD_FORM_PROVIDER (mock | resend) and dispatches via the apply
-// adapter. Always returns JSON. Always reachable in dev — the mock
+// Reads LEAD_FORM_PROVIDER (mock | neon | resend) and dispatches via the
+// apply adapter. Always returns JSON. Always reachable in dev — the mock
 // adapter satisfies the contract without external dependencies.
 
 import { NextResponse, type NextRequest } from "next/server";
 import { applySchema } from "@/lib/apply/apply-schema";
 import { getApplyAdapter } from "@/lib/apply/apply-storage";
+import { hashIp } from "@/lib/leads/lead-storage";
 
 export const runtime = "nodejs";
 
@@ -43,8 +44,16 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  const ip =
+    req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+    req.headers.get("x-real-ip") ||
+    null;
+
   const adapter = getApplyAdapter();
-  const result = await adapter.submit(parsed.data);
+  const result = await adapter.submit(parsed.data, {
+    ipHash: hashIp(ip),
+    userAgent: req.headers.get("user-agent"),
+  });
 
   return NextResponse.json(result, { status: result.ok ? 200 : 500 });
 }
