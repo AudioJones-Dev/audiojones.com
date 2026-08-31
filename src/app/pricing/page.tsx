@@ -181,7 +181,7 @@ export default function PricingPage() {
                 placement="hero"
                 variant="secondary"
               >
-                Book a Diagnostic
+                Apply for the Diagnostic
               </PricingCtaLink>
             </div>
             <dl className="mt-12 grid gap-4 sm:grid-cols-3">
@@ -371,7 +371,7 @@ export default function PricingPage() {
               placement="final-cta"
               variant="secondary"
             >
-              Book a Diagnostic
+              Apply for the Diagnostic
             </PricingCtaLink>
           </div>
           <p className="mt-6 text-xs leading-6 text-fg-3">

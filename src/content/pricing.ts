@@ -89,7 +89,7 @@ export const diagnosisOffers: readonly PricingOffer[] = [
       "No broad multi-workflow transformation plan",
     ],
     cta: {
-      label: "Start the Assessment",
+      label: "Apply for the Assessment",
       href: pricingApplyHref("revenue-leak-assessment"),
       eventName: "pricing_assessment_cta",
     },
@@ -123,7 +123,7 @@ export const diagnosisOffers: readonly PricingOffer[] = [
       "ReKonr is a professional diagnostic engagement, not software or SaaS.",
     ],
     cta: {
-      label: "Book a Diagnostic",
+      label: "Apply for the Diagnostic",
       href: pricingApplyHref("rekonr-revenue-recovery-diagnostic"),
       eventName: "pricing_rekonr_diagnostic_cta",
     },
@@ -222,7 +222,7 @@ export const implementationOffers: readonly PricingOffer[] = [
       "Core is distinct from the bounded Managed Pilot in breadth, volume, integrations, and support scope",
     ],
     cta: {
-      label: "Discuss ResponseOS Core",
+      label: "Apply for ResponseOS Core",
       href: pricingApplyHref("responseos-core"),
       eventName: "pricing_responseos_core_cta",
     },
@@ -252,7 +252,10 @@ export const implementationOffers: readonly PricingOffer[] = [
       "Pricing varies with business complexity, systems, data quality, workflows, locations, integrations, risk, volume, and support scope.",
     ],
     cta: {
-      label: "Design My System",
+      // Shortened from the offer's full name, which renders 369px wide and
+      // overflows the 341px card interior at 1440. The card heading directly
+      // above carries "Founder Intelligence System" in full.
+      label: "Apply for an Intelligence System",
       href: pricingApplyHref("founder-intelligence-system"),
       eventName: "pricing_fis_cta",
     },
@@ -283,7 +286,7 @@ export const managedIntelligenceOffer: PricingOffer = {
   ],
   guardrails: ["Managed Intelligence is not a generic executive-assistant service."],
   cta: {
-    label: "Explore Managed Intelligence",
+    label: "Apply for Managed Intelligence",
     href: pricingApplyHref("managed-intelligence"),
     eventName: "pricing_managed_intelligence_cta",
   },
