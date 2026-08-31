@@ -124,9 +124,25 @@ jobs:
         run: pnpm packages:build
 
       - name: Deploy to Vercel
+        id: vercel
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-        run: npx vercel@latest deploy --prod --token="${VERCEL_TOKEN}" --cwd .
+        run: |
+          url="$(npx vercel@latest deploy --prod --token="${VERCEL_TOKEN}" --cwd .)"
+          echo "deployment_url=${url}" >> "$GITHUB_OUTPUT"
+
+      # `deploy --prod` builds the deployment but does not move the production
+      # alias when the project has rolling releases configured — the deployment
+      # waits as a canary instead. Left alone that is invisible: the job passes,
+      # deploys queue up, and the public site keeps serving an old commit. This
+      # step finishes the rollout and then fails the run if the alias did not
+      # actually advance.
+      - name: Complete the production rollout
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          DEPLOYMENT_URL: ${{ steps.vercel.outputs.deployment_url }}
+          PRODUCTION_URL: https://www.audiojones.com
+        run: npx --yes tsx scripts/complete-production-rollout.ts
 
   # Branch previews — the Vercel Git integration only auto-deploys `main`
   # to production, so pull requests never got a preview URL. This job
