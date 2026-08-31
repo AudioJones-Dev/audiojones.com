@@ -34,6 +34,9 @@ jobs:
       - name: Verify public pricing and offer contract
         run: pnpm exec tsx --test test/pricing-offers.test.ts
 
+      - name: Verify apply row mapping matches the migrations
+        run: pnpm exec tsx --test test/apply-row.test.ts
+
       - name: Build workspace packages
         run: pnpm packages:build
 

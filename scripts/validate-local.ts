@@ -153,6 +153,11 @@ async function main(): Promise<void> {
       command: 'pnpm',
       args: ['exec', 'tsx', '--test', 'test/pricing-offers.test.ts'],
     },
+    {
+      name: 'apply-row-contract',
+      command: 'pnpm',
+      args: ['exec', 'tsx', '--test', 'test/apply-row.test.ts'],
+    },
   ];
   if (!noBuild) {
     definitions.push({ name: 'build', command: 'pnpm', args: ['build'] });
