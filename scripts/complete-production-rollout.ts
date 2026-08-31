@@ -11,8 +11,8 @@
  * and 15 merges while every deploy job reported success.
  *
  * So this script does two things, and the second matters more than the first:
- * drives the deployment to 100% of traffic — starting a rollout when none is
- * running and completing it — then asserts production actually serves the
+ * drives the deployment to 100% of traffic — promoting it when no rollout is
+ * running, completing one that is — then asserts production actually serves the
  * deployment we just made. A production deploy that does not reach production
  * is a failed deploy and should be a red run.
  */
@@ -115,14 +115,13 @@ async function resolveDeploymentId(): Promise<string> {
 /**
  * Drives this deployment to 100% of production traffic.
  *
- * There are two shapes to handle, and only the first was covered originally:
+ * Two shapes to handle:
  *
  *   state ACTIVE   — a rollout is already running for this deployment; finish it.
  *   state COMPLETE — the previous rollout finished and this deployment is
- *                    merely STAGED behind it. There is nothing to complete, so
- *                    a rollout has to be started for it first. Skipping this is
- *                    what left `3691343` staged while production served an
- *                    older deployment.
+ *                    merely STAGED behind it. Nothing to complete, so promote
+ *                    it. Not handling this is what left `3691343` staged while
+ *                    production served an older deployment.
  *
  * A project with no rolling release configured needs neither call — the alias
  * moves on its own — so that is not an error. Verification decides either way.
@@ -150,16 +149,33 @@ async function driveRollout(deploymentId: string): Promise<boolean> {
       );
     }
   } else {
-    // Safe to call unconditionally in this branch: start is documented as
-    // returning current state without side effects when a rollout is already
-    // active for the same canary.
-    await api(`/v1/projects/${projectId}/rolling-release/start`, {
+    // Promotion, not `/rolling-release/start`. That route is documented but
+    // answers 422 "Unable to start rolling release for this canary deployment"
+    // for a deployment already staged behind a COMPLETE rollout. The CLI's own
+    // `rolling-release start` posts here instead — vercel@48.9.0 references
+    // v10/projects/{id}/promote/{deploymentId} and carries no /start route.
+    await api(`/v10/projects/${projectId}/promote/${deploymentId}`, {
       method: "POST",
-      body: JSON.stringify({ canaryDeploymentId: deploymentId }),
     });
     console.log(
-      `Started a rolling release for ${deploymentId} (previous state: ${rollingRelease.state ?? "unknown"}).`,
+      `Promoted ${deploymentId} (previous rollout state: ${rollingRelease.state ?? "unknown"}).`,
     );
+
+    // Promoting may open a staged rollout rather than going straight to 100%.
+    // Only complete one that is actually running for this deployment; calling
+    // complete with nothing active is what 422s.
+    const { rollingRelease: after } = await api<RollingRelease>(
+      `/v1/projects/${projectId}/rolling-release`,
+    );
+    if (
+      after?.state !== "ACTIVE" ||
+      after.canaryDeployment?.id !== deploymentId
+    ) {
+      console.log(
+        `No rollout awaiting completion (state: ${after?.state ?? "none"}).`,
+      );
+      return true;
+    }
   }
 
   await api(`/v1/projects/${projectId}/rolling-release/complete`, {
