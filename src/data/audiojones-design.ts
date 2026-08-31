@@ -90,7 +90,7 @@ export const proofSignals = [
     label: "Inbound answered on a defined clock, not when someone is free.",
   },
   {
-    metric: "Recovery cadence",
+    metric: "Cadence",
     label: "Stalled leads are re-engaged on a schedule, not when somebody remembers.",
   },
 ] as const;
