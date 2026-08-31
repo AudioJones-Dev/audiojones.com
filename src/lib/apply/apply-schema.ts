@@ -50,7 +50,36 @@ export const BUDGET_RANGES = [
   "Not sure yet",
 ] as const;
 
-export const APPLY_SOURCES = ["diagnostic", "homepage-cta", "direct", "other"] as const;
+export const APPLY_SOURCES = [
+  "diagnostic",
+  "homepage-cta",
+  "pricing",
+  "direct",
+  "other",
+] as const;
+
+// Engagements the pricing ladder hands off to /apply. Ids and labels mirror
+// `pricingOffers` in `src/content/pricing.ts`; the pairing is asserted in
+// `test/pricing-offers.test.ts` so the two cannot drift. Offers that convert
+// somewhere else (AI Readiness Score, Team AI Readiness Workshop) are absent
+// on purpose.
+export const APPLY_OFFERS = [
+  { id: "revenue-leak-assessment", label: "Revenue Leak Assessment" },
+  { id: "rekonr-revenue-recovery-diagnostic", label: "ReKonr Revenue Recovery Diagnostic" },
+  { id: "responseos-managed-pilot", label: "ResponseOS Managed Pilot" },
+  { id: "responseos-core", label: "ResponseOS Core" },
+  { id: "founder-intelligence-system", label: "Founder Intelligence System" },
+  { id: "managed-intelligence", label: "Managed Intelligence" },
+  { id: "worksie-reference-pilot", label: "Worksie Reference Pilot" },
+  { id: "strategic-partnership", label: "Strategic Partnership" },
+] as const;
+
+export type ApplyOfferId = (typeof APPLY_OFFERS)[number]["id"];
+
+const APPLY_OFFER_IDS = APPLY_OFFERS.map((offer) => offer.id) as [
+  ApplyOfferId,
+  ...ApplyOfferId[],
+];
 
 export const applySchema = z.object({
   // About you
@@ -75,6 +104,7 @@ export const applySchema = z.object({
   teamSize: z.enum(TEAM_SIZES).optional(),
 
   // Engagement scope
+  offer: z.enum(APPLY_OFFER_IDS).optional(),
   desiredOutcome: z.string().min(1, "Tell me what outcome you want"),
   timeline: z.enum(TIMELINE_OPTIONS, {
     errorMap: () => ({ message: "Pick a timeline" }),

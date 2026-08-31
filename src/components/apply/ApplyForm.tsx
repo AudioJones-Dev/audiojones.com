@@ -11,6 +11,8 @@ import { Textarea } from "@/components/ui/Textarea";
 import { Checkbox } from "@/components/ui/Checkbox";
 import {
   applySchema,
+  APPLY_OFFERS,
+  APPLY_SOURCES,
   REVENUE_RANGES,
   GROWTH_STAGES,
   TEAM_SIZES,
@@ -33,6 +35,7 @@ const initialState: ApplyInput = {
   currentGrowthStage: undefined,
   primaryConstraint: "",
   teamSize: undefined,
+  offer: undefined,
   desiredOutcome: "",
   timeline: undefined as unknown as ApplyInput["timeline"],
   budgetRange: undefined,
@@ -53,17 +56,19 @@ export default function ApplyForm() {
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
-  // Pull UTM + source from URL on mount; fail silently if not present.
+  // Pull UTM + source + offer from URL on mount; fail silently if not present.
   useEffect(() => {
     if (!searchParams) return;
     const sourceRaw = searchParams.get("source") ?? "direct";
-    const validSources = ["diagnostic", "homepage-cta", "direct", "other"] as const;
-    const source = (validSources as readonly string[]).includes(sourceRaw)
+    const source = (APPLY_SOURCES as readonly string[]).includes(sourceRaw)
       ? (sourceRaw as ApplyInput["source"])
       : "other";
+    const offerRaw = searchParams.get("offer");
+    const offer = APPLY_OFFERS.find((o) => o.id === offerRaw)?.id;
     setForm((f) => ({
       ...f,
       source,
+      offer,
       utmSource: searchParams.get("utm_source") ?? undefined,
       utmMedium: searchParams.get("utm_medium") ?? undefined,
       utmCampaign: searchParams.get("utm_campaign") ?? undefined,
@@ -145,6 +150,37 @@ export default function ApplyForm() {
           />
         </label>
       </div>
+
+      {/* ── Section 0: Engagement ── */}
+      <section className="flex flex-col gap-5">
+        <Eyebrow>Engagement</Eyebrow>
+        <FormField
+          id="offer"
+          label="What are you applying for?"
+          hint={
+            form.offer
+              ? "Prefilled from the offer you clicked. Change it if you landed on the wrong one."
+              : "Optional — pick one if you already know, or leave it open."
+          }
+          error={errors.offer}
+        >
+          <Select
+            id="offer"
+            name="offer"
+            options={[
+              // A real option, not the disabled placeholder — the field is
+              // optional, so a visitor who lands here prefilled must be able
+              // to clear it again.
+              { value: "", label: "Not sure yet" },
+              ...APPLY_OFFERS.map((o) => ({ value: o.id, label: o.label })),
+            ]}
+            value={form.offer ?? ""}
+            onChange={(e) =>
+              update("offer", (e.target.value || undefined) as ApplyInput["offer"])
+            }
+          />
+        </FormField>
+      </section>
 
       {/* ── Section 1: About you ── */}
       <section className="flex flex-col gap-5">

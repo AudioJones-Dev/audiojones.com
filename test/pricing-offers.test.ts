@@ -3,6 +3,7 @@ import { existsSync, readFileSync, readdirSync } from "node:fs";
 import path from "node:path";
 import test from "node:test";
 
+import { APPLY_OFFERS } from "../src/lib/apply/apply-schema";
 import {
   implementationOffers,
   pricingFaqs,
@@ -146,6 +147,34 @@ test("keeps offer CTAs routable, contextual, and instrumented", () => {
       `${offer.name} CTA route does not resolve: ${route}`,
     );
     assert.match(offer.cta.href, /utm_content=/);
+  }
+
+  // Every /apply CTA must name the engagement it came from, and the id must be
+  // one the form knows how to preselect. Without this the ten CTAs collapse
+  // back into one undifferentiated destination.
+  const applyOfferIds = new Set<string>(APPLY_OFFERS.map((offer) => offer.id));
+  const seenOfferParams = new Set<string>();
+
+  for (const offer of pricingOffers) {
+    if (!offer.cta.href.startsWith("/apply")) continue;
+
+    const params = new URLSearchParams(offer.cta.href.split("?")[1]);
+    assert.equal(params.get("source"), "pricing", `${offer.name} must attribute to pricing`);
+
+    const offerParam = params.get("offer");
+    assert.equal(offerParam, offer.id, `${offer.name} must carry its own offer id`);
+    assert.ok(applyOfferIds.has(offer.id), `${offer.name} is missing from APPLY_OFFERS`);
+    assert.equal(seenOfferParams.has(offer.id), false, `duplicate offer param: ${offer.id}`);
+    seenOfferParams.add(offer.id);
+  }
+
+  // The labels the form shows must be the names the pricing page advertised.
+  for (const applyOffer of APPLY_OFFERS) {
+    const source = pricingOffers.find((offer) => offer.id === applyOffer.id);
+    if (!source) {
+      assert.fail(`APPLY_OFFERS lists an offer the pricing ladder does not: ${applyOffer.id}`);
+    }
+    assert.equal(source.name, applyOffer.label, `label drift for ${applyOffer.id}`);
   }
 
   const responseOsPage = readSource("src/app/agents/responseos/page.tsx");

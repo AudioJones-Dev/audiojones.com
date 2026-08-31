@@ -47,6 +47,7 @@ const mockAdapter: ApplyAdapter = {
       revenue: input.annualRevenueRange,
       timeline: input.timeline,
       source: input.source,
+      offer: input.offer,
     };
     // eslint-disable-next-line no-console
     console.info("[apply mock] submission accepted", summary);
