@@ -34,7 +34,7 @@ Application-only offers carry no public numerical price. The free AI Readiness S
 
 - The published figures are approved starting points for controlled willingness-to-pay testing. They are not externally benchmarked or commercially validated.
 - ResponseOS Managed Pilot and Core prices remain public during testing.
-- The directional ICP is founder-led service businesses, typically generating `$500K–$5M+` in annual revenue. This remains a strategic assumption.
+- The directional ICP is founder-led service businesses, qualified on signal-maturity criteria rather than a revenue band. The `$500K–$5M+` wording ratified on 2026-07-31 was **superseded** before publication: `AUDIOJONES_NICHE_VALIDATION_CORRECTIONS.md` §5 retires hard ARR bands from public copy, and that retirement shipped in #228. Revenue-range form options are unaffected — they are qualification inputs, not published positioning.
 - The ReKonr diagnostic is independently deliverable and is not automatically credited toward implementation. Revisit this policy after three comparable paid ReKonr engagements.
 - Unsupported performance claims remain removed. A numerical result may return only after evidence verification and explicit publication approval by Audio.
 - Audio owns claim and publication approval. AJ Digital Ops maintains acceptance, discount, scope, hours, margin, outcome, and retention evidence.

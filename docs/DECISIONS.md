@@ -149,6 +149,45 @@ destination to avoid avoidable redirect hops and mixed host signals.
 
 ---
 
+## 2026-08-12 — Sell the pain first; keep the frontier internal
+
+**Status:** accepted
+**Decision:** Public surfaces lead with the buyer's problem and its economic
+cost. Concretely: the `h1` is problem-anchored, and the sections that explain
+the category and the system architecture come after the proof rather than
+before it. This governs the narrative order and the headline — not the
+category label itself, which still appears as the hero eyebrow, verbatim and
+qualified, per the naming rules and
+[`docs/codex/responseos-v1-brief.md`](./codex/responseos-v1-brief.md) §6
+("the H1 is problem-anchored, not category-anchored").
+The long-horizon thesis — machine-readable operating models,
+agentic business operations — stays in `docs/strategy/` and is not published
+as page copy, product naming, or metadata. Canonical statement:
+[`docs/strategy/AJ_DIGITAL_S_CURVE_POSITIONING.md`](./strategy/AJ_DIGITAL_S_CURVE_POSITIONING.md).
+
+**Rationale:** the homepage opened on a category, then an abstract
+signal-vs-noise taxonomy, then the flagship system, and only then the
+economic cost — asking a visitor to understand the architecture before
+feeling the problem. `HomeFaqSection.tsx` already encoded the correct rule
+in a code comment ("leads with what the business does in everyday terms,
+then names the framework"); the page as a whole did not follow it. The
+frontier thesis is real but has no fundable buyer today, so it is funded by
+the commercial wedge rather than sold alongside it.
+
+**Consequences:**
+- Homepage section order is pain → economic cost → diagnosis → proof →
+  system → architecture. New homepage sections must state which beat they
+  serve.
+- New product ideas are subject to the portfolio filter in
+  `AJ_DIGITAL_S_CURVE_POSITIONING.md` §4; capability alone is not a reason
+  to build.
+- "business graph" / "business memory" / "persistent business memory" stay
+  descriptive concepts, never branded product names (entity-collision risk
+  per `AUDIOJONES_NICHE_VALIDATION_CORRECTIONS.md` §2).
+- **This decision does not resolve the offer ladder.**
+  `AJ_DIGITAL_CANONICAL_OFFER_RATIFICATION_PROPOSAL.md` §8 Q1–Q7 remain
+  open, and no offer name, price, tier, or route changed here.
+
 ## 2026-07-31 — Diagnostic-led public pricing enters controlled testing
 
 **Status:** accepted for controlled testing; preview QA approved; merge and production publication require separate Audio approval
@@ -192,3 +231,30 @@ margin, retention, and low founder dependence.
 3. If the new decision supersedes an older one, mark the older entry
    `superseded by YYYY-MM-DD — short title` instead of deleting it.
 4. Keep entries to a screen or less. Link out for detail.
+
+---
+
+## 2026-08-31 — Preview deploys skip the Vercel build cache
+
+**Status:** accepted
+**Decision:** `deploy_preview` passes `--force` to `vercel deploy`, discarding
+the restored build cache and installing clean on every preview. Production
+(`deploy`) is unchanged and still uses the cache.
+
+**Context:** Vercel restores `node_modules` from a previous deployment and runs
+an incremental `pnpm install` over it. When a PR changes a dependency's
+resolved version, that tree can end up incoherent with the lockfile. On #193 it
+produced `Module not found: Can't resolve 'protobufjs/minimal'` for four
+different `protobufjs` values while the one version already in the cache built
+fine — a non-monotonic result that no version-compatibility explanation fits.
+Clean installs of every version tested build successfully. See #219.
+
+**Consequences:**
+- Preview deploys are slower; correctness is the point of the job.
+- Dependency PRs are validated against the tree their lockfile actually
+  describes, not against whatever the last deployment left behind.
+- Production deploys still build over a cache and remain exposed to the same
+  failure mode after a dependency change merges. Left unchanged deliberately —
+  prod deploy time is a separate tradeoff and should be decided on its own.
+- A green `deploy_preview` on a dependency PR now means something. A green
+  `smoke_preview` still does not (#216).

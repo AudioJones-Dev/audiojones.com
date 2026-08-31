@@ -124,9 +124,32 @@ jobs:
         run: pnpm packages:build
 
       - name: Deploy to Vercel
+        id: vercel
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-        run: npx vercel@latest deploy --prod --token="${VERCEL_TOKEN}" --cwd .
+        run: |
+          # --force for the same reason deploy_preview passes it: Vercel
+          # restores node_modules from a previous deployment and installs
+          # incrementally over it. Production was the one path still without
+          # the flag, so the first deploy after #193 narrowed the protobufjs
+          # override built against a tree predating that change and failed on
+          # `Can't resolve 'protobufjs/minimal'` — while CI, which installs
+          # clean, was green. See docs/DECISIONS.md.
+          url="$(npx vercel@latest deploy --prod --force --token="${VERCEL_TOKEN}" --cwd .)"
+          echo "deployment_url=${url}" >> "$GITHUB_OUTPUT"
+
+      # `deploy --prod` builds the deployment but does not move the production
+      # alias when the project has rolling releases configured — the deployment
+      # waits as a canary instead. Left alone that is invisible: the job passes,
+      # deploys queue up, and the public site keeps serving an old commit. This
+      # step finishes the rollout and then fails the run if the alias did not
+      # actually advance.
+      - name: Complete the production rollout
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          DEPLOYMENT_URL: ${{ steps.vercel.outputs.deployment_url }}
+          PRODUCTION_URL: https://www.audiojones.com
+        run: npx --yes tsx scripts/complete-production-rollout.ts
 
   # Branch previews — the Vercel Git integration only auto-deploys `main`
   # to production, so pull requests never got a preview URL. This job
@@ -173,13 +196,38 @@ jobs:
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         run: |
-          url="$(npx vercel@latest deploy --token="${VERCEL_TOKEN}" --cwd . --yes)"
+          # --force discards the restored build cache and installs clean.
+          # Without it Vercel restores node_modules from a previous
+          # deployment and runs an incremental install over it, so a PR that
+          # changes a resolved dependency version can be built against a
+          # tree that never matches its lockfile. See docs/DECISIONS.md.
+          url="$(npx vercel@latest deploy --force --token="${VERCEL_TOKEN}" --cwd . --yes)"
           echo "preview_url=${url}" >> "$GITHUB_OUTPUT"
           {
             echo "### Vercel preview"
             echo ""
             echo "${url}"
           } >> "$GITHUB_STEP_SUMMARY"
+
+      # Publishes the preview URL for the Smoke Test (Preview) workflow.
+      # That workflow previously resolved the URL from the GitHub Deployments
+      # API, but this job deploys via the Vercel CLI, which never registers a
+      # Deployment record — so the lookup never matched and smoke silently
+      # skipped on every PR. An artifact is a deliberate cross-workflow
+      # channel; absence of it now means the preview genuinely did not deploy.
+      - name: Publish preview URL for smoke tests
+        env:
+          PREVIEW_URL: ${{ steps.vercel.outputs.preview_url }}
+        run: |
+          mkdir -p out
+          printf '%s\n' "${PREVIEW_URL}" > out/preview-url.txt
+
+      - name: Upload preview URL artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: preview-url-${{ github.event.pull_request.head.sha }}
+          path: out/preview-url.txt
+          retention-days: 7
 
       - name: Comment preview URL on PR
         uses: actions/github-script@v7

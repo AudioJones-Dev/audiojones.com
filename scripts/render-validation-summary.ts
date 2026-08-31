@@ -30,7 +30,7 @@ interface ValidationPayload {
   triggering_workflow?: string | null;
   triggering_run_id?: number | null;
   generated_at: string;
-  overall_status: 'pass' | 'fail';
+  overall_status: 'pass' | 'fail' | 'pending';
   steps: StepRow[];
   failed_steps: StepRow[];
   skipped_steps: StepRow[];
@@ -113,7 +113,7 @@ function handoffBlock(nextAction: string): string {
 
 function renderTable(steps: StepRow[]): string {
   if (!steps.length) {
-    return '_No check runs reported yet._';
+    return '_No watched workflow run has reported for this commit yet._';
   }
   const header = '| Check | Result | Link |\n| --- | --- | --- |';
   const rows = steps.map((step) => {
@@ -161,7 +161,12 @@ function renderHeader(payload: ValidationPayload): string {
 }
 
 function render(payload: ValidationPayload): string {
-  const statusIconStr = payload.overall_status === 'pass' ? '✅ pass' : '❌ fail';
+  const statusIconStr =
+    payload.overall_status === 'pass'
+      ? '✅ pass'
+      : payload.overall_status === 'pending'
+        ? '⏳ pending'
+        : '❌ fail';
   const lines: string[] = [];
   lines.push(renderHeader(payload));
   lines.push('');

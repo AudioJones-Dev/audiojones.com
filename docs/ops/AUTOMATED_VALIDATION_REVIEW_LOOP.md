@@ -738,10 +738,29 @@ ambiguity. The following are hard rules.
     must not include env-var values, even from failed-build logs.
     `log_tail` runs through a redactor that strips lines matching
     `(?i)(api_key|secret|token|password|bearer)\s*[:=]`.
-11. **Stop conditions.** If a single PR generates more than 10 summary
-    runs in 24h (flaky CI loop), the workflow posts a one-line
-    "circuit breaker" comment and skips further updates until the PR
-    is force-pushed. Prevents notification storms.
+11. **Stop conditions.** If a single commit is summarised more than 10
+    times (flaky CI loop), the workflow posts a one-line "circuit
+    breaker" comment and skips further updates until the next commit is
+    pushed, which starts a fresh count. Prevents notification storms.
+
+    The count is stored in the sticky comment as a hidden
+    `<!-- aj:vs-state {"sha":…,"count":…} -->` marker and keyed to the
+    commit being summarised — **not** derived from the Actions API. A
+    summary run is `workflow_run`-triggered, so it executes on the
+    default branch: its `head_branch` and `head_sha` belong to that
+    branch and its `pull_requests` array is empty. Nothing on the run
+    identifies the PR it summarised, so the run list cannot be counted
+    per-PR. Any implementation that tries will either over-count (by
+    failing to filter to this workflow) or count zero (by filtering
+    correctly on an empty field).
+
+    Because that count is a read-modify-write, the workflow declares a
+    `concurrency` group keyed on the head branch with
+    `cancel-in-progress: false`. Several watched workflows finish within
+    seconds of each other, and unserialised jobs would read the same
+    count, both write `N+1`, and undercount. Do not remove the group or
+    switch it to `cancel-in-progress: true` — cancelling a queued run
+    drops a summary update rather than deferring it.
 
 ---
 

@@ -38,7 +38,7 @@ const FAQS = [
   {
     question: "Who is it for?",
     answer:
-      "Founder-led service businesses, usually doing $500K to $5M or more, that spend money getting leads but are not sure how many turn into booked work.",
+      "Founder-led service businesses that spend money getting leads but are not sure how many turn into booked work.",
   },
 ];
 

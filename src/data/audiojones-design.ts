@@ -82,18 +82,22 @@ export const responseOsFlow = [
   },
 ] as const;
 
+// Rendered as hero stats on /agents, /agents/responseos and /case-studies.
+// These describe how the installed system behaves — they are not measured
+// client outcomes. A performance figure belongs here only once it has an
+// entry in docs/strategy/CLAIM_VERIFICATION_LOG.md.
 export const proofSignals = [
   {
-    metric: "Target KPI",
-    label: "First-response time measured against the client baseline.",
+    metric: "One inbox",
+    label: "Every channel consolidated into a single recovery view.",
   },
   {
-    metric: "Tracked outcome",
-    label: "Qualified opportunities recovered by source and workflow.",
+    metric: "On an SLA",
+    label: "Inbound answered on a defined clock, not when someone is free.",
   },
   {
-    metric: "Operational goal",
-    label: "One accountable recovery path for every legitimate inquiry.",
+    metric: "Cadence",
+    label: "Stalled leads are re-engaged on a schedule, not when somebody remembers.",
   },
 ] as const;
 
@@ -147,14 +151,6 @@ export const diagnosticDimensions = [
   "Tool fragmentation",
   "Team adoption",
 ] as const;
-
-export const agentsProofStrip = {
-  quote: {
-    body: "The operating question is whether every legitimate inquiry has an accountable next action, not whether another tool was installed.",
-    attribution: "ResponseOS operating principle — not a client result",
-  },
-  stats: proofSignals,
-} as const;
 
 export const systemComparison = {
   rows: [

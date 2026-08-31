@@ -35,9 +35,11 @@ Every numerical price above is a modeled pilot pricing hypothesis approved only 
 
 ## ICP evidence state
 
-The directional public wording is:
+The directional public wording ratified on 2026-07-31 was:
 
 > Founder-led service businesses, typically generating $500K–$5M+ in annual revenue.
+
+**Superseded before publication.** `AUDIOJONES_NICHE_VALIDATION_CORRECTIONS.md` §5 retires hard ARR bands from public copy entirely — the persona is qualified on signal-maturity criteria, not a revenue range — and that retirement shipped in #228. The public wording is now *"founder-led service businesses"* plus a signal-maturity phrase, with no revenue band. The paragraph below is retained as the record of the earlier decision.
 
 This is a strategic ICP assumption, not a statistically validated segmentation boundary. Revenue-range form options remain broader so the free assessment can remain accessible and applications can capture businesses outside the directional fit range. `ARR` is not used as the generic qualifier because many target service businesses do not operate on recurring revenue.
 
@@ -52,7 +54,7 @@ This is a strategic ICP assumption, not a statistically validated segmentation b
 | `25x ROI within six months` | Legacy home FAQ | Unsupported | Removed | No guarantee; baseline and measured-outcome answer |
 | Two-week / four-to-six-week / 60-to-90-day implementation claims | Public/legacy service copy | Unsupported universal timing | Removed or relabeled | Timing depends on access, data, integrations, workflow, volume, complexity, and approvals |
 | `8–15 hours saved` and seven-minute assessment | Javi mock copy | Unsupported | Removed | Baseline-relative usefulness and no fixed completion-time claim |
-| `$500K–$5M+` annual revenue | Current directional ICP | Strategic ICP assumption | Retained with modifiers | `Typically` / `best suited for`; not research-proven |
+| `$500K–$5M+` annual revenue | Proposed directional ICP | Strategic ICP assumption | **Superseded — band retired** | Corrections §5 retires hard ARR bands; replaced by signal-maturity framing (#228) |
 | All new numerical prices | Proposed public figures | Pilot pricing hypothesis | Retained for controlled testing | Starting-price and non-benchmark guardrails |
 | ROI calculator outputs | User-input model | Illustrative modeled output | Retained | Must remain calculator output, not achieved client proof |
 

@@ -14,6 +14,16 @@ permissions:
   actions: read
   checks: read
 
+# The breaker count is a read-modify-write against the sticky comment, and
+# several watched workflows can finish within seconds of each other. Without
+# serialisation two summary jobs read the same count, both write N+1, and the
+# guard silently undercounts. Grouping on the head branch — rather than the
+# head SHA — also serialises runs still draining from an earlier commit, which
+# would otherwise overwrite the marker for the current one.
+concurrency:
+  group: aj-validation-summary-${{ github.event.workflow_run.head_branch }}
+  cancel-in-progress: false
+
 jobs:
   summarize:
     if: github.event.workflow_run.event == 'pull_request'
@@ -44,24 +54,52 @@ jobs:
         uses: actions/github-script@v7
         env:
           PR_NUMBER: ${{ steps.pr.outputs.pr_number }}
+          HEAD_SHA: ${{ steps.pr.outputs.head_sha }}
         with:
           script: |
+            // The count lives in the sticky comment because nothing on a
+            // summary run identifies the PR it summarised. These runs are
+            // workflow_run-triggered, so they execute on the default branch:
+            // head_branch is the default branch, head_sha is the default
+            // branch's SHA, and pull_requests is empty. The previous
+            // implementation queried runs with `workflow_id: context.workflow`
+            // — a display name where the API wants an ID or filename — so the
+            // workflow filter silently matched nothing and the count included
+            // every run on the PR. It tripped after roughly two pushes.
+            //
+            // Keyed to head_sha, so a new commit starts a fresh count. That is
+            // the intent: the guard exists to stop one commit from re-posting
+            // forever, not to budget a PR's whole lifetime.
             const prNumber = Number(process.env.PR_NUMBER);
-            const since = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
-            const runs = await github.paginate(
-              github.rest.actions.listWorkflowRunsForRepo,
-              {
-                ...context.repo,
-                workflow_id: context.workflow,
-                per_page: 100,
-                created: `>=${since}`,
-              },
+            const headSha = process.env.HEAD_SHA;
+            const marker = '<!-- aj:validation-summary -->';
+            const stateRe = /<!-- aj:vs-state (\{[^}]*\}) -->/;
+
+            const comments = await github.paginate(github.rest.issues.listComments, {
+              ...context.repo, issue_number: prNumber, per_page: 100,
+            });
+            const mine = comments.find((c) => c.body && c.body.startsWith(marker));
+
+            let count = 0;
+            if (mine) {
+              const found = mine.body.match(stateRe);
+              if (found) {
+                try {
+                  const prev = JSON.parse(found[1]);
+                  if (prev.sha === headSha) count = Number(prev.count) || 0;
+                } catch (err) {
+                  core.warning(`Unreadable breaker state, restarting count: ${err.message}`);
+                }
+              }
+            }
+            count += 1;
+
+            core.setOutput('count', String(count));
+            core.setOutput('tripped', count > 10 ? 'true' : 'false');
+            core.setOutput(
+              'state',
+              `<!-- aj:vs-state {"sha":"${headSha}","count":${count}} -->`,
             );
-            const sameRun = runs.filter((r) =>
-              (r.pull_requests || []).some((p) => p.number === prNumber),
-            );
-            core.setOutput('count', String(sameRun.length));
-            core.setOutput('tripped', sameRun.length > 10 ? 'true' : 'false');
 
       - name: Post circuit-breaker notice
         if: steps.pr.outputs.pr_number != '' && steps.breaker.outputs.tripped == 'true'
@@ -69,11 +107,14 @@ jobs:
         env:
           PR_NUMBER: ${{ steps.pr.outputs.pr_number }}
           BREAKER_COUNT: ${{ steps.breaker.outputs.count }}
+          BREAKER_STATE: ${{ steps.breaker.outputs.state }}
         with:
           script: |
             const marker = '<!-- aj:validation-summary -->';
             const prNumber = Number(process.env.PR_NUMBER);
-            const body = `${marker}\n### Validation summary — circuit breaker tripped\n\nMore than 10 summary runs detected in the last 24h for this PR (count: ${process.env.BREAKER_COUNT}). Further updates are paused until the PR is force-pushed. See \`docs/ops/AUTOMATED_VALIDATION_REVIEW_LOOP.md\` §9.11.\n`;
+            // The state marker has to survive into the notice, or the next run
+            // reads no count and the breaker un-trips itself.
+            const body = `${marker}\n${process.env.BREAKER_STATE}\n### Validation summary — circuit breaker tripped\n\nThis commit has been summarised ${process.env.BREAKER_COUNT} times, past the limit of 10. Updates are paused until the next commit is pushed, which starts a fresh count. See \`docs/ops/AUTOMATED_VALIDATION_REVIEW_LOOP.md\` §9.11.\n`;
             const existing = await github.paginate(github.rest.issues.listComments, {
               ...context.repo, issue_number: prNumber, per_page: 100,
             });
@@ -150,32 +191,41 @@ jobs:
             const headSha = process.env.HEAD_SHA;
             const watched = new Set(['CI', 'Build & Lint', 'Smoke Test (Preview)']);
 
-            const checks = await github.paginate(
-              github.rest.checks.listForRef,
-              { ...context.repo, ref: headSha, per_page: 100 },
+            // `watched` holds WORKFLOW names, so read workflow runs. Check runs
+            // carry the JOB name (`validate`, `verify`, `build`, `Preflight`, …),
+            // which never matches — that mismatch left `steps` empty and made
+            // every PR report a failure.
+            const runs = await github.paginate(
+              github.rest.actions.listWorkflowRunsForRepo,
+              { ...context.repo, head_sha: headSha, per_page: 100 },
             );
 
             const byWorkflow = {};
-            for (const c of checks) {
-              if (!watched.has(c.name)) continue;
-              const existing = byWorkflow[c.name];
-              if (!existing || new Date(c.completed_at || 0) > new Date(existing.completed_at || 0)) {
-                byWorkflow[c.name] = c;
+            for (const r of runs) {
+              if (!watched.has(r.name)) continue;
+              const existing = byWorkflow[r.name];
+              if (!existing || new Date(r.updated_at || 0) > new Date(existing.updated_at || 0)) {
+                byWorkflow[r.name] = r;
               }
             }
 
-            const steps = Object.values(byWorkflow).map((c) => ({
-              name: c.name,
-              status: c.status,
-              conclusion: c.conclusion,
-              url: c.html_url,
+            const steps = Object.values(byWorkflow).map((r) => ({
+              name: r.name,
+              status: r.status,
+              conclusion: r.conclusion,
+              url: r.html_url,
             }));
 
             const isFailure = (c) =>
               c && c.conclusion && !['success', 'skipped', 'neutral'].includes(c.conclusion);
             const failed = steps.filter((s) => isFailure(s));
             const skipped = steps.filter((s) => s.conclusion === 'skipped' || s.conclusion === 'neutral');
-            const allGreen = failed.length === 0 && steps.length > 0;
+            // A run still in flight has no conclusion yet, and an empty set means
+            // nothing has reported. Neither is a failure — treating them as one is
+            // what produced the false red.
+            const pending = steps.filter((s) => s.status !== 'completed');
+            const allGreen = failed.length === 0 && pending.length === 0 && steps.length > 0;
+            const isPending = failed.length === 0 && (pending.length > 0 || steps.length === 0);
 
             const pr = await github.rest.pulls.get({ ...context.repo, pull_number: prNumber });
             const files = await github.paginate(github.rest.pulls.listFiles, {
@@ -207,7 +257,12 @@ jobs:
             let nextAction = 'none';
             let nextActionReason = 'All checks green; ready for review or merge.';
 
-            if (!allGreen) {
+            if (isPending) {
+              nextAction = 'none';
+              nextActionReason = steps.length === 0
+                ? 'No watched workflow run has reported for this commit yet; nothing to classify.'
+                : `Still running: ${pending.map((p) => p.name).join(', ')}.`;
+            } else if (!allGreen) {
               const failedNames = failed.map((f) => f.name);
               const codeGateFailed = failedNames.some((n) => /^(CI|Build & Lint)$/.test(n));
               const smokeFailed = failedNames.some((n) => /Smoke Test/.test(n));
@@ -243,7 +298,7 @@ jobs:
               triggering_workflow: context.payload.workflow_run.name,
               triggering_run_id: context.payload.workflow_run.id,
               generated_at: new Date().toISOString(),
-              overall_status: allGreen ? 'pass' : 'fail',
+              overall_status: allGreen ? 'pass' : isPending ? 'pending' : 'fail',
               steps,
               failed_steps: failed,
               skipped_steps: skipped,
@@ -285,12 +340,15 @@ jobs:
         uses: actions/github-script@v7
         env:
           PR_NUMBER: ${{ steps.pr.outputs.pr_number }}
+          BREAKER_STATE: ${{ steps.breaker.outputs.state }}
         with:
           script: |
             const fs = require('fs');
             const body = fs.readFileSync('out/validation-summary.md', 'utf8');
             const marker = '<!-- aj:validation-summary -->';
-            const fullBody = `${marker}\n${body}`;
+            // Carries the breaker's per-commit count forward; without it every
+            // run would read a count of zero and the guard would never fire.
+            const fullBody = `${marker}\n${process.env.BREAKER_STATE}\n${body}`;
             const prNumber = Number(process.env.PR_NUMBER);
             const existing = await github.paginate(github.rest.issues.listComments, {
               ...context.repo, issue_number: prNumber, per_page: 100,

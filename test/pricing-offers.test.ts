@@ -98,9 +98,10 @@ test("removes the old public SaaS and performance-partnership language", () => {
 test("removes or relabels unsupported public performance claims", () => {
   const publicAppSource = readPublicSourceTree("src/app");
   const sharedProofSource = readSource("src/data/audiojones-design.ts");
-  const auditedSource = `${publicAppSource}\n${sharedProofSource}\n${readSource(
-    "src/components/home/HomeFAQ.tsx",
-  )}\n${readSource("src/components/home/CaseStudySection.tsx")}`;
+  // HomeFAQ.tsx and CaseStudySection.tsx used to be audited here. Both were
+  // orphaned component shells with no importers and were deleted in #214, so
+  // the claims they carried are gone rather than relabelled.
+  const auditedSource = `${publicAppSource}\n${sharedProofSource}`;
   const unsupportedClaims = [
     ["+", "38%"].join(""),
     ["<", "9 min"].join(""),
@@ -112,9 +113,13 @@ test("removes or relabels unsupported public performance claims", () => {
     assert.equal(auditedSource.includes(claim), false, `unsupported claim remains: ${claim}`);
   }
 
-  assert.match(sharedProofSource, /Target KPI/);
-  assert.match(sharedProofSource, /Tracked outcome/);
-  assert.match(sharedProofSource, /Operational goal/);
+  // The shared proof strip states how the installed system behaves rather
+  // than asserting measured outcomes. These are the labels that shipped
+  // (#208, #226); the "Target KPI / Tracked outcome / Operational goal"
+  // wording this test previously required was never published.
+  assert.match(sharedProofSource, /One inbox/);
+  assert.match(sharedProofSource, /On an SLA/);
+  assert.match(sharedProofSource, /Cadence/);
 });
 
 test("keeps offer CTAs routable, contextual, and instrumented", () => {
@@ -198,7 +203,12 @@ test("publishes provider, diagnostic, FAQ, and modeled-price guardrails", () => 
   }
 });
 
-test("uses the directional annual-revenue ICP on current public qualification surfaces", () => {
+// Inverted from its original form, which required a `$500K–$5M+` band on
+// these surfaces. AUDIOJONES_NICHE_VALIDATION_CORRECTIONS.md §5 retires hard
+// ARR bands from public copy — the persona is qualified on signal-maturity
+// criteria — and that retirement shipped in #228. The test now guards the
+// retirement instead of the band.
+test("publishes no revenue band on public qualification surfaces", () => {
   const currentIcpCopy = [
     readSource("src/components/Footer.tsx"),
     readSource("src/app/apply/page.tsx"),
@@ -206,7 +216,15 @@ test("uses the directional annual-revenue ICP on current public qualification su
     readSource("src/components/home/landing/ICPFilterSection.tsx"),
   ].join("\n");
 
-  assert.match(currentIcpCopy, /typically generating[\s\S]*\$500K–\$5M\+/);
-  assert.equal(currentIcpCopy.includes("ARR"), false);
-  assert.equal(currentIcpCopy.includes("$250K–$5M"), false);
+  for (const band of ["$500K", "$250K", "ARR", "annual revenue"]) {
+    assert.equal(
+      currentIcpCopy.includes(band),
+      false,
+      `revenue-band framing remains on a public qualification surface: ${band}`,
+    );
+  }
+
+  // Signal-maturity framing, plus the mandated wedge qualifier from §2.
+  assert.match(currentIcpCopy, /founder-led service business/);
+  assert.match(currentIcpCopy, /demand signal|inbound to diagnose/);
 });

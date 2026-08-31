@@ -9,9 +9,11 @@
 
 AudioJones.com is the **public marketing site** for AJ Digital LLC. It
 is the front door to the Founder Intelligence Systems offering: founder-
-led AI infrastructure for service businesses, typically generating
-$500K–$5M+ in annual revenue. This range is a directional strategic ICP
-assumption, not a statistically validated market boundary.
+led AI infrastructure for service businesses. The persona is qualified on
+signal-maturity criteria — demand arriving faster than the operator can
+act on it — not on a revenue band, per
+[`AUDIOJONES_NICHE_VALIDATION_CORRECTIONS.md`](./strategy/AUDIOJONES_NICHE_VALIDATION_CORRECTIONS.md)
+§5.
 
 It is **not** the admin/portal application. The legacy `/portal/*` and
 `/api/admin/*` routes are being phased out; do not deepen them.

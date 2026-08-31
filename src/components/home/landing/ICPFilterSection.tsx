@@ -19,7 +19,7 @@ const NOT_FOR = [
 ];
 
 const FOR_YOU = [
-  "You operate a founder-led service business, typically generating $500K–$5M+ in annual revenue",
+  "You operate a founder-led service business with real inbound to diagnose",
   "You want causal clarity over vanity metrics",
   "You need better decision systems, not more dashboards",
   "You want AI to augment judgment, not replace it",

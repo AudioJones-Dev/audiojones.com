@@ -4,6 +4,15 @@
 - Date: 2026-07-31
 - Owner: AJ Digital LLC / Audio; implementation by Codex
 
+> **Superseded on one point (2026-08-31).** Every reference below to a
+> `$500K–$5M+` annual-revenue ICP is retained as the record of what was
+> ratified on 2026-07-31, but it did not ship.
+> `AUDIOJONES_NICHE_VALIDATION_CORRECTIONS.md` §5 retires hard ARR bands
+> from public copy — the persona is qualified on signal-maturity criteria —
+> and that retirement shipped in #228. Public copy on this branch now
+> carries no revenue band. Revenue-range form options are unaffected:
+> they are qualification inputs, not published positioning.
+
 ## Define
 
 ### Problem statement

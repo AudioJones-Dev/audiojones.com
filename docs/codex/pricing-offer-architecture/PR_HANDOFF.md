@@ -1,5 +1,13 @@
 # Draft PR Handoff — Diagnostic-Led Pricing and Offer Architecture
 
+> **Superseded on one point (2026-08-31).** The `$500K–$5M+` annual-revenue
+> ICP wording ratified on 2026-07-31 and referenced below did not ship.
+> `AUDIOJONES_NICHE_VALIDATION_CORRECTIONS.md` §5 retires hard ARR bands
+> from public copy — the persona is qualified on signal-maturity criteria —
+> and that retirement shipped in #228. Public copy on this branch now
+> carries no revenue band. The references below are kept as the record of
+> the earlier decision.
+
 ## Strategic rationale
 
 AJ Digital sells diagnosis, evidence-supported implementation, integration, operational responsibility, monitoring, and managed improvement. The former low-cost subscription grid misrepresented that delivery model. This change presents a customer journey from preliminary assessment through ReKonr, managed ResponseOS implementation, Managed Intelligence, and controlled expansion.
