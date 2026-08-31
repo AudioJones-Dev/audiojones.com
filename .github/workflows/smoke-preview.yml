@@ -7,6 +7,11 @@ on:
 jobs:
   smoke_preview:
     runs-on: ubuntu-latest
+    # actions: read is required to list and download the preview-url artifact
+    # published by the deploy_preview job in the Deploy workflow.
+    permissions:
+      contents: read
+      actions: read
     steps:
       - name: Wait for Vercel preview deployment
         id: preview
@@ -18,109 +23,74 @@ jobs:
         run: |
           set -euo pipefail
 
-          # Vercel registers the Preview deployment on GitHub *after* the
-          # PR workflow starts. A one-shot lookup therefore races the
-          # deployment and fails immediately even when Vercel later
-          # publishes a healthy preview, producing recurring false
-          # negatives on this check. Poll the Deployments API until the
-          # Preview deployment exists AND has a status row with
-          # state=success + environment_url. Bounded: 30 attempts every
-          # 10 seconds = 5 minutes maximum wait.
+          # The preview URL is published as an artifact by the deploy_preview
+          # job in deploy.yml. This previously polled the GitHub Deployments
+          # API instead, but that job deploys with the Vercel CLI, which never
+          # registers a Deployment record — so the lookup never matched, this
+          # job took its skip path on every run, and exited 0. The check
+          # reported green without ever executing a single assertion.
           #
           # Outcome semantics:
-          #   - found + success  -> run smoke checks
-          #   - found + terminal failure (failure/error) -> fail this job
-          #   - not found after wait window -> skip smoke checks (exit 0)
-          # The "not found" path treats absence of a Vercel preview as an
-          # infrastructure condition (e.g. Vercel GitHub integration not
-          # configured for this branch), not a PR defect. Code validation
-          # gates run independently in other workflows.
+          #   - artifact found  -> run smoke checks
+          #   - not found in window -> FAIL. The artifact is produced by our own
+          #     workflow whenever the preview deploys, so its absence means the
+          #     preview did not deploy. That is a real signal, not an
+          #     infrastructure quirk to be waved through.
           MAX_ATTEMPTS=30
           SLEEP_SECS=10
-          DEPLOYMENTS_URL="https://api.github.com/repos/${REPO}/deployments?sha=${SHA}&per_page=20"
+          ARTIFACT_NAME="preview-url-${SHA}"
+          ARTIFACTS_URL="https://api.github.com/repos/${REPO}/actions/artifacts?name=${ARTIFACT_NAME}&per_page=1"
 
           echo "PR head SHA:    ${SHA}"
           echo "PR head branch: ${BRANCH}"
-          echo "Max wait:       $((MAX_ATTEMPTS * SLEEP_SECS))s (${MAX_ATTEMPTS} attempts x ${SLEEP_SECS}s)"
+          echo "Artifact:       ${ARTIFACT_NAME}"
+          echo "Max wait:       $((MAX_ATTEMPTS * SLEEP_SECS))s"
 
           PREVIEW_URL=""
-          LAST_STATE=""
-          ATTEMPTS_USED=0
-          DEPLOYMENT_FOUND="false"
           for attempt in $(seq 1 "$MAX_ATTEMPTS"); do
-            ATTEMPTS_USED="$attempt"
-            DEPLOYMENT_ID="$(curl -sS \
+            ARTIFACT_ID="$(curl -sS \
               -H "Authorization: Bearer ${GH_TOKEN}" \
               -H "Accept: application/vnd.github+json" \
-              "$DEPLOYMENTS_URL" | jq -r '[.[] | select(.environment == "Preview")] | first | .id // empty')"
+              "$ARTIFACTS_URL" | jq -r '.artifacts // [] | map(select(.expired == false)) | first | .id // empty')"
 
-            if [ -z "$DEPLOYMENT_ID" ]; then
-              echo "[attempt ${attempt}/${MAX_ATTEMPTS}] No Preview deployment registered yet for ${SHA}; sleeping ${SLEEP_SECS}s"
-              sleep "$SLEEP_SECS"
-              continue
+            if [ -n "$ARTIFACT_ID" ]; then
+              curl -sSL \
+                -H "Authorization: Bearer ${GH_TOKEN}" \
+                -H "Accept: application/vnd.github+json" \
+                -o preview-url.zip \
+                "https://api.github.com/repos/${REPO}/actions/artifacts/${ARTIFACT_ID}/zip"
+              unzip -o -q preview-url.zip -d preview-url
+              PREVIEW_URL="$(tr -d '\r\n' < preview-url/preview-url.txt)"
+              if [ -n "$PREVIEW_URL" ]; then
+                echo "[attempt ${attempt}/${MAX_ATTEMPTS}] Resolved preview URL: ${PREVIEW_URL}"
+                break
+              fi
+              echo "[attempt ${attempt}/${MAX_ATTEMPTS}] Artifact present but empty; sleeping ${SLEEP_SECS}s"
+            else
+              echo "[attempt ${attempt}/${MAX_ATTEMPTS}] Preview URL artifact not published yet; sleeping ${SLEEP_SECS}s"
             fi
-
-            DEPLOYMENT_FOUND="true"
-            STATUS_URL="https://api.github.com/repos/${REPO}/deployments/${DEPLOYMENT_ID}/statuses?per_page=20"
-            STATUS_JSON="$(curl -sS \
-              -H "Authorization: Bearer ${GH_TOKEN}" \
-              -H "Accept: application/vnd.github+json" \
-              "$STATUS_URL")"
-
-            PREVIEW_URL="$(echo "$STATUS_JSON" | jq -r '[.[] | select(.state == "success" and .environment_url != null)] | first | .environment_url // empty')"
-            if [ -n "$PREVIEW_URL" ]; then
-              echo "[attempt ${attempt}/${MAX_ATTEMPTS}] Resolved preview URL: ${PREVIEW_URL}"
-              break
-            fi
-
-            # Fail fast on terminal Vercel failure states — additional
-            # polling will not recover a deployment that Vercel itself
-            # marked as failed or errored.
-            TERMINAL_FAILURE="$(echo "$STATUS_JSON" | jq -r '[.[] | select(.state == "failure" or .state == "error")] | first | .state // empty')"
-            if [ -n "$TERMINAL_FAILURE" ]; then
-              echo "Preview deployment ${DEPLOYMENT_ID} reported terminal state: ${TERMINAL_FAILURE}"
-              echo "Status history:"
-              echo "$STATUS_JSON" | jq -r '.[] | "  - \(.created_at) state=\(.state) env_url=\(.environment_url)"'
-              {
-                echo "outcome=failed"
-                echo "deployment_found=true"
-                echo "attempts_used=${attempt}"
-                echo "preview_url="
-              } >> "$GITHUB_OUTPUT"
-              exit 1
-            fi
-
-            LAST_STATE="$(echo "$STATUS_JSON" | jq -r '[.[]] | first | .state // "no-statuses"')"
-            echo "[attempt ${attempt}/${MAX_ATTEMPTS}] Deployment ${DEPLOYMENT_ID} state=${LAST_STATE}; sleeping ${SLEEP_SECS}s"
             sleep "$SLEEP_SECS"
           done
 
           if [ -z "$PREVIEW_URL" ]; then
-            if [ "$DEPLOYMENT_FOUND" = "true" ]; then
-              # Deployment record exists but never reached success within
-              # the wait window. Treat as skip rather than failure —
-              # Vercel may still publish the preview later, and code
-              # validation already passed in other workflows.
-              echo "No Vercel preview deployment was found in a success state for this head SHA. Skipping smoke_preview. Code validation already passed."
-              echo "Deployment was registered but last observed state was: ${LAST_STATE:-unknown}"
-            else
-              echo "No Vercel preview deployment was found for this head SHA. Skipping smoke_preview. Code validation already passed."
-              echo "This usually means the Vercel GitHub integration did not produce a preview for branch '${BRANCH}' (for example, the branch pattern is excluded in Vercel project settings or git.deploymentEnabled in vercel.json)."
-            fi
+            echo "No preview URL was published for ${SHA} within the wait window."
+            echo "The deploy_preview job in 'Deploy AJ Digital Suite' publishes this artifact"
+            echo "whenever a preview deploys, so this means the preview did not deploy."
+            echo "Check that job for the failure; smoke assertions did not run."
             {
-              echo "outcome=skipped"
-              echo "deployment_found=${DEPLOYMENT_FOUND}"
-              echo "attempts_used=${ATTEMPTS_USED}"
-              echo "last_state=${LAST_STATE:-unknown}"
+              echo "outcome=failed"
+              echo "deployment_found=false"
+              echo "attempts_used=${MAX_ATTEMPTS}"
+              echo "last_state=no-preview-url-artifact"
               echo "preview_url="
             } >> "$GITHUB_OUTPUT"
-            exit 0
+            exit 1
           fi
 
           {
             echo "outcome=ready"
             echo "deployment_found=true"
-            echo "attempts_used=${ATTEMPTS_USED}"
+            echo "attempts_used=0"
             echo "preview_url=${PREVIEW_URL}"
           } >> "$GITHUB_OUTPUT"
 
@@ -165,22 +135,6 @@ jobs:
           if [ "$failed" -ne 0 ]; then
             exit 1
           fi
-
-      - name: Report skip
-        if: steps.preview.outputs.outcome == 'skipped'
-        env:
-          DEPLOYMENT_FOUND: ${{ steps.preview.outputs.deployment_found }}
-          ATTEMPTS_USED: ${{ steps.preview.outputs.attempts_used }}
-          LAST_STATE: ${{ steps.preview.outputs.last_state }}
-        run: |
-          if [ "${DEPLOYMENT_FOUND}" = "true" ]; then
-            echo "::notice title=smoke_preview skipped::Vercel preview deployment was registered but did not reach success within the wait window (last state: ${LAST_STATE:-unknown}). Code validation already passed."
-          else
-            echo "::notice title=smoke_preview skipped::No Vercel preview deployment was found for this head SHA. Code validation already passed."
-          fi
-          echo "attempts_used=${ATTEMPTS_USED}"
-          echo "deployment_found=${DEPLOYMENT_FOUND}"
-          echo "last_state=${LAST_STATE:-unknown}"
 
       # Additive output for PR Validation Summary workflow. Backwards-
       # compatible: failures here do not affect this job's outcome.
