@@ -73,7 +73,7 @@ export function getMockJaviResponse(input: string): JaviResponse {
     case "what-aj-builds":
       return {
         text:
-          "Audio Jones builds Founder Intelligence Systems for founder-led businesses ($250K–$5M ARR). Think ResponseOS for revenue recovery, AI executive assistants like me, and operator workflows that turn signal into action — without the noise of a generic SaaS rebuild.",
+          "Audio Jones builds Founder Intelligence Systems for founder-led service businesses. Think ResponseOS for revenue recovery, AI executive assistants like me, and operator workflows that turn signal into action — without the noise of a generic SaaS rebuild.",
         followUps: [
           { id: "explain-responseos", label: "Tell me about ResponseOS" },
           { id: "use-an-assistant", label: "How would an assistant help me?" },
