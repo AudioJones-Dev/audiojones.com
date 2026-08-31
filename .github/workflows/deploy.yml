@@ -173,7 +173,12 @@ jobs:
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         run: |
-          url="$(npx vercel@latest deploy --token="${VERCEL_TOKEN}" --cwd . --yes)"
+          # --force discards the restored build cache and installs clean.
+          # Without it Vercel restores node_modules from a previous
+          # deployment and runs an incremental install over it, so a PR that
+          # changes a resolved dependency version can be built against a
+          # tree that never matches its lockfile. See docs/DECISIONS.md.
+          url="$(npx vercel@latest deploy --force --token="${VERCEL_TOKEN}" --cwd . --yes)"
           echo "preview_url=${url}" >> "$GITHUB_OUTPUT"
           {
             echo "### Vercel preview"

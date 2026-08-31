@@ -197,3 +197,30 @@ the commercial wedge rather than sold alongside it.
 3. If the new decision supersedes an older one, mark the older entry
    `superseded by YYYY-MM-DD — short title` instead of deleting it.
 4. Keep entries to a screen or less. Link out for detail.
+
+---
+
+## 2026-08-31 — Preview deploys skip the Vercel build cache
+
+**Status:** accepted
+**Decision:** `deploy_preview` passes `--force` to `vercel deploy`, discarding
+the restored build cache and installing clean on every preview. Production
+(`deploy`) is unchanged and still uses the cache.
+
+**Context:** Vercel restores `node_modules` from a previous deployment and runs
+an incremental `pnpm install` over it. When a PR changes a dependency's
+resolved version, that tree can end up incoherent with the lockfile. On #193 it
+produced `Module not found: Can't resolve 'protobufjs/minimal'` for four
+different `protobufjs` values while the one version already in the cache built
+fine — a non-monotonic result that no version-compatibility explanation fits.
+Clean installs of every version tested build successfully. See #219.
+
+**Consequences:**
+- Preview deploys are slower; correctness is the point of the job.
+- Dependency PRs are validated against the tree their lockfile actually
+  describes, not against whatever the last deployment left behind.
+- Production deploys still build over a cache and remain exposed to the same
+  failure mode after a dependency change merges. Left unchanged deliberately —
+  prod deploy time is a separate tradeoff and should be decided on its own.
+- A green `deploy_preview` on a dependency PR now means something. A green
+  `smoke_preview` still does not (#216).
