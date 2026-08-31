@@ -38,8 +38,12 @@ export type PricingOffer = {
   schemaPrice?: SchemaPrice;
 };
 
+// `offer` preselects the engagement on the application form, so each of these
+// CTAs lands on a form that already names what the visitor clicked. `source`
+// separates pricing-ladder applications from the diagnostic and homepage paths
+// for routing and scoring. Ids must stay in `APPLY_OFFERS`.
 const pricingApplyHref = (offerId: string) =>
-  `/apply?source=other&utm_source=pricing&utm_medium=website&utm_campaign=pricing-offers&utm_content=${offerId}`;
+  `/apply?source=pricing&offer=${offerId}&utm_source=pricing&utm_medium=website&utm_campaign=pricing-offers&utm_content=${offerId}`;
 
 const pricingRouteHref = (path: string, offerId: string) =>
   `${path}?utm_source=pricing&utm_medium=website&utm_campaign=pricing-offers&utm_content=${offerId}`;
