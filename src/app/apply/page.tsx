@@ -15,7 +15,7 @@ import { siteConfig } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Diagnostic Review Application",
   description:
-    "Apply for an Audio Jones engagement. Founder-led businesses, $250K–$5M. Reviewed personally for fit.",
+    "Apply for an Audio Jones engagement. Founder-led service businesses with more demand signal than capacity. Reviewed personally for fit.",
   alternates: { canonical: `${siteConfig.url}/apply` },
   openGraph: {
     title: "Apply | Audio Jones",
@@ -65,7 +65,7 @@ export default function ApplyPage() {
             <ul className="mt-6 grid grid-cols-1 gap-2 t-small text-fg-3 sm:grid-cols-3">
               <li>· Reviewed personally</li>
               <li>· No automated bot replies</li>
-              <li>· Founder-led, $250K–$5M</li>
+              <li>· Founder-led service businesses</li>
             </ul>
           </header>
 

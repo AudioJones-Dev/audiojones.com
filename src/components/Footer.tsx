@@ -50,7 +50,7 @@ export default function Footer() {
               Founder Intelligence Systems for founder-led businesses.
             </p>
             <p className="mt-3 max-w-md t-small text-fg-3">
-              Audio Jones is the operating brand of AJ Digital LLC. Founder-led businesses, $250K–$5M ARR.
+              Audio Jones is the operating brand of AJ Digital LLC. For founder-led service businesses carrying more demand signal than capacity to act on it.
             </p>
           </div>
 
