@@ -104,6 +104,27 @@ const neonAdapter: ApplyAdapter = {
   },
 };
 
+// ─── Misconfigured adapter ───────────────────────────────────────────────────
+
+// Selecting "neon" without a DATABASE_URL is a deployment-config error, and
+// the only safe response is to refuse the submission. Falling back to mock
+// here would answer ok:true and send the applicant to the thank-you page
+// while the application was discarded — a false success on a lead form is
+// worse than an error, because the applicant has no reason to try again.
+const misconfiguredAdapter: ApplyAdapter = {
+  async submit(input) {
+    console.error("[apply] rejecting submission: provider is neon but DATABASE_URL is unset", {
+      email: input.email,
+      offer: input.offer,
+    });
+    return {
+      ok: false,
+      error: "We couldn't save your application. Please try again in a moment.",
+      code: "PROVIDER_ERROR",
+    };
+  },
+};
+
 // ─── Provider selector ───────────────────────────────────────────────────────
 
 let providerEnvWarned = false;
@@ -113,21 +134,22 @@ export function getApplyAdapter(): ApplyAdapter {
 
   if (explicit === "neon") {
     if (!process.env.DATABASE_URL) {
-      // Warn once per cold start: this is a deployment-config error, not a
-      // per-request one. Falling back to mock keeps the form working rather
-      // than failing every application on a missing connection string.
+      // Warn once per cold start so a misconfigured deploy leaves one visible
+      // signal rather than a line per submission; each rejected submission is
+      // still logged individually by the adapter itself.
       if (!providerEnvWarned) {
         providerEnvWarned = true;
         console.warn(
-          "[apply] LEAD_FORM_PROVIDER=neon but DATABASE_URL is unset; falling back to mock",
+          "[apply] LEAD_FORM_PROVIDER=neon but DATABASE_URL is unset; applications will be rejected",
         );
       }
-      return mockAdapter;
+      return misconfiguredAdapter;
     }
     return neonAdapter;
   }
 
   // Default to mock — keeps local dev + missing-env environments functional,
   // and keeps the legacy "resend" value non-persisting until someone opts in.
+  // Unlike the branch above, nothing here claims it will persist.
   return mockAdapter;
 }
