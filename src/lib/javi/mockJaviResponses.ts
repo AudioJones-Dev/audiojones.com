@@ -73,7 +73,7 @@ export function getMockJaviResponse(input: string): JaviResponse {
     case "what-aj-builds":
       return {
         text:
-          "Audio Jones builds Founder Intelligence Systems for founder-led service businesses. Think ResponseOS for revenue recovery, AI executive assistants like me, and operator workflows that turn signal into action — without the noise of a generic SaaS rebuild.",
+          "Audio Jones builds Founder Intelligence Systems for founder-led service businesses. Think ResponseOS for revenue recovery and governed workflows that turn signal into action — without a generic SaaS rebuild.",
         followUps: [
           { id: "explain-responseos", label: "Tell me about ResponseOS" },
           { id: "use-an-assistant", label: "How would an assistant help me?" },
@@ -89,14 +89,14 @@ export function getMockJaviResponse(input: string): JaviResponse {
     case "use-an-assistant":
       return {
         text:
-          "An AI executive assistant like me handles the operational tax on a founder's day — answering inbound questions, routing leads, surfacing what matters, and carrying memory between conversations. Most founders save 8–15 hours a week and stop dropping warm leads.",
+          "An AI executive assistant like me can help with the operational tax on a founder's day — answering inbound questions, routing leads, surfacing what matters, and carrying approved context between conversations. The useful outcome must be measured against the client's baseline.",
         followUps: [{ id: "want-one", label: "I want one like Javi" }],
         cta: DIAGNOSTIC_CTA,
       };
     case "want-one":
       return {
         text:
-          "Good. The fastest path is the AI Readiness Diagnostic — it tells us what's worth automating in your business before we build anything. Takes about 7 minutes and you get a real plan, not a sales pitch.",
+          "Good. The fastest path is the AI Readiness Diagnostic — it helps identify what's worth investigating before we build anything and creates a more useful next conversation.",
         cta: DIAGNOSTIC_CTA,
       };
   }

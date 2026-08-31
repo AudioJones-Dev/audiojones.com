@@ -1,5 +1,10 @@
 # Audio Jones Structured Schema Layout (Final)
 
+> **Historical notice (2026-07-31):** This layout predates the current
+> evidence standard. Numerical marketing examples retained below are not
+> verified AJ Digital client results and must not be copied into public pages,
+> metadata, or JSON-LD without a stable source and publication approval.
+
 ## 1. Organization
 
 ## 2. Founder (Person)
@@ -536,4 +541,3 @@ One recording day → a month of content and measurable pipeline. We combine pod
 ```
 
 ## 15. Footer (to be added)
-

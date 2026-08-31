@@ -1,14 +1,20 @@
 ---
 title: "Codex Brief — ResponseOS v1"
-status: "draft, awaiting Phase 2 kickoff"
+status: "historical-superseded"
 target_route: "/agents/responseos"
 target_branch: "feat/responseos-v1 (TBD by Codex)"
 parent_design_doc: "docs/design/DESIGN.md"
 related: "docs/codex/roi-calculator-v1-brief.md (precedent), docs/architecture/stack-decision.md"
 last_updated: "2026-05-10"
+superseded_by: "docs/strategy/PRICING_OFFER_RECONCILIATION_2026-07-31.md"
 ---
 
 # Codex Brief — ResponseOS v1
+
+> **Historical notice (2026-07-31):** Commercial language in this v1 brief,
+> including recovered-revenue-relative pricing, is superseded. ResponseOS is
+> currently positioned as a diagnostic-led managed Revenue Recovery System;
+> no outcome fee, recovered-revenue percentage, or guarantee is authorized.
 
 This brief is a self-contained handoff for the **flagship product narrative
 page** of the Audio Jones agents ecosystem. Codex (or whichever agent picks it

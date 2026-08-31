@@ -9,7 +9,7 @@ import { breadcrumbJsonLd } from "@/lib/seo/schema";
 
 const TITLE = "Solutions";
 const DESCRIPTION =
-  "What AJ Digital builds: Founder Intelligence Systems for founder-led service businesses. Diagnose with an AI Operations Audit, architect a System Blueprint, build custom applications, AI agents, and AI receptionist systems, then operate with a Managed Intelligence Retainer.";
+  "What AJ Digital builds for founder-led service businesses: evidence-based diagnostics, ResponseOS Revenue Recovery Systems, Founder Intelligence Systems, and ongoing Managed Intelligence.";
 
 // Canonical offer ladder. One commercial path: Diagnose → Design → Build → Operate.
 // Naming follows the ratified AJ Digital canonical offer model.
@@ -35,7 +35,7 @@ const STAGES: Stage[] = [
       "Start with a free read on where your operations and AI-readiness stand — no spend, no commitment.",
     offers: [
       {
-        name: "AI Readiness Scorecard",
+        name: "AI Readiness Score",
         blurb:
           "A fast, free read on how ready your business is and where the biggest operational gaps are — before you spend anything. The top of the ladder, and the entry into the diagnostic engine.",
         href: ctaLinks.signalDiagnostic,
@@ -50,9 +50,9 @@ const STAGES: Stage[] = [
       "Every paid engagement starts with a decision-ready diagnosis — never a tool sold before the constraint is found.",
     offers: [
       {
-        name: "AI Operations Audit",
+        name: "ReKonr Revenue Recovery Diagnostic",
         blurb:
-          "A structured read of where your operations leak revenue, time, and signal — intake, follow-up, data, reporting, and decision cadence — ending in a prioritized plan for exactly what to build next.",
+          "The first complete paid diagnostic: workflow mapping, revenue-leak analysis, baseline metrics, ranked interventions, and a 90-day implementation blueprint.",
         href: "/pricing",
         cta: "See the audit",
       },
@@ -94,9 +94,9 @@ const STAGES: Stage[] = [
         cta: "See agent systems",
       },
       {
-        name: "AI Receptionist System",
+        name: "ResponseOS Revenue Recovery System",
         blurb:
-          "The wedge into revenue-recovery infrastructure: capture, qualify, route, and recover inbound demand across calls, forms, and messages so no earned lead goes cold. Productized as ResponseOS.",
+          "A diagnostic-led managed implementation for demand capture, qualification, routing, follow-up, booking, escalation, attribution, and reporting. Voice can be one capability when the workflow requires it.",
         href: "/agents/responseos",
         cta: "Explore ResponseOS",
       },
@@ -109,9 +109,9 @@ const STAGES: Stage[] = [
       "Once the system is live, the work shifts to running it, optimizing it, and deciding what to build next.",
     offers: [
       {
-        name: "Managed Intelligence Retainer",
+        name: "Managed Intelligence",
         blurb:
-          "Ongoing operation, optimization, and advisory after the install — a steady hand on priorities, measurement, and the next highest-leverage system.",
+          "Ongoing monitoring, reporting, optimization, business-memory maintenance, and decision support after implementation, with defined support and change boundaries.",
         href: "/book-a-call",
         cta: "Book a call",
       },
@@ -130,7 +130,7 @@ const ADVANCED: Offer[] = [
     cta: "Request the diagnostic",
   },
   {
-    name: "Founder Intelligence System Install",
+    name: "Founder Intelligence System",
     blurb:
       "The full installed operating intelligence layer across revenue, ops, AI, and reporting — connected into one system you can see and run.",
     href: "/founder-intelligence",

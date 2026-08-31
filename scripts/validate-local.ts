@@ -50,7 +50,12 @@ function runStep(step: StepDefinition): Promise<StepResult> {
   return new Promise((resolveStep) => {
     const started = new Date();
     const startedMs = performance.now();
-    const child = spawn(step.command, step.args, {
+    const command = process.platform === 'win32' ? process.env.ComSpec || 'cmd.exe' : step.command;
+    const args =
+      process.platform === 'win32'
+        ? ['/d', '/s', '/c', `${step.command} ${step.args.join(' ')}`]
+        : step.args;
+    const child = spawn(command, args, {
       stdio: ['ignore', 'pipe', 'pipe'],
       env: process.env,
       shell: false,
@@ -143,6 +148,11 @@ async function main(): Promise<void> {
     { name: 'typecheck', command: 'pnpm', args: ['typecheck'] },
     { name: 'lint', command: 'pnpm', args: ['lint'] },
     { name: 'check-no-firebase', command: 'pnpm', args: ['check:no-firebase'] },
+    {
+      name: 'pricing-offer-contract',
+      command: 'pnpm',
+      args: ['exec', 'tsx', '--test', 'test/pricing-offers.test.ts'],
+    },
   ];
   if (!noBuild) {
     definitions.push({ name: 'build', command: 'pnpm', args: ['build'] });

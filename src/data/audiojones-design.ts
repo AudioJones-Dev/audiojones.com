@@ -72,7 +72,13 @@ export const responseOsFlow = [
     step: "04",
     title: "Recover",
     description:
-      "The system closes the response gap, records outcomes, and shows where revenue was recovered or still leaking.",
+      "Follow-up, booking, callback, and human-escalation paths keep legitimate opportunities from disappearing after the first response.",
+  },
+  {
+    step: "05",
+    title: "Learn",
+    description:
+      "Attribution and recovery reporting compare agreed outcomes with the client baseline so the managed workflow can be improved with evidence.",
   },
 ] as const;
 
@@ -100,19 +106,19 @@ export const caseStudies = [
     title: "Local service pipeline recovery",
     description:
       "A founder-led service business needed faster inbound response and clearer lead status. The system map exposed follow-up leaks before a tool was added.",
-    outcome: "Follow-up gap identified",
+    outcome: "Illustrative workflow — not a client result",
   },
   {
     title: "Expertise to authority engine",
     description:
       "A consulting brand had strong expertise but weak publishing rhythm. The operating model turned founder ideas into repeatable content and offers.",
-    outcome: "Content operating loop defined",
+    outcome: "Illustrative workflow — not a client result",
   },
   {
     title: "Attribution signal cleanup",
     description:
       "A growth team could see activity but not causality. The audit separated vanity metrics from pipeline signals and clarified the next system layer.",
-    outcome: "Signal scorecard created",
+    outcome: "Illustrative workflow — not a client result",
   },
 ] as const;
 

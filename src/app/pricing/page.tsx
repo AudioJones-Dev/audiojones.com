@@ -1,318 +1,385 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 
+import FAQ from "@/components/founder-intelligence/FAQ";
 import {
   DarkSection,
-  FinalCta,
   LightProofSection,
   SectionIntro,
-  SignalHero,
+  SignalConsole,
 } from "@/components/marketing/DesignSystemSections";
-import FAQ from "@/components/founder-intelligence/FAQ";
+import PricingCtaLink from "@/components/pricing/PricingCtaLink";
 import JsonLd from "@/components/seo/JsonLd";
+import {
+  diagnosisOffers,
+  expansionOffers,
+  implementationOffers,
+  managedIntelligenceOffer,
+  pricingFactors,
+  pricingFaqs,
+  pricingPolicy,
+  pricingServicesJsonLd,
+  providerUsagePolicy,
+  type PricingOffer,
+  workshopOffer,
+} from "@/content/pricing";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { breadcrumbJsonLd, faqJsonLd } from "@/lib/seo/schema";
 
 const DESCRIPTION =
-  "Start with a diagnostic — most are publicly priced. Then build the system you need, from ResponseOS to a full Founder Intelligence System. No guessing what it costs to begin.";
+  "AJ Digital starts with evidence, installs only the intervention the evidence supports, and manages the system after implementation. Review diagnostic, ResponseOS, and Managed Intelligence starting prices.";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Offers & Pricing",
+  title: "AJ Digital Pricing: Diagnose, Implement, Manage",
   description: DESCRIPTION,
   path: "/pricing",
 });
 
-type Offer = {
-  name: string;
-  price: string;
-  priceNote?: string;
-  designedFor: string;
-  goal: string;
-  outcome?: string;
-  href?: string;
-  cta?: string;
-  featured?: boolean;
-};
-
-// ── Entry: diagnostics (the buying sequence starts here) ──
-const DIAGNOSTICS: Offer[] = [
-  {
-    name: "AI Readiness Score",
-    price: "Free",
-    designedFor: "Any founder-led service business wondering where AI and operations actually stand.",
-    goal: "A fast read on how ready your business is — and where the gaps are before you spend anything.",
-    href: "/ai-readiness-diagnostic",
-    cta: "Get your score",
-  },
-  {
-    name: "Revenue Leak Diagnostic",
-    price: "$1,997",
-    designedFor: "Founder-led businesses doing $500K–$5M+.",
-    goal: "Identify where revenue is being lost — slow response times, missed follow-up, poor attribution, operational bottlenecks, and reporting gaps.",
-    outcome: "A prioritized action plan showing the highest-leverage opportunities to recover revenue and improve operational efficiency.",
-    href: "/book-a-call",
-    cta: "Book the diagnostic",
-    featured: true,
-  },
-  {
-    name: "AI Readiness Kaizen Diagnostic",
-    price: "$3,500",
-    designedFor: "Businesses ready for a full operating review, not a single-issue read.",
-    goal: "A deeper, continuous-improvement read across workflow, data, SOPs, and adoption — what to fix, and in what order.",
-    href: "/book-a-call",
-    cta: "Book the diagnostic",
-  },
-];
-
-const WORKSHOP: Offer = {
-  name: "AI Readiness Workshop",
-  price: "$2,500–$3,500",
-  designedFor: "Teams who want to learn the model before committing to a build.",
-  goal: "A guided working session that leaves you with a readiness score and a clear next step.",
-  href: "/workshops",
-  cta: "See workshops",
-};
-
-// ── Systems: ResponseOS tiers ──
-const RESPONSEOS: Offer[] = [
-  {
-    name: "ResponseOS Starter",
-    price: "$397/mo",
-    designedFor: "Smaller teams that just need to stop leads going cold.",
-    goal: "Core capture and fast follow-up so no inbound lead falls through the cracks.",
-  },
-  {
-    name: "ResponseOS Core",
-    price: "$797/mo",
-    designedFor: "Growing teams with a real follow-up and recovery problem.",
-    goal: "Adds qualification and a recovery cadence that re-engages stalled and ghosted leads.",
-    featured: true,
-  },
-  {
-    name: "ResponseOS Pro",
-    price: "$1,297/mo",
-    designedFor: "Teams that need the full picture, not just the recovery.",
-    goal: "Full intake, recovery, and attribution reporting so you see what actually drives revenue.",
-  },
-];
-
-// ── Larger engagements ──
-const ENGAGEMENTS: Offer[] = [
-  {
-    name: "Founder Intelligence System Install",
-    price: "Custom",
-    priceNote: "Most engagements range $5,000–$25,000+",
-    designedFor: "Businesses ready for a full operating intelligence layer across revenue, ops, AI, and reporting.",
-    goal: "Connect follow-up, CRM, attribution, reporting, and business memory into one system you can see and run.",
-    href: "/founder-intelligence",
-    cta: "Explore the system",
-  },
-  {
-    name: "Managed Intelligence Retainer",
-    price: "From $2,000/mo",
-    designedFor: "Founders who want ongoing operating guidance, not a one-time build.",
-    goal: "A steady hand on the system — priorities, decisions, and what to build next.",
-    href: "/book-a-call",
-    cta: "Book a call",
-  },
-];
-
-const PARTNERSHIP: Offer = {
-  name: "Performance Partnership",
-  price: "Application only",
-  designedFor: "A small number of businesses where we tie our upside to your results.",
-  goal: "A performance-based engagement scoped around outcomes. Pricing is bespoke — apply to see if it is a fit.",
-  href: "/apply",
-  cta: "Apply",
-};
-
-const PRICING_FAQS = [
-  {
-    question: "What does it cost to start?",
-    answer:
-      "The AI Readiness Score is free. The Revenue Leak Diagnostic is $1,997. Most engagements begin with one of those, then move into a system once you know what to fix.",
-  },
-  {
-    question: "Why do you publish prices?",
-    answer:
-      "Because transparency saves everyone time. You can see exactly where to start and what it costs before you ever get on a call.",
-  },
-  {
-    question: "Can I start small?",
-    answer:
-      "Yes. ResponseOS starts at $397/month and moves up as it proves out. You do not have to commit to a full build to fix your biggest leak first.",
-  },
-  {
-    question: "What is not priced publicly?",
-    answer:
-      "Founder Intelligence Systems are scoped to your business (most range $5,000–$25,000+), and the Performance Partnership is application-only because pricing is built around outcomes.",
-  },
-];
-
-function PriceCard({ offer, featured = offer.featured }: { offer: Offer; featured?: boolean }) {
-  const body = (
-    <>
-      <div className="flex items-start justify-between gap-4">
-        <h3 className="font-accent text-xl font-bold tracking-[-0.02em] text-fg-0">
-          {offer.name}
-        </h3>
-        {featured ? <span className="aj-data-label whitespace-nowrap">Popular</span> : null}
-      </div>
-      <p className="mt-3 font-headline text-3xl font-bold text-signal-yellow">{offer.price}</p>
-      {offer.priceNote ? <p className="mt-1 text-xs text-fg-3">{offer.priceNote}</p> : null}
-
-      <dl className="mt-5 space-y-4">
-        <div>
-          <dt className="aj-data-label">Designed for</dt>
-          <dd className="mt-1 text-sm leading-6 text-fg-2">{offer.designedFor}</dd>
+function OfferCard({ offer }: { offer: PricingOffer }) {
+  return (
+    <article
+      id={offer.id}
+      className={
+        offer.featured
+          ? "aj-card-signal scroll-mt-28"
+          : "aj-product-card scroll-mt-28"
+      }
+    >
+      <div
+        className={
+          offer.featured
+            ? "aj-card-inner flex h-full flex-col"
+            : "flex h-full flex-col"
+        }
+      >
+        <div className="flex flex-wrap items-start justify-between gap-4">
+          <h3 className="max-w-xl font-accent text-2xl font-bold tracking-[-0.02em] text-fg-0">
+            {offer.name}
+          </h3>
+          {offer.featured ? (
+            <span className="aj-data-label whitespace-nowrap">Defined pilot scope</span>
+          ) : null}
         </div>
-        <div>
-          <dt className="aj-data-label">What it does</dt>
-          <dd className="mt-1 text-sm leading-6 text-fg-2">{offer.goal}</dd>
-        </div>
-        {offer.outcome ? (
-          <div>
-            <dt className="aj-data-label">Typical outcome</dt>
-            <dd className="mt-1 text-sm leading-6 text-fg-2">{offer.outcome}</dd>
+
+        <p className="mt-4 font-headline text-3xl font-bold text-signal-yellow">
+          {offer.price}
+        </p>
+        {offer.price !== "Free" && offer.price !== "Application only" ? (
+          <p className="mt-2 text-xs uppercase tracking-[0.12em] text-fg-3">
+            Starting price for a defined scope
+          </p>
+        ) : null}
+        {offer.priceDetails ? (
+          <ul className="mt-3 space-y-1 text-sm font-semibold text-fg-1">
+            {offer.priceDetails.map((detail) => (
+              <li key={detail}>{detail}</li>
+            ))}
+          </ul>
+        ) : null}
+
+        <p className="mt-5 text-sm leading-7 text-fg-2">{offer.description}</p>
+
+        {offer.bestFor ? (
+          <div className="mt-6">
+            <p className="aj-data-label">Best suited for</p>
+            <ul className="mt-3 grid gap-2 text-sm leading-6 text-fg-2 sm:grid-cols-2">
+              {offer.bestFor.map((item) => (
+                <li key={item} className="flex gap-2">
+                  <span aria-hidden className="text-signal-yellow">
+                    —
+                  </span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
           </div>
         ) : null}
-      </dl>
 
-      {offer.href && offer.cta ? (
-        <Link
-          href={offer.href}
-          className="mt-5 inline-block text-sm font-semibold text-signal-yellow hover:underline"
-        >
-          {offer.cta} →
-        </Link>
-      ) : null}
-    </>
-  );
+        <div className="mt-6">
+          <p className="aj-data-label">{offer.scopeLabel ?? "Scope includes"}</p>
+          <ul className="mt-3 grid gap-2 text-sm leading-6 text-fg-2 sm:grid-cols-2">
+            {offer.scope.map((item) => (
+              <li key={item} className="flex gap-2">
+                <span aria-hidden className="text-signal-yellow">
+                  ✓
+                </span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
 
-  return featured ? (
-    <div className="aj-card-signal">
-      <div className="aj-card-inner">{body}</div>
-    </div>
-  ) : (
-    <div className="aj-product-card">{body}</div>
+        {offer.guardrails ? (
+          <div className="mt-6 border-l-2 border-signal-yellow bg-bg-1 px-4 py-3">
+            <p className="aj-data-label">Scope guardrails</p>
+            <ul className="mt-2 space-y-2 text-xs leading-6 text-fg-2">
+              {offer.guardrails.map((guardrail) => (
+                <li key={guardrail}>{guardrail}</li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
+
+        <div className="mt-auto pt-7">
+          <PricingCtaLink
+            href={offer.cta.href}
+            eventName={offer.cta.eventName}
+            offerId={offer.id}
+            placement="offer-card"
+            variant={offer.featured ? "glow" : "secondary"}
+            className="min-h-11 w-full sm:w-auto"
+          >
+            {offer.cta.label}
+          </PricingCtaLink>
+        </div>
+      </div>
+    </article>
   );
 }
 
-export default function OffersPage() {
+export default function PricingPage() {
+  const rekonr = diagnosisOffers[2];
+
   return (
     <>
       <JsonLd
         data={breadcrumbJsonLd([
           { name: "Home", url: "/" },
-          { name: "Offers & Pricing", url: "/pricing" },
+          { name: "Pricing", url: "/pricing" },
         ])}
       />
-      <JsonLd data={faqJsonLd(PRICING_FAQS)} />
+      <JsonLd data={faqJsonLd([...pricingFaqs])} />
+      <JsonLd data={pricingServicesJsonLd()} />
 
-      <SignalHero
-        title="Start with a diagnostic. Build the system you actually need."
-        description={DESCRIPTION}
-        primaryHref="/ai-readiness-diagnostic"
-        primaryLabel="Get your free score"
-        secondaryHref="/book-a-call"
-        secondaryLabel="Book a Diagnostic"
-        stats={[
-          { metric: "Free", label: "AI Readiness Score to see where you stand." },
-          { metric: "$1,997", label: "Revenue Leak Diagnostic — find the money leaking out." },
-          { metric: "$397/mo", label: "ResponseOS starts here — stop losing leads." },
-        ]}
-      />
-
-      {/* Step 1 — Diagnostics */}
-      <DarkSection>
-        <SectionIntro
-          label="Step 1 · AI Operations Audit"
-          title="Every engagement starts with a diagnosis."
-          description="The AI Operations Audit is a structured read of your business that ends in a decision-ready plan — the single highest-leverage thing to fix next. These are the entry point, and most are publicly priced."
-        />
-        <div className="mt-10 grid gap-4 lg:grid-cols-3">
-          {DIAGNOSTICS.map((o) => (
-            <PriceCard key={o.name} offer={o} />
-          ))}
+      <section className="relative overflow-hidden border-b border-[var(--line-2)] bg-[var(--aj-gradient-dark)] py-20 sm:py-28 lg:py-32">
+        <div className="aj-noise-overlay" aria-hidden />
+        <div className="pointer-events-none absolute inset-0 bg-grid-fine opacity-60" aria-hidden />
+        <div className="relative mx-auto grid max-w-[1440px] gap-12 px-5 sm:px-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+          <div className="max-w-4xl">
+            <p className="aj-data-label">AJ Digital pricing</p>
+            <h1 className="mt-5 max-w-full break-words font-accent text-[clamp(2.55rem,9vw,5.6rem)] font-bold leading-[0.96] tracking-[-0.025em] text-fg-0 sm:tracking-[-0.045em]">
+              Find the leak first. Install only what the evidence supports.
+            </h1>
+            <p className="mt-6 max-w-2xl text-lg leading-8 text-fg-2 sm:text-xl">
+              AJ Digital diagnoses operational constraints, implements the smallest
+              system required to fix them, and measures whether the intervention
+              worked.
+            </p>
+            <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+              <PricingCtaLink
+                href={diagnosisOffers[0].cta.href}
+                eventName="pricing_assessment_cta"
+                offerId="ai-readiness-score"
+                placement="hero"
+                variant="glow"
+              >
+                Take the Free Assessment
+              </PricingCtaLink>
+              <PricingCtaLink
+                href={rekonr.cta.href}
+                eventName="pricing_rekonr_diagnostic_cta"
+                offerId={rekonr.id}
+                placement="hero"
+                variant="secondary"
+              >
+                Book a Diagnostic
+              </PricingCtaLink>
+            </div>
+            <dl className="mt-12 grid gap-4 sm:grid-cols-3">
+              {[
+                ["Free", "Preliminary AI Readiness Score."],
+                ["$1,997", "Bounded Revenue Leak Assessment."],
+                ["Diagnosis first", "Implementation scope follows evidence."],
+              ].map(([metric, label]) => (
+                <div key={metric} className="aj-product-card">
+                  <dt className="text-sm font-semibold uppercase tracking-[0.14em] text-[var(--aj-blue)]">
+                    {metric}
+                  </dt>
+                  <dd className="mt-3 text-sm leading-6 text-fg-2">{label}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+          <div className="min-w-0">
+            <SignalConsole />
+          </div>
         </div>
-        <div className="mt-4 grid gap-4 lg:grid-cols-3">
-          <PriceCard offer={WORKSHOP} />
-        </div>
-      </DarkSection>
+      </section>
 
-      {/* How pricing works */}
       <LightProofSection>
-        <div className="mx-auto max-w-3xl text-center">
-          <p className="text-xs font-bold uppercase tracking-[0.16em] text-[var(--aj-blue-deep)]">
-            How pricing works
-          </p>
-          <h2 className="mt-4 font-accent text-[clamp(2rem,4vw,3.25rem)] font-bold leading-[1.05] tracking-[-0.03em]">
-            Transparent where it helps. Scoped where it matters.
-          </h2>
-          <p className="mt-5 text-lg leading-8 text-[#4b5563]">
-            Diagnostics and ResponseOS are publicly priced, so you know exactly
-            where to start. Full Founder Intelligence Systems are scoped to your
-            business, because the right build depends on what the diagnostic
-            finds. The Performance Partnership is application-only — pricing
-            there is built around results.
-          </p>
+        <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.16em] text-[var(--aj-blue-deep)]">
+              Pricing philosophy
+            </p>
+            <h2 className="mt-4 font-accent text-[clamp(2.25rem,4vw,4rem)] font-bold leading-[1.02] tracking-[-0.035em]">
+              Start with evidence. Scope the intervention second.
+            </h2>
+          </div>
+          <div className="space-y-5 text-lg leading-8 text-[#4b5563]">
+            <p>
+              AJ Digital does not sell a tool before the operating constraint is
+              understood. Diagnosis establishes the baseline, the intervention,
+              and the measurement plan.
+            </p>
+            <p>
+              Published prices are controlled starting points for testing defined
+              scopes. They are not market benchmarks or proof of willingness to pay.
+            </p>
+          </div>
         </div>
       </LightProofSection>
 
-      {/* Step 2 — ResponseOS tiers */}
       <DarkSection>
         <SectionIntro
-          label="Step 2 · AI Receptionist System"
-          title="Stop losing the leads you already earned."
-          description="The AI Receptionist System — productized as ResponseOS — is the wedge into revenue-recovery infrastructure: capture, qualify, and recover inbound demand. Start at the tier that matches your follow-up problem and move up as it proves out."
+          label="1 · Start with diagnosis"
+          title="Choose the smallest diagnostic that answers the real question."
+          description="The free score orients. The bounded assessment isolates one workflow. ReKonr is the first complete paid diagnostic engagement."
         />
-        <div className="mt-10 grid gap-4 lg:grid-cols-3">
-          {RESPONSEOS.map((o) => (
-            <PriceCard key={o.name} offer={o} />
+        <div className="mt-10 grid items-stretch gap-6 xl:grid-cols-3">
+          {diagnosisOffers.map((offer) => (
+            <OfferCard key={offer.id} offer={offer} />
           ))}
-        </div>
-        <div className="mt-8">
-          <Link href="/agents/responseos" className="text-sm font-semibold text-signal-yellow hover:underline">
-            Explore ResponseOS in full →
-          </Link>
         </div>
       </DarkSection>
 
-      {/* Larger engagements */}
-      <DarkSection className="bg-bg-1">
+      <DarkSection className="border-y border-[var(--line-2)] bg-bg-1">
+        <div className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:items-start">
+          <SectionIntro
+            label="Parallel path · Alignment"
+            title="Align the team without substituting education for diagnosis."
+            description="The workshop supports responsible adoption, leadership alignment, and practical prioritization. It does not replace ReKonr."
+          />
+          <OfferCard offer={workshopOffer} />
+        </div>
+      </DarkSection>
+
+      <DarkSection>
         <SectionIntro
-          label="Build & operate"
-          title="When you are ready for the whole system."
-          description="Once a diagnostic proves the model, these are the larger builds and ongoing engagements."
+          label="2 · Implement the evidence-supported intervention"
+          title="Managed systems, scoped after diagnosis."
+          description="ResponseOS is a Revenue Recovery System delivered as a managed implementation. Founder Intelligence Systems extend the governed operating layer only where the evidence supports it."
         />
-        <div className="mt-10 grid gap-4 lg:grid-cols-3">
-          {ENGAGEMENTS.map((o) => (
-            <PriceCard key={o.name} offer={o} />
+        <div className="mt-10 grid items-stretch gap-6 xl:grid-cols-3">
+          {implementationOffers.map((offer) => (
+            <OfferCard key={offer.id} offer={offer} />
           ))}
-          <PriceCard offer={PARTNERSHIP} />
         </div>
       </DarkSection>
 
-      {/* FAQ */}
+      <DarkSection className="border-y border-[var(--line-2)] bg-bg-1">
+        <div className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:items-start">
+          <SectionIntro
+            label="3 · Manage and improve"
+            title="Keep the installed system accurate, governed, and useful."
+            description="Managed Intelligence is the recurring operate-and-improve layer after implementation, with defined review, support, monitoring, and change boundaries."
+          />
+          <OfferCard offer={managedIntelligenceOffer} />
+        </div>
+      </DarkSection>
+
+      <DarkSection>
+        <SectionIntro
+          label="4 · Expansion and strategic engagements"
+          title="Expand only through controlled, evidence-supported scopes."
+          description="Worksie remains a narrow reference pilot. Strategic Partnership replaces performance-based positioning without outcome fees or guarantees."
+        />
+        <div className="mt-10 grid items-stretch gap-6 lg:grid-cols-2">
+          {expansionOffers.map((offer) => (
+            <OfferCard key={offer.id} offer={offer} />
+          ))}
+        </div>
+      </DarkSection>
+
+      <LightProofSection>
+        <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.16em] text-[var(--aj-blue-deep)]">
+              What affects pricing
+            </p>
+            <h2 className="mt-4 font-accent text-[clamp(2.25rem,4vw,4rem)] font-bold leading-[1.02] tracking-[-0.035em]">
+              Starting figures are not universal quotes.
+            </h2>
+            <p className="mt-5 text-lg leading-8 text-[#4b5563]">{pricingPolicy}</p>
+          </div>
+          <ul className="grid gap-3 sm:grid-cols-2">
+            {pricingFactors.map((factor) => (
+              <li
+                key={factor}
+                className="border border-[#d8d3c6] bg-white/60 px-4 py-3 text-sm font-semibold text-[#101827]"
+              >
+                {factor}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </LightProofSection>
+
+      <DarkSection className="bg-bg-1">
+        <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
+          <SectionIntro
+            label="Provider and usage costs"
+            title="Managed-service pricing and provider usage are separate."
+            description={providerUsagePolicy}
+          />
+          <div className="aj-product-card">
+            <p className="aj-data-label">Commercial guardrails</p>
+            <ul className="mt-5 space-y-4 text-sm leading-7 text-fg-2">
+              <li>No unlimited voice, SMS, model, storage, or telephony usage.</li>
+              <li>No self-service ResponseOS subscription is publicly offered.</li>
+              <li>No outcome fee, recovered-revenue percentage, or ROI guarantee is offered.</li>
+              <li>Final implementation scope follows diagnosis.</li>
+            </ul>
+          </div>
+        </div>
+      </DarkSection>
+
       <DarkSection>
         <SectionIntro
           label="FAQ"
-          title="Common questions about cost"
-          description="Straight answers about how engagements are priced and where to start."
+          title="Pricing, implementation, and operating boundaries"
+          description="Straight answers about diagnosis, provider usage, existing systems, timing, guarantees, and what happens after implementation."
         />
-        <div className="mx-auto mt-10 max-w-3xl">
-          <FAQ items={PRICING_FAQS} />
+        <div id="pricing-faq" className="mx-auto mt-10 max-w-4xl scroll-mt-28">
+          <FAQ items={[...pricingFaqs]} />
         </div>
       </DarkSection>
 
-      <FinalCta
-        title="Find the leak first. Price the fix second."
-        description="Start with the free AI Readiness Score, or book the Revenue Leak Diagnostic to find exactly where your business is losing revenue."
-        primaryLabel="Get your free score"
-        primaryHref="/ai-readiness-diagnostic"
-        secondaryLabel="Book a Diagnostic"
-        secondaryHref="/book-a-call"
-      />
+      <section className="relative overflow-hidden border-t border-[var(--line-2)] bg-[var(--aj-gradient-dark)] py-16 sm:py-24">
+        <div className="pointer-events-none absolute inset-0 bg-grid-fine opacity-50" aria-hidden />
+        <div className="relative mx-auto max-w-[900px] px-5 text-center sm:px-8">
+          <h2 className="font-accent text-[clamp(2.25rem,4vw,4rem)] font-bold leading-[1.02] tracking-[-0.035em] text-fg-0">
+            Start with the evidence required to make the next decision.
+          </h2>
+          <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-fg-2">
+            Take the free assessment for orientation, or apply for ReKonr when you
+            need a complete revenue-recovery diagnostic and implementation blueprint.
+          </p>
+          <div className="mt-10 flex flex-col justify-center gap-3 sm:flex-row">
+            <PricingCtaLink
+              href={diagnosisOffers[0].cta.href}
+              eventName="pricing_assessment_cta"
+              offerId="ai-readiness-score"
+              placement="final-cta"
+              variant="glow"
+            >
+              Take the Free Assessment
+            </PricingCtaLink>
+            <PricingCtaLink
+              href={rekonr.cta.href}
+              eventName="pricing_rekonr_diagnostic_cta"
+              offerId={rekonr.id}
+              placement="final-cta"
+              variant="secondary"
+            >
+              Book a Diagnostic
+            </PricingCtaLink>
+          </div>
+          <p className="mt-6 text-xs leading-6 text-fg-3">
+            ResponseOS implementation requires diagnosis. Managed-service fees do not
+            include provider usage.
+          </p>
+        </div>
+      </section>
     </>
   );
 }

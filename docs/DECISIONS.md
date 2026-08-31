@@ -188,6 +188,40 @@ the commercial wedge rather than sold alongside it.
   `AJ_DIGITAL_CANONICAL_OFFER_RATIFICATION_PROPOSAL.md` §8 Q1–Q7 remain
   open, and no offer name, price, tier, or route changed here.
 
+## 2026-07-31 — Diagnostic-led public pricing enters controlled testing
+
+**Status:** accepted for controlled testing; preview QA approved; merge and production publication require separate Audio approval
+**Decision:** The public pricing model follows diagnosis → evidence-supported
+implementation → managed improvement → controlled expansion. ResponseOS is a
+managed Revenue Recovery System, not a self-service receptionist subscription.
+All numerical prices are starting-price hypotheses with internal status
+`Testing`; provider usage is separate; no outcome fee, success fee,
+recovered-revenue percentage, or guarantee is publicly offered.
+
+**Rationale:** AJ Digital's delivery responsibility includes diagnosis,
+workflow design, integration, data quality, attribution, implementation,
+monitoring, support, and optimization. Commodity software tiers obscure that
+scope before repeated delivery has established standardization, support burden,
+margin, retention, and low founder dependence.
+
+**Consequences:**
+- `src/content/pricing.ts` is the public offer/price source for `/pricing` and
+  its structured data and CTA event contract.
+- Pricing evidence remains governed by
+  [`docs/strategy/PRICE_VALIDATION_LEDGER.md`](./strategy/PRICE_VALIDATION_LEDGER.md).
+- The prior public prices and terminology are reconciled in
+  [`docs/strategy/PRICING_OFFER_RECONCILIATION_2026-07-31.md`](./strategy/PRICING_OFFER_RECONCILIATION_2026-07-31.md).
+- Public starting prices, directional ICP wording, public ResponseOS detail,
+  unsupported-claim disposition, evidence ownership, the review trigger, and
+  internal `Testing` status were ratified by Audio on 2026-07-31.
+- The ReKonr diagnostic is independently deliverable and is not automatically
+  credited toward implementation; revisit after three comparable paid ReKonr
+  engagements.
+- Audio owns claim and publication approval; AJ Digital Ops maintains the
+  engagement evidence register.
+- The existing automatic preview is approved for human QA only. Merge and
+  production deployment remain separate `proceed` gates.
+
 ---
 
 ## How to add an entry

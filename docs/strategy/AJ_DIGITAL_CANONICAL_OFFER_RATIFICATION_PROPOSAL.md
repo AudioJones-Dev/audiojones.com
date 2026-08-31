@@ -1,6 +1,6 @@
 ---
 title: AJ Digital — Canonical Offer Ratification Proposal
-status: proposal-awaiting-approval
+status: historical-superseded
 version: v0.1
 date: 2026-06-17
 owner: AJ Digital LLC
@@ -8,9 +8,15 @@ approver: Audio (founder) — approval required before any implementation
 companion: docs/strategy/AUDIOJONES_DOCTRINE_ALIGNMENT_AUDIT.md (PR #174)
 scope: docs-only — no website copy, components, or config changed
 supersedes-on-approval: docs/sop/offer-ecosystem/* (see §6)
+superseded_by: docs/strategy/PRICING_OFFER_RECONCILIATION_2026-07-31.md
 ---
 
 # AJ Digital — Canonical Offer Ratification Proposal
+
+> **Historical notice (2026-07-31):** This proposal records the prior website
+> and decision state. Its pricing, AI Receptionist, Managed Retainer, and
+> Performance Partnership options are not current public authority. See the
+> 2026-07-31 pricing reconciliation and price-validation ledger.
 
 > **Purpose.** PR #174 found that AudioJones.com is running **three
 > non-aligned offer models at once**. This document proposes a **single

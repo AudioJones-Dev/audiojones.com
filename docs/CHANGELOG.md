@@ -77,6 +77,15 @@ Entries are reverse chronological. Format follows
   no openable primary URL. Both are blocked from publication pending an
   amendment to §1.
 
+### Changed
+- Rebuilt `/pricing` around diagnosis, evidence-supported managed
+  implementation, Managed Intelligence, and controlled expansion; replaced
+  commodity ResponseOS tiers and unsupported performance proof with scoped
+  starting prices, evidence guardrails, conservative structured data, tracked
+  CTAs, and a price-validation ledger. Audio ratified the commercial testing
+  decisions and automatic preview QA on 2026-07-31; merge and production
+  publication remain separately gated.
+
 ### Tooling
 - Added `.github/workflows/validation-summary.yml` (Phase 1 of
   `docs/ops/AUTOMATED_VALIDATION_REVIEW_LOOP.md`): aggregates `CI`,
