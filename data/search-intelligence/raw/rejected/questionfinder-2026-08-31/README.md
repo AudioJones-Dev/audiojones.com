@@ -151,6 +151,11 @@ Verify with:
 sha256sum *.csv
 ```
 
+Hashes are of the LF originals as acquired. This directory ships a `.gitattributes` marking the
+CSVs `-text`, because the repo checks out with `core.autocrlf=true` — without it, checkout would
+rewrite them to CRLF and every hash above would mismatch, which reads as tampering rather than as
+a line-ending conversion.
+
 ---
 
 ## Why these files are kept
