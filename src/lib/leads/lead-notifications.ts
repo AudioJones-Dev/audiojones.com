@@ -1,6 +1,12 @@
 import "server-only";
+import { readCappedBody } from "@/lib/notifications/safe-body";
 import type { FounderIntelligenceLeadInput } from "./lead-schema";
 import type { LeadScores } from "./lead-scoring";
+
+// Bound every notification request. A downstream that accepts the connection
+// and then stalls would otherwise hold the deferred `after` task open until
+// the platform kills it, and the status would never be logged.
+const NOTIFY_TIMEOUT_MS = 10_000;
 
 type NotifyArgs = {
   leadId: string;
@@ -46,6 +52,7 @@ async function sendEmail({ leadId, input, scores }: NotifyArgs) {
         "content-type": "application/json",
       },
       body: JSON.stringify({ from, to, subject, html }),
+      signal: AbortSignal.timeout(NOTIFY_TIMEOUT_MS),
     });
 
     // fetch only rejects on a transport failure. A bad API key, an
@@ -54,7 +61,7 @@ async function sendEmail({ leadId, input, scores }: NotifyArgs) {
     if (!res.ok) {
       console.error("[founder-intelligence] email notification rejected", {
         status: res.status,
-        body: await safeBody(res),
+        body: await readCappedBody(res),
         leadId,
       });
     }
@@ -63,15 +70,6 @@ async function sendEmail({ leadId, input, scores }: NotifyArgs) {
   }
 }
 
-// Read a failed response for the log without letting the read itself throw
-// and mask the status being reported.
-async function safeBody(res: Response): Promise<string> {
-  try {
-    return (await res.text()).slice(0, 500);
-  } catch {
-    return "<unreadable>";
-  }
-}
 
 async function sendN8nWebhook({ leadId, input, scores }: NotifyArgs) {
   const url = process.env.N8N_LEAD_WEBHOOK_URL || process.env.CRM_WEBHOOK_URL;
@@ -102,6 +100,7 @@ async function sendN8nWebhook({ leadId, input, scores }: NotifyArgs) {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(payload),
+      signal: AbortSignal.timeout(NOTIFY_TIMEOUT_MS),
     });
 
     // Same reasoning as the email call: a rejecting or misconfigured
@@ -109,7 +108,7 @@ async function sendN8nWebhook({ leadId, input, scores }: NotifyArgs) {
     if (!res.ok) {
       console.error("[founder-intelligence] n8n webhook rejected", {
         status: res.status,
-        body: await safeBody(res),
+        body: await readCappedBody(res),
         leadId,
       });
     }
