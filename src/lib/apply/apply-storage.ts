@@ -93,6 +93,23 @@ const neonAdapter: ApplyAdapter = {
 
     try {
       const stored = await insertApplySubmission(input, ctx);
+
+      // Fire-and-forget after the row is committed. The application is safe
+      // in the table either way, so a slow or failing notifier must not
+      // delay the applicant or turn a successful submission into an error —
+      // hence its own try/catch, inside which even the dynamic import is
+      // guarded. Notifying here rather than in the route is deliberate: a
+      // mock submission stored nothing, so there is nothing to announce.
+      try {
+        const { notifyApplySubmission } = await import("./apply-notifications");
+        void notifyApplySubmission({ leadId: stored.id, input });
+      } catch (err) {
+        console.error("[apply] notification dispatch failed; row is saved", {
+          error: err instanceof Error ? err.message : String(err),
+          leadId: stored.id,
+        });
+      }
+
       return { ok: true, leadId: stored.id, provider: "neon" };
     } catch (err) {
       // Log with enough to find the row that did not land, then surface a

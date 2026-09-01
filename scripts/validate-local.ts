@@ -158,6 +158,11 @@ async function main(): Promise<void> {
       command: 'pnpm',
       args: ['exec', 'tsx', '--test', 'test/apply-row.test.ts'],
     },
+    {
+      name: 'apply-notification-contract',
+      command: 'pnpm',
+      args: ['exec', 'tsx', '--test', 'test/apply-notification.test.ts'],
+    },
   ];
   if (!noBuild) {
     definitions.push({ name: 'build', command: 'pnpm', args: ['build'] });
