@@ -4,9 +4,11 @@
 //   - "neon":   persists to `applied_intelligence_leads` on NeonDB via
 //               src/db/apply.ts. Requires DATABASE_URL and the columns added
 //               in db/migrations/003_apply_submission_fields.sql.
+//               Selecting it without a DATABASE_URL rejects submissions
+//               rather than falling back — see misconfiguredAdapter below.
 //   - "mock":   logs the payload, simulates 700ms latency, returns a
 //               synthetic leadId. UI compiles + form submits + thank-you
-//               renders without any external dependency.
+//               renders without any external dependency. Nothing is stored.
 //   - "resend": historical value that never persisted anything. Kept as an
 //               alias for "mock" so an environment already carrying it does
 //               not silently start writing to a table whose migration may
@@ -14,11 +16,17 @@
 //
 // Persistence is opt-in on purpose. `neon` must be set explicitly — a
 // DATABASE_URL alone does not enable it — so the migration can be applied
-// before any write reaches the table, in either order, without a window
-// where /apply 500s on a missing column.
+// without a write reaching the table before its columns exist. Setting the
+// provider before the migration is applied is still the wrong order: the
+// insert fails and applicants see a retry message. Migration first.
 //
-// Hard rules: no Firebase. No hardcoded secrets. Fail soft when env is
-// missing — the form must still submit successfully via the mock adapter.
+// Worth knowing when reading the mock path: `ok: true` makes ApplyForm
+// redirect to /apply/thank-you, which reads "Application received". On mock
+// nothing is received. That is acceptable in development; in production it
+// means an unset provider tells applicants something untrue, which is the
+// reason to finish the gates rather than leave persistence off.
+//
+// Hard rules: no Firebase. No hardcoded secrets.
 
 import { randomUUID } from "node:crypto";
 import type { ApplyInput } from "./apply-schema";
