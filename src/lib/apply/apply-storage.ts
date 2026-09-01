@@ -94,15 +94,32 @@ const neonAdapter: ApplyAdapter = {
     try {
       const stored = await insertApplySubmission(input, ctx);
 
-      // Fire-and-forget after the row is committed. The application is safe
-      // in the table either way, so a slow or failing notifier must not
-      // delay the applicant or turn a successful submission into an error —
-      // hence its own try/catch, inside which even the dynamic import is
-      // guarded. Notifying here rather than in the route is deliberate: a
-      // mock submission stored nothing, so there is nothing to announce.
+      // Notify after the row is committed. The application is safe in the
+      // table either way, so a slow or failing notifier must not delay the
+      // applicant or turn a successful submission into an error — hence its
+      // own try/catch, inside which even the dynamic import is guarded.
+      // Notifying here rather than in the route is deliberate: a mock
+      // submission stored nothing, so there is nothing to announce.
+      //
+      // `after` rather than a bare `void`: on serverless the invocation can
+      // be suspended as soon as the response is sent, which would drop the
+      // Resend and webhook requests mid-flight and leave the application
+      // silently unannounced. `after` keeps the invocation alive until the
+      // work settles, without holding up the response.
       try {
         const { notifyApplySubmission } = await import("./apply-notifications");
-        void notifyApplySubmission({ leadId: stored.id, input });
+        const notify = () => notifyApplySubmission({ leadId: stored.id, input });
+
+        try {
+          const { after } = await import("next/server");
+          after(notify);
+        } catch {
+          // No request scope — a script or a test calling the adapter
+          // directly. Await instead: notifyApplySubmission resolves through
+          // Promise.allSettled and never rejects, so this cannot turn a
+          // saved row into a failed submission.
+          await notify();
+        }
       } catch (err) {
         console.error("[apply] notification dispatch failed; row is saved", {
           error: err instanceof Error ? err.message : String(err),
