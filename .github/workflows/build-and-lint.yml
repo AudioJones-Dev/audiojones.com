@@ -40,6 +40,9 @@ jobs:
       - name: Verify apply notification escaping and subject
         run: pnpm exec tsx --test test/apply-notification.test.ts
 
+      - name: Verify notification failure bodies are capped
+        run: pnpm exec tsx --test test/safe-body.test.ts
+
       - name: Build workspace packages
         run: pnpm packages:build
 

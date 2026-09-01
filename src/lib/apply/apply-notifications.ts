@@ -17,8 +17,14 @@
 // tested without a server bundle.
 
 import "server-only";
+import { readCappedBody } from "@/lib/notifications/safe-body";
 import { applySubject, offerLabel, renderApplyEmail } from "./apply-notification-content";
 import type { ApplyInput } from "./apply-schema";
+
+// Bound every notification request. A downstream that accepts the connection
+// and then stalls would otherwise hold the deferred `after` task open until
+// the platform kills it, and the status would never be logged.
+const NOTIFY_TIMEOUT_MS = 10_000;
 
 type NotifyArgs = {
   leadId: string;
@@ -66,6 +72,7 @@ async function sendEmail(leadId: string, input: ApplyInput) {
         html: renderApplyEmail(leadId, input),
         reply_to: input.email,
       }),
+      signal: AbortSignal.timeout(NOTIFY_TIMEOUT_MS),
     });
 
     // fetch only rejects on a transport failure. A bad API key, an
@@ -75,7 +82,7 @@ async function sendEmail(leadId: string, input: ApplyInput) {
     if (!res.ok) {
       console.error("[apply] email notification rejected", {
         status: res.status,
-        body: await safeBody(res),
+        body: await readCappedBody(res),
         leadId,
       });
     }
@@ -86,15 +93,6 @@ async function sendEmail(leadId: string, input: ApplyInput) {
   }
 }
 
-// Read a failed response for the log without letting the read itself throw
-// and mask the status we are trying to report.
-async function safeBody(res: Response): Promise<string> {
-  try {
-    return (await res.text()).slice(0, 500);
-  } catch {
-    return "<unreadable>";
-  }
-}
 
 async function sendWebhook(leadId: string, input: ApplyInput) {
   const url = process.env.N8N_LEAD_WEBHOOK_URL || process.env.CRM_WEBHOOK_URL;
@@ -134,6 +132,7 @@ async function sendWebhook(leadId: string, input: ApplyInput) {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(payload),
+      signal: AbortSignal.timeout(NOTIFY_TIMEOUT_MS),
     });
 
     // Same reasoning as the email call: a rejecting or misconfigured
@@ -141,7 +140,7 @@ async function sendWebhook(leadId: string, input: ApplyInput) {
     if (!res.ok) {
       console.error("[apply] webhook notification rejected", {
         status: res.status,
-        body: await safeBody(res),
+        body: await readCappedBody(res),
         leadId,
       });
     }

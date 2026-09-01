@@ -163,6 +163,11 @@ async function main(): Promise<void> {
       command: 'pnpm',
       args: ['exec', 'tsx', '--test', 'test/apply-notification.test.ts'],
     },
+    {
+      name: 'notification-body-cap',
+      command: 'pnpm',
+      args: ['exec', 'tsx', '--test', 'test/safe-body.test.ts'],
+    },
   ];
   if (!noBuild) {
     definitions.push({ name: 'build', command: 'pnpm', args: ['build'] });
