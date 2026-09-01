@@ -1,6 +1,6 @@
 export const runtime = "nodejs";
 
-import { NextRequest, NextResponse } from "next/server";
+import { after, NextRequest, NextResponse } from "next/server";
 import { ZodError } from "zod";
 import { appliedIntelligenceLeadSchema } from "@/lib/leads/lead-schema";
 import { scoreFounderIntelligenceLead } from "@/lib/leads/lead-scoring";
@@ -77,13 +77,21 @@ export async function POST(req: NextRequest) {
       userAgent,
     });
 
-    // Notifications run sequentially after persistence but failures don't
-    // block the user response — they're logged inside the notifier.
-    void notifyFounderIntelligenceLead({
-      leadId: stored.id,
-      input,
-      scores,
-    });
+    // Notifications run after persistence and their failures don't block the
+    // user response — they're logged inside the notifier.
+    //
+    // `after` rather than a bare `void`: on serverless the invocation can be
+    // suspended as soon as the response is sent, which would drop the Resend
+    // and webhook requests mid-flight and leave a stored lead silently
+    // unannounced. `after` keeps the invocation alive until the work settles,
+    // without holding up the response.
+    after(() =>
+      notifyFounderIntelligenceLead({
+        leadId: stored.id,
+        input,
+        scores,
+      }),
+    );
 
     return NextResponse.json({
       ok: true,
