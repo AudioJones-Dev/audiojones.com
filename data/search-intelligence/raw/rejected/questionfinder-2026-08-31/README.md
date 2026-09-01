@@ -164,9 +164,36 @@ Per `SEARCH_IMPLEMENTATION_SPEC` §27, **rejected data is quarantined, never del
 is itself evidence: it documents a failure mode this program should be able to recognize on sight,
 and it is the worked example behind the §9A acquisition-QA gate.
 
-Copies also remain in `~/Downloads` under their original names. Those are outside version control
-and are **not** covered by this quarantine — rename or remove them separately if they risk being
-picked up as evidence.
+## The `~/Downloads` copies
+
+The originals remain in `~/Downloads`, outside version control. On 2026-09-01 they were renamed to
+the §28 convention `<source>__<seed-slug>__<date>__<qa-verdict>.csv` so the verdict travels with the
+filename and they cannot be picked up later and mistaken for evidence. Contents are untouched — all
+nine still match the hashes above.
+
+The files in *this* directory deliberately keep their original names, per §27's "unmodified" rule.
+Mapping:
+
+| Original name (kept here) | Renamed in `~/Downloads` |
+|---|---|
+| `questionfinder-ai-receptionist.csv` | `qf__ai-receptionist__2026-08-31__reject-template-collision.csv` |
+| `questionfinder-ai-automation-for-service-businesses.csv` | `qf__ai-automation-for-service-businesses__2026-08-31__reject-template-collision.csv` |
+| `questionfinder-business-automation-miami.csv` | `qf__business-automation-miami__2026-08-31__reject-template-collision.csv` |
+| `questionfinder-ai-consultant-miami.csv` | `qf__ai-consultant-miami__2026-08-31__reject-template-collision.csv` |
+| `questionfinder-google-business-profile-optimization-mia.csv` | `qf__google-business-profile-optimization-miami__2026-08-31__reject-template-collision.csv` |
+| `questionfinder-ai-search-optimization-for-small-busines.csv` | `qf__ai-search-optimization-for-small-business__2026-08-31__reject-template-collision.csv` |
+| `questionfinder-seo-consultant-miami.csv` | `qf__seo-consultant-miami__2026-08-31__reject-zero-volume.csv` |
+| `questionfinder-seo-for-contractors-miami.csv` | `qf__seo-for-contractors-miami__2026-08-31__reject-zero-volume.csv` |
+| `questionfinder-website-optimization-miami.csv` | `qf__website-optimization-miami__2026-08-31__reject-zero-volume.csv` |
+
+Two notes on the mapping:
+
+- **Two slugs were corrected.** The export tool truncated `...-mia` and `...-busines`; the renamed
+  files carry the seeds actually submitted — `google-business-profile-optimization-miami` and
+  `ai-search-optimization-for-small-business`.
+- **Two verdicts, not one.** `reject-template-collision` marks the six substituted-template files;
+  `reject-zero-volume` marks the three degenerate files, whose primary disqualifier is a wholly
+  zero-volume batch compounded by seed-fidelity failure.
 
 ---
 
