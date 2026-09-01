@@ -33,6 +33,8 @@ const eslintConfig = defineConfig([
     "scripts/**",
     "functions/**",
     "test/**",
+    // Research corpora and their verification scripts are data, not source.
+    "data/**",
     "packages/**/dist/**",
     // Generated Firebase DataConnect files (CommonJS output):
     "src/dataconnect-generated/**",
