@@ -47,6 +47,35 @@ Entries are reverse chronological. Format follows
   Git history keeps the content if a consented version ever exists.
 
 ### Documentation
+- Added `docs/reviews/` holding the redlined corrections to the Offer Map
+  plan and the Search Implementation Spec v1.1. Both were authored against
+  an earlier reading of the repository and reproduced the same two critical
+  defects: a `robots.txt` block that replaces rather than merges — dropping
+  13 of the 16 live disallow lines, including `/uploader`, `/env`, and
+  `/portal/admin/` — and a Phase 0 gate covering roughly three of the ten
+  commercial decisions the Master Pricing Matrix itself lists as blocking
+  publication. The redlines also add a proof gate: the plan's own
+  qualification rule requires original proof per indexed page, and
+  `/case-studies` currently has no named clients and no `[slug]` routes, so
+  the seven family hubs cannot all clear it. Claims marked *build-verified*
+  were confirmed against generated `robots.txt` and `sitemap.xml` output
+  rather than source reading — including that all 32 sitemap URLs share one
+  `lastmod` equal to the build timestamp.
+- Recorded the rejection of a nine-file QuestionFinder research corpus in
+  `data/search-intelligence/raw/rejected/questionfinder-2026-08-31/`. Six of
+  the files are one generic home-services FAQ template with the seed string
+  substituted in — 102 of 102 questions identical, in identical row order,
+  across all six, with volumes jittered 17–27% around a shared base. The
+  remaining three are all zero-volume with the seed's qualifiers absent from
+  most rows. Substitution produced 84 category-alien questions carrying
+  confident volume, such as "does medicare cover ai receptionist" at
+  1,175/mo. The operative risk was an inversion: the genuine Miami data
+  showed almost nothing while the synthetic Miami data showed strong local
+  demand, so an unaudited read made the local wedge look validated. Files
+  are retained unmodified with SHA-256 recorded and a `verify-rejection.cjs`
+  that reproduces the finding, because the rejection is itself evidence of a
+  failure mode worth recognising again. Zero rows from this batch are
+  admissible in the Query Opportunity Register.
 - Amended §1 of `AUDIOJONES_NICHE_VALIDATION_CORRECTIONS.md` (v1.0 → v1.1)
   after running its own rule 1 against three rows marked SAFE. The
   9.3 hrs/week context-switching figure does not appear in Asana's index

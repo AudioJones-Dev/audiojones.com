@@ -1,0 +1,7 @@
+# Quarantined raw exports — preserve bytes exactly as acquired.
+#
+# The repo checks out with core.autocrlf=true, which would rewrite these LF
+# files to CRLF and change their SHA-256, breaking the checksums recorded in
+# README.md as tamper-evidence. `-text` disables all EOL conversion so the
+# working copy always matches the hashes in the rejection record.
+*.csv -text
