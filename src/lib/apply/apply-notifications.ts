@@ -53,7 +53,7 @@ async function sendEmail(leadId: string, input: ApplyInput) {
   }
 
   try {
-    await fetch("https://api.resend.com/emails", {
+    const res = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${apiKey}`,
@@ -67,10 +67,32 @@ async function sendEmail(leadId: string, input: ApplyInput) {
         reply_to: input.email,
       }),
     });
+
+    // fetch only rejects on a transport failure. A bad API key, an
+    // unverified sender or a rate limit all come back as a resolved 4xx,
+    // which without this check would look exactly like a delivered email
+    // and leave every application silently unannounced.
+    if (!res.ok) {
+      console.error("[apply] email notification rejected", {
+        status: res.status,
+        body: await safeBody(res),
+        leadId,
+      });
+    }
   } catch (err) {
     // The row is already committed, so a failed notification must never
     // surface to the applicant — it is an internal delivery problem.
     console.error("[apply] email notification failed", err);
+  }
+}
+
+// Read a failed response for the log without letting the read itself throw
+// and mask the status we are trying to report.
+async function safeBody(res: Response): Promise<string> {
+  try {
+    return (await res.text()).slice(0, 500);
+  } catch {
+    return "<unreadable>";
   }
 }
 
@@ -108,11 +130,21 @@ async function sendWebhook(leadId: string, input: ApplyInput) {
   };
 
   try {
-    await fetch(url, {
+    const res = await fetch(url, {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(payload),
     });
+
+    // Same reasoning as the email call: a rejecting or misconfigured
+    // downstream returns a resolved 4xx/5xx, not a thrown error.
+    if (!res.ok) {
+      console.error("[apply] webhook notification rejected", {
+        status: res.status,
+        body: await safeBody(res),
+        leadId,
+      });
+    }
   } catch (err) {
     console.error("[apply] webhook notification failed", err);
   }
