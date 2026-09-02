@@ -15,6 +15,27 @@ Entries are reverse chronological. Format follows
 
 ## Unreleased
 
+### Changed
+- Introduced `src/content/offers.ts` as the canonical offer registry and made
+  `src/content/pricing.ts` a projection of it. No commercial change: the ten
+  records mirror the live site verbatim, and the seven pre-existing assertions
+  in `test/pricing-offers.test.ts` pass unchanged, which is what makes the
+  migration behaviour-preserving rather than merely intended. `/pricing`,
+  `/agents/responseos`, `PricingCtaLink`, and `apply-schema` are untouched.
+  Fields that depend on the unfinished pricing reconciliation — `family` for
+  the seven contested offers, `displayConvention`, offer relationships — are
+  left undefined with a comment naming the open question, rather than filled
+  with placeholders that would quietly become the decision. Every record
+  carries `evidenceStatus: "unratified"`.
+- Added `src/lib/offers/public-view.ts`, the only path by which registry
+  records reach a machine-readable surface. The projection is an allowlist by
+  construction, so a field added to the registry later is withheld until
+  someone publishes it deliberately; the asymmetry is that a missing public
+  field gets reported, while a leaked internal one is silent and already
+  distributed. Enforced by three tests rather than left as an intention — a
+  key check on the output, a triage check on the registry input, and a
+  serialization scan asserting no internal metadata survives.
+
 ### Removed
 - Deleted the `agentsProofStrip` export from
   `src/data/audiojones-design.ts`. It held `$214K` "recovered revenue",

@@ -4,6 +4,13 @@ import path from "node:path";
 import test from "node:test";
 
 import { APPLY_OFFERS } from "../src/lib/apply/apply-schema";
+import { OFFERS } from "../src/content/offers";
+import {
+  isPublishable,
+  publicOffers,
+  toPublicOffer,
+  PUBLIC_OFFER_KEYS,
+} from "../src/lib/offers/public-view";
 import {
   implementationOffers,
   pricingFaqs,
@@ -11,6 +18,7 @@ import {
   pricingPolicy,
   pricingServicesJsonLd,
   providerUsagePolicy,
+  registryOrderedOfferIds,
 } from "../src/content/pricing";
 
 const repoRoot = process.cwd();
@@ -256,4 +264,191 @@ test("publishes no revenue band on public qualification surfaces", () => {
   // Signal-maturity framing, plus the mandated wedge qualifier from §2.
   assert.match(currentIcpCopy, /founder-led service business/);
   assert.match(currentIcpCopy, /demand signal|inbound to diagnose/);
+});
+
+// ── Offer registry contract ────────────────────────────────────────────────
+// `src/content/offers.ts` is the source; `src/content/pricing.ts` projects it.
+// These guard the invariants that projection relies on.
+
+test("registry order matches the order /pricing renders", () => {
+  // pricingOffers is assembled section by section, so a record moved between
+  // groups in the registry would silently reorder the page and the ItemList
+  // JSON-LD positions with it.
+  assert.deepEqual(
+    pricingOffers.map((offer) => offer.id),
+    registryOrderedOfferIds,
+  );
+});
+
+test("registry ids and slugs are unique and stable", () => {
+  const ids = OFFERS.map((offer) => offer.id);
+  const slugs = OFFERS.map((offer) => offer.slug);
+  assert.equal(new Set(ids).size, ids.length, "duplicate offer id in the registry");
+  assert.equal(new Set(slugs).size, slugs.length, "duplicate slug in the registry");
+
+  // Ids key APPLY_OFFERS and every pricing CTA's `offer=` param. A rename is a
+  // funnel change, not a refactor.
+  for (const offer of OFFERS) {
+    assert.match(
+      offer.id,
+      /^[a-z0-9-]+$/,
+      `offer id must stay url-safe and lowercase: ${offer.id}`,
+    );
+  }
+});
+
+test("an offer with its own page carries proof", () => {
+  // The public-page qualification rule requires original proof per indexed
+  // page. Every offer today is a card on /pricing with no `pagePath`, so this
+  // is vacuously satisfied by design — it starts biting the moment an offer
+  // gets a standalone route, which is exactly when the rule should apply.
+  const withPages = OFFERS.filter((offer) => offer.pagePath !== undefined);
+  for (const offer of withPages) {
+    assert.ok(
+      offer.proofAssetPaths.length > 0,
+      `${offer.name} has a standalone page but no proof asset`,
+    );
+  }
+  assert.equal(
+    OFFERS.some((offer) => offer.indexable && offer.pagePath === undefined),
+    false,
+    "an offer cannot be indexable without a page to index",
+  );
+});
+
+test("only approved visibility states reach a public surface", () => {
+  // The gate is an allowlist, so a visibility state added later is withheld
+  // until someone deliberately publishes it.
+  for (const offer of OFFERS) {
+    const publishable = isPublishable(offer);
+    if (offer.pricing.visibility === "private-corridor" || offer.pricing.visibility === "internal-allocation") {
+      assert.equal(publishable, false, `${offer.name} must not be publishable`);
+    }
+  }
+
+  // Everything currently on /pricing is, by definition, already public.
+  for (const offer of OFFERS) {
+    assert.ok(
+      isPublishable(offer),
+      `${offer.name} renders on /pricing but is not publishable`,
+    );
+  }
+});
+
+test("every registry price display is reproduced verbatim on the page", () => {
+  // Projection must not reformat, round, or normalise a price string.
+  for (const offer of OFFERS) {
+    const projected = pricingOffers.find((candidate) => candidate.id === offer.id);
+    assert.ok(projected, `${offer.name} is missing from the pricing view`);
+    assert.equal(projected.price, offer.pricing.display, `price drift for ${offer.id}`);
+    assert.equal(projected.description, offer.summary, `summary drift for ${offer.id}`);
+  }
+});
+
+test("the public projection is an enforced allowlist, not an intention", () => {
+  const published = publicOffers();
+  assert.equal(published.length, OFFERS.length, "every current offer is public");
+
+  // A projected record may carry only reviewed keys. Adding one to
+  // PUBLIC_OFFER_KEYS is the deliberate act of publishing a new field.
+  for (const offer of published) {
+    for (const key of Object.keys(offer)) {
+      assert.ok(
+        (PUBLIC_OFFER_KEYS as readonly string[]).includes(key),
+        `unreviewed key reached the public projection: ${key}`,
+      );
+    }
+  }
+});
+
+test("a new registry field must be triaged before it can be published", () => {
+  // The allowlist protects the output; this protects the input. If someone adds
+  // a field to a registry record, this fails and forces a decision about
+  // whether it is public — rather than it silently sitting one spread away
+  // from the feed.
+  const reviewedRegistryKeys = new Set([
+    "id",
+    "slug",
+    "name",
+    "family",
+    "stage",
+    "pricingGroup",
+    "summary",
+    "scopeLabel",
+    "scope",
+    "bestFor",
+    "guardrails",
+    "pricing",
+    "pagePath",
+    "indexable",
+    "cta",
+    "featured",
+    "prerequisiteOfferIds",
+    "followOnOfferIds",
+    "proofAssetPaths",
+    "updatedAt",
+  ]);
+
+  const seen = new Set<string>();
+  for (const offer of OFFERS) {
+    for (const key of Object.keys(offer)) seen.add(key);
+  }
+
+  for (const key of seen) {
+    assert.ok(
+      reviewedRegistryKeys.has(key),
+      `registry field "${key}" has not been triaged for publication — add it to ` +
+        `reviewedRegistryKeys, and to PUBLIC_OFFER_KEYS only if it is public`,
+    );
+  }
+});
+
+test("no internal commercial metadata survives serialization", () => {
+  // The end-to-end check: whatever a machine consumer would actually receive.
+  const serialized = JSON.stringify(publicOffers());
+
+  for (const marker of [
+    "unratified",
+    "evidenceStatus",
+    "displayConvention",
+    "internal-allocation",
+    "private-corridor",
+    "pricingGroup",
+    "prerequisiteOfferIds",
+    "followOnOfferIds",
+    "proofAssetPaths",
+    "guardrails",
+  ]) {
+    assert.equal(
+      serialized.includes(marker),
+      false,
+      `internal field leaked into the public feed: ${marker}`,
+    );
+  }
+});
+
+test("withheld visibility states project to null", () => {
+  // No registry record is non-public today, so exercise the gate directly
+  // rather than waiting for the first private offer to prove it works.
+  const [sample] = OFFERS;
+  for (const visibility of ["private-corridor", "internal-allocation"] as const) {
+    const withheld = {
+      ...sample,
+      pricing: { ...sample.pricing, visibility },
+    };
+    assert.equal(isPublishable(withheld), false, `${visibility} must not publish`);
+    assert.equal(toPublicOffer(withheld), null, `${visibility} must project to null`);
+  }
+});
+
+test("public offer urls resolve to a real surface", () => {
+  for (const offer of publicOffers()) {
+    assert.match(offer.url, /^https?:\/\//, `${offer.id} url must be absolute`);
+    // Every offer is a /pricing card today, so each url is that page's anchor.
+    assert.match(
+      offer.url,
+      new RegExp(`/pricing#${offer.id}$`),
+      `${offer.id} url should anchor to its pricing card until it has a page`,
+    );
+  }
 });

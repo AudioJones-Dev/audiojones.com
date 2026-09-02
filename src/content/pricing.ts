@@ -1,15 +1,24 @@
+/**
+ * Public pricing view.
+ *
+ * The offer data itself now lives in `src/content/offers.ts`. This file projects
+ * the registry into the shape `/pricing`, `/agents/responseos`, `PricingCtaLink`,
+ * and the pricing JSON-LD already consume, so those surfaces are unchanged.
+ *
+ * Everything below the offer projections — factors, policies, FAQs — is page copy
+ * rather than offer data and stays here.
+ */
+
+import {
+  OFFERS,
+  offersInGroup,
+  type Offer,
+  type OfferEventName,
+  type PricingGroup,
+} from "@/content/offers";
 import { SITE_URL } from "@/lib/founder-intelligence/tokens";
 
-export type PricingEventName =
-  | "pricing_assessment_cta"
-  | "pricing_rekonr_diagnostic_cta"
-  | "pricing_workshop_cta"
-  | "pricing_responseos_pilot_cta"
-  | "pricing_responseos_core_cta"
-  | "pricing_fis_cta"
-  | "pricing_managed_intelligence_cta"
-  | "pricing_worksie_pilot_cta"
-  | "pricing_strategic_partnership_cta";
+export type PricingEventName = OfferEventName;
 
 type PricingCta = {
   label: string;
@@ -38,321 +47,60 @@ export type PricingOffer = {
   schemaPrice?: SchemaPrice;
 };
 
-// `offer` preselects the engagement on the application form, so each of these
-// CTAs lands on a form that already names what the visitor clicked. `source`
-// separates pricing-ladder applications from the diagnostic and homepage paths
-// for routing and scoring. Ids must stay in `APPLY_OFFERS`.
-const pricingApplyHref = (offerId: string) =>
-  `/apply?source=pricing&offer=${offerId}&utm_source=pricing&utm_medium=website&utm_campaign=pricing-offers&utm_content=${offerId}`;
+/**
+ * Optional keys are spread conditionally rather than assigned `undefined`, so a
+ * projected offer has exactly the keys the hand-written literals used to have.
+ */
+function toPricingOffer(offer: Offer): PricingOffer {
+  return {
+    id: offer.id,
+    name: offer.name,
+    price: offer.pricing.display,
+    ...(offer.pricing.details ? { priceDetails: offer.pricing.details } : {}),
+    description: offer.summary,
+    ...(offer.bestFor ? { bestFor: offer.bestFor } : {}),
+    ...(offer.scopeLabel ? { scopeLabel: offer.scopeLabel } : {}),
+    scope: offer.scope,
+    ...(offer.guardrails ? { guardrails: offer.guardrails } : {}),
+    cta: offer.cta,
+    ...(offer.featured ? { featured: offer.featured } : {}),
+    ...(offer.pricing.schema ? { schemaPrice: offer.pricing.schema } : {}),
+  };
+}
 
-const pricingRouteHref = (path: string, offerId: string) =>
-  `${path}?utm_source=pricing&utm_medium=website&utm_campaign=pricing-offers&utm_content=${offerId}`;
+/**
+ * Fails at module load rather than yielding `undefined`, so a registry edit that
+ * empties or duplicates a single-offer section is caught by the build and not by
+ * a blank card in production.
+ */
+function onlyOfferInGroup(group: PricingGroup): PricingOffer {
+  const matches = offersInGroup(group);
+  if (matches.length !== 1) {
+    throw new Error(
+      `Expected exactly one offer in pricing group "${group}", found ${matches.length}.`,
+    );
+  }
+  return toPricingOffer(matches[0]);
+}
 
-export const diagnosisOffers: readonly PricingOffer[] = [
-  {
-    id: "ai-readiness-score",
-    name: "AI Readiness Score",
-    price: "Free",
-    description:
-      "Get a preliminary view of where operational friction, revenue leakage, or AI-readiness gaps may exist.",
-    scopeLabel: "What it provides",
-    scope: [
-      "Lightweight qualification and orientation",
-      "A preliminary view of operating and AI-readiness gaps",
-      "A practical next-step recommendation",
-    ],
-    guardrails: ["This is not a full diagnostic."],
-    cta: {
-      label: "Take the Free Assessment",
-      href: pricingRouteHref("/ai-readiness-diagnostic", "ai-readiness-score"),
-      eventName: "pricing_assessment_cta",
-    },
-    schemaPrice: { amount: "0", name: "Free assessment" },
-  },
-  {
-    id: "revenue-leak-assessment",
-    name: "Revenue Leak Assessment",
-    price: "$1,997",
-    description:
-      "Evaluate one critical revenue workflow to identify where qualified opportunities, follow-up, booking, estimates, or handoffs may be leaking value.",
-    scope: [
-      "One business location",
-      "One primary revenue workflow",
-      "Limited evidence sources",
-      "Revenue-leak findings",
-      "One priority recommendation",
-      "Executive readout",
-    ],
-    guardrails: [
-      "No complete system architecture",
-      "No implementation",
-      "No broad multi-workflow transformation plan",
-    ],
-    cta: {
-      label: "Apply for the Assessment",
-      href: pricingApplyHref("revenue-leak-assessment"),
-      eventName: "pricing_assessment_cta",
-    },
-    featured: true,
-    schemaPrice: {
-      amount: "1997",
-      name: "Starting price for the defined Revenue Leak Assessment scope",
-    },
-  },
-  {
-    id: "rekonr-revenue-recovery-diagnostic",
-    name: "ReKonr Revenue Recovery Diagnostic",
-    price: "From $3,500",
-    description:
-      "A paid, evidence-based diagnostic that identifies the operational constraints costing the business revenue and determines which intervention should be implemented first.",
-    scope: [
-      "Workflow mapping",
-      "Revenue-leak analysis",
-      "Data-quality review",
-      "Lead and communication review",
-      "CRM, calendar, estimate, and follow-up review",
-      "System and process constraints",
-      "Baseline metrics",
-      "Ranked interventions",
-      "Recommended intervention",
-      "90-day implementation blueprint",
-      "Executive findings presentation",
-    ],
-    guardrails: [
-      "This is AJ Digital's first complete paid diagnostic engagement.",
-      "ReKonr is a professional diagnostic engagement, not software or SaaS.",
-    ],
-    cta: {
-      label: "Apply for the Diagnostic",
-      href: pricingApplyHref("rekonr-revenue-recovery-diagnostic"),
-      eventName: "pricing_rekonr_diagnostic_cta",
-    },
-    schemaPrice: {
-      amount: "3500",
-      name: "Starting price for ReKonr Revenue Recovery Diagnostic",
-    },
-  },
-];
+export const diagnosisOffers: readonly PricingOffer[] =
+  offersInGroup("diagnosis").map(toPricingOffer);
 
-export const workshopOffer: PricingOffer = {
-  id: "team-ai-readiness-workshop",
-  name: "Team AI Readiness Workshop",
-  price: "From $2,500",
-  description:
-    "An interactive leadership or team session for aligning on AI opportunities, operating priorities, risks, and practical next steps.",
-  scope: [
-    "Education",
-    "Leadership alignment",
-    "Team alignment",
-    "Responsible AI adoption",
-    "Opportunity prioritization",
-    "Executive planning",
-  ],
-  guardrails: ["The workshop is not a substitute for the ReKonr diagnostic."],
-  cta: {
-    label: "Plan a Workshop",
-    href: pricingRouteHref("/workshops", "team-ai-readiness-workshop"),
-    eventName: "pricing_workshop_cta",
-  },
-  schemaPrice: {
-    amount: "2500",
-    name: "Starting price for Team AI Readiness Workshop",
-  },
-};
+export const workshopOffer: PricingOffer = onlyOfferInGroup("workshop");
 
-export const implementationOffers: readonly PricingOffer[] = [
-  {
-    id: "responseos-managed-pilot",
-    name: "ResponseOS Managed Pilot",
-    price: "From $8,500 implementation",
-    priceDetails: ["From $1,500/month", "Provider usage separate"],
-    description:
-      "Capture, qualify, route, and follow up with legitimate opportunities before slow response or disconnected workflows cause them to disappear.",
-    scope: [
-      "Missed-call recovery",
-      "Speed-to-lead workflows",
-      "Demand capture",
-      "Lead qualification",
-      "Follow-up automation",
-      "Booking or callback routing",
-      "CRM integration",
-      "Calendar integration",
-      "Human escalation",
-      "Attribution baseline",
-      "Revenue-recovery reporting",
-      "Monitoring",
-      "Optimization",
-    ],
-    guardrails: [
-      "Diagnostic required before implementation",
-      "Scope depends on integrations, workflows, volume, data, and operating complexity",
-      "This is not a self-service subscription or instant-activation product",
-    ],
-    cta: {
-      label: "Apply for a Managed Pilot",
-      href: pricingApplyHref("responseos-managed-pilot"),
-      eventName: "pricing_responseos_pilot_cta",
-    },
-    featured: true,
-  },
-  {
-    id: "responseos-core",
-    name: "ResponseOS Core",
-    price: "From $12,500 implementation",
-    priceDetails: ["From $2,500/month", "Provider usage separate"],
-    description:
-      "A broader managed revenue-recovery deployment for businesses with multiple demand channels, workflows, integrations, or locations.",
-    bestFor: [
-      "Multiple lead channels",
-      "Multiple workflows or locations",
-      "More complex routing",
-      "Deeper integrations",
-      "Broader reporting requirements",
-      "Higher operational volume",
-      "Greater managed-support requirements",
-    ],
-    scope: [
-      "Broader demand capture and qualification coverage",
-      "Multi-workflow routing and escalation",
-      "Deeper CRM, calendar, and reporting integrations",
-      "Expanded monitoring and managed optimization",
-    ],
-    guardrails: [
-      "Diagnostic required before implementation",
-      "Core is distinct from the bounded Managed Pilot in breadth, volume, integrations, and support scope",
-    ],
-    cta: {
-      label: "Apply for ResponseOS Core",
-      href: pricingApplyHref("responseos-core"),
-      eventName: "pricing_responseos_core_cta",
-    },
-  },
-  {
-    id: "founder-intelligence-system",
-    name: "Founder Intelligence System",
-    price: "From $15,000",
-    description:
-      "A governed intelligence system designed around the specific operating constraints, workflows, and decision needs of a founder-led service business.",
-    scopeLabel: "Possible components",
-    scope: [
-      "CRM or revenue-operation infrastructure",
-      "Attribution",
-      "Reporting",
-      "Business Memory",
-      "Governed workflows",
-      "Human approval states",
-      "Operational intelligence",
-      "Client dashboards",
-      "Selected ResponseOS functionality",
-      "Selected Worksie functionality",
-      "Custom connectors",
-    ],
-    guardrails: [
-      "Every installation is scoped from diagnosis; no installation includes every component by default.",
-      "Pricing varies with business complexity, systems, data quality, workflows, locations, integrations, risk, volume, and support scope.",
-    ],
-    cta: {
-      // Shortened from the offer's full name, which renders 369px wide and
-      // overflows the 341px card interior at 1440. The card heading directly
-      // above carries "Founder Intelligence System" in full.
-      label: "Apply for an Intelligence System",
-      href: pricingApplyHref("founder-intelligence-system"),
-      eventName: "pricing_fis_cta",
-    },
-    schemaPrice: {
-      amount: "15000",
-      name: "Starting price for Founder Intelligence System",
-    },
-  },
-];
+export const implementationOffers: readonly PricingOffer[] =
+  offersInGroup("implementation").map(toPricingOffer);
 
-export const managedIntelligenceOffer: PricingOffer = {
-  id: "managed-intelligence",
-  name: "Managed Intelligence",
-  price: "From $2,500/month",
-  description:
-    "Ongoing operational monitoring and decision support for keeping installed systems accurate, useful, governed, and aligned with business priorities.",
-  scope: [
-    "Monthly operational review",
-    "Exception monitoring",
-    "Revenue-leak monitoring",
-    "KPI reporting",
-    "Workflow optimization",
-    "Business-memory maintenance",
-    "Founder decision brief",
-    "Priority recommendations",
-    "Defined support window",
-    "Limited managed-change allowance where contracted",
-  ],
-  guardrails: ["Managed Intelligence is not a generic executive-assistant service."],
-  cta: {
-    label: "Apply for Managed Intelligence",
-    href: pricingApplyHref("managed-intelligence"),
-    eventName: "pricing_managed_intelligence_cta",
-  },
-  schemaPrice: {
-    amount: "2500",
-    name: "Starting monthly price for Managed Intelligence",
-    unitText: "MONTH",
-  },
-};
+export const managedIntelligenceOffer: PricingOffer = onlyOfferInGroup("managed");
 
-export const expansionOffers: readonly PricingOffer[] = [
-  {
-    id: "worksie-reference-pilot",
-    name: "Worksie Reference Pilot",
-    price: "Application only",
-    description:
-      "A controlled field-operations pilot for businesses with specialized documentation, proof-of-work, compliance, contractor, or office-to-field requirements.",
-    bestFor: [
-      "Accessibility or home-modification workflows, or another approved field-service workflow",
-      "One service type",
-      "One complete work-order lifecycle",
-    ],
-    scope: [
-      "Proof-of-work",
-      "Documentation",
-      "Photos",
-      "Signatures",
-      "Contractor or staff execution",
-      "Office-to-field visibility",
-      "One defined success metric",
-    ],
-    guardrails: [
-      "Worksie is not positioned as generic field-service software.",
-      "Success measures are selected from the verified transaction model, such as complete job packets, required proof captured, fewer return trips, faster invoice submission, fewer disputed completions, lower office reconciliation time, accurate contractor payouts, or better work-order visibility.",
-    ],
-    cta: {
-      label: "Apply for a Worksie Pilot",
-      href: pricingApplyHref("worksie-reference-pilot"),
-      eventName: "pricing_worksie_pilot_cta",
-    },
-  },
-  {
-    id: "strategic-partnership",
-    name: "Strategic Partnership",
-    price: "Application only",
-    description:
-      "A high-touch strategic engagement for organizations requiring ongoing system design, operational intelligence, implementation leadership, and executive advisory.",
-    scope: [
-      "Ongoing system design",
-      "Operational intelligence",
-      "Implementation leadership",
-      "Executive advisory",
-    ],
-    guardrails: [
-      "No outcome fees or success fees",
-      "No recovered-revenue percentages",
-      "No guaranteed ROI, performance compensation, or guaranteed revenue improvement",
-    ],
-    cta: {
-      label: "Apply for a Strategic Partnership",
-      href: pricingApplyHref("strategic-partnership"),
-      eventName: "pricing_strategic_partnership_cta",
-    },
-  },
-];
+export const expansionOffers: readonly PricingOffer[] =
+  offersInGroup("expansion").map(toPricingOffer);
 
+/**
+ * Section order, which `/pricing` renders in and the ItemList JSON-LD derives
+ * `position` from. `test/pricing-offers.test.ts` asserts this matches registry
+ * order, so the two cannot drift.
+ */
 export const pricingOffers: readonly PricingOffer[] = [
   ...diagnosisOffers,
   workshopOffer,
@@ -360,6 +108,11 @@ export const pricingOffers: readonly PricingOffer[] = [
   managedIntelligenceOffer,
   ...expansionOffers,
 ];
+
+/** Registry order, for the drift assertion in the contract test. */
+export const registryOrderedOfferIds: readonly string[] = OFFERS.map(
+  (offer) => offer.id,
+);
 
 export const pricingFactors = [
   "Number of locations",
