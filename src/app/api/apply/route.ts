@@ -1,8 +1,12 @@
 // POST /api/apply — submit the deeper-intent qualification form.
 //
-// Reads LEAD_FORM_PROVIDER (mock | neon | resend) and dispatches via the
-// apply adapter. Always returns JSON. Always reachable in dev — the mock
-// adapter satisfies the contract without external dependencies.
+// Reads LEAD_FORM_PROVIDER and dispatches via the apply adapter. "neon"
+// persists; "mock" is a development convenience, allowed locally and on
+// previews but refused in production; anything else — unset and the legacy
+// "resend" included — is refused on a deployed environment rather than
+// answering a false success. Always returns JSON, and stays reachable in
+// local development, where the mock adapter satisfies the contract without
+// external dependencies. See src/lib/apply/apply-storage.ts.
 
 import { NextResponse, type NextRequest } from "next/server";
 import { applySchema } from "@/lib/apply/apply-schema";
