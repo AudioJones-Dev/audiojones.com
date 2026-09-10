@@ -37,6 +37,9 @@ jobs:
       - name: Verify apply row mapping matches the migrations
         run: pnpm exec tsx --test test/apply-row.test.ts
 
+      - name: Verify the apply provider cannot report false success
+        run: pnpm exec tsx --test test/apply-provider.test.ts
+
       - name: Verify apply notification escaping and subject
         run: pnpm exec tsx --test test/apply-notification.test.ts
 
