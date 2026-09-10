@@ -9,10 +9,15 @@
 //   - "mock":   logs the payload, simulates 700ms latency, returns a
 //               synthetic leadId. UI compiles + form submits + thank-you
 //               renders without any external dependency. Nothing is stored.
-//   - "resend": historical value that never persisted anything. Kept as an
-//               alias for "mock" so an environment already carrying it does
-//               not silently start writing to a table whose migration may
-//               not be applied yet. Switch it to "neon" deliberately.
+//   - "mock" is a development convenience. Naming it explicitly is allowed
+//               locally and on previews; it is refused in real production,
+//               where answering ok:true while storing nothing is a lie to an
+//               applicant. Falling through to it is refused on any deployed
+//               environment, previews included, because nobody chose it.
+//   - "resend": historical value that never persisted anything. It is no
+//               longer an alias for "mock": an unrecognised provider is an
+//               error, so an environment still carrying it fails loudly
+//               instead of quietly discarding applications. Set "neon".
 //
 // Persistence is opt-in on purpose. `neon` must be set explicitly — a
 // DATABASE_URL alone does not enable it — so the migration can be applied
@@ -22,9 +27,18 @@
 //
 // Worth knowing when reading the mock path: `ok: true` makes ApplyForm
 // redirect to /apply/thank-you, which reads "Application received". On mock
-// nothing is received. That is acceptable in development; in production it
-// means an unset provider tells applicants something untrue, which is the
-// reason to finish the gates rather than leave persistence off.
+// nothing is received. That is acceptable in development. In production it
+// is not, and on 2026-09-10 it stopped being hypothetical: LEAD_FORM_PROVIDER
+// was unset in production and every application was discarded behind a
+// success message. The selector below therefore refuses to reach mock in
+// production, and refuses unrecognised values outright. Nothing here may
+// answer ok:true without a persisted row.
+//
+// This matches how the sibling capture paths behave — see
+// persistFounderIntelligenceLead in src/lib/leads/lead-storage.ts, which
+// re-throws "rather than pretending to succeed", and
+// persistRoiCalculatorLead in src/lib/roi-calculator/roi-calculator-storage.ts,
+// which refuses in production and mocks only outside it.
 //
 // Hard rules: no Firebase. No hardcoded secrets.
 
@@ -167,31 +181,101 @@ const misconfiguredAdapter: ApplyAdapter = {
   },
 };
 
+// Refusing adapter for a provider that cannot persist. `reason` is logged,
+// never returned: the applicant gets a retry message, not our configuration.
+function refusingAdapter(reason: string): ApplyAdapter {
+  return {
+    async submit(input) {
+      console.error(`[apply] rejecting submission: ${reason}`, {
+        email: input.email,
+        offer: input.offer,
+      });
+      return {
+        ok: false,
+        error: "We couldn't save your application. Please try again in a moment.",
+        code: "PROVIDER_ERROR",
+      };
+    },
+  };
+}
+
 // ─── Provider selector ───────────────────────────────────────────────────────
 
-let providerEnvWarned = false;
+// Two different questions, and conflating them costs one or the other.
+//
+// `isRealProduction` — a deployment serving real visitors, where a mock is
+// never acceptable. Vercel sets VERCEL_ENV=production only for production
+// deployments; preview builds also run with NODE_ENV=production, so NODE_ENV
+// alone would refuse a developer's explicitly chosen mock on a preview.
+// The NODE_ENV fallback covers hosting that sets no VERCEL_ENV.
+const isRealProduction = () =>
+  process.env.VERCEL_ENV === "production" ||
+  (!process.env.VERCEL_ENV && process.env.NODE_ENV === "production");
+
+// `isHosted` — any deployed environment, preview included. Falling through to
+// mock here is what produced the 2026-09-10 incident, and a preview that
+// answers "Application received" while storing nothing misleads whoever is
+// testing the form just as effectively as production did.
+const isHosted = () =>
+  Boolean(process.env.VERCEL_ENV) || process.env.NODE_ENV === "production";
+
+// Warn once per cold start per condition, so a misconfigured deploy leaves one
+// visible signal rather than a line per submission. Each refused submission is
+// still logged individually by the adapter itself.
+const warned = new Set<string>();
+function warnOnce(key: string, message: string) {
+  if (warned.has(key)) return;
+  warned.add(key);
+  console.warn(message);
+}
 
 export function getApplyAdapter(): ApplyAdapter {
   const explicit = process.env.LEAD_FORM_PROVIDER?.toLowerCase().trim();
 
   if (explicit === "neon") {
     if (!process.env.DATABASE_URL) {
-      // Warn once per cold start so a misconfigured deploy leaves one visible
-      // signal rather than a line per submission; each rejected submission is
-      // still logged individually by the adapter itself.
-      if (!providerEnvWarned) {
-        providerEnvWarned = true;
-        console.warn(
-          "[apply] LEAD_FORM_PROVIDER=neon but DATABASE_URL is unset; applications will be rejected",
-        );
-      }
+      warnOnce(
+        "neon-no-db",
+        "[apply] LEAD_FORM_PROVIDER=neon but DATABASE_URL is unset; applications will be rejected",
+      );
       return misconfiguredAdapter;
     }
     return neonAdapter;
   }
 
-  // Default to mock — keeps local dev + missing-env environments functional,
-  // and keeps the legacy "resend" value non-persisting until someone opts in.
-  // Unlike the branch above, nothing here claims it will persist.
+  // Naming mock explicitly is consent to a non-persisting run, which is fine
+  // locally and on a preview. It is never fine in front of real visitors.
+  if (explicit === "mock") {
+    if (isRealProduction()) {
+      warnOnce(
+        "mock-in-prod",
+        "[apply] LEAD_FORM_PROVIDER=mock is refused in production; applications will be rejected",
+      );
+      return refusingAdapter("provider is mock, which cannot persist, and this is production");
+    }
+    return mockAdapter;
+  }
+
+  // Anything else — unset, or a value this module does not implement, the
+  // legacy "resend" included — cannot persist, and nobody chose it. On any
+  // deployed environment that is the failure this selector exists to prevent.
+  // Locally it is just a developer without configuration, so mock keeps the
+  // form workable.
+  if (isHosted()) {
+    warnOnce(
+      "unusable-provider-in-prod",
+      `[apply] LEAD_FORM_PROVIDER is ${explicit ? `"${explicit}", which is not a usable provider` : "unset"}; applications will be rejected`,
+    );
+    return refusingAdapter(
+      explicit
+        ? `provider "${explicit}" is not implemented and this is a deployed environment`
+        : "no provider is configured and this is a deployed environment",
+    );
+  }
+
+  warnOnce(
+    "mock-fallback",
+    `[apply] LEAD_FORM_PROVIDER is ${explicit ? `"${explicit}"` : "unset"}; using the mock adapter. Nothing will be stored.`,
+  );
   return mockAdapter;
 }
