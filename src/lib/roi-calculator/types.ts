@@ -4,6 +4,12 @@ export type RoiCalculatorInput = {
   monthlyRevenue: string;
   workflowType: string;
   taskFrequency: string;
+  /**
+   * Percentage of task time automation is assumed to reclaim, before
+   * frequency scaling. Optional so rows persisted before this field existed
+   * still replay correctly; `DEFAULT_AUTOMATION_CAPTURE_RATE` fills the gap.
+   */
+  automationCaptureRate?: number;
   hoursPerWeek: number;
   hourlyCost: number;
   leadsPerMonth: number;

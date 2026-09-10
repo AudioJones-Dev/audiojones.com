@@ -2,13 +2,18 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import JsonLd from "@/components/seo/JsonLd";
 import { Eyebrow } from "@/components/ui/Eyebrow";
+import { CALCULATORS, DIAGNOSTICS, visibleTools, type Tool } from "@/content/tools";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { breadcrumbJsonLd } from "@/lib/seo/schema";
 
 const TITLE = "Resources";
 const DESCRIPTION =
-  "The Audio Jones resource library: insights, frameworks, the blog, workshops, case studies, and the ROI calculator for founder-led service businesses.";
+  "Diagnostics and calculators for founder-led service businesses, plus the Audio Jones library: insights, frameworks, the blog, workshops, and case studies.";
 
+// The content library. The interactive tools live in the TOOLS registry
+// (`src/content/tools`) and are rendered above this — a diagnostic that
+// identifies a problem and a calculator that estimates value are not the same
+// kind of thing as an essay, and the previous flat list obscured that.
 const RESOURCES = [
   {
     title: "Insights",
@@ -39,12 +44,6 @@ const RESOURCES = [
     href: "/case-studies",
     description:
       "Operator proof organized around signal, leak, and the system that closed the gap.",
-  },
-  {
-    title: "ROI Calculator",
-    href: "/roi-calculator",
-    description:
-      "Quantify the operational waste hiding in manual work, slow follow-up, and founder bottlenecks.",
   },
 ] as const;
 
@@ -90,7 +89,26 @@ export const metadata: Metadata = buildMetadata({
   path: "/resources",
 });
 
+function ToolCard({ tool }: { tool: Tool }) {
+  return (
+    <Link
+      href={tool.href}
+      className="group flex h-full flex-col rounded-2xl border border-[var(--line-2)] bg-bg-1 p-6 sm:p-8 transition-colors hover:border-[var(--line-blue)]"
+    >
+      <h3 className="t-h3 text-fg-0">{tool.name}</h3>
+      <p className="mt-3 t-body text-fg-2">{tool.description}</p>
+      <p className="mt-4 t-small text-aj-gold">{tool.primaryResult}</p>
+      <span className="mt-6 t-body text-aj-orange group-hover:text-aj-orange-soft">
+        {tool.cta} →
+      </span>
+    </Link>
+  );
+}
+
 export default function ResourcesPage() {
+  const diagnostics = visibleTools(DIAGNOSTICS);
+  const calculators = visibleTools(CALCULATORS);
+
   return (
     <main className="min-h-screen bg-bg-0 text-fg-0">
       <JsonLd
@@ -105,12 +123,54 @@ export default function ResourcesPage() {
           <div className="max-w-[var(--copy-max)]">
             <Eyebrow>Resources</Eyebrow>
             <h1 className="mt-5 t-h1 text-balance text-fg-0">
-              Frameworks, insights, and tools for founder-led operators.
+              Tools for better business decisions.
             </h1>
             <p className="mt-6 t-lead text-fg-2">
-              Everything that explains the thinking behind the systems — and a
-              calculator to size the opportunity in your own business.
+              Assess what needs attention, estimate potential returns, and
+              identify the next practical investment for your business.
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Diagnostics — tools that identify a problem */}
+      <section className="border-b border-[var(--line-2)] py-16 sm:py-24">
+        <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
+          <div className="max-w-3xl">
+            <Eyebrow tone="blue">Diagnostics</Eyebrow>
+            <h2 className="mt-4 t-h2 text-balance text-fg-0">
+              Find out what needs attention.
+            </h2>
+            <p className="mt-5 t-body-lg text-fg-2">
+              Structured assessments that surface where the business is
+              constrained — before anything gets installed on top of it.
+            </p>
+          </div>
+          <div className="mt-10 grid gap-6 md:grid-cols-2">
+            {diagnostics.map((tool) => (
+              <ToolCard key={tool.id} tool={tool} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Calculators — tools that estimate cost or economic value */}
+      <section className="border-b border-[var(--line-2)] py-16 sm:py-24">
+        <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
+          <div className="max-w-3xl">
+            <Eyebrow tone="blue">Calculators</Eyebrow>
+            <h2 className="mt-4 t-h2 text-balance text-fg-0">
+              Size the opportunity before you commit.
+            </h2>
+            <p className="mt-5 t-body-lg text-fg-2">
+              Every figure is an estimate based on your inputs and stated
+              assumptions — not a forecast or a guarantee.
+            </p>
+          </div>
+          <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {calculators.map((tool) => (
+              <ToolCard key={tool.id} tool={tool} />
+            ))}
           </div>
         </div>
       </section>
@@ -163,7 +223,7 @@ export default function ResourcesPage() {
               href={r.href}
               className="group flex h-full flex-col rounded-2xl border border-[var(--line-2)] bg-bg-2 p-6 sm:p-8 transition-colors hover:border-[var(--line-blue)]"
             >
-              <h2 className="t-h3 text-fg-0">{r.title}</h2>
+              <h3 className="t-h3 text-fg-0">{r.title}</h3>
               <p className="mt-3 flex-1 t-body text-fg-2">{r.description}</p>
               <span className="mt-6 t-body text-aj-orange group-hover:text-aj-orange-soft">
                 Explore →

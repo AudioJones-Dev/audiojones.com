@@ -7,12 +7,41 @@ import type {
 
 const WEEKS_PER_MONTH = 4.33;
 
-const frequencyMultiplier: Record<string, number> = {
+/**
+ * Share of the time spent on a task that automation is assumed to reclaim,
+ * as a percentage, before it is scaled by how often the task actually runs.
+ *
+ * This was previously an unlabelled `0.42` inline in the savings formula — an
+ * invisible constant driving the headline number. It is now the input's
+ * default and is disclosed and overridable in the UI, so a visitor can see
+ * (and disagree with) the assumption their estimate rests on.
+ */
+export const DEFAULT_AUTOMATION_CAPTURE_RATE = 42;
+
+/**
+ * How much of the capture rate survives, given how often the task runs. A
+ * daily task is fully exposed to automation; an occasional one is barely
+ * worth automating, so far less of the nominal capture is realised.
+ */
+export const frequencyMultiplier: Record<string, number> = {
   daily: 1,
   weekly: 0.75,
   monthly: 0.45,
   occasional: 0.25,
 };
+
+/**
+ * The share of task time this estimate assumes automation reclaims, after
+ * frequency scaling. Exported so the UI can show the visitor the same number
+ * the formula uses rather than a re-derived approximation of it.
+ */
+export function effectiveCaptureRate(input: {
+  taskFrequency: string;
+  automationCaptureRate?: number;
+}) {
+  const nominal = input.automationCaptureRate ?? DEFAULT_AUTOMATION_CAPTURE_RATE;
+  return (nominal / 100) * (frequencyMultiplier[input.taskFrequency] ?? 0.5);
+}
 
 function clamp(value: number, min: number, max: number) {
   return Math.min(max, Math.max(min, value));
@@ -23,7 +52,7 @@ function roundedDollars(value: number) {
 }
 
 export function calculateRoiResult(input: RoiCalculatorInput): RoiCalculatorResult {
-  const automationCapture = 0.42 * (frequencyMultiplier[input.taskFrequency] ?? 0.5);
+  const automationCapture = effectiveCaptureRate(input);
   const manualLaborRecovery =
     input.hoursPerWeek * input.hourlyCost * WEEKS_PER_MONTH * automationCapture;
 

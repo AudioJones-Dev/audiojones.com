@@ -24,9 +24,10 @@ export type NavItem = {
 // product decision).
 // One primary commercial path: Solutions is the canonical "what we sell"
 // surface (2026-06-18 canonical offer model alignment). Content surfaces
-// (Insights, Frameworks, Blog, Workshops, Case Studies, ROI Calculator) live
-// under Resources. "Contact" routes to the existing booking page; there is no
-// separate /contact route by design.
+// (Insights, Frameworks, Blog, Workshops, Case Studies) and the interactive
+// tools — diagnostics and calculators, registered in `src/content/tools` —
+// live under Resources. "Contact" routes to the existing booking page; there
+// is no separate /contact route by design.
 export const mainNav: NavItem[] = [
   {
     label: "Home",
@@ -51,7 +52,7 @@ export const mainNav: NavItem[] = [
   {
     label: "Resources",
     href: "/resources",
-    description: "Insights, frameworks, blog, workshops, and the ROI calculator",
+    description: "Diagnostics, calculators, insights, frameworks, and case studies",
   },
   {
     label: "Contact",

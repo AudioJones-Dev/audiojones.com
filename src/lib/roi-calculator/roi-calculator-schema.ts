@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { DEFAULT_AUTOMATION_CAPTURE_RATE } from "./calculations";
 
 const text = (label: string, max = 160) =>
   z.string({ required_error: `${label} is required.` }).trim().min(1, `${label} is required.`).max(max, `${label} is too long.`);
@@ -15,6 +16,12 @@ export const roiInputSchema = z.object({
   monthlyRevenue: text("Monthly revenue range"),
   workflowType: text("Workflow bottleneck"),
   taskFrequency: text("Task frequency"),
+  // Optional with a default so payloads persisted before this field existed
+  // still validate, and so the server's recalculation lands on the same
+  // number the client showed when the field is absent.
+  automationCaptureRate: percent("Automation capture rate")
+    .optional()
+    .default(DEFAULT_AUTOMATION_CAPTURE_RATE),
   hoursPerWeek: z.coerce.number().min(1, "Hours per week must be at least 1.").max(168, "Hours per week must be 168 or less."),
   hourlyCost: z.coerce.number().min(1, "Hourly cost must be at least 1.").max(2000, "Hourly cost is too high."),
   leadsPerMonth: z.coerce.number().min(0, "Leads per month cannot be negative.").max(1000000, "Leads per month is too high."),

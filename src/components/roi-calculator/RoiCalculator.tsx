@@ -3,7 +3,11 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { ctaLinks } from "@/config/links";
-import { calculateRoiResult } from "@/lib/roi-calculator/calculations";
+import {
+  calculateRoiResult,
+  DEFAULT_AUTOMATION_CAPTURE_RATE,
+  effectiveCaptureRate,
+} from "@/lib/roi-calculator/calculations";
 import type { RoiCalculatorInput, RoiCalculatorResult } from "@/lib/roi-calculator/types";
 
 const initialInput: RoiCalculatorInput = {
@@ -12,6 +16,7 @@ const initialInput: RoiCalculatorInput = {
   monthlyRevenue: "",
   workflowType: "",
   taskFrequency: "",
+  automationCaptureRate: DEFAULT_AUTOMATION_CAPTURE_RATE,
   hoursPerWeek: 8,
   hourlyCost: 85,
   leadsPerMonth: 60,
@@ -198,6 +203,8 @@ export default function RoiCalculator() {
     }
     if (step === 1 && input.hoursPerWeek < 1) next.hoursPerWeek = "Enter at least 1 hour per week.";
     if (step === 1 && input.hourlyCost < 1) next.hourlyCost = "Enter an hourly cost of at least $1.";
+    if (step === 1 && (input.automationCaptureRate ?? 0) > 100) next.automationCaptureRate = "Capture rate cannot exceed 100%.";
+    if (step === 1 && (input.automationCaptureRate ?? 0) < 0) next.automationCaptureRate = "Capture rate cannot be negative.";
     if (step === 2 && input.currentCloseRate > 100) next.currentCloseRate = "Close rate cannot exceed 100%.";
     if (step === 2 && input.speedToLeadLift > 100) next.speedToLeadLift = "Lift cannot exceed 100%.";
     if (step === 3 && input.preventableErrorRate > 100) next.preventableErrorRate = "Rate cannot exceed 100%.";
@@ -294,6 +301,10 @@ export default function RoiCalculator() {
               <dd className="mt-1 t-h4">{preview.readinessScore}/100</dd>
             </div>
           </dl>
+          <p className="mt-6 text-sm leading-6 text-fg-3">
+            These are estimates based on your inputs and the assumptions shown —
+            not forecasts or guarantees.
+          </p>
         </aside>
 
         <div className="rounded-lg border border-[var(--line-2)] bg-bg-2 p-6 sm:p-10">
@@ -320,6 +331,28 @@ export default function RoiCalculator() {
                   <BreakdownItem label="Owner capacity unlocked" value={money(result.savingsBreakdown.ownerCapacityUnlocked)} />
                   <BreakdownItem label="Headcount avoidance" value={money(result.savingsBreakdown.headcountAvoidance)} />
                 </dl>
+              </div>
+              <div className="mt-4 rounded-md border border-[var(--line-1)] bg-bg-3 p-5">
+                <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--metric)]">Assumptions behind this estimate</p>
+                <p className="mt-3 text-sm leading-6 text-fg-2">
+                  Automation is assumed to reclaim{" "}
+                  <strong className="text-fg-0">
+                    {input.automationCaptureRate ?? DEFAULT_AUTOMATION_CAPTURE_RATE}%
+                  </strong>{" "}
+                  of the {input.hoursPerWeek} hours per week spent on this workflow,
+                  scaled to{" "}
+                  <strong className="text-fg-0">
+                    {Math.round(effectiveCaptureRate(input) * 100)}%
+                  </strong>{" "}
+                  because the task runs {input.taskFrequency || "at the stated frequency"}.
+                  Revenue recovery assumes a {input.speedToLeadLift}-point close-rate lift
+                  from faster response.
+                </p>
+                <p className="mt-3 text-sm leading-6 text-fg-3">
+                  These are estimates based on your inputs and the assumptions above —
+                  not forecasts or guarantees. Change an assumption and the number
+                  changes with it.
+                </p>
               </div>
               {leadId ? <p className="mt-4 text-sm text-fg-3">Submission ID: {leadId}</p> : null}
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -399,6 +432,27 @@ export default function RoiCalculator() {
                       min={1}
                       suffix="$"
                     />
+                    <NumberField
+                      label="Automation capture rate"
+                      hint={`How much of that time you expect automation to reclaim. Our default is ${DEFAULT_AUTOMATION_CAPTURE_RATE}%. Change it if you disagree — this assumption drives the savings figure.`}
+                      value={input.automationCaptureRate ?? DEFAULT_AUTOMATION_CAPTURE_RATE}
+                      onChange={(value) => update("automationCaptureRate", value)}
+                      error={errors.automationCaptureRate}
+                      min={0}
+                      suffix="%"
+                    />
+                    {input.taskFrequency ? (
+                      <p className="text-sm leading-6 text-fg-3">
+                        Because this task runs{" "}
+                        <strong className="text-fg-2">{input.taskFrequency}</strong>, the
+                        estimate applies an effective capture of{" "}
+                        <strong className="text-fg-2">
+                          {Math.round(effectiveCaptureRate(input) * 100)}%
+                        </strong>{" "}
+                        — a task that runs less often is worth less to automate, so less
+                        of the nominal rate is realised.
+                      </p>
+                    ) : null}
                   </>
                 ) : null}
 

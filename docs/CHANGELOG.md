@@ -35,7 +35,44 @@ Entries are reverse chronological. Format follows
   `js-yaml`, `nanoid`, `postcss`, `undici`, `browserslist`, `adm-zip`, `qs`,
   `dompurify`), none declared directly, and predominantly DoS rather than RCE.
 
+### Added
+- `src/content/tools/index.ts` — the canonical registry of interactive tools,
+  splitting them by kind: a **diagnostic** identifies a problem, a
+  **calculator** estimates cost or economic value. `/resources` now renders
+  those two sections from this registry rather than a hardcoded link list.
+  This closed a real discoverability gap: the hub previously listed the ROI
+  calculator beside essays and omitted both diagnostics entirely — the AI
+  Readiness Diagnostic appeared only as a theme link, and the fully-built
+  Founder Gravity Audit (landing → diagnostic → report) was absent from the
+  hub altogether despite being in the sitemap at priority 0.9.
+  The `/roi-calculator` tool is registered as "Operational Waste Recovery
+  Calculator", matching the destination page rather than the "AI ROI
+  Calculator" label used during planning: that page's H1 is positioned
+  deliberately against AI-ROI framing, so the card was renamed to the page
+  instead of the page to the card. The page is untouched.
+- `docs/specs/resources-tools-expansion-prd.md` — the ratified spec for this
+  work, covering calculator formulas, routes, lead capture, result storage,
+  analytics events, and offer routing. Waves 0–1 are ratified; waves 2–3
+  (SEO ROI Calculator, Website Project Estimator) remain gated on the SEO ramp
+  curve and on website price bands reconciling with `DECISIONS.md`.
+
 ### Changed
+- ROI calculator: the automation capture assumption is no longer hidden.
+  `calculations.ts` previously multiplied recoverable hours by a bare inline
+  `0.42` — an unlabelled constant that set the headline savings figure with
+  nothing on the page disclosing it. It is now
+  `DEFAULT_AUTOMATION_CAPTURE_RATE`, a visitor-editable input, and both the
+  form and the results panel state the nominal rate, the frequency-scaled
+  effective rate, and that the outputs are estimates rather than forecasts.
+  The field is optional with a schema-level default, so submissions persisted
+  before it existed still validate and still calculate identically — asserted
+  by `test/roi-calculator-assumptions.test.ts`, which pins the legacy value
+  and fails if the input ever becomes decorative. No database migration: the
+  `roi_calculator_leads` table stores `input`/`result` as JSON.
+- `src/config/nav.ts`: the Resources nav description no longer claims the
+  section is "insights, frameworks, blog, workshops, and the ROI calculator" —
+  it now names diagnostics and calculators as first-class. Header and Footer
+  both read this one constant, so the single edit covers both.
 - Introduced `src/content/offers.ts` as the canonical offer registry and made
   `src/content/pricing.ts` a projection of it. No commercial change: the ten
   records mirror the live site verbatim, and the seven pre-existing assertions
