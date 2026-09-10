@@ -1,9 +1,8 @@
 // src/app/api/whop-base64/route.ts - Webhook using Base64 private key
 import { NextRequest, NextResponse } from "next/server";
 import { getDb } from '@/lib/server/firebaseAdmin';
-import { getTierByBillingSku } from "@/lib/getPricing";
 
-// Enhanced pricing lookup - checks Firestore first, then falls back to hardcoded
+// Legacy pricing lookup - no local catalog fallback
 async function getTierByBillingSkuEnhanced(db: FirebaseFirestore.Firestore, billingSku: string) {
   try {
     // First, try to find in Firestore pricing_skus collection
@@ -33,9 +32,8 @@ async function getTierByBillingSkuEnhanced(db: FirebaseFirestore.Firestore, bill
     console.error(`[pricing] Firestore lookup failed for ${billingSku}:`, error);
   }
 
-  // Fallback to hardcoded function
-  console.log(`[pricing] Using hardcoded fallback for SKU: ${billingSku}`);
-  return getTierByBillingSku(billingSku);
+  // The local Whop catalog was retired; unmatched SKUs have no pricing mapping.
+  return undefined;
 }
 
 export async function GET() {

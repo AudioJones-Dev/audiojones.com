@@ -1,7 +1,6 @@
 // src/app/api/whop/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import { getDb } from '@/lib/server/firebaseAdmin';
-import { getTierByBillingSku } from "@/lib/getPricing";
 import { AlertTemplates } from "@/lib/alerts";
 import TracingMiddleware from '@/lib/observability/TracingMiddleware';
 import crypto from "crypto";
@@ -81,7 +80,7 @@ function validateWebhookSignature(
 // ─────────────────────────────────────────────
 
 // ─────────────────────────────────────────────
-// Enhanced pricing lookup - checks Firestore first, then falls back to hardcoded
+// Legacy pricing lookup - no local catalog fallback
 // ─────────────────────────────────────────────
 async function getTierByBillingSkuEnhanced(db: FirebaseFirestore.Firestore, billingSku: string) {
   try {
@@ -112,9 +111,8 @@ async function getTierByBillingSkuEnhanced(db: FirebaseFirestore.Firestore, bill
     console.error(`[pricing] Firestore lookup failed for ${billingSku}:`, error);
   }
 
-  // Fallback to hardcoded function
-  console.log(`[pricing] Using hardcoded fallback for SKU: ${billingSku}`);
-  return getTierByBillingSku(billingSku);
+  // The local Whop catalog was retired; unmatched SKUs have no pricing mapping.
+  return undefined;
 }
 
 // ─────────────────────────────────────────────

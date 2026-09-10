@@ -15,6 +15,26 @@ Entries are reverse chronological. Format follows
 
 ## Unreleased
 
+### Security
+- Upgraded `next` 16.2.6 → 16.3.4 and `sharp` 0.35.0 → 0.35.4, closing 11
+  advisories against `next` and 2 against `sharp`. Two of the `next`
+  advisories are critical and unauthenticated RCE:
+  - **GHSA-2xp9-vwfh-vxw4** — RCE in the Image Optimization API when AVIF is
+    used. This one was **directly applicable**: `next.config.ts` enables
+    `"image/avif"` in `images.formats`, `next/image` is used in 14 components
+    including `Header` and `Footer` (so every page), and `/_next/image` is
+    served and cached `immutable` for a year.
+  - **GHSA-p293-qw3h-jr36** — RCE on Windows-hosted servers. Production is not
+    exposed, since deployment is Vercel/Linux; local Windows dev servers were.
+  Also closed by the same bump: middleware/proxy bypass in App Router with
+  Turbopack (GHSA-6gpp-xcg3-4w24), two SSRFs (GHSA-89xv-2m56-2m9x in Server
+  Actions on custom servers, GHSA-p9j2-gv94-2wf4 in rewrites), and a Server
+  Actions DoS (GHSA-m99w-x7hq-7vfj). `sharp` picks up libheif fixes
+  (GHSA-g89c-p67h-r497, GHSA-2jg2-4ch7-h545) within its existing `^0.35`
+  range. Remaining Dependabot alerts are transitive (`brace-expansion`,
+  `js-yaml`, `nanoid`, `postcss`, `undici`, `browserslist`, `adm-zip`, `qs`,
+  `dompurify`), none declared directly, and predominantly DoS rather than RCE.
+
 ### Added
 - `src/content/tools/index.ts` — the canonical registry of interactive tools,
   splitting them by kind: a **diagnostic** identifies a problem, a

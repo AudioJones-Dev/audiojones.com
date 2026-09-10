@@ -38,8 +38,8 @@ correction to conflict C-2, and a scope-limits section.
   crosswalk, never resolved by a silent edit on one side.
 
 The ten records in `offers.ts` still carry `evidenceStatus: "unratified"`. The
-crosswalk's open conflicts — the ReKonr anchor, the Founder Intelligence floor,
-the Managed Intelligence mapping, the R1/R2 collapse, and the homeless
+crosswalk's open conflicts — the ReKonr anchor, the Founder Intelligence mapping
+and floor, the Managed Intelligence mapping, the R1/R2 collapse, and the homeless
 `revenue-leak-assessment` — are commercial decisions, and populating the
 `family`, `evidenceStatus` and `displayConvention` fields is downstream of them.
 

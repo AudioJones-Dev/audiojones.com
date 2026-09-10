@@ -294,3 +294,19 @@ to the HubSpot catalog provisioning run and remains so.
 - Publication, merge, and HubSpot provisioning gates are unchanged. This
   decides where decisions are recorded, not who approves them.
 - Nothing is retroactively re-decided. Prior ratifications stand.
+
+## 2026-09-09 — Remove the legacy local Whop catalog
+
+**Status:** accepted for local implementation by explicit owner instruction, "Remove whop catalogue".
+
+Remove `data/catalog/services_pricing_catalog.json`, its `src/lib/getPricing.ts`
+helper, and the local fallback in both legacy Whop webhook routes. This
+supersedes the catalog-retention requirement in the 2026-09-01 offer-map and
+search implementation redlines. Those documents remain historical records.
+
+An unmatched legacy SKU now has no local pricing mapping. This decision does
+not supply replacement prices or retire the underlying service families.
+The public offer registry, approved commercial pricing, HubSpot catalog, and
+Whop account products and billing are unchanged. Existing webhook routes and
+their legacy persistence path are not repaired or certified by this removal.
+No deployment or external account change is authorized by this decision.
