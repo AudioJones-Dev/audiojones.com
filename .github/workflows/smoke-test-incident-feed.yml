@@ -12,7 +12,7 @@ jobs:
       - name: Hit /api/incidents
         run: |
           echo "🔍 Checking externalized incident feed..."
-          FEED_URL="https://audiojones.com/api/incidents"
+          FEED_URL="https://www.audiojones.com/api/incidents"
           TOKEN_QUERY=""
           if [ -n "${{ secrets.INCIDENT_FEED_TOKEN }}" ]; then
             TOKEN_QUERY="?token=${{ secrets.INCIDENT_FEED_TOKEN }}"
@@ -35,7 +35,7 @@ jobs:
       - name: Hit /api/public/incidents
         run: |
           echo "🔍 Checking public incident API..."
-          PUBLIC_URL="https://audiojones.com/api/public/incidents"
+          PUBLIC_URL="https://www.audiojones.com/api/public/incidents"
           RESP=$(curl -s -o public_resp.json -w "%{http_code}" "${PUBLIC_URL}")
           echo "HTTP: $RESP"
           if [ "$RESP" != "200" ]; then
@@ -58,7 +58,7 @@ jobs:
       - name: Hit /status page
         run: |
           echo "🔍 Checking public status page..."
-          STATUS_URL="https://audiojones.com/status"
+          STATUS_URL="https://www.audiojones.com/status"
           RESP=$(curl -s -o status.html -w "%{http_code}" "${STATUS_URL}")
           echo "HTTP: $RESP"
           if [ "$RESP" != "200" ]; then
@@ -80,7 +80,7 @@ jobs:
           echo "🔍 Verifying no admin-only fields in public APIs..."
           
           # Check incidents feed
-          curl -s "https://audiojones.com/api/incidents" > incidents.json
+          curl -s "https://www.audiojones.com/api/incidents" > incidents.json
           
           # Look for admin-only fields that should NOT be present
           ADMIN_FIELDS=("admin_notes" "runbooks" "internal_metadata" "actor" "processing_logs")
@@ -95,7 +95,7 @@ jobs:
           echo "✅ No admin fields leaked in public feed"
           
           # Check public API too
-          curl -s "https://audiojones.com/api/public/incidents" > public_incidents.json
+          curl -s "https://www.audiojones.com/api/public/incidents" > public_incidents.json
           
           for field in "${ADMIN_FIELDS[@]}"; do
             if grep -q "\"$field\"" public_incidents.json; then
@@ -114,7 +114,7 @@ jobs:
           echo "🔍 Checking CORS headers on public endpoints..."
           
           # Check original incidents API
-          CORS_HEADERS=$(curl -s -I "https://audiojones.com/api/incidents" | grep -i "access-control-allow-origin" || echo "")
+          CORS_HEADERS=$(curl -s -I "https://www.audiojones.com/api/incidents" | grep -i "access-control-allow-origin" || echo "")
           if [ -z "$CORS_HEADERS" ]; then
             echo "❌ Missing CORS headers on /api/incidents"
             exit 1
@@ -122,7 +122,7 @@ jobs:
           echo "✅ CORS headers present on /api/incidents"
           
           # Check public API
-          PUBLIC_CORS=$(curl -s -I "https://audiojones.com/api/public/incidents" | grep -i "access-control-allow-origin" || echo "")
+          PUBLIC_CORS=$(curl -s -I "https://www.audiojones.com/api/public/incidents" | grep -i "access-control-allow-origin" || echo "")
           if [ -z "$PUBLIC_CORS" ]; then
             echo "❌ Missing CORS headers on /api/public/incidents"
             exit 1
@@ -130,7 +130,7 @@ jobs:
           echo "✅ CORS headers present on /api/public/incidents"
           
           # Test OPTIONS request
-          OPTIONS_RESP=$(curl -s -o /dev/null -w "%{http_code}" -X OPTIONS "https://audiojones.com/api/public/incidents")
+          OPTIONS_RESP=$(curl -s -o /dev/null -w "%{http_code}" -X OPTIONS "https://www.audiojones.com/api/public/incidents")
           if [ "$OPTIONS_RESP" != "200" ]; then
             echo "❌ OPTIONS request failed: $OPTIONS_RESP"
             exit 1
