@@ -27,7 +27,7 @@ type ChatTurn =
   | { role: "user"; id: string; text: string };
 
 // Routes where the marketing widget would be noise — operator surfaces.
-const HIDDEN_PATH_PREFIXES = ["/portal", "/ops", "/uploader", "/status"];
+const HIDDEN_PATH_PREFIXES = ["/portal", "/ops", "/status"];
 
 function shouldHideOnPath(pathname: string | null): boolean {
   if (!pathname) return false;

@@ -16,6 +16,30 @@ Entries are reverse chronological. Format follows
 ## Unreleased
 
 ### Security
+- Removed the unauthenticated ImageKit upload surface and the `/test-slack`
+  page. `GET /api/imagekit-auth` returned signed upload credentials (`token`,
+  `expire`, `signature`) to any caller — enough to upload files into the
+  ImageKit account — and `GET /api/imagekit-files` listed the upload folder
+  with the private key, also without auth. Neither sat under a path
+  `middleware.ts` gates, and that gate only checks that a token or key header
+  is present, not that it is valid.
+  Removed rather than gated: the only admin session that could protect them
+  (`aj_admin`, issued by `/api/admin-auth`) has no login UI, so a gated
+  `/uploader` would be unusable, and `docs/SECURITY.md` §4.2 says not to
+  deepen the legacy admin surface. Nothing depended on them: the homepage
+  link to `/uploader` was removed in November 2025, and `/test-slack` could
+  not work (it sent no `admin-key`, used a severity the alerts route
+  rejects, and that route writes through the Firebase shim).
+  Deleted `src/app/api/imagekit-auth/route.ts`,
+  `src/app/api/imagekit-files/route.ts`, `src/app/uploader/page.tsx`,
+  `src/components/ImageKitUploader.tsx`, `src/components/ImageKitGallery.tsx`
+  and `src/app/test-slack/page.tsx`, and dropped `/uploader` from the Javi
+  widget's hidden paths. `robots.ts` and `src/lib/site.ts` still list both
+  paths, which is harmless for a 404. The `imagekit` package is now unused;
+  removing it is a separate lockfile change. No key was rotated, and whether
+  the route was abused has not been determined.
+
+### Security
 - Upgraded `next` 16.2.6 → 16.3.4 and `sharp` 0.35.0 → 0.35.4, closing 11
   advisories against `next` and 2 against `sharp`. Two of the `next`
   advisories are critical and unauthenticated RCE:
