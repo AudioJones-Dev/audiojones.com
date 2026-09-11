@@ -70,8 +70,8 @@ async function verifyStripe(): Promise<ServiceStatus> {
 
 async function verifyMailerLite(): Promise<ServiceStatus> {
   try {
-    const key = process.env.MAILERLITE_API_KEY;
-    if (!key) throw new Error("Missing MAILERLITE_API_KEY");
+    const key = process.env.MAILERLITE_TOKEN;
+    if (!key) throw new Error("Missing MAILERLITE_TOKEN");
     const res = await fetch("https://connect.mailerlite.com/api/subscribers", {
       headers: { Authorization: `Bearer ${key}` },
     });

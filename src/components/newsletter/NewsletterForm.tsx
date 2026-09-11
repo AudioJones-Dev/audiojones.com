@@ -85,9 +85,9 @@ export default function NewsletterForm({
         | { ok: true; id: string; provider: string }
         | { ok: false; error: string; code: string };
       if (!data.ok) {
-        // Adapter pattern guarantees mock fallback on upstream failure,
-        // so a non-ok response here means schema/network — surface a soft
-        // generic message, never the upstream error verbatim.
+        // A non-ok response means nobody was subscribed: validation, an
+        // unconfigured provider or a MailerLite failure. Show a generic retry
+        // message, never the server's error verbatim.
         setError("Something went wrong. Please try again in a moment.");
         setSubmitting(false);
         return;

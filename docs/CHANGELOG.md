@@ -15,6 +15,29 @@ Entries are reverse chronological. Format follows
 
 ## Unreleased
 
+### Fixed
+- `/api/newsletter` no longer reports success when nobody was subscribed. The
+  footer form, which the root layout renders on every page, posts there. The
+  endpoint fell back to a mock adapter unless `NEWSLETTER_PROVIDER=mailerlite`
+  and `MAILERLITE_TOKEN` were both set, and also whenever MailerLite answered
+  401/403/5xx or could not be reached. The mock answers `ok: true`, so the
+  visitor saw "Subscribed." and the address was discarded.
+  `getNewsletterAdapter()` now follows the `/apply` fix (#251):
+  - An unset or unrecognised provider is refused on any deployed environment,
+    previews included.
+  - Mock, whether named or selected by `NEXT_PUBLIC_MAILERLITE_DISABLED`, is
+    refused in real production, identified via `VERCEL_ENV`.
+  - Any MailerLite failure returns 500 `PROVIDER_ERROR`.
+
+  `test/newsletter-provider.test.ts` pins this and runs in `build-and-lint.yml`.
+- The MailerLite key has one name, `MAILERLITE_TOKEN`, which runtime already
+  read. `packages/config/env.schema.ts`, `.env.schema.json`,
+  `scripts/verify-integrations.ts` and `ci.yml` checked `MAILERLITE_API_KEY`.
+  Setting only that name left the newsletter on mock while
+  `pnpm verify:integrations` reported MailerLite as authenticated.
+- Still open: signups persist to MailerLite only, not Neon. The newsletter
+  does not yet meet the zero-loss bar in `docs/PRD.md` §6.
+
 ### Security
 - Upgraded `next` 16.2.6 → 16.3.4 and `sharp` 0.35.0 → 0.35.4, closing 11
   advisories against `next` and 2 against `sharp`. Two of the `next`

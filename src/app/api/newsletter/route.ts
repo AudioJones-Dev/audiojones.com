@@ -1,8 +1,11 @@
 // POST /api/newsletter — canonical newsletter subscription endpoint.
 //
-// Routes through the adapter pattern in `src/lib/newsletter/newsletter-storage.ts`.
-// Honors NEWSLETTER_PROVIDER + NEXT_PUBLIC_MAILERLITE_DISABLED. Falls back to
-// mock on any upstream failure — the user always sees success.
+// Routes through the adapter in `src/lib/newsletter/newsletter-storage.ts`,
+// which reads NEWSLETTER_PROVIDER, MAILERLITE_TOKEN and
+// NEXT_PUBLIC_MAILERLITE_DISABLED. It answers 200 only when MailerLite
+// accepted the address, or when a developer chose mock outside production.
+// An unset provider, a missing token or a MailerLite failure is a 500
+// PROVIDER_ERROR, never a fallback to mock.
 //
 // The legacy `/api/newsletter/subscribe` route is preserved for any external
 // callers; new in-product surfaces should use this canonical path.
