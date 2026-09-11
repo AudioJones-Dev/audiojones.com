@@ -1,7 +1,16 @@
+import { cookies } from "next/headers";
+import { notFound } from "next/navigation";
 import ImageKitUploader from "@/components/ImageKitUploader";
 import ImageKitGallery from "@/components/ImageKitGallery";
+import { ADMIN_SESSION_COOKIE, isValidSessionToken } from "@/lib/server/adminSession";
 
-export default function UploaderPage() {
+export default async function UploaderPage() {
+  const adminKey = process.env.ADMIN_KEY;
+  const session = (await cookies()).get(ADMIN_SESSION_COOKIE)?.value;
+  if (!adminKey || !isValidSessionToken(session, adminKey)) {
+    notFound();
+  }
+
   return (
     <main className="min-h-screen bg-[#111] text-white">
       <div className="mx-auto max-w-6xl px-6 py-16">

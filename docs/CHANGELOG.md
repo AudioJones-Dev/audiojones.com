@@ -16,6 +16,26 @@ Entries are reverse chronological. Format follows
 ## Unreleased
 
 ### Security
+- Gated the ImageKit upload surface behind the admin session.
+  `GET /api/imagekit-auth` returned signed upload credentials (`token`,
+  `expire`, `signature`) to any caller — enough to upload files into the
+  ImageKit account. Its sibling
+  `GET /api/imagekit-files` listed the upload folder with the private key,
+  also without auth. Both now return 401 unless the request carries a valid
+  `aj_admin` session (the HMAC cookie issued by `/api/admin-auth` and already
+  verified by `/api/_proxy/admin`), including when `ADMIN_KEY` is unset.
+  `/uploader` now returns 404 without that session. The `middleware.ts` gate
+  was deliberately not relied on: it covers only `/api/admin/*` and
+  `/portal/admin*`, and it checks that a token or key header is present, not
+  that it is valid.
+  This is containment, not the end state. Nothing in the UI issues an
+  `aj_admin` cookie, so `/uploader` is now unreachable in practice. Removing
+  `/uploader`, both routes, `ImageKitUploader`, `ImageKitGallery` and
+  `/test-slack` as unused dev leftovers is recommended and awaits operator
+  approval. No key was rotated, and whether the route was abused has not
+  been determined.
+
+### Security
 - Upgraded `next` 16.2.6 → 16.3.4 and `sharp` 0.35.0 → 0.35.4, closing 11
   advisories against `next` and 2 against `sharp`. Two of the `next`
   advisories are critical and unauthenticated RCE:
