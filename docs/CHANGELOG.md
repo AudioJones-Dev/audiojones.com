@@ -15,6 +15,39 @@ Entries are reverse chronological. Format follows
 
 ## Unreleased
 
+### Fixed
+- **Sitemap no longer reports fake modification dates.** All 32 entries shared
+  one build-time `new Date()`, telling crawlers every page changed on every
+  deploy. `lastModified` is now omitted wherever the real date is unknown;
+  Sanity posts keep their genuine dates. Deriving dates from `git log` was
+  rejected because CI checks out at depth 1, which would report HEAD's date for
+  every path.
+- **Five statically-generated `/blog/topic/*` pages are now in the sitemap.**
+  They render without Sanity and take live traffic but were never listed. Their
+  slugs moved to `src/content/blog-topics.ts` so the sitemap can read them
+  without importing the route module and its Sanity client.
+- **Three test files now run in CI.** `roi-calculator-assumptions`,
+  `check_tsconfig` and `fetchJsonErrorMessage` existed but no workflow executed
+  them, so the guarantee `roi-calculator-assumptions` claims was unenforced.
+- **Six pages gained metadata** (five legal pages and `/status`), which
+  previously collapsed onto one identical title with no description or
+  canonical. `/status` is `noindex`, matching its existing `robots.ts` disallow.
+- **Two lead APIs return a sentence, not a token, as the error message.**
+  `founder-intelligence/leads` and `founder-gravity-audit/leads` now follow the
+  pattern `/api/apply` already used: human text in `error`, `RATE_LIMITED` in
+  `code`.
+
+### Added
+- `db/migrations/004_roi_calculator_leads.sql` — the ROI calculator has written
+  to `roi_calculator_leads` since it shipped, but no migration created the
+  table; its DDL existed only in a brief. Idempotent, and it does not alter an
+  existing table.
+
+### Removed
+- `publicRoutes`, `noindexRoutes` and `disallowedRoutes` from `src/lib/site.ts`.
+  Nothing imported them, yet the file's header claimed they fed the sitemap and
+  robots — a second route map that silently diverged from the real one.
+
 ### Security
 - Upgraded `next` 16.2.6 → 16.3.4 and `sharp` 0.35.0 → 0.35.4, closing 11
   advisories against `next` and 2 against `sharp`. Two of the `next`

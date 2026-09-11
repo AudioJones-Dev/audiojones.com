@@ -15,41 +15,13 @@ import JsonLd from "@/components/seo/JsonLd";
 import { breadcrumbJsonLd } from "@/lib/seo/schema";
 import { siteConfig } from "@/lib/site";
 import { ctaLinks } from "@/config/links";
+import { BLOG_TOPIC_CLUSTERS } from "@/content/blog-topics";
 
 // ─── Static cluster fallbacks (render even without Sanity) ────────────────────
+// The slugs live in @/content/blog-topics so `sitemap.ts` can list these routes
+// without importing this module — and with it the Sanity client.
 
-const STATIC_CLUSTERS: Record<string, { label: string; description: string; accent: string }> = {
-  "founder-intelligence-systems": {
-    label: "Founder Intelligence Systems",
-    description:
-      "How to identify signal, build operating leverage, and create systems that compound. The full Founder Intelligence Systems framework documented.",
-    accent: "#4DACFF",
-  },
-  "signal-vs-noise": {
-    label: "Signal vs Noise",
-    description:
-      "Causal vs vanity metrics. Separating what actually creates revenue from what consumes attention and budget without producing outcomes.",
-    accent: "#E8FF5A",
-  },
-  "map-attribution": {
-    label: "M.A.P. Attribution",
-    description:
-      "Meaningful. Actionable. Profitable. The Audio Jones attribution framework for identifying exactly what drives growth in your business.",
-    accent: "#E8FF5A",
-  },
-  "why-ai-fails": {
-    label: "Why AI Fails",
-    description:
-      "AI fails before it starts — when automation precedes systems, processes, and signal clarity. Everything founder-led businesses need to know before adopting AI.",
-    accent: "#666666",
-  },
-  "ai-readiness": {
-    label: "AI Readiness for Founder-Led Businesses",
-    description:
-      "The diagnostic framework for knowing whether your business is ready for AI. Processes, attribution, data hygiene, and operating model — all before the tools.",
-    accent: "#3DFFB0",
-  },
-};
+const STATIC_CLUSTERS = BLOG_TOPIC_CLUSTERS;
 
 // ─── Static params ────────────────────────────────────────────────────────────
 
