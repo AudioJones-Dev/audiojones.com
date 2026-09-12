@@ -43,7 +43,17 @@ Entries are reverse chronological. Format follows
   | `undici` | `next-sanity > sanity > @portabletext/sanity-bridge > @sanity/schema > get-it` | GHSA-4cwx-7wf7-3272 | >=7.29.0 |
   | `adm-zip` | `next-sanity > sanity > @sanity/cli > @sanity/runtime-cli` | GHSA-xcpc-8h2w-3j85 | >=0.6.0 |
 
-  These are DoS/crash-class, consistent with the triage recorded for #248. No
+  Ten of the eleven are DoS/crash-class, consistent with the triage recorded
+  for #248. **GHSA-4cwx-7wf7-3272 in `undici` is not.** It is cross-user
+  information disclosure (CWE-200, CVSS 7.4): a malformed
+  `Cache-Control: private` directive such as `private=""` can be stored in the
+  default *shared* cache and later served to a different caller, exposing that
+  caller response bodies and headers including `Set-Cookie`. The same advisory
+  also covers a parse-time crash. It is not reachable here — exploitation
+  needs `interceptors.cache()` in shared mode, and nothing under `src/` or
+  `packages/` imports `undici` at all; it arrives only via
+  `@sanity/schema > get-it`. Recording it as availability-only would still be
+  wrong: it is a confidentiality advisory. No
   `ignoreGhsas` suppression was added: the repo already resolves transitive
   advisories with `overrides` in `pnpm-workspace.yaml`, so suppression would
   hide a fixable problem. The overrides land separately in #260, which takes
