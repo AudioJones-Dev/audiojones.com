@@ -19,7 +19,7 @@ overrides:
   axios: ">=1.16.0"
   undici@5: "6.27.0"
   undici@6: "6.27.0"
-  undici@7: "7.28.0"
+  undici@7: ">=7.29.0 <8"
   ws@8: ">=8.21.0"
   form-data@2: ">=2.5.6"
   form-data@4: ">=4.0.6"
@@ -35,3 +35,12 @@ overrides:
   lodash: ">=4.18.0"
   "@isaacs/brace-expansion": ">=5.0.1"
   eslint-plugin-react-hooks>zod: "^4.0.0"
+  # Transitive high-severity advisories surfaced by `pnpm audit --prod`.
+  # Scoped by major where an unaffected major is also installed, so the
+  # override does not retarget consumers that were never vulnerable. Each
+  # range is upper-bounded: an open `>=` lets pnpm resolve across a major.
+  browserslist@4: ">=4.28.7 <5"   # GHSA-c83g-rgw3-j3cx, GHSA-73wf-gq98-2v4g
+  nanoid@3: ">=3.3.18 <4"         # GHSA-2v37-7h3g-55p8 (5.x unaffected)
+  brace-expansion@5: ">=5.0.9 <6" # GHSA-3jxr-9vmj-r5cp, GHSA-mh99-v99m-4gvg, GHSA-rgw5-rvv9-x895 (1.x unaffected)
+  js-yaml@3: ">=3.15.2 <4"        # GHSA-52cp-r559-cp3m, GHSA-5p4m-2wfm-xmqj, GHSA-2883-xcg3-v3hh (4.x unaffected)
+  adm-zip: ">=0.6.0 <0.7"         # GHSA-xcpc-8h2w-3j85

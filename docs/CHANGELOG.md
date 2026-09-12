@@ -16,6 +16,31 @@ Entries are reverse chronological. Format follows
 ## Unreleased
 
 ### Security
+- Closed the 11 remaining high-severity advisories in the production
+  dependency tree with scoped `overrides` in `pnpm-workspace.yaml`.
+  `pnpm audit --audit-level high --prod` goes from 11 high to **0** (3 low and
+  8 moderate remain, below the gate threshold). All six packages are
+  transitive; none is a declared dependency.
+
+  | Package | Reached via | Advisories | Override |
+  | --- | --- | --- | --- |
+  | `browserslist` | `next > styled-jsx > @babel/core` | GHSA-c83g-rgw3-j3cx, GHSA-73wf-gq98-2v4g | `browserslist@4: ">=4.28.7 <5"` |
+  | `nanoid` | `next > postcss` | GHSA-2v37-7h3g-55p8 | `nanoid@3: ">=3.3.18 <4"` |
+  | `brace-expansion` | `next-sanity > sanity > @sanity/cli > @oclif/core > minimatch` | GHSA-3jxr-9vmj-r5cp, GHSA-mh99-v99m-4gvg, GHSA-rgw5-rvv9-x895 | `brace-expansion@5: ">=5.0.9 <6"` |
+  | `js-yaml` | `next-sanity > sanity > @sanity/cli > @vercel/frameworks` | GHSA-52cp-r559-cp3m, GHSA-5p4m-2wfm-xmqj, GHSA-2883-xcg3-v3hh | `js-yaml@3: ">=3.15.2 <4"` |
+  | `undici` | `next-sanity > sanity > @portabletext/sanity-bridge > @sanity/schema > get-it` | GHSA-4cwx-7wf7-3272 | `undici@7: ">=7.29.0 <8"` |
+  | `adm-zip` | `next-sanity > sanity > @sanity/cli > @sanity/runtime-cli` | GHSA-xcpc-8h2w-3j85 | `adm-zip: ">=0.6.0 <0.7"` |
+
+  The `undici` line is a **fix to an existing override**, not a new one. It
+  read `undici@7: "7.28.0"`, which pins directly into the vulnerable range for
+  GHSA-4cwx-7wf7-3272 (`>=7.0.0 <7.29.0`) — the override meant to protect
+  undici was what held it back.
+
+  Every range is upper-bounded by major. An open `>=` lets pnpm resolve across
+  a major boundary: an unbounded `js-yaml@3: ">=3.15.2"` resolved to 4.1.1,
+  landing in the separate 4.x range of the same advisories and still failing
+  the audit, and an unbounded `undici@7: ">=7.29.0"` pulled in undici 8.10.2.
+  Bounding each range keeps the consumer on the major line it declared.
 - `requireAdmin` now compares the `admin-key` / `x-admin-key` header against
   `ADMIN_KEY` with the constant-time `isAdminKey` helper from
   `src/lib/server/adminSession.ts`, replacing a plain `!==` string compare
