@@ -53,6 +53,26 @@ Entries are reverse chronological. Format follows
   `pnpm-workspace.yaml` pins directly into the vulnerable range for
   GHSA-4cwx-7wf7-3272 (`>=7.0.0 <7.29.0`). The override intended to fix undici
   is currently what holds it back.
+- `requireAdmin` now compares the `admin-key` / `x-admin-key` header against
+  `ADMIN_KEY` with the constant-time `isAdminKey` helper from
+  `src/lib/server/adminSession.ts`, replacing a plain `!==` string compare
+  that short-circuited on the first differing byte and so leaked the key's
+  *prefix* through response timing. This covers the 70 route files under
+  `/api/admin/*` that call the helper, plus the portal's `/api/_proxy/admin`
+  path. Two limits are deliberate and worth stating plainly:
+  - Key **length** is still observable. `timingSafeEqual` throws on
+    unequal-length buffers, so `safeEqual` compares lengths first and returns
+    early. Closing that means hashing both sides to a fixed width before
+    comparing — a separate change, not made here.
+  - Five `/api/admin/status-webhooks/*` handlers (`deliveries`, `retry`,
+    `stats`, and both `targets` routes) do **not** use `requireAdmin`; they
+    compare inline against `process.env.ADMIN_KEY` and retain the prefix-timing
+    behaviour described above. They are not fixed by this change.
+
+  No key rotation is required — the stored value is unchanged, only how it is
+  checked.
+
+### Security
 - Upgraded `next` 16.2.6 → 16.3.4 and `sharp` 0.35.0 → 0.35.4, closing 11
   advisories against `next` and 2 against `sharp`. Two of the `next`
   advisories are critical and unauthenticated RCE:
@@ -71,6 +91,19 @@ Entries are reverse chronological. Format follows
   range. Remaining Dependabot alerts are transitive (`brace-expansion`,
   `js-yaml`, `nanoid`, `postcss`, `undici`, `browserslist`, `adm-zip`, `qs`,
   `dompurify`), none declared directly, and predominantly DoS rather than RCE.
+
+### Security
+- The five `/api/admin/status-webhooks/*` handlers (`deliveries`, `retry`,
+  `stats`, `targets`, `targets/[id]`) now compare the `admin-key` header
+  against `ADMIN_KEY` with the constant-time `isAdminKey` helper. Each carried
+  its own local `requireAdminKey` copy using a plain `!==`, so none of them
+  went through `src/lib/server/requireAdmin.ts` and none were covered when that
+  helper was hardened. They leaked the key prefix through response timing in
+  the same way. Responses are unchanged, including the 401 (not 500) these
+  routes return when `ADMIN_KEY` is unset — preserved by an explicit guard,
+  since passing `undefined` into the helper would otherwise surface as a 500.
+  Key *length* remains observable, as it does everywhere `timingSafeEqual` is
+  used behind a length pre-check.
 
 ### Added
 - `src/content/tools/index.ts` — the canonical registry of interactive tools,

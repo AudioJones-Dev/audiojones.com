@@ -7,6 +7,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
+import { isAdminKey } from '@/lib/server/adminSession';
 import { 
   getWebhookTarget,
   updateWebhookTarget,
@@ -17,8 +18,9 @@ import {
 
 async function requireAdminKey(request: NextRequest): Promise<void> {
   const adminKey = request.headers.get('admin-key');
+  const expectedAdminKey = process.env.ADMIN_KEY;
   
-  if (!adminKey || adminKey !== process.env.ADMIN_KEY) {
+  if (!expectedAdminKey || !isAdminKey(adminKey ?? '', expectedAdminKey)) {
     throw new Error('Unauthorized: Invalid admin key');
   }
 }
