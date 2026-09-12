@@ -20,7 +20,7 @@ declare const env: {
     NEXT_PUBLIC_WHOP_AGENT_USER_ID?: string | undefined;
     WHOP_WEBHOOK_SECRET?: string | undefined;
     OPENAI_API_KEY?: string | undefined;
-    MAILERLITE_API_KEY?: string | undefined;
+    MAILERLITE_TOKEN?: string | undefined;
     MAILERLITE_GROUP_ID?: string | undefined;
     N8N_WEBHOOK_URL?: string | undefined;
     N8N_LEAD_WEBHOOK_URL?: string | undefined;

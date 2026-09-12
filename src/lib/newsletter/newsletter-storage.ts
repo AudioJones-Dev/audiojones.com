@@ -1,19 +1,33 @@
-// Adapter interface + mock + production wrappers for newsletter subscriptions.
+// Adapter interface + MailerLite adapter + mock for newsletter subscriptions.
 //
-// Provider switch: env `NEWSLETTER_PROVIDER` ∈ {"mock", "mailerlite"}.
-// Default is mock when:
-//   - NEWSLETTER_PROVIDER is unset or "mock", OR
-//   - MAILERLITE_TOKEN is unset, OR
-//   - NEXT_PUBLIC_MAILERLITE_DISABLED is "true"/"1"
+// Provider switch: env `NEWSLETTER_PROVIDER` ∈ {"mailerlite", "mock"}.
+//   - "mailerlite": POSTs the address to MailerLite with MAILERLITE_TOKEN and
+//                   answers ok:true only when MailerLite accepts it. A missing
+//                   token, a non-2xx response or a failed request is refused
+//                   with PROVIDER_ERROR. MAILERLITE_TOKEN is the only key
+//                   name read; MAILERLITE_API_KEY is not.
+//   - "mock":       logs a redacted payload, simulates 700ms latency, returns
+//                   a synthetic id. Nothing is stored. Naming it is allowed
+//                   locally and on previews, and refused in real production.
+//                   NEXT_PUBLIC_MAILERLITE_DISABLED=true|1 is the same choice
+//                   and gets the same treatment.
+//   - Anything else, unset included, is refused on any deployed environment.
+//     Only local development falls back to mock.
 //
-// Critical UX rule: when the live adapter is selected but the upstream
-// MailerLite call returns 401/403/5xx, fall back to mock with a console
-// warning rather than surfacing the error to the user. The user always
-// gets a positive confirmation experience — the integration is the
-// implementation detail.
+// This module used to fail soft on purpose: every path, a MailerLite 401
+// included, ended in a synthetic success, which NewsletterForm renders as
+// "Subscribed." The form sits in the footer of every page, so an unset
+// provider or a revoked token discarded every signup behind a success
+// message. #251 closed the same hole for /apply after LEAD_FORM_PROVIDER was
+// found unset in production on 2026-09-10, and the selector below follows
+// src/lib/apply/apply-storage.ts. Nothing here may answer ok:true unless
+// MailerLite accepted the address or a developer chose mock outside
+// production.
 //
-// Hard rules: no Firebase. No hardcoded secrets. Fail soft when env is
-// missing. The form must always submit successfully via the mock adapter.
+// Signups are not written to Neon. MailerLite is the only store, so this
+// surface does not meet the zero-loss bar in docs/PRD.md §6.
+//
+// Hard rules: no Firebase. No hardcoded secrets.
 
 import { randomUUID } from "node:crypto";
 import type { NewsletterInput } from "./newsletter-schema";
@@ -22,7 +36,6 @@ export type NewsletterSuccess = {
   ok: true;
   id: string;
   provider: "mock" | "mailerlite";
-  fellBackToMock?: boolean;
 };
 
 export type NewsletterError = {
@@ -35,6 +48,37 @@ export type NewsletterResult = NewsletterSuccess | NewsletterError;
 
 export interface NewsletterAdapter {
   subscribe(input: NewsletterInput): Promise<NewsletterResult>;
+}
+
+// ─── Refusal ─────────────────────────────────────────────────────────────────
+
+// `reason` is logged, never returned: the caller gets a retry message, not our
+// configuration or MailerLite's response. The address is logged in full on
+// purpose — nothing else records a refused signup, so this line is the only
+// way to find and re-add it.
+function refuse(
+  reason: string,
+  input: NewsletterInput,
+  extra?: Record<string, unknown>,
+): NewsletterError {
+  console.error(`[newsletter] rejecting subscription: ${reason}`, {
+    email: input.email,
+    source: input.source,
+    ...extra,
+  });
+  return {
+    ok: false,
+    error: "We couldn't complete your subscription. Please try again in a moment.",
+    code: "PROVIDER_ERROR",
+  };
+}
+
+function refusingAdapter(reason: string): NewsletterAdapter {
+  return {
+    async subscribe(input) {
+      return refuse(reason, input);
+    },
+  };
 }
 
 // ─── Mock adapter ────────────────────────────────────────────────────────────
@@ -59,7 +103,7 @@ const mockAdapter: NewsletterAdapter = {
   },
 };
 
-// ─── MailerLite adapter (with mock fallback on upstream failure) ────────────
+// ─── MailerLite adapter ──────────────────────────────────────────────────────
 
 const MAILERLITE_API_BASE =
   process.env.MAILERLITE_API_BASE ?? "https://connect.mailerlite.com";
@@ -68,13 +112,9 @@ const mailerliteAdapter: NewsletterAdapter = {
   async subscribe(input) {
     const token = process.env.MAILERLITE_TOKEN;
     if (!token) {
-      // Should not be selected in this state, but guard anyway
-      // eslint-disable-next-line no-console
-      console.warn(
-        "[newsletter mailerlite] MAILERLITE_TOKEN missing — falling back to mock",
-      );
-      const r = await mockAdapter.subscribe(input);
-      return r.ok ? { ...r, fellBackToMock: true } : r;
+      // The selector never picks this adapter without a token; this guards a
+      // direct call.
+      return refuse("provider is mailerlite but MAILERLITE_TOKEN is unset", input);
     }
     const groupId = process.env.MAILERLITE_GROUP_ID; // optional
 
@@ -93,13 +133,10 @@ const mailerliteAdapter: NewsletterAdapter = {
         cache: "no-store",
       });
 
+      // 401/403 is a bad or revoked token, 422 an address MailerLite rejects,
+      // 429/5xx trouble on MailerLite's side. None of them subscribed anyone.
       if (!res.ok) {
-        // eslint-disable-next-line no-console
-        console.warn(
-          `[newsletter mailerlite] upstream ${res.status} — falling back to mock`,
-        );
-        const r = await mockAdapter.subscribe(input);
-        return r.ok ? { ...r, fellBackToMock: true } : r;
+        return refuse(`MailerLite answered ${res.status}`, input);
       }
 
       // Best-effort id extraction; MailerLite payload shape varies by API version
@@ -113,18 +150,46 @@ const mailerliteAdapter: NewsletterAdapter = {
 
       return { ok: true, id, provider: "mailerlite" };
     } catch (err) {
-      // eslint-disable-next-line no-console
-      console.warn(
-        "[newsletter mailerlite] network error — falling back to mock",
-        err,
-      );
-      const r = await mockAdapter.subscribe(input);
-      return r.ok ? { ...r, fellBackToMock: true } : r;
+      return refuse("MailerLite request failed", input, {
+        error: err instanceof Error ? err.message : String(err),
+      });
     }
   },
 };
 
 // ─── Provider selector ───────────────────────────────────────────────────────
+
+// Same two questions as src/lib/apply/apply-storage.ts, answered the same way.
+//
+// `isRealProduction` — a deployment serving real visitors, where a mock is
+// never acceptable. Vercel sets VERCEL_ENV=production only for production
+// deployments; previews also run with NODE_ENV=production, so NODE_ENV alone
+// would refuse a mock a developer deliberately chose on a preview. The
+// NODE_ENV fallback covers hosting that sets no VERCEL_ENV.
+const isRealProduction = () =>
+  process.env.VERCEL_ENV === "production" ||
+  (!process.env.VERCEL_ENV && process.env.NODE_ENV === "production");
+
+// `isHosted` — a real deployment, preview included. A preview that says
+// "Subscribed." while subscribing nobody misleads whoever is testing the
+// form as effectively as production would. Only preview and production
+// count: `vercel dev` sets VERCEL_ENV=development for a local session, and a
+// developer machine must still get the documented mock fallback. The
+// NODE_ENV fallback covers hosting that sets no VERCEL_ENV.
+const isHosted = () =>
+  process.env.VERCEL_ENV === "preview" ||
+  process.env.VERCEL_ENV === "production" ||
+  (!process.env.VERCEL_ENV && process.env.NODE_ENV === "production");
+
+// Warn once per cold start per condition, so a misconfigured deploy leaves one
+// visible signal rather than a line per submission. Each refused subscription
+// is still logged individually by refuse().
+const warned = new Set<string>();
+function warnOnce(key: string, message: string) {
+  if (warned.has(key)) return;
+  warned.add(key);
+  console.warn(message);
+}
 
 function isDisabledByPublicFlag(): boolean {
   // Server-side env access — NEXT_PUBLIC_* is exposed at runtime in API routes
@@ -133,19 +198,56 @@ function isDisabledByPublicFlag(): boolean {
   return v === "true" || v === "1";
 }
 
-export type NewsletterProvider = "mock" | "mailerlite";
-
-export function resolveProvider(): NewsletterProvider {
-  if (isDisabledByPublicFlag()) return "mock";
-  const explicit = process.env.NEWSLETTER_PROVIDER?.toLowerCase().trim();
-  if (explicit === "mailerlite" && process.env.MAILERLITE_TOKEN) {
-    return "mailerlite";
-  }
-  return "mock";
-}
-
 export function getNewsletterAdapter(): NewsletterAdapter {
-  return resolveProvider() === "mailerlite" ? mailerliteAdapter : mockAdapter;
+  const explicit = process.env.NEWSLETTER_PROVIDER?.toLowerCase().trim();
+
+  // Naming mock, or setting NEXT_PUBLIC_MAILERLITE_DISABLED for a browser,
+  // Storybook or E2E session, is consent to a run that subscribes nobody.
+  // Fine locally and on a preview; never in front of real visitors. The flag
+  // still wins over a configured provider, as it always has.
+  if (explicit === "mock" || isDisabledByPublicFlag()) {
+    if (isRealProduction()) {
+      warnOnce(
+        "mock-in-prod",
+        "[newsletter] mock (NEWSLETTER_PROVIDER=mock or NEXT_PUBLIC_MAILERLITE_DISABLED) is refused in production; subscriptions will be rejected",
+      );
+      return refusingAdapter("mock subscribes nobody, and this is production");
+    }
+    return mockAdapter;
+  }
+
+  if (explicit === "mailerlite") {
+    if (!process.env.MAILERLITE_TOKEN) {
+      warnOnce(
+        "mailerlite-no-token",
+        "[newsletter] NEWSLETTER_PROVIDER=mailerlite but MAILERLITE_TOKEN is unset; subscriptions will be rejected",
+      );
+      return refusingAdapter("provider is mailerlite but MAILERLITE_TOKEN is unset");
+    }
+    return mailerliteAdapter;
+  }
+
+  // Anything else — unset, or a value this module does not implement — cannot
+  // subscribe anyone, and nobody chose that. On any deployed environment it is
+  // the failure this selector exists to prevent. Locally it is just a
+  // developer without configuration, so mock keeps the form workable.
+  if (isHosted()) {
+    warnOnce(
+      "unusable-provider-hosted",
+      `[newsletter] NEWSLETTER_PROVIDER is ${explicit ? `"${explicit}", which is not a usable provider` : "unset"}; subscriptions will be rejected`,
+    );
+    return refusingAdapter(
+      explicit
+        ? `provider "${explicit}" is not implemented and this is a deployed environment`
+        : "no provider is configured and this is a deployed environment",
+    );
+  }
+
+  warnOnce(
+    "mock-fallback",
+    `[newsletter] NEWSLETTER_PROVIDER is ${explicit ? `"${explicit}"` : "unset"}; using the mock adapter. Nothing will be stored.`,
+  );
+  return mockAdapter;
 }
 
 // Convenience for UI to decide whether to show the pending notice.

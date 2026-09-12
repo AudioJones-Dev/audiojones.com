@@ -40,6 +40,9 @@ jobs:
       - name: Verify the apply provider cannot report false success
         run: pnpm exec tsx --test test/apply-provider.test.ts
 
+      - name: Verify the newsletter provider cannot report false success
+        run: pnpm exec tsx --test test/newsletter-provider.test.ts
+
       - name: Verify apply notification escaping and subject
         run: pnpm exec tsx --test test/apply-notification.test.ts
 
