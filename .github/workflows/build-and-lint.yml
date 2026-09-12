@@ -49,6 +49,15 @@ jobs:
       - name: Verify notification dispatch and request bounds
         run: pnpm exec tsx --test test/notification-dispatch.test.ts
 
+      - name: Verify the ROI capture-rate assumption stays load-bearing
+        run: pnpm exec tsx --test test/roi-calculator-assumptions.test.ts
+
+      - name: Verify tsconfig still excludes the untyped script tree
+        run: pnpm exec tsx --test test/check_tsconfig.test.ts
+
+      - name: Verify fetchJson surfaces the upstream error body
+        run: pnpm exec tsx --test test/fetchJsonErrorMessage.test.ts
+
       - name: Build workspace packages
         run: pnpm packages:build
 

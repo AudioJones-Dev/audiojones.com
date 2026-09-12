@@ -9,6 +9,17 @@ import Link from 'next/link';
 import { fetchPublicIncidents, getSystemStatus, getRecentIncidents } from '@/lib/publicIncidents';
 import StatusWidget, { StatusBar } from '@/components/status/StatusWidget';
 import { IncidentFeedItem } from '@/types/incidents';
+import type { Metadata } from 'next';
+import { siteConfig } from '@/lib/site';
+
+// robots.ts already disallows /status; noindex keeps the page-level signal in
+// agreement rather than contradicting it.
+export const metadata: Metadata = {
+  title: 'System Status',
+  description: 'Current system health and recent incidents for audiojones.com.',
+  alternates: { canonical: `${siteConfig.url}/status` },
+  robots: { index: false, follow: true },
+};
 
 // This is a server component - fetch data at build/request time
 export default async function StatusPage() {
