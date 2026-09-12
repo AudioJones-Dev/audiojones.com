@@ -64,3 +64,10 @@ locally — it runs `pnpm packages:build && next build`.
 - Reading neighboring code before introducing patterns.
 - Asking when a directive looks like it would conflict with
   [`AGENTS.md`](./AGENTS.md).
+
+## Independent review
+
+Read the independent-review and human-only merge policy in `AGENTS.md`. Claude
+may review Codex-authored changes only when Claude did not author the PR. If
+Claude and Codex both authored it, CodeRabbit must independently review it.
+Record reviewed SHA and outcome; do not merge or treat self-checks as review.
