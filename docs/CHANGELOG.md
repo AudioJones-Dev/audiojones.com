@@ -55,6 +55,19 @@ Entries are reverse chronological. Format follows
   `js-yaml`, `nanoid`, `postcss`, `undici`, `browserslist`, `adm-zip`, `qs`,
   `dompurify`), none declared directly, and predominantly DoS rather than RCE.
 
+### Security
+- The five `/api/admin/status-webhooks/*` handlers (`deliveries`, `retry`,
+  `stats`, `targets`, `targets/[id]`) now compare the `admin-key` header
+  against `ADMIN_KEY` with the constant-time `isAdminKey` helper. Each carried
+  its own local `requireAdminKey` copy using a plain `!==`, so none of them
+  went through `src/lib/server/requireAdmin.ts` and none were covered when that
+  helper was hardened. They leaked the key prefix through response timing in
+  the same way. Responses are unchanged, including the 401 (not 500) these
+  routes return when `ADMIN_KEY` is unset — preserved by an explicit guard,
+  since passing `undefined` into the helper would otherwise surface as a 500.
+  Key *length* remains observable, as it does everywhere `timingSafeEqual` is
+  used behind a length pre-check.
+
 ### Added
 - `src/content/tools/index.ts` — the canonical registry of interactive tools,
   splitting them by kind: a **diagnostic** identifies a problem, a
