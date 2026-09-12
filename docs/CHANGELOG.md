@@ -16,6 +16,17 @@ Entries are reverse chronological. Format follows
 ## Unreleased
 
 ### Security
+- `requireAdmin` now compares the `admin-key` / `x-admin-key` header against
+  `ADMIN_KEY` with the constant-time `isAdminKey` helper from
+  `src/lib/server/adminSession.ts`, replacing a plain `!==` string compare
+  that short-circuited on the first differing byte and leaked the key's
+  length and prefix through response timing. This covers every
+  `/api/admin/*` route handler using the helper, and the portal's
+  `/api/_proxy/admin` path. `/api/admin-auth` already used `isAdminKey`;
+  `requireAdmin` was the remaining direct comparison. No key rotation is
+  required — the stored value is unchanged, only how it is checked.
+
+### Security
 - Upgraded `next` 16.2.6 → 16.3.4 and `sharp` 0.35.0 → 0.35.4, closing 11
   advisories against `next` and 2 against `sharp`. Two of the `next`
   advisories are critical and unauthenticated RCE:
