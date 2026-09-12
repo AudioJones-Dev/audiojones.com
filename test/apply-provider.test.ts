@@ -151,3 +151,73 @@ test("development still falls back to mock so the form is workable", async () =>
     },
   );
 });
+
+// Applicant emails must never reach the logs in full (CWE-532). Flagged by
+// CodeRabbit on #251 against the refusal path, which had copied the pattern
+// from the pre-existing misconfigured-provider and persistence-failure logs.
+// These assertions cover the refusal path the provider selector can reach.
+// A single-character local part is a valid address. The pattern this codebase
+// used elsewhere needs a character between the first and the "@", so it left
+// such an address untouched — the exact leak redaction is meant to stop.
+for (const address of ["a@b.com", "x@y.co.uk", "dana@example.com"]) {
+  test(`a refusal redacts the email ${address}`, async () => {
+    const captured: string[] = [];
+    const realError = console.error;
+    console.error = (...args: unknown[]) => {
+      captured.push(args.map((a) => (typeof a === "string" ? a : JSON.stringify(a))).join(" "));
+    };
+    try {
+      await withEnv(
+        {
+          NODE_ENV: "production",
+          VERCEL_ENV: "production",
+          LEAD_FORM_PROVIDER: undefined,
+          DATABASE_URL: undefined,
+        },
+        async () => {
+          await getApplyAdapter().submit({ ...input, email: address }, ctx);
+        },
+      );
+    } finally {
+      console.error = realError;
+    }
+    const logged = captured.join("\n");
+    assert.ok(!logged.includes(address), `raw address ${address} must not be logged; got: ${logged}`);
+    assert.ok(logged.includes("•••"), "a redacted form should still be logged");
+  });
+}
+
+test("a refusal does not log the applicant's raw email", async () => {
+  const captured: string[] = [];
+  const realError = console.error;
+  console.error = (...args: unknown[]) => {
+    captured.push(args.map((a) => (typeof a === "string" ? a : JSON.stringify(a))).join(" "));
+  };
+  try {
+    await withEnv(
+      {
+        NODE_ENV: "production",
+        VERCEL_ENV: "production",
+        LEAD_FORM_PROVIDER: undefined,
+        DATABASE_URL: undefined,
+      },
+      async () => {
+        const result = await getApplyAdapter().submit(input, ctx);
+        assert.equal(result.ok, false);
+      },
+    );
+  } finally {
+    console.error = realError;
+  }
+
+  const logged = captured.join("\n");
+  assert.ok(logged.length > 0, "the refusal must still log something operators can act on");
+  assert.ok(
+    !logged.includes(input.email),
+    `the raw applicant email must not appear in logs; got: ${logged}`,
+  );
+  assert.ok(
+    logged.includes("d•••@example.com"),
+    "the redacted email should still be present so a failure can be traced",
+  );
+});
