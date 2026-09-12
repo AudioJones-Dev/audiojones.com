@@ -9,7 +9,7 @@ import { breadcrumbJsonLd } from "@/lib/seo/schema";
 
 const TITLE = "Solutions";
 const DESCRIPTION =
-  "What AJ Digital builds for founder-led service businesses: evidence-based diagnostics, ResponseOS Revenue Recovery Systems, Founder Intelligence Systems, and ongoing Managed Intelligence.";
+  "Business systems consulting for founder-led service businesses. Find lost time and sales, plan the first fix, and connect workflows, AI, and reporting.";
 
 // Canonical offer ladder. One commercial path: Diagnose → Design → Build → Operate.
 // Naming follows the ratified AJ Digital canonical offer model.
@@ -32,14 +32,14 @@ const STAGES: Stage[] = [
     step: "00",
     stage: "Free",
     intro:
-      "Start with a free read on where your operations and AI-readiness stand — no spend, no commitment.",
+      "Start by sharing where work gets stuck and what you want to change.",
     offers: [
       {
         name: "AI Readiness Score",
         blurb:
-          "A fast, free read on how ready your business is and where the biggest operational gaps are — before you spend anything. The top of the ladder, and the entry into the diagnostic engine.",
+          "Review how your team works, what data you have, and where AI might fit. The online form starts a review; it is not a full paid diagnostic.",
         href: ctaLinks.signalDiagnostic,
-        cta: "Get your score",
+        cta: "Explore AI readiness",
       },
     ],
   },
@@ -47,12 +47,12 @@ const STAGES: Stage[] = [
     step: "01",
     stage: "Audit",
     intro:
-      "Every paid engagement starts with a decision-ready diagnosis — never a tool sold before the constraint is found.",
+      "Find the cause of lost time or sales before choosing a tool.",
     offers: [
       {
         name: "ReKonr Revenue Recovery Diagnostic",
         blurb:
-          "The first complete paid diagnostic: workflow mapping, revenue-leak analysis, baseline metrics, ranked interventions, and a 90-day implementation blueprint.",
+          "We map the steps your work follows, check where sales are lost, and measure the starting point. You get a ranked list of fixes and a 90-day build plan.",
         href: "/pricing",
         cta: "See the audit",
       },
@@ -62,12 +62,12 @@ const STAGES: Stage[] = [
     step: "02",
     stage: "Blueprint",
     intro:
-      "The audit prescribes the build. The Blueprint is the architecture before a line of work begins.",
+      "Agree on how the fix will work before the build starts.",
     offers: [
       {
         name: "System Architecture & Blueprint",
         blurb:
-          "The operating-system design the audit calls for: how follow-up, data, agents, and reporting connect — scoped to your stack so the build is deliberate, not improvised.",
+          "A plan for how people, tools, and data will work together. It sets the steps, owners, rules, and checks for the build.",
         href: "/book-a-call",
         cta: "Scope a blueprint",
       },
@@ -77,26 +77,26 @@ const STAGES: Stage[] = [
     step: "03",
     stage: "Build",
     intro:
-      "The installed systems — scoped and built per engagement around the blueprint.",
+      "Build the agreed fix around your team and the way work gets done.",
     offers: [
       {
         name: "Custom Application Build",
         blurb:
-          "Bespoke internal applications that replace spreadsheets, manual handoffs, and disconnected tools with one system the team actually runs on.",
+          "Custom tools for jobs your current software cannot handle well. Keep the right facts and next steps in one place so work is easier to track.",
         href: "/book-a-call",
         cta: "Discuss a build",
       },
       {
         name: "AI Agent Build",
         blurb:
-          "Production AI agents scoped to a specific workflow — responsibilities, prompts, guardrails, handoffs, and escalation paths that support the operator instead of replacing judgment.",
+          "AI given a clear task, approved sources, and limits. We define when a person must check its work or take over.",
         href: "/agents",
         cta: "See agent systems",
       },
       {
         name: "ResponseOS Revenue Recovery System",
         blurb:
-          "A diagnostic-led managed implementation for demand capture, qualification, routing, follow-up, booking, escalation, attribution, and reporting. Voice can be one capability when the workflow requires it.",
+          "A system for capturing leads, checking their needs, routing them, and following up. Booking, call handling, and reports are scoped to fit the gap we find.",
         href: "/agents/responseos",
         cta: "Explore ResponseOS",
       },
@@ -106,12 +106,12 @@ const STAGES: Stage[] = [
     step: "04",
     stage: "Operate",
     intro:
-      "Once the system is live, the work shifts to running it, optimizing it, and deciding what to build next.",
+      "Keep the system useful as your team and business change.",
     offers: [
       {
         name: "Managed Intelligence",
         blurb:
-          "Ongoing monitoring, reporting, optimization, business-memory maintenance, and decision support after implementation, with defined support and change boundaries.",
+          "Check how the system works, keep shared rules up to date, and improve the parts that need attention. Support and changes have an agreed scope.",
         href: "/book-a-call",
         cta: "Book a call",
       },
@@ -125,14 +125,14 @@ const ADVANCED: Offer[] = [
   {
     name: "Founder Intelligence Diagnostic",
     blurb:
-      "The deep operating diagnostic that maps the full Founder Intelligence System — revenue and operating leaks across follow-up, CRM, attribution, and business memory.",
+      "A deeper review of where leads, jobs, and decisions get stuck. We look at follow-up, customer records, shared knowledge, and what your reports can tell you.",
     href: "/founder-intelligence/diagnostic",
     cta: "Request the diagnostic",
   },
   {
     name: "Founder Intelligence System",
     blurb:
-      "The full installed operating intelligence layer across revenue, ops, AI, and reporting — connected into one system you can see and run.",
+      "For founder-led service businesses: connect the team's work, customer records, shared knowledge, AI, and reports. Set clear owners and a way to check results.",
     href: "/founder-intelligence",
     cta: "Explore the system",
   },
@@ -162,17 +162,16 @@ export default function SolutionsPage() {
           <div className="max-w-[var(--copy-max)]">
             <Eyebrow>What AJ Digital Builds</Eyebrow>
             <h1 className="mt-5 t-h1 text-balance text-fg-0">
-              Founder Intelligence Systems — diagnosed, architected, and
-              installed.
+              Fix the gaps that cost you time and sales.
             </h1>
             <p className="mt-6 t-lead text-fg-2">
-              One commercial path for founder-led service businesses. Start free,
-              audit the operation, architect the blueprint, build only what it
-              prescribes, then operate the system as it compounds.
+              Missed leads, stuck jobs, and repeat work can have different causes.
+              We help founder-led service businesses find the first issue to
+              fix, agree on a plan, and build what the team needs.
             </p>
             <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-              <ButtonLink href={ctaLinks.signalDiagnostic} variant="glow">
-                Start the Diagnostic
+              <ButtonLink href="/founder-intelligence/diagnostic" variant="glow">
+                Request a Diagnostic
               </ButtonLink>
               <ButtonLink href="/book-a-call" variant="secondary">
                 Book a Call
@@ -242,13 +241,12 @@ export default function SolutionsPage() {
           <div className="max-w-3xl">
             <Eyebrow>Advanced · Validation Program</Eyebrow>
             <h2 className="mt-4 t-h2 text-balance text-fg-0">
-              The full Founder Intelligence System.
+              A connected system for founder-led service businesses.
             </h2>
             <p className="mt-5 t-body-lg text-fg-2">
-              These are delivered as a validation program — scoped and built per
-              engagement, not sold as off-the-shelf commodity products. They are
-              where the audit, blueprint, and builds come together into one
-              operating layer.
+              These projects are part of a validation program. Each has an agreed
+              scope and checks for success. We connect the parts of your business
+              that need to work together, then test the result with your team.
             </p>
           </div>
 
@@ -277,15 +275,16 @@ export default function SolutionsPage() {
         <div className="mx-auto max-w-[1280px] px-5 text-center sm:px-8">
           <Eyebrow>Start here</Eyebrow>
           <h2 className="mx-auto mt-4 max-w-3xl t-h2 text-balance text-fg-0">
-            Start with the audit. Build only what it prescribes.
+            Start with the issue that hurts most.
           </h2>
           <p className="mx-auto mt-5 max-w-[var(--copy-max)] t-body-lg text-fg-2">
-            The AI Operations Audit gives us the operating-system map before any
-            build is scoped. See how the offers ladder, or review pricing.
+            Tell us where work gets stuck. We will review your request and
+            discuss the next step if there is a fit. Scope and price are agreed
+            before paid work starts.
           </p>
           <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <ButtonLink href={ctaLinks.signalDiagnostic} variant="glow">
-              Start the Diagnostic
+            <ButtonLink href="/founder-intelligence/diagnostic" variant="glow">
+              Request a Diagnostic
             </ButtonLink>
             <ButtonLink href="/pricing" variant="secondary">
               View Pricing

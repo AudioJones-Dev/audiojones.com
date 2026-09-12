@@ -7,30 +7,33 @@ import { faqJsonLd } from "@/lib/seo/schema";
 // everyday terms, then names the framework — not the other way around.
 const HOME_FAQS = [
   {
-    question: "What does Audio Jones actually do?",
-    answer:
-      "We help service businesses stop losing revenue to missed calls, slow follow-up, and not knowing which marketing actually works. Then we build the system that keeps those gaps closed.",
+    "question": "What does Audio Jones do?",
+    "answer": "Audio Jones helps founders find where work breaks down and what to fix first. AJ Digital builds the agreed workflows, tools, and reporting. The aim is to lose fewer leads, cut repeat work, and help the team act without waiting on the founder."
   },
   {
-    question: "What is a Founder Intelligence System?",
-    answer:
-      "It is the system we build. It connects your follow-up, CRM, and reporting so you can see where revenue is leaking and what to fix next — instead of guessing.",
+    "question": "Who is this for?",
+    "answer": "Founder-led service businesses with steady leads or repeat work. It fits teams that miss follow-ups, lose track of jobs, or rely on the owner for each next step. You do not need to know which tool to buy."
   },
   {
-    question: "Who is this for?",
-    answer:
-      "Founder-led service and trades businesses, where leads come in by phone and form, follow-up is inconsistent, and no one is sure which marketing is paying off.",
+    "question": "What is a Founder Intelligence System?",
+    "answer": "Founder Intelligence Systems for founder-led service businesses connect team tasks, customer records, shared knowledge, and reports. A customer relationship management system, or CRM, keeps track of leads and clients. Business memory keeps the rules and steps your team agrees to use."
   },
   {
-    question: "How is this different from an agency or more software?",
-    answer:
-      "An agency runs more campaigns. Software adds another tool to manage. We fix the system underneath, so the leads you already get stop slipping away — before you spend more to get more.",
+    "question": "What is a business diagnostic?",
+    "answer": "A diagnostic is a close look at how your business works. We trace the steps, find where time or sales are lost, and agree on the first issue to fix. An online request starts the review. It is not the full diagnostic or an instant report."
   },
   {
-    question: "Where do I start?",
-    answer:
-      "With a diagnostic. We map where your business is losing revenue and attention, then show you the single highest-leverage fix to make next.",
+    "question": "Do I need AI or new software?",
+    "answer": "That depends on the gap. A clear owner or a shared checklist may be enough. If you need AI or new tools, we define their job, limits, and checks before a build starts."
   },
+  {
+    "question": "What happens when I request a diagnostic?",
+    "answer": "You answer six steps about your business, tools, and goals. Audio Jones reviews your request. If there is a strong fit, the next step is a conversation about scope. Any paid work is agreed before it starts."
+  },
+  {
+    "question": "Can you guarantee more sales?",
+    "answer": "No. Results depend on demand, your offer, the data, and how your team uses the system. We agree on what to measure and check progress against that starting point."
+  }
 ];
 
 export default function HomeFaqSection() {
