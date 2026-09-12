@@ -293,6 +293,20 @@ test("local development still falls back to mock so the form is workable", async
   );
 });
 
+// `vercel dev` sets VERCEL_ENV=development for a local session. That is a
+// developer's machine, not a deployment, so the documented mock fallback still
+// applies — otherwise the footer form rejects every signup during local work.
+test("vercel dev counts as local, so an unset provider falls back to mock", async () => {
+  await withEnv({ ...CLEAN, NODE_ENV: "development", VERCEL_ENV: "development" }, () =>
+    withFetch(unreachable, async (calls) => {
+      const result = await getNewsletterAdapter().subscribe(input, ctx);
+      assert.equal(result.ok, true);
+      assert.equal(result.ok === true && result.provider, "mock");
+      assert.equal(calls.length, 0);
+    }),
+  );
+});
+
 // ─── neon ────────────────────────────────────────────────────────────────────
 
 // Choosing neon without a database refuses everywhere, local development
