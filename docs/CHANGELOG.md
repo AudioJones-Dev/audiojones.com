@@ -16,6 +16,43 @@ Entries are reverse chronological. Format follows
 ## Unreleased
 
 ### Security
+- Decoupled the dependency audit from the admin-key gate in
+  `.github/workflows/infrastructure-hardening.yml`. `Run Security Audit`
+  (`pnpm audit --audit-level high --prod`) lived in the `Security Scan` job,
+  which needed `Critical Route Testing`, which is gated on
+  `secrets.ADMIN_KEY` being present. That secret is not configured, so route
+  testing skipped, `Security Scan` skipped transitively, and the audit had
+  never run on a pull request — verified on #257 and #258, both showing
+  "Security Scan / skipping". The audit now runs as its own `Dependency Audit`
+  job with no `needs`, so it executes on every PR (forks included), every
+  push to `main`, and the daily schedule. It needs no install step:
+  `pnpm audit` resolves the tree from `pnpm-lock.yaml`. `Test Authentication
+  Endpoints` genuinely needs the key and a deployed URL, so it stays behind the
+  gate; `Security Scan` now covers only that.
+
+  **The restored gate fails today, and that is the intended signal.** The audit
+  reports 11 high advisories across 6 production packages, every one of them
+  transitive and every one with a published patch:
+
+  | Package | Depth | Advisories | Patched |
+  | --- | --- | --- | --- |
+  | `browserslist` | `next > styled-jsx > @babel/core` | GHSA-c83g-rgw3-j3cx, GHSA-73wf-gq98-2v4g | >=4.28.7 |
+  | `nanoid` | `next > postcss` | GHSA-2v37-7h3g-55p8 | >=3.3.18 |
+  | `brace-expansion` | `next-sanity > sanity > @sanity/cli > @oclif/core > minimatch` | GHSA-3jxr-9vmj-r5cp, GHSA-mh99-v99m-4gvg, GHSA-rgw5-rvv9-x895 | >=5.0.9 |
+  | `js-yaml` | `next-sanity > sanity > @sanity/cli > @vercel/frameworks` | GHSA-52cp-r559-cp3m, GHSA-5p4m-2wfm-xmqj, GHSA-2883-xcg3-v3hh | >=3.15.2 |
+  | `undici` | `next-sanity > sanity > @portabletext/sanity-bridge > @sanity/schema > get-it` | GHSA-4cwx-7wf7-3272 | >=7.29.0 |
+  | `adm-zip` | `next-sanity > sanity > @sanity/cli > @sanity/runtime-cli` | GHSA-xcpc-8h2w-3j85 | >=0.6.0 |
+
+  These are DoS/crash-class, consistent with the triage recorded for #248. No
+  `ignoreGhsas` suppression was added: the repo already resolves transitive
+  advisories with `overrides` in `pnpm-workspace.yaml`, so suppression would
+  hide a fixable problem. The overrides are a separate dependency change,
+  deliberately kept out of this CI-only diff.
+
+  Noted while auditing: the existing `undici@7: "7.28.0"` override in
+  `pnpm-workspace.yaml` pins directly into the vulnerable range for
+  GHSA-4cwx-7wf7-3272 (`>=7.0.0 <7.29.0`). The override intended to fix undici
+  is currently what holds it back.
 - Upgraded `next` 16.2.6 → 16.3.4 and `sharp` 0.35.0 → 0.35.4, closing 11
   advisories against `next` and 2 against `sharp`. Two of the `next`
   advisories are critical and unauthenticated RCE:
