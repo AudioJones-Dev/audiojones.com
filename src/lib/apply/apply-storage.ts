@@ -72,6 +72,20 @@ export interface ApplyAdapter {
   submit(input: ApplyInput, ctx: ApplySubmitContext): Promise<ApplyResult>;
 }
 
+// Applicant emails must not reach the logs in full. Module-local for the same
+// reason the equivalents in src/lib/roi-calculator/roi-calculator-storage.ts
+// and src/lib/newsletter/newsletter-storage.ts are: a log helper is not worth
+// a shared import.
+//
+// The middle is `.*`, not the `.+` those two use. With `.+` the pattern needs
+// at least one character between the first and the `@`, so a single-character
+// local part — `a@b.com`, valid and real — matches nothing and is logged
+// verbatim, which is the leak this function exists to prevent. Output is
+// identical for every longer address.
+function redactEmail(email: string): string {
+  return email.replace(/(.).*(@.+)/, "$1•••$2");
+}
+
 // ─── Mock adapter ────────────────────────────────────────────────────────────
 
 const mockAdapter: ApplyAdapter = {
@@ -79,7 +93,7 @@ const mockAdapter: ApplyAdapter = {
     // Redact obvious PII from the console log so dev-tools history is safer.
     const summary = {
       firstName: input.firstName,
-      email: input.email.replace(/(.).+(@.+)/, "$1•••$2"),
+      email: redactEmail(input.email),
       companyName: input.companyName,
       revenue: input.annualRevenueRange,
       timeline: input.timeline,
@@ -148,7 +162,7 @@ const neonAdapter: ApplyAdapter = {
       // tables and constraints.
       console.error("[apply] failed to persist submission", {
         error: err instanceof Error ? err.message : String(err),
-        email: input.email,
+        email: redactEmail(input.email),
         offer: input.offer,
       });
       return {
@@ -170,7 +184,7 @@ const neonAdapter: ApplyAdapter = {
 const misconfiguredAdapter: ApplyAdapter = {
   async submit(input) {
     console.error("[apply] rejecting submission: provider is neon but DATABASE_URL is unset", {
-      email: input.email,
+      email: redactEmail(input.email),
       offer: input.offer,
     });
     return {
@@ -187,7 +201,7 @@ function refusingAdapter(reason: string): ApplyAdapter {
   return {
     async submit(input) {
       console.error(`[apply] rejecting submission: ${reason}`, {
-        email: input.email,
+        email: redactEmail(input.email),
         offer: input.offer,
       });
       return {
