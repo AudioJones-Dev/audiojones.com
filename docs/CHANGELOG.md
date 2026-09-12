@@ -16,6 +16,26 @@ Entries are reverse chronological. Format follows
 ## Unreleased
 
 ### Security
+- `requireAdmin` now compares the `admin-key` / `x-admin-key` header against
+  `ADMIN_KEY` with the constant-time `isAdminKey` helper from
+  `src/lib/server/adminSession.ts`, replacing a plain `!==` string compare
+  that short-circuited on the first differing byte and so leaked the key's
+  *prefix* through response timing. This covers the 70 route files under
+  `/api/admin/*` that call the helper, plus the portal's `/api/_proxy/admin`
+  path. Two limits are deliberate and worth stating plainly:
+  - Key **length** is still observable. `timingSafeEqual` throws on
+    unequal-length buffers, so `safeEqual` compares lengths first and returns
+    early. Closing that means hashing both sides to a fixed width before
+    comparing — a separate change, not made here.
+  - Five `/api/admin/status-webhooks/*` handlers (`deliveries`, `retry`,
+    `stats`, and both `targets` routes) do **not** use `requireAdmin`; they
+    compare inline against `process.env.ADMIN_KEY` and retain the prefix-timing
+    behaviour described above. They are not fixed by this change.
+
+  No key rotation is required — the stored value is unchanged, only how it is
+  checked.
+
+### Security
 - Upgraded `next` 16.2.6 → 16.3.4 and `sharp` 0.35.0 → 0.35.4, closing 11
   advisories against `next` and 2 against `sharp`. Two of the `next`
   advisories are critical and unauthenticated RCE:
