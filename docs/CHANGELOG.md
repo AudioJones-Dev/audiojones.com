@@ -15,6 +15,21 @@ Entries are reverse chronological. Format follows
 
 ## Unreleased
 
+### Docs
+- Three Business Memory commercial decisions drafted into
+  [`docs/DECISIONS.md`](./DECISIONS.md) as **proposed, not accepted**: a
+  $4,000/month minimum for managed dedicated deployments, a 12-month M5
+  commitment billed monthly with a 30-day notice period, and an
+  implementation-fee policy establishing that the §BM.2 one-time prices *are*
+  the implementation charge and that no generic `setup_fee` field may sit
+  beside them. Acceptance is the owner's; nothing propagates before it.
+- Each entry carries a **Propagation** block naming what it would change in
+  `src/content/offers.ts` and in the matrix, and why neither can happen yet:
+  the matrix is in a separate repository, and the registry offers these would
+  bind to (`managed-intelligence`, `founder-intelligence-system`) are the ones
+  crosswalk entries **C-3** and **C-2** are about — both still open, both
+  already annotated in the registry's own comments. C-1 is untouched.
+
 ### Security
 - `requireAdmin` now compares the `admin-key` / `x-admin-key` header against
   `ADMIN_KEY` with the constant-time `isAdminKey` helper from
