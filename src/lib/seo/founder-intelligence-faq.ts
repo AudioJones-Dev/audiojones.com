@@ -4,16 +4,16 @@ export const founderIntelligenceFaqs: FaqItem[] = [
   {
     question: "What is a Founder Intelligence System?",
     answer:
-      "A Founder Intelligence System connects follow-up, CRM, attribution, reporting, and business memory so a founder can see where revenue is leaking and what to fix next.",
+      "Founder Intelligence Systems for founder-led service businesses connect team tasks, customer records, shared knowledge, and reports. They help you see where work gets stuck and what to fix next.",
   },
   {
     question: "Who is this for?",
     answer:
-      "It is for founder-led service businesses with fragmented communication, inconsistent follow-up, weak CRM hygiene, and limited visibility into revenue movement.",
+      "It is for founder-led service businesses with regular leads or repeat work. Follow-up gets missed, jobs get stuck, or the team needs the founder for each next step.",
   },
   {
     question: "What happens after the diagnostic?",
     answer:
-      "AJ Digital reviews the operational gaps, identifies the highest-leverage system fix, and recommends the next step.",
+      "We review the gaps and agree on the first issue to fix. Any build has its own scope, price, and measures of success.",
   },
 ];
