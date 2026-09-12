@@ -8,10 +8,16 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { getNewsletterAdapter } from "../src/lib/newsletter/newsletter-storage";
+import {
+  createNeonAdapter,
+  getNewsletterAdapter,
+  type NewsletterStore,
+} from "../src/lib/newsletter/newsletter-storage";
+import type { MailerLiteSyncOutcome } from "../src/lib/newsletter/newsletter-row";
 import type { NewsletterInput } from "../src/lib/newsletter/newsletter-schema";
 
 const input: NewsletterInput = { email: "dana@example.com", source: "footer" };
+const ctx = { ipHash: "abc123", userAgent: "test-agent" };
 
 const PRODUCTION = { NODE_ENV: "production", VERCEL_ENV: "production" };
 const PREVIEW = { NODE_ENV: "production", VERCEL_ENV: "preview" };
@@ -20,6 +26,7 @@ const PREVIEW = { NODE_ENV: "production", VERCEL_ENV: "preview" };
 // the tests cannot change an outcome.
 const CLEAN = {
   NEWSLETTER_PROVIDER: undefined,
+  DATABASE_URL: undefined,
   MAILERLITE_TOKEN: undefined,
   MAILERLITE_API_KEY: undefined,
   MAILERLITE_GROUP_ID: undefined,
@@ -74,12 +81,12 @@ const unreachable = (): never => {
   throw new Error("unexpected network call");
 };
 
-for (const provider of [undefined, "", "mock", "neon"]) {
+for (const provider of [undefined, "", "mock", "convertkit"]) {
   const label = provider === undefined ? "unset" : `"${provider}"`;
   test(`production refuses a provider that subscribes nobody (${label})`, async () => {
     await withEnv({ ...CLEAN, ...PRODUCTION, NEWSLETTER_PROVIDER: provider }, () =>
       withFetch(unreachable, async (calls) => {
-        const result = await getNewsletterAdapter().subscribe(input);
+        const result = await getNewsletterAdapter().subscribe(input, ctx);
         assert.equal(result.ok, false, `${label} must not report success in production`);
         assert.equal(result.ok === false && result.code, "PROVIDER_ERROR");
         assert.equal(calls.length, 0);
@@ -99,7 +106,7 @@ test("production refuses NEXT_PUBLIC_MAILERLITE_DISABLED even with MailerLite co
     },
     () =>
       withFetch(unreachable, async (calls) => {
-        const result = await getNewsletterAdapter().subscribe(input);
+        const result = await getNewsletterAdapter().subscribe(input, ctx);
         assert.equal(result.ok, false);
         assert.equal(calls.length, 0);
       }),
@@ -113,7 +120,7 @@ test("production refuses mailerlite when only MAILERLITE_API_KEY is set", async 
     { ...CLEAN, ...PRODUCTION, NEWSLETTER_PROVIDER: "mailerlite", MAILERLITE_API_KEY: "test-key" },
     () =>
       withFetch(unreachable, async (calls) => {
-        const result = await getNewsletterAdapter().subscribe(input);
+        const result = await getNewsletterAdapter().subscribe(input, ctx);
         assert.equal(result.ok, false);
         assert.equal(result.ok === false && result.code, "PROVIDER_ERROR");
         assert.equal(calls.length, 0);
@@ -126,7 +133,7 @@ test("mailerlite without a token refuses even in local development", async () =>
     { ...CLEAN, NODE_ENV: "development", VERCEL_ENV: undefined, NEWSLETTER_PROVIDER: "mailerlite" },
     () =>
       withFetch(unreachable, async (calls) => {
-        const result = await getNewsletterAdapter().subscribe(input);
+        const result = await getNewsletterAdapter().subscribe(input, ctx);
         assert.equal(result.ok, false);
         assert.equal(calls.length, 0);
       }),
@@ -155,7 +162,7 @@ for (const [label, respond] of upstreamFailures) {
       { ...CLEAN, ...PRODUCTION, NEWSLETTER_PROVIDER: "mailerlite", MAILERLITE_TOKEN: "test-token" },
       () =>
         withFetch(respond, async (calls) => {
-          const result = await getNewsletterAdapter().subscribe(input);
+          const result = await getNewsletterAdapter().subscribe(input, ctx);
           assert.equal(calls.length, 1, "MailerLite must actually be called");
           assert.equal(result.ok, false, `${label} must not report success`);
           assert.equal(result.ok === false && result.code, "PROVIDER_ERROR");
@@ -177,7 +184,7 @@ test("production reports success only when MailerLite accepts the address", asyn
       withFetch(
         () => new Response(JSON.stringify({ data: { id: "ml-42" } }), { status: 201 }),
         async (calls) => {
-          const result = await getNewsletterAdapter().subscribe(input);
+          const result = await getNewsletterAdapter().subscribe(input, ctx);
           assert.equal(result.ok, true);
           assert.equal(result.ok === true && result.provider, "mailerlite");
           assert.equal(result.ok === true && result.id, "ml-42");
@@ -198,12 +205,12 @@ test("production reports success only when MailerLite accepts the address", asyn
 // Preview builds also run with NODE_ENV=production. An unchosen fallback must
 // still refuse there — a preview that says "Subscribed." while subscribing
 // nobody misleads whoever is testing the form.
-for (const provider of [undefined, "", "neon"]) {
+for (const provider of [undefined, "", "convertkit"]) {
   const label = provider === undefined ? "unset" : `"${provider}"`;
   test(`preview refuses an unchosen provider (${label})`, async () => {
     await withEnv({ ...CLEAN, ...PREVIEW, NEWSLETTER_PROVIDER: provider }, () =>
       withFetch(unreachable, async (calls) => {
-        const result = await getNewsletterAdapter().subscribe(input);
+        const result = await getNewsletterAdapter().subscribe(input, ctx);
         assert.equal(result.ok, false, `${label} must not report success on a preview`);
         assert.equal(calls.length, 0);
       }),
@@ -222,7 +229,7 @@ for (const [label, env] of chosenMocks) {
   test(`preview allows a deliberately chosen mock (${label})`, async () => {
     await withEnv({ ...CLEAN, ...PREVIEW, ...env }, () =>
       withFetch(unreachable, async (calls) => {
-        const result = await getNewsletterAdapter().subscribe(input);
+        const result = await getNewsletterAdapter().subscribe(input, ctx);
         assert.equal(result.ok, true);
         assert.equal(result.ok === true && result.provider, "mock");
         assert.equal(calls.length, 0);
@@ -237,7 +244,7 @@ test("non-Vercel production refuses mock", async () => {
     { ...CLEAN, NODE_ENV: "production", VERCEL_ENV: undefined, NEWSLETTER_PROVIDER: "mock" },
     () =>
       withFetch(unreachable, async () => {
-        const result = await getNewsletterAdapter().subscribe(input);
+        const result = await getNewsletterAdapter().subscribe(input, ctx);
         assert.equal(result.ok, false);
       }),
   );
@@ -255,7 +262,7 @@ test("a refusal never leaks configuration or MailerLite's response", async () =>
   for (const [label, env, respond] of cases) {
     await withEnv({ ...CLEAN, ...PRODUCTION, ...env }, () =>
       withFetch(respond, async () => {
-        const result = await getNewsletterAdapter().subscribe(input);
+        const result = await getNewsletterAdapter().subscribe(input, ctx);
         assert.equal(result.ok, false);
         const message = result.ok === false ? result.error : "";
         for (const leak of [
@@ -278,10 +285,162 @@ test("a refusal never leaks configuration or MailerLite's response", async () =>
 test("local development still falls back to mock so the form is workable", async () => {
   await withEnv({ ...CLEAN, NODE_ENV: "development", VERCEL_ENV: undefined }, () =>
     withFetch(unreachable, async (calls) => {
-      const result = await getNewsletterAdapter().subscribe(input);
+      const result = await getNewsletterAdapter().subscribe(input, ctx);
       assert.equal(result.ok, true);
       assert.equal(result.ok === true && result.provider, "mock");
       assert.equal(calls.length, 0);
     }),
   );
+});
+
+// ─── neon ────────────────────────────────────────────────────────────────────
+
+// Choosing neon without a database refuses everywhere, local development
+// included: falling back to mock would hide the missing DATABASE_URL.
+const environments: [string, Record<string, string | undefined>][] = [
+  ["production", PRODUCTION],
+  ["preview", PREVIEW],
+  ["local development", { NODE_ENV: "development", VERCEL_ENV: undefined }],
+];
+
+for (const [label, env] of environments) {
+  test(`neon without DATABASE_URL is refused (${label})`, async () => {
+    await withEnv(
+      { ...CLEAN, ...env, NEWSLETTER_PROVIDER: "neon", MAILERLITE_TOKEN: "test-token" },
+      () =>
+        withFetch(unreachable, async (calls) => {
+          const result = await getNewsletterAdapter().subscribe(input, ctx);
+          assert.equal(result.ok, false);
+          assert.equal(result.ok === false && result.code, "PROVIDER_ERROR");
+          assert.equal(calls.length, 0);
+        }),
+    );
+  });
+}
+
+// With a DATABASE_URL the selector hands back the real store, whose
+// "server-only" import throws outside a server bundle. A test through it would
+// pass as a refusal for the wrong reason, so the save-then-sync sequence is
+// driven through createNeonAdapter with an in-memory store instead.
+type StoreEvent =
+  | { event: "save"; email: string }
+  | { event: "recordSync"; id: string; outcome: MailerLiteSyncOutcome };
+
+function memoryStore(log: StoreEvent[], overrides: Partial<NewsletterStore> = {}): NewsletterStore {
+  return {
+    async save(subscriber) {
+      log.push({ event: "save", email: subscriber.email });
+      return { id: "row-1" };
+    },
+    async recordSync(id, outcome) {
+      log.push({ event: "recordSync", id, outcome });
+    },
+    ...overrides,
+  };
+}
+
+const lastEvent = (log: StoreEvent[]) => log[log.length - 1];
+
+test("neon saves the row before MailerLite is called, then records the acceptance", async () => {
+  await withEnv(
+    { ...CLEAN, ...PRODUCTION, MAILERLITE_TOKEN: "test-token", MAILERLITE_GROUP_ID: "group-1" },
+    async () => {
+      const log: StoreEvent[] = [];
+      let savesWhenMailerLiteCalled = -1;
+      await withFetch(
+        () => {
+          savesWhenMailerLiteCalled = log.filter((e) => e.event === "save").length;
+          return new Response(JSON.stringify({ data: { id: "ml-42" } }), { status: 201 });
+        },
+        async (calls) => {
+          const result = await createNeonAdapter(memoryStore(log)).subscribe(input, ctx);
+
+          assert.equal(result.ok, true);
+          assert.equal(result.ok === true && result.provider, "neon");
+          assert.equal(result.ok === true && result.id, "row-1");
+
+          assert.equal(savesWhenMailerLiteCalled, 1, "the row must exist before MailerLite is called");
+          assert.equal(calls.length, 1);
+          assert.equal(new Headers(calls[0].init?.headers).get("authorization"), "Bearer test-token");
+          assert.deepEqual(lastEvent(log), {
+            event: "recordSync",
+            id: "row-1",
+            outcome: { status: "synced", subscriberId: "ml-42" },
+          });
+        },
+      );
+    },
+  );
+});
+
+// Under mailerlite each of these refuses the signup. Under neon the row is
+// already saved, so the visitor's answer stands and the failure is recorded on
+// the row for replay.
+for (const [label, respond] of upstreamFailures) {
+  test(`neon keeps a saved signup when MailerLite fails, and records it (${label})`, async () => {
+    await withEnv({ ...CLEAN, ...PRODUCTION, MAILERLITE_TOKEN: "test-token" }, async () => {
+      const log: StoreEvent[] = [];
+      await withFetch(respond, async (calls) => {
+        const result = await createNeonAdapter(memoryStore(log)).subscribe(input, ctx);
+        assert.equal(calls.length, 1, "MailerLite must actually be called");
+        assert.equal(result.ok, true, "the row is saved, so the signup stands");
+        const last = lastEvent(log);
+        assert.equal(last?.event === "recordSync" && last.outcome.status, "failed");
+      });
+    });
+  });
+}
+
+test("neon without MAILERLITE_TOKEN saves the row and marks it skipped", async () => {
+  await withEnv({ ...CLEAN, ...PRODUCTION }, async () => {
+    const log: StoreEvent[] = [];
+    await withFetch(unreachable, async (calls) => {
+      const result = await createNeonAdapter(memoryStore(log)).subscribe(input, ctx);
+      assert.equal(result.ok, true);
+      assert.equal(calls.length, 0);
+      assert.deepEqual(log, [
+        { event: "save", email: input.email },
+        { event: "recordSync", id: "row-1", outcome: { status: "skipped" } },
+      ]);
+    });
+  });
+});
+
+test("neon refuses when the row cannot be saved, and never calls MailerLite", async () => {
+  await withEnv({ ...CLEAN, ...PRODUCTION, MAILERLITE_TOKEN: "test-token" }, async () => {
+    const log: StoreEvent[] = [];
+    const store = memoryStore(log, {
+      async save() {
+        throw new Error('relation "newsletter_subscribers" does not exist');
+      },
+    });
+    await withFetch(unreachable, async (calls) => {
+      const result = await createNeonAdapter(store).subscribe(input, ctx);
+      assert.equal(result.ok, false);
+      assert.equal(result.ok === false && result.code, "PROVIDER_ERROR");
+      assert.equal(calls.length, 0);
+      assert.equal(log.length, 0);
+      const message = result.ok === false ? result.error : "";
+      for (const leak of ["newsletter_subscribers", "relation", "Neon", "DATABASE_URL"]) {
+        assert.ok(!message.includes(leak), `caller-facing error must not mention ${leak}`);
+      }
+    });
+  });
+});
+
+test("failing to record the sync result does not undo a saved signup", async () => {
+  await withEnv({ ...CLEAN, ...PRODUCTION, MAILERLITE_TOKEN: "test-token" }, async () => {
+    const store = memoryStore([], {
+      async recordSync() {
+        throw new Error("connection reset");
+      },
+    });
+    await withFetch(
+      () => new Response(JSON.stringify({ data: { id: "ml-42" } }), { status: 201 }),
+      async () => {
+        const result = await createNeonAdapter(store).subscribe(input, ctx);
+        assert.equal(result.ok, true);
+      },
+    );
+  });
 });
