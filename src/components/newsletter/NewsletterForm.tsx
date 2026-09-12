@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { getUtmForForm } from "@/lib/analytics/attribution";
+import { trackEvent } from "@/lib/analytics/events";
 import { Button } from "@/components/ui/Button";
 import { FormField } from "@/components/ui/FormField";
 import { Input } from "@/components/ui/Input";
@@ -46,17 +48,10 @@ export default function NewsletterForm({
   const [submitting, setSubmitting] = useState(false);
   const [submittedEmail, setSubmittedEmail] = useState<string | null>(null);
 
-  // UTM passthrough on mount
+  // Persisted first-touch attribution on mount; see lib/analytics/attribution.
   useEffect(() => {
     if (!searchParams) return;
-    setForm((f) => ({
-      ...f,
-      utmSource: searchParams.get("utm_source") ?? undefined,
-      utmMedium: searchParams.get("utm_medium") ?? undefined,
-      utmCampaign: searchParams.get("utm_campaign") ?? undefined,
-      utmTerm: searchParams.get("utm_term") ?? undefined,
-      utmContent: searchParams.get("utm_content") ?? undefined,
-    }));
+    setForm((f) => ({ ...f, ...getUtmForForm() }));
   }, [searchParams]);
 
   if (submittedEmail) {
@@ -92,6 +87,7 @@ export default function NewsletterForm({
         setSubmitting(false);
         return;
       }
+      trackEvent("newsletter_subscribe");
       setSubmittedEmail(parsed.data.email);
     } catch {
       setError("Network error. Please try again in a moment.");

@@ -6,6 +6,8 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import JaviChatWidget from "@/components/javi/JaviChatWidget";
 import { ToastProvider } from "@/components/Toast";
+import AnalyticsScripts from "@/components/analytics/AnalyticsScripts";
+import AttributionListener from "@/components/analytics/AttributionListener";
 import { siteConfig } from "@/lib/site";
 
 // Brand 2.0 typography (§03) — Syne for display/headers,
@@ -81,6 +83,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={`${syne.variable} ${dmSans.variable} ${dmMono.variable}`}
     >
       <body className="bg-bg-base text-text-primary font-body antialiased">
+        <AnalyticsScripts />
+        <AttributionListener />
         <ToastProvider>
           <Header />
           <main className="min-h-screen overflow-x-clip pt-20">{children}</main>

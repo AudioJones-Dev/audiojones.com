@@ -8,6 +8,8 @@ import {
   REVENUE_RANGES,
   TIMELINE_OPTIONS,
 } from "@/lib/leads/lead-schema";
+import { getUtmForForm } from "@/lib/analytics/attribution";
+import { trackLeadConversion } from "@/lib/analytics/events";
 
 type FormState = {
   firstName: string;
@@ -96,16 +98,6 @@ const STEPS = [
   "Submit",
 ] as const;
 
-function tracker(searchParams: URLSearchParams) {
-  return {
-    utmSource: searchParams.get("utm_source") || undefined,
-    utmMedium: searchParams.get("utm_medium") || undefined,
-    utmCampaign: searchParams.get("utm_campaign") || undefined,
-    utmTerm: searchParams.get("utm_term") || undefined,
-    utmContent: searchParams.get("utm_content") || undefined,
-  };
-}
-
 export default function DiagnosticForm() {
   const router = useRouter();
   const [step, setStep] = useState(0);
@@ -116,7 +108,8 @@ export default function DiagnosticForm() {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    setUtm(tracker(new URLSearchParams(window.location.search)));
+    // Persisted first-touch attribution; see lib/analytics/attribution.
+    setUtm(getUtmForForm());
   }, []);
 
   const update = <K extends keyof FormState>(key: K, value: FormState[K]) =>
@@ -155,6 +148,7 @@ export default function DiagnosticForm() {
       if (!res.ok || !data.ok) {
         throw new Error(data?.message || data?.error || "Submission failed.");
       }
+      trackLeadConversion({ formType: "founder_intelligence_diagnostic" });
       router.push("/founder-intelligence/diagnostic/thank-you");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Submission failed.");

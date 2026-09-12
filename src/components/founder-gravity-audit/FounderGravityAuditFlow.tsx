@@ -12,6 +12,7 @@ import {
   SEGMENT_PREVIEW_COPY,
 } from "@/lib/founder-gravity-audit/content";
 import { scoreFounderGravityAudit } from "@/lib/founder-gravity-audit/scoring";
+import { getUtmForForm } from "@/lib/analytics/attribution";
 import type {
   FounderGravityAttribution,
   FounderGravityResult,
@@ -69,17 +70,18 @@ function stageLabel(stage: string) {
 
 function getAttribution(): FounderGravityAttribution {
   if (typeof window === "undefined") return {};
-  const params = new URLSearchParams(window.location.search);
+  // Persisted first-touch attribution; see lib/analytics/attribution.
+  const a = getUtmForForm();
   return {
-    acquisitionChannel: params.get("utm_medium") || params.get("utm_source") || "direct",
+    acquisitionChannel: a.utmMedium || a.utmSource || "direct",
     sourcePage: "/founder-gravity-audit/diagnostic",
     referrer: document.referrer || undefined,
     landingPath: window.location.pathname + window.location.search,
-    utmSource: params.get("utm_source") || undefined,
-    utmMedium: params.get("utm_medium") || undefined,
-    utmCampaign: params.get("utm_campaign") || undefined,
-    utmTerm: params.get("utm_term") || undefined,
-    utmContent: params.get("utm_content") || undefined,
+    utmSource: a.utmSource,
+    utmMedium: a.utmMedium,
+    utmCampaign: a.utmCampaign,
+    utmTerm: a.utmTerm,
+    utmContent: a.utmContent,
   };
 }
 
