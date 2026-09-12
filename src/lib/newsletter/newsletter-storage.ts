@@ -170,11 +170,16 @@ const isRealProduction = () =>
   process.env.VERCEL_ENV === "production" ||
   (!process.env.VERCEL_ENV && process.env.NODE_ENV === "production");
 
-// `isHosted` — any deployed environment, preview included. A preview that
-// says "Subscribed." while subscribing nobody misleads whoever is testing the
-// form as effectively as production would.
+// `isHosted` — a real deployment, preview included. A preview that says
+// "Subscribed." while subscribing nobody misleads whoever is testing the
+// form as effectively as production would. Only preview and production
+// count: `vercel dev` sets VERCEL_ENV=development for a local session, and a
+// developer machine must still get the documented mock fallback. The
+// NODE_ENV fallback covers hosting that sets no VERCEL_ENV.
 const isHosted = () =>
-  Boolean(process.env.VERCEL_ENV) || process.env.NODE_ENV === "production";
+  process.env.VERCEL_ENV === "preview" ||
+  process.env.VERCEL_ENV === "production" ||
+  (!process.env.VERCEL_ENV && process.env.NODE_ENV === "production");
 
 // Warn once per cold start per condition, so a misconfigured deploy leaves one
 // visible signal rather than a line per submission. Each refused subscription
