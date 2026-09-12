@@ -46,8 +46,8 @@ Entries are reverse chronological. Format follows
   These are DoS/crash-class, consistent with the triage recorded for #248. No
   `ignoreGhsas` suppression was added: the repo already resolves transitive
   advisories with `overrides` in `pnpm-workspace.yaml`, so suppression would
-  hide a fixable problem. The overrides are a separate dependency change,
-  deliberately kept out of this CI-only diff.
+  hide a fixable problem. The overrides land separately in #260, which takes
+  the audit to zero high; they are deliberately kept out of this CI-only diff.
 
   Noted while auditing: the existing `undici@7: "7.28.0"` override in
   `pnpm-workspace.yaml` pins directly into the vulnerable range for
