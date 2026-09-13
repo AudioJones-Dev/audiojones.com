@@ -25,11 +25,15 @@ function hash(value: string | null | undefined) {
   return createHash("sha256").update(`${value}:${salt}`).digest("hex");
 }
 
-// `.*`, not `.+`: with `.+` the pattern needs a character between the first
-// and the `@`, so a single-character local part such as a@b.com matches
-// nothing and is logged verbatim. Output is identical for longer addresses.
-function redactEmail(email: string) {
-  return email.replace(/(.).*(@.+)/, "$1•••$2");
+// Redact an applicant address for logging (CWE-532). The whole local part
+// goes, not all-but-the-first-character: with a one-character local part —
+// `a@b.com`, `x@y.co.uk`, both valid and routable — keeping the first
+// character leaves nothing hidden, and the original address is fully
+// recoverable from the log. A string with no `@` is redacted entirely rather
+// than passed through, so a malformed value cannot slip out.
+function redactEmail(email: string): string {
+  const at = email.lastIndexOf("@");
+  return at === -1 ? "•••" : `•••${email.slice(at)}`;
 }
 
 export function getEmailHash(email: string) {
