@@ -25,8 +25,11 @@ function hash(value: string | null | undefined) {
   return createHash("sha256").update(`${value}:${salt}`).digest("hex");
 }
 
+// `.*`, not `.+`: with `.+` the pattern needs a character between the first
+// and the `@`, so a single-character local part such as a@b.com matches
+// nothing and is logged verbatim. Output is identical for longer addresses.
 function redactEmail(email: string) {
-  return email.replace(/(.).+(@.+)/, "$1•••$2");
+  return email.replace(/(.).*(@.+)/, "$1•••$2");
 }
 
 export function getEmailHash(email: string) {
