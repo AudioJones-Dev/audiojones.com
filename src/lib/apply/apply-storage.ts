@@ -72,18 +72,15 @@ export interface ApplyAdapter {
   submit(input: ApplyInput, ctx: ApplySubmitContext): Promise<ApplyResult>;
 }
 
-// Applicant emails must not reach the logs in full. Module-local for the same
-// reason the equivalents in src/lib/roi-calculator/roi-calculator-storage.ts
-// and src/lib/newsletter/newsletter-storage.ts are: a log helper is not worth
-// a shared import.
-//
-// The middle is `.*`, not the `.+` those two use. With `.+` the pattern needs
-// at least one character between the first and the `@`, so a single-character
-// local part — `a@b.com`, valid and real — matches nothing and is logged
-// verbatim, which is the leak this function exists to prevent. Output is
-// identical for every longer address.
+// Redact an applicant address for logging (CWE-532). The whole local part
+// goes, not all-but-the-first-character: with a one-character local part —
+// `a@b.com`, `x@y.co.uk`, both valid and routable — keeping the first
+// character leaves nothing hidden, and the original address is fully
+// recoverable from the log. A string with no `@` is redacted entirely rather
+// than passed through, so a malformed value cannot slip out.
 function redactEmail(email: string): string {
-  return email.replace(/(.).*(@.+)/, "$1•••$2");
+  const at = email.lastIndexOf("@");
+  return at === -1 ? "•••" : `•••${email.slice(at)}`;
 }
 
 // ─── Mock adapter ────────────────────────────────────────────────────────────

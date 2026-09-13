@@ -156,9 +156,11 @@ test("development still falls back to mock so the form is workable", async () =>
 // CodeRabbit on #251 against the refusal path, which had copied the pattern
 // from the pre-existing misconfigured-provider and persistence-failure logs.
 // These assertions cover the refusal path the provider selector can reach.
-// A single-character local part is a valid address. The pattern this codebase
-// used elsewhere needs a character between the first and the "@", so it left
-// such an address untouched — the exact leak redaction is meant to stop.
+// A single-character local part is a valid address, and the two patterns this
+// codebase used before both failed on it: `(.).+(@.+)` left the address
+// untouched, and `(.).*(@.+)` "redacted" a@b.com to a•••@b.com, which hides
+// nothing at all. The whole local part is masked, so no character of it can
+// appear in a log.
 for (const address of ["a@b.com", "x@y.co.uk", "dana@example.com"]) {
   test(`a refusal redacts the email ${address}`, async () => {
     const captured: string[] = [];
@@ -183,7 +185,20 @@ for (const address of ["a@b.com", "x@y.co.uk", "dana@example.com"]) {
     }
     const logged = captured.join("\n");
     assert.ok(!logged.includes(address), `raw address ${address} must not be logged; got: ${logged}`);
-    assert.ok(logged.includes("•••"), "a redacted form should still be logged");
+    // The leak this catches is a surviving first character in front of the
+    // mask: `(.).*(@.+)` turns a@b.com into a•••@b.com, which hides nothing.
+    // Checking for the bare local part would be meaningless — it is a single
+    // common letter that occurs throughout the log text.
+    const at = address.indexOf("@");
+    const domain = address.slice(at);
+    assert.ok(
+      !logged.includes(`${address[0]}•••${domain}`),
+      `the local part's first character survived in front of the mask; got: ${logged}`,
+    );
+    assert.ok(
+      logged.includes(`•••${domain}`),
+      `expected a fully masked local part before ${domain}; got: ${logged}`,
+    );
   });
 }
 
@@ -217,7 +232,7 @@ test("a refusal does not log the applicant's raw email", async () => {
     `the raw applicant email must not appear in logs; got: ${logged}`,
   );
   assert.ok(
-    logged.includes("d•••@example.com"),
+    logged.includes("•••@example.com"),
     "the redacted email should still be present so a failure can be traced",
   );
 });
