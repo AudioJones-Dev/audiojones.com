@@ -311,6 +311,104 @@ Whop account products and billing are unchanged. Existing webhook routes and
 their legacy persistence path are not repaired or certified by this removal.
 No deployment or external account change is authorized by this decision.
 
+## 2026-09-12 — Managed Business Memory carries a $4,000/month minimum for dedicated deployments
+
+**Status:** proposed — drafted into the register, **not accepted**. Acceptance is Audio's. No propagation to the published offer registry or to the pricing matrix may occur before it, and no proposal may quote these terms until then.
+
+**Decision (proposed):** Managed Business Memory (matrix M5) carries two commercial targets rather than one — $2,500/month for managed multi-tenant deployments, and a $4,000/month minimum for managed dedicated deployments, with heavier deployments moving toward the $5,000+ end of the established corridor.
+
+**Context:** M5's ratified corridor in `AJ-Digital-Master-Pricing-Matrix-2026-v1.3` is $1,500–$5,000+ with a target of $2,500/month. The $4,000 minimum sits inside that corridor and contradicts no ratified figure. What it changes is the *shape* of the row: a single target becomes a target plus a minimum indexed by deployment model, which is why it is recorded here rather than treated as an operating detail.
+
+The figure derives from measured unit economics. Managed dedicated carries a metered envelope of $450/month/tenant (model and inference $250, transcription $125, storage and egress $75), five support hours, and a separately tracked dedicated platform baseline of roughly $250. At $4,000 that is approximately $2,800 contribution, or 70%. Multi-tenant at $2,500 against a $275 envelope and four support hours is $1,825, or 73%. Pricing dedicated tenancy as though it cost the same as shared tenancy is what the minimum exists to prevent.
+
+**Propagation.** The 2026-09-08 rule requires a ratified decision to propagate to the published registry and the matrix in the same change, or be logged as an open `C-`. Two facts prevent a single change here, and both are stated rather than worked around:
+
+1. The matrix lives in `aj-digital-revops`, a separate repository, so no single change can span both. If this is accepted and the matrix update does not land alongside it, a temporary `C-` opens in the crosswalk and stays open until it does.
+2. The registry target is `managed-intelligence` in `src/content/offers.ts`, which today shows `From $2,500/month` with `evidenceStatus: "unratified"`. Its own comment records that the reconciliation gate "requires naming the exact managed service and its installed-system prerequisite before this can be placed; today the name spans several matrix scopes." That is crosswalk entry **C-3**, open. **This decision cannot reach the registry until C-3 resolves to M5.**
+
+On acceptance *and* C-3 resolution, the registry edit is: `managed-intelligence` gains a dedicated-deployment price alongside the multi-tenant display, and `evidenceStatus` flips from `unratified`. Those edits are client-facing and are deliberately not made by this entry.
+
+**Consequences:**
+
+- Client-owned dedicated deployments remain **unpriced**. That model carries four AJ-funded support hours — roughly $400/month at internal cost — and no monthly minimum, so its margin cannot be computed. It should not be quoted until a minimum is set.
+- A fifth internal accounting field, `dedicated_platform_cost`, is tracked per tenant alongside the four customer-facing ceilings. Without it a managed-dedicated tenant reads as profitable while its isolated database, compute, auth, observability and deployment footprint consumes the margin.
+- This decision prices a deployment model. It does not authorize one, and it does not resolve which matrix row the `managed-intelligence` offer maps to.
+
+---
+
+## 2026-09-12 — Managed Business Memory is a 12-month commitment billed monthly
+
+**Status:** proposed — drafted into the register, **not accepted**. Acceptance is Audio's. No propagation to the published offer registry or to the pricing matrix may occur before it.
+
+**Decision (proposed):** M5 is sold on a 12-month initial commitment, billed monthly. The $30,000/year already carried beside the $2,500/month target is ratified as the **committed recurring service value** — not an annualized illustration, and not the total contract value, because implementation is separately priced one-time work above it.
+
+After the initial term the agreement converts to month-to-month unless the applicable agreement specifies another renewal term or either party gives non-renewal notice. **The notice period is 30 days.** Cancellation for convenience during the initial commitment does not eliminate amounts committed for the remaining term unless AJ Digital agrees otherwise in writing; termination for breach, nonpayment, security concerns or other cause remains governed by the applicable agreement. Usage overages reconcile **monthly, never annually**.
+
+**Context:** The matrix already carries $30,000/year against a $2,500/month target, which implies an annual commitment without ratifying one. Onboarding, integration, memory ingestion and governance are front-loaded costs, which makes month-to-month cancellation structurally unattractive on the delivery side as well as the revenue side.
+
+Read as a total, $30,000 understates a Core engagement by the entire implementation charge. The companion implementation-fee entry below records why.
+
+**Propagation.** The registry target is again `managed-intelligence`, which today shows a monthly price with no term language at all. The same two constraints as the entry above apply: the matrix is in a separate repository, and **C-3 is open**, so this cannot reach the registry until that conflict resolves. On acceptance and resolution, the registry edit is the addition of term language to that offer.
+
+**Consequences:**
+
+- **Monthly reconciliation implies a traceability requirement, and this entry ratifies no schema.** Billing overages at actual cost means a disputed charge has to be traceable to tenant-level metering records identifying vendor, billing period, tenant/account, usage category, measured consumption, underlying vendor cost, and amount passed through. That is what monthly reconciliation demands of any future implementation; it is recorded here as an implication of the billing term, not as an approved data model. Ratifying a metering schema is a separate decision.
+- Shorter commercial terms may be approved for paid pilots, proofs of concept, narrowly scoped validation engagements, migration periods and explicitly temporary deployments. An approved exception does not redefine the standard M5 term.
+- Client-owned dedicated deployments keep the same 12-month default unless expressly approved otherwise, but generate no AJ pass-through, since infrastructure and API vendors bill the client directly.
+- **Data-lifecycle obligations are deliberately not carried here.** Export survival and the retention/deletion window were separate owner decisions and are recorded as their own entry below, so that accepting a commercial term does not silently ratify a data-lifecycle policy.
+
+---
+
+## 2026-09-12 — Implementation pricing is the implementation fee; there is no separate setup fee
+
+**Status:** proposed — drafted into the register, **not accepted**. Acceptance is Audio's. No propagation to the published offer registry or to the pricing matrix may occur before it.
+
+**Decision (proposed):** AJ Digital charges **no separate generic setup fee** for the Business Memory System. The upfront implementation engagement *is* the implementation charge.
+
+Implementation is separately priced one-time work required to design, configure, migrate, integrate, validate and launch the system. No additional generic platform setup fee is charged unless explicitly stated for an exceptional third-party or client-specific requirement. Exceptional one-time work is **scope-triggered, never automatic**: extraordinary historical-data migration, custom connectors outside the standard integration envelope, local or client-side deployment and training, client-owned infrastructure provisioning or transfer, extensive data remediation, and bespoke automation beyond the selected implementation package.
+
+**Context:** Matrix §BM.2 already prices implementation directly — Business Memory Foundation from $7,500, Core AI-Ready Business Knowledge System typically $15,000–$20,000 within a $15,000–$25,000 corridor. Those figures already pay for provisioning, configuration, onboarding, integrations, schema setup, migration, QA and launch, so a second activation charge on top would be difficult to defend.
+
+The decision is recorded as an **implementation fee policy** rather than a "setup fee" deliberately. "Setup fee" describes SaaS account activation; what is being sold is systems engineering and operational deployment, and the name should not invite the comparison.
+
+A normal deal therefore reads *$15,000 implementation + $2,500/month on a 12-month commitment*. Against $30,000 of recurring value, first-year totals are **$45,000** at the typical floor and **$50,000** at the top of the *typical* $15,000–$20,000 range; the $15,000–$25,000 corridor ceiling would be **$55,000**. Foundation is **$37,500**. The typical range, not the corridor ceiling, is what a normal deal quotes.
+
+**Propagation.** This entry adds no figure; it fixes what the §BM.2 one-time prices *mean*. It also carries a schema constraint: **the published registry must not carry a generic `setup_fee` field beside implementation figures.** Two vaguely overlapping fields are how a $15,000 implementation becomes $15,000 plus setup — not because anyone decides it should, but because the schema offers a blank and someone fills it.
+
+The registry has no §BM.2 offer to attach this to. The nearest is `founder-intelligence-system` in `src/content/offers.ts`, whose comment records that the name "currently collapses two distinct matrix offers (Core Business Memory and Integrated Founder Intelligence / RAG), which must be split first." That is crosswalk entry **C-2**, open. **This decision cannot reach the registry until C-2 closes and a Business Memory implementation offer exists as its own row.**
+
+**Consequences:**
+
+- **Each entry carries its own registry dependency; they are not a bundle.** The two M5 entries — the $4,000 dedicated minimum and the 12-month term — are blocked at the registry layer on **C-3 alone**, because both bind to `managed-intelligence`. This implementation-fee entry is blocked on **C-2 alone**, because it binds to whatever Business Memory offer emerges when `founder-intelligence-system` is split. Accepting one entry does not require closing the other's conflict, and neither is blocked by the conflict it does not depend on.
+- None of these entries resolves **C-1**. The ReKonr naming conflict is untouched, and this register's own tie-break continues to govern it.
+
+---
+
+## 2026-09-12 — Notice is 30 days; the export obligation survives termination; data is retained 30 days after export, then deleted
+
+**Status:** proposed — drafted into the register, **not accepted**. Acceptance is Audio's. Separated from the 12-month term entry above so that approving a commercial term does not silently ratify a data-lifecycle policy.
+
+**Decision (proposed):** Non-renewal notice is **30 days** — before the end of the 12-month initial term, and equally to cancel once the agreement has converted to month-to-month.
+
+The **export obligation survives termination**, including termination for cause and for nonpayment. The client receives the export package regardless of which party ended the agreement or why.
+
+Client data is **retained for 30 days after export delivery and then deleted**.
+
+**Context:** These are data-lifecycle and notice commitments, not billing terms, and they were decided separately from the term. Recording them together with the term would mean that accepting a billing commitment also ratified a deletion policy — a different kind of obligation with different reviewers.
+
+The export-survival clause closes a gap the other commitments left open. Export already sat among the services that never stop for a usage ceiling, and the portability commitment already promised a package at termination; neither said what happens when the client is the party in breach. This is deliberately the harder answer commercially: withholding data is ordinary leverage in a nonpayment dispute, and this gives it up in exchange for a portability promise that can be stated without qualification.
+
+The 30-day retention window originated as a recommendation and was ratified by the owner, unlike the commercial figures in the entries above, which are carried from the pricing matrix.
+
+**Propagation.** Nothing in the published offer registry expresses notice, export or retention terms today, so there is no `offers.ts` field to update and no `C-` dependency. These belong in the client agreement and in the implementing system's architecture record.
+
+**Consequences:**
+
+- **What deletion must reach is not decided here.** Structured memory, narrative vault, tenant-scoped evidence objects, and derived artifacts including embeddings each need naming in the implementing system's architecture record. Embeddings are the asymmetric case: they need not be exported, because they regenerate from source content — but they do need deleting, because a vector derived from a terminated client's documents still encodes that client's content.
+- The 30-day notice period is the figure the 12-month term entry above delegates; that entry stays correct without this one, but its renewal clause is incomplete until this is accepted.
+
+---
+
 ## 2026-09-14 — Revenue Leak Scorecard V2 extends the existing calculator
 
 **Status:** accepted for implementation per the V2 engineering spec.
