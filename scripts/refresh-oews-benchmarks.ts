@@ -39,6 +39,7 @@ import {
 } from "../src/lib/roi-calculator/labor/benchmark-data";
 import { OCCUPATION_SOC_CODES } from "../src/lib/roi-calculator/labor/occupations";
 import {
+  bumpBenchmarkVersion,
   computeBenchmarkValues,
   describeChanges,
   parseArgs,
@@ -212,11 +213,12 @@ async function main() {
   const root = path.resolve(__dirname, "..");
   const dataPath = path.join(root, "src/lib/roi-calculator/labor/benchmark-data.ts");
   const assumptionsPath = path.join(root, "src/lib/roi-calculator/assumptions.ts");
-  await fs.writeFile(dataPath, renderBenchmarkDataFile(values, metros, { surveyYear: year, retrievedOn }));
 
-  const assumptions = await fs.readFile(assumptionsPath, "utf8");
-  const bumped = assumptions.replace(/export const BENCHMARK_VERSION = "[^"]*";/, `export const BENCHMARK_VERSION = "${version}";`);
-  if (bumped === assumptions) throw new Error("Could not find BENCHMARK_VERSION in assumptions.ts to bump.");
+  // Validate the version bump before touching either file so a failure here
+  // never leaves new benchmark data paired with the old BENCHMARK_VERSION.
+  const bumped = bumpBenchmarkVersion(await fs.readFile(assumptionsPath, "utf8"), version);
+
+  await fs.writeFile(dataPath, renderBenchmarkDataFile(values, metros, { surveyYear: year, retrievedOn }));
   await fs.writeFile(assumptionsPath, bumped);
 
   console.log(`\nWrote ${path.relative(root, dataPath)} and set BENCHMARK_VERSION to ${version}.`);

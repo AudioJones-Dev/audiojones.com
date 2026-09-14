@@ -3,6 +3,7 @@ import test from "node:test";
 
 import {
   adminOccupationIndex,
+  bumpBenchmarkVersion,
   computeBenchmarkValues,
   describeChanges,
   parseArgs,
@@ -63,6 +64,34 @@ test("region indexes are employment-weighted means of their states", () => {
   assert.equal(values.regions.West, undefined, "no western states means no western index");
 });
 
+test("a region state with missing or zero employment fails instead of weighting to zero", () => {
+  const noEmployment = area("2500000", "Massachusetts", 1.16, 3_000);
+  noEmployment.occupations["00-0000"] = { employment: null, hourlyMedian: 25 };
+  assert.throws(
+    () => computeBenchmarkValues({ ...extract, states: { ...extract.states, MA: noEmployment } }, metros),
+    /MA: all-occupations employment is missing or non-positive/,
+  );
+  const zeroEmployment = area("3600000", "New York", 1.1, 0);
+  assert.throws(() => computeBenchmarkValues({ ...extract, states: { ...extract.states, NY: zeroEmployment } }, metros), /NY: all-occupations employment/);
+});
+
+test("a region state with no usable medians fails even when its employment is also missing", () => {
+  const noMedians: AreaExtract = { areaCode: "2500000", areaName: "Massachusetts", occupations: { "00-0000": { employment: null, hourlyMedian: null } } };
+  assert.throws(
+    () => computeBenchmarkValues({ ...extract, states: { ...extract.states, MA: noMedians } }, metros),
+    /MA: no usable occupation medians/,
+  );
+  const noMediansWithEmployment: AreaExtract = { ...noMedians, occupations: { "00-0000": { employment: 3_000, hourlyMedian: null } } };
+  assert.throws(() => computeBenchmarkValues({ ...extract, states: { ...extract.states, MA: noMediansWithEmployment } }, metros), /MA: no usable occupation medians/);
+});
+
+test("a territory outside every Census region may lack employment without failing", () => {
+  const territory = area("7200000", "Puerto Rico", 0.55, 900);
+  territory.occupations["00-0000"] = { employment: null, hourlyMedian: 14 };
+  const values = computeBenchmarkValues({ ...extract, states: { ...extract.states, PR: territory } }, metros);
+  assert.equal(values.states.PR, 0.55);
+});
+
 test("an area with no usable medians is skipped instead of poisoning the table", () => {
   const empty: AreaExtract = { areaCode: "6600000", areaName: "Guam", occupations: { "00-0000": { employment: 10, hourlyMedian: null } } };
   const values = computeBenchmarkValues({ ...extract, states: { ...extract.states, GU: empty } }, metros);
@@ -101,4 +130,23 @@ test("argument parsing accepts the documented forms and rejects unknown flags", 
   assert.deepEqual(parseArgs(["--year=2027"]).year, 2027);
   assert.equal(parseArgs(["--latest"]).latest, true);
   assert.throws(() => parseArgs(["--bogus"]), /Unknown argument/);
+});
+
+test("argument parsing rejects a missing, malformed or option-shaped --year value", () => {
+  assert.throws(() => parseArgs(["--year"]), /four-digit survey year, got nothing/);
+  assert.throws(() => parseArgs(["--year="]), /four-digit survey year/);
+  assert.throws(() => parseArgs(["--year", "--dry-run"]), /four-digit survey year, got "--dry-run"/);
+  assert.throws(() => parseArgs(["--year", "26"]), /four-digit survey year/);
+});
+
+test("argument parsing rejects --year combined with --latest", () => {
+  assert.throws(() => parseArgs(["--year", "2026", "--latest"]), /either --year YYYY or --latest/);
+  assert.throws(() => parseArgs(["--latest", "--year=2026"]), /either --year YYYY or --latest/);
+});
+
+test("the version bump rewrites the declaration, tolerates a same-version rerun and rejects a missing one", () => {
+  const source = 'export const FOO = 1;\nexport const BENCHMARK_VERSION = "2026-09-14-oews-may-2025";\n';
+  assert.equal(bumpBenchmarkVersion(source, "2027-04-01-oews-may-2026"), source.replace("2026-09-14-oews-may-2025", "2027-04-01-oews-may-2026"));
+  assert.equal(bumpBenchmarkVersion(source, "2026-09-14-oews-may-2025"), source, "same-day rerun is a no-op, not an error");
+  assert.throws(() => bumpBenchmarkVersion('export const FOO = 1;\n', "2027-04-01-oews-may-2026"), /Could not find BENCHMARK_VERSION/);
 });
