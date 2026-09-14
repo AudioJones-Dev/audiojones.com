@@ -9,6 +9,7 @@ import {
 import { ButtonLink } from "@/components/ui/Button";
 import FAQ from "@/components/founder-intelligence/FAQ";
 import JsonLd from "@/components/seo/JsonLd";
+import RegistryBreadcrumbs from "@/components/nav/RegistryBreadcrumbs";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { faqJsonLd } from "@/lib/seo/schema";
 
@@ -61,6 +62,7 @@ const DIAGNOSTIC_FAQS = [
 export default function AiReadinessDiagnosticPage() {
   return (
     <>
+      <RegistryBreadcrumbs pageId="ai-readiness-diagnostic" />
       <JsonLd data={faqJsonLd(DIAGNOSTIC_FAQS)} />
       <SignalHero
         title="Find what needs fixing before you add AI."

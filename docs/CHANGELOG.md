@@ -16,6 +16,17 @@ Entries are reverse chronological. Format follows
 ## Unreleased
 
 ### Changed
+- `/resources` no longer keeps page-local library and theme arrays (Canonical
+  Map v1.1, Phase 5). `src/content/resources.ts` projects both from the journey
+  registry: library cards take their order, label, and route from the same
+  Resources "Library" group the header dropdown and footer use; theme cards
+  name a live registry page and take their route from it. All descriptive
+  copy is unchanged. The three live tool pages (`/ai-readiness-diagnostic`,
+  `/founder-gravity-audit`, `/roi-calculator`) gain a breadcrumb trail derived
+  from the registry parent chain (Home › Resources › tool), which is the
+  parent-recovery link §7.3 requires and none of them had.
+  `test/resources.test.ts` (run in CI) holds every card to a live registered
+  page and checks that every live tool page renders the trail.
 - `/solutions` no longer keeps a page-local offer catalog (Canonical Map v1.1,
   Phase 4). `src/content/solutions.ts` projects the ladder: an `offer` card
   names a registry offer ID and takes its title from the registry and its

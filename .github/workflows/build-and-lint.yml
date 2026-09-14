@@ -79,6 +79,9 @@ jobs:
       - name: Verify the Solutions hub projects identity from the offer and journey registries
         run: pnpm exec tsx --test test/solutions.test.ts
 
+      - name: Verify the Resources hub projects library and themes from the registry and tools link back
+        run: pnpm exec tsx --test test/resources.test.ts
+
       - name: Build workspace packages
         run: pnpm packages:build
 
