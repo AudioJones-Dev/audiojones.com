@@ -3,7 +3,8 @@ import Link from "next/link";
 import JsonLd from "@/components/seo/JsonLd";
 import { ButtonLink } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Eyebrow";
-import { ctaLinks } from "@/config/links";
+import { getRelatedPages } from "@/content/journeys";
+import { advancedSolutions, solutionLadder, solutionStages } from "@/content/solutions";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { breadcrumbJsonLd } from "@/lib/seo/schema";
 
@@ -11,134 +12,11 @@ const TITLE = "Solutions";
 const DESCRIPTION =
   "Business systems consulting for founder-led service businesses. Find lost time and sales, plan the first fix, and connect workflows, AI, and reporting.";
 
-// Canonical offer ladder. One commercial path: Diagnose → Design → Build → Operate.
-// Naming follows the ratified AJ Digital canonical offer model.
-type Offer = {
-  name: string;
-  blurb: string;
-  href: string;
-  cta: string;
-};
-
-type Stage = {
-  step: string;
-  stage: string;
-  intro: string;
-  offers: Offer[];
-};
-
-const STAGES: Stage[] = [
-  {
-    step: "00",
-    stage: "Free",
-    intro:
-      "Start by sharing where work gets stuck and what you want to change.",
-    offers: [
-      {
-        name: "AI Readiness Score",
-        blurb:
-          "Review how your team works, what data you have, and where AI might fit. The online form starts a review; it is not a full paid diagnostic.",
-        href: ctaLinks.signalDiagnostic,
-        cta: "Explore AI readiness",
-      },
-    ],
-  },
-  {
-    step: "01",
-    stage: "Audit",
-    intro:
-      "Find the cause of lost time or sales before choosing a tool.",
-    offers: [
-      {
-        name: "ReKonr Revenue Recovery Diagnostic",
-        blurb:
-          "We map the steps your work follows, check where sales are lost, and measure the starting point. You get a ranked list of fixes and a 90-day build plan.",
-        href: "/pricing",
-        cta: "See the audit",
-      },
-    ],
-  },
-  {
-    step: "02",
-    stage: "Blueprint",
-    intro:
-      "Agree on how the fix will work before the build starts.",
-    offers: [
-      {
-        name: "System Architecture & Blueprint",
-        blurb:
-          "A plan for how people, tools, and data will work together. It sets the steps, owners, rules, and checks for the build.",
-        href: "/book-a-call",
-        cta: "Scope a blueprint",
-      },
-    ],
-  },
-  {
-    step: "03",
-    stage: "Build",
-    intro:
-      "Build the agreed fix around your team and the way work gets done.",
-    offers: [
-      {
-        name: "Custom Application Build",
-        blurb:
-          "Custom tools for jobs your current software cannot handle well. Keep the right facts and next steps in one place so work is easier to track.",
-        href: "/book-a-call",
-        cta: "Discuss a build",
-      },
-      {
-        name: "AI Agent Build",
-        blurb:
-          "AI given a clear task, approved sources, and limits. We define when a person must check its work or take over.",
-        href: "/agents",
-        cta: "See agent systems",
-      },
-      {
-        name: "ResponseOS Revenue Recovery System",
-        blurb:
-          "A system for capturing leads, checking their needs, routing them, and following up. Booking, call handling, and reports are scoped to fit the gap we find.",
-        href: "/agents/responseos",
-        cta: "Explore ResponseOS",
-      },
-    ],
-  },
-  {
-    step: "04",
-    stage: "Operate",
-    intro:
-      "Keep the system useful as your team and business change.",
-    offers: [
-      {
-        name: "Managed Intelligence",
-        blurb:
-          "Check how the system works, keep shared rules up to date, and improve the parts that need attention. Support and changes have an agreed scope.",
-        href: "/book-a-call",
-        cta: "Book a call",
-      },
-    ],
-  },
-];
-
-// Validation-program offers — the deeper, full-system path. Presented as
-// scoped/per-engagement work, not off-the-shelf commodity products.
-const ADVANCED: Offer[] = [
-  {
-    name: "Founder Intelligence Diagnostic",
-    blurb:
-      "A deeper review of where leads, jobs, and decisions get stuck. We look at follow-up, customer records, shared knowledge, and what your reports can tell you.",
-    href: "/founder-intelligence/diagnostic",
-    cta: "Request the diagnostic",
-  },
-  {
-    name: "Founder Intelligence System",
-    blurb:
-      "For founder-led service businesses: connect the team's work, customer records, shared knowledge, AI, and reports. Set clear owners and a way to check results.",
-    href: "/founder-intelligence",
-    cta: "Explore the system",
-  },
-];
-
-const LADDER = ["Free", "Audit", "Blueprint", "Build", "Operate"] as const;
+// Commercial identity (offer, name, destination) is projected from the offer and
+// journey registries in `src/content/solutions.ts`; this file only lays it out.
+// Related surfaces come from the registry's declared edges for this hub.
+const RELATED_ARCHETYPES = new Set(["tool-landing", "tool-instrument", "proof"]);
+const RELATED = getRelatedPages("solutions").filter((p) => RELATED_ARCHETYPES.has(p.archetype));
 
 export const metadata: Metadata = buildMetadata({
   title: TITLE,
@@ -181,10 +59,10 @@ export default function SolutionsPage() {
 
           {/* Ladder strip */}
           <ol className="mt-12 flex flex-wrap items-center gap-x-3 gap-y-2 t-small text-fg-3">
-            {LADDER.map((label, i) => (
+            {solutionLadder.map((label, i) => (
               <li key={label} className="flex items-center gap-3">
                 <span className="text-aj-gold">{label}</span>
-                {i < LADDER.length - 1 ? (
+                {i < solutionLadder.length - 1 ? (
                   <span aria-hidden className="text-fg-3">
                     →
                   </span>
@@ -196,7 +74,7 @@ export default function SolutionsPage() {
       </section>
 
       {/* Stages */}
-      {STAGES.map((stage, idx) => (
+      {solutionStages.map((stage, idx) => (
         <section
           key={stage.stage}
           className={
@@ -215,12 +93,13 @@ export default function SolutionsPage() {
             </div>
 
             <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {stage.offers.map((offer) => (
+              {stage.cards.map((offer) => (
                 <article
-                  key={offer.name}
+                  key={offer.title}
+                  data-offer-ids={offer.offerIds.join(" ") || undefined}
                   className="flex h-full flex-col rounded-2xl border border-[var(--line-2)] bg-bg-2 p-6 sm:p-8"
                 >
-                  <h2 className="t-h3 text-fg-0">{offer.name}</h2>
+                  <h2 className="t-h3 text-fg-0">{offer.title}</h2>
                   <p className="mt-4 flex-1 t-body text-fg-2">{offer.blurb}</p>
                   <Link
                     href={offer.href}
@@ -251,12 +130,13 @@ export default function SolutionsPage() {
           </div>
 
           <div className="mt-10 grid gap-6 sm:grid-cols-2">
-            {ADVANCED.map((offer) => (
+            {advancedSolutions.map((offer) => (
               <article
-                key={offer.name}
+                key={offer.title}
+                data-offer-ids={offer.offerIds.join(" ") || undefined}
                 className="flex h-full flex-col rounded-2xl border border-[var(--line-2)] bg-bg-2 p-6 sm:p-8"
               >
-                <h3 className="t-h3 text-fg-0">{offer.name}</h3>
+                <h3 className="t-h3 text-fg-0">{offer.title}</h3>
                 <p className="mt-4 flex-1 t-body text-fg-2">{offer.blurb}</p>
                 <Link
                   href={offer.href}
@@ -269,6 +149,30 @@ export default function SolutionsPage() {
           </div>
         </div>
       </section>
+
+      {/* Related surfaces: declared registry edges, rendered with their own labels */}
+      {RELATED.length > 0 ? (
+        <section aria-labelledby="solutions-related" className="border-t border-[var(--line-2)] py-12 sm:py-16">
+          <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
+            <h2 id="solutions-related" className="t-label">Related</h2>
+            <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {RELATED.map((page) => (
+                <li key={page.id}>
+                  <Link
+                    href={page.route}
+                    className="block h-full rounded-2xl border border-[var(--line-2)] bg-bg-2 p-5 transition-colors hover:border-[var(--line-1)]"
+                  >
+                    <span className="block t-h4 text-fg-0">{page.navLabel}</span>
+                    {page.navDescription ? (
+                      <span className="mt-2 block t-small text-fg-2">{page.navDescription}</span>
+                    ) : null}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      ) : null}
 
       {/* CTA */}
       <section className="bg-bg-1 py-16 sm:py-24">

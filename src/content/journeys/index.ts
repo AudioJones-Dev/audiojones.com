@@ -208,6 +208,8 @@ const STATIC_PAGES: JourneyPage[] = [
       { id: "solutions-pricing", intent: "view-pricing", label: "View Pricing", destination: "/pricing" },
     ],
     requiredOutboundTo: ["responseos", "founder-intelligence", "pricing"],
+    // Spec §13.2 items 5 and 6: the diagnostic path and proof the hub links to.
+    relatedPageIds: ["roi-calculator", "ai-readiness-diagnostic", "case-studies"],
   },
   {
     id: "pricing",
@@ -1120,6 +1122,22 @@ export function getOfferDestination(offerId: string, context: OfferDestinationCo
       ? `/apply?source=${context.source ?? "pricing"}&offer=${offerId}`
       : base;
   return withContext(path, context.originPage, context.ctaId);
+}
+
+/**
+ * Where a public surface sends a visitor to learn about a ratified offer: the
+ * solution page that owns the offer when one is registered, else the offer's
+ * own non-application route, else its card on /pricing. Never an application
+ * URL; that is getOfferDestination. Throws on an unknown offer.
+ */
+export function getOfferPublicRoute(offerId: string): string {
+  const offer = OFFERS.find((o) => o.id === offerId);
+  if (!offer) throw new Error(`journeys: unknown offerId "${offerId}"`);
+  const owner = JOURNEY_PAGES.find((p) => p.offerId === offerId && p.status === "live");
+  if (owner) return owner.route;
+  if (offer.pagePath) return offer.pagePath;
+  const ctaPath = stripQuery(offer.cta.href);
+  return ctaPath === "/apply" ? `/pricing#${offerId}` : ctaPath;
 }
 
 export type NavLink = { label: string; href: string; description?: string };
