@@ -16,6 +16,18 @@ Entries are reverse chronological. Format follows
 ## Unreleased
 
 ### Changed
+- `src/app/sitemap.ts` is now a projection of the journey registry (Canonical
+  Map v1.1, Phase 3) plus Sanity blog posts, deduplicated at one boundary.
+  The hand-written 21-route list is gone; a route appears only when its
+  registry page is live, indexable, sitemap-eligible, and canonical, so
+  `/apply`, `/founder-intelligence/diagnostic`, and
+  `/founder-gravity-audit/diagnostic` leave the sitemap (qualification form
+  and instrument steps, §10.4) and no planned or noindex route can enter it.
+  `lastModified` is set only from a declared registry `updatedAt` or a post's
+  CMS timestamp; the build-time `new Date()` stamp is removed, so every
+  registry URL currently omits it. `test/sitemap.test.ts` (run in CI) checks
+  duplicates, route existence, registry state, leakage, false dates, and that
+  each listed page declares a self-referencing canonical equal to its URL.
 - The header renders hierarchical navigation (Canonical Map v1.1, Phase 2).
   `Solutions` and `Resources` in `src/config/nav.ts` now carry `children`
   and `groups` derived from the journey registry, so only live registered
