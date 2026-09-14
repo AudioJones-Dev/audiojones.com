@@ -16,6 +16,18 @@ Entries are reverse chronological. Format follows
 ## Unreleased
 
 ### Changed
+- Labor benchmark dataset for the Revenue Leak Scorecard refreshed from the
+  seeded May 2023 approximation to BLS OEWS **May 2025** values retrieved on
+  2026-09-14. National medians rose 7–13% across the nine priced occupations.
+  State and metro indexes are now computed from the priced occupations'
+  median ratios rather than all-occupations relativities, which had
+  overstated administrative wages in DC (1.35 → 1.24), San Francisco
+  (1.38 → 1.28), Houston (1.01 → 0.94) and New York (1.22 → 1.16). Puerto
+  Rico, the U.S. Virgin Islands and Guam gained their own indexes (they
+  previously fell through to national). `BENCHMARK_VERSION` is
+  `2026-09-14-oews-may-2025`; every persisted result records it.
+
+### Changed
 - `/roi-calculator` is now the geo-economic **Revenue Leak Scorecard**. The
   existing engine under `src/lib/roi-calculator/` was extended, not forked:
   a ZIP-resolved labor benchmark layer (`geography/`, `labor/`), five pure

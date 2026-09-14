@@ -3,7 +3,7 @@
 **Route:** `/roi-calculator` (unchanged; no parallel calculator)
 **Engine:** `src/lib/roi-calculator/`
 **Calculation version:** `v2-geo-economic` (V1 rows keep `v1`)
-**Status:** implemented 2026-09-14; benchmark dataset seeded, not live
+**Status:** implemented 2026-09-14; benchmark dataset verified against BLS OEWS May 2025 on 2026-09-14, not live
 
 The scorecard measures the economic value of operational friction and missed
 opportunity using the business's actual workload, sales economics, and local
@@ -73,13 +73,21 @@ registry and the results panel disclose the tier and the note.
 
 ### Dataset and freshness
 
-`labor/benchmark-data.ts` holds national median hourly wages seeded from BLS
-OEWS May 2023 national estimates, plus state and metro wage indexes relative
-to national. Metro coverage is partial by design (16 areas). Every benchmark
-carries `source`, `sourceDate`, `benchmarkVersion`
+`labor/benchmark-data.ts` holds BLS OEWS **May 2025** national hourly
+medians for the nine priced occupations, plus state/territory, region and
+metro wage indexes relative to national. Each index is the mean, across those
+nine occupations, of the area's hourly median divided by the national hourly
+median for the same occupation — not the all-occupations relativity, which
+overstates administrative wages in high-wage markets (DC all-occupations
+mean ratio 1.59 vs 1.24 for the priced occupations). Region indexes are the
+employment-weighted mean of their states. Metro coverage is partial by design
+(16 areas, each tagged with its OEWS area code). Every benchmark carries
+`source`, `sourceDate`, `benchmarkVersion`
 (`assumptions.ts#BENCHMARK_VERSION`) and `retrievedAt`. Refreshing the data
-means replacing the file and bumping the version. Nothing is fetched at
-runtime, so no provider credentials exist in browser or server code.
+means replacing the file and bumping the version; the values were retrieved
+from the OEWS data service behind data.bls.gov (`/OESServices/prefilter/table`)
+on 2026-09-14. Nothing is fetched at runtime, so no provider credentials exist
+in browser or server code.
 
 ### Loaded labor cost
 
@@ -176,10 +184,10 @@ source, date, version), scenario outputs, assumptions and confidence.
 
 ## 11. Limitations
 
-- Benchmark data is seeded and periodic. Wage indexes are approximations of
-  OEWS relativities and should be verified or replaced with a data-backed
-  provider before being cited as authoritative.
-- Metro coverage is 16 areas; everything else prices at the state tier.
+- Benchmark data is periodic (annual OEWS release), not live. The May 2025
+  values will need a refresh when May 2026 is published.
+- Metro coverage is 16 areas; everything else prices at the state or
+  territory tier.
 - Close-rate lift, qualification and recoverability defaults are presets, not
   industry-specific measurements.
 - No multi-service weighting (single primary service in this release).
