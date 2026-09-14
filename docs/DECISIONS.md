@@ -310,3 +310,26 @@ The public offer registry, approved commercial pricing, HubSpot catalog, and
 Whop account products and billing are unchanged. Existing webhook routes and
 their legacy persistence path are not repaired or certified by this removal.
 No deployment or external account change is authorized by this decision.
+
+## 2026-09-14 — Revenue Leak Scorecard V2 extends the existing calculator
+
+**Status:** accepted for implementation per the V2 engineering spec.
+
+Three choices the spec left open were resolved as follows:
+
+- **Benchmark provider is static and seeded.** `LaborBenchmarkProvider` is the
+  pluggable contract; the shipped implementation reads a versioned in-repo
+  dataset (national OEWS medians plus state/metro indexes). This keeps the
+  live preview in the browser (public data, no secrets), keeps the server
+  path provider-agnostic, and defers a networked BLS provider until the
+  seeded indexes have been verified. Data vintage and version are on every
+  result.
+- **Persistence stays JSON, no migration.** `roi_calculator_leads` already
+  stores `input`/`result` as JSON, and the table's DDL is not in this repo.
+  `calculationVersion`, geography, benchmarks and assumptions travel inside
+  the JSON so V2 ships without a deployment gate. A `calculation_version`
+  column can be added later if reporting needs it.
+- **The server result is authoritative for V2.** V1 kept its
+  client-computes-server-verifies mismatch check. V2 clients send inputs
+  only and render what the API returns, so a future provider change cannot
+  strand the browser on stale numbers.

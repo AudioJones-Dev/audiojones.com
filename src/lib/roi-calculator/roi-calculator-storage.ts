@@ -2,10 +2,26 @@ import "server-only";
 
 import { createHash, randomUUID } from "node:crypto";
 import { neon } from "@neondatabase/serverless";
-import type { RoiLeadInput } from "./roi-calculator-schema";
+import { redactEmail } from "@/lib/logging/redact-email";
+import type { RoiCalculationVersion } from "./types";
+
+/**
+ * What the row stores, independent of calculator version: the envelope plus
+ * the validated inputs and the server-computed result as JSON. The version
+ * travels inside `result` (and, for V2, `input`) so old rows stay readable
+ * and new rows say which formula set produced them.
+ */
+export type PersistableRoiLead = {
+  email: string;
+  source?: string;
+  utm?: Partial<Record<"utm_source" | "utm_medium" | "utm_campaign" | "utm_term" | "utm_content", string>>;
+  calculationVersion: RoiCalculationVersion;
+  input: Record<string, unknown>;
+  result: Record<string, unknown>;
+};
 
 export type PersistLeadArgs = {
-  lead: RoiLeadInput;
+  lead: PersistableRoiLead;
   ip: string | null;
   userAgent: string | null;
 };
@@ -23,10 +39,6 @@ function hash(value: string | null | undefined) {
   const salt = process.env.IP_HASH_SALT;
   if (!value || !salt) return null;
   return createHash("sha256").update(`${value}:${salt}`).digest("hex");
-}
-
-function redactEmail(email: string) {
-  return email.replace(/(.).+(@.+)/, "$1•••$2");
 }
 
 export function getEmailHash(email: string) {
@@ -90,7 +102,7 @@ export async function persistRoiCalculatorLead({ lead, ip, userAgent }: PersistL
         ${lead.utm?.utm_term ?? null},
         ${lead.utm?.utm_content ?? null},
         ${JSON.stringify(lead.input)},
-        ${JSON.stringify(lead.result)},
+        ${JSON.stringify({ ...lead.result, calculationVersion: lead.calculationVersion })},
         'pending',
         'pending'
       )
