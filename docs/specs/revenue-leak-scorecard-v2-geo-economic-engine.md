@@ -1,0 +1,197 @@
+# Revenue Leak Scorecard V2 — Geo-Economic ROI Engine
+
+**Route:** `/roi-calculator` (unchanged; no parallel calculator)
+**Engine:** `src/lib/roi-calculator/`
+**Calculation version:** `v2-geo-economic` (V1 rows keep `v1`)
+**Status:** implemented 2026-09-14; benchmark dataset seeded, not live
+
+The scorecard measures the economic value of operational friction and missed
+opportunity using the business's actual workload, sales economics, and local
+labor market rather than generic AI ROI assumptions. It is a diagnostic and
+estimation tool, not a promise of savings or revenue.
+
+---
+
+## 1. Economic model
+
+Four layers are computed and reported separately. A combined figure is
+produced only after the overlap controls in §6.
+
+| Layer | What it prices | Formula |
+| --- | --- | --- |
+| Labor capacity | Team hours on operational work | Σ scope hours/week × local loaded hourly cost × 52; addressable share = hours × scope addressability |
+| Revenue leakage | Gross profit lost to unanswered or unworked demand | missed calls + after-hours + quote follow-up (§4) |
+| Conversion opportunity | Incremental gross profit from faster response (and, optionally, website conversion) | delayed response + website conversion (§4) |
+| Owner capacity | Founder hours on operational work | replacement cost = addressable owner hours × local loaded cost × 52; founder capacity = addressable owner hours × owner's stated hourly value × 52 (reported, never summed) |
+
+Cost avoidance (preventable errors, avoided hire) is reported as a fifth
+category and enters the combined figure only after netting (§6).
+
+Code: `scorecard.ts` (orchestration), `labor/labor-calculations.ts`,
+`scenarios/*.ts`.
+
+## 2. Geography
+
+Input is a five-digit ZIP. Resolution is ZIP → state (USPS three-digit prefix
+table) → Census region, with the benchmark dataset supplying a metro tier
+where it has one. The visitor never needs to know their MSA.
+
+Code: `geography/resolve-geography.ts`, `labor/benchmark-provider.ts`
+(`resolveBenchmarkGeography`).
+
+## 3. Labor benchmarks
+
+### Occupation mapping
+
+| Scope | Occupational proxy |
+| --- | --- |
+| calls | Receptionists and Information Clerks |
+| customer_communication | Customer Service Representatives |
+| scheduling | Secretaries and Administrative Assistants |
+| dispatch | Dispatchers (except police, fire, ambulance) |
+| crm_admin | Office Clerks, General |
+| quote_followup | Sales Representatives, Services |
+| billing | Billing and Posting Clerks |
+| operations_admin | First-Line Supervisors of Office and Admin Support |
+| custom | Office and Administrative Support Occupations |
+
+Owner-performed hours use the same proxy for the replacement-cost reading.
+
+### Provider and fallback hierarchy
+
+`LaborBenchmarkProvider` (`labor/benchmark-types.ts`) is the pluggable
+contract. The shipped implementation, `StaticLaborBenchmarkProvider`, resolves
+in this order and records which tier priced the work:
+
+1. Metro (MSA) index — `confidence: high`
+2. State index — `confidence: medium`, fallback note attached
+3. Census region index — `confidence: low`, fallback note attached
+4. National median — `confidence: low`, fallback note attached
+
+The calculator never fails because a tier is missing. The result's assumption
+registry and the results panel disclose the tier and the note.
+
+### Dataset and freshness
+
+`labor/benchmark-data.ts` holds national median hourly wages seeded from BLS
+OEWS May 2023 national estimates, plus state and metro wage indexes relative
+to national. Metro coverage is partial by design (16 areas). Every benchmark
+carries `source`, `sourceDate`, `benchmarkVersion`
+(`assumptions.ts#BENCHMARK_VERSION`) and `retrievedAt`. Refreshing the data
+means replacing the file and bumping the version. Nothing is fetched at
+runtime, so no provider credentials exist in browser or server code.
+
+### Loaded labor cost
+
+`loadedHourlyCost = hourlyWage × burdenMultiplier`. The default multiplier is
+1.35 (`DEFAULT_BURDEN_MULTIPLIER`), bounded 1.0–2.0, visitor-adjustable, and
+listed in the assumption registry with its rationale.
+
+## 4. Scenario formulas
+
+All scenario outputs are annual gross profit. Rates are clamped to 0–100%.
+
+| Scenario | Formula | Defaults (assumptions.ts) |
+| --- | --- | --- |
+| Missed calls | calls × qualified rate × close rate × GP × recoverability | qualified 40%, recoverability 50% |
+| After-hours | calls × qualified rate × close rate × GP × capture rate | capture 40% |
+| Quote follow-up | quotes × historical quote close rate × GP × recoverability | historical rate defaults to overall close rate; recoverability 50% |
+| Delayed response | affected leads × (min(100, close + lift) − close) × GP | lift +5 points |
+| Website conversion | visitors × (modeled − current conversion) × qualified lead rate × close rate × GP | optional module |
+
+Expected gross profit per qualified lead = close rate × GP, shown in the UI.
+
+## 5. Gross profit
+
+Order of preference (`scorecard.ts#resolveGrossProfit`):
+
+1. Entered gross profit per sale → basis `entered`
+2. Average sale value × gross margin % → basis `derived`
+3. Average sale value alone → basis `revenue_only`, confidence forced to Low, result labelled "Revenue-based estimate. Profit impact may be materially lower."
+4. Nothing → basis `missing`, revenue scenarios are zero
+
+## 6. Double-counting rules
+
+Enforced in `scorecard.ts`, tested in `test/roi-scorecard-overlap.test.ts`,
+and surfaced to the visitor as `overlapControls` on the result.
+
+1. **Owner vs labor.** Scope entries with `workerType: "owner"` are priced in
+   owner capacity only; they never enter labor capacity.
+2. **One monthly pool.** Missed calls, after-hours calls, unworked quotes and
+   slow-response leads are allocated in that order out of
+   `monthlyInboundOpportunities`. A later scenario only sees what is left, so
+   a missed call cannot also be a delayed response, and an unworked quote
+   cannot also receive the conversion lift.
+3. **Avoided hire vs labor.** Only the part of the avoided-hire value that
+   exceeds addressable labor value counts toward the combined figure.
+4. **Founder capacity.** Reported alongside replacement cost; never summed.
+5. **Website conversion** models new visitors-to-leads and is not drawn from
+   the inbound pool; it is omitted entirely under the `responseos` preset.
+
+## 7. Range and confidence
+
+`modeledOpportunityRange = { low: base × 0.70, base, high: base × 1.15 }`.
+Factors live in `assumptions.ts` and are listed (non-overridable) in the
+registry.
+
+Confidence is scored from data quality: benchmark tier (metro 2 / state 1 /
+region-national 0), gross-profit basis (entered 2 / derived 1), measured vs
+estimated leakage counts (2 / 0), plus one point each for a known close rate,
+a known historical quote close rate, and entered operational hours. ≥7 → High,
+≥4 → Medium, else Low. A national fallback or a revenue-only basis lowers the
+tier by one step (revenue-only can never be High). Reasons are returned as
+`confidenceReasons`.
+
+## 8. Presets
+
+`presets.ts` defines `revenue_leak` (default on `/roi-calculator`),
+`responseos`, `operations`, `website`, `ai_roi`. A preset toggles scenario
+modules, result heading and CTA. It never changes a formula; every preset
+calls `calculateRevenueLeakScorecard`.
+
+## 9. API and persistence
+
+`POST /api/roi-calculator/lead` accepts both envelopes via
+`parseRoiLead` (`roi-calculator-schema.ts`):
+
+- **V1** (no `calculationVersion`, or `"v1"`): unchanged. The server re-runs
+  `calculateRoiResult` and rejects a mismatch.
+- **V2** (`"v2-geo-economic"`): inputs only. The server resolves geography and
+  benchmarks, calculates, persists, notifies, and returns the authoritative
+  result. The browser's live preview is never trusted or stored.
+
+Rows land in the existing `roi_calculator_leads` table. `input` and `result`
+are JSON columns, so no migration is needed; the result JSON carries
+`calculationVersion`, resolved geography, per-scope benchmarks (rate, tier,
+source, date, version), scenario outputs, assumptions and confidence.
+
+## 10. Versioning and compatibility
+
+- V1 rows replay through `calculateRoiResult`, which is untouched. The
+  pre-existing `test/roi-calculator-assumptions.test.ts` pins its numbers.
+- V2 rows replay through `calculateRevenueLeakScorecard` with the benchmark
+  version recorded on the row.
+- New fields are optional where the engine can degrade (burden multiplier,
+  owner hourly value, website module, recoverability overrides).
+
+## 11. Limitations
+
+- Benchmark data is seeded and periodic. Wage indexes are approximations of
+  OEWS relativities and should be verified or replaced with a data-backed
+  provider before being cited as authoritative.
+- Metro coverage is 16 areas; everything else prices at the state tier.
+- Close-rate lift, qualification and recoverability defaults are presets, not
+  industry-specific measurements.
+- No multi-service weighting (single primary service in this release).
+
+## 12. Tests
+
+- `test/roi-scorecard-labor.test.ts` — metro/state/national fallback, loaded
+  cost, recoverability, owner capacity.
+- `test/roi-scorecard-scenarios.test.ts` — each scenario's zero, partial and
+  bounded cases; gross-profit basis.
+- `test/roi-scorecard-overlap.test.ts` — the double-count rules, range,
+  confidence, schema safety, V1 backward compatibility.
+- `test/roi-calculator-assumptions.test.ts` — V1 numbers unchanged.
+
+All run in `.github/workflows/build-and-lint.yml`.
