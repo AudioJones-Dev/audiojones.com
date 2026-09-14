@@ -15,6 +15,16 @@ Entries are reverse chronological. Format follows
 
 ## Unreleased
 
+### Added
+- `scripts/refresh-oews-benchmarks.ts` regenerates the scorecard's labor
+  benchmark dataset from a given OEWS release (`--year 2026` or `--latest`,
+  with `--dry-run` for a report-only pass), recomputing the admin-occupation
+  indexes, rewriting `benchmark-data.ts` and bumping `BENCHMARK_VERSION`.
+  SOC codes now live alongside the occupation labels in `occupations.ts`,
+  and the pure index math and rendering sit in `labor/oews-refresh.ts` so
+  `test/oews-refresh.test.ts` (run in CI) covers them without importing from
+  `scripts/`, which the Vercel build never sees.
+
 ### Docs
 - A fourth entry separates the data-lifecycle commitments — 30-day notice, export
   survival through termination for cause or nonpayment, and 30-day retention then
@@ -33,6 +43,7 @@ Entries are reverse chronological. Format follows
   bind to (`managed-intelligence`, `founder-intelligence-system`) are the ones
   crosswalk entries **C-3** and **C-2** are about — both still open, both
   already annotated in the registry's own comments. C-1 is untouched.
+
 ### Changed
 - Labor benchmark dataset for the Revenue Leak Scorecard refreshed from the
   seeded May 2023 approximation to BLS OEWS **May 2025** values retrieved on

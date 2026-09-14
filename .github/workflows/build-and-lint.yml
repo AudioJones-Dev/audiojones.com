@@ -64,6 +64,9 @@ jobs:
       - name: Verify scorecard overlap controls and schema safety
         run: pnpm exec tsx --test test/roi-scorecard-overlap.test.ts
 
+      - name: Verify the OEWS benchmark refresh script's math and rendering
+        run: pnpm exec tsx --test test/oews-refresh.test.ts
+
       - name: Build workspace packages
         run: pnpm packages:build
 
