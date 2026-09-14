@@ -247,6 +247,18 @@ export function describeChanges(
   return lines;
 }
 
+const VERSION_DECLARATION = /export const BENCHMARK_VERSION = "[^"]*";/;
+
+/**
+ * Returns the assumptions.ts source with BENCHMARK_VERSION set to `version`.
+ * Throws only when the declaration is absent; a rerun that lands on the
+ * same version (same survey year, same UTC day) is a valid no-op.
+ */
+export function bumpBenchmarkVersion(source: string, version: string): string {
+  if (!VERSION_DECLARATION.test(source)) throw new Error("Could not find BENCHMARK_VERSION in assumptions.ts to bump.");
+  return source.replace(VERSION_DECLARATION, `export const BENCHMARK_VERSION = "${version}";`);
+}
+
 export function parseArgs(argv: string[]) {
   const args = { year: undefined as number | undefined, latest: false, dryRun: false, help: false };
   for (let i = 0; i < argv.length; i += 1) {

@@ -3,6 +3,7 @@ import test from "node:test";
 
 import {
   adminOccupationIndex,
+  bumpBenchmarkVersion,
   computeBenchmarkValues,
   describeChanges,
   parseArgs,
@@ -131,4 +132,11 @@ test("argument parsing rejects a missing, malformed or option-shaped --year valu
 test("argument parsing rejects --year combined with --latest", () => {
   assert.throws(() => parseArgs(["--year", "2026", "--latest"]), /either --year YYYY or --latest/);
   assert.throws(() => parseArgs(["--latest", "--year=2026"]), /either --year YYYY or --latest/);
+});
+
+test("the version bump rewrites the declaration, tolerates a same-version rerun and rejects a missing one", () => {
+  const source = 'export const FOO = 1;\nexport const BENCHMARK_VERSION = "2026-09-14-oews-may-2025";\n';
+  assert.equal(bumpBenchmarkVersion(source, "2027-04-01-oews-may-2026"), source.replace("2026-09-14-oews-may-2025", "2027-04-01-oews-may-2026"));
+  assert.equal(bumpBenchmarkVersion(source, "2026-09-14-oews-may-2025"), source, "same-day rerun is a no-op, not an error");
+  assert.throws(() => bumpBenchmarkVersion('export const FOO = 1;\n', "2027-04-01-oews-may-2026"), /Could not find BENCHMARK_VERSION/);
 });

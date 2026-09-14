@@ -39,6 +39,7 @@ import {
 } from "../src/lib/roi-calculator/labor/benchmark-data";
 import { OCCUPATION_SOC_CODES } from "../src/lib/roi-calculator/labor/occupations";
 import {
+  bumpBenchmarkVersion,
   computeBenchmarkValues,
   describeChanges,
   parseArgs,
@@ -215,9 +216,7 @@ async function main() {
 
   // Validate the version bump before touching either file so a failure here
   // never leaves new benchmark data paired with the old BENCHMARK_VERSION.
-  const assumptions = await fs.readFile(assumptionsPath, "utf8");
-  const bumped = assumptions.replace(/export const BENCHMARK_VERSION = "[^"]*";/, `export const BENCHMARK_VERSION = "${version}";`);
-  if (bumped === assumptions) throw new Error("Could not find BENCHMARK_VERSION in assumptions.ts to bump.");
+  const bumped = bumpBenchmarkVersion(await fs.readFile(assumptionsPath, "utf8"), version);
 
   await fs.writeFile(dataPath, renderBenchmarkDataFile(values, metros, { surveyYear: year, retrievedOn }));
   await fs.writeFile(assumptionsPath, bumped);
