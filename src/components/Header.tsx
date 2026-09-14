@@ -2,16 +2,27 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { ButtonLink } from "@/components/ui/Button";
+import NavDropdown, { NavAccordion } from "@/components/nav/NavDropdown";
 import { mainNav, headerCtas } from "@/config/nav";
 
 // Single source of truth for primary nav lives in `src/config/nav.ts`.
-// Both Header and Footer import the same `mainNav` constant.
+// Both Header and Footer import the same `mainNav` constant. Items with
+// `children` (derived from the journey registry) render a dropdown on desktop
+// and an accordion in the mobile drawer; the parent stays a direct link.
 const NAV = mainNav;
+
+const DESKTOP_LINK =
+  "text-sm font-semibold text-fg-0 transition-colors hover:text-signal-yellow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-signal-yellow rounded-[4px] aria-[current=page]:text-signal-yellow data-[active]:text-signal-yellow";
+const MOBILE_LINK =
+  "block min-h-11 rounded-md px-3 py-3 text-base font-semibold text-fg-0 hover:bg-bg-2 hover:text-signal-yellow aria-[current=page]:text-signal-yellow";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname() ?? "/";
+  const isActive = (href: string) => pathname === href;
 
   // Close on escape; lock scroll while menu is open
   useEffect(() => {
@@ -52,27 +63,27 @@ export default function Header() {
 
         {/* Desktop nav */}
         <ul className="hidden items-center gap-6 lg:flex">
-          {NAV.map((item) => (
-            <li key={item.href}>
-              {item.href.startsWith("http") ? (
-                <a
-                  href={item.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm font-semibold text-fg-0 transition-colors hover:text-signal-yellow"
-                >
-                  {item.label}
-                </a>
-              ) : (
-                <Link
-                  href={item.href}
-                  className="text-sm font-semibold text-fg-0 transition-colors hover:text-signal-yellow"
-                >
-                  {item.label}
-                </Link>
-              )}
-            </li>
-          ))}
+          {NAV.map((item) =>
+            item.children?.length ? (
+              <NavDropdown key={item.href} item={item} isActive={isActive} linkClassName={DESKTOP_LINK} />
+            ) : (
+              <li key={item.href}>
+                {item.external ? (
+                  <a href={item.href} target="_blank" rel="noopener noreferrer" className={DESKTOP_LINK}>
+                    {item.label}
+                  </a>
+                ) : (
+                  <Link
+                    href={item.href}
+                    className={DESKTOP_LINK}
+                    aria-current={isActive(item.href) ? "page" : undefined}
+                  >
+                    {item.label}
+                  </Link>
+                )}
+              </li>
+            ),
+          )}
         </ul>
 
         {/* The diagnostic is the primary action at both viewport sizes. */}
@@ -91,7 +102,7 @@ export default function Header() {
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
           aria-controls="primary-nav-mobile"
-          className="rounded-md border border-[var(--border-subtle)] bg-bg-2 px-3 py-2 t-small text-fg-0 lg:hidden"
+          className="min-h-11 rounded-md border border-[var(--border-subtle)] bg-bg-2 px-3 py-2 t-small text-fg-0 lg:hidden"
         >
           {open ? "Close" : "Menu"}
         </button>
@@ -101,32 +112,43 @@ export default function Header() {
       {open && (
         <div
           id="primary-nav-mobile"
-          className="border-t border-[var(--border-subtle)] bg-bg-base lg:hidden"
+          className="max-h-[calc(100vh-5rem)] overflow-y-auto border-t border-[var(--border-subtle)] bg-bg-base lg:hidden"
         >
           <ul className="mx-auto max-w-[1280px] space-y-1 px-5 py-6 sm:px-8">
-            {NAV.map((item) => (
-              <li key={item.href}>
-                {item.href.startsWith("http") ? (
-                  <a
-                    href={item.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block rounded-md px-3 py-3 text-base font-semibold text-fg-0 hover:bg-bg-2 hover:text-signal-yellow"
-                    onClick={() => setOpen(false)}
-                  >
-                    {item.label}
-                  </a>
-                ) : (
-                  <Link
-                    href={item.href}
-                    className="block rounded-md px-3 py-3 text-base font-semibold text-fg-0 hover:bg-bg-2 hover:text-signal-yellow"
-                    onClick={() => setOpen(false)}
-                  >
-                    {item.label}
-                  </Link>
-                )}
-              </li>
-            ))}
+            {NAV.map((item) =>
+              item.children?.length ? (
+                <NavAccordion
+                  key={item.href}
+                  item={item}
+                  isActive={isActive}
+                  onNavigate={() => setOpen(false)}
+                  linkClassName={MOBILE_LINK}
+                />
+              ) : (
+                <li key={item.href}>
+                  {item.external ? (
+                    <a
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={MOBILE_LINK}
+                      onClick={() => setOpen(false)}
+                    >
+                      {item.label}
+                    </a>
+                  ) : (
+                    <Link
+                      href={item.href}
+                      className={MOBILE_LINK}
+                      aria-current={isActive(item.href) ? "page" : undefined}
+                      onClick={() => setOpen(false)}
+                    >
+                      {item.label}
+                    </Link>
+                  )}
+                </li>
+              ),
+            )}
             <li className="flex flex-col gap-3 pt-4">
               <ButtonLink
                 href={headerCtas.diagnostic.href}

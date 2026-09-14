@@ -70,6 +70,9 @@ jobs:
       - name: Verify the journey registry references, link graph, and route existence
         run: pnpm exec tsx --test test/journeys.test.ts
 
+      - name: Verify derived navigation children and the footer projection
+        run: pnpm exec tsx --test test/nav.test.ts
+
       - name: Build workspace packages
         run: pnpm packages:build
 

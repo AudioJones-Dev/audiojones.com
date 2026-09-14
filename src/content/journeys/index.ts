@@ -855,10 +855,10 @@ const STATIC_PAGES: JourneyPage[] = [
 // ── Legal pages: footer-only, indexable, not sitemap-listed today ───────────
 
 const LEGAL_ROUTES: Array<[string, string]> = [
-  ["privacy-policy", "Privacy Policy"],
-  ["terms-of-service", "Terms of Service"],
-  ["cookie-policy", "Cookie Policy"],
-  ["cancellation-policy", "Cancellation Policy"],
+  ["privacy-policy", "Privacy"],
+  ["terms-of-service", "Terms"],
+  ["cookie-policy", "Cookies"],
+  ["cancellation-policy", "Cancellation"],
   ["studio-policy", "Studio Policy"],
 ];
 
@@ -1183,7 +1183,12 @@ export function getFooterNavigation(): NavGroup[] {
   return [
     {
       label: "Solutions",
-      items: [toNavLink(pageById.get("solutions")!), ...under("solutions").map(toNavLink)],
+      items: [
+        toNavLink(pageById.get("solutions")!),
+        ...under("solutions")
+          .filter((p) => p.archetype === "solution-landing" || p.archetype === "solution-family")
+          .map(toNavLink),
+      ],
     },
     {
       label: "Resources",

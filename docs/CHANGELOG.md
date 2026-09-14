@@ -15,6 +15,24 @@ Entries are reverse chronological. Format follows
 
 ## Unreleased
 
+### Changed
+- The header renders hierarchical navigation (Canonical Map v1.1, Phase 2).
+  `Solutions` and `Resources` in `src/config/nav.ts` now carry `children`
+  and `groups` derived from the journey registry, so only live registered
+  routes appear and the two planned tools stay hidden. Desktop shows an
+  accessible dropdown beside each parent link (`src/components/nav/NavDropdown.tsx`):
+  click, Enter, Space, or ArrowDown open it, arrow keys move through it,
+  Escape and outside clicks close it with focus returned to the trigger, and
+  only one menu is open at a time. The mobile drawer nests the same groups as
+  accordions with 44px targets. Parent hubs stay directly clickable at both
+  sizes, and the active route is marked with `aria-current`.
+- The footer's site column is now the governed six-group projection from
+  `getFooterNavigation()` (Solutions, Resources, Diagnostics, Calculators,
+  Company, Legal). "Diagnostics" and "Calculators" are headings over the
+  tool links, not destinations. Legal grows from three links to five.
+  `test/nav.test.ts` (run in CI) pins the derived children, the planned-tool
+  exclusion, and the footer group order.
+
 ### Added
 - `src/content/journeys/index.ts` is the canonical page and journey registry
   (Canonical Map v1.1, Phase 1). Every public page carries lifecycle status,

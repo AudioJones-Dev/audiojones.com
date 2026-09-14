@@ -2,16 +2,15 @@ import { Suspense } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import NewsletterForm from "@/components/newsletter/NewsletterForm";
-import { mainNav } from "@/config/nav";
+import { getFooterNavigation } from "@/content/journeys";
 
-// Primary nav imported from canonical source — same array Header consumes.
-const PRIMARY_NAV = mainNav;
-
-const LEGAL_NAV = [
-  { label: "Privacy", href: "/privacy-policy" },
-  { label: "Terms", href: "/terms-of-service" },
-  { label: "Cookies", href: "/cookie-policy" },
-];
+// Footer groups are projected from the journey registry (Canonical Map v1.1
+// §8.9): Solutions, Resources, Diagnostics, Calculators, Company, Legal. Only
+// live routes appear, and "Diagnostics" / "Calculators" are headings over the
+// tool links, not destinations (DECISIONS.md 2026-09-14).
+const FOOTER_GROUPS = getFooterNavigation();
+const SITE_GROUPS = FOOTER_GROUPS.filter((g) => g.label !== "Legal");
+const LEGAL_NAV = FOOTER_GROUPS.find((g) => g.label === "Legal")?.items ?? [];
 
 const SOCIAL = [
   // TODO: integration deferred — confirm canonical URLs before publishing.
@@ -29,7 +28,7 @@ export default function Footer() {
       <div className="mx-auto max-w-[1280px] px-5 py-16 sm:px-8 sm:py-20">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
           {/* Brand block — V2 horizontal wordmark with tagline */}
-          <div className="lg:col-span-5">
+          <div className="lg:col-span-4">
             <Link
               href="/"
               className="inline-flex items-center"
@@ -54,36 +53,29 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Site nav */}
-          <div className="lg:col-span-3">
-            <h3 className="t-label">Site</h3>
-            <ul className="mt-5 space-y-3">
-              {PRIMARY_NAV.map((item) => (
-                <li key={item.href}>
-                  {item.href.startsWith("http") ? (
-                    <a
-                      href={item.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="t-body text-fg-1 transition-colors hover:text-fg-0"
-                    >
-                      {item.label}
-                    </a>
-                  ) : (
-                    <Link
-                      href={item.href}
-                      className="t-body text-fg-1 transition-colors hover:text-fg-0"
-                    >
-                      {item.label}
-                    </Link>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </div>
+          {/* Governed second-level navigation */}
+          <nav aria-label="Footer" className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:col-span-5">
+            {SITE_GROUPS.map((group) => (
+              <div key={group.label}>
+                <h3 className="t-label">{group.label}</h3>
+                <ul className="mt-5 space-y-3">
+                  {group.items.map((item) => (
+                    <li key={item.href}>
+                      <Link
+                        href={item.href}
+                        className="t-body text-fg-1 transition-colors hover:text-fg-0"
+                      >
+                        {item.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </nav>
 
           {/* Connect */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-1">
             <h3 className="t-label">Connect</h3>
             <ul className="mt-5 space-y-3">
               {SOCIAL.map((s) => (

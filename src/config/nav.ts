@@ -5,6 +5,11 @@
  * Used by Header, Footer, and any navigation components.
  */
 
+import {
+  getResourcesNavChildren,
+  getSolutionsNavChildren,
+  type NavGroup,
+} from "@/content/journeys";
 import { modules } from "./modules";
 
 export type NavItem = {
@@ -12,8 +17,24 @@ export type NavItem = {
   href: string;
   external?: boolean;
   description?: string;
+  /** Flat list of child destinations; every entry is also in `groups`. */
   children?: NavItem[];
+  /** Grouped child destinations for dropdown, accordion, and footer rendering. */
+  groups?: NavGroup[];
 };
+
+// Children are derived from the journey registry (Canonical Map v1.1 §8.1,
+// §8.4, §8.5): only live, registered routes appear, and the parent hub stays a
+// direct link, so the "Overview" group the selectors emit is dropped here.
+function childrenFrom(groups: NavGroup[]): Pick<NavItem, "children" | "groups"> {
+  const withoutOverview = groups.filter((g) => g.label !== "Overview");
+  return {
+    groups: withoutOverview,
+    children: withoutOverview.flatMap((g) =>
+      g.items.map((i) => ({ label: i.label, href: i.href, description: i.description })),
+    ),
+  };
+}
 
 // Canonical primary navigation. Consumed by:
 //   - `src/components/Header.tsx`
@@ -38,6 +59,7 @@ export const mainNav: NavItem[] = [
     label: "Solutions",
     href: "/solutions",
     description: "What AJ Digital builds — the canonical offer ladder",
+    ...childrenFrom(getSolutionsNavChildren()),
   },
   {
     label: "Pricing",
@@ -53,6 +75,7 @@ export const mainNav: NavItem[] = [
     label: "Resources",
     href: "/resources",
     description: "Diagnostics, calculators, insights, frameworks, and case studies",
+    ...childrenFrom(getResourcesNavChildren()),
   },
   {
     label: "Contact",
