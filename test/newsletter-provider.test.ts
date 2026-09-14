@@ -299,3 +299,46 @@ test("vercel dev counts as local, so an unset provider falls back to mock", asyn
     }),
   );
 });
+
+// A 2xx is not proof that anyone was subscribed. MAILERLITE_API_BASE is
+// configurable, so a proxy, captive portal or wrong host can answer 200 with a
+// body that never created a subscriber. Inventing an id for that answer is the
+// false "Subscribed." this suite exists to prevent.
+const unconfirmedSuccesses: [string, () => Response][] = [
+  ["200 with an empty object", () => new Response("{}", { status: 200 })],
+  ["201 with no id under data", () => new Response(JSON.stringify({ data: {} }), { status: 201 })],
+  ["200 with a non-JSON body", () => new Response("<html>OK</html>", { status: 200 })],
+  ["204 with no content", () => new Response(null, { status: 204 })],
+];
+
+for (const [label, respond] of unconfirmedSuccesses) {
+  test(`a 2xx without a subscriber id is refused, not faked (${label})`, async () => {
+    await withEnv(
+      { ...CLEAN, ...PRODUCTION, NEWSLETTER_PROVIDER: "mailerlite", MAILERLITE_TOKEN: "test-token" },
+      () =>
+        withFetch(respond, async (calls) => {
+          const result = await getNewsletterAdapter().subscribe(input);
+          assert.equal(calls.length, 1, "MailerLite must actually be called");
+          assert.equal(result.ok, false, `${label} must not report success`);
+          assert.equal(result.ok === false && result.code, "PROVIDER_ERROR");
+        }),
+    );
+  });
+}
+
+// The connect API nests the id under `data`; the classic API returns it at the
+// top level. Both are real acceptances and must not be refused.
+test("a top-level subscriber id is accepted", async () => {
+  await withEnv(
+    { ...CLEAN, ...PRODUCTION, NEWSLETTER_PROVIDER: "mailerlite", MAILERLITE_TOKEN: "test-token" },
+    () =>
+      withFetch(
+        () => new Response(JSON.stringify({ id: 99 }), { status: 200 }),
+        async () => {
+          const result = await getNewsletterAdapter().subscribe(input);
+          assert.equal(result.ok, true);
+          assert.equal(result.ok === true && result.id, "99");
+        },
+      ),
+  );
+});

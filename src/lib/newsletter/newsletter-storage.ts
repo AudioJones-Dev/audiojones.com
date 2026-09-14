@@ -137,13 +137,37 @@ const mailerliteAdapter: NewsletterAdapter = {
         return refuse(`MailerLite answered ${res.status}`, input);
       }
 
-      // Best-effort id extraction; MailerLite payload shape varies by API version
-      let id = `ml-${randomUUID()}`;
+      // A 2xx alone is not proof anyone was subscribed. MAILERLITE_API_BASE is
+      // configurable, so a proxy, captive portal or wrong host can answer 200
+      // with a body that never created a subscriber — and inventing an id for
+      // that answer is the false "Subscribed." this module exists to remove.
+      // Accept only a documented create/update carrying a subscriber id.
+      //
+      // The cost of being strict is a retry message to someone MailerLite may
+      // actually have accepted; POST /api/subscribers upserts, so the retry is
+      // harmless. The cost of being lax is a silently discarded address.
+      if (res.status !== 200 && res.status !== 201) {
+        return refuse(`MailerLite answered ${res.status} rather than 200 or 201`, input);
+      }
+
+      // Shape varies by API version: the connect.* API nests the id under
+      // `data`, the classic API returns it at the top level.
+      let id: string | null = null;
       try {
-        const data = (await res.json()) as { data?: { id?: string } };
-        if (data?.data?.id) id = String(data.data.id);
+        const data = (await res.json()) as {
+          data?: { id?: string | number };
+          id?: string | number;
+        };
+        const raw = data?.data?.id ?? data?.id;
+        if (raw !== undefined && raw !== null && String(raw).trim() !== "") {
+          id = String(raw);
+        }
       } catch {
-        // ignore — fallback id already set
+        // Unparseable body — refused below, never guessed at.
+      }
+
+      if (!id) {
+        return refuse(`MailerLite answered ${res.status} without a subscriber id`, input);
       }
 
       return { ok: true, id, provider: "mailerlite" };
