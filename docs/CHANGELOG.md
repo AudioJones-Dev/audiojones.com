@@ -15,6 +15,33 @@ Entries are reverse chronological. Format follows
 
 ## Unreleased
 
+### Changed
+- `/roi-calculator` is now the geo-economic **Revenue Leak Scorecard**. The
+  existing engine under `src/lib/roi-calculator/` was extended, not forked:
+  a ZIP-resolved labor benchmark layer (`geography/`, `labor/`), five pure
+  scenario modules (`scenarios/`), an explicit assumption registry
+  (`assumptions.ts`), presets (`presets.ts`) and a `scorecard.ts`
+  orchestrator that reports labor capacity, revenue leakage, conversion
+  opportunity, owner capacity and cost avoidance separately and combines
+  them only after overlap controls. Results carry a low/base/high range,
+  a data-quality confidence tier with reasons, and benchmark provenance.
+  Spec: `docs/specs/revenue-leak-scorecard-v2-geo-economic-engine.md`.
+- The lead API now accepts two envelopes. V1 payloads (no
+  `calculationVersion`) validate and calculate exactly as before; V2
+  payloads send inputs only and receive the server-computed result. Rows
+  still land in `roi_calculator_leads` as JSON with `calculationVersion`
+  inside `result` — no migration.
+- The agency notification for V2 submissions is a concise summary (location,
+  hours, layers, range, primary leak, confidence, next action) rather than
+  the full field dump; the client email shows the category breakdown, the
+  required disclaimer and the Revenue Leak Diagnostic CTA.
+- Labor benchmarks ship as a seeded, versioned in-memory dataset
+  (`labor/benchmark-data.ts`: BLS OEWS May 2023 national medians with state
+  and metro indexes). Refreshing it is a file replacement and a version bump,
+  not a runtime fetch, so no benchmark credentials exist anywhere.
+- CI runs the three new scorecard suites plus the previously unwired
+  `roi-calculator-assumptions` suite.
+
 ### Security
 - `requireAdmin` now compares the `admin-key` / `x-admin-key` header against
   `ADMIN_KEY` with the constant-time `isAdminKey` helper from
