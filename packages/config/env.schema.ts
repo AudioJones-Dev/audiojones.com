@@ -71,6 +71,11 @@ export const EnvSchema = z.object({
   // API base URLs
   API_BASE_URL: z.string().url().optional(),
   NEXT_PUBLIC_API_URL: z.string().url().optional(),
+
+  // Analytics & attribution (optional; the site ships inert until set).
+  // GTM is preferred; GA4 is loaded only as a fallback when no container is set.
+  NEXT_PUBLIC_GTM_ID: z.string().regex(/^GTM-[A-Z0-9]+$/).optional(),
+  NEXT_PUBLIC_GA_ID: z.string().regex(/^G-[A-Z0-9]+$/).optional(),
 });
 
 export type Env = z.infer<typeof EnvSchema>;

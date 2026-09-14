@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { Syne, DM_Sans, DM_Mono } from "next/font/google";
 import "./globals.css";
 import CookieBanner from "@/components/CookieBanner";
@@ -84,7 +85,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     >
       <body className="bg-bg-base text-text-primary font-body antialiased">
         <AnalyticsScripts />
-        <AttributionListener />
+        <Suspense fallback={null}>
+          <AttributionListener />
+        </Suspense>
         <ToastProvider>
           <Header />
           <main className="min-h-screen overflow-x-clip pt-20">{children}</main>
