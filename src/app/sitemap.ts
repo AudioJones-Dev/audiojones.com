@@ -1,81 +1,60 @@
 import { MetadataRoute } from "next";
-import { FRAMEWORKS } from "@/content/frameworks";
-import { INSIGHTS } from "@/content/insights";
+import { getSitemapRoutes } from "@/content/journeys";
 import { siteConfig } from "@/lib/site";
 
+/**
+ * The sitemap is a projection of canonical public page state, not an
+ * inventory of its own (Canonical Map v1.1 §10). Static marketing pages, tool
+ * landings, solution pages, Insights, and Frameworks come from the journey
+ * registry, which already derives Insight and Framework entries from their
+ * own content registries; blog posts come from Sanity. Both feed one
+ * deduplication boundary.
+ *
+ * `lastModified` is set only from a real content date: a registry page's
+ * declared `updatedAt`, or a post's CMS timestamp. Nothing is stamped with
+ * build time (§10.5).
+ */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = siteConfig.url;
-  const now = new Date();
 
-  // ── Static public routes ──────────────────────────────────────────────────
-  // Mirror the 7-item primary nav + the 2 right-side CTAs introduced by the
-  // 2026-05-10 nav restructure, plus crawlable supporting surfaces.
-  const staticRoutes: MetadataRoute.Sitemap = [
-    // Primary nav
-    { url: base,                                        lastModified: now, changeFrequency: "weekly",  priority: 1    },
-    { url: `${base}/solutions`,                         lastModified: now, changeFrequency: "weekly",  priority: 0.95 },
-    { url: `${base}/resources`,                         lastModified: now, changeFrequency: "weekly",  priority: 0.7  },
-    { url: `${base}/agents`,                            lastModified: now, changeFrequency: "weekly",  priority: 0.9  },
-    { url: `${base}/agents/responseos`,                 lastModified: now, changeFrequency: "weekly",  priority: 0.9  },
-    { url: `${base}/services`,                          lastModified: now, changeFrequency: "weekly",  priority: 0.9  },
-    { url: `${base}/case-studies`,                      lastModified: now, changeFrequency: "weekly",  priority: 0.9  },
-    { url: `${base}/insights`,                          lastModified: now, changeFrequency: "weekly",  priority: 0.85 },
-    { url: `${base}/roi-calculator`,                    lastModified: now, changeFrequency: "weekly",  priority: 0.9  },
-    { url: `${base}/workshops`,                         lastModified: now, changeFrequency: "weekly",  priority: 0.85 },
-    // Right-side header CTAs
-    { url: `${base}/ai-readiness-diagnostic`,           lastModified: now, changeFrequency: "monthly", priority: 0.9  },
-    { url: `${base}/book-a-call`,                       lastModified: now, changeFrequency: "monthly", priority: 0.85 },
-    // Supporting surfaces
-    { url: `${base}/founder-intelligence`,              lastModified: now, changeFrequency: "weekly",  priority: 0.85 },
-    { url: `${base}/founder-intelligence/diagnostic`,   lastModified: now, changeFrequency: "monthly", priority: 0.85 },
-    { url: `${base}/founder-gravity-audit`,             lastModified: now, changeFrequency: "monthly", priority: 0.9  },
-    { url: `${base}/founder-gravity-audit/diagnostic`,  lastModified: now, changeFrequency: "monthly", priority: 0.9  },
-    { url: `${base}/apply`,                             lastModified: now, changeFrequency: "monthly", priority: 0.85 },
-    { url: `${base}/pricing`,                           lastModified: now, changeFrequency: "monthly", priority: 0.85 },
-    { url: `${base}/frameworks`,                        lastModified: now, changeFrequency: "monthly", priority: 0.8  },
-    { url: `${base}/blog`,                              lastModified: now, changeFrequency: "weekly",  priority: 0.8  },
-    { url: `${base}/about`,                             lastModified: now, changeFrequency: "monthly", priority: 0.6  },
-  ];
-
-  // ── Dynamic framework routes (from content file) ──────────────────────────
-  const frameworkRoutes: MetadataRoute.Sitemap = FRAMEWORKS.map((f) => ({
-    url: `${base}/frameworks/${f.slug}`,
-    lastModified: now,
-    changeFrequency: "monthly",
-    priority: 0.8,
+  const registryRoutes: MetadataRoute.Sitemap = getSitemapRoutes().map((r) => ({
+    // The homepage declares its canonical as `${siteConfig.url}/`; match it.
+    url: `${base}${r.route}`,
+    ...(r.lastModified ? { lastModified: r.lastModified } : {}),
+    ...(r.changeFrequency ? { changeFrequency: r.changeFrequency } : {}),
+    ...(r.priority !== undefined ? { priority: r.priority } : {}),
   }));
 
-  // ── Dynamic insight routes (from content file) ────────────────────────────
-  const insightRoutes: MetadataRoute.Sitemap = INSIGHTS.map((i) => ({
-    url: `${base}/insights/${i.slug}`,
-    lastModified: now,
-    changeFrequency: "monthly",
-    priority: 0.75,
-  }));
+  return dedupeByUrl([...registryRoutes, ...(await getBlogSitemapRoutes(base))]);
+}
 
-  // ── Dynamic Sanity blog post routes ──────────────────────────────────────
-  // Only fetched when NEXT_PUBLIC_SANITY_PROJECT_ID is configured.
-  // If Sanity is not connected, /blog is still in staticRoutes above — no crash.
-  let blogPostRoutes: MetadataRoute.Sitemap = [];
-  if (process.env.NEXT_PUBLIC_SANITY_PROJECT_ID) {
-    try {
-      const { safeFetch } = await import("@/lib/sanity/client");
-      const { SITEMAP_POSTS_QUERY } = await import("@/lib/sanity/queries");
-      const posts = await safeFetch<Array<{ slug: string; lastModified?: string }>>(
-        SITEMAP_POSTS_QUERY
-      );
-      if (posts) {
-        blogPostRoutes = posts.map((p) => ({
-          url: `${base}/blog/${p.slug}`,
-          lastModified: p.lastModified ? new Date(p.lastModified) : now,
-          changeFrequency: "weekly",
-          priority: 0.75,
-        }));
-      }
-    } catch {
-      // Sanity fetch failed — degrade gracefully, sitemap still generates
-    }
+// Only fetched when NEXT_PUBLIC_SANITY_PROJECT_ID is configured. If Sanity is
+// not connected, /blog itself still comes from the registry — no crash.
+async function getBlogSitemapRoutes(base: string): Promise<MetadataRoute.Sitemap> {
+  if (!process.env.NEXT_PUBLIC_SANITY_PROJECT_ID) return [];
+  try {
+    const { safeFetch } = await import("@/lib/sanity/client");
+    const { SITEMAP_POSTS_QUERY } = await import("@/lib/sanity/queries");
+    const posts = await safeFetch<Array<{ slug: string; lastModified?: string }>>(
+      SITEMAP_POSTS_QUERY,
+    );
+    return (posts ?? []).map((p) => ({
+      url: `${base}/blog/${p.slug}`,
+      ...(p.lastModified ? { lastModified: new Date(p.lastModified) } : {}),
+      changeFrequency: "weekly",
+      priority: 0.75,
+    }));
+  } catch {
+    // Sanity fetch failed — degrade gracefully, sitemap still generates
+    return [];
   }
+}
 
-  return [...staticRoutes, ...frameworkRoutes, ...insightRoutes, ...blogPostRoutes];
+function dedupeByUrl(entries: MetadataRoute.Sitemap): MetadataRoute.Sitemap {
+  const seen = new Set<string>();
+  return entries.filter((e) => {
+    if (seen.has(e.url)) return false;
+    seen.add(e.url);
+    return true;
+  });
 }
