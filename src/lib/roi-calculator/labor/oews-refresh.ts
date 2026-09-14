@@ -81,7 +81,11 @@ export function computeBenchmarkValues(extract: OewsExtract, metros: MetroConfig
       continue;
     }
     states[postal] = index;
-    employment[postal] = area.occupations[ALL_OCCUPATIONS_SOC]?.employment ?? 0;
+    const totalEmployment = area.occupations[ALL_OCCUPATIONS_SOC]?.employment;
+    if (regionForState(postal) && !(totalEmployment != null && totalEmployment > 0)) {
+      throw new Error(`${postal}: all-occupations employment is missing or non-positive, so it cannot weight its region.`);
+    }
+    employment[postal] = totalEmployment ?? 0;
   }
 
   const regionTotals: Record<string, { weighted: number; weight: number }> = {};
@@ -247,12 +251,22 @@ export function parseArgs(argv: string[]) {
   const args = { year: undefined as number | undefined, latest: false, dryRun: false, help: false };
   for (let i = 0; i < argv.length; i += 1) {
     const arg = argv[i];
-    if (arg === "--year") args.year = Number(argv[++i]);
-    else if (arg.startsWith("--year=")) args.year = Number(arg.slice("--year=".length));
+    if (arg === "--year") {
+      args.year = parseYear(argv[i + 1]);
+      i += 1;
+    } else if (arg.startsWith("--year=")) args.year = parseYear(arg.slice("--year=".length));
     else if (arg === "--latest") args.latest = true;
     else if (arg === "--dry-run") args.dryRun = true;
     else if (arg === "--help" || arg === "-h") args.help = true;
     else throw new Error(`Unknown argument: ${arg}`);
   }
+  if (args.year !== undefined && args.latest) throw new Error("Use either --year YYYY or --latest, not both.");
   return args;
+}
+
+function parseYear(value: string | undefined): number {
+  if (value === undefined || !/^\d{4}$/.test(value)) {
+    throw new Error(`--year requires a four-digit survey year, got ${value === undefined ? "nothing" : JSON.stringify(value)}.`);
+  }
+  return Number(value);
 }
