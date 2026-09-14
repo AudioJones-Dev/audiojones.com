@@ -20,9 +20,10 @@ Entries are reverse chronological. Format follows
   benchmark dataset from a given OEWS release (`--year 2026` or `--latest`,
   with `--dry-run` for a report-only pass), recomputing the admin-occupation
   indexes, rewriting `benchmark-data.ts` and bumping `BENCHMARK_VERSION`.
-  SOC codes now live alongside the occupation labels in `occupations.ts`.
-  Index math and rendering are covered by `test/oews-refresh.test.ts`, run
-  in CI.
+  SOC codes now live alongside the occupation labels in `occupations.ts`,
+  and the pure index math and rendering sit in `labor/oews-refresh.ts` so
+  `test/oews-refresh.test.ts` (run in CI) covers them without importing from
+  `scripts/`, which the Vercel build never sees.
 
 ### Changed
 - Labor benchmark dataset for the Revenue Leak Scorecard refreshed from the

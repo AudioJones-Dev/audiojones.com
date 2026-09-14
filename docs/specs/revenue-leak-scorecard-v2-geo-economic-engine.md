@@ -104,7 +104,9 @@ clients), recomputes the indexes with the method above, rewrites
 than 0.05 so the change can be sanity-checked before committing. Metro ZIP
 ranges are curated and carried forward; to add a metro, append its key,
 state, OEWS area code and ZIP ranges to `METRO_AREAS` and re-run. The
-index math and file rendering are covered by `test/oews-refresh.test.ts`.
+index math and file rendering live in `labor/oews-refresh.ts` (pure, no
+network) so `test/oews-refresh.test.ts` can cover them; the script itself
+only fetches and writes.
 
 ### Loaded labor cost
 

@@ -10,7 +10,7 @@ import {
   type AreaExtract,
   type MetroConfig,
   type OewsExtract,
-} from "../scripts/refresh-oews-benchmarks";
+} from "../src/lib/roi-calculator/labor/oews-refresh";
 import { OCCUPATION_SOC_CODES } from "../src/lib/roi-calculator/labor/occupations";
 
 const SOC = Object.values(OCCUPATION_SOC_CODES);
