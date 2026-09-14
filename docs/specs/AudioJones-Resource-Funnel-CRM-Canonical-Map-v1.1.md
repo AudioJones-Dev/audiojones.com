@@ -1,7 +1,8 @@
 ---
 title: Audio Jones Resource Funnel and CRM Canonical Map
 version: 1.1.0
-status: proposed-for-ratification
+status: ratified
+ratified_date: 2026-09-14
 owner: AJ Digital LLC
 repository: AudioJones-Dev/audiojones.com
 repository_evidence_sha: 10881d0aaf8267c97215d131f4709a390add2e0d

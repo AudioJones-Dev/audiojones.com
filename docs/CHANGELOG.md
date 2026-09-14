@@ -28,10 +28,11 @@ Entries are reverse chronological. Format follows
 ### Docs
 - `docs/specs/AudioJones-Resource-Funnel-CRM-Canonical-Map-v1.1.md` lands the
   resource funnel / navigation / sitemap / CRM canonical map (status:
-  proposed-for-ratification, supersedes v1.0, which is preserved alongside it
+  ratified 2026-09-14, supersedes v1.0, which is preserved alongside it
   as historical evidence). Its seven repository-evidence claims were verified
-  against `main` at `10881d0`. Nothing in `src/` changes until the §17
-  ratification decisions are taken.
+  against `main` at `10881d0`. The §17 ratification, with the two forks
+  resolved (`/book-a-call` is an inquiry gateway; deals are created on human
+  qualification), is recorded in [`docs/DECISIONS.md`](./DECISIONS.md).
 - A fourth entry separates the data-lifecycle commitments — 30-day notice, export
   survival through termination for cause or nonpayment, and 30-day retention then
   deletion — from the 12-month term entry, so that accepting a billing commitment
