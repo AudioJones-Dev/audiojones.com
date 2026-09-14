@@ -84,11 +84,12 @@ export function validateJourneyRegistry(): string[] {
     } else if (!ROOT_ARCHETYPES.has(p.archetype)) {
       errors.push(`${p.id}: child page lacks a parent hub`);
     }
-    for (const id of p.relatedPageIds ?? []) ref(p.id, "relatedPageIds", id);
-    for (const id of p.requiredInboundFrom ?? []) {
-      ref(p.id, "requiredInboundFrom", id);
-      noteInbound(p.id, id);
+    if (p.parentId && byId.has(p.parentId)) noteInbound(p.id, p.parentId); // hubs link down (§7.1)
+    for (const id of p.relatedPageIds ?? []) {
+      ref(p.id, "relatedPageIds", id);
+      noteInbound(id, p.id);
     }
+    for (const id of p.requiredInboundFrom ?? []) ref(p.id, "requiredInboundFrom", id);
     for (const id of p.requiredOutboundTo ?? []) {
       ref(p.id, "requiredOutboundTo", id);
       noteInbound(id, p.id);
@@ -123,14 +124,20 @@ export function validateJourneyRegistry(): string[] {
     if (p.status !== "live" && (p.navVisibility ?? []).some((v) => GLOBAL_NAV.has(v))) {
       errors.push(`${p.id}: ${p.status} page declares global navigation visibility`);
     }
-    if (p.status === "live" && p.indexable && p.archetype === "result" && !p.primaryCta) {
-      errors.push(`${p.id}: public result page has no declared next step`);
-    }
 
     checkCta(p, p.primaryCta, "primaryCta");
     for (const cta of p.secondaryCtas ?? []) checkCta(p, cta, "secondaryCta");
     const ctaIds = [p.primaryCta, ...(p.secondaryCtas ?? [])].map((c) => c.id);
     if (new Set(ctaIds).size !== ctaIds.length) errors.push(`${p.id}: duplicate CTA ids`);
+  }
+
+  // requiredInboundFrom is a constraint on the other page, not evidence of a
+  // link: the named page must be this page's parent or declare an edge here.
+  for (const p of JOURNEY_PAGES) {
+    for (const id of p.requiredInboundFrom ?? []) {
+      if (id === p.parentId) continue;
+      if (!inbound.get(p.id)?.has(id)) errors.push(`${p.id}: requiredInboundFrom "${id}" declares no edge to it`);
+    }
   }
 
   // Orphans: a live, indexable page must be reachable from global navigation
@@ -140,8 +147,7 @@ export function validateJourneyRegistry(): string[] {
     if ((p.navVisibility ?? []).some((v) => GLOBAL_NAV.has(v))) continue;
     if (p.archetype === "brand-landing" && p.route === "/") continue;
     const from = inbound.get(p.id);
-    const parentLinks = p.parentId && byId.get(p.parentId)?.requiredOutboundTo?.includes(p.id);
-    if ((!from || from.size === 0) && !parentLinks) {
+    if (!from || from.size === 0) {
       errors.push(`${p.id}: no inbound internal link declared (orphan)`);
     }
   }
