@@ -131,7 +131,7 @@ export async function POST(req: NextRequest) {
 
   if (lead.calculationVersion === "v2-geo-economic") {
     if (!scorecard) return errorResponse("PROVIDER_ERROR", "Scorecard calculation did not complete.", 503);
-    const args = { leadId, input: lead.input, result: scorecard, submittedAt, source: lead.source };
+    const args = { leadId, email: lead.email, input: lead.input, result: scorecard, submittedAt, source: lead.source };
     const agencyEmailStatus = await sendAgencyScorecardNotification(args);
     await updateRoiLeadEmailStatus({ leadId, agencyEmailStatus });
     after(async () => {

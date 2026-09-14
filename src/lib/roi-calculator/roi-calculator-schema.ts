@@ -128,13 +128,23 @@ export const laborScopeEntrySchema = z.object({
   recoverabilityPercent: percent("Addressability").optional(),
 });
 
-export const serviceEconomicsSchema = z.object({
-  name: text("Primary product or service", 120),
-  averageSaleValue: dollars("Average sale value").optional(),
-  grossMarginPercent: percent("Gross margin").optional(),
-  grossProfitPerSale: dollars("Gross profit per sale").optional(),
-  monthlyOpportunityShare: percent("Opportunity share").optional(),
-});
+export const serviceEconomicsSchema = z
+  .object({
+    name: text("Primary product or service", 120),
+    averageSaleValue: dollars("Average sale value").optional(),
+    grossMarginPercent: percent("Gross margin").optional(),
+    grossProfitPerSale: dollars("Gross profit per sale").optional(),
+    monthlyOpportunityShare: percent("Opportunity share").optional(),
+  })
+  // The browser enforces this too, but a direct API client must not be able
+  // to inflate every revenue scenario with a profit larger than the sale.
+  .refine(
+    (service) =>
+      service.grossProfitPerSale == null ||
+      service.averageSaleValue == null ||
+      service.grossProfitPerSale <= service.averageSaleValue,
+    { message: "Gross profit cannot exceed the sale value.", path: ["grossProfitPerSale"] },
+  );
 
 export const revenueLeakScenarioSchema = z.object({
   monthlyInboundOpportunities: count("Monthly inbound opportunities"),
@@ -208,19 +218,34 @@ export const revenueLeakScorecardInputSchema = z.object({
  * benchmarks, calculates, and returns the authoritative result; nothing the
  * browser computed is trusted or even accepted.
  */
-export const revenueLeakScorecardLeadSchema = z.object({
+const revenueLeakScorecardLeadObject = z.object({
   ...leadEnvelope,
   calculationVersion: z.literal("v2-geo-economic"),
   input: revenueLeakScorecardInputSchema,
 });
 
+// Rate limiting and persistence key on the envelope address; the result
+// email goes to that same address, so the two cannot be allowed to diverge.
+const EMAIL_MISMATCH = { message: "Email must match the address entered in the form.", path: ["email"] };
+const emailsMatch = (lead: { email: string; input: { email: string } }) =>
+  lead.email.toLowerCase() === lead.input.email.toLowerCase();
+
+export const revenueLeakScorecardLeadSchema = revenueLeakScorecardLeadObject.refine(emailsMatch, EMAIL_MISMATCH);
+
 export type RevenueLeakScorecardLeadInput = z.infer<typeof revenueLeakScorecardLeadSchema>;
 
-export const anyRoiLeadSchema = z.discriminatedUnion("calculationVersion", [
-  revenueLeakScorecardLeadSchema,
-  // V1 payloads predate the discriminator; `parseRoiLead` fills it in.
-  roiLeadSchema.extend({ calculationVersion: z.literal("v1") }),
-]);
+export const anyRoiLeadSchema = z
+  .discriminatedUnion("calculationVersion", [
+    // The union needs plain objects; the V2 refinement is re-applied below.
+    revenueLeakScorecardLeadObject,
+    // V1 payloads predate the discriminator; `parseRoiLead` fills it in.
+    roiLeadSchema.extend({ calculationVersion: z.literal("v1") }),
+  ])
+  .superRefine((lead, ctx) => {
+    if (lead.calculationVersion === "v2-geo-economic" && !emailsMatch(lead)) {
+      ctx.addIssue({ code: z.ZodIssueCode.custom, ...EMAIL_MISMATCH });
+    }
+  });
 
 export type AnyRoiLead = z.infer<typeof anyRoiLeadSchema>;
 

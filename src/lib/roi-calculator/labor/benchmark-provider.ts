@@ -101,13 +101,22 @@ export class StaticLaborBenchmarkProvider implements SyncLaborBenchmarkProvider 
 
 export const staticLaborBenchmarkProvider = new StaticLaborBenchmarkProvider();
 
-/** Upgrades the ZIP→state resolution with the metro tier when the dataset has one. */
+/**
+ * The tier the provider will actually price at for this ZIP, so the result's
+ * geography never claims a finer benchmark than the scopes used. A ZIP that
+ * resolves to a state with no wage index (Puerto Rico, for instance) reports
+ * the national tier, not "state".
+ */
 export function resolveBenchmarkGeography(zipCode: string): GeographyResolution {
   const geography = resolveGeography(zipCode);
   if (!geography.resolved) return geography;
   const metro = metroForZip(geography.zipCode);
-  if (!metro) return geography;
-  return { ...geography, tier: "msa", msaKey: metro.key, msaLabel: metro.label, label: metro.label };
+  if (metro) {
+    return { ...geography, tier: "msa", msaKey: metro.key, msaLabel: metro.label, label: metro.label };
+  }
+  if (geography.state && STATE_WAGE_INDEX[geography.state]) return { ...geography, tier: "state" };
+  if (geography.region && REGION_WAGE_INDEX[geography.region]) return { ...geography, tier: "region" };
+  return { ...geography, tier: "national" };
 }
 
 export const METRO_AREA_COUNT = METRO_AREAS.length;

@@ -175,6 +175,8 @@ export async function sendClientRoiResult({ leadId, lead }: SendArgs): Promise<R
 
 type ScorecardSendArgs = {
   leadId: string;
+  /** Envelope address: the one rate limiting and persistence keyed on. */
+  email: string;
   input: RevenueLeakScorecardInput;
   result: RevenueLeakScorecardResult;
   submittedAt: string;
@@ -243,7 +245,7 @@ export async function sendAgencyScorecardNotification({ leadId, input, result, s
   }
 }
 
-export async function sendClientScorecardResult({ leadId, input, result }: ScorecardSendArgs): Promise<RoiEmailStatus> {
+export async function sendClientScorecardResult({ leadId, email, input, result }: ScorecardSendArgs): Promise<RoiEmailStatus> {
   const preset = getPreset(result.preset);
   const subject = `Your Revenue Leak Scorecard — ${result.primaryLeakageScenario === "None identified" ? result.recommendation : result.primaryLeakageScenario}`;
   const html = `
@@ -274,7 +276,7 @@ export async function sendClientScorecardResult({ leadId, input, result }: Score
     </div>`;
 
   try {
-    return await sendResendEmail({ to: input.email, subject, html });
+    return await sendResendEmail({ to: email, subject, html });
   } catch (error) {
     console.error("[roi-calculator] client scorecard email failed", { leadId, error });
     return "failed";

@@ -18,7 +18,7 @@ import {
   clampPercent,
   occupationForScope,
 } from "./labor/labor-calculations";
-import { getPreset } from "./presets";
+import { getPreset, type PresetModules } from "./presets";
 import { calculateAfterHoursScenario } from "./scenarios/after-hours";
 import { calculateDelayedResponseScenario } from "./scenarios/delayed-response";
 import { calculateMissedCallsScenario } from "./scenarios/missed-calls";
@@ -111,12 +111,23 @@ export function resolveGrossProfit(service: RevenueLeakScorecardInput["service"]
  * hours) → unworked quote → delayed response. Later scenarios only see what
  * is left of the monthly pool, so a lead cannot be "recovered" twice.
  */
-export function allocateOpportunityPool(leakage: RevenueLeakScorecardInput["leakage"]) {
+export function allocateOpportunityPool(
+  leakage: RevenueLeakScorecardInput["leakage"],
+  enabled: Pick<PresetModules, "missedCalls" | "afterHours" | "quoteFollowup" | "delayedResponse"> = {
+    missedCalls: true,
+    afterHours: true,
+    quoteFollowup: true,
+    delayedResponse: true,
+  },
+) {
   const pool = Math.max(0, leakage.monthlyInboundOpportunities);
   const notes: string[] = [];
   let remaining = pool;
 
-  const take = (requested: number, label: string) => {
+  // A scenario the preset has switched off must not eat into the pool the
+  // enabled ones draw from.
+  const take = (requested: number, label: string, isEnabled: boolean) => {
+    if (!isEnabled) return 0;
     const wanted = Math.max(0, requested);
     const granted = Math.min(wanted, remaining);
     if (granted < wanted) {
@@ -128,10 +139,10 @@ export function allocateOpportunityPool(leakage: RevenueLeakScorecardInput["leak
     return granted;
   };
 
-  const missedCalls = take(leakage.missedCallsPerMonth, "Missed calls");
-  const afterHoursCalls = take(leakage.afterHoursCallsPerMonth, "After-hours calls");
-  const unfollowedQuotes = take(leakage.unfollowedQuotesPerMonth, "Unworked quotes");
-  const leadsAffected = take(leakage.leadsAffectedPerMonth, "Slow-response leads");
+  const missedCalls = take(leakage.missedCallsPerMonth, "Missed calls", enabled.missedCalls);
+  const afterHoursCalls = take(leakage.afterHoursCallsPerMonth, "After-hours calls", enabled.afterHours);
+  const unfollowedQuotes = take(leakage.unfollowedQuotesPerMonth, "Unworked quotes", enabled.quoteFollowup);
+  const leadsAffected = take(leakage.leadsAffectedPerMonth, "Slow-response leads", enabled.delayedResponse);
   return { missedCalls, afterHoursCalls, unfollowedQuotes, leadsAffected, notes };
 }
 
@@ -177,7 +188,7 @@ export function calculateRevenueLeakScorecard(
   const quoteCloseRate = clampPercent(input.leakage.historicalQuoteCloseRate, closeRate);
 
   /* Revenue leakage and conversion scenarios ------------------------------ */
-  const pool = allocateOpportunityPool(input.leakage);
+  const pool = allocateOpportunityPool(input.leakage, preset.modules);
   overlapControls.push(...pool.notes);
 
   const missed = preset.modules.missedCalls

@@ -305,3 +305,52 @@ test("a V2 payload with a V1-shaped input is rejected rather than miscalculated"
   const parsed = parseRoiLead({ calculationVersion: "v2-geo-economic", email: v1Input.email, input: v1Input });
   assert.equal(parsed.success, false);
 });
+
+/* Codex review follow-ups ------------------------------------------------ */
+
+test("the server schema rejects gross profit above the sale value", () => {
+  const parsed = revenueLeakScorecardInputSchema.safeParse({
+    ...baseInput,
+    service: { name: "Job", averageSaleValue: 1000, grossProfitPerSale: 1500 },
+  });
+  assert.equal(parsed.success, false);
+  assert.ok(revenueLeakScorecardInputSchema.safeParse({ ...baseInput, service: { name: "Job", averageSaleValue: 1000, grossProfitPerSale: 1000 } }).success);
+  assert.ok(revenueLeakScorecardInputSchema.safeParse({ ...baseInput, service: { name: "Job", grossProfitPerSale: 1500 } }).success, "no sale value means nothing to compare against");
+});
+
+test("the V2 envelope email must match the form email the result is sent to", () => {
+  const mismatch = parseRoiLead({ calculationVersion: "v2-geo-economic", email: "someone-else@example.com", input: baseInput });
+  assert.equal(mismatch.success, false);
+  const caseOnly = parseRoiLead({ calculationVersion: "v2-geo-economic", email: "TEST@example.com", input: baseInput });
+  assert.ok(caseOnly.success, "case differences are not a mismatch");
+});
+
+test("a ZIP whose state has no wage index reports the national tier it was priced at", () => {
+  // San Juan, Puerto Rico: resolves to PR, which has neither a state nor a
+  // region index, so every scope prices nationally and the geography must
+  // say so rather than claim a statewide benchmark.
+  const result = score({ ...baseInput, zipCode: "00901" });
+  assert.equal(result.geography.state, "PR");
+  assert.equal(result.geography.tier, "national");
+  for (const scope of result.laborCapacity.scopes) {
+    assert.equal(scope.benchmark.geographyType, "national");
+  }
+  assert.notEqual(result.confidenceTier, "High");
+});
+
+test("scenarios a preset disables do not consume the opportunity pool", () => {
+  const leakage = { ...baseInput.leakage, monthlyInboundOpportunities: 20, missedCallsPerMonth: 20, afterHoursCallsPerMonth: 0, unfollowedQuotesPerMonth: 0, leadsAffectedPerMonth: 20 };
+  const website = score({ ...baseInput, preset: "website", leakage });
+  const websiteNoMissed = score({ ...baseInput, preset: "website", leakage: { ...leakage, missedCallsPerMonth: 0 } });
+  assert.ok(website.conversionOpportunity.speedToLead > 0, "missed calls are off under the website preset, so the pool is free for delayed response");
+  assert.equal(website.conversionOpportunity.speedToLead, websiteNoMissed.conversionOpportunity.speedToLead);
+  assert.equal(website.revenueLeakage.missedCalls, 0);
+
+  const full = score({ ...baseInput, preset: "revenue_leak", leakage });
+  assert.equal(full.conversionOpportunity.speedToLead, 0, "with missed calls enabled the same pool is exhausted first");
+
+  const pool = allocateOpportunityPool(leakage, { missedCalls: false, afterHours: true, quoteFollowup: true, delayedResponse: true });
+  assert.equal(pool.missedCalls, 0);
+  assert.equal(pool.leadsAffected, 20);
+  assert.equal(pool.notes.length, 0);
+});
