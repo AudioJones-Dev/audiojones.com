@@ -1,8 +1,22 @@
 import { after, NextRequest, NextResponse } from "next/server";
 import { calculateRoiResult } from "@/lib/roi-calculator/calculations";
-import { sendAgencyRoiNotification, sendClientRoiResult } from "@/lib/roi-calculator/roi-calculator-email";
-import { roiLeadSchema } from "@/lib/roi-calculator/roi-calculator-schema";
-import { getEmailHash, getIpHash, persistRoiCalculatorLead, updateRoiLeadEmailStatus } from "@/lib/roi-calculator/roi-calculator-storage";
+import { staticLaborBenchmarkProvider } from "@/lib/roi-calculator/labor/benchmark-provider";
+import {
+  sendAgencyRoiNotification,
+  sendAgencyScorecardNotification,
+  sendClientRoiResult,
+  sendClientScorecardResult,
+} from "@/lib/roi-calculator/roi-calculator-email";
+import { parseRoiLead } from "@/lib/roi-calculator/roi-calculator-schema";
+import {
+  getEmailHash,
+  getIpHash,
+  persistRoiCalculatorLead,
+  updateRoiLeadEmailStatus,
+  type PersistableRoiLead,
+} from "@/lib/roi-calculator/roi-calculator-storage";
+import { calculateRevenueLeakScorecard, resolveScorecardContext } from "@/lib/roi-calculator/scorecard";
+import type { RevenueLeakScorecardResult } from "@/lib/roi-calculator/types";
 
 export const runtime = "nodejs";
 
@@ -54,7 +68,7 @@ export async function POST(req: NextRequest) {
     return errorResponse("VALIDATION_ERROR", "Request body must be valid JSON.", 400);
   }
 
-  const parsed = roiLeadSchema.safeParse(json);
+  const parsed = parseRoiLead(json);
   if (!parsed.success) {
     return errorResponse("VALIDATION_ERROR", parsed.error.issues[0]?.message ?? "Invalid ROI calculator submission.", 400);
   }
@@ -64,9 +78,35 @@ export async function POST(req: NextRequest) {
     return successResponse({ leadId: null, dropped: true });
   }
 
-  const recalculated = calculateRoiResult(lead.input);
-  if (JSON.stringify(recalculated) !== JSON.stringify(lead.result)) {
-    return errorResponse("VALIDATION_ERROR", "Submitted result does not match calculator inputs.", 400);
+  // The server's calculation is the only one that counts. V1 clients send a
+  // result and it must match; V2 clients send inputs only and get the
+  // authoritative result back.
+  let persistable: PersistableRoiLead;
+  let scorecard: RevenueLeakScorecardResult | null = null;
+  if (lead.calculationVersion === "v2-geo-economic") {
+    const context = await resolveScorecardContext(lead.input, staticLaborBenchmarkProvider);
+    scorecard = calculateRevenueLeakScorecard(lead.input, context);
+    persistable = {
+      email: lead.email,
+      source: lead.source,
+      utm: lead.utm,
+      calculationVersion: "v2-geo-economic",
+      input: lead.input,
+      result: scorecard,
+    };
+  } else {
+    const recalculated = calculateRoiResult(lead.input);
+    if (JSON.stringify(recalculated) !== JSON.stringify(lead.result)) {
+      return errorResponse("VALIDATION_ERROR", "Submitted result does not match calculator inputs.", 400);
+    }
+    persistable = {
+      email: lead.email,
+      source: lead.source,
+      utm: lead.utm,
+      calculationVersion: "v1",
+      input: lead.input,
+      result: lead.result,
+    };
   }
 
   const ip = getIp(req);
@@ -77,7 +117,7 @@ export async function POST(req: NextRequest) {
   }
 
   const persisted = await persistRoiCalculatorLead({
-    lead,
+    lead: persistable,
     ip,
     userAgent: req.headers.get("user-agent"),
   });
@@ -87,8 +127,27 @@ export async function POST(req: NextRequest) {
   }
 
   const submittedAt = new Date().toISOString();
-  const agencyEmailStatus = await sendAgencyRoiNotification({ leadId: persisted.leadId, lead, submittedAt });
-  await updateRoiLeadEmailStatus({ leadId: persisted.leadId, agencyEmailStatus });
+  const leadId = persisted.leadId;
+
+  if (lead.calculationVersion === "v2-geo-economic") {
+    if (!scorecard) return errorResponse("PROVIDER_ERROR", "Scorecard calculation did not complete.", 503);
+    const args = { leadId, input: lead.input, result: scorecard, submittedAt, source: lead.source };
+    const agencyEmailStatus = await sendAgencyScorecardNotification(args);
+    await updateRoiLeadEmailStatus({ leadId, agencyEmailStatus });
+    after(async () => {
+      const clientEmailStatus = await sendClientScorecardResult(args);
+      await updateRoiLeadEmailStatus({ leadId, clientEmailStatus });
+    });
+    return successResponse({
+      leadId,
+      emailStatus: agencyEmailStatus === "failed" ? "partial" : "accepted",
+      result: scorecard,
+    });
+  }
+
+  const v1Lead = lead;
+  const agencyEmailStatus = await sendAgencyRoiNotification({ leadId, lead: v1Lead, submittedAt });
+  await updateRoiLeadEmailStatus({ leadId, agencyEmailStatus });
   // `after` rather than a bare `void`: on serverless the invocation can be
   // suspended as soon as the response is sent. That would drop two things —
   // the result email the client is waiting for, and the status write that
@@ -96,16 +155,12 @@ export async function POST(req: NextRequest) {
   // `after` keeps the invocation alive until both settle, without making the
   // caller wait for them.
   after(async () => {
-    const clientEmailStatus = await sendClientRoiResult({
-      leadId: persisted.leadId,
-      lead,
-      submittedAt,
-    });
-    await updateRoiLeadEmailStatus({ leadId: persisted.leadId, clientEmailStatus });
+    const clientEmailStatus = await sendClientRoiResult({ leadId, lead: v1Lead, submittedAt });
+    await updateRoiLeadEmailStatus({ leadId, clientEmailStatus });
   });
 
   return successResponse({
-    leadId: persisted.leadId,
+    leadId,
     emailStatus: agencyEmailStatus === "failed" ? "partial" : "accepted",
   });
 }
