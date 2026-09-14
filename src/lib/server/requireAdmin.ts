@@ -1,6 +1,7 @@
 // src/lib/server/requireAdmin.ts
 import 'server-only';
 import { NextRequest, NextResponse } from 'next/server';
+import { isAdminKey } from './adminSession';
 
 /**
  * Admin authentication helper for API routes
@@ -17,7 +18,7 @@ export function requireAdmin(req: NextRequest): void {
     );
   }
   
-  if (!adminKey || adminKey !== expectedAdminKey) {
+  if (!isAdminKey(adminKey ?? '', expectedAdminKey)) {
     throw NextResponse.json(
       { error: 'Unauthorized: Invalid or missing admin key' }, 
       { status: 401 }

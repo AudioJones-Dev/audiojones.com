@@ -46,6 +46,9 @@ jobs:
       - name: Verify newsletter row mapping matches the migration
         run: pnpm exec tsx --test test/newsletter-row.test.ts
 
+      - name: Verify the shared email redaction helper
+        run: pnpm exec tsx --test test/redact-email.test.ts
+
       - name: Verify apply notification escaping and subject
         run: pnpm exec tsx --test test/apply-notification.test.ts
 
