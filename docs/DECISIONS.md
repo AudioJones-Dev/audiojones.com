@@ -352,10 +352,10 @@ Read as a total, $30,000 understates a Core engagement by the entire implementat
 
 **Consequences:**
 
-- **A disputed usage charge must be traceable** to tenant-level metering records sufficient to identify vendor, billing period, tenant/account, usage category, measured consumption, underlying vendor cost, and amount passed through. Because overages are billed at actual cost, these seven fields are invoice evidence rather than reporting convenience, and should be treated as a schema requirement wherever the managed service is implemented.
+- **Monthly reconciliation implies a traceability requirement, and this entry ratifies no schema.** Billing overages at actual cost means a disputed charge has to be traceable to tenant-level metering records identifying vendor, billing period, tenant/account, usage category, measured consumption, underlying vendor cost, and amount passed through. That is what monthly reconciliation demands of any future implementation; it is recorded here as an implication of the billing term, not as an approved data model. Ratifying a metering schema is a separate decision.
 - Shorter commercial terms may be approved for paid pilots, proofs of concept, narrowly scoped validation engagements, migration periods and explicitly temporary deployments. An approved exception does not redefine the standard M5 term.
-- The export obligation **survives termination**, including termination for cause and for nonpayment. Client data is retained for **30 days after export delivery** and then deleted; what deletion must reach — structured memory, narrative vault, tenant-scoped evidence objects, and derived artifacts including embeddings — belongs in the implementing system's architecture record, not here.
 - Client-owned dedicated deployments keep the same 12-month default unless expressly approved otherwise, but generate no AJ pass-through, since infrastructure and API vendors bill the client directly.
+- **Data-lifecycle obligations are deliberately not carried here.** Export survival and the retention/deletion window were separate owner decisions and are recorded as their own entry below, so that accepting a commercial term does not silently ratify a data-lifecycle policy.
 
 ---
 
@@ -371,7 +371,7 @@ Implementation is separately priced one-time work required to design, configure,
 
 The decision is recorded as an **implementation fee policy** rather than a "setup fee" deliberately. "Setup fee" describes SaaS account activation; what is being sold is systems engineering and operational deployment, and the name should not invite the comparison.
 
-A normal deal therefore reads *$15,000 implementation + $2,500/month on a 12-month commitment* — a first-year value of $45,000, or $50,000 at the top of the Core corridor, and $37,500 at Foundation.
+A normal deal therefore reads *$15,000 implementation + $2,500/month on a 12-month commitment*. Against $30,000 of recurring value, first-year totals are **$45,000** at the typical floor and **$50,000** at the top of the *typical* $15,000–$20,000 range; the $15,000–$25,000 corridor ceiling would be **$55,000**. Foundation is **$37,500**. The typical range, not the corridor ceiling, is what a normal deal quotes.
 
 **Propagation.** This entry adds no figure; it fixes what the §BM.2 one-time prices *mean*. It also carries a schema constraint: **the published registry must not carry a generic `setup_fee` field beside implementation figures.** Two vaguely overlapping fields are how a $15,000 implementation becomes $15,000 plus setup — not because anyone decides it should, but because the schema offers a blank and someone fills it.
 
@@ -379,5 +379,30 @@ The registry has no §BM.2 offer to attach this to. The nearest is `founder-inte
 
 **Consequences:**
 
-- All three 2026-09-12 entries share one dependency: they are recordable now but **blocked at the registry layer on C-2 and C-3**, because the registry offers they would bind to are the ones those conflicts are about. Closing C-2 and C-3 is the prerequisite for propagating any of them.
+- **Each entry carries its own registry dependency; they are not a bundle.** The two M5 entries — the $4,000 dedicated minimum and the 12-month term — are blocked at the registry layer on **C-3 alone**, because both bind to `managed-intelligence`. This implementation-fee entry is blocked on **C-2 alone**, because it binds to whatever Business Memory offer emerges when `founder-intelligence-system` is split. Accepting one entry does not require closing the other's conflict, and neither is blocked by the conflict it does not depend on.
 - None of these entries resolves **C-1**. The ReKonr naming conflict is untouched, and this register's own tie-break continues to govern it.
+
+---
+
+## 2026-09-12 — Notice is 30 days; the export obligation survives termination; data is retained 30 days after export, then deleted
+
+**Status:** proposed — drafted into the register, **not accepted**. Acceptance is Audio's. Separated from the 12-month term entry above so that approving a commercial term does not silently ratify a data-lifecycle policy.
+
+**Decision (proposed):** Non-renewal notice is **30 days** — before the end of the 12-month initial term, and equally to cancel once the agreement has converted to month-to-month.
+
+The **export obligation survives termination**, including termination for cause and for nonpayment. The client receives the export package regardless of which party ended the agreement or why.
+
+Client data is **retained for 30 days after export delivery and then deleted**.
+
+**Context:** These are data-lifecycle and notice commitments, not billing terms, and they were decided separately from the term. Recording them together with the term would mean that accepting a billing commitment also ratified a deletion policy — a different kind of obligation with different reviewers.
+
+The export-survival clause closes a gap the other commitments left open. Export already sat among the services that never stop for a usage ceiling, and the portability commitment already promised a package at termination; neither said what happens when the client is the party in breach. This is deliberately the harder answer commercially: withholding data is ordinary leverage in a nonpayment dispute, and this gives it up in exchange for a portability promise that can be stated without qualification.
+
+The 30-day retention window originated as a recommendation and was ratified by the owner, unlike the commercial figures in the entries above, which are carried from the pricing matrix.
+
+**Propagation.** Nothing in the published offer registry expresses notice, export or retention terms today, so there is no `offers.ts` field to update and no `C-` dependency. These belong in the client agreement and in the implementing system's architecture record.
+
+**Consequences:**
+
+- **What deletion must reach is not decided here.** Structured memory, narrative vault, tenant-scoped evidence objects, and derived artifacts including embeddings each need naming in the implementing system's architecture record. Embeddings are the asymmetric case: they need not be exported, because they regenerate from source content — but they do need deleting, because a vector derived from a terminated client's documents still encodes that client's content.
+- The 30-day notice period is the figure the 12-month term entry above delegates; that entry stays correct without this one, but its renewal clause is incomplete until this is accepted.

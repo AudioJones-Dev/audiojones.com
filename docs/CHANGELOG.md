@@ -16,6 +16,10 @@ Entries are reverse chronological. Format follows
 ## Unreleased
 
 ### Docs
+- A fourth entry separates the data-lifecycle commitments — 30-day notice, export
+  survival through termination for cause or nonpayment, and 30-day retention then
+  deletion — from the 12-month term entry, so that accepting a billing commitment
+  cannot silently ratify a deletion policy. Raised by Codex on review.
 - Three Business Memory commercial decisions drafted into
   [`docs/DECISIONS.md`](./DECISIONS.md) as **proposed, not accepted**: a
   $4,000/month minimum for managed dedicated deployments, a 12-month M5
