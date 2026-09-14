@@ -15,6 +15,15 @@ Entries are reverse chronological. Format follows
 
 ## Unreleased
 
+### Added
+- `scripts/refresh-oews-benchmarks.ts` regenerates the scorecard's labor
+  benchmark dataset from a given OEWS release (`--year 2026` or `--latest`,
+  with `--dry-run` for a report-only pass), recomputing the admin-occupation
+  indexes, rewriting `benchmark-data.ts` and bumping `BENCHMARK_VERSION`.
+  SOC codes now live alongside the occupation labels in `occupations.ts`.
+  Index math and rendering are covered by `test/oews-refresh.test.ts`, run
+  in CI.
+
 ### Changed
 - Labor benchmark dataset for the Revenue Leak Scorecard refreshed from the
   seeded May 2023 approximation to BLS OEWS **May 2025** values retrieved on

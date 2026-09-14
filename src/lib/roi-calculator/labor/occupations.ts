@@ -24,6 +24,23 @@ export const OCCUPATION_LABELS: Record<OccupationKey, string> = {
 };
 
 /**
+ * BLS Standard Occupational Classification codes behind each proxy. The
+ * OEWS refresh script (scripts/refresh-oews-benchmarks.ts) reads these to
+ * pull the right rows; the calculator itself never needs them.
+ */
+export const OCCUPATION_SOC_CODES: Record<OccupationKey, string> = {
+  receptionist: "43-4171",
+  customer_service: "43-4051",
+  admin_support: "43-6014",
+  dispatcher: "43-5032",
+  office_clerk: "43-9061",
+  inside_sales: "41-3091",
+  billing_clerk: "43-3021",
+  office_admin_all: "43-0000",
+  admin_supervisor: "43-1011",
+};
+
+/**
  * Which occupational benchmark prices each operational scope. Owner-performed
  * hours use the same proxy — that is the replacement-cost reading — while the
  * founder-capacity reading uses the owner's own stated hourly value instead.
