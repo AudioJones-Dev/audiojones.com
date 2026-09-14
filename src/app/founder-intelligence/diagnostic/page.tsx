@@ -9,9 +9,9 @@ import { breadcrumbJsonLd, faqJsonLd } from "@/lib/seo/schema";
 import { founderIntelligenceFaqs } from "@/lib/seo/founder-intelligence-faq";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Strategic Diagnostic | Founder Intelligence",
+  title: "Request a Diagnostic | Founder Intelligence",
   description:
-    "Apply for a Founder Intelligence Diagnostic. Six steps that map your constraint, signal architecture, AI readiness, and attribution clarity.",
+    "Request a Founder Intelligence Diagnostic. Tell us where leads, work, or decisions get stuck so we can review the next step with you.",
   path: "/founder-intelligence/diagnostic",
 });
 
@@ -37,14 +37,15 @@ export default function DiagnosticPage() {
       <section className="bg-bg-base pt-16 pb-10">
         <div className="mx-auto max-w-3xl px-5 sm:px-8">
           <div className="mb-3">
-            <Eyebrow withLine>Strategic Diagnostic</Eyebrow>
+            <Eyebrow withLine>Founder Intelligence Diagnostic</Eyebrow>
           </div>
           <h1 className="text-balance text-3xl font-semibold leading-tight text-text-primary sm:text-4xl">
-            Tell me where your business actually leaks signal.
+            Where does work get stuck in your business?
           </h1>
           <p className="mt-4 text-lg text-text-muted">
-            Six short steps. I review every submission personally and reply
-            within two business days if there’s a strong fit.
+            Six steps about your business, tools, and goals. I review each request
+            and reply within two business days if there is a strong fit. This
+            starts a review; it does not give you an instant report.
           </p>
         </div>
       </section>
@@ -54,13 +55,13 @@ export default function DiagnosticPage() {
           <div className="mb-10 rounded-xl border border-border-subtle bg-surface-1 p-6 sm:p-8">
             <Eyebrow>Direct Answer</Eyebrow>
             <h2 className="mt-4 t-h3 text-fg-0">
-              The Founder Intelligence Diagnostic maps the revenue and
-              operating leaks hidden in follow-up, CRM, attribution, and
-              business memory.
+              Find where time and sales are lost, then choose what to fix first.
             </h2>
             <p className="mt-4 t-body text-fg-2">
-              It is built for founder-led service businesses that need clarity
-              on what to fix before adding another AI tool or automation layer.
+              The Founder Intelligence Diagnostic looks at how leads, jobs, and
+              decisions move through your business. We check follow-up, customer
+              records, shared knowledge, and reporting. Scope and price for any
+              paid work are agreed before it starts.
             </p>
             <div className="mt-8">
               <FAQ items={founderIntelligenceFaqs} />

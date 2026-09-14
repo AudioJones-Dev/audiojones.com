@@ -43,6 +43,9 @@ jobs:
       - name: Verify the newsletter provider cannot report false success
         run: pnpm exec tsx --test test/newsletter-provider.test.ts
 
+      - name: Verify the shared email redaction helper
+        run: pnpm exec tsx --test test/redact-email.test.ts
+
       - name: Verify apply notification escaping and subject
         run: pnpm exec tsx --test test/apply-notification.test.ts
 

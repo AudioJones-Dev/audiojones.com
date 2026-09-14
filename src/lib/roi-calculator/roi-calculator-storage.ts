@@ -3,6 +3,7 @@ import "server-only";
 import { createHash, randomUUID } from "node:crypto";
 import { neon } from "@neondatabase/serverless";
 import type { RoiLeadInput } from "./roi-calculator-schema";
+import { redactEmail } from "@/lib/logging/redact-email";
 
 export type PersistLeadArgs = {
   lead: RoiLeadInput;
@@ -23,10 +24,6 @@ function hash(value: string | null | undefined) {
   const salt = process.env.IP_HASH_SALT;
   if (!value || !salt) return null;
   return createHash("sha256").update(`${value}:${salt}`).digest("hex");
-}
-
-function redactEmail(email: string) {
-  return email.replace(/(.).+(@.+)/, "$1•••$2");
 }
 
 export function getEmailHash(email: string) {

@@ -31,6 +31,7 @@
 
 import { randomUUID } from "node:crypto";
 import type { NewsletterInput } from "./newsletter-schema";
+import { redactEmail } from "@/lib/logging/redact-email";
 
 export type NewsletterSuccess = {
   ok: true;
@@ -53,16 +54,17 @@ export interface NewsletterAdapter {
 // ─── Refusal ─────────────────────────────────────────────────────────────────
 
 // `reason` is logged, never returned: the caller gets a retry message, not our
-// configuration or MailerLite's response. The address is logged in full on
-// purpose — nothing else records a refused signup, so this line is the only
-// way to find and re-add it.
+// configuration or MailerLite's response. The address is redacted through the
+// shared helper, exactly as the equivalent /apply refusal logs are. A refused
+// signup is therefore countable in the logs but NOT recoverable from them;
+// recovering the addresses themselves is what Neon persistence is for.
 function refuse(
   reason: string,
   input: NewsletterInput,
   extra?: Record<string, unknown>,
 ): NewsletterError {
   console.error(`[newsletter] rejecting subscription: ${reason}`, {
-    email: input.email,
+    email: redactEmail(input.email),
     source: input.source,
     ...extra,
   });
@@ -82,10 +84,6 @@ function refusingAdapter(reason: string): NewsletterAdapter {
 }
 
 // ─── Mock adapter ────────────────────────────────────────────────────────────
-
-function redactEmail(email: string): string {
-  return email.replace(/(.).+(@.+)/, "$1•••$2");
-}
 
 const mockAdapter: NewsletterAdapter = {
   async subscribe(input) {
