@@ -40,6 +40,9 @@ jobs:
       - name: Verify the apply provider cannot report false success
         run: pnpm exec tsx --test test/apply-provider.test.ts
 
+      - name: Verify the shared email redaction helper
+        run: pnpm exec tsx --test test/redact-email.test.ts
+
       - name: Verify apply notification escaping and subject
         run: pnpm exec tsx --test test/apply-notification.test.ts
 
@@ -48,6 +51,18 @@ jobs:
 
       - name: Verify notification dispatch and request bounds
         run: pnpm exec tsx --test test/notification-dispatch.test.ts
+
+      - name: Verify ROI calculator V1 assumptions still replay
+        run: pnpm exec tsx --test test/roi-calculator-assumptions.test.ts
+
+      - name: Verify scorecard labor benchmarks and fallbacks
+        run: pnpm exec tsx --test test/roi-scorecard-labor.test.ts
+
+      - name: Verify scorecard revenue-leak scenarios
+        run: pnpm exec tsx --test test/roi-scorecard-scenarios.test.ts
+
+      - name: Verify scorecard overlap controls and schema safety
+        run: pnpm exec tsx --test test/roi-scorecard-overlap.test.ts
 
       - name: Build workspace packages
         run: pnpm packages:build

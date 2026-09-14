@@ -17,6 +17,7 @@
 
 import { randomUUID } from "node:crypto";
 import type { NewsletterInput } from "./newsletter-schema";
+import { redactEmail } from "@/lib/logging/redact-email";
 
 export type NewsletterSuccess = {
   ok: true;
@@ -38,10 +39,6 @@ export interface NewsletterAdapter {
 }
 
 // ─── Mock adapter ────────────────────────────────────────────────────────────
-
-function redactEmail(email: string): string {
-  return email.replace(/(.).+(@.+)/, "$1•••$2");
-}
 
 const mockAdapter: NewsletterAdapter = {
   async subscribe(input) {

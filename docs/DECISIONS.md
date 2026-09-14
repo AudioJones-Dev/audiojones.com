@@ -406,3 +406,28 @@ The 30-day retention window originated as a recommendation and was ratified by t
 
 - **What deletion must reach is not decided here.** Structured memory, narrative vault, tenant-scoped evidence objects, and derived artifacts including embeddings each need naming in the implementing system's architecture record. Embeddings are the asymmetric case: they need not be exported, because they regenerate from source content — but they do need deleting, because a vector derived from a terminated client's documents still encodes that client's content.
 - The 30-day notice period is the figure the 12-month term entry above delegates; that entry stays correct without this one, but its renewal clause is incomplete until this is accepted.
+
+---
+
+## 2026-09-14 — Revenue Leak Scorecard V2 extends the existing calculator
+
+**Status:** accepted for implementation per the V2 engineering spec.
+
+Three choices the spec left open were resolved as follows:
+
+- **Benchmark provider is static and seeded.** `LaborBenchmarkProvider` is the
+  pluggable contract; the shipped implementation reads a versioned in-repo
+  dataset (national OEWS medians plus state/metro indexes). This keeps the
+  live preview in the browser (public data, no secrets), keeps the server
+  path provider-agnostic, and defers a networked BLS provider until the
+  seeded indexes have been verified. Data vintage and version are on every
+  result.
+- **Persistence stays JSON, no migration.** `roi_calculator_leads` already
+  stores `input`/`result` as JSON, and the table's DDL is not in this repo.
+  `calculationVersion`, geography, benchmarks and assumptions travel inside
+  the JSON so V2 ships without a deployment gate. A `calculation_version`
+  column can be added later if reporting needs it.
+- **The server result is authoritative for V2.** V1 kept its
+  client-computes-server-verifies mismatch check. V2 clients send inputs
+  only and render what the API returns, so a future provider change cannot
+  strand the browser on stale numbers.
