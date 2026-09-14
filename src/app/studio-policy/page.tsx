@@ -1,4 +1,14 @@
 // src/app/studio-policy/page.tsx
+import type { Metadata } from "next";
+import { buildMetadata } from "@/lib/seo/metadata";
+
+export const metadata: Metadata = buildMetadata({
+  title: "Studio Use Policy & Liability Waiver",
+  description:
+    "Booking, deposit, and liability terms for using the Audio Jones studio.",
+  path: "/studio-policy",
+});
+
 export default function StudioPolicyPage() {
   const lastUpdated = "October 29, 2025";
 

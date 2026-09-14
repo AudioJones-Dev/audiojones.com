@@ -34,7 +34,7 @@ export async function POST(req: NextRequest) {
 
   if (ip && !rateLimit(ip)) {
     return NextResponse.json(
-      { ok: false, error: "RATE_LIMITED" },
+      { ok: false, error: "Too many requests. Please wait a moment.", code: "RATE_LIMITED" },
       { status: 429 },
     );
   }
