@@ -42,6 +42,22 @@ Entries are reverse chronological. Format follows
 - CI runs the three new scorecard suites plus the previously unwired
   `roi-calculator-assumptions` suite.
 
+### Added
+- Newsletter signups can be saved to Neon before MailerLite is called. With
+  `NEWSLETTER_PROVIDER=neon`, `/api/newsletter` writes the address to
+  `newsletter_subscribers` (`db/migrations/005_newsletter_subscribers.sql`)
+  and answers success once the row exists. The address goes to MailerLite
+  after the response, and the row records `synced`, `failed` or `skipped`. A
+  MailerLite outage or revoked token no longer loses a signup; it leaves a
+  `failed` row to replay. This applies `docs/DECISIONS.md` (2026-04-29,
+  persist to Neon before optional integrations) to the newsletter.
+  - Opt-in and ordered: apply migration 005, then set the provider.
+    `DATABASE_URL` alone selects nothing, and `neon` without it is refused.
+  - `NEWSLETTER_PROVIDER=mailerlite` behaves as before.
+  - `/api/newsletter` is rate limited per IP (5 a minute), as `/api/apply` is.
+  - `test/newsletter-row.test.ts` checks that every column the code writes
+    exists in migration 005, and runs in `build-and-lint.yml`.
+
 ### Fixed
 - `/api/newsletter` no longer reports success when nobody was subscribed. The
   footer form, which the root layout renders on every page, posts there. The
@@ -62,8 +78,9 @@ Entries are reverse chronological. Format follows
   `scripts/verify-integrations.ts` and `ci.yml` checked `MAILERLITE_API_KEY`.
   Setting only that name left the newsletter on mock while
   `pnpm verify:integrations` reported MailerLite as authenticated.
-- Still open: signups persist to MailerLite only, not Neon. The newsletter
-  does not yet meet the zero-loss bar in `docs/PRD.md` §6.
+- Under `mailerlite`, signups persist to MailerLite only, not Neon, which
+  misses the zero-loss bar in `docs/PRD.md` §6. The `neon` provider under
+  Added closes that once it is enabled.
 
 ### Security
 - `requireAdmin` now compares the `admin-key` / `x-admin-key` header against
