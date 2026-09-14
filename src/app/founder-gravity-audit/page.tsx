@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import FAQ from "@/components/founder-intelligence/FAQ";
 import JsonLd from "@/components/seo/JsonLd";
+import RegistryBreadcrumbs from "@/components/nav/RegistryBreadcrumbs";
 import { ButtonLink } from "@/components/ui/Button";
 import {
   FOUNDER_GRAVITY_ASSET,
@@ -9,7 +10,7 @@ import {
 } from "@/lib/founder-gravity-audit/content";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { founderIntelligenceFaqs } from "@/lib/seo/founder-intelligence-faq";
-import { breadcrumbJsonLd, faqJsonLd } from "@/lib/seo/schema";
+import { faqJsonLd } from "@/lib/seo/schema";
 
 export const metadata: Metadata = buildMetadata({
   title: "Founder Gravity Audit",
@@ -21,12 +22,7 @@ export const metadata: Metadata = buildMetadata({
 export default function FounderGravityAuditPage() {
   return (
     <>
-      <JsonLd
-        data={breadcrumbJsonLd([
-          { name: "Home", url: "/" },
-          { name: "Founder Gravity Audit", url: "/founder-gravity-audit" },
-        ])}
-      />
+      <RegistryBreadcrumbs pageId="founder-gravity-audit" />
       <JsonLd data={faqJsonLd(founderIntelligenceFaqs)} />
 
       <section className="relative overflow-hidden bg-bg-base py-16 sm:py-24">

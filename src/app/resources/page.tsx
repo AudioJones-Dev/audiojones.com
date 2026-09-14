@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import JsonLd from "@/components/seo/JsonLd";
 import { Eyebrow } from "@/components/ui/Eyebrow";
+import { resourceLibrary, resourceThemes } from "@/content/resources";
 import { CALCULATORS, DIAGNOSTICS, visibleTools, type Tool } from "@/content/tools";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { breadcrumbJsonLd } from "@/lib/seo/schema";
@@ -14,74 +15,8 @@ const DESCRIPTION =
 // (`src/content/tools`) and are rendered above this — a diagnostic that
 // identifies a problem and a calculator that estimates value are not the same
 // kind of thing as an essay, and the previous flat list obscured that.
-const RESOURCES = [
-  {
-    title: "Insights",
-    href: "/insights",
-    description:
-      "Pillar essays on Founder Intelligence Systems, signal vs noise, AI failure modes, and attribution.",
-  },
-  {
-    title: "Frameworks",
-    href: "/frameworks",
-    description:
-      "The working IP: Founder Intelligence Systems, M.A.P. (Meaningful. Actionable. Profitable.), N.I.C.H.E, and Signal vs Noise.",
-  },
-  {
-    title: "Blog",
-    href: "/blog",
-    description:
-      "Founder Intelligence, signal systems, and AI-readiness, organized into topic clusters.",
-  },
-  {
-    title: "Workshops",
-    href: "/workshops",
-    description:
-      "Operator workshops for teams building AI readiness, revenue recovery, and signal-over-noise systems.",
-  },
-  {
-    title: "Case Studies",
-    href: "/case-studies",
-    description:
-      "Operator proof organized around signal, leak, and the system that closed the gap.",
-  },
-] as const;
-
-// The ideas the resource library reinforces. A content hub, not a link dump —
-// every theme routes to the surface that develops it.
-const THEMES = [
-  {
-    label: "Founder Intelligence",
-    href: "/founder-intelligence",
-    blurb: "Operating leverage and systems that compound founder judgment.",
-  },
-  {
-    label: "M.A.P.",
-    href: "/frameworks/map-attribution",
-    blurb:
-      "Meaningful. Actionable. Profitable. — the decision filter every metric must pass.",
-  },
-  {
-    label: "ResponseOS",
-    href: "/agents/responseos",
-    blurb: "A managed Revenue Recovery System for capture, qualification, routing, follow-up, attribution, and reporting.",
-  },
-  {
-    label: "Revenue Intelligence",
-    href: "/roi-calculator",
-    blurb: "See where revenue leaks and what recovering it is worth.",
-  },
-  {
-    label: "AI Readiness",
-    href: "/ai-readiness-diagnostic",
-    blurb: "Whether the business is ready for AI — and the gaps to close first.",
-  },
-  {
-    label: "Operational Clarity",
-    href: "/insights/signal-vs-noise-business",
-    blurb: "Separate signal from noise so every decision gets sharper.",
-  },
-] as const;
+// Library categories and theme pathways are projected from the journey
+// registry in `src/content/resources.ts`; this file only lays them out.
 
 export const metadata: Metadata = buildMetadata({
   title: TITLE,
@@ -189,7 +124,7 @@ export default function ResourcesPage() {
             </p>
           </div>
           <ul className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {THEMES.map((t) => (
+            {resourceThemes.map((t) => (
               <li key={t.label}>
                 <Link
                   href={t.href}
@@ -217,7 +152,7 @@ export default function ResourcesPage() {
           </div>
         </div>
         <div className="mx-auto mt-10 grid max-w-[1280px] gap-6 px-5 sm:px-8 md:grid-cols-2 lg:grid-cols-3">
-          {RESOURCES.map((r) => (
+          {resourceLibrary.map((r) => (
             <Link
               key={r.href}
               href={r.href}

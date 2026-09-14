@@ -5,7 +5,8 @@ import RoiCalculator from "@/components/roi-calculator/RoiCalculator";
 import { ctaLinks } from "@/config/links";
 import { buildMetadata } from "@/lib/seo/metadata";
 import JsonLd from "@/components/seo/JsonLd";
-import { breadcrumbJsonLd, faqJsonLd, organizationJsonLd, webSiteJsonLd } from "@/lib/seo/schema";
+import RegistryBreadcrumbs from "@/components/nav/RegistryBreadcrumbs";
+import { faqJsonLd, organizationJsonLd, webSiteJsonLd } from "@/lib/seo/schema";
 import { founderIntelligenceFaqs } from "@/lib/seo/founder-intelligence-faq";
 
 export const metadata: Metadata = buildMetadata({
@@ -18,14 +19,9 @@ export const metadata: Metadata = buildMetadata({
 export default function RoiCalculatorPage() {
   return (
     <>
+      <RegistryBreadcrumbs pageId="roi-calculator" />
       <JsonLd data={organizationJsonLd()} />
       <JsonLd data={webSiteJsonLd()} />
-      <JsonLd
-        data={breadcrumbJsonLd([
-          { name: "Home", url: "/" },
-          { name: "ROI Calculator", url: "/roi-calculator" },
-        ])}
-      />
       <JsonLd data={faqJsonLd(founderIntelligenceFaqs)} />
 
       <section className="bg-bg-0 py-24 sm:py-32">

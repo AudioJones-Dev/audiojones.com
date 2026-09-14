@@ -296,6 +296,14 @@ const STATIC_PAGES: JourneyPage[] = [
       "workshops",
       "case-studies",
     ],
+    // Theme pathways the hub renders (§13.1 item 4); tool themes are already
+    // required outbound edges above.
+    relatedPageIds: [
+      "founder-intelligence",
+      "framework-map-attribution",
+      "responseos",
+      "insight-signal-vs-noise-business",
+    ],
   },
   {
     id: "book-a-call",
