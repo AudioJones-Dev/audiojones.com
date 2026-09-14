@@ -75,7 +75,6 @@ chatbot would be noise:
 
 - `/portal/**`
 - `/ops/**`
-- `/uploader/**`
 - `/status/**`
 
 Add new prefixes in `HIDDEN_PATH_PREFIXES` at the top of
