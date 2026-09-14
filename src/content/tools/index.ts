@@ -76,19 +76,18 @@ export const TOOLS: Tool[] = [
     status: "planned",
   },
   {
-    // Named to match the destination page rather than the "AI ROI Calculator"
-    // label in the original brief (ratified 2026-09-09). The page's H1 —
-    // "We don't calculate AI hype. We calculate operational waste recovery." —
-    // is positioned deliberately against AI-ROI framing, so a card promising
-    // "AI ROI" would have handed the visitor a seam on arrival.
-    id: "operational-waste-recovery-calculator",
+    // Named to match the destination page, which the V2 geo-economic engine
+    // repositioned from "Operational Waste Recovery Calculator" to the
+    // Revenue Leak Scorecard already named on /ecosystem. The page stays
+    // positioned against AI-ROI framing, so the card never promises "AI ROI".
+    id: "revenue-leak-scorecard",
     kind: "calculator",
-    name: "Operational Waste Recovery Calculator",
+    name: "Revenue Leak Scorecard",
     href: "/roi-calculator",
     description:
-      "Estimate the financial effect of automation through time savings, faster response, recovered opportunities, and improved follow-up.",
-    primaryResult: "Savings, recovered revenue, payback and ROI",
-    cta: "Calculate your recovery",
+      "Model the gross-profit value of missed calls, slow follow-up, unworked quotes, and operational labor, priced against your local labor market.",
+    primaryResult: "Labor capacity, revenue leakage, owner capacity, modeled opportunity range",
+    cta: "Score your revenue leaks",
     status: "live",
   },
 ];
