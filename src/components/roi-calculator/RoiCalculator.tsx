@@ -9,6 +9,8 @@ import {
   effectiveCaptureRate,
 } from "@/lib/roi-calculator/calculations";
 import type { RoiCalculatorInput, RoiCalculatorResult } from "@/lib/roi-calculator/types";
+import { getUtmForForm } from "@/lib/analytics/attribution";
+import { trackLeadConversion } from "@/lib/analytics/events";
 
 const initialInput: RoiCalculatorInput = {
   industry: "",
@@ -237,11 +239,16 @@ export default function RoiCalculator() {
     const computed = calculateRoiResult(input);
 
     try {
-      const params = new URLSearchParams(window.location.search);
+      // Persisted first-touch attribution; see lib/analytics/attribution.
+      const a = getUtmForForm();
       const utm = Object.fromEntries(
-        ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"]
-          .map((key) => [key, params.get(key) ?? undefined])
-          .filter(([, value]) => value),
+        Object.entries({
+          utm_source: a.utmSource,
+          utm_medium: a.utmMedium,
+          utm_campaign: a.utmCampaign,
+          utm_term: a.utmTerm,
+          utm_content: a.utmContent,
+        }).filter(([, value]) => value),
       );
 
       const response = await fetch("/api/roi-calculator/lead", {
@@ -261,6 +268,7 @@ export default function RoiCalculator() {
         throw new Error(payload.error?.message ?? "Unable to submit ROI calculator lead.");
       }
       setLeadId(payload.data?.leadId ?? null);
+      trackLeadConversion({ formType: "roi_calculator" });
       setResult(computed);
     } catch (error) {
       setSubmitError(error instanceof Error ? error.message : "Unable to submit ROI calculator lead.");

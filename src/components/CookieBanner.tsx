@@ -17,11 +17,14 @@ export default function CookieBanner() {
 
   const acceptCookies = () => {
     localStorage.setItem("cookie_consent", "true");
+    // Let AnalyticsScripts load GTM/GA now that consent is granted.
+    window.dispatchEvent(new CustomEvent("aj:consent-changed"));
     setShowBanner(false);
   };
 
   const declineCookies = () => {
     localStorage.setItem("cookie_consent", "false");
+    window.dispatchEvent(new CustomEvent("aj:consent-changed"));
     setShowBanner(false);
   };
 

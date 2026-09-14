@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { getUtmForForm } from "@/lib/analytics/attribution";
+import { trackLeadConversion } from "@/lib/analytics/events";
 import { Button } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { FormField } from "@/components/ui/FormField";
@@ -69,11 +71,9 @@ export default function ApplyForm() {
       ...f,
       source,
       offer,
-      utmSource: searchParams.get("utm_source") ?? undefined,
-      utmMedium: searchParams.get("utm_medium") ?? undefined,
-      utmCampaign: searchParams.get("utm_campaign") ?? undefined,
-      utmTerm: searchParams.get("utm_term") ?? undefined,
-      utmContent: searchParams.get("utm_content") ?? undefined,
+      // Persisted first-touch attribution (survives navigation from the paid
+      // landing); falls back to the live URL. See lib/analytics/attribution.
+      ...getUtmForForm(),
     }));
   }, [searchParams]);
 
@@ -119,6 +119,7 @@ export default function ApplyForm() {
         setSubmitting(false);
         return;
       }
+      trackLeadConversion({ formType: "apply", offer: parsed.data.offer });
       router.push("/apply/thank-you");
     } catch {
       setSubmitError("Network error. Please try again in a moment.");
