@@ -8,7 +8,9 @@ import type { GeographyResolution } from "../types";
  */
 const ZIP3_STATE_RANGES: [number, number, string][] = [
   [5, 5, "NY"],
-  [6, 9, "PR"],
+  [6, 7, "PR"],
+  [8, 8, "VI"],
+  [9, 9, "PR"],
   [10, 27, "MA"],
   [28, 29, "RI"],
   [30, 38, "NH"],
@@ -61,6 +63,7 @@ const ZIP3_STATE_RANGES: [number, number, string][] = [
   [889, 898, "NV"],
   [900, 961, "CA"],
   [967, 968, "HI"],
+  [969, 969, "GU"],
   [970, 979, "OR"],
   [980, 994, "WA"],
   [995, 999, "AK"],
@@ -69,13 +72,13 @@ const ZIP3_STATE_RANGES: [number, number, string][] = [
 export const STATE_NAMES: Record<string, string> = {
   AL: "Alabama", AK: "Alaska", AZ: "Arizona", AR: "Arkansas", CA: "California", CO: "Colorado",
   CT: "Connecticut", DE: "Delaware", DC: "District of Columbia", FL: "Florida", GA: "Georgia",
-  HI: "Hawaii", ID: "Idaho", IL: "Illinois", IN: "Indiana", IA: "Iowa", KS: "Kansas", KY: "Kentucky",
+  GU: "Guam", HI: "Hawaii", ID: "Idaho", IL: "Illinois", IN: "Indiana", IA: "Iowa", KS: "Kansas", KY: "Kentucky",
   LA: "Louisiana", ME: "Maine", MD: "Maryland", MA: "Massachusetts", MI: "Michigan", MN: "Minnesota",
   MS: "Mississippi", MO: "Missouri", MT: "Montana", NE: "Nebraska", NV: "Nevada", NH: "New Hampshire",
   NJ: "New Jersey", NM: "New Mexico", NY: "New York", NC: "North Carolina", ND: "North Dakota",
   OH: "Ohio", OK: "Oklahoma", OR: "Oregon", PA: "Pennsylvania", PR: "Puerto Rico", RI: "Rhode Island",
   SC: "South Carolina", SD: "South Dakota", TN: "Tennessee", TX: "Texas", UT: "Utah", VT: "Vermont",
-  VA: "Virginia", WA: "Washington", WV: "West Virginia", WI: "Wisconsin", WY: "Wyoming",
+  VA: "Virginia", VI: "U.S. Virgin Islands", WA: "Washington", WV: "West Virginia", WI: "Wisconsin", WY: "Wyoming",
 };
 
 const CENSUS_REGIONS: Record<string, string[]> = {

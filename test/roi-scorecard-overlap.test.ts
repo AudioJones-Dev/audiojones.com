@@ -325,17 +325,21 @@ test("the V2 envelope email must match the form email the result is sent to", ()
   assert.ok(caseOnly.success, "case differences are not a mismatch");
 });
 
-test("a ZIP whose state has no wage index reports the national tier it was priced at", () => {
-  // San Juan, Puerto Rico: resolves to PR, which has neither a state nor a
-  // region index, so every scope prices nationally and the geography must
-  // say so rather than claim a statewide benchmark.
-  const result = score({ ...baseInput, zipCode: "00901" });
-  assert.equal(result.geography.state, "PR");
-  assert.equal(result.geography.tier, "national");
-  for (const scope of result.laborCapacity.scopes) {
-    assert.equal(scope.benchmark.geographyType, "national");
+test("the reported geography tier always matches the tier the benchmarks were priced at", () => {
+  // San Juan, Puerto Rico and Charlotte Amalie, USVI: territories carry
+  // their own index now, so they price statewide, and the geography must
+  // say exactly what the scope benchmarks say — never a finer tier.
+  for (const [zip, state] of [["00901", "PR"], ["00802", "VI"], ["96910", "GU"], ["32301", "FL"], ["33131", "FL"], ["00000", undefined]] as const) {
+    const result = score({ ...baseInput, zipCode: zip });
+    assert.equal(result.geography.state, state);
+    for (const scope of result.laborCapacity.scopes) {
+      assert.equal(scope.benchmark.geographyType, result.geography.tier, `${zip}: ${scope.scope}`);
+    }
   }
-  assert.notEqual(result.confidenceTier, "High");
+  const pr = score({ ...baseInput, zipCode: "00901" });
+  assert.equal(pr.geography.tier, "state");
+  assert.ok(pr.laborCapacity.scopes[0].loadedHourlyCost < score(baseInput).laborCapacity.scopes[0].loadedHourlyCost, "Puerto Rico prices below Miami");
+  assert.equal(score({ ...baseInput, zipCode: "00000" }).geography.tier, "national");
 });
 
 test("scenarios a preset disables do not consume the opportunity pool", () => {

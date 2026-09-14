@@ -9,7 +9,7 @@ import type { CalculationAssumption, LaborScopeKey } from "./types";
 
 export const WEEKS_PER_YEAR = 52;
 
-export const BENCHMARK_VERSION = "2026-09-seeded-oews-may-2023";
+export const BENCHMARK_VERSION = "2026-09-14-oews-may-2025";
 
 /**
  * Employer burden on top of market wage. BLS Employer Costs for Employee
