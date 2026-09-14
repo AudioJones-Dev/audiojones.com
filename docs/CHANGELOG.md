@@ -25,9 +25,10 @@ Entries are reverse chronological. Format follows
   `test/oews-refresh.test.ts` (run in CI) covers them without importing from
   `scripts/`, which the Vercel build never sees.
   Follow-up hardening from CodeRabbit's review: `--year` must be a four-digit
-  year and cannot be combined with `--latest`; a region state whose
-  all-occupations employment is missing or zero fails the refresh rather than
-  silently dropping out of its region's weighted average; and the
+  year and cannot be combined with `--latest`; a Census-region state with no
+  usable occupation medians or with missing or zero all-occupations employment
+  fails the refresh rather than silently dropping out of its region's weighted
+  average (territories outside every region may still lack either); and the
   `BENCHMARK_VERSION` bump is validated before either generated file is written.
 
 ### Docs

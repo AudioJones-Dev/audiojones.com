@@ -75,6 +75,16 @@ test("a region state with missing or zero employment fails instead of weighting 
   assert.throws(() => computeBenchmarkValues({ ...extract, states: { ...extract.states, NY: zeroEmployment } }, metros), /NY: all-occupations employment/);
 });
 
+test("a region state with no usable medians fails even when its employment is also missing", () => {
+  const noMedians: AreaExtract = { areaCode: "2500000", areaName: "Massachusetts", occupations: { "00-0000": { employment: null, hourlyMedian: null } } };
+  assert.throws(
+    () => computeBenchmarkValues({ ...extract, states: { ...extract.states, MA: noMedians } }, metros),
+    /MA: no usable occupation medians/,
+  );
+  const noMediansWithEmployment: AreaExtract = { ...noMedians, occupations: { "00-0000": { employment: 3_000, hourlyMedian: null } } };
+  assert.throws(() => computeBenchmarkValues({ ...extract, states: { ...extract.states, MA: noMediansWithEmployment } }, metros), /MA: no usable occupation medians/);
+});
+
 test("a territory outside every Census region may lack employment without failing", () => {
   const territory = area("7200000", "Puerto Rico", 0.55, 900);
   territory.occupations["00-0000"] = { employment: null, hourlyMedian: 14 };

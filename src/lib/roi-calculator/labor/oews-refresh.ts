@@ -76,15 +76,20 @@ export function computeBenchmarkValues(extract: OewsExtract, metros: MetroConfig
   const employment: Record<string, number> = {};
   for (const [postal, area] of Object.entries(extract.states)) {
     const { index } = adminOccupationIndex(area, extract.national);
-    if (index == null) {
+    const totalEmployment = area.occupations[ALL_OCCUPATIONS_SOC]?.employment;
+    // A Census-region state must contribute to its region's weighted average,
+    // so both its index and its weight are required; a territory outside every
+    // region may lack either and is simply left out of the state table.
+    if (regionForState(postal)) {
+      if (index == null) throw new Error(`${postal}: no usable occupation medians, so it cannot contribute to its region.`);
+      if (!(totalEmployment != null && totalEmployment > 0)) {
+        throw new Error(`${postal}: all-occupations employment is missing or non-positive, so it cannot weight its region.`);
+      }
+    } else if (index == null) {
       console.warn(`[oews] ${postal}: no usable occupation medians; skipped.`);
       continue;
     }
     states[postal] = index;
-    const totalEmployment = area.occupations[ALL_OCCUPATIONS_SOC]?.employment;
-    if (regionForState(postal) && !(totalEmployment != null && totalEmployment > 0)) {
-      throw new Error(`${postal}: all-occupations employment is missing or non-positive, so it cannot weight its region.`);
-    }
     employment[postal] = totalEmployment ?? 0;
   }
 
