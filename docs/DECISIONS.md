@@ -431,3 +431,45 @@ Three choices the spec left open were resolved as follows:
   client-computes-server-verifies mismatch check. V2 clients send inputs
   only and render what the API returns, so a future provider change cannot
   strand the browser on stale numbers.
+
+## 2026-09-14 — Resource Funnel / CRM Canonical Map v1.1 is ratified
+
+**Status:** accepted (ratified in-session by the operator, 2026-09-14).
+
+**Decision:** the thirteen decisions listed in section 17 of
+[`docs/specs/AudioJones-Resource-Funnel-CRM-Canonical-Map-v1.1.md`](./specs/AudioJones-Resource-Funnel-CRM-Canonical-Map-v1.1.md)
+are approved as written. The spec is the canonical model for resource,
+navigation, solution-page, journey, CTA, sitemap, attribution, and CRM
+relationships. The two decisions that were forks, and one flagged
+inconsistency, resolve as follows:
+
+- **`/book-a-call` is an inquiry gateway, not a scheduling page**
+  (decision 10). No calendar exists; the spec's own rule (§3.3) is "start
+  an inquiry unless a real calendar is present." The route is registered
+  as a qualification-role page whose CTA intent is `send-inquiry`, never
+  `schedule`. Renaming the public label is a copy decision for Phase 6.
+- **A CRM deal is created on human qualification, not on application
+  submission** (decision 11), per §11.4: application and human review
+  establish commercial qualification; tool completion only signals interest.
+- **Approved CTA wording is the §6.2 vocabulary** (decision 13). It applies
+  to public copy only in Phase 6, after the attribution work.
+- **Footer "Diagnostics" and "Calculators" are group headings, not
+  destinations.** §8.9 lists them as links but no `/resources/diagnostics`
+  or `/resources/calculators` route exists, and §8.5 forbids navigation to
+  a missing route. They render as groups over the live tool links until a
+  hub page is separately approved.
+
+**Rationale:** the spec's seven repository-evidence claims were re-verified
+against `main` at `10881d0` before ratification (Header and Footer ignore
+`NavItem.children`; `sitemap.ts` hand-lists routes and stamps them with
+build time; the Resources page keeps page-local arrays). Ratifying the
+model as written, with the spec's own defaults on the forks, unblocks
+Phase 1 without opening any copy, pricing, or route decision.
+
+**Consequences:**
+- Phase 1 (`src/content/journeys/index.ts`, selectors, validation tests)
+  may begin. Phases 2 through 9 follow the §15 sequence; each is its own PR.
+- Nothing in this entry authorizes route deletion or renaming, public copy
+  changes, pricing changes, CRM configuration, analytics-provider
+  installation, or deployment.
+- The spec's `status` moves from `proposed-for-ratification` to `ratified`.
