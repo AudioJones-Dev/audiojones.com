@@ -25,10 +25,11 @@ Entries are reverse chronological. Format follows
   canonical page, §8.6); a `capability` card names a live page for an
   engagement category with no ratified offer and so carries no offer ID or
   price. Stage intros, blurbs, and CTA labels stay as presentation copy,
-  unchanged. One destination moves: ReKonr now lands on its `/pricing`
-  anchor rather than the top of `/pricing`. Managed Intelligence is held on
-  `/book-a-call` by an explicit override because its label still says "Book
-  a call"; the label is a Phase 6 copy decision. A "Related" block
+  unchanged. Two destinations move: ReKonr now lands on its `/pricing`
+  anchor rather than the top of `/pricing`, and Managed Intelligence lands
+  on its `/pricing` anchor rather than `/book-a-call`, with its label
+  changed from "Book a call" to "View Pricing" (operator approval
+  2026-09-14; §6.2 `view_pricing`, §6.3 no "Book a Call" where nothing books). A "Related" block
   renders the hub's declared registry edges (Revenue Leak Scorecard, AI
   Readiness Diagnostic, Case Studies) with their registry labels.
   `test/solutions.test.ts` (run in CI) holds every card to those rules.

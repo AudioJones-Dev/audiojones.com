@@ -59,10 +59,10 @@ test("every /pricing anchor a card points at is a rendered pricing card", () => 
   for (const id of anchored) assert.ok(rendered.has(id), `${id} is rendered on /pricing`);
 });
 
-test("the Managed Intelligence card is held on the inquiry gateway while its label says Book a call", () => {
+test("the Managed Intelligence card says View Pricing and lands on its pricing card (operator approval 2026-09-14)", () => {
   const card = allCards.find((c) => c.offerIds[0] === "managed-intelligence")!;
-  assert.equal(card.cta, "Book a call");
-  assert.equal(card.href, "/book-a-call");
+  assert.equal(card.cta, "View Pricing");
+  assert.equal(card.href, "/pricing#managed-intelligence");
 });
 
 test("no surfaced offer is unpublishable, and every surfaced offer ID is unique to one card", () => {

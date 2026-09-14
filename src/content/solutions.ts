@@ -146,14 +146,12 @@ const STAGE_SPECS: ReadonlyArray<Omit<SolutionStage, "cards"> & { cards: readonl
       {
         kind: "offer",
         offerId: "managed-intelligence",
-        // The label says "Book a call", so the card stays on the inquiry gateway
-        // until the Phase 6 copy pass decides between that label and "View
-        // Pricing" (§6.2 view_pricing, §6.3 "avoid Book a Call when the page
-        // does not book"). Remove this line when the label changes.
-        destinationPageId: "book-a-call",
         blurb:
           "Check how the system works, keep shared rules up to date, and improve the parts that need attention. Support and changes have an agreed scope.",
-        cta: "Book a call",
+        // "View Pricing" approved by the operator 2026-09-14 (§6.2 view_pricing):
+        // the destination is the pricing card, and §6.3 forbids "Book a Call"
+        // on a page that does not book.
+        cta: "View Pricing",
       },
     ],
   },
