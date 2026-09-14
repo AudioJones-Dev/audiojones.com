@@ -25,6 +25,25 @@ Entries are reverse chronological. Format follows
   `test/oews-refresh.test.ts` (run in CI) covers them without importing from
   `scripts/`, which the Vercel build never sees.
 
+### Docs
+- A fourth entry separates the data-lifecycle commitments — 30-day notice, export
+  survival through termination for cause or nonpayment, and 30-day retention then
+  deletion — from the 12-month term entry, so that accepting a billing commitment
+  cannot silently ratify a deletion policy. Raised by Codex on review.
+- Three Business Memory commercial decisions drafted into
+  [`docs/DECISIONS.md`](./DECISIONS.md) as **proposed, not accepted**: a
+  $4,000/month minimum for managed dedicated deployments, a 12-month M5
+  commitment billed monthly with a 30-day notice period, and an
+  implementation-fee policy establishing that the §BM.2 one-time prices *are*
+  the implementation charge and that no generic `setup_fee` field may sit
+  beside them. Acceptance is the owner's; nothing propagates before it.
+- Each entry carries a **Propagation** block naming what it would change in
+  `src/content/offers.ts` and in the matrix, and why neither can happen yet:
+  the matrix is in a separate repository, and the registry offers these would
+  bind to (`managed-intelligence`, `founder-intelligence-system`) are the ones
+  crosswalk entries **C-3** and **C-2** are about — both still open, both
+  already annotated in the registry's own comments. C-1 is untouched.
+
 ### Changed
 - Labor benchmark dataset for the Revenue Leak Scorecard refreshed from the
   seeded May 2023 approximation to BLS OEWS **May 2025** values retrieved on
@@ -65,6 +84,31 @@ Entries are reverse chronological. Format follows
   `roi-calculator-assumptions` suite.
 
 ### Security
+- Closed the 11 remaining high-severity advisories in the production
+  dependency tree with scoped `overrides` in `pnpm-workspace.yaml`.
+  `pnpm audit --audit-level high --prod` goes from 11 high to **0** (3 low and
+  8 moderate remain, below the gate threshold). All six packages are
+  transitive; none is a declared dependency.
+
+  | Package | Reached via | Advisories | Override |
+  | --- | --- | --- | --- |
+  | `browserslist` | `next > styled-jsx > @babel/core` | GHSA-c83g-rgw3-j3cx, GHSA-73wf-gq98-2v4g | `browserslist@4: ">=4.28.7 <5"` |
+  | `nanoid` | `next > postcss` | GHSA-2v37-7h3g-55p8 | `nanoid@3: ">=3.3.18 <4"` |
+  | `brace-expansion` | `next-sanity > sanity > @sanity/cli > @oclif/core > minimatch` | GHSA-3jxr-9vmj-r5cp, GHSA-mh99-v99m-4gvg, GHSA-rgw5-rvv9-x895 | `brace-expansion@5: ">=5.0.9 <6"` |
+  | `js-yaml` | `next-sanity > sanity > @sanity/cli > @vercel/frameworks` | GHSA-52cp-r559-cp3m, GHSA-5p4m-2wfm-xmqj, GHSA-2883-xcg3-v3hh | `js-yaml@3: ">=3.15.2 <4"` |
+  | `undici` | `next-sanity > sanity > @portabletext/sanity-bridge > @sanity/schema > get-it` | GHSA-4cwx-7wf7-3272 | `undici@7: ">=7.29.0 <8"` |
+  | `adm-zip` | `next-sanity > sanity > @sanity/cli > @sanity/runtime-cli` | GHSA-xcpc-8h2w-3j85 | `adm-zip: ">=0.6.0 <0.7"` |
+
+  The `undici` line is a **fix to an existing override**, not a new one. It
+  read `undici@7: "7.28.0"`, which pins directly into the vulnerable range for
+  GHSA-4cwx-7wf7-3272 (`>=7.0.0 <7.29.0`) — the override meant to protect
+  undici was what held it back.
+
+  Every range is upper-bounded by major. An open `>=` lets pnpm resolve across
+  a major boundary: an unbounded `js-yaml@3: ">=3.15.2"` resolved to 4.1.1,
+  landing in the separate 4.x range of the same advisories and still failing
+  the audit, and an unbounded `undici@7: ">=7.29.0"` pulled in undici 8.10.2.
+  Bounding each range keeps the consumer on the major line it declared.
 - `requireAdmin` now compares the `admin-key` / `x-admin-key` header against
   `ADMIN_KEY` with the constant-time `isAdminKey` helper from
   `src/lib/server/adminSession.ts`, replacing a plain `!==` string compare
