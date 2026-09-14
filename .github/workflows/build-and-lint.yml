@@ -76,6 +76,9 @@ jobs:
       - name: Verify the sitemap projection (canonical, live, indexable, no build-time dates)
         run: pnpm exec tsx --test test/sitemap.test.ts
 
+      - name: Verify the Solutions hub projects identity from the offer and journey registries
+        run: pnpm exec tsx --test test/solutions.test.ts
+
       - name: Build workspace packages
         run: pnpm packages:build
 

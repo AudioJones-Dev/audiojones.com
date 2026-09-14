@@ -16,6 +16,23 @@ Entries are reverse chronological. Format follows
 ## Unreleased
 
 ### Changed
+- `/solutions` no longer keeps a page-local offer catalog (Canonical Map v1.1,
+  Phase 4). `src/content/solutions.ts` projects the ladder: an `offer` card
+  names a registry offer ID and takes its title from the registry and its
+  destination from `getOfferPublicRoute()` (owning solution page, else the
+  offer's own route, else its `/pricing#id` card); a `system` card names the
+  live page that owns its tiers (ResponseOS carries two tiers on one
+  canonical page, §8.6); a `capability` card names a live page for an
+  engagement category with no ratified offer and so carries no offer ID or
+  price. Stage intros, blurbs, and CTA labels stay as presentation copy,
+  unchanged. Two destinations move: ReKonr now lands on its `/pricing`
+  anchor rather than the top of `/pricing`, and Managed Intelligence lands
+  on its `/pricing` anchor rather than `/book-a-call`, with its label
+  changed from "Book a call" to "View Pricing" (operator approval
+  2026-09-14; §6.2 `view_pricing`, §6.3 no "Book a Call" where nothing books). A "Related" block
+  renders the hub's declared registry edges (Revenue Leak Scorecard, AI
+  Readiness Diagnostic, Case Studies) with their registry labels.
+  `test/solutions.test.ts` (run in CI) holds every card to those rules.
 - `src/app/sitemap.ts` is now a projection of the journey registry (Canonical
   Map v1.1, Phase 3) plus Sanity blog posts, deduplicated at one boundary.
   The hand-written 21-route list is gone; a route appears only when its
