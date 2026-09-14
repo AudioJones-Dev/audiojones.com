@@ -16,6 +16,22 @@ Entries are reverse chronological. Format follows
 ## Unreleased
 
 ### Added
+- `src/content/journeys/index.ts` is the canonical page and journey registry
+  (Canonical Map v1.1, Phase 1). Every public page carries lifecycle status,
+  archetype, funnel roles, parent hub, canonical route, indexability, sitemap
+  eligibility, navigation visibility, one primary CTA, and its link-graph
+  edges. Tool pages take their route from `src/content/tools`; commercial
+  CTAs reference `src/content/offers` by ID; Insight and Framework pillar
+  pages are generated from their own registries. Selectors expose the
+  Resources and Solutions dropdown groups, the footer projection, and the
+  sitemap projection, but nothing consumes them yet: Header, Footer, and
+  `sitemap.ts` are unchanged until Phases 2 and 3. `validate.ts` rejects
+  unknown references, links to planned pages, `utm_` on internal CTAs,
+  schedule CTAs to non-booking pages, orphans, and sitemap-eligible
+  non-indexable pages; `test/journeys.test.ts` (run in CI) adds route
+  existence against `src/app`. Registered CTA destinations are the target
+  state: the six components still carrying internal UTMs diverge until
+  Phase 6.
 - `scripts/refresh-oews-benchmarks.ts` regenerates the scorecard's labor
   benchmark dataset from a given OEWS release (`--year 2026` or `--latest`,
   with `--dry-run` for a report-only pass), recomputing the admin-occupation
