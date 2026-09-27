@@ -49,10 +49,10 @@ export const publicRoutes = [
 
 /**
  * Routes that are intentionally excluded from the sitemap and should
- * have noindex metadata or be blocked in robots.ts.
+ * have noindex metadata or be blocked in robots.txt.
  *
  * NOTE: This is documentation, not enforcement. Enforcement happens in
- * src/app/robots.ts and via page-level `robots` metadata exports.
+ * src/app/robots.txt/route.ts and via page-level `robots` metadata exports.
  */
 export const noindexRoutes = [
   "/step-2",
