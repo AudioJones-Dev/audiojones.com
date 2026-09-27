@@ -1,6 +1,7 @@
 import { NextRequest } from "next/server";
 import { NodeHtmlMarkdown } from "node-html-markdown";
 import {
+  absolutizeRootRelative,
   isAllowedMarkdownHost,
   isMarkdownEligiblePath,
 } from "@/lib/agent-docs/markdown";
@@ -71,9 +72,9 @@ export async function GET(
     html.match(/<link[^>]+rel="canonical"[^>]+href="([^"]+)"/i)?.[1] ??
     new URL(pagePath, req.nextUrl.origin).toString();
 
-  // Absolute links, so the markdown still resolves once it leaves the page.
-  const origin = new URL(canonical).origin;
-  const content = mainContent(html).replace(/(href|src)="\/(?!\/)/g, `$1="${origin}/`);
+  // Resolve against the serving origin, not the canonical: a blog post may
+  // declare an external canonical, and its site links must stay on this site.
+  const content = absolutizeRootRelative(mainContent(html), req.nextUrl.origin);
 
   const body = converter.translate(content).trim();
   const frontmatter = ["---", `title: ${JSON.stringify(title)}`, `url: ${canonical}`, "---"];

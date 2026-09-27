@@ -38,6 +38,11 @@ export function isMarkdownEligiblePath(pathname: string): boolean {
   );
 }
 
+/** Rewrites root-relative href/src attributes to absolute URLs on `origin`. */
+export function absolutizeRootRelative(html: string, origin: string): string {
+  return html.replace(/(href|src)="\/(?!\/)/g, `$1="${origin}/`);
+}
+
 export function isAllowedMarkdownHost(hostname: string): boolean {
   return ALLOWED_HOSTS.has(hostname) || hostname.endsWith(".vercel.app");
 }
