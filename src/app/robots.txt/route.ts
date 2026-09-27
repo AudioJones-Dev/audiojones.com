@@ -31,7 +31,7 @@ export function GET() {
     "Allow: /",
     ...DISALLOW.map((path) => `Disallow: ${path}`),
     "",
-    // Block GPTBot from entire site unless explicitly opted in later
+    // GPTBot is OpenAI's training crawler; blocking it outright backs ai-train=no.
     "User-Agent: GPTBot",
     "Disallow: /",
     "",

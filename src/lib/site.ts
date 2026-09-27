@@ -67,7 +67,7 @@ export const noindexRoutes = [
 ] as const;
 
 /**
- * Routes completely blocked from crawlers (enforced in robots.ts).
+ * Routes completely blocked from crawlers (enforced in src/app/robots.txt/route.ts).
  */
 export const disallowedRoutes = [
   "/portal/",
