@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { siteConfig } from "@/lib/site";
 import { FRAMEWORKS } from "@/content/frameworks";
 import { INSIGHTS } from "@/content/insights";
+import { link } from "@/lib/agent-docs/llms-format";
 
 import { metadata as home } from "@/app/page";
 import { metadata as solutions } from "@/app/solutions/page";
@@ -69,10 +70,6 @@ function titleOf({ title }: Metadata, fallback: string): string {
   return fallback;
 }
 
-function link(title: string, url: string, note?: string | null): string {
-  return note ? `- [${title}](${url}): ${note}` : `- [${title}](${url})`;
-}
-
 function pageLink({ path, metadata }: PageEntry): string {
   return link(titleOf(metadata, path), `${siteConfig.url}${path}`, metadata.description);
 }
@@ -94,7 +91,7 @@ export function buildLlmsTxt(): string {
     [
       "## Optional",
       ...OPTIONAL.map(pageLink),
-      link("Sitemap", `${base}/sitemap.xml`, "Every crawlable URL, including blog posts."),
+      link("Sitemap", `${base}/sitemap.xml`, "The XML sitemap, including blog posts."),
     ].join("\n"),
   ];
   return `${blocks.join("\n\n")}\n`;
