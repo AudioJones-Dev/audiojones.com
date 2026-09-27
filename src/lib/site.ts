@@ -64,6 +64,7 @@ export const noindexRoutes = [
   "/creators",
   "/artisthub",
   "/env",
+  "/ecosystem",
 ] as const;
 
 /**
