@@ -38,7 +38,8 @@ export const EnvSchema = z.object({
   // OpenAI & AI services
   OPENAI_API_KEY: z.string().min(1).optional(),
   
-  // MailerLite integration
+  // MailerLite integration (MAILERLITE_API_KEY is the legacy name, still read)
+  MAILERLITE_TOKEN: z.string().min(1).optional(),
   MAILERLITE_API_KEY: z.string().min(1).optional(),
   MAILERLITE_GROUP_ID: z.string().min(1).optional(),
   

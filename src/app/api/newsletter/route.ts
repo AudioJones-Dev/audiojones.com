@@ -1,11 +1,11 @@
 // POST /api/newsletter — canonical newsletter subscription endpoint.
 //
-// Routes through the adapter pattern in `src/lib/newsletter/newsletter-storage.ts`.
-// Honors NEWSLETTER_PROVIDER + NEXT_PUBLIC_MAILERLITE_DISABLED. Falls back to
-// mock on any upstream failure — the user always sees success.
+// Routes through the adapter pattern in `src/lib/newsletter/newsletter-storage.ts`,
+// which picks MailerLite whenever MAILERLITE_TOKEN is set.
 //
-// The legacy `/api/newsletter/subscribe` route is preserved for any external
-// callers; new in-product surfaces should use this canonical path.
+// The legacy `/api/newsletter/subscribe` and `/api/integrations/mailerlite`
+// routes delegate here for any external callers; new in-product surfaces
+// should use this canonical path.
 
 import { NextResponse, type NextRequest } from "next/server";
 import { newsletterSchema } from "@/lib/newsletter/newsletter-schema";

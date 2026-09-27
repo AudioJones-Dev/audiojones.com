@@ -30,7 +30,8 @@ export const EnvSchema = z.object({
     WHOP_WEBHOOK_SECRET: z.string().min(1).optional(),
     // OpenAI & AI services
     OPENAI_API_KEY: z.string().min(1).optional(),
-    // MailerLite integration
+    // MailerLite integration (MAILERLITE_API_KEY is the legacy name, still read)
+    MAILERLITE_TOKEN: z.string().min(1).optional(),
     MAILERLITE_API_KEY: z.string().min(1).optional(),
     MAILERLITE_GROUP_ID: z.string().min(1).optional(),
     // n8n automation (optional — lead capture continues if n8n fails).
