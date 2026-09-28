@@ -52,7 +52,14 @@ const nextConfig: NextConfig = {
   },
   async headers() {
     return [
-      { source: "/", headers: [{ key: "Cache-Control", value: "no-store, must-revalidate" }] },
+      {
+        source: "/",
+        headers: [
+          { key: "Cache-Control", value: "no-store, must-revalidate" },
+          // RFC 8288 discovery hint for agents: the llms.txt site index.
+          { key: "Link", value: '</llms.txt>; rel="describedby"; type="text/markdown"' },
+        ],
+      },
       { source: "/(.*)", headers: [{ key: "Cache-Control", value: "no-store, must-revalidate" }] },
       { source: "/_next/static/(.*)", headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }] },
       { source: "/assets/(.*)", headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }] },
