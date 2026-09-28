@@ -5,7 +5,13 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { getNewsletterAdapter } from "../src/lib/newsletter/newsletter-storage";
+import {
+  createNeonAdapter,
+  getNewsletterAdapter,
+  type NewsletterStore,
+} from "../src/lib/newsletter/newsletter-storage";
+import type { MailerLiteSyncOutcome } from "../src/lib/newsletter/newsletter-row";
+import type { NewsletterInput } from "../src/lib/newsletter/newsletter-schema";
 import { newsletterSchema } from "../src/lib/newsletter/newsletter-schema";
 import { getOrCreateGroupId, upsertMailerLiteSubscriber } from "../src/lib/integrations/mailerlite";
 
@@ -248,6 +254,213 @@ test("a missing group is created once", async () => {
         const creates = calls.filter((c) => c.method === "POST" && c.url.endsWith("/groups"));
         assert.equal(creates.length, 1);
         assert.deepEqual(creates[0].body, { name: "new-buyers" });
+      },
+    );
+  });
+});
+
+// ─── neon ────────────────────────────────────────────────────────────────────
+
+const signup: NewsletterInput = { email: "dana@example.com", source: "footer" };
+const ctx = { ipHash: "abc123", userAgent: "test-agent" };
+const neon = { ...live, NEWSLETTER_PROVIDER: "neon", DATABASE_URL: undefined };
+
+// Naming neon without a database refuses everywhere, local development
+// included. Falling back to the mock would hide the missing DATABASE_URL
+// behind a success message, and a smoke test against a half-configured deploy
+// is expected to fail.
+const environments: [string, Record<string, string | undefined>][] = [
+  ["production", { NODE_ENV: "production", VERCEL_ENV: "production" }],
+  ["preview", { NODE_ENV: "production", VERCEL_ENV: "preview" }],
+  ["local development", { NODE_ENV: "development", VERCEL_ENV: undefined }],
+];
+
+for (const [label, env] of environments) {
+  test(`neon without DATABASE_URL is refused (${label})`, async () => {
+    await withEnv({ ...neon, ...env }, async () => {
+      await withFetch(
+        () => ({ status: 200, body: {} }),
+        async (calls) => {
+          const result = await getNewsletterAdapter().subscribe(signup, ctx);
+          assert.equal(result.ok, false);
+          assert.equal(result.ok === false && result.code, "PROVIDER_ERROR");
+          assert.equal(calls.length, 0, "MailerLite must not be called");
+        },
+      );
+    });
+  });
+}
+
+// A Storybook or E2E session that asked for no integrations must not start
+// writing rows either, so the disable flag still wins over an explicit neon.
+test("the disable flag wins over neon, so no row is written", async () => {
+  await withEnv(
+    {
+      ...neon,
+      NODE_ENV: "development",
+      VERCEL_ENV: undefined,
+      DATABASE_URL: "postgres://unused",
+      NEXT_PUBLIC_MAILERLITE_DISABLED: "true",
+    },
+    async () => {
+      await withFetch(
+        () => ({ status: 200, body: {} }),
+        async (calls) => {
+          const result = await getNewsletterAdapter().subscribe(signup, ctx);
+          assert.equal(result.ok, true);
+          assert.equal(result.ok === true && result.provider, "mock");
+          assert.equal(calls.length, 0);
+        },
+      );
+    },
+  );
+});
+
+// With a DATABASE_URL the selector hands back the real store, whose
+// "server-only" import throws outside a server bundle. A test through it would
+// pass for the wrong reason, so the save-then-sync sequence is driven through
+// createNeonAdapter with an in-memory store instead.
+type StoreEvent =
+  | { event: "save"; email: string }
+  | { event: "recordSync"; id: string; outcome: MailerLiteSyncOutcome };
+
+function memoryStore(log: StoreEvent[], overrides: Partial<NewsletterStore> = {}): NewsletterStore {
+  return {
+    async save(subscriber) {
+      log.push({ event: "save", email: subscriber.email });
+      return { id: "row-1" };
+    },
+    async recordSync(id, outcome) {
+      log.push({ event: "recordSync", id, outcome });
+    },
+    ...overrides,
+  };
+}
+
+const lastEvent = (log: StoreEvent[]) => log[log.length - 1];
+
+test("neon saves the row before MailerLite is called, then records the acceptance", async () => {
+  await withEnv(live, async () => {
+    const log: StoreEvent[] = [];
+    let savesWhenMailerLiteCalled = -1;
+    await withFetch(
+      () => {
+        savesWhenMailerLiteCalled = log.filter((e) => e.event === "save").length;
+        return { status: 201, body: { data: { id: "ml-42" } } };
+      },
+      async (calls) => {
+        const result = await createNeonAdapter(memoryStore(log)).subscribe(signup, ctx);
+
+        assert.equal(result.ok, true);
+        assert.equal(result.ok === true && result.provider, "neon");
+        assert.equal(result.ok === true && result.id, "row-1");
+
+        assert.equal(savesWhenMailerLiteCalled, 1, "the row must exist before MailerLite is called");
+        assert.equal(calls.length, 1);
+        assert.ok(calls[0].url.endsWith("/api/subscribers"), `unexpected URL ${calls[0].url}`);
+        assert.deepEqual(lastEvent(log), {
+          event: "recordSync",
+          id: "row-1",
+          outcome: { status: "synced", subscriberId: "ml-42" },
+        });
+      },
+    );
+  });
+});
+
+// Under mailerlite each of these refuses the signup. Under neon the row is
+// already saved, so the visitor's answer stands and the failure is recorded on
+// the row for replay.
+for (const status of [401, 422, 500]) {
+  test(`neon keeps a saved signup when MailerLite answers ${status}`, async () => {
+    await withEnv(live, async () => {
+      const log: StoreEvent[] = [];
+      await withFetch(
+        () => ({ status, body: { errors: {} } }),
+        async (calls) => {
+          const result = await createNeonAdapter(memoryStore(log)).subscribe(signup, ctx);
+          assert.equal(calls.length, 1, "MailerLite must actually be called");
+          assert.equal(result.ok, true, "the row is saved, so the signup stands");
+          const last = lastEvent(log);
+          assert.equal(last?.event === "recordSync" && last.outcome.status, "failed");
+        },
+      );
+    });
+  });
+}
+
+test("neon without a MailerLite token saves the row and marks it skipped", async () => {
+  await withEnv({ ...live, MAILERLITE_TOKEN: undefined, MAILERLITE_API_KEY: undefined }, async () => {
+    const log: StoreEvent[] = [];
+    await withFetch(
+      () => ({ status: 200, body: {} }),
+      async (calls) => {
+        const result = await createNeonAdapter(memoryStore(log)).subscribe(signup, ctx);
+        assert.equal(result.ok, true);
+        assert.equal(calls.length, 0);
+        assert.deepEqual(log, [
+          { event: "save", email: signup.email },
+          { event: "recordSync", id: "row-1", outcome: { status: "skipped" } },
+        ]);
+      },
+    );
+  });
+});
+
+// The fallback key name is a real configuration, so it must not be mistaken
+// for "no token" and recorded as skipped.
+test("the fallback MAILERLITE_API_KEY name still counts as a token", async () => {
+  await withEnv({ ...live, MAILERLITE_TOKEN: undefined, MAILERLITE_API_KEY: "legacy-key" }, async () => {
+    const log: StoreEvent[] = [];
+    await withFetch(
+      () => ({ status: 201, body: { data: { id: "ml-7" } } }),
+      async (calls) => {
+        await createNeonAdapter(memoryStore(log)).subscribe(signup, ctx);
+        assert.equal(calls.length, 1, "the upsert must be attempted");
+        const last = lastEvent(log);
+        assert.equal(last?.event === "recordSync" && last.outcome.status, "synced");
+      },
+    );
+  });
+});
+
+test("neon refuses when the row cannot be saved, and never calls MailerLite", async () => {
+  await withEnv(live, async () => {
+    const log: StoreEvent[] = [];
+    const store = memoryStore(log, {
+      async save() {
+        throw new Error("relation newsletter_subscribers does not exist");
+      },
+    });
+    await withFetch(
+      () => ({ status: 200, body: {} }),
+      async (calls) => {
+        const result = await createNeonAdapter(store).subscribe(signup, ctx);
+        assert.equal(result.ok, false);
+        assert.equal(result.ok === false && result.code, "PROVIDER_ERROR");
+        assert.equal(calls.length, 0);
+        assert.equal(log.length, 0);
+        const message = result.ok === false ? result.error : "";
+        for (const leak of ["newsletter_subscribers", "relation", "DATABASE_URL"]) {
+          assert.ok(!message.includes(leak), `caller-facing error must not mention ${leak}`);
+        }
+      },
+    );
+  });
+});
+
+test("failing to record the sync result does not undo a saved signup", async () => {
+  await withEnv(live, async () => {
+    const store = memoryStore([], {
+      async recordSync() {
+        throw new Error("connection reset");
+      },
+    });
+    await withFetch(
+      () => ({ status: 201, body: { data: { id: "ml-42" } } }),
+      async () => {
+        const result = await createNeonAdapter(store).subscribe(signup, ctx);
+        assert.equal(result.ok, true);
       },
     );
   });

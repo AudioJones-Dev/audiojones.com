@@ -132,6 +132,28 @@ To confirm the token after setting it: `GET /api/integrations/mailerlite`
 returns `hasToken: true`, and `pnpm verify:integrations`
 authenticates against the API.
 
+#### Storing signups in Neon (optional, `NEWSLETTER_PROVIDER=neon`)
+
+Signups can be saved to Postgres before MailerLite is called, so a
+MailerLite outage or a revoked token costs no addresses. Apply the
+migration **before** switching the provider — in the other order every
+signup fails its insert and every visitor gets a retry message:
+
+```bash
+psql "$DATABASE_URL" -f db/migrations/005_newsletter_subscribers.sql
+```
+
+Then set `NEWSLETTER_PROVIDER=neon` for that environment. `DATABASE_URL`
+alone changes nothing. Addresses MailerLite has not taken are found with:
+
+```bash
+psql "$DATABASE_URL" -c \
+  "select id, email, mailerlite_status, mailerlite_last_error, created_at
+   from newsletter_subscribers
+   where mailerlite_status in ('pending', 'failed')
+   order by created_at desc;"
+```
+
 ---
 
 ## 4. Long secrets (PEM keys, JWT private keys)

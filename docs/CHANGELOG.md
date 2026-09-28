@@ -16,6 +16,26 @@ Entries are reverse chronological. Format follows
 ## Unreleased
 
 ### Added
+- Newsletter signups can be saved to Neon before MailerLite is called.
+  `NEWSLETTER_PROVIDER=neon` writes the address to `newsletter_subscribers`
+  (`db/migrations/005_newsletter_subscribers.sql`) and answers the signup
+  once the row exists; MailerLite is then called after the response through
+  the same `src/lib/integrations/mailerlite.ts` upsert, and the row records
+  `synced`, `failed` or `skipped`. A MailerLite outage or a revoked token no
+  longer costs a signup — it leaves a `failed` row to replay. This applies
+  `docs/DECISIONS.md` (2026-04-29, persist to Neon before optional
+  integrations) to the newsletter, which was the last capture surface
+  storing nothing of its own.
+  - Opt-in and ordered: apply migration 005, then set the provider.
+    `DATABASE_URL` alone selects nothing, and `neon` without it is refused in
+    every environment. `NEXT_PUBLIC_MAILERLITE_DISABLED` still wins, so a
+    Storybook or E2E run writes no rows.
+  - Every other configuration behaves exactly as it does today: a configured
+    token still sends straight to MailerLite and still fails visibly.
+  - `/api/newsletter` is now rate limited per IP (5 a minute), as
+    `/api/apply` is, since the endpoint can now write rows.
+
+### Added
 - MailerLite is live for newsletter signups whenever `MAILERLITE_TOKEN` is
   set (no `NEWSLETTER_PROVIDER` switch needed). All MailerLite calls now go
   through `src/lib/integrations/mailerlite.ts`. Production no longer falls
