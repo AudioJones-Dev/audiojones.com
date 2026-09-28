@@ -7,6 +7,9 @@ export declare const EnvSchema: z.ZodObject<{
     RESEND_FROM_EMAIL: z.ZodOptional<z.ZodString>;
     LEAD_NOTIFICATION_EMAIL: z.ZodOptional<z.ZodString>;
     FROM_EMAIL: z.ZodOptional<z.ZodString>;
+    RESEND_NEWSLETTER_SEGMENT_ID: z.ZodOptional<z.ZodString>;
+    RESEND_NEWSLETTER_TOPIC_ID: z.ZodOptional<z.ZodString>;
+    RESEND_NEWSLETTER_EVENT: z.ZodOptional<z.ZodString>;
     NEXT_PUBLIC_SANITY_PROJECT_ID: z.ZodOptional<z.ZodString>;
     NEXT_PUBLIC_SANITY_DATASET: z.ZodOptional<z.ZodString>;
     SANITY_API_READ_TOKEN: z.ZodOptional<z.ZodString>;
@@ -47,6 +50,9 @@ export declare const EnvSchema: z.ZodObject<{
     RESEND_FROM_EMAIL?: string | undefined;
     LEAD_NOTIFICATION_EMAIL?: string | undefined;
     FROM_EMAIL?: string | undefined;
+    RESEND_NEWSLETTER_SEGMENT_ID?: string | undefined;
+    RESEND_NEWSLETTER_TOPIC_ID?: string | undefined;
+    RESEND_NEWSLETTER_EVENT?: string | undefined;
     NEXT_PUBLIC_SANITY_PROJECT_ID?: string | undefined;
     NEXT_PUBLIC_SANITY_DATASET?: string | undefined;
     SANITY_API_READ_TOKEN?: string | undefined;
@@ -85,6 +91,9 @@ export declare const EnvSchema: z.ZodObject<{
     RESEND_FROM_EMAIL?: string | undefined;
     LEAD_NOTIFICATION_EMAIL?: string | undefined;
     FROM_EMAIL?: string | undefined;
+    RESEND_NEWSLETTER_SEGMENT_ID?: string | undefined;
+    RESEND_NEWSLETTER_TOPIC_ID?: string | undefined;
+    RESEND_NEWSLETTER_EVENT?: string | undefined;
     NEXT_PUBLIC_SANITY_PROJECT_ID?: string | undefined;
     NEXT_PUBLIC_SANITY_DATASET?: string | undefined;
     SANITY_API_READ_TOKEN?: string | undefined;

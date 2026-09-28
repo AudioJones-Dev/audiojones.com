@@ -17,6 +17,9 @@ export const EnvSchema = z.object({
   RESEND_FROM_EMAIL: z.string().min(1).optional(),
   LEAD_NOTIFICATION_EMAIL: z.string().min(1).optional(),
   FROM_EMAIL: z.string().optional(),
+  RESEND_NEWSLETTER_SEGMENT_ID: z.string().uuid().optional(),
+  RESEND_NEWSLETTER_TOPIC_ID: z.string().uuid().optional(),
+  RESEND_NEWSLETTER_EVENT: z.string().min(1).optional(),
 
   // Sanity CMS
   NEXT_PUBLIC_SANITY_PROJECT_ID: z.string().min(1).optional(),
@@ -38,7 +41,7 @@ export const EnvSchema = z.object({
   // OpenAI & AI services
   OPENAI_API_KEY: z.string().min(1).optional(),
   
-  // MailerLite integration (MAILERLITE_API_KEY is the legacy name, still read)
+  // MailerLite remains for legacy Whop buyer groups during migration.
   MAILERLITE_TOKEN: z.string().min(1).optional(),
   MAILERLITE_API_KEY: z.string().min(1).optional(),
   MAILERLITE_GROUP_ID: z.string().min(1).optional(),
