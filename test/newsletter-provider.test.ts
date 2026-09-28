@@ -120,14 +120,19 @@ test("an existing newsletter member is opted in without a duplicate welcome even
         if (call.url.endsWith("/segments")) {
           return { status: 200, body: { data: [{ id: segmentId }] } };
         }
+        if (call.url.endsWith("/topics")) {
+          return { status: 200, body: { data: [{ id: topicId, subscription: "opt_in" }] } };
+        }
         return { status: 200, body: { id: "contact-1" } };
       },
       async (calls) => {
         const result = await getNewsletterAdapter().subscribe({ email: "dana@example.com" });
         assert.deepEqual(result, { ok: true, id: "contact-1", provider: "resend" });
         assert.equal(calls.some((call) => call.url.endsWith("/events/send")), false);
-        const topicUpdate = calls.find((call) => call.url.endsWith("/topics"));
-        assert.deepEqual(topicUpdate?.body, [{ id: topicId, subscription: "opt_in" }]);
+        assert.equal(
+          calls.some((call) => call.method === "PATCH" && call.url.endsWith("/topics")),
+          false,
+        );
       },
     );
   });
@@ -141,6 +146,9 @@ test("an existing contact newly joining the segment receives the welcome event",
           return { status: 200, body: { id: "contact-1" } };
         }
         if (call.url.endsWith("/segments")) return { status: 200, body: { data: [] } };
+        if (call.method === "GET" && call.url.endsWith("/topics")) {
+          return { status: 200, body: { data: [] } };
+        }
         return { status: 200, body: { id: "contact-1" } };
       },
       async (calls) => {
@@ -148,6 +156,84 @@ test("an existing contact newly joining the segment receives the welcome event",
         assert.equal(result.ok === true && result.automationQueued, true);
         assert.equal(calls.some((call) => call.url.endsWith(`/segments/${segmentId}`)), true);
         assert.equal(calls.some((call) => call.url.endsWith("/events/send")), true);
+        const topicUpdate = calls.findIndex(
+          (call) => call.method === "PATCH" && call.url.endsWith("/topics"),
+        );
+        const segmentAdd = calls.findIndex((call) => call.url.endsWith(`/segments/${segmentId}`));
+        assert.ok(topicUpdate >= 0 && topicUpdate < segmentAdd);
+      },
+    );
+  });
+});
+
+test("an existing topic opt-out is preserved without changing segment membership", async () => {
+  await withEnv(live, async () => {
+    await withFetch(
+      (call) => {
+        if (call.url.endsWith("/contacts/dana%40example.com")) {
+          return { status: 200, body: { id: "contact-1" } };
+        }
+        if (call.url.endsWith("/segments")) return { status: 200, body: { data: [] } };
+        if (call.url.endsWith("/topics")) {
+          return { status: 200, body: { data: [{ id: topicId, subscription: "opt_out" }] } };
+        }
+        return { status: 500, body: {} };
+      },
+      async (calls) => {
+        const result = await getNewsletterAdapter().subscribe({
+          email: "dana@example.com",
+          name: "Unverified replacement",
+        });
+        assert.deepEqual(result, { ok: true, id: "contact-1", provider: "resend" });
+        assert.equal(calls.some((call) => call.method === "PATCH"), false);
+        assert.equal(calls.some((call) => call.url.endsWith(`/segments/${segmentId}`)), false);
+        assert.equal(calls.some((call) => call.url.endsWith("/events/send")), false);
+      },
+    );
+  });
+});
+
+test("a failed segment add can retry after topic consent and still emit the welcome event", async () => {
+  await withEnv(live, async () => {
+    let topicOptedIn = false;
+    let segmentAttempts = 0;
+    await withFetch(
+      (call) => {
+        if (call.url.endsWith("/contacts/dana%40example.com")) {
+          return { status: 200, body: { id: "contact-1" } };
+        }
+        if (call.url.endsWith("/segments")) return { status: 200, body: { data: [] } };
+        if (call.method === "GET" && call.url.endsWith("/topics")) {
+          return {
+            status: 200,
+            body: {
+              data: topicOptedIn ? [{ id: topicId, subscription: "opt_in" }] : [],
+            },
+          };
+        }
+        if (call.method === "PATCH" && call.url.endsWith("/topics")) {
+          topicOptedIn = true;
+          return { status: 200, body: { id: "contact-1" } };
+        }
+        if (call.url.endsWith(`/segments/${segmentId}`)) {
+          segmentAttempts += 1;
+          return segmentAttempts === 1
+            ? { status: 503, body: {} }
+            : { status: 200, body: { id: "contact-1" } };
+        }
+        return { status: 200, body: { event: "audiojones.newsletter.subscribed" } };
+      },
+      async (calls) => {
+        const first = await getNewsletterAdapter().subscribe({ email: "dana@example.com" });
+        assert.equal(first.ok, false);
+
+        const second = await getNewsletterAdapter().subscribe({ email: "dana@example.com" });
+        assert.equal(second.ok === true && second.automationQueued, true);
+        assert.equal(
+          calls.filter((call) => call.method === "PATCH" && call.url.endsWith("/topics")).length,
+          1,
+        );
+        assert.equal(calls.filter((call) => call.url.endsWith("/events/send")).length, 1);
       },
     );
   });

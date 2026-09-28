@@ -9,6 +9,10 @@ export const DEFAULT_NEWSLETTER_EVENT = "audiojones.newsletter.subscribed";
 type ResendContact = { id: string };
 type ResendList<T> = { data?: T[] };
 type ResendSegment = { id: string };
+type ResendTopicSubscription = {
+  id: string;
+  subscription: "opt_in" | "opt_out";
+};
 
 type ResendRequestResult<T> =
   | { ok: true; status: number; data: T }
@@ -81,19 +85,30 @@ export async function subscribeWithResend(
   } else if (contact.ok) {
     contactId = contact.data.id;
 
-    if (input.name) {
-      const updated = await resendRequest<ResendContact>(token, `/contacts/${encodedEmail}`, {
-        method: "PATCH",
-        body: { first_name: input.name },
-      });
-      if (!updated.ok) return { ok: false, status: updated.status };
-    }
-
     const segments = await resendRequest<ResendList<ResendSegment>>(
       token,
       `/contacts/${encodedEmail}/segments`,
     );
     if (!segments.ok) return { ok: false, status: segments.status };
+
+    const topics = await resendRequest<ResendList<ResendTopicSubscription>>(
+      token,
+      `/contacts/${encodedEmail}/topics`,
+    );
+    if (!topics.ok) return { ok: false, status: topics.status };
+
+    const newsletterTopic = topics.data.data?.find((topic) => topic.id === topicId);
+    if (newsletterTopic?.subscription === "opt_out") {
+      return { ok: true, id: contactId };
+    }
+
+    if (!newsletterTopic) {
+      const optedIn = await resendRequest<{ id: string }>(token, `/contacts/${encodedEmail}/topics`, {
+        method: "PATCH",
+        body: [{ id: topicId, subscription: "opt_in" }],
+      });
+      if (!optedIn.ok) return { ok: false, status: optedIn.status };
+    }
 
     const alreadyInSegment = segments.data.data?.some((segment) => segment.id === segmentId) ?? false;
     if (!alreadyInSegment) {
@@ -105,12 +120,6 @@ export async function subscribeWithResend(
       if (!added.ok) return { ok: false, status: added.status };
       newlyJoinedNewsletter = true;
     }
-
-    const optedIn = await resendRequest<{ id: string }>(token, `/contacts/${encodedEmail}/topics`, {
-      method: "PATCH",
-      body: [{ id: topicId, subscription: "opt_in" }],
-    });
-    if (!optedIn.ok) return { ok: false, status: optedIn.status };
   } else {
     return { ok: false, status: contact.status };
   }
