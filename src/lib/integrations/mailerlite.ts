@@ -116,8 +116,12 @@ export async function upsertSubscriber(input: {
   const res = await request(token, "/subscribers", { method: "POST", body });
   const id = res.ok ? idOf(res.data) : undefined;
   if (!id) {
+    // Only the names of the fields MailerLite rejected (e.g. "groups.0"),
+    // never its messages, which can echo the submitted address.
+    const errors = (res.data as { errors?: Record<string, unknown> } | null)?.errors;
     console.error(`[mailerlite] subscriber upsert failed (${res.status})`, {
       email: redactEmail(input.email),
+      rejectedFields: errors ? Object.keys(errors) : undefined,
     });
     return { ok: false, status: res.status };
   }

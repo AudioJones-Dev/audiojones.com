@@ -128,6 +128,33 @@ for (const status of [401, 422, 500]) {
   });
 }
 
+test("a rejected field is logged by name, never by message", async () => {
+  await withEnv(live, async () => {
+    await withFetch(
+      () => ({
+        status: 422,
+        body: {
+          message: "dana@example.com: The selected groups.0 is invalid.",
+          errors: { "groups.0": ["The selected groups.0 is invalid."] },
+        },
+      }),
+      async () => {
+        const original = console.error;
+        const logged: unknown[][] = [];
+        console.error = (...args: unknown[]) => void logged.push(args);
+        try {
+          await getNewsletterAdapter().subscribe({ email: "dana@example.com" });
+        } finally {
+          console.error = original;
+        }
+        const text = JSON.stringify(logged);
+        assert.ok(text.includes("groups.0"));
+        assert.ok(!text.includes("dana@example.com"));
+      },
+    );
+  });
+});
+
 test("production without a token refuses instead of mocking", async () => {
   await withEnv({ ...live, MAILERLITE_TOKEN: undefined }, async () => {
     await withFetch(
