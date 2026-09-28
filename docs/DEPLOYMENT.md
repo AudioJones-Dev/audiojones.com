@@ -115,6 +115,23 @@ and is safe to commit.
    the same change.
 3. Remove from Vercel scopes after the deploy is live.
 
+### 3.5 MailerLite (newsletter + Whop buyer groups)
+
+| Env var                | Purpose |
+| ---------------------- | ------- |
+| `MAILERLITE_TOKEN`     | API token (MailerLite → Integrations → MailerLite API). `MAILERLITE_API_KEY` is read as a fallback name. |
+| `MAILERLITE_GROUP_ID`  | Optional. Group every newsletter signup joins. |
+
+With a token set, the footer form (`POST /api/newsletter`) subscribes
+live. In production, a missing token or a MailerLite error returns an
+error to the visitor rather than a false "subscribed". Whop purchases
+join the MailerLite group named by `mailerliteTag` in
+`src/config/automation-mappings.json`; the group is created on first use.
+
+To confirm the token after setting it: `GET /api/integrations/mailerlite`
+returns `hasToken: true`, and `pnpm verify:integrations`
+authenticates against the API.
+
 ---
 
 ## 4. Long secrets (PEM keys, JWT private keys)

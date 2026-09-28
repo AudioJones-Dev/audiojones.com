@@ -1,29 +1,26 @@
 // Adapter interface + mock + production wrappers for newsletter subscriptions.
 //
-// Provider switch: env `NEWSLETTER_PROVIDER` ∈ {"mock", "mailerlite"}.
-// Default is mock when:
-//   - NEWSLETTER_PROVIDER is unset or "mock", OR
-//   - MAILERLITE_TOKEN is unset, OR
-//   - NEXT_PUBLIC_MAILERLITE_DISABLED is "true"/"1"
+// Provider selection:
+//   - "mock" when NEXT_PUBLIC_MAILERLITE_DISABLED is "true"/"1" or
+//     NEWSLETTER_PROVIDER is "mock"
+//   - otherwise "mailerlite" whenever a MailerLite token is configured
+//   - otherwise "mock"
 //
-// Critical UX rule: when the live adapter is selected but the upstream
-// MailerLite call returns 401/403/5xx, fall back to mock with a console
-// warning rather than surfacing the error to the user. The user always
-// gets a positive confirmation experience — the integration is the
-// implementation detail.
+// Mock never answers in real production: it would show "you're subscribed"
+// while discarding the address. There, a missing token or an upstream
+// failure returns PROVIDER_ERROR and the form asks the visitor to retry.
 //
-// Hard rules: no Firebase. No hardcoded secrets. Fail soft when env is
-// missing. The form must always submit successfully via the mock adapter.
+// Hard rules: no Firebase. No hardcoded secrets.
 
 import { randomUUID } from "node:crypto";
 import type { NewsletterInput } from "./newsletter-schema";
 import { redactEmail } from "@/lib/logging/redact-email";
+import { getMailerLiteToken, upsertSubscriber } from "@/lib/integrations/mailerlite";
 
 export type NewsletterSuccess = {
   ok: true;
   id: string;
   provider: "mock" | "mailerlite";
-  fellBackToMock?: boolean;
 };
 
 export type NewsletterError = {
@@ -56,68 +53,38 @@ const mockAdapter: NewsletterAdapter = {
   },
 };
 
-// ─── MailerLite adapter (with mock fallback on upstream failure) ────────────
+// ─── MailerLite adapter ──────────────────────────────────────────────────────
 
-const MAILERLITE_API_BASE =
-  process.env.MAILERLITE_API_BASE ?? "https://connect.mailerlite.com";
-
+// An upstream failure is reported, never papered over with the mock: a
+// "you're subscribed" screen for an address MailerLite never received is a
+// lost subscriber nobody finds out about.
 const mailerliteAdapter: NewsletterAdapter = {
   async subscribe(input) {
-    const token = process.env.MAILERLITE_TOKEN;
-    if (!token) {
-      // Should not be selected in this state, but guard anyway
-      // eslint-disable-next-line no-console
-      console.warn(
-        "[newsletter mailerlite] MAILERLITE_TOKEN missing — falling back to mock",
-      );
-      const r = await mockAdapter.subscribe(input);
-      return r.ok ? { ...r, fellBackToMock: true } : r;
-    }
-    const groupId = process.env.MAILERLITE_GROUP_ID; // optional
-
-    const body: Record<string, unknown> = { email: input.email, fields: {} };
-    if (groupId) body.groups = [groupId];
-
-    try {
-      const res = await fetch(`${MAILERLITE_API_BASE}/api/subscribers`, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "content-type": "application/json",
-          accept: "application/json",
-        },
-        body: JSON.stringify(body),
-        cache: "no-store",
+    const groupId = process.env.MAILERLITE_GROUP_ID;
+    const result = await upsertSubscriber({
+      email: input.email,
+      name: input.name,
+      groups: groupId ? [groupId] : undefined,
+    });
+    if (!result.ok) {
+      console.error("[newsletter mailerlite] subscribe failed", {
+        status: result.status,
+        email: redactEmail(input.email),
+        source: input.source,
       });
-
-      if (!res.ok) {
-        // eslint-disable-next-line no-console
-        console.warn(
-          `[newsletter mailerlite] upstream ${res.status} — falling back to mock`,
-        );
-        const r = await mockAdapter.subscribe(input);
-        return r.ok ? { ...r, fellBackToMock: true } : r;
-      }
-
-      // Best-effort id extraction; MailerLite payload shape varies by API version
-      let id = `ml-${randomUUID()}`;
-      try {
-        const data = (await res.json()) as { data?: { id?: string } };
-        if (data?.data?.id) id = String(data.data.id);
-      } catch {
-        // ignore — fallback id already set
-      }
-
-      return { ok: true, id, provider: "mailerlite" };
-    } catch (err) {
-      // eslint-disable-next-line no-console
-      console.warn(
-        "[newsletter mailerlite] network error — falling back to mock",
-        err,
-      );
-      const r = await mockAdapter.subscribe(input);
-      return r.ok ? { ...r, fellBackToMock: true } : r;
+      return { ok: false, error: "Subscription failed", code: "PROVIDER_ERROR" };
     }
+    return { ok: true, id: result.id, provider: "mailerlite" };
+  },
+};
+
+const refusingAdapter: NewsletterAdapter = {
+  async subscribe(input) {
+    console.error("[newsletter] no live provider in production; subscription refused", {
+      email: redactEmail(input.email),
+      source: input.source,
+    });
+    return { ok: false, error: "Subscription failed", code: "PROVIDER_ERROR" };
   },
 };
 
@@ -130,19 +97,23 @@ function isDisabledByPublicFlag(): boolean {
   return v === "true" || v === "1";
 }
 
+// Same definition as the apply pipeline: previews run with NODE_ENV=production
+// too, so only VERCEL_ENV identifies the deployment serving real visitors.
+const isRealProduction = () =>
+  process.env.VERCEL_ENV === "production" ||
+  (!process.env.VERCEL_ENV && process.env.NODE_ENV === "production");
+
 export type NewsletterProvider = "mock" | "mailerlite";
 
 export function resolveProvider(): NewsletterProvider {
   if (isDisabledByPublicFlag()) return "mock";
-  const explicit = process.env.NEWSLETTER_PROVIDER?.toLowerCase().trim();
-  if (explicit === "mailerlite" && process.env.MAILERLITE_TOKEN) {
-    return "mailerlite";
-  }
-  return "mock";
+  if (process.env.NEWSLETTER_PROVIDER?.toLowerCase().trim() === "mock") return "mock";
+  return getMailerLiteToken() ? "mailerlite" : "mock";
 }
 
 export function getNewsletterAdapter(): NewsletterAdapter {
-  return resolveProvider() === "mailerlite" ? mailerliteAdapter : mockAdapter;
+  if (resolveProvider() === "mailerlite") return mailerliteAdapter;
+  return isRealProduction() ? refusingAdapter : mockAdapter;
 }
 
 // Convenience for UI to decide whether to show the pending notice.

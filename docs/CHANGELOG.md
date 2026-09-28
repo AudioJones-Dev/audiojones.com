@@ -16,6 +16,15 @@ Entries are reverse chronological. Format follows
 ## Unreleased
 
 ### Added
+- MailerLite is live for newsletter signups whenever `MAILERLITE_TOKEN` is
+  set (no `NEWSLETTER_PROVIDER` switch needed). All MailerLite calls now go
+  through `src/lib/integrations/mailerlite.ts`. Production no longer falls
+  back to the mock adapter: a missing token or upstream error is shown as a
+  retryable error instead of a "subscribed" screen for a dropped address.
+  Whop product tags now map to MailerLite groups (the current API has no
+  tags endpoint, so those calls had been failing). The two legacy subscribe
+  routes delegate to `/api/newsletter`, so `/api/integrations/mailerlite` no
+  longer echoes subscriber records to anonymous callers.
 - `scripts/refresh-oews-benchmarks.ts` regenerates the scorecard's labor
   benchmark dataset from a given OEWS release (`--year 2026` or `--latest`,
   with `--dry-run` for a report-only pass), recomputing the admin-occupation

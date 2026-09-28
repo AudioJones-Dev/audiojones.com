@@ -1,6 +1,7 @@
 import mappings from "@/config/automation-mappings.json";
 import fs from 'fs';
 import path from 'path';
+import { getMailerLiteToken } from "@/lib/integrations/mailerlite";
 
 interface IntegrationStatus {
   whopConfigured: boolean;
@@ -11,7 +12,7 @@ interface IntegrationStatus {
 async function getIntegrationStatus(): Promise<IntegrationStatus> {
   // Check environment variables
   const whopConfigured = !!process.env.WHOP_API_KEY;
-  const mailerliteConfigured = !!process.env.MAILERLITE_TOKEN;
+  const mailerliteConfigured = Boolean(getMailerLiteToken());
   
   // Read and parse mappings
   const mappingsPath = path.join(process.cwd(), 'src/config/automation-mappings.json');
@@ -43,7 +44,7 @@ export default async function AutomationPage() {
         <p>MailerLite: {status.mailerliteConfigured ? "✅ configured" : "❌ missing MAILERLITE_TOKEN"}</p>
         <p>Product → Tag mappings: {status.mappingCount}</p>
         <p className="text-xs text-slate-400">
-          To test: POST /api/integrations/mailerlite with {`{ email, name?, source?, tag? }`}.
+          To test: POST /api/integrations/mailerlite with {`{ email }`}.
         </p>
       </section>
 
