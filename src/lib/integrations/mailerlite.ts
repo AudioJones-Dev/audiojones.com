@@ -130,7 +130,9 @@ export async function upsertSubscriber(input: {
 
 /**
  * Creates or updates a MailerLite subscriber and, when `tag` is given, adds
- * them to the group of that name (created on first use).
+ * them to the group of that name (created on first use). Returns false
+ * without upserting when the group cannot be resolved, so the caller can
+ * fail and be retried rather than leave the buyer outside their group.
  */
 export async function upsertMailerLiteSubscriber(params: {
   email: string;
@@ -141,6 +143,8 @@ export async function upsertMailerLiteSubscriber(params: {
   if (!email) return false;
 
   const groupId = tag ? await getOrCreateGroupId(tag) : undefined;
+  if (tag && !groupId) return false;
+
   const result = await upsertSubscriber({
     email,
     name,

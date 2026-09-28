@@ -18,6 +18,8 @@ export const NEWSLETTER_SOURCES = [
 
 export const newsletterSchema = z.object({
   email: z.string().email("Enter a valid email"),
+  // Sent by legacy `/api/newsletter/subscribe` callers; the site form omits it.
+  name: z.string().trim().max(100).optional(),
 
   // Optional context — populated client-side from URL params on mount.
   source: z.enum(NEWSLETTER_SOURCES).optional(),

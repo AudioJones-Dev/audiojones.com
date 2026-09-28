@@ -67,12 +67,19 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: true, missingEmail: true });
   }
 
-  // Process the automation
-  await upsertMailerLiteSubscriber({
+  // A non-2xx response makes Whop redeliver the event, so a MailerLite
+  // outage delays the buyer's group membership instead of losing it.
+  const synced = await upsertMailerLiteSubscriber({
     email,
     name,
     tag: match.mailerliteTag,
   });
+  if (!synced) {
+    return NextResponse.json(
+      { ok: false, error: "MailerLite sync failed" },
+      { status: 502 },
+    );
+  }
 
   // Map Whop data to client contract
   const contractMapping = mapWhopPlanToInternal(body.data);

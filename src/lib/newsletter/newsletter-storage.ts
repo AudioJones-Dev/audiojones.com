@@ -63,6 +63,7 @@ const mailerliteAdapter: NewsletterAdapter = {
     const groupId = process.env.MAILERLITE_GROUP_ID;
     const result = await upsertSubscriber({
       email: input.email,
+      name: input.name,
       groups: groupId ? [groupId] : undefined,
     });
     if (!result.ok) {

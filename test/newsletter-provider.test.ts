@@ -6,6 +6,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import { getNewsletterAdapter } from "../src/lib/newsletter/newsletter-storage";
+import { newsletterSchema } from "../src/lib/newsletter/newsletter-schema";
 import { getOrCreateGroupId, upsertMailerLiteSubscriber } from "../src/lib/integrations/mailerlite";
 
 type Call = { url: string; method: string; headers: Record<string, string>; body: unknown };
@@ -195,6 +196,39 @@ test("a Whop tag reuses the MailerLite group with that exact name", async () => 
         assert.equal(calls.filter((c) => c.method === "POST" && c.url.endsWith("/groups")).length, 0);
         const upsert = calls.find((c) => c.url.endsWith("/subscribers"));
         assert.deepEqual(upsert?.body, { email: "dana@example.com", groups: ["6"] });
+      },
+    );
+  });
+});
+
+test("a legacy caller's name reaches MailerLite", async () => {
+  await withEnv(live, async () => {
+    await withFetch(
+      () => ({ status: 200, body: { data: { id: "1" } } }),
+      async (calls) => {
+        const parsed = newsletterSchema.parse({ email: "dana@example.com", name: " Dana " });
+        await getNewsletterAdapter().subscribe(parsed);
+        assert.deepEqual(calls[0].body, {
+          email: "dana@example.com",
+          fields: { name: "Dana" },
+          groups: ["111"],
+        });
+      },
+    );
+  });
+});
+
+test("a Whop tag whose group cannot be resolved fails without an ungrouped upsert", async () => {
+  await withEnv(live, async () => {
+    await withFetch(
+      (call) =>
+        call.url.includes("/groups")
+          ? { status: 500, body: { message: "down" } }
+          : { status: 200, body: { data: { id: "42" } } },
+      async (calls) => {
+        const ok = await upsertMailerLiteSubscriber({ email: "dana@example.com", tag: "unresolvable-group" });
+        assert.equal(ok, false);
+        assert.equal(calls.filter((c) => c.url.endsWith("/subscribers")).length, 0);
       },
     );
   });
