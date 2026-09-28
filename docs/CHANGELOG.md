@@ -16,6 +16,10 @@ Entries are reverse chronological. Format follows
 ## Unreleased
 
 ### Added
+- Newsletter signups now join a MailerLite group, **Website newsletter**,
+  created automatically on the first signup, so campaigns can target site
+  subscribers without an id to copy into the environment.
+  `MAILERLITE_GROUP_ID` still pins an existing group when set.
 - MailerLite is live for newsletter signups whenever `MAILERLITE_TOKEN` is
   set (no `NEWSLETTER_PROVIDER` switch needed). All MailerLite calls now go
   through `src/lib/integrations/mailerlite.ts`. Production no longer falls

@@ -120,10 +120,12 @@ and is safe to commit.
 | Env var                | Purpose |
 | ---------------------- | ------- |
 | `MAILERLITE_TOKEN`     | API token (MailerLite → Integrations → MailerLite API). `MAILERLITE_API_KEY` is read as a fallback name. |
-| `MAILERLITE_GROUP_ID`  | Optional. Group every newsletter signup joins. |
+| `MAILERLITE_GROUP_ID`  | Optional. Numeric id of an existing group for newsletter signups. Unset, they join **Website newsletter**, created on the first signup. |
 
 With a token set, the footer form (`POST /api/newsletter`) subscribes
-live. In production, a missing token or a MailerLite error returns an
+live. The "Website newsletter" group is found by exact name, so if you
+rename it in MailerLite, set `MAILERLITE_GROUP_ID` to its id first or a new
+group with the old name will be created on the next signup. In production, a missing token or a MailerLite error returns an
 error to the visitor rather than a false "subscribed". Whop purchases
 join the MailerLite group named by `mailerliteTag` in
 `src/config/automation-mappings.json`; the group is created on first use.

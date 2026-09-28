@@ -5,7 +5,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { getNewsletterAdapter } from "../src/lib/newsletter/newsletter-storage";
+import { getNewsletterAdapter, NEWSLETTER_GROUP_NAME } from "../src/lib/newsletter/newsletter-storage";
 import { newsletterSchema } from "../src/lib/newsletter/newsletter-schema";
 import { getOrCreateGroupId, upsertMailerLiteSubscriber } from "../src/lib/integrations/mailerlite";
 
@@ -178,6 +178,44 @@ test("development without a token uses the mock", async () => {
       assert.equal(result.ok === true && result.provider, "mock");
     },
   );
+});
+
+// Runs before the default-group test below: resolved group ids are cached
+// per process, and this case needs the lookup to actually fail.
+test("an unavailable newsletter group still subscribes the visitor", async () => {
+  await withEnv({ ...live, MAILERLITE_GROUP_ID: undefined }, async () => {
+    await withFetch(
+      (call) =>
+        call.url.includes("/groups")
+          ? { status: 500, body: { message: "down" } }
+          : { status: 200, body: { data: { id: "5" } } },
+      async (calls) => {
+        const result = await getNewsletterAdapter().subscribe({ email: "dana@example.com" });
+        assert.equal(result.ok, true);
+        const upsert = calls.find((c) => c.url.endsWith("/subscribers"));
+        assert.deepEqual(upsert?.body, { email: "dana@example.com" });
+      },
+    );
+  });
+});
+
+test("without MAILERLITE_GROUP_ID, signups join the Website newsletter group", async () => {
+  await withEnv({ ...live, MAILERLITE_GROUP_ID: undefined }, async () => {
+    await withFetch(
+      (call) =>
+        call.url.includes("/groups")
+          ? { status: 200, body: { data: [{ id: 9, name: NEWSLETTER_GROUP_NAME }] } }
+          : { status: 200, body: { data: { id: "5" } } },
+      async (calls) => {
+        await getNewsletterAdapter().subscribe({ email: "dana@example.com" });
+        await getNewsletterAdapter().subscribe({ email: "lee@example.com" });
+        const upserts = calls.filter((c) => c.url.endsWith("/subscribers"));
+        assert.deepEqual(upserts[0].body, { email: "dana@example.com", groups: ["9"] });
+        assert.deepEqual(upserts[1].body, { email: "lee@example.com", groups: ["9"] });
+        assert.equal(calls.filter((c) => c.url.includes("/groups")).length, 1);
+      },
+    );
+  });
 });
 
 test("a Whop tag reuses the MailerLite group with that exact name", async () => {
