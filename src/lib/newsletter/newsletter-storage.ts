@@ -3,6 +3,9 @@
 // Provider selection:
 //   - "mock" when NEXT_PUBLIC_MAILERLITE_DISABLED is "true"/"1" or
 //     NEWSLETTER_PROVIDER is "mock"
+//   - "neon" when NEWSLETTER_PROVIDER says so: the address is saved to
+//     `newsletter_subscribers` and the signup is answered once the row
+//     exists, then sent to MailerLite after the response
 //   - otherwise "mailerlite" whenever a MailerLite token is configured
 //   - otherwise "mock"
 //
@@ -10,9 +13,22 @@
 // while discarding the address. There, a missing token or an upstream
 // failure returns PROVIDER_ERROR and the form asks the visitor to retry.
 //
+// Persistence is opt-in, as it is for /apply. `neon` must be named
+// explicitly — a DATABASE_URL alone does not enable it — so
+// db/migrations/005_newsletter_subscribers.sql can be applied before any
+// write reaches the table. Setting the provider before applying the
+// migration is the wrong order: every insert fails and visitors get a retry
+// message. Migration first.
+//
+// Under "neon" a MailerLite failure no longer costs the signup. The row is
+// the promise to the visitor; the sync result is recorded on it as 'synced',
+// 'failed' or 'skipped' so a failed address can be replayed. Under
+// "mailerlite" nothing is saved on our side, so a failure is still a refusal.
+//
 // Hard rules: no Firebase. No hardcoded secrets.
 
 import { randomUUID } from "node:crypto";
+import type { MailerLiteSyncOutcome, NewsletterRowContext } from "./newsletter-row";
 import type { NewsletterInput } from "./newsletter-schema";
 import { redactEmail } from "@/lib/logging/redact-email";
 import {
@@ -24,7 +40,7 @@ import {
 export type NewsletterSuccess = {
   ok: true;
   id: string;
-  provider: "mock" | "mailerlite";
+  provider: "mock" | "mailerlite" | "neon";
 };
 
 export type NewsletterError = {
@@ -36,7 +52,9 @@ export type NewsletterError = {
 export type NewsletterResult = NewsletterSuccess | NewsletterError;
 
 export interface NewsletterAdapter {
-  subscribe(input: NewsletterInput): Promise<NewsletterResult>;
+  // `ctx` carries what the row needs but the form cannot supply. It is
+  // optional so the adapters that store nothing can be called without it.
+  subscribe(input: NewsletterInput, ctx?: NewsletterRowContext): Promise<NewsletterResult>;
 }
 
 // ─── Mock adapter ────────────────────────────────────────────────────────────
@@ -65,18 +83,26 @@ const mockAdapter: NewsletterAdapter = {
 // is by exact name, so a renamed group would be recreated under this name.
 export const NEWSLETTER_GROUP_NAME = "Website newsletter";
 
+// Both the direct MailerLite path and the neon sync join the same group, so
+// a saved-then-synced signup is never quietly left out of the segmentation
+// the direct path applies.
+async function resolveNewsletterGroupId(): Promise<string | undefined> {
+  // A group that cannot be resolved costs segmentation, not the subscriber:
+  // everyone is still on the account-wide list, so subscribe regardless.
+  const groupId =
+    process.env.MAILERLITE_GROUP_ID || (await getOrCreateGroupId(NEWSLETTER_GROUP_NAME));
+  if (!groupId) {
+    console.error("[newsletter mailerlite] newsletter group unavailable; subscribing without it");
+  }
+  return groupId;
+}
+
 // An upstream failure is reported, never papered over with the mock: a
 // "you're subscribed" screen for an address MailerLite never received is a
 // lost subscriber nobody finds out about.
 const mailerliteAdapter: NewsletterAdapter = {
   async subscribe(input) {
-    // A group that cannot be resolved costs segmentation, not the subscriber:
-    // everyone is still on the account-wide list, so subscribe regardless.
-    const groupId =
-      process.env.MAILERLITE_GROUP_ID || (await getOrCreateGroupId(NEWSLETTER_GROUP_NAME));
-    if (!groupId) {
-      console.error("[newsletter mailerlite] newsletter group unavailable; subscribing without it");
-    }
+    const groupId = await resolveNewsletterGroupId();
     const result = await upsertSubscriber({
       email: input.email,
       name: input.name,
@@ -104,6 +130,131 @@ const refusingAdapter: NewsletterAdapter = {
   },
 };
 
+// ─── Neon adapter ────────────────────────────────────────────────────────────
+
+// The two writes the neon adapter makes. Injected so the save-then-sync
+// sequence can be tested without a database; the selector uses neonStore.
+export interface NewsletterStore {
+  save(input: NewsletterInput, ctx: NewsletterRowContext): Promise<{ id: string }>;
+  recordSync(id: string, outcome: MailerLiteSyncOutcome): Promise<void>;
+}
+
+// Imported lazily, as in src/lib/apply/apply-storage.ts. src/db/* is
+// "server-only", which throws when loaded outside a server bundle, and the
+// tests import this module directly.
+const neonStore: NewsletterStore = {
+  async save(input, ctx) {
+    const { saveNewsletterSubscriber } = await import("@/db/newsletter");
+    return saveNewsletterSubscriber(input, ctx);
+  },
+  async recordSync(id, outcome) {
+    const { recordMailerLiteSync } = await import("@/db/newsletter");
+    return recordMailerLiteSync(id, outcome);
+  },
+};
+
+// Sends a saved address to MailerLite and writes down what happened. Never
+// throws: the signup is already saved and answered, so the log and the row
+// are the only places left to report a failure.
+//
+// The token check goes through getMailerLiteToken() rather than reading one
+// name: MAILERLITE_API_KEY is accepted as a fallback name, and reading only
+// MAILERLITE_TOKEN would record 'skipped' on a deployment whose upsert would
+// in fact have worked.
+async function syncToMailerLite(
+  store: NewsletterStore,
+  id: string,
+  input: NewsletterInput,
+) {
+  let outcome: MailerLiteSyncOutcome;
+
+  if (!getMailerLiteToken()) {
+    outcome = { status: "skipped" };
+  } else {
+    const groupId = await resolveNewsletterGroupId();
+    const result = await upsertSubscriber({
+      email: input.email,
+      name: input.name,
+      groups: groupId ? [groupId] : undefined,
+    });
+    if (result.ok) {
+      outcome = { status: "synced", subscriberId: result.id };
+    } else {
+      outcome = { status: "failed", error: `MailerLite answered ${result.status}` };
+      // The row id rather than the address: the address is safe in the table.
+      console.error("[newsletter] MailerLite sync failed; subscriber is saved", {
+        id,
+        status: result.status,
+      });
+    }
+  }
+
+  try {
+    await store.recordSync(id, outcome);
+  } catch (err) {
+    console.error("[newsletter] could not record the MailerLite sync result", {
+      id,
+      status: outcome.status,
+      error: err instanceof Error ? err.message : String(err),
+    });
+  }
+}
+
+export function createNeonAdapter(store: NewsletterStore): NewsletterAdapter {
+  return {
+    async subscribe(input, ctx) {
+      let saved: { id: string };
+      try {
+        saved = await store.save(input, ctx ?? { ipHash: null, userAgent: null });
+      } catch (err) {
+        // Nothing was saved, so this is a real failure and the visitor should
+        // retry. The Neon message names tables and constraints; it is logged,
+        // never returned.
+        console.error("[newsletter] could not save the subscriber", {
+          email: redactEmail(input.email),
+          source: input.source,
+          error: err instanceof Error ? err.message : String(err),
+        });
+        return { ok: false, error: "Subscription failed", code: "PROVIDER_ERROR" };
+      }
+      const { id } = saved;
+
+      // `after` rather than awaiting: the saved row is what the visitor was
+      // promised, so MailerLite's latency or failure must not delay or change
+      // the answer. `after` rather than a bare `void`: on serverless the
+      // invocation can be suspended once the response is sent, which would
+      // drop the request mid-flight and leave the row 'pending'.
+      const sync = () => syncToMailerLite(store, id, input);
+      try {
+        const { after } = await import("next/server");
+        after(sync);
+      } catch {
+        // No request scope — a script or a test calling the adapter directly.
+        // Await instead; syncToMailerLite never rejects.
+        await sync();
+      }
+
+      return { ok: true, id, provider: "neon" };
+    },
+  };
+}
+
+const neonAdapter = createNeonAdapter(neonStore);
+
+// Naming neon without a DATABASE_URL is a deployment-config error, and
+// refusing is the only safe answer in every environment: falling back to mock
+// would answer "you're subscribed" while the address went nowhere, and a
+// smoke test against a half-configured deploy is expected to fail.
+const neonMisconfiguredAdapter: NewsletterAdapter = {
+  async subscribe(input) {
+    console.error("[newsletter] NEWSLETTER_PROVIDER=neon but DATABASE_URL is unset; subscription refused", {
+      email: redactEmail(input.email),
+      source: input.source,
+    });
+    return { ok: false, error: "Subscription failed", code: "PROVIDER_ERROR" };
+  },
+};
+
 // ─── Provider selector ───────────────────────────────────────────────────────
 
 function isDisabledByPublicFlag(): boolean {
@@ -119,16 +270,25 @@ const isRealProduction = () =>
   process.env.VERCEL_ENV === "production" ||
   (!process.env.VERCEL_ENV && process.env.NODE_ENV === "production");
 
-export type NewsletterProvider = "mock" | "mailerlite";
+export type NewsletterProvider = "mock" | "mailerlite" | "neon";
 
 export function resolveProvider(): NewsletterProvider {
+  // The disable flag still wins over everything, as it always has: a
+  // Storybook or E2E session that asked for no integrations must not start
+  // writing rows either.
   if (isDisabledByPublicFlag()) return "mock";
-  if (process.env.NEWSLETTER_PROVIDER?.toLowerCase().trim() === "mock") return "mock";
+  const explicit = process.env.NEWSLETTER_PROVIDER?.toLowerCase().trim();
+  if (explicit === "mock") return "mock";
+  if (explicit === "neon") return "neon";
   return getMailerLiteToken() ? "mailerlite" : "mock";
 }
 
 export function getNewsletterAdapter(): NewsletterAdapter {
-  if (resolveProvider() === "mailerlite") return mailerliteAdapter;
+  const provider = resolveProvider();
+  if (provider === "neon") {
+    return process.env.DATABASE_URL ? neonAdapter : neonMisconfiguredAdapter;
+  }
+  if (provider === "mailerlite") return mailerliteAdapter;
   return isRealProduction() ? refusingAdapter : mockAdapter;
 }
 
