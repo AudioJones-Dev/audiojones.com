@@ -1,5 +1,10 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import {
+  MARKDOWN_ROUTE,
+  acceptsMarkdown,
+  isMarkdownEligiblePath,
+} from "@/lib/agent-docs/markdown";
 
 export function middleware(request: NextRequest) {
   const url = request.nextUrl.clone();
@@ -9,6 +14,18 @@ export function middleware(request: NextRequest) {
   // DEV LOGGING - Track all incoming requests
   if (process.env.NODE_ENV === "development") {
     console.log("[middleware:incoming]", { host, pathname });
+  }
+
+  // Agents that ask for markdown get the page converted. Rewriting to a
+  // separate path keeps the markdown out of the HTML page's CDN cache entry.
+  if (
+    request.method === "GET" &&
+    !host.startsWith("admin.") &&
+    acceptsMarkdown(request.headers.get("accept")) &&
+    isMarkdownEligiblePath(pathname)
+  ) {
+    url.pathname = `${MARKDOWN_ROUTE}${pathname === "/" ? "" : pathname}`;
+    return NextResponse.rewrite(url);
   }
 
   // Handle admin subdomain routing
