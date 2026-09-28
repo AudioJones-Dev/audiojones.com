@@ -99,6 +99,17 @@ Entries are reverse chronological. Format follows
   `roi-calculator-assumptions` suite.
 
 ### Security
+- Removed `/api/mcp`, `/api/agents` and `/api/notifications` with their
+  backing `src/lib/mcp/whop.ts` and `src/lib/agents/whop-actions.ts`. All
+  three accepted unauthenticated `POST`. Each could create Whop member
+  notifications with the server's Whop key whenever `WHOP_API_KEY` is set:
+  `/api/notifications` directly, `/api/mcp` by proxying to it, and
+  `/api/agents` directly. `/api/agents` also posted to `N8N_WEBHOOK_URL`
+  when that was set. `/api/mcp` and `/api/agents` answered CORS preflight
+  (`OPTIONS`) with `Access-Control-Allow-Origin: *`, so browsers on any site
+  could call them too. Nothing in the app called them, and `/api/mcp` was
+  not a Model Context Protocol server (no JSON-RPC transport), so
+  advertising it to agents was never an option.
 - Closed the 11 remaining high-severity advisories in the production
   dependency tree with scoped `overrides` in `pnpm-workspace.yaml`.
   `pnpm audit --audit-level high --prod` goes from 11 high to **0** (3 low and
