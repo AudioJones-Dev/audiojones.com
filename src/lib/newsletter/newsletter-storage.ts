@@ -15,7 +15,11 @@
 import { randomUUID } from "node:crypto";
 import type { NewsletterInput } from "./newsletter-schema";
 import { redactEmail } from "@/lib/logging/redact-email";
-import { getMailerLiteToken, upsertSubscriber } from "@/lib/integrations/mailerlite";
+import {
+  getMailerLiteToken,
+  getOrCreateGroupId,
+  upsertSubscriber,
+} from "@/lib/integrations/mailerlite";
 
 export type NewsletterSuccess = {
   ok: true;
@@ -55,12 +59,24 @@ const mockAdapter: NewsletterAdapter = {
 
 // ─── MailerLite adapter ──────────────────────────────────────────────────────
 
+// Signups join this MailerLite group, created on the first signup.
+// MAILERLITE_GROUP_ID pins a specific existing group instead, which is the
+// safer choice once the group might be renamed in MailerLite: the lookup here
+// is by exact name, so a renamed group would be recreated under this name.
+export const NEWSLETTER_GROUP_NAME = "Website newsletter";
+
 // An upstream failure is reported, never papered over with the mock: a
 // "you're subscribed" screen for an address MailerLite never received is a
 // lost subscriber nobody finds out about.
 const mailerliteAdapter: NewsletterAdapter = {
   async subscribe(input) {
-    const groupId = process.env.MAILERLITE_GROUP_ID;
+    // A group that cannot be resolved costs segmentation, not the subscriber:
+    // everyone is still on the account-wide list, so subscribe regardless.
+    const groupId =
+      process.env.MAILERLITE_GROUP_ID || (await getOrCreateGroupId(NEWSLETTER_GROUP_NAME));
+    if (!groupId) {
+      console.error("[newsletter mailerlite] newsletter group unavailable; subscribing without it");
+    }
     const result = await upsertSubscriber({
       email: input.email,
       name: input.name,
