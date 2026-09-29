@@ -122,14 +122,18 @@ and is safe to commit.
 | `RESEND_API_KEY`                | Server-only Resend API key shared with transactional email. |
 | `RESEND_NEWSLETTER_SEGMENT_ID`  | Audio Jones newsletter segment UUID. |
 | `RESEND_NEWSLETTER_TOPIC_ID`    | Explicit newsletter subscription-topic UUID. |
-| `RESEND_NEWSLETTER_EVENT`       | Optional welcome-event name; defaults to `audiojones.newsletter.subscribed`. |
+| `RESEND_NEWSLETTER_WELCOME_TEMPLATE_ID` | Published Resend template for the immediate welcome email. |
 | `NEWSLETTER_PROVIDER`           | Set to `resend` on configured deployments or `mock` for deliberate local/Preview simulation. |
 
 `POST /api/newsletter` creates or updates the Resend contact, ensures the
 segment membership, explicitly opts the contact into the newsletter topic,
-and emits the welcome event only when the contact newly joins the segment.
+and sends the welcome template only when the contact newly joins the segment.
+Existing global unsubscribes and explicit topic opt-outs are preserved.
+The send uses `audiojones-welcome/<contact-id>` as its Resend idempotency key,
+so concurrent form submissions cannot deliver duplicate welcome emails during
+Resend's idempotency window.
 Production never falls back to mock. Contact failures are returned to the
-visitor; a downstream automation-event failure is logged after the subscriber
+visitor; a downstream welcome-email failure is logged after the subscriber
 and consent state are durable.
 
 ### 3.6 MailerLite migration boundary

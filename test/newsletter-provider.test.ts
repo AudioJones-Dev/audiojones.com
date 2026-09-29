@@ -56,6 +56,7 @@ async function withFetch(
 
 const segmentId = "0c48c406-5fa3-46d4-9553-f23680d775e0";
 const topicId = "8253f5f9-7d9c-4c6e-b325-0e0ad59b4b82";
+const welcomeTemplateId = "welcome-template-id";
 
 const live = {
   NODE_ENV: "production",
@@ -66,16 +67,16 @@ const live = {
   RESEND_API_KEY: "test-token",
   RESEND_NEWSLETTER_SEGMENT_ID: segmentId,
   RESEND_NEWSLETTER_TOPIC_ID: topicId,
-  RESEND_NEWSLETTER_EVENT: "audiojones.newsletter.subscribed",
+  RESEND_NEWSLETTER_WELCOME_TEMPLATE_ID: welcomeTemplateId,
 };
 
-test("a new signup creates an opted-in contact and emits the welcome event", async () => {
+test("a new signup creates an opted-in contact and sends one idempotent welcome email", async () => {
   await withEnv(live, async () => {
     await withFetch(
       (call) => {
         if (call.method === "GET") return { status: 404, body: { message: "not found" } };
         if (call.url.endsWith("/contacts")) return { status: 201, body: { id: "contact-1" } };
-        return { status: 200, body: { event: "audiojones.newsletter.subscribed" } };
+        return { status: 200, body: { id: "email-1" } };
       },
       async (calls) => {
         const result = await getNewsletterAdapter().subscribe({
@@ -89,7 +90,7 @@ test("a new signup creates an opted-in contact and emits the welcome event", asy
           ok: true,
           id: "contact-1",
           provider: "resend",
-          automationQueued: true,
+          welcomeQueued: true,
         });
         assert.equal(calls.length, 3);
         assert.equal(calls[0].url, "https://api.resend.com/contacts/dana%40example.com");
@@ -100,17 +101,23 @@ test("a new signup creates an opted-in contact and emits the welcome event", asy
           segments: [{ id: segmentId }],
           topics: [{ id: topicId, subscription: "opt_in" }],
         });
+        assert.equal(calls[2].url, "https://api.resend.com/emails");
+        assert.equal(calls[2].headers["Idempotency-Key"], "audiojones-welcome/contact-1");
         assert.deepEqual(calls[2].body, {
-          event: "audiojones.newsletter.subscribed",
-          email: "dana@example.com",
-          payload: { source: "footer", utm_source: "linkedin" },
+          to: ["dana@example.com"],
+          template: { id: welcomeTemplateId },
+          headers: {
+            "List-Unsubscribe":
+              "<mailto:support@audiojones.com?subject=Unsubscribe%20from%20Audio%20Jones>",
+          },
         });
+        assert.equal(calls.some((call) => call.url.endsWith("/events/send")), false);
       },
     );
   });
 });
 
-test("an existing newsletter member is opted in without a duplicate welcome event", async () => {
+test("an existing newsletter member is opted in without a duplicate welcome email", async () => {
   await withEnv(live, async () => {
     await withFetch(
       (call) => {
@@ -128,7 +135,7 @@ test("an existing newsletter member is opted in without a duplicate welcome even
       async (calls) => {
         const result = await getNewsletterAdapter().subscribe({ email: "dana@example.com" });
         assert.deepEqual(result, { ok: true, id: "contact-1", provider: "resend" });
-        assert.equal(calls.some((call) => call.url.endsWith("/events/send")), false);
+        assert.equal(calls.some((call) => call.url.endsWith("/emails")), false);
         assert.equal(
           calls.some((call) => call.method === "PATCH" && call.url.endsWith("/topics")),
           false,
@@ -138,7 +145,7 @@ test("an existing newsletter member is opted in without a duplicate welcome even
   });
 });
 
-test("an existing contact newly joining the segment receives the welcome event", async () => {
+test("an existing contact newly joining the segment receives the welcome email", async () => {
   await withEnv(live, async () => {
     await withFetch(
       (call) => {
@@ -153,14 +160,49 @@ test("an existing contact newly joining the segment receives the welcome event",
       },
       async (calls) => {
         const result = await getNewsletterAdapter().subscribe({ email: "dana@example.com" });
-        assert.equal(result.ok === true && result.automationQueued, true);
+        assert.equal(result.ok === true && result.welcomeQueued, true);
         assert.equal(calls.some((call) => call.url.endsWith(`/segments/${segmentId}`)), true);
-        assert.equal(calls.some((call) => call.url.endsWith("/events/send")), true);
+        assert.equal(calls.some((call) => call.url.endsWith("/emails")), true);
         const topicUpdate = calls.findIndex(
           (call) => call.method === "PATCH" && call.url.endsWith("/topics"),
         );
         const segmentAdd = calls.findIndex((call) => call.url.endsWith(`/segments/${segmentId}`));
         assert.ok(topicUpdate >= 0 && topicUpdate < segmentAdd);
+      },
+    );
+  });
+});
+
+test("concurrent joins use the same welcome-email idempotency key", async () => {
+  await withEnv(live, async () => {
+    await withFetch(
+      (call) => {
+        if (call.url.endsWith("/contacts/dana%40example.com")) {
+          return { status: 200, body: { id: "contact-1" } };
+        }
+        if (call.url.endsWith("/segments")) return { status: 200, body: { data: [] } };
+        if (call.method === "GET" && call.url.endsWith("/topics")) {
+          return {
+            status: 200,
+            body: { data: [{ id: topicId, subscription: "opt_in" }] },
+          };
+        }
+        return { status: 200, body: { id: "accepted" } };
+      },
+      async (calls) => {
+        const [first, second] = await Promise.all([
+          getNewsletterAdapter().subscribe({ email: "dana@example.com" }),
+          getNewsletterAdapter().subscribe({ email: "dana@example.com" }),
+        ]);
+
+        assert.equal(first.ok === true && first.welcomeQueued, true);
+        assert.equal(second.ok === true && second.welcomeQueued, true);
+        const welcomeCalls = calls.filter((call) => call.url.endsWith("/emails"));
+        assert.equal(welcomeCalls.length, 2);
+        assert.deepEqual(
+          new Set(welcomeCalls.map((call) => call.headers["Idempotency-Key"])),
+          new Set(["audiojones-welcome/contact-1"]),
+        );
       },
     );
   });
@@ -193,7 +235,24 @@ test("an existing topic opt-out is preserved without changing segment membership
   });
 });
 
-test("a failed segment add can retry after topic consent and still emit the welcome event", async () => {
+test("a globally unsubscribed contact is preserved without any welcome activity", async () => {
+  await withEnv(live, async () => {
+    await withFetch(
+      (call) =>
+        call.url.endsWith("/contacts/dana%40example.com")
+          ? { status: 200, body: { id: "contact-1", unsubscribed: true } }
+          : { status: 500, body: {} },
+      async (calls) => {
+        const result = await getNewsletterAdapter().subscribe({ email: "dana@example.com" });
+
+        assert.deepEqual(result, { ok: true, id: "contact-1", provider: "resend" });
+        assert.equal(calls.length, 1);
+      },
+    );
+  });
+});
+
+test("a failed segment add can retry after topic consent and still send the welcome email", async () => {
   await withEnv(live, async () => {
     let topicOptedIn = false;
     let segmentAttempts = 0;
@@ -228,12 +287,12 @@ test("a failed segment add can retry after topic consent and still emit the welc
         assert.equal(first.ok, false);
 
         const second = await getNewsletterAdapter().subscribe({ email: "dana@example.com" });
-        assert.equal(second.ok === true && second.automationQueued, true);
+        assert.equal(second.ok === true && second.welcomeQueued, true);
         assert.equal(
           calls.filter((call) => call.method === "PATCH" && call.url.endsWith("/topics")).length,
           1,
         );
-        assert.equal(calls.filter((call) => call.url.endsWith("/events/send")).length, 1);
+        assert.equal(calls.filter((call) => call.url.endsWith("/emails")).length, 1);
       },
     );
   });
@@ -253,7 +312,7 @@ test("a contact API failure is reported, not mocked", async () => {
   });
 });
 
-test("an event outage keeps the durable subscriber and logs only a redacted email", async () => {
+test("a welcome-email outage keeps the durable subscriber and logs only a redacted email", async () => {
   await withEnv(live, async () => {
     await withFetch(
       (call) => {
@@ -267,7 +326,7 @@ test("an event outage keeps the durable subscriber and logs only a redacted emai
         console.error = (...args: unknown[]) => void logged.push(args);
         try {
           const result = await getNewsletterAdapter().subscribe({ email: "dana@example.com" });
-          assert.equal(result.ok === true && result.automationQueued, false);
+          assert.equal(result.ok === true && result.welcomeQueued, false);
         } finally {
           console.error = original;
         }
@@ -284,8 +343,7 @@ test("production without complete Resend config refuses instead of mocking", asy
     {
       ...live,
       NEWSLETTER_PROVIDER: undefined,
-      RESEND_NEWSLETTER_SEGMENT_ID: undefined,
-      RESEND_NEWSLETTER_TOPIC_ID: undefined,
+      RESEND_NEWSLETTER_WELCOME_TEMPLATE_ID: undefined,
     },
     async () => {
       const result = await getNewsletterAdapter().subscribe({ email: "dana@example.com" });
@@ -304,6 +362,7 @@ test("development without Resend config uses the mock", async () => {
       RESEND_API_KEY: undefined,
       RESEND_NEWSLETTER_SEGMENT_ID: undefined,
       RESEND_NEWSLETTER_TOPIC_ID: undefined,
+      RESEND_NEWSLETTER_WELCOME_TEMPLATE_ID: undefined,
     },
     async () => {
       const result = await getNewsletterAdapter().subscribe({ email: "dana@example.com" });

@@ -21,7 +21,7 @@ export type NewsletterSuccess = {
   ok: true;
   id: string;
   provider: "mock" | "resend";
-  automationQueued?: boolean;
+  welcomeQueued?: boolean;
 };
 
 export type NewsletterError = {
@@ -71,9 +71,9 @@ const resendAdapter: NewsletterAdapter = {
       ok: true,
       id: result.id,
       provider: "resend",
-      ...(result.automationQueued === undefined
+      ...(result.welcomeQueued === undefined
         ? {}
-        : { automationQueued: result.automationQueued }),
+        : { welcomeQueued: result.welcomeQueued }),
     };
   },
 };
@@ -115,7 +115,8 @@ export function resolveProvider(): NewsletterProvider {
   if (explicit === "resend") return "resend";
   return process.env.RESEND_API_KEY &&
     process.env.RESEND_NEWSLETTER_SEGMENT_ID &&
-    process.env.RESEND_NEWSLETTER_TOPIC_ID
+    process.env.RESEND_NEWSLETTER_TOPIC_ID &&
+    process.env.RESEND_NEWSLETTER_WELCOME_TEMPLATE_ID
     ? "resend"
     : "mock";
 }

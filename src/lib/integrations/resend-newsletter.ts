@@ -4,9 +4,7 @@ import { redactEmail } from "@/lib/logging/redact-email";
 const RESEND_API_BASE = process.env.RESEND_API_BASE ?? "https://api.resend.com";
 const RESEND_TIMEOUT_MS = 10_000;
 
-export const DEFAULT_NEWSLETTER_EVENT = "audiojones.newsletter.subscribed";
-
-type ResendContact = { id: string };
+type ResendContact = { id: string; unsubscribed?: boolean };
 type ResendList<T> = { data?: T[] };
 type ResendSegment = { id: string };
 type ResendTopicSubscription = {
@@ -21,7 +19,7 @@ type ResendRequestResult<T> =
 async function resendRequest<T>(
   token: string,
   path: string,
-  init: { method?: string; body?: unknown } = {},
+  init: { method?: string; body?: unknown; headers?: Record<string, string> } = {},
 ): Promise<ResendRequestResult<T>> {
   try {
     const response = await fetch(`${RESEND_API_BASE}${path}`, {
@@ -30,6 +28,7 @@ async function resendRequest<T>(
         Authorization: `Bearer ${token}`,
         Accept: "application/json",
         ...(init.body === undefined ? {} : { "Content-Type": "application/json" }),
+        ...init.headers,
       },
       body: init.body === undefined ? undefined : JSON.stringify(init.body),
       cache: "no-store",
@@ -44,7 +43,7 @@ async function resendRequest<T>(
 }
 
 export type ResendNewsletterResult =
-  | { ok: true; id: string; automationQueued?: boolean }
+  | { ok: true; id: string; welcomeQueued?: boolean }
   | { ok: false; status: number };
 
 export async function subscribeWithResend(
@@ -53,13 +52,14 @@ export async function subscribeWithResend(
   const token = process.env.RESEND_API_KEY;
   const segmentId = process.env.RESEND_NEWSLETTER_SEGMENT_ID;
   const topicId = process.env.RESEND_NEWSLETTER_TOPIC_ID;
-  const eventName = process.env.RESEND_NEWSLETTER_EVENT || DEFAULT_NEWSLETTER_EVENT;
+  const welcomeTemplateId = process.env.RESEND_NEWSLETTER_WELCOME_TEMPLATE_ID;
 
-  if (!token || !segmentId || !topicId) {
+  if (!token || !segmentId || !topicId || !welcomeTemplateId) {
     console.error("[newsletter resend] configuration incomplete", {
       hasToken: Boolean(token),
       hasSegmentId: Boolean(segmentId),
       hasTopicId: Boolean(topicId),
+      hasWelcomeTemplateId: Boolean(welcomeTemplateId),
     });
     return { ok: false, status: 0 };
   }
@@ -84,6 +84,9 @@ export async function subscribeWithResend(
     newlyJoinedNewsletter = true;
   } else if (contact.ok) {
     contactId = contact.data.id;
+    if (contact.data.unsubscribed) {
+      return { ok: true, id: contactId };
+    }
 
     const segments = await resendRequest<ResendList<ResendSegment>>(
       token,
@@ -126,30 +129,28 @@ export async function subscribeWithResend(
 
   if (!newlyJoinedNewsletter) return { ok: true, id: contactId };
 
-  const event = await resendRequest<{ event: string }>(token, "/events/send", {
+  const welcome = await resendRequest<{ id: string }>(token, "/emails", {
     method: "POST",
+    headers: { "Idempotency-Key": `audiojones-welcome/${contactId}` },
     body: {
-      event: eventName,
-      email: input.email,
-      payload: {
-        source: input.source ?? "direct",
-        ...(input.utmSource ? { utm_source: input.utmSource } : {}),
-        ...(input.utmMedium ? { utm_medium: input.utmMedium } : {}),
-        ...(input.utmCampaign ? { utm_campaign: input.utmCampaign } : {}),
+      to: [input.email],
+      template: { id: welcomeTemplateId },
+      headers: {
+        "List-Unsubscribe":
+          "<mailto:support@audiojones.com?subject=Unsubscribe%20from%20Audio%20Jones>",
       },
     },
   });
 
-  if (!event.ok) {
-    // The contact and consent state are durable. A welcome-event outage must
+  if (!welcome.ok) {
+    // The contact and consent state are durable. A welcome-email outage must
     // not discard the subscriber or encourage duplicate form submissions.
-    console.error("[newsletter resend] automation event failed", {
-      status: event.status,
+    console.error("[newsletter resend] welcome email failed", {
+      status: welcome.status,
       email: redactEmail(input.email),
-      event: eventName,
     });
-    return { ok: true, id: contactId, automationQueued: false };
+    return { ok: true, id: contactId, welcomeQueued: false };
   }
 
-  return { ok: true, id: contactId, automationQueued: true };
+  return { ok: true, id: contactId, welcomeQueued: true };
 }

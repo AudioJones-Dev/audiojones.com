@@ -19,7 +19,7 @@ export const EnvSchema = z.object({
   FROM_EMAIL: z.string().optional(),
   RESEND_NEWSLETTER_SEGMENT_ID: z.string().uuid().optional(),
   RESEND_NEWSLETTER_TOPIC_ID: z.string().uuid().optional(),
-  RESEND_NEWSLETTER_EVENT: z.string().min(1).optional(),
+  RESEND_NEWSLETTER_WELCOME_TEMPLATE_ID: z.string().min(1).optional(),
 
   // Sanity CMS
   NEXT_PUBLIC_SANITY_PROJECT_ID: z.string().min(1).optional(),
