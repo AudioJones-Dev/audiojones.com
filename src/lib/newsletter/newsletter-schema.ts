@@ -3,9 +3,8 @@
 // pipeline (`apply-schema.ts`). Purposefully lightweight — newsletter
 // is the lowest-friction surface in the funnel.
 //
-// Live MailerLite path goes through `newsletter-storage.ts`'s
-// `mailerliteAdapter`. Mock path is the default while the Developer
-// API token re-rotation is pending.
+// The live Resend path goes through the server-only adapter in
+// `newsletter-storage.ts`; browser code never receives provider credentials.
 
 import { z } from "zod";
 

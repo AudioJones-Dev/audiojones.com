@@ -1,9 +1,9 @@
 // Adapter interface + mock + production wrappers for newsletter subscriptions.
 //
 // Provider selection:
-//   - "mock" when NEXT_PUBLIC_MAILERLITE_DISABLED is "true"/"1" or
+//   - "mock" when NEXT_PUBLIC_NEWSLETTER_DISABLED is "true"/"1" or
 //     NEWSLETTER_PROVIDER is "mock"
-//   - otherwise "mailerlite" whenever a MailerLite token is configured
+//   - otherwise "resend" whenever the Resend newsletter config is complete
 //   - otherwise "mock"
 //
 // Mock never answers in real production: it would show "you're subscribed"
@@ -15,16 +15,13 @@
 import { randomUUID } from "node:crypto";
 import type { NewsletterInput } from "./newsletter-schema";
 import { redactEmail } from "@/lib/logging/redact-email";
-import {
-  getMailerLiteToken,
-  getOrCreateGroupId,
-  upsertSubscriber,
-} from "@/lib/integrations/mailerlite";
+import { subscribeWithResend } from "@/lib/integrations/resend-newsletter";
 
 export type NewsletterSuccess = {
   ok: true;
   id: string;
-  provider: "mock" | "mailerlite";
+  provider: "mock" | "resend";
+  welcomeQueued?: boolean;
 };
 
 export type NewsletterError = {
@@ -57,40 +54,27 @@ const mockAdapter: NewsletterAdapter = {
   },
 };
 
-// ─── MailerLite adapter ──────────────────────────────────────────────────────
+// ─── Resend adapter ─────────────────────────────────────────────────────────
 
-// Signups join this MailerLite group, created on the first signup.
-// MAILERLITE_GROUP_ID pins a specific existing group instead, which is the
-// safer choice once the group might be renamed in MailerLite: the lookup here
-// is by exact name, so a renamed group would be recreated under this name.
-export const NEWSLETTER_GROUP_NAME = "Website newsletter";
-
-// An upstream failure is reported, never papered over with the mock: a
-// "you're subscribed" screen for an address MailerLite never received is a
-// lost subscriber nobody finds out about.
-const mailerliteAdapter: NewsletterAdapter = {
+const resendAdapter: NewsletterAdapter = {
   async subscribe(input) {
-    // A group that cannot be resolved costs segmentation, not the subscriber:
-    // everyone is still on the account-wide list, so subscribe regardless.
-    const groupId =
-      process.env.MAILERLITE_GROUP_ID || (await getOrCreateGroupId(NEWSLETTER_GROUP_NAME));
-    if (!groupId) {
-      console.error("[newsletter mailerlite] newsletter group unavailable; subscribing without it");
-    }
-    const result = await upsertSubscriber({
-      email: input.email,
-      name: input.name,
-      groups: groupId ? [groupId] : undefined,
-    });
+    const result = await subscribeWithResend(input);
     if (!result.ok) {
-      console.error("[newsletter mailerlite] subscribe failed", {
+      console.error("[newsletter resend] subscribe failed", {
         status: result.status,
         email: redactEmail(input.email),
         source: input.source,
       });
       return { ok: false, error: "Subscription failed", code: "PROVIDER_ERROR" };
     }
-    return { ok: true, id: result.id, provider: "mailerlite" };
+    return {
+      ok: true,
+      id: result.id,
+      provider: "resend",
+      ...(result.welcomeQueued === undefined
+        ? {}
+        : { welcomeQueued: result.welcomeQueued }),
+    };
   },
 };
 
@@ -107,10 +91,13 @@ const refusingAdapter: NewsletterAdapter = {
 // ─── Provider selector ───────────────────────────────────────────────────────
 
 function isDisabledByPublicFlag(): boolean {
-  // Server-side env access — NEXT_PUBLIC_* is exposed at runtime in API routes
-  // too, just like any other env var.
-  const v = process.env.NEXT_PUBLIC_MAILERLITE_DISABLED;
-  return v === "true" || v === "1";
+  const values = [
+    process.env.NEXT_PUBLIC_NEWSLETTER_DISABLED,
+    // Compatibility during the provider migration. Remove after every
+    // environment has the provider-neutral flag.
+    process.env.NEXT_PUBLIC_MAILERLITE_DISABLED,
+  ];
+  return values.some((value) => value === "true" || value === "1");
 }
 
 // Same definition as the apply pipeline: previews run with NODE_ENV=production
@@ -119,16 +106,23 @@ const isRealProduction = () =>
   process.env.VERCEL_ENV === "production" ||
   (!process.env.VERCEL_ENV && process.env.NODE_ENV === "production");
 
-export type NewsletterProvider = "mock" | "mailerlite";
+export type NewsletterProvider = "mock" | "resend";
 
 export function resolveProvider(): NewsletterProvider {
   if (isDisabledByPublicFlag()) return "mock";
-  if (process.env.NEWSLETTER_PROVIDER?.toLowerCase().trim() === "mock") return "mock";
-  return getMailerLiteToken() ? "mailerlite" : "mock";
+  const explicit = process.env.NEWSLETTER_PROVIDER?.toLowerCase().trim();
+  if (explicit === "mock") return "mock";
+  if (explicit === "resend") return "resend";
+  return process.env.RESEND_API_KEY &&
+    process.env.RESEND_NEWSLETTER_SEGMENT_ID &&
+    process.env.RESEND_NEWSLETTER_TOPIC_ID &&
+    process.env.RESEND_NEWSLETTER_WELCOME_TEMPLATE_ID
+    ? "resend"
+    : "mock";
 }
 
 export function getNewsletterAdapter(): NewsletterAdapter {
-  if (resolveProvider() === "mailerlite") return mailerliteAdapter;
+  if (resolveProvider() === "resend") return resendAdapter;
   return isRealProduction() ? refusingAdapter : mockAdapter;
 }
 
