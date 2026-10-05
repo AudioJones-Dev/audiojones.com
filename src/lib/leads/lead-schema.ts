@@ -10,13 +10,13 @@ export const REVENUE_RANGES = [
 ] as const;
 
 export const PRIMARY_CONSTRAINTS = [
-  "Marketing unclear",
-  "Sales inconsistent",
-  "Operations noisy",
-  "Team/process bottleneck",
-  "AI/tool chaos",
-  "Attribution problem",
-  "Founder bottleneck",
+  "Fragmented workflow",
+  "Information or handoff loss",
+  "Unclear ownership or business rules",
+  "Disconnected software or duplicate entry",
+  "Founder dependency",
+  "Customer response or revenue leakage",
+  "AI or tool uncertainty",
   "Other",
 ] as const;
 

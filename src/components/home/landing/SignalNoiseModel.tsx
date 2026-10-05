@@ -335,7 +335,7 @@ export default function SignalNoiseModel() {
               letterSpacing: "-0.01em",
             }}
           >
-            The 20% noise often reveals the 80% signal —{" "}
+            Operational noise can reveal the signal that matters —{" "}
             <span style={{ color: "var(--signal-yellow)", fontWeight: 600 }}>
               if you know how to read the system.
             </span>

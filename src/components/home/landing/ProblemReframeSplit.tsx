@@ -322,7 +322,7 @@ function NoiseDashboard({ className }: { className?: string }) {
         <div className="grid grid-cols-3 gap-2">
           {[
             { label: "Sessions", val: "48,291", delta: "+12%", pos: true },
-            { label: "CAC", val: "$342", delta: "+28%", pos: false },
+            { label: "CAC", val: "Unknown", delta: "No baseline", pos: false },
             { label: "Conv Rate", val: "1.8%", delta: "−3%", pos: false },
           ].map((k) => (
             <div
@@ -533,9 +533,9 @@ function SystemDashboard({ className }: { className?: string }) {
       <div className="space-y-3 p-4">
         <div className="grid grid-cols-3 gap-2">
           {[
-            { label: "CAC", val: "↓ 37%", color: "#3DFFB0" },
-            { label: "Pipeline", val: "↑ 28%", color: "#4DACFF" },
-            { label: "Conv Rate", val: "↑ 42%", color: "#4DACFF" },
+            { label: "CAC", val: "Tracked", color: "#3DFFB0" },
+            { label: "Pipeline", val: "Visible", color: "#4DACFF" },
+            { label: "Conv Rate", val: "Measured", color: "#4DACFF" },
           ].map((k) => (
             <div
               key={k.label}
@@ -651,8 +651,8 @@ function SystemDashboard({ className }: { className?: string }) {
         </div>
         <div className="space-y-1.5">
           {[
-            { signal: "Behavior pattern", attr: "→ Pipeline ↑18%", strength: 91 },
-            { signal: "Constraint mapped", attr: "→ CAC −$127/acq", strength: 84 },
+            { signal: "Behavior pattern", attr: "→ Pipeline relationship", strength: 91 },
+            { signal: "Constraint mapped", attr: "→ CAC relationship", strength: 84 },
             { signal: "Channel causality", attr: "→ ROI ×3 realloc", strength: 78 },
           ].map((s) => (
             <div

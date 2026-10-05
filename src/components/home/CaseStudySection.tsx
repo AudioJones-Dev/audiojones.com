@@ -29,11 +29,11 @@ export default function CaseStudySection() {
             <ul className="mt-1 space-y-4 text-white">
               <li className="flex items-start gap-3">
                 <span className="mt-0.5 h-2 w-2 rounded-full bg-gradient-to-r from-[#E8FF5A] to-[#4DACFF]" />
-                <span className="text-lg">34% Conversion Rate — highest of any content channel</span>
+                <span className="text-lg">Conversion evidence requires a verified baseline and source period</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="mt-0.5 h-2 w-2 rounded-full bg-gradient-to-r from-[#E8FF5A] to-[#4DACFF]" />
-                <span className="text-lg">+38% Revenue Growth — AI-powered podcast workflows</span>
+                <span className="text-lg">Revenue impact is not published without attributable source data</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="mt-0.5 h-2 w-2 rounded-full bg-gradient-to-r from-[#E8FF5A] to-[#4DACFF]" />
@@ -41,7 +41,7 @@ export default function CaseStudySection() {
               </li>
               <li className="flex items-start gap-3">
                 <span className="mt-0.5 h-2 w-2 rounded-full bg-gradient-to-r from-[#E8FF5A] to-[#4DACFF]" />
-                <span className="text-lg">10% Guest → Client Conversion — predictable B2B leads</span>
+                <span className="text-lg">Guest-to-client conversion requires a defined denominator and attribution rule</span>
               </li>
             </ul>
 

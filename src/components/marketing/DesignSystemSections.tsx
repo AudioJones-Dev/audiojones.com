@@ -29,7 +29,7 @@ export function SignalHero({
   description,
   primaryHref = "/book-a-call",
   primaryLabel = "Book a Call",
-  secondaryHref = "/ai-readiness-diagnostic",
+  secondaryHref = "/founder-intelligence/diagnostic",
   secondaryLabel = "Start the Diagnostic",
   stats,
   children,
@@ -93,10 +93,10 @@ export function SectionIntro({ label, title, description }: SectionIntroProps) {
 
 export function SignalConsole() {
   const rows = [
-    ["SYSTEM STATUS", "ONLINE", "text-[var(--aj-success)]"],
-    ["REVENUE LEAK", "FOLLOW-UP GAP", "text-[var(--aj-orange)]"],
-    ["AGENT LAYER", "RESPONSEOS", "text-[var(--aj-blue)]"],
-    ["RECOVERY PATH", "BOOKING ROUTE", "text-[var(--aj-amber)]"],
+    ["OPERATING CONTEXT", "MAPPED", "text-[var(--aj-success)]"],
+    ["HANDOFF RISK", "IDENTIFIED", "text-[var(--aj-orange)]"],
+    ["SYSTEM BOUNDARY", "DEFINED", "text-[var(--aj-blue)]"],
+    ["NEXT STEP", "EVIDENCE-LED", "text-[var(--aj-amber)]"],
   ] as const;
 
   return (
@@ -126,7 +126,7 @@ export function SignalConsole() {
             Signal Output
           </p>
           <p className="mt-3 text-sm leading-6 text-fg-2">
-            Where is the signal, where is the leak, and what system fixes it?
+            Understand the business first. Architect the system second.
           </p>
         </div>
       </div>
@@ -137,12 +137,14 @@ export function SignalConsole() {
 export function DarkSection({
   children,
   className = "",
+  id,
 }: {
   children: React.ReactNode;
   className?: string;
+  id?: string;
 }) {
   return (
-    <section className={`bg-bg-0 py-16 sm:py-24 ${className}`}>
+    <section id={id} className={`bg-bg-0 py-16 sm:py-24 ${className}`}>
       <div className="mx-auto max-w-[1280px] px-5 sm:px-8">{children}</div>
     </section>
   );
@@ -168,7 +170,7 @@ export function FinalCta({
   primaryLabel = "Book a Call",
   primaryHref = "/book-a-call",
   secondaryLabel = "Start the Diagnostic",
-  secondaryHref = "/ai-readiness-diagnostic",
+  secondaryHref = "/founder-intelligence/diagnostic",
 }: {
   title: string;
   description: string;

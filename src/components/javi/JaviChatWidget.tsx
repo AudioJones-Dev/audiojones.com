@@ -124,7 +124,7 @@ function InlineCta({ href, label }: { href: string; label: string }) {
 
 const INTRO_RESPONSE: JaviResponse = {
   text:
-    "I'm Javi, Audio Jones' AI Executive Assistant. I can help you understand our systems, services, and how an assistant like me could work for your business.",
+    "I'm Javi, the Audio Jones site guide. I can help you understand Business Systems Discovery, Founder Intelligence, the engagement path, and where AI may—or may not—fit.",
   followUps: JAVI_SUGGESTED_PROMPTS,
 };
 
@@ -236,7 +236,7 @@ export default function JaviChatWidget() {
         ref={launcherRef}
         type="button"
         onClick={() => setOpen((v) => !v)}
-        aria-label={open ? "Close Javi chat" : "Open Javi chat — AI Executive Assistant"}
+        aria-label={open ? "Close Javi chat" : "Open Javi — Audio Jones site guide"}
         aria-expanded={open}
         aria-controls={open ? "javi-chat-panel" : undefined}
         className="fixed bottom-5 right-5 z-40 inline-flex items-center gap-2 rounded-full bg-surface-1 border border-border-strong pl-1.5 pr-4 py-1.5 shadow-[0_10px_40px_-10px_rgba(232,255,90,0.45)] hover:border-signal-yellow transition-colors focus-visible:outline-none focus-visible:[box-shadow:0_0_0_2px_var(--signal-yellow)]"
@@ -252,7 +252,7 @@ export default function JaviChatWidget() {
           id="javi-chat-panel"
           role="dialog"
           aria-modal="false"
-          aria-label="Javi — AI Executive Assistant"
+          aria-label="Javi — Audio Jones site guide"
           className="fixed bottom-20 right-3 z-40 w-[min(380px,calc(100vw-1.5rem))] max-h-[min(560px,calc(100vh-7rem))] flex flex-col rounded-lg bg-surface-1 border border-border-strong shadow-[0_30px_80px_-40px_rgba(0,0,0,0.7)] overflow-hidden"
         >
           {/* Header */}
@@ -264,7 +264,7 @@ export default function JaviChatWidget() {
                   Javi
                 </div>
                 <div className="font-mono text-[11px] uppercase tracking-[0.08em] text-text-muted">
-                  AI Executive Assistant
+                  Audio Jones site guide
                 </div>
               </div>
             </div>
@@ -358,10 +358,10 @@ export default function JaviChatWidget() {
           {/* Footer CTA — always visible offer line */}
           <div className="border-t border-border-subtle bg-surface-2 px-4 py-3 flex items-center justify-between gap-3">
             <div className="font-body text-[12px] text-text-muted leading-tight">
-              Want a Javi for your business?
+              Not sure what system you need?
             </div>
             <InlineCta
-              href="/ai-readiness-diagnostic"
+              href="/founder-intelligence/diagnostic"
               label="Start the Diagnostic"
             />
           </div>

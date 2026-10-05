@@ -15,7 +15,7 @@ import { siteConfig } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Diagnostic Review Application",
   description:
-    "Apply for an Audio Jones engagement. Founder-led businesses, $250K–$5M. Reviewed personally for fit.",
+    "Apply to discuss a known operating problem with Audio Jones. Reviewed personally for the right discovery, architecture, implementation, or no-build next step.",
   alternates: { canonical: `${siteConfig.url}/apply` },
   openGraph: {
     title: "Apply | Audio Jones",
@@ -58,14 +58,14 @@ export default function ApplyPage() {
               Bring me your real constraint.
             </h1>
             <p className="mt-5 t-lead text-fg-2">
-              The diagnostic is the front door. This form is the deeper cut —
-              it&apos;s where the actual scoping starts. Be specific. The
-              clearer the picture, the faster the right answer.
+              Use this path when you can already point to a recurring operating
+              breakdown. Be specific about the work, information, ownership,
+              systems, or exceptions involved.
             </p>
             <ul className="mt-6 grid grid-cols-1 gap-2 t-small text-fg-3 sm:grid-cols-3">
               <li>· Reviewed personally</li>
               <li>· No automated bot replies</li>
-              <li>· Founder-led, $250K–$5M</li>
+              <li>· No tool recommendation before diagnosis</li>
             </ul>
           </header>
 
@@ -76,9 +76,9 @@ export default function ApplyPage() {
               a sharper operating diagnosis before a systems buildout.
             </h2>
             <p className="mt-4 t-body text-fg-2">
-              AJ Digital reviews the constraint, current stack, revenue leaks,
-              and implementation readiness before recommending a diagnostic,
-              engagement, or no-fit next step.
+              Audio Jones reviews the constraint, current systems, information
+              flow, ownership, exceptions, and implementation context before
+              recommending discovery, architecture, implementation, or no build.
             </p>
             <div className="mt-8">
               <FAQ items={founderIntelligenceFaqs} />

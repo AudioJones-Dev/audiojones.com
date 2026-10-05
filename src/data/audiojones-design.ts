@@ -78,16 +78,16 @@ export const responseOsFlow = [
 
 export const proofSignals = [
   {
-    metric: "+38%",
-    label: "Reply rate lift on missed inquiries after ResponseOS.",
+    metric: "Response",
+    label: "Measure time-to-first-response against a validated baseline.",
   },
   {
-    metric: "<9 min",
-    label: "Median time-to-first-response on high-intent leads.",
+    metric: "Routing",
+    label: "Measure whether inquiries reach the correct owner with required context.",
   },
   {
-    metric: "1 inbox",
-    label: "Every channel consolidated into one recovery view.",
+    metric: "Recovery",
+    label: "Measure resolved, escalated, and unrecovered opportunities with an evidence note.",
   },
 ] as const;
 
@@ -144,13 +144,13 @@ export const diagnosticDimensions = [
 
 export const agentsProofStrip = {
   quote: {
-    body: "We did not need another tool. We needed a system that owned the follow-up. ResponseOS closed the gap in three weeks.",
-    attribution: "Founder, professional services, $1.2M run-rate",
+    body: "Client quotation withheld until wording, attribution, and publication permission are verified.",
+    attribution: "Evidence review required",
   },
   stats: [
-    { metric: "+38%", label: "Reply rate lift on missed inquiries" },
-    { metric: "<9 min", label: "Median time-to-first-response on high-intent leads" },
-    { metric: "$214K", label: "Recovered revenue, first 90 days (representative deployment)" },
+    { metric: "Baseline", label: "Establish the pre-install response condition" },
+    { metric: "Change", label: "Measure the installed workflow against that baseline" },
+    { metric: "Evidence", label: "Publish only with source, period, exclusions, and permission" },
   ],
 } as const;
 

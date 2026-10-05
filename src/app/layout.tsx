@@ -33,27 +33,27 @@ const dmMono = DM_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: "Audio Jones — Founder Intelligence Systems",
+    default: "Audio Jones — Business Systems Consulting",
     template: "%s | Audio Jones",
   },
   description: siteConfig.description,
   openGraph: {
     type: "website",
     siteName: siteConfig.name,
-    title: "Audio Jones — Founder Intelligence Systems",
+    title: "Audio Jones — Business Systems Consulting",
     description: siteConfig.description,
     images: [
       {
         url: siteConfig.ogImage,
         width: 1200,
         height: 630,
-        alt: "Audio Jones — Founder Intelligence Systems",
+        alt: "Audio Jones — Business Systems Consulting",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Audio Jones — Founder Intelligence Systems",
+    title: "Audio Jones — Business Systems Consulting",
     description: siteConfig.description,
     images: [siteConfig.ogImage],
   },

@@ -1,28 +1,38 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import SignalHero from "@/components/founder-intelligence/SignalHero";
-import ProblemReframe from "@/components/founder-intelligence/ProblemReframe";
-import SignalNoiseModel from "@/components/founder-intelligence/SignalNoiseModel";
-import FrameworkFeature from "@/components/founder-intelligence/FrameworkFeature";
-import SystemModel from "@/components/founder-intelligence/SystemModel";
-import ICPFilter from "@/components/founder-intelligence/ICPFilter";
-import ProcessSteps from "@/components/founder-intelligence/ProcessSteps";
-import OfferCard from "@/components/founder-intelligence/OfferCard";
-import FinalCTA from "@/components/founder-intelligence/FinalCTA";
+import {
+  DarkSection,
+  FinalCta,
+  LightProofSection,
+  ProductCard,
+  SectionIntro,
+  SignalHero,
+} from "@/components/marketing/DesignSystemSections";
 import JsonLd from "@/components/seo/JsonLd";
 import { buildMetadata } from "@/lib/seo/metadata";
-import {
-  breadcrumbJsonLd,
-  organizationJsonLd,
-  personJsonLd,
-  webSiteJsonLd,
-} from "@/lib/seo/schema";
+import { breadcrumbJsonLd, organizationJsonLd } from "@/lib/seo/schema";
 import { ctaLinks } from "@/config/links";
 
+const examples = [
+  ["Project delivery", "Make ownership, readiness gates, dependencies, and exception paths visible."],
+  ["Fulfillment and procurement", "Track orders, assets, configurations, custody, and project association through the operating lifecycle."],
+  ["Field service", "Give installers and operators the approved context required at the point of work."],
+  ["Onboarding and approvals", "Preserve decisions, required information, and handoffs as responsibility changes."],
+  ["Customer response", "Route qualification, follow-up, and recovery through a defined operating system."],
+  ["Operational exceptions", "Design for the conditions that break the ideal path, not only the happy path."],
+] as const;
+
+const professionalMethod = [
+  ["Elicit", "Gather knowledge from the people, records, tools, and work itself."],
+  ["Model", "Represent the current workflow, information, rules, ownership, and exceptions."],
+  ["Validate", "Check the model against evidence and the people who perform the work."],
+  ["Design", "Define the future state, boundaries, controls, and implementation plan."],
+  ["Implement", "Install the approved operating and technology changes."],
+  ["Measure", "Evaluate adoption and outcomes, then update the system."],
+] as const;
+
 export const metadata: Metadata = buildMetadata({
-  title: "Founder Intelligence Systems for Founder-Led Businesses",
-  description:
-    "Audio Jones helps founder-led businesses identify causal growth signals, reduce noise, and build Founder Intelligence Systems that scale judgment and execution.",
+  title: "Founder Intelligence Systems | Business Operating Knowledge",
+  description: "Founder Intelligence turns scattered operating knowledge, rules, decisions, and exceptions into a governed system the business can use.",
   path: "/founder-intelligence",
 });
 
@@ -30,82 +40,59 @@ export default function FounderIntelligencePage() {
   return (
     <>
       <JsonLd data={organizationJsonLd()} />
-      <JsonLd data={personJsonLd()} />
-      <JsonLd data={webSiteJsonLd()} />
-      <JsonLd
-        data={breadcrumbJsonLd([
-          { name: "Home", url: "/" },
-          { name: "Founder Intelligence", url: "/founder-intelligence" },
-        ])}
-      />
-
+      <JsonLd data={breadcrumbJsonLd([{ name: "Home", url: "/" }, { name: "Founder Intelligence", url: "/founder-intelligence" }])} />
       <SignalHero
-        eyebrow="Founder Intelligence Systems"
-        headline="You don’t have an AI problem. You have a signal problem."
-        subheadline="Audio Jones helps founder-led businesses identify the causal inputs behind growth, reduce operational noise, and build systems that scale judgment, execution, and profit."
-        primaryCta={{
-          label: "Request Strategic Diagnostic",
-          href: ctaLinks.signalDiagnostic,
-        }}
-        secondaryCta={{
-          label: "View the System Model",
-          href: "#system-model",
-        }}
+        title="Founder Intelligence turns operating knowledge into a system the business can use."
+        description="Every business develops its own rules, workarounds, judgment, and institutional knowledge. When that knowledge remains scattered across people, inboxes, spreadsheets, and software, growth creates inconsistency instead of leverage. A Founder Intelligence System makes the critical parts visible, structured, governed, and usable by people and approved technology."
+        primaryHref={ctaLinks.founderIntelligenceDiagnostic}
+        primaryLabel="Start the Founder Intelligence Diagnostic"
+        secondaryHref="#method"
+        secondaryLabel="See the Method"
       />
 
-      <ProblemReframe />
-
-      <section className="border-t border-border-subtle bg-surface-1 py-10">
-        <div className="mx-auto flex max-w-5xl flex-col gap-3 px-5 sm:flex-row sm:items-center sm:justify-between sm:px-8">
-          <p className="text-text-muted">
-            If the immediate issue is missed demand, slow follow-up, weak
-            attribution, or unclear reporting, start with the{" "}
-            <Link
-              href={ctaLinks.revenueLeakDiagnostic}
-              className="font-semibold text-accent-blue hover:text-accent-blue"
-            >
-              Founder Revenue Leak Diagnostic
-            </Link>
-            .
-          </p>
-          <Link
-            href={ctaLinks.revenueLeakDiagnostic}
-            className="inline-flex shrink-0 items-center justify-center rounded-md border border-border-subtle px-4 py-2 text-sm font-semibold text-white transition hover:border-border-strong hover:bg-white/5"
-          >
-            View the diagnostic →
-          </Link>
+      <DarkSection>
+        <SectionIntro
+          label="Founder Intelligence Systems"
+          title="The operating model is broader than revenue, attribution, or AI."
+          description="It captures how the business makes decisions and performs work across the operation, then gives people and approved systems reliable context."
+        />
+        <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+          {examples.map(([title, description]) => <ProductCard key={title} title={title} description={description} />)}
         </div>
-      </section>
+      </DarkSection>
 
-      {/* Step 2 cross-link: position Founder Intelligence as the discipline behind Step 2. */}
-      <section className="border-t border-border-subtle bg-surface-1 py-10">
-        <div className="mx-auto flex max-w-5xl flex-col gap-3 px-5 sm:flex-row sm:items-center sm:justify-between sm:px-8">
-          <p className="text-text-muted">
-            Founder Intelligence is the discipline.{" "}
-            <Link
-              href="/step-2"
-              className="font-semibold text-accent-blue hover:text-accent-blue"
-            >
-              Step 2
-            </Link>{" "}
-            is the missing operating layer it builds in your business.
-          </p>
-          <Link
-            href="/step-2"
-            className="inline-flex shrink-0 items-center justify-center rounded-md border border-border-subtle px-4 py-2 text-sm font-semibold text-white transition hover:border-border-strong hover:bg-white/5"
-          >
-            Read the Step 2 thesis →
-          </Link>
+      <LightProofSection>
+        <div className="grid gap-10 lg:grid-cols-2">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.16em] text-[var(--aj-blue-deep)]">What becomes visible</p>
+            <h2 className="mt-4 font-accent text-[clamp(2.25rem,4vw,4rem)] font-bold leading-[1.02] tracking-[-0.035em]">Rules, dependencies, ownership, context, and exceptions stop being tribal knowledge.</h2>
+          </div>
+          <div className="space-y-4 text-lg leading-8 text-[#4b5563]">
+            <p>Founder Intelligence is not a database of everything a founder has ever said. It is the approved operating context required to perform work and make decisions reliably.</p>
+            <p>Business Memory and SOP Architecture support this system, but they do not replace process design, decision rights, information structure, or system architecture.</p>
+          </div>
         </div>
-      </section>
+      </LightProofSection>
 
-      <SignalNoiseModel />
-      <FrameworkFeature />
-      <SystemModel />
-      <ICPFilter />
-      <ProcessSteps />
-      <OfferCard />
-      <FinalCTA />
+      <DarkSection id="method">
+        <SectionIntro
+          label="Underlying professional method"
+          title="Elicit. Model. Validate. Design. Implement. Measure."
+          description="This deeper method supports the public Assess → Diagnose → Architect → Install → Improve engagement path. It is where operational claims become evidence and evidence becomes architecture."
+        />
+        <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+          {professionalMethod.map(([title, description], index) => <ProductCard key={title} title={title} description={description} meta={String(index + 1).padStart(2, "0")} />)}
+        </div>
+      </DarkSection>
+
+      <FinalCta
+        title="Make the operating reality visible before deciding what to build."
+        description="The Founder Intelligence Diagnostic maps how work enters, how information moves, where decisions stall, and which future-state system would remove the constraint."
+        primaryLabel="Start the Founder Intelligence Diagnostic"
+        primaryHref={ctaLinks.founderIntelligenceDiagnostic}
+        secondaryLabel="View Solutions"
+        secondaryHref="/solutions"
+      />
     </>
   );
 }

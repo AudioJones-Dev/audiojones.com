@@ -20,7 +20,7 @@ export const siteConfig = {
   name: "Audio Jones",
   url: canonicalSiteUrl,
   description:
-    "Founder Intelligence Systems for founder-led businesses. Identify causal growth signals, reduce operational noise, and build the system that compounds.",
+    "Business systems consulting and Founder Intelligence Systems for founder-led service businesses. Understand the operation first, then architect and implement the system the evidence supports.",
   ogImage: "/assets/og/audio-jones-og.jpg",
   twitterHandle: "@audiojones",
 } as const;
@@ -34,15 +34,18 @@ export const siteConfig = {
  */
 export const publicRoutes = [
   { path: "/", priority: 1, changeFrequency: "weekly" },
+  { path: "/solutions", priority: 0.95, changeFrequency: "weekly" },
   { path: "/founder-intelligence", priority: 0.95, changeFrequency: "weekly" },
-  { path: "/founder-intelligence/diagnostic", priority: 0.9, changeFrequency: "monthly" },
-  { path: "/diagnostics/founder-revenue-leak-diagnostic", priority: 0.9, changeFrequency: "monthly" },
-  { path: "/founder-gravity-audit", priority: 0.9, changeFrequency: "monthly" },
-  { path: "/founder-gravity-audit/diagnostic", priority: 0.9, changeFrequency: "monthly" },
+  { path: "/founder-intelligence/diagnostic", priority: 0.95, changeFrequency: "monthly" },
+  { path: "/services", priority: 0.8, changeFrequency: "monthly" },
+  { path: "/case-studies", priority: 0.8, changeFrequency: "monthly" },
+  { path: "/agents", priority: 0.7, changeFrequency: "monthly" },
+  { path: "/agents/responseos", priority: 0.7, changeFrequency: "monthly" },
   { path: "/frameworks", priority: 0.85, changeFrequency: "monthly" },
   { path: "/insights", priority: 0.85, changeFrequency: "weekly" },
   { path: "/blog", priority: 0.85, changeFrequency: "weekly" },
   { path: "/about", priority: 0.6, changeFrequency: "monthly" },
+  { path: "/support", priority: 0.5, changeFrequency: "monthly" },
   // /step-2  — intentionally excluded: funnel/internal, noindexed
   // /podcast — intentionally excluded: route does not exist
 ] as const;
@@ -56,6 +59,7 @@ export const publicRoutes = [
  */
 export const noindexRoutes = [
   "/step-2",
+  "/ecosystem",
   "/not-authorized",
   "/status",
   "/consent-testimonial",

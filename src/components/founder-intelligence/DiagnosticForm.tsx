@@ -89,10 +89,10 @@ const INITIAL: FormState = {
 
 const STEPS = [
   "Business snapshot",
-  "Growth constraint",
+  "Operating constraint",
   "Current systems",
-  "AI readiness",
-  "Attribution",
+  "Technology fit",
+  "Evidence",
   "Submit",
 ] as const;
 
@@ -372,15 +372,15 @@ function Step2({ state, update }: StepProps) {
           ))}
         </select>
       </Field>
-      <Field label="Current growth stage">
+      <Field label="Current operating stage">
         <input
           className={inputCls}
-          placeholder="e.g. plateaued at $1.2M, or scaling past $3M"
+          placeholder="e.g. adding locations, increasing project volume, or growing the team"
           value={state.currentGrowthStage}
           onChange={(e) => update("currentGrowthStage", e.target.value)}
         />
       </Field>
-      <Field label="Biggest pain right now">
+      <Field label="Where does work break down most often?">
         <textarea
           rows={3}
           className={inputCls}
@@ -388,7 +388,7 @@ function Step2({ state, update }: StepProps) {
           onChange={(e) => update("biggestPain", e.target.value)}
         />
       </Field>
-      <Field label="What have you tried so far?">
+      <Field label="What have you tried or changed so far?">
         <textarea
           rows={3}
           className={inputCls}
@@ -403,38 +403,38 @@ function Step2({ state, update }: StepProps) {
 function Step3({ state, update }: StepProps) {
   return (
     <div className="grid gap-4 sm:grid-cols-2">
-      <Field label="CRM in use">
+      <Field label="Primary system of record">
         <input
           className={inputCls}
           value={state.crmUsed}
           onChange={(e) => update("crmUsed", e.target.value)}
         />
       </Field>
-      <Field label="Analytics in use">
+      <Field label="Reporting or measurement tools">
         <input
           className={inputCls}
           value={state.analyticsUsed}
           onChange={(e) => update("analyticsUsed", e.target.value)}
         />
       </Field>
-      <Field label="Project management">
+      <Field label="Work or project coordination">
         <input
           className={inputCls}
           value={state.projectManagementUsed}
           onChange={(e) => update("projectManagementUsed", e.target.value)}
         />
       </Field>
-      <Field label="Automation tools">
+      <Field label="Integrations or automation tools">
         <input
           className={inputCls}
           value={state.automationToolsUsed}
           onChange={(e) => update("automationToolsUsed", e.target.value)}
         />
       </Field>
-      <Field label="Content system status">
+      <Field label="Knowledge or SOP system">
         <input
           className={inputCls}
-          placeholder="e.g. ad-hoc, calendar, full pipeline"
+          placeholder="e.g. undocumented, shared drive, wiki, or managed SOP library"
           value={state.contentSystemStatus}
           onChange={(e) => update("contentSystemStatus", e.target.value)}
         />
@@ -456,14 +456,18 @@ function Step3({ state, update }: StepProps) {
 function Step4({ state, update }: StepProps) {
   return (
     <div className="grid gap-4">
-      <Field label="Current AI tools">
+      <p className="rounded-md border border-border-subtle bg-surface-2 p-4 text-sm text-text-muted">
+        AI is optional. These questions help determine whether it belongs in
+        the future-state system; blank answers do not reduce fit.
+      </p>
+      <Field label="Current AI tools, if any">
         <input
           className={inputCls}
           value={state.currentAiTools}
           onChange={(e) => update("currentAiTools", e.target.value)}
         />
       </Field>
-      <Field label="AI usage level">
+      <Field label="AI usage level, if applicable">
         <select
           className={inputCls}
           value={state.aiUsageLevel}
@@ -477,7 +481,7 @@ function Step4({ state, update }: StepProps) {
           ))}
         </select>
       </Field>
-      <Field label="Main goal for AI">
+      <Field label="Defined workflow AI could support, if any">
         <textarea
           rows={2}
           className={inputCls}
@@ -485,7 +489,7 @@ function Step4({ state, update }: StepProps) {
           onChange={(e) => update("aiMainGoal", e.target.value)}
         />
       </Field>
-      <Field label="Biggest concern about AI">
+      <Field label="AI risks or constraints to consider">
         <textarea
           rows={2}
           className={inputCls}
@@ -534,6 +538,11 @@ function YesNo({
 function Step5({ state, update }: StepProps) {
   return (
     <div className="grid gap-4 sm:grid-cols-2">
+      <p className="rounded-md border border-border-subtle bg-surface-2 p-4 text-sm text-text-muted sm:col-span-2">
+        Measurement is broader than marketing attribution. These questions
+        establish whether customer and revenue signals can currently be traced;
+        operational measures are validated during discovery.
+      </p>
       <YesNo
         label="Can you identify your best lead source?"
         value={state.canIdentifyBestLeadSource}
@@ -566,7 +575,7 @@ function Step5({ state, update }: StepProps) {
           className="w-full accent-accent-blue"
         />
       </Field>
-      <Field label="Desired outcome from this engagement">
+      <Field label="Desired operating outcome">
         <textarea
           rows={2}
           className={inputCls}

@@ -11,19 +11,19 @@ const BG =
 const stats = [
   {
     metric: "CAC Reduction",
-    display: "↓ 37%",
+    display: "Baseline",
     label: "Customer acquisition cost",
     accent: "#E8FF5A",
   },
   {
     metric: "Pipeline Growth",
-    display: "↑ 28%",
+    display: "Tracked",
     label: "Qualified pipeline per quarter",
     accent: "#666666",
   },
   {
     metric: "Conversion Rate",
-    display: "↑ 42%",
+    display: "Validated",
     label: "Lead-to-call conversion rate",
     accent: "#4DACFF",
   },
@@ -176,7 +176,7 @@ export default function ProofStats() {
             title="Activity without leverage"
             statusLabel="Noise"
             kpis={[
-              { label: "Pipeline Drift", value: "High", trend: "↑ 41%", trendUp: false },
+              { label: "Pipeline Drift", value: "Unverified", trend: "Evidence needed", trendUp: false },
               { label: "Attribution Conf.", value: "Low", trend: "Last-click", trendUp: false },
             ]}
             chart={<ChaoticChart />}
@@ -193,8 +193,8 @@ export default function ProofStats() {
             title="Causal system, compounding outcomes"
             statusLabel="Signal · Live"
             kpis={[
-              { label: "CAC", value: "↓ 37%", trend: "vs baseline", trendUp: true },
-              { label: "Conversion", value: "↑ 42%", trend: "lead → call", trendUp: true },
+              { label: "CAC", value: "Tracked", trend: "vs validated baseline", trendUp: true },
+              { label: "Conversion", value: "Measured", trend: "defined stage change", trendUp: true },
             ]}
             chart={<CleanChart />}
             range="Post-system, in-flight"

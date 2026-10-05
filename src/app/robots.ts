@@ -18,10 +18,8 @@ export default function robots(): MetadataRoute.Robots {
           "/not-authorized",
           "/status",
           "/consent-testimonial",
-          "/business",
-          "/creators",
-          // Legacy artist-hub routes — not part of public nav
-          "/artisthub",
+          // Redirected legacy routes remain crawlable so search engines can
+          // encounter their permanent redirects.
           "/(site)/artist-hub",
           "/(site)/epm",
           // Admin portal — block completely

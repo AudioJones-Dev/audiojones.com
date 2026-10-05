@@ -5,12 +5,15 @@ import { ButtonLink } from "@/components/ui/Button";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { breadcrumbJsonLd } from "@/lib/seo/schema";
 
-export const metadata: Metadata = buildMetadata({
-  title: "Offer Ecosystem",
-  description:
-    "The Audio Jones offer ecosystem: free diagnostics generate demand, paid diagnostics create prescription, workshops educate and qualify, Agent OS installs solve, community retains, and merch signals identity.",
-  path: "/ecosystem",
-});
+export const metadata: Metadata = {
+  ...buildMetadata({
+    title: "Offer Ecosystem",
+    description:
+      "Legacy Audio Jones offer-ecosystem reference retained during positioning consolidation.",
+    path: "/ecosystem",
+  }),
+  robots: { index: false, follow: true },
+};
 
 /* ──────────────────────────────────────────────────────────
    Canonical offer architecture (single source of truth for

@@ -8,6 +8,7 @@ import { mainNav } from "@/config/nav";
 const PRIMARY_NAV = mainNav;
 
 const LEGAL_NAV = [
+  { label: "Support", href: "/support" },
   { label: "Privacy", href: "/privacy-policy" },
   { label: "Terms", href: "/terms-of-service" },
   { label: "Cookies", href: "/cookie-policy" },
@@ -28,7 +29,7 @@ export default function Footer() {
     >
       <div className="mx-auto max-w-[1280px] px-5 py-16 sm:px-8 sm:py-20">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
-          {/* Brand block — V2 horizontal wordmark with tagline */}
+          {/* Brand block — V2 horizontal wordmark */}
           <div className="lg:col-span-5">
             <Link
               href="/"
@@ -36,21 +37,22 @@ export default function Footer() {
               aria-label="Audio Jones — home"
             >
               <Image
-                src="/assets/logos/audiojones-wordmark-white.svg"
+                src="/assets/logos/audiojones-wordmark-nav.svg"
                 alt="Audio Jones — Founder Intelligence Systems"
-                width={220}
-                height={48}
-                className="h-10 w-auto"
+                width={180}
+                height={36}
+                className="h-auto w-[180px] max-w-full"
               />
             </Link>
             <p className="mt-6 max-w-md font-headline text-2xl font-extrabold tracking-[-0.02em] text-fg-0">
               All Signal. No Noise.
             </p>
             <p className="mt-4 max-w-md t-body text-fg-1">
-              Founder Intelligence Systems for founder-led businesses.
+              Business systems consulting and Founder Intelligence Systems for
+              founder-led service businesses.
             </p>
             <p className="mt-3 max-w-md t-small text-fg-3">
-              Audio Jones is the operating brand of AJ Digital LLC. Founder-led businesses, $250K–$5M ARR.
+              Audio Jones is the operating brand of AJ Digital LLC.
             </p>
           </div>
 

@@ -13,7 +13,6 @@ import { Eyebrow } from "@/components/ui/Eyebrow";
 import { buildMetadata } from "@/lib/seo/metadata";
 import JsonLd from "@/components/seo/JsonLd";
 import { breadcrumbJsonLd } from "@/lib/seo/schema";
-import { siteConfig } from "@/lib/site";
 import { ctaLinks } from "@/config/links";
 
 // ─── Static cluster fallbacks (render even without Sanity) ────────────────────
@@ -260,7 +259,7 @@ function InternalLinks({ slug, accent }: { slug: string; accent: string }) {
     ],
     "why-ai-fails": [
       { label: "Founder Intelligence", href: "/founder-intelligence" },
-      { label: "AI Readiness Diagnostic", href: ctaLinks.signalDiagnostic },
+      { label: "AI Readiness Diagnostic", href: ctaLinks.aiReadinessDiagnostic },
     ],
     "ai-readiness": [
       { label: "Book Diagnostic", href: ctaLinks.signalDiagnostic },

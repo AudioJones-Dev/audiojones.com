@@ -1,41 +1,25 @@
 import type { Metadata } from "next";
-import {
-  HeroAllSignal,
-  SignalNoiseModel,
-  ResponseOSWedge,
-  RoiLeadMagnet,
-  ProcessPipeline,
-  ProofStats,
-  HomeFaqSection,
-  DiagnosticCTA,
-} from "@/components/home/landing";
+import HeroAllSignal from "@/components/home/landing/HeroAllSignal";
+import HomepageSystems from "@/components/home/landing/HomepageSystems";
 import JsonLd from "@/components/seo/JsonLd";
-import {
-  organizationJsonLd,
-  personJsonLd,
-  webSiteJsonLd,
-} from "@/lib/seo/schema";
+import { organizationJsonLd, personJsonLd, webSiteJsonLd } from "@/lib/seo/schema";
 import { siteConfig } from "@/lib/site";
 
+const description =
+  "Business systems consulting for founder-led service businesses. Audio Jones maps how work actually happens, identifies operating breakdowns, and implements the system the evidence supports.";
+
 export const metadata: Metadata = {
-  title: "Audio Jones — Founder Intelligence Systems for founder-led businesses",
-  description:
-    "You don't have a growth problem. You have a signal problem. Audio Jones helps founder-led businesses identify causal growth signals, reduce operational noise, and build Founder Intelligence Systems that compound.",
+  title: "Business Systems Consulting for Founder-Led Service Businesses",
+  description,
   alternates: { canonical: `${siteConfig.url}/` },
   openGraph: {
-    title: "Audio Jones — Founder Intelligence Systems",
-    description:
-      "Identify causal growth signals. Reduce noise. Build the system that compounds.",
+    title: "Audio Jones — Business Systems Consulting",
+    description,
     url: `${siteConfig.url}/`,
     siteName: "Audio Jones",
     type: "website",
   },
-  twitter: {
-    card: "summary_large_image",
-    title: "Audio Jones — Founder Intelligence Systems",
-    description:
-      "Identify causal growth signals. Reduce noise. Build the system that compounds.",
-  },
+  twitter: { card: "summary_large_image", title: "Audio Jones — Business Systems Consulting", description },
 };
 
 export default function HomePage() {
@@ -44,30 +28,8 @@ export default function HomePage() {
       <JsonLd data={organizationJsonLd()} />
       <JsonLd data={personJsonLd()} />
       <JsonLd data={webSiteJsonLd()} />
-
-      {/* 1. Hero */}
       <HeroAllSignal />
-
-      {/* 2. Problem reframe — signal vs noise */}
-      <SignalNoiseModel />
-
-      {/* 3. Flagship offer — ResponseOS */}
-      <ResponseOSWedge />
-
-      {/* 4. ROI lead magnet */}
-      <RoiLeadMagnet />
-
-      {/* 5. Process — Diagnose / Design / Deploy */}
-      <ProcessPipeline />
-
-      {/* 6. Proof / Before-After */}
-      <ProofStats />
-
-      {/* 7. FAQ — plain-language, AEO surface */}
-      <HomeFaqSection />
-
-      {/* 8. Final CTA */}
-      <DiagnosticCTA />
+      <HomepageSystems />
     </>
   );
 }

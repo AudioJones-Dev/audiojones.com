@@ -23,10 +23,8 @@ export type NavItem = {
 // (overrides DESIGN.md §11.6's wordmark-as-home convention by deliberate
 // product decision).
 // One primary commercial path: Solutions is the canonical "what we sell"
-// surface (2026-06-18 canonical offer model alignment). Content surfaces
-// (Insights, Frameworks, Blog, Workshops, Case Studies, ROI Calculator) live
-// under Resources. "Contact" routes to the existing booking page; there is no
-// separate /contact route by design.
+// surface. Founder Intelligence explains the method, while the diagnostic is
+// the single global entry point.
 export const mainNav: NavItem[] = [
   {
     label: "Home",
@@ -39,39 +37,32 @@ export const mainNav: NavItem[] = [
     description: "What AJ Digital builds — the canonical offer ladder",
   },
   {
-    label: "Pricing",
-    href: "/pricing",
-    description: "Offers and pricing — start with a diagnostic",
+    label: "Method",
+    href: "/founder-intelligence",
+    description: "How Business Systems Discovery becomes a working system",
+  },
+  {
+    label: "Case Studies",
+    href: "/case-studies",
+    description: "System patterns and evidence",
+  },
+  {
+    label: "Insights",
+    href: "/insights",
+    description: "Business systems analysis and operating guidance",
   },
   {
     label: "About",
     href: "/about",
     description: "The strategist and operator behind the systems",
   },
-  {
-    label: "Resources",
-    href: "/resources",
-    description: "Insights, frameworks, blog, workshops, and the ROI calculator",
-  },
-  {
-    label: "Contact",
-    href: "/book-a-call",
-    description: "Book a call to scope the right system",
-  },
 ];
 
-// Right-side header CTAs. Two slots: a soft (secondary) discovery CTA and a
-// hard (primary glow) booking CTA. DESIGN.md §11.1 says "one signal-glow CTA
-// per major section" — Book a Call carries the glow, Diagnostic is the
-// secondary read-the-room option.
+// One site-wide primary CTA keeps the commercial path unambiguous.
 export const headerCtas = {
   diagnostic: {
-    label: "AI Readiness Diagnostic",
-    href: "/ai-readiness-diagnostic",
-  },
-  bookCall: {
-    label: "Book a Call",
-    href: "/book-a-call",
+    label: "Start Diagnostic",
+    href: "/founder-intelligence/diagnostic",
   },
 } as const;
 

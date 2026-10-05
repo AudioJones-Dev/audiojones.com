@@ -8,13 +8,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
 
   // ── Static public routes ──────────────────────────────────────────────────
-  // Mirror the 7-item primary nav + the 2 right-side CTAs introduced by the
-  // 2026-05-10 nav restructure, plus crawlable supporting surfaces.
+  // Prioritize the canonical commercial path and crawlable supporting surfaces.
   const staticRoutes: MetadataRoute.Sitemap = [
     // Primary nav
     { url: base,                                        lastModified: now, changeFrequency: "weekly",  priority: 1    },
     { url: `${base}/solutions`,                         lastModified: now, changeFrequency: "weekly",  priority: 0.95 },
-    { url: `${base}/resources`,                         lastModified: now, changeFrequency: "weekly",  priority: 0.7  },
+    { url: `${base}/founder-intelligence`,              lastModified: now, changeFrequency: "weekly",  priority: 0.9  },
+    { url: `${base}/founder-intelligence/diagnostic`,   lastModified: now, changeFrequency: "monthly", priority: 0.95 },
     { url: `${base}/agents`,                            lastModified: now, changeFrequency: "weekly",  priority: 0.9  },
     { url: `${base}/agents/responseos`,                 lastModified: now, changeFrequency: "weekly",  priority: 0.9  },
     { url: `${base}/services`,                          lastModified: now, changeFrequency: "weekly",  priority: 0.9  },
@@ -22,17 +22,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${base}/insights`,                          lastModified: now, changeFrequency: "weekly",  priority: 0.85 },
     { url: `${base}/roi-calculator`,                    lastModified: now, changeFrequency: "weekly",  priority: 0.9  },
     { url: `${base}/workshops`,                         lastModified: now, changeFrequency: "weekly",  priority: 0.85 },
-    // Right-side header CTAs
-    { url: `${base}/ai-readiness-diagnostic`,           lastModified: now, changeFrequency: "monthly", priority: 0.9  },
-    { url: `${base}/diagnostics/founder-revenue-leak-diagnostic`, lastModified: now, changeFrequency: "monthly", priority: 0.9  },
+    // Specialized diagnostics remain crawlable but are not the global entry point.
+    { url: `${base}/ai-readiness-diagnostic`,           lastModified: now, changeFrequency: "monthly", priority: 0.65 },
+    { url: `${base}/diagnostics/founder-revenue-leak-diagnostic`, lastModified: now, changeFrequency: "monthly", priority: 0.65 },
     { url: `${base}/book-a-call`,                       lastModified: now, changeFrequency: "monthly", priority: 0.85 },
     // Supporting surfaces
-    { url: `${base}/founder-intelligence`,              lastModified: now, changeFrequency: "weekly",  priority: 0.85 },
-    { url: `${base}/founder-intelligence/diagnostic`,   lastModified: now, changeFrequency: "monthly", priority: 0.85 },
-    { url: `${base}/founder-gravity-audit`,             lastModified: now, changeFrequency: "monthly", priority: 0.9  },
-    { url: `${base}/founder-gravity-audit/diagnostic`,  lastModified: now, changeFrequency: "monthly", priority: 0.9  },
-    { url: `${base}/apply`,                             lastModified: now, changeFrequency: "monthly", priority: 0.85 },
-    { url: `${base}/pricing`,                           lastModified: now, changeFrequency: "monthly", priority: 0.85 },
+    { url: `${base}/resources`,                         lastModified: now, changeFrequency: "weekly",  priority: 0.65 },
+    { url: `${base}/founder-gravity-audit`,             lastModified: now, changeFrequency: "monthly", priority: 0.5  },
+    { url: `${base}/founder-gravity-audit/diagnostic`,  lastModified: now, changeFrequency: "monthly", priority: 0.5  },
+    { url: `${base}/apply`,                             lastModified: now, changeFrequency: "monthly", priority: 0.65 },
+    { url: `${base}/pricing`,                           lastModified: now, changeFrequency: "monthly", priority: 0.5  },
+    { url: `${base}/support`,                           lastModified: now, changeFrequency: "monthly", priority: 0.7  },
     { url: `${base}/frameworks`,                        lastModified: now, changeFrequency: "monthly", priority: 0.8  },
     { url: `${base}/blog`,                              lastModified: now, changeFrequency: "weekly",  priority: 0.8  },
     { url: `${base}/about`,                             lastModified: now, changeFrequency: "monthly", priority: 0.6  },
