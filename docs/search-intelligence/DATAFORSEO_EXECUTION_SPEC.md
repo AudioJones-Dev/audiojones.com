@@ -1,6 +1,6 @@
 # DataForSEO Quantitative Execution Spec — SEARCH-04
 
-**Status:** execution-ready; DataForSEO MCP action exposure pending in active ChatGPT session  
+**Status:** quantitative batch executed; first-party and implementation gates remain
 **Snapshot date:** 2026-08-29  
 **Branch:** `docs/search-intelligence-seo-aeo-2026`  
 **Governing inputs:** `KEYWORD_SEED_REGISTER.md`, `SEARCH_INTELLIGENCE_PRD.md`
@@ -497,8 +497,29 @@ A query with low volume but strong commercial relevance may still become a bound
 
 ---
 
-## 14. Current Blocker
+## 14. Execution Status — 2026-08-29
 
-As of this snapshot, ChatGPT recognizes the installed DataForSEO dev-mode app and its OAuth/permissions, but its actions are not yet exposed in this conversation's callable namespace. Firecrawl is exposed and callable.
+The original branch snapshot recorded DataForSEO as installed but unavailable in the callable namespace. That execution-surface blocker was resolved on 2026-08-29.
 
-This is an execution-surface issue, not authorization to substitute estimates for DataForSEO metrics.
+Completed under the cost/scope controls above:
+
+- canonical Miami location validation: `Miami,Florida,United States` / `1015116`,
+- Run A across all 25 controlled U.S. seeds,
+- Run B across all 10 Miami controls,
+- full C1/C2 expansion responses,
+- the first 14 decision-critical national SERPs,
+- six additional SERPs whose returned volume/CPC changed decision value,
+- two bounded Miami mobile SERPs,
+- five decision-relevant competitor/tool page scrapes,
+- population of `QUERY_OPPORTUNITY_REGISTER.md`.
+
+Execution notes:
+
+- the simplified MCP volume wrapper returned at most 10 rows, so Run A required three bounded calls;
+- the default AI-mode expansion response echoed only 10 seed rows, so the full-response flag was required to retain actual suggestions;
+- the full C1/C2 tasks exposed $0.09 each; other wrapper calls did not expose cost, so no total-spend claim is made;
+- no Local Finder call was run because the Miami mobile SERPs supplied enough local-pack evidence for the current gate.
+
+Results and provider request IDs are recorded in `DATAFORSEO_EVIDENCE_2026-08-29.md`.
+
+The remaining blocker is evidentiary, not technical: no query reaches `PROCEED` until first-party GSC/GBP or equivalent customer-language evidence, current-page analysis, falsification, and a bounded measurement plan support a separately approved implementation proposal.
