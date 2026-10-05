@@ -1,9 +1,5 @@
 import Link from "next/link";
-import Image from "next/image";
-import { Eyebrow } from "@/components/ui/Eyebrow";
-
-const ROI_BG =
-  "/assets/Homepage/09-roi-calculator/backgrounds/roi-light-bg-v2.webp";
+import { ArrowRight, Calculator } from "lucide-react";
 
 const inputs = [
   ["Leads / mo", "84"],
@@ -13,83 +9,92 @@ const inputs = [
 
 export default function RoiLeadMagnet() {
   return (
-    <section className="relative overflow-hidden border-t border-[var(--line-2)] bg-bg-0 py-16 text-fg-0 sm:py-24">
-      <div aria-hidden className="absolute inset-0">
-        <Image
-          src={ROI_BG}
-          alt=""
-          fill
-          className="object-cover object-center"
-          sizes="100vw"
-          style={{ opacity: 0.18 }}
-        />
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,7,15,0.78),rgba(5,7,15,0.92))]" />
-      </div>
-
-      <div className="relative mx-auto grid max-w-[1280px] gap-10 px-5 sm:px-8 lg:grid-cols-[5fr_7fr] lg:items-center">
+    <section
+      className="relative overflow-hidden border-t border-black/10 py-20 text-[#0A0A0A] sm:py-32"
+      style={{
+        background:
+          "radial-gradient(circle at 82% 22%, rgba(77,172,255,0.20), transparent 28%), radial-gradient(circle at 72% 76%, rgba(232,255,90,0.26), transparent 32%), #F4F2EA",
+      }}
+    >
+      <div className="relative mx-auto grid max-w-[1280px] gap-12 px-5 sm:px-8 lg:grid-cols-[0.82fr_1.18fr] lg:items-center lg:gap-16">
         <div>
-          <Eyebrow tone="blue">ROI Calculator</Eyebrow>
-          <h2 className="mt-4 font-accent text-[clamp(2.25rem,4vw,4rem)] font-bold leading-[1.02] tracking-[-0.035em] text-fg-0">
+          <div className="inline-flex items-center gap-3 bg-[#080808] px-4 py-3 text-[var(--signal-yellow)]">
+            <Calculator aria-hidden className="h-4 w-4" strokeWidth={1.8} />
+            <span className="font-mono text-[0.68rem] font-black uppercase tracking-[0.18em]">
+              ROI Calculator
+            </span>
+          </div>
+          <p className="mt-7 font-mono text-[0.68rem] font-black uppercase tracking-[0.18em] text-black/46">
+            The cost of waiting
+          </p>
+          <h2 className="mt-4 max-w-[12ch] font-[family-name:var(--font-headline)] text-[clamp(3rem,6vw,6.5rem)] font-bold leading-[0.9] tracking-[-0.055em]">
             How much revenue is leaking through slow follow-up?
           </h2>
-          <p className="mt-5 text-lg leading-8 text-fg-2">
+          <p className="mt-7 max-w-[48ch] text-[clamp(1.05rem,1.6vw,1.3rem)] leading-[1.65] text-black/62">
             Estimate the cost of missed demand before deciding whether
             ResponseOS is the right recovery layer.
           </p>
-          <Link href="/roi-calculator" className="aj-btn-signal mt-8">
+          <Link
+            href="/roi-calculator"
+            className="mt-8 inline-flex min-h-12 items-center gap-3 bg-[#080808] px-6 py-3 font-[family-name:var(--font-headline)] font-bold text-[var(--signal-yellow)] transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#080808] focus-visible:ring-offset-4"
+          >
             Calculate Lost Revenue
+            <ArrowRight aria-hidden className="h-4 w-4" />
           </Link>
         </div>
 
         <div
-          className="rounded-[var(--r-panel)] border border-[rgba(102,102,102,0.16)] p-6 sm:p-8"
+          className="rounded-[28px] border border-transparent p-6 sm:p-8"
           style={{
-            background: "rgba(10,14,28,0.72)",
-            backdropFilter: "blur(14px)",
-            boxShadow: "0 24px 80px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.04)",
+            background:
+              "linear-gradient(135deg, rgba(255,255,255,0.62), rgba(255,255,255,0.30)) padding-box, linear-gradient(135deg, rgba(77,172,255,0.82), rgba(255,255,255,0.70) 48%, rgba(232,255,90,0.92)) border-box",
+            backdropFilter: "blur(24px)",
+            boxShadow:
+              "0 28px 90px rgba(8,10,16,0.18), inset 0 1px 0 rgba(255,255,255,0.72)",
           }}
         >
-          <div className="flex items-center justify-between border-b border-[rgba(102,102,102,0.14)] pb-4">
-            <p className="font-mono text-xs font-bold uppercase tracking-[0.14em] text-fg-3">
-              Signal Output
+          <div className="flex items-center justify-between border-b border-black/10 pb-5">
+            <p className="font-mono text-xs font-black uppercase tracking-[0.16em] text-black/48">
+              Signal output
             </p>
-            <span className="rounded-full border border-[rgba(77,172,255,0.28)] bg-[rgba(77,172,255,0.10)] px-3 py-1 font-mono text-xs font-bold text-[var(--aj-blue)]">
+            <span className="rounded-full border border-[rgba(77,172,255,0.38)] bg-[rgba(77,172,255,0.12)] px-3 py-1 font-mono text-xs font-black text-[#176AAE]">
               ROI PREVIEW
             </span>
           </div>
-          <div className="mt-6 grid gap-4 sm:grid-cols-3">
+
+          <div className="mt-6 grid gap-3 sm:grid-cols-3">
             {inputs.map(([label, value]) => (
-              <label key={label} className="block">
-                <span className="mb-2 block text-xs font-bold uppercase tracking-[0.12em] text-fg-3">
+              <div
+                key={label}
+                className="rounded-2xl border border-white/80 bg-white/46 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.78)]"
+              >
+                <p className="font-mono text-[0.64rem] font-black uppercase tracking-[0.14em] text-black/42">
                   {label}
-                </span>
-                <span className="flex min-h-12 items-center rounded-xl border border-[rgba(102,102,102,0.14)] bg-[rgba(5,7,15,0.55)] px-4 font-mono text-lg font-bold text-fg-0">
+                </p>
+                <p className="mt-4 font-mono text-2xl font-black text-[#0A0A0A]">
                   {value}
-                </span>
-              </label>
+                </p>
+              </div>
             ))}
           </div>
-          <div
-            className="relative mt-6 overflow-hidden rounded-2xl border border-[rgba(255,255,255,0.06)] p-6"
-            style={{ background: "rgba(8,10,18,0.55)" }}
-          >
-            <div
-              aria-hidden
-              className="absolute inset-x-0 top-0 h-[2px]"
-              style={{
-                background:
-                  "linear-gradient(to right, transparent, var(--signal-yellow), transparent)",
-              }}
-            />
-            <p className="text-xs font-bold uppercase tracking-[0.14em] text-[var(--signal-yellow)]">
-              Lost revenue estimate
-            </p>
-            <p className="mt-3 font-mono text-4xl font-black text-fg-0">
-              $28,224
-            </p>
-            <p className="mt-2 text-sm leading-6 text-fg-2">
-              Preview only. The calculator routes the result into ResponseOS or
-              the AI Readiness Diagnostic.
+
+          <div className="mt-5 rounded-[22px] bg-[#080808] p-6 text-white sm:p-8">
+            <div className="flex flex-wrap items-start justify-between gap-5">
+              <div>
+                <p className="font-mono text-[0.68rem] font-black uppercase tracking-[0.16em] text-[var(--signal-yellow)]">
+                  Revenue at risk
+                </p>
+                <p className="mt-3 font-mono text-[clamp(2.65rem,6vw,5rem)] font-black leading-none tracking-[-0.06em]">
+                  $28,224
+                </p>
+              </div>
+              <span className="border border-white/12 px-3 py-2 font-mono text-[0.62rem] uppercase tracking-[0.14em] text-white/48">
+                Sample scenario
+              </span>
+            </div>
+            <p className="mt-6 max-w-[48ch] border-t border-white/10 pt-5 text-sm leading-6 text-white/58">
+              The preview turns three familiar inputs into one consequence you
+              can evaluate before choosing the next system layer.
             </p>
           </div>
         </div>

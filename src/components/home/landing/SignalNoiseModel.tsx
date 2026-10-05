@@ -1,347 +1,113 @@
-import { Eyebrow } from "@/components/ui/Eyebrow";
+import Image from "next/image";
+import { ArrowRight } from "lucide-react";
 
-// ─── Data ────────────────────────────────────────────────────────────────────
-
-const COLUMNS = [
-  {
-    id: "noise",
-    label: "Noise",
-    tone: "gold" as const,
-    items: [
-      "Vanity metrics that feel good but predict nothing",
-      "Tool sprawl without system integration",
-      "Activity volume as a proxy for progress",
-      "Last-click attribution dressed as truth",
-      "Dashboards optimized for presentations",
-    ],
-  },
-  {
-    id: "acceptable",
-    label: "Acceptable Noise",
-    tone: "muted" as const,
-    items: [
-      "Brand awareness campaigns without short-term conversion signal",
-      "Content with long attribution windows",
-      "Exploratory testing without clear hypothesis",
-      "Organic reach as a supplementary channel",
-    ],
-  },
-  {
-    id: "signal",
-    label: "Signal",
-    tone: "blue" as const,
-    items: [
-      "Causal inputs that predict qualified pipeline",
-      "Behavioral patterns that precede conversion",
-      "Constraint data that explains stalled growth",
-      "Attribution tied to revenue-generating actions",
-      "Decision data with repeatable predictive power",
-    ],
-  },
-];
-
-// ─── Per-card visual config ───────────────────────────────────────────────────
-
-const CARD_CONFIG = {
-  noise: {
-    bg: "rgba(15,15,15,0.55)",
-    border: "1px solid rgba(255,255,255,0.06)",
-    dotColor: "#666666",
-    boxShadow: undefined as string | undefined,
-    animated: false,
-  },
-  acceptable: {
-    bg: "rgba(15,18,24,0.50)",
-    border: "1px solid rgba(255,255,255,0.07)",
-    dotColor: "#666666",
-    boxShadow: undefined as string | undefined,
-    animated: false,
-  },
-  signal: {
-    bg: "rgba(8,12,28,0.84)",
-    border: "none",
-    dotColor: "#8EA2FF",
-    boxShadow:
-      "0 0 32px -8px rgba(77,172,255,0.18), 0 0 14px -6px rgba(232,255,90,0.06), inset 0 0 0 1px rgba(77,172,255,0.06)",
-    animated: true,
-  },
-} as const;
-
-// ─── Component ────────────────────────────────────────────────────────────────
+const SIGNAL_FLOW =
+  "/assets/Homepage/03-signal-problem/signal-gap-flow.png";
 
 export default function SignalNoiseModel() {
   return (
-    <section
-      id="signal-noise"
-      className="relative border-t border-[var(--line-2)] bg-bg-0 py-24 sm:py-32"
-      style={{ overflow: "hidden" }}
-    >
-      {/* ── Keyframe: aj-card rotating border (Signal card only) ── */}
-      <style>{`
-        @keyframes aj-snm-rotate {
-          from { transform: translate(-50%, -50%) rotate(0deg); }
-          to   { transform: translate(-50%, -50%) rotate(360deg); }
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .aj-snm-sweep { animation: none !important; }
-        }
-      `}</style>
-
-      {/* ── Section atmosphere glows ── */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
-        {/* Muted glow — left, behind Noise card */}
-        <div
-          style={{
-            position: "absolute",
-            top: "20%",
-            left: "-5%",
-            width: "38%",
-            height: "70%",
-            background:
-              "radial-gradient(ellipse 80% 80% at 20% 55%, rgba(255,255,255,0.035), transparent 70%)",
-          }}
-        />
-        {/* Blue glow — right, behind Signal card */}
-        <div
-          style={{
-            position: "absolute",
-            top: "20%",
-            right: "-5%",
-            width: "38%",
-            height: "70%",
-            background:
-              "radial-gradient(ellipse 80% 80% at 80% 55%, rgba(77,172,255,0.10), transparent 70%)",
-          }}
-        />
-      </div>
-
-      <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
-        {/* Header */}
-        <div className="mb-14 max-w-3xl">
-          <Eyebrow>Signal vs Noise Model</Eyebrow>
-          <h2 className="mt-4 t-h1 text-balance">
-            Identify which noise reveals signal.
-          </h2>
-          <p className="mt-5 t-lead text-fg-2">
-            Most businesses do not need more data. They need a system for
-            separating signal from noise.
-          </p>
-        </div>
-
-        {/* Filtering model label — desktop only */}
-        <div
-          aria-hidden
-          className="mb-3 hidden items-center justify-center lg:flex"
-        >
-          <span
-            style={{
-              fontFamily: "var(--font-body)",
-              fontSize: "9px",
-              fontWeight: 600,
-              letterSpacing: "0.22em",
-              textTransform: "uppercase",
-              color: "rgba(255,255,255,0.20)",
-            }}
-          >
-            Filtering Model
-          </span>
-        </div>
-
-        {/* ── Cards + desktop progression connectors ── */}
-        <div className="relative grid grid-cols-1 gap-5 lg:grid-cols-3">
-          {/* Desktop arrow connectors — positioned in the gap between cards */}
-          <div
-            aria-hidden
-            className="pointer-events-none absolute top-[44px] left-0 right-0 hidden lg:block"
-            style={{ height: "16px", zIndex: 10 }}
-          >
-            {/* Noise → Acceptable */}
-            <div
-              style={{
-                position: "absolute",
-                left: "calc(33.33% - 12px)",
-                width: "24px",
-                height: "100%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
+    <>
+      <section
+        id="signal-problem"
+        aria-labelledby="signal-problem-heading"
+        className="relative scroll-mt-20 overflow-hidden bg-[#080808] py-24 sm:py-32 lg:py-40"
+      >
+        <div className="mx-auto grid max-w-[1280px] items-center gap-14 px-5 sm:px-8 lg:grid-cols-[0.95fr_1.05fr] lg:gap-16">
+          <div className="max-w-[640px]">
+            <p className="t-eyebrow text-[var(--signal-yellow)]">
+              The signal problem
+            </p>
+            <h2
+              id="signal-problem-heading"
+              className="mt-5 max-w-[18ch] font-[family-name:var(--font-headline)] text-[clamp(2.35rem,2.9vw,3rem)] font-bold leading-[0.94] tracking-[-0.045em] text-white"
             >
-              <svg
-                width="24"
-                height="10"
-                viewBox="0 0 24 10"
-                fill="none"
-                aria-hidden
-              >
-                <line
-                  x1="0"
-                  y1="5"
-                  x2="16"
-                  y2="5"
-                  stroke="rgba(255,255,255,0.22)"
-                  strokeWidth="1"
-                />
-                <path
-                  d="M12 1L20 5L12 9"
-                  stroke="rgba(255,255,255,0.22)"
-                  strokeWidth="1"
-                  fill="none"
-                />
-              </svg>
-            </div>
-            {/* Acceptable → Signal */}
-            <div
-              style={{
-                position: "absolute",
-                left: "calc(66.67% - 12px)",
-                width: "24px",
-                height: "100%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <svg
-                width="24"
-                height="10"
-                viewBox="0 0 24 10"
-                fill="none"
-                aria-hidden
-              >
-                <line
-                  x1="0"
-                  y1="5"
-                  x2="16"
-                  y2="5"
-                  stroke="rgba(77,172,255,0.40)"
-                  strokeWidth="1"
-                />
-                <path
-                  d="M12 1L20 5L12 9"
-                  stroke="rgba(77,172,255,0.40)"
-                  strokeWidth="1"
-                  fill="none"
-                />
-              </svg>
-            </div>
+              Revenue leaks in the gaps between tools, teams, and follow-up.
+            </h2>
+            <p className="mt-7 max-w-[58ch] font-[family-name:var(--font-accent)] text-[clamp(1rem,1.35vw,1.16rem)] font-medium leading-[1.65] text-white/60">
+              A lead arrives, but the response is slow. A decision is made,
+              but the reason is never captured. A report shows activity, but
+              not what caused the result. Each gap creates noise—and makes the
+              next decision harder.
+            </p>
           </div>
 
-          {COLUMNS.map((col) => {
-            const cfg = CARD_CONFIG[col.id as keyof typeof CARD_CONFIG];
-
-            return (
-              <article
-                key={col.id}
-                className="relative flex flex-col rounded-[var(--r-card)] p-7 sm:p-8"
-                style={{
-                  isolation: cfg.animated ? "isolate" : undefined,
-                  background: cfg.bg,
-                  border: cfg.animated ? undefined : cfg.border,
-                  boxShadow: cfg.boxShadow,
-                }}
-              >
-                {/* ── Signal card: animated rotating border ── */}
-                {cfg.animated && (
-                  <>
-                    {/* Static gradient border base */}
-                    <div
-                      aria-hidden
-                      style={{
-                        overflow: "hidden",
-                        pointerEvents: "none",
-                        position: "absolute",
-                        zIndex: -1,
-                        inset: "-1px",
-                        backgroundImage:
-                          "linear-gradient(135deg, rgba(232,255,90,0.50), rgba(77,172,255,0.32) 55%, rgba(232,255,90,0.18))",
-                        borderRadius: "inherit",
-                      }}
-                    >
-                      {/* Rotating sweep — 40% reduced intensity vs reference */}
-                      <div
-                        className="aj-snm-sweep"
-                        style={{
-                          pointerEvents: "none",
-                          position: "absolute",
-                          top: "50%",
-                          left: "50%",
-                          width: "200%",
-                          height: "9rem",
-                          backgroundImage:
-                            "linear-gradient(90deg, rgba(232,255,90,0) 0%, rgba(232,255,90,0.45) 28%, rgba(77,172,255,0.42) 52%, rgba(232,255,90,0.32) 68%, rgba(232,255,90,0) 100%)",
-                          transformOrigin: "left center",
-                          animation: "aj-snm-rotate 12s linear infinite",
-                          opacity: 0.28,
-                        }}
-                      />
-                    </div>
-                    {/* Inner cover — masks the border interior */}
-                    <div
-                      aria-hidden
-                      style={{
-                        position: "absolute",
-                        inset: "1px",
-                        zIndex: -1,
-                        borderRadius: "calc(var(--r-card) - 1px)",
-                        background: cfg.bg,
-                      }}
-                    />
-                  </>
-                )}
-
-                <Eyebrow tone={col.tone}>{col.label}</Eyebrow>
-
-                <ul className="mt-6 flex flex-1 flex-col gap-4">
-                  {col.items.map((item) => (
-                    <li
-                      key={item}
-                      className="flex items-start gap-3 t-body text-fg-1"
-                    >
-                      <span
-                        aria-hidden
-                        className="mt-[7px] inline-block h-1.5 w-1.5 shrink-0 rounded-full"
-                        style={{ background: cfg.dotColor }}
-                      />
-                      <span className="t-small leading-[1.55] text-fg-1">
-                        {item}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </article>
-            );
-          })}
+          <figure className="overflow-hidden border border-white/[0.08] bg-[#0D0E0C]">
+            <figcaption className="grid grid-cols-3 border-b border-white/[0.08]">
+              {[
+                ["01", "Demand captured"],
+                ["02", "Follow-up gap"],
+                ["03", "Signal recovered"],
+              ].map(([step, label], index) => (
+                <div
+                  key={step}
+                  className="border-r border-white/[0.08] px-3 py-4 last:border-r-0 sm:px-5"
+                >
+                  <p
+                    className={`font-mono text-[0.62rem] font-bold tracking-[0.16em] ${
+                      index === 1
+                        ? "text-white/38"
+                        : index === 2
+                          ? "text-[var(--signal-yellow)]"
+                          : "text-white/58"
+                    }`}
+                  >
+                    {step}
+                  </p>
+                  <p className="mt-1 text-[0.68rem] font-semibold uppercase leading-4 tracking-[0.08em] text-white/72 sm:text-xs">
+                    {label}
+                  </p>
+                </div>
+              ))}
+            </figcaption>
+            <div className="relative min-h-[230px] sm:min-h-[300px] lg:min-h-[330px]">
+              <Image
+                src={SIGNAL_FLOW}
+                alt="Demand enters, weakens across the follow-up gap, and reconnects as a recovered signal"
+                fill
+                className="object-contain"
+                sizes="(max-width: 1024px) 100vw, 56vw"
+              />
+            </div>
+          </figure>
         </div>
 
-        {/* ── Principle strip — upgraded to bordered dark pill ── */}
-        <div
-          className="mx-auto mt-10 max-w-2xl rounded-[var(--r-lg)] px-6 py-5 text-center"
-          style={{
-            background: "rgba(7,9,18,0.75)",
-            border: "1px solid rgba(255,255,255,0.07)",
-            backdropFilter: "blur(8px)",
-            boxShadow:
-              "0 0 24px -8px rgba(232,255,90,0.12), 0 0 16px -8px rgba(77,172,255,0.08)",
-          }}
-        >
-          <p
-            className="text-fg-2"
-            style={{
-              fontFamily: "var(--font-accent)",
-              fontSize: "17px",
-              fontWeight: 500,
-              lineHeight: 1.5,
-              letterSpacing: "-0.01em",
-            }}
-          >
-            The 20% noise often reveals the 80% signal —{" "}
-            <span style={{ color: "var(--signal-yellow)", fontWeight: 600 }}>
-              if you know how to read the system.
-            </span>
+        <div className="mx-auto mt-16 max-w-[1280px] px-5 sm:mt-20 sm:px-8">
+          <div className="grid gap-5 bg-[var(--signal-yellow)] p-6 text-[#0A0A0A] sm:grid-cols-[0.28fr_1fr_auto] sm:items-center sm:p-8">
+            <p className="font-mono text-[0.68rem] font-black uppercase tracking-[0.18em] text-black/56">
+              Decision rule
+            </p>
+            <p className="max-w-[34ch] font-[family-name:var(--font-headline)] text-[clamp(1.55rem,2.8vw,2.7rem)] font-bold leading-[1.02] tracking-[-0.035em]">
+              Not more data. A clearer view of what deserves action.
+            </p>
+            <ArrowRight aria-hidden className="h-8 w-8 sm:h-10 sm:w-10" />
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="founder-intelligence-preview"
+        aria-labelledby="founder-intelligence-preview-heading"
+        className="scroll-mt-20 bg-[#F7F6F1] py-24 text-[#0A0A0A] sm:py-32 lg:py-40"
+      >
+        <div className="mx-auto grid max-w-[1280px] gap-10 px-5 sm:px-8 lg:grid-cols-[0.42fr_1fr] lg:gap-20">
+          <p className="h-fit w-fit bg-[#080808] px-4 py-3 font-mono text-[0.68rem] font-black uppercase tracking-[0.18em] text-[var(--signal-yellow)]">
+            Founder Intelligence
           </p>
+          <div className="max-w-[900px]">
+            <h2
+              id="founder-intelligence-preview-heading"
+              className="max-w-[18ch] text-balance font-[family-name:var(--font-headline)] text-[clamp(2.75rem,5.7vw,6.1rem)] font-bold leading-[0.93] tracking-[-0.05em]"
+            >
+              See what matters. Decide what to do. Build what compounds.
+            </h2>
+            <p className="mt-8 max-w-[61ch] font-[family-name:var(--font-accent)] text-[clamp(1.05rem,1.7vw,1.35rem)] font-medium leading-[1.65] text-black/62">
+              Founder Intelligence connects the signals, operating knowledge,
+              and decisions a business needs to act consistently—without every
+              answer living in the founder&apos;s head.
+            </p>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }
