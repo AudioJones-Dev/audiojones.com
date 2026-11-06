@@ -27,7 +27,7 @@ export default function WorkshopsPage() {
         description={DESCRIPTION}
         primaryHref="/book-a-call"
         primaryLabel="Book a Call"
-        secondaryHref="/ai-readiness-diagnostic"
+        secondaryHref="/founder-intelligence/diagnostic"
         secondaryLabel="Start the Diagnostic"
         stats={[
           { metric: "Live", label: "Working sessions built around your operating reality." },
@@ -85,7 +85,7 @@ export default function WorkshopsPage() {
         primaryLabel="Book a Call"
         primaryHref="/book-a-call"
         secondaryLabel="Start the Diagnostic"
-        secondaryHref="/ai-readiness-diagnostic"
+        secondaryHref="/founder-intelligence/diagnostic"
       />
     </>
   );

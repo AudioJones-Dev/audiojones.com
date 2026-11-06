@@ -16,6 +16,25 @@ Entries are reverse chronological. Format follows
 ## Unreleased
 
 ### Added
+- `public/llms.txt` summarizes the business, core pages, ResponseOS (with a
+  link to responseos.pro), guides, and frameworks for AI search tools. It
+  deliberately lists no prices.
+- Generic "Start the Diagnostic" CTAs, `ctaLinks.signalDiagnostic`, and the
+  `SignalHero`/`FinalCta` defaults now point to
+  `/founder-intelligence/diagnostic`, the single conversion path from #261.
+  The free AI Readiness Score stays linked as its own offer.
+- The sitemap no longer stamps every URL with the build time as
+  `lastModified`; only Sanity posts with a real date carry one.
+
+### Removed
+- ResponseOS Managed Pilot and ResponseOS Core are no longer sold on this
+  site. responseos.pro owns ResponseOS pricing, demo, and intake. `/pricing`
+  and `/agents/responseos` now hand off through `responseOsHref()` in
+  `src/config/links.ts` (UTM `utm_source=audiojones`,
+  `utm_campaign=responseos-handoff`). Both offers left the registry and
+  `APPLY_OFFERS`; old `/apply?offer=responseos-…` links still load the form
+  without a preselected offer. The Organization JSON-LD names ResponseOS as
+  a brand at responseos.pro.
 - Newsletter signups now join a MailerLite group, **Website newsletter**,
   created automatically on the first signup, so campaigns can target site
   subscribers without an id to copy into the environment.

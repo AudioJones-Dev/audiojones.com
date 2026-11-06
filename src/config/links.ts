@@ -14,12 +14,29 @@ export const portalLinks = {
 
 export const ctaLinks = {
   bookSession: "/book-a-call", // Internal booking page (2026-05-10 nav restructure)
-  signalDiagnostic: "/ai-readiness-diagnostic", // Canonical public diagnostic flow
+  signalDiagnostic: "/founder-intelligence/diagnostic", // Canonical public diagnostic flow
   roiCalculator: "/roi-calculator", // Internal ROI calculator
   viewServices: "/services", // Services catalog
   viewPricing: "/pricing", // Pricing page
   contactUs: "/contact", // Contact form (if exists)
 } as const;
+
+// ResponseOS is sold, priced, and booked on its product site. audiojones.com
+// explains it and hands off; it does not publish ResponseOS prices or intake.
+export const RESPONSEOS_SITE = "https://responseos.pro";
+
+export function responseOsHref(
+  path: "/" | "/demo" | "/audit" | "/pricing",
+  placement: string,
+): string {
+  const params = new URLSearchParams({
+    utm_source: "audiojones",
+    utm_medium: "referral",
+    utm_campaign: "responseos-handoff",
+    utm_content: placement,
+  });
+  return `${RESPONSEOS_SITE}${path}?${params.toString()}`;
+}
 
 export const socialLinks = {
   twitter: "https://twitter.com/audiojones",

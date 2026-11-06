@@ -12,6 +12,9 @@
  * its exports from this file, so `test/pricing-offers.test.ts` passing unchanged
  * is the proof that the migration is behaviour-preserving.
  *
+ * ResponseOS Managed Pilot and Core were removed on 2026-11-06: ResponseOS is
+ * priced and sold on responseos.pro, and audiojones.com links there instead.
+ *
  * ## Fields that are deliberately not filled in
  *
  * Several fields in the target schema depend on decisions that are the operator's
@@ -20,14 +23,14 @@
  * becoming the decision is the failure mode worth avoiding:
  *
  * - `family` — populated only for the three diagnostics, whose family is
- *   unambiguous. ResponseOS, Managed Intelligence, and Strategic Partnership are
+ *   unambiguous. Managed Intelligence and Strategic Partnership are
  *   exactly the rows the reconciliation gate flags as scope-ambiguous.
  * - `displayConvention` — corridor-floor vs anchor is an open decision. Until it
  *   is made, `pricing.display` simply reproduces the live string.
  * - `prerequisiteOfferIds` / `followOnOfferIds` — the live copy states
  *   prerequisites in prose ("Diagnostic required before implementation") but
  *   never names an offer id. Encoding specific ids is a commercial statement.
- * - `proofAssetPaths` — empty for all ten. No offer has a standalone page yet, so
+ * - `proofAssetPaths` — empty for every offer. No offer has a standalone page yet, so
  *   the proof gate is vacuously satisfied; see `pagePath` below.
  *
  * `evidenceStatus` is `"unratified"` on every record for the same reason: these
@@ -67,7 +70,7 @@ export type OfferVisibility =
   | "private-corridor"
   | "internal-allocation";
 
-/** Whether a price has cleared the reconciliation gate. All ten are pending. */
+/** Whether a price has cleared the reconciliation gate. All are pending. */
 export type EvidenceStatus =
   | "unratified"
   | "established"
@@ -87,8 +90,6 @@ export type OfferEventName =
   | "pricing_assessment_cta"
   | "pricing_rekonr_diagnostic_cta"
   | "pricing_workshop_cta"
-  | "pricing_responseos_pilot_cta"
-  | "pricing_responseos_core_cta"
   | "pricing_fis_cta"
   | "pricing_managed_intelligence_cta"
   | "pricing_worksie_pilot_cta"
@@ -136,7 +137,7 @@ export interface Offer {
   };
 
   /**
-   * Undefined for all ten: every current offer is a card on `/pricing`, not a
+   * Undefined for every offer: every current offer is a card on `/pricing`, not a
    * standalone route. The proof gate in `test/pricing-offers.test.ts` keys off
    * this, so it is vacuously satisfied today and starts biting the moment an
    * offer gets its own page.
@@ -331,104 +332,6 @@ export const OFFERS: readonly Offer[] = [
       label: "Plan a Workshop",
       href: routeHref("/workshops", "team-ai-readiness-workshop"),
       eventName: "pricing_workshop_cta",
-    },
-    prerequisiteOfferIds: [],
-    followOnOfferIds: [],
-    proofAssetPaths: [],
-    updatedAt: UPDATED,
-  },
-  {
-    id: "responseos-managed-pilot",
-    slug: "responseos-managed-pilot",
-    name: "ResponseOS Managed Pilot",
-    // family: unassigned — whether ResponseOS is public as a managed
-    // implementation or as productized tiers is an open decision, and the
-    // answer determines whether this sits in ai-systems or revenue-systems.
-    stage: "implementation",
-    pricingGroup: "implementation",
-    summary:
-      "Capture, qualify, route, and follow up with legitimate opportunities before slow response or disconnected workflows cause them to disappear.",
-    scope: [
-      "Missed-call recovery",
-      "Speed-to-lead workflows",
-      "Demand capture",
-      "Lead qualification",
-      "Follow-up automation",
-      "Booking or callback routing",
-      "CRM integration",
-      "Calendar integration",
-      "Human escalation",
-      "Attribution baseline",
-      "Revenue-recovery reporting",
-      "Monitoring",
-      "Optimization",
-    ],
-    guardrails: [
-      "Diagnostic required before implementation",
-      "Scope depends on integrations, workflows, volume, data, and operating complexity",
-      "This is not a self-service subscription or instant-activation product",
-    ],
-    pricing: {
-      currency: "USD",
-      display: "From $8,500 implementation",
-      details: ["From $1,500/month", "Provider usage separate"],
-      visibility: "public-from",
-      evidenceStatus: "unratified",
-      // No schema price: the live site deliberately omits an Offer node for the
-      // mixed one-time-plus-monthly prices rather than publishing a partial one.
-    },
-    indexable: false,
-    cta: {
-      label: "Apply for a Managed Pilot",
-      href: applyHref("responseos-managed-pilot"),
-      eventName: "pricing_responseos_pilot_cta",
-    },
-    featured: true,
-    prerequisiteOfferIds: [],
-    followOnOfferIds: [],
-    proofAssetPaths: [],
-    updatedAt: UPDATED,
-  },
-  {
-    id: "responseos-core",
-    slug: "responseos-core",
-    name: "ResponseOS Core",
-    // family: unassigned — see ResponseOS Managed Pilot above.
-    stage: "implementation",
-    pricingGroup: "implementation",
-    summary:
-      "A broader managed revenue-recovery deployment for businesses with multiple demand channels, workflows, integrations, or locations.",
-    bestFor: [
-      "Multiple lead channels",
-      "Multiple workflows or locations",
-      "More complex routing",
-      "Deeper integrations",
-      "Broader reporting requirements",
-      "Higher operational volume",
-      "Greater managed-support requirements",
-    ],
-    scope: [
-      "Broader demand capture and qualification coverage",
-      "Multi-workflow routing and escalation",
-      "Deeper CRM, calendar, and reporting integrations",
-      "Expanded monitoring and managed optimization",
-    ],
-    guardrails: [
-      "Diagnostic required before implementation",
-      "Core is distinct from the bounded Managed Pilot in breadth, volume, integrations, and support scope",
-    ],
-    pricing: {
-      currency: "USD",
-      display: "From $12,500 implementation",
-      details: ["From $2,500/month", "Provider usage separate"],
-      visibility: "public-from",
-      evidenceStatus: "unratified",
-    },
-    indexable: false,
-    cta: {
-      label: "Apply for ResponseOS Core",
-      href: applyHref("responseos-core"),
-      eventName: "pricing_responseos_core_cta",
     },
     prerequisiteOfferIds: [],
     followOnOfferIds: [],

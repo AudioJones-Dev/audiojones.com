@@ -26,7 +26,7 @@ export default function BookACallPage() {
         description={DESCRIPTION}
         primaryHref="/apply"
         primaryLabel="Apply for Engagement"
-        secondaryHref="/ai-readiness-diagnostic"
+        secondaryHref="/founder-intelligence/diagnostic"
         secondaryLabel="Start the Diagnostic"
       >
         <SignalConsole />

@@ -29,7 +29,7 @@ export function SignalHero({
   description,
   primaryHref = "/book-a-call",
   primaryLabel = "Book a Call",
-  secondaryHref = "/ai-readiness-diagnostic",
+  secondaryHref = "/founder-intelligence/diagnostic",
   secondaryLabel = "Start the Diagnostic",
   stats,
   children,
@@ -168,7 +168,7 @@ export function FinalCta({
   primaryLabel = "Book a Call",
   primaryHref = "/book-a-call",
   secondaryLabel = "Start the Diagnostic",
-  secondaryHref = "/ai-readiness-diagnostic",
+  secondaryHref = "/founder-intelligence/diagnostic",
 }: {
   title: string;
   description: string;

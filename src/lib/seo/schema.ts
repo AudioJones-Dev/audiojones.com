@@ -19,6 +19,11 @@ export function organizationJsonLd() {
       "@type": "Person",
       name: aiEntity.name,
     },
+    brand: {
+      "@type": "Brand",
+      name: "ResponseOS",
+      url: "https://responseos.pro",
+    },
   } as const;
 }
 

@@ -25,7 +25,7 @@ export default function CaseStudiesPage() {
       <SignalHero
         title="Proof should show the system, not just the result."
         description={DESCRIPTION}
-        primaryHref="/ai-readiness-diagnostic"
+        primaryHref="/founder-intelligence/diagnostic"
         primaryLabel="Start the Diagnostic"
         secondaryHref="/services"
         secondaryLabel="See Services"
@@ -36,7 +36,7 @@ export default function CaseStudiesPage() {
         <SectionIntro
           label="Operator Evidence"
           title="Every case study is organized around signal, leak, and system."
-          description="The new case-study structure avoids vague transformation stories. It shows the business signal, the operating constraint, the system intervention, and the path to measurable leverage."
+          description="Each example shows the business signal, the constraint that slowed it down, the system that changed the workflow, and how the result is measured."
         />
         <div className="mt-10 grid gap-6 lg:grid-cols-3">
           {caseStudies.map((study) => (
@@ -82,7 +82,7 @@ export default function CaseStudiesPage() {
         title="Find the case your business is becoming."
         description="Run the diagnostic to identify whether your constraint is revenue recovery, signal clarity, operations, content, or pipeline control."
         primaryLabel="Start the Diagnostic"
-        primaryHref="/ai-readiness-diagnostic"
+        primaryHref="/founder-intelligence/diagnostic"
         secondaryLabel="Book a Call"
         secondaryHref="/book-a-call"
       />
