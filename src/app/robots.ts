@@ -28,11 +28,6 @@ export default function robots(): MetadataRoute.Robots {
           "/portal/admin/",
         ],
       },
-      {
-        // Block GPTBot from entire site unless explicitly opted in later
-        userAgent: "GPTBot",
-        disallow: "/",
-      },
     ],
     sitemap: `${siteConfig.url}/sitemap.xml`,
   };

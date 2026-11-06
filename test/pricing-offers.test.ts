@@ -42,14 +42,14 @@ function readPublicSourceTree(relativeDir: string): string {
     .join("\n");
 }
 
-test("publishes the approved eight-offer ladder and starting prices", () => {
-  // ResponseOS Managed Pilot and Core moved to responseos.pro on 2026-11-06.
-  assert.equal(pricingOffers.length, 8);
+test("publishes the approved seven-offer ladder and starting prices", () => {
+  // ResponseOS Managed Pilot and Core moved to responseos.pro on 2026-11-06,
+  // and the $1,997 Revenue Leak Assessment was retired the same day.
+  assert.equal(pricingOffers.length, 7);
   assert.deepEqual(
     pricingOffers.map(({ name, price, priceDetails }) => ({ name, price, priceDetails })),
     [
       { name: "AI Readiness Score", price: "Free", priceDetails: undefined },
-      { name: "Revenue Leak Assessment", price: "$1,997", priceDetails: undefined },
       {
         name: "ReKonr Revenue Recovery Diagnostic",
         price: "From $3,500",
@@ -207,7 +207,7 @@ test("hands ResponseOS off to responseos.pro instead of selling it here", () => 
     assert.ok(middleware.includes(`"${retiredId}"`), `${retiredId} must redirect to responseos.pro`);
   }
   assert.match(middleware, /responseOsHref\("\/audit"/);
-  for (const stalePrice of ["$8,500", "$12,500"]) {
+  for (const stalePrice of ["$8,500", "$12,500", "$1,997"]) {
     assert.equal(readPublicSourceTree("src/app").includes(stalePrice), false);
   }
 });

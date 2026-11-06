@@ -138,7 +138,7 @@ function OfferCard({ offer }: { offer: PricingOffer }) {
 }
 
 export default function PricingPage() {
-  const rekonr = diagnosisOffers[2];
+  const rekonr = diagnosisOffers.find((offer) => offer.id === "rekonr-revenue-recovery-diagnostic")!;
 
   return (
     <>
@@ -188,7 +188,7 @@ export default function PricingPage() {
             <dl className="mt-12 grid gap-4 sm:grid-cols-3">
               {[
                 ["Free", "Preliminary AI Readiness Score."],
-                ["$1,997", "Bounded Revenue Leak Assessment."],
+                ["From $3,500", "ReKonr Revenue Recovery Diagnostic."],
                 ["Diagnosis first", "Implementation scope follows evidence."],
               ].map(([metric, label]) => (
                 <div key={metric} className="aj-product-card">
@@ -234,9 +234,9 @@ export default function PricingPage() {
         <SectionIntro
           label="1 · Start with diagnosis"
           title="Choose the smallest diagnostic that answers the real question."
-          description="The free score orients. The bounded assessment isolates one workflow. ReKonr is the first complete paid diagnostic engagement."
+          description="The free score orients. ReKonr is the complete paid diagnostic. When the gap is missed calls, ResponseOS has its own assessment on responseos.pro."
         />
-        <div className="mt-10 grid items-stretch gap-6 xl:grid-cols-3">
+        <div className="mt-10 grid items-stretch gap-6 lg:grid-cols-2">
           {diagnosisOffers.map((offer) => (
             <OfferCard key={offer.id} offer={offer} />
           ))}

@@ -347,9 +347,9 @@ export function calculateRevenueLeakScorecard(
     recommendation = "Pilot First";
   }
   const recommendedNextAction = {
-    "Automate Now": `Book a Revenue Leak Diagnostic to validate these assumptions against your call logs and CRM, then scope the ${primaryLeakageScenario === "None identified" ? "highest-value" : primaryLeakageScenario.toLowerCase()} workflow first.`,
-    "Pilot First": `Book a Revenue Leak Diagnostic and pilot one leak — ${primaryLeakageScenario === "None identified" ? "the largest labor scope" : primaryLeakageScenario.toLowerCase()} — before a broader build.`,
-    "Diagnose the Workflow": "Book a Revenue Leak Diagnostic to establish the baseline data this scorecard is missing before investing in tooling.",
+    "Automate Now": `Request a diagnostic to validate these assumptions against your call logs and CRM, then scope the ${primaryLeakageScenario === "None identified" ? "highest-value" : primaryLeakageScenario.toLowerCase()} workflow first.`,
+    "Pilot First": `Request a diagnostic and pilot one leak — ${primaryLeakageScenario === "None identified" ? "the largest labor scope" : primaryLeakageScenario.toLowerCase()} — before a broader build.`,
+    "Diagnose the Workflow": "Request a diagnostic to establish the baseline data this scorecard is missing before investing in tooling.",
   }[recommendation];
 
   /* Assumption registry ---------------------------------------------------- */

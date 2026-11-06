@@ -27,6 +27,14 @@ Entries are reverse chronological. Format follows
   `lastModified`; only Sanity posts with a real date carry one.
 
 ### Removed
+- The $1,997 Revenue Leak Assessment is retired. It overlapped the $1,500
+  ResponseOS Readiness & Revenue Leak Assessment on responseos.pro. The
+  audiojones.com diagnostic ladder is now the free AI Readiness Score and the
+  ReKonr diagnostic. The ROI calculator CTA now goes to
+  `/founder-intelligence/diagnostic`. Old `/apply?offer=revenue-leak-assessment`
+  links still load the application without a preselected offer.
+- `robots.ts` no longer blocks GPTBot, so OpenAI crawlers can read the
+  public site like other search and AI crawlers.
 - ResponseOS Managed Pilot and ResponseOS Core are no longer sold on this
   site. responseos.pro owns ResponseOS pricing, demo, and intake. `/pricing`
   and `/agents/responseos` now hand off through `responseOsHref()` in
