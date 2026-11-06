@@ -6,7 +6,7 @@ import { ButtonLink } from "@/components/ui/Button";
 import type { PricingEventName } from "@/content/pricing";
 
 type Props = ComponentProps<typeof ButtonLink> & {
-  eventName: PricingEventName | "responseos_handoff_cta";
+  eventName: PricingEventName | "responseos_handoff_cta" | "founder_intelligence_diagnostic_cta";
   offerId: string;
   placement: string;
 };

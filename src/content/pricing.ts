@@ -201,9 +201,9 @@ export const pricingFaqs = [
       "No. Listed figures are modeled starting prices being tested for defined scopes. They are not market benchmarks or commercially validated prices; final scope and pricing follow diagnosis.",
   },
   {
-    question: "Is the diagnostic credited toward implementation?",
+    question: "Is the ReKonr diagnostic credited toward implementation?",
     answer:
-      "No. The diagnostic is independently deliverable and is not automatically credited toward implementation. Diagnosis remains required before implementation. AJ Digital will revisit this policy after three comparable paid ReKonr engagements.",
+      "No. The ReKonr diagnostic is independently deliverable and is not automatically credited toward implementation. Diagnosis remains required before implementation. AJ Digital will revisit this policy after three comparable paid ReKonr engagements. ResponseOS sets its own assessment credit terms on responseos.pro.",
   },
 ] as const;
 

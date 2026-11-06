@@ -191,10 +191,22 @@ test("hands ResponseOS off to responseos.pro instead of selling it here", () => 
 
   const responseOsPage = readSource("src/app/agents/responseos/page.tsx");
   const pricingPage = readSource("src/app/pricing/page.tsx");
+  // Check each destination separately so one valid link cannot mask a stale one.
+  assert.match(responseOsPage, /responseOsHref\("\/audit", "agents-responseos-hero"\)/);
+  assert.match(responseOsPage, /responseOsHref\("\/demo", "agents-responseos-hero"\)/);
+  assert.match(responseOsPage, /responseOsHref\("\/audit", "agents-responseos-final"\)/);
+  assert.match(pricingPage, /responseOsHref\("\/pricing", "pricing-card"\)/);
+  assert.match(pricingPage, /responseOsHref\("\/demo", "pricing-card"\)/);
   for (const source of [responseOsPage, pricingPage]) {
-    assert.match(source, /responseOsHref\("\/(audit|pricing|demo)"/);
     assert.equal(source.includes("/apply?source=other&utm_source=responseos"), false);
   }
+
+  // Old /apply links for the retired offers redirect to the product site.
+  const middleware = readSource("middleware.ts");
+  for (const retiredId of ["responseos-managed-pilot", "responseos-core"]) {
+    assert.ok(middleware.includes(`"${retiredId}"`), `${retiredId} must redirect to responseos.pro`);
+  }
+  assert.match(middleware, /responseOsHref\("\/audit"/);
   for (const stalePrice of ["$8,500", "$12,500"]) {
     assert.equal(readPublicSourceTree("src/app").includes(stalePrice), false);
   }

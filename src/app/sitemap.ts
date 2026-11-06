@@ -64,12 +64,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         SITEMAP_POSTS_QUERY
       );
       if (posts) {
-        blogPostRoutes = posts.map((p) => ({
-          url: `${base}/blog/${p.slug}`,
-          ...(p.lastModified ? { lastModified: new Date(p.lastModified) } : {}),
-          changeFrequency: "weekly",
-          priority: 0.75,
-        }));
+        blogPostRoutes = posts.map((p) => {
+          // A malformed date would make toISOString() throw and break the sitemap.
+          const lastModified = p.lastModified ? new Date(p.lastModified) : undefined;
+          const hasValidDate = lastModified !== undefined && !Number.isNaN(lastModified.getTime());
+          return {
+            url: `${base}/blog/${p.slug}`,
+            ...(hasValidDate ? { lastModified } : {}),
+            changeFrequency: "weekly" as const,
+            priority: 0.75,
+          };
+        });
       }
     } catch {
       // Sanity fetch failed — degrade gracefully, sitemap still generates

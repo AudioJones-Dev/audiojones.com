@@ -36,7 +36,7 @@ export default function CaseStudiesPage() {
         <SectionIntro
           label="Operator Evidence"
           title="Every case study is organized around signal, leak, and system."
-          description="Each example shows the business signal, the constraint that slowed it down, the system that changed the workflow, and how the result is measured."
+          description="Each example shows the business signal, the constraint that slowed it down, and the system that changed the workflow."
         />
         <div className="mt-10 grid gap-6 lg:grid-cols-3">
           {caseStudies.map((study) => (

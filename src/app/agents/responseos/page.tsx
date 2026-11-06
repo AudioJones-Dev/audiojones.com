@@ -32,7 +32,7 @@ const RESPONSEOS_FAQS = [
   {
     question: "Where are ResponseOS pricing and the assessment?",
     answer:
-      "On the ResponseOS product site, responseos.pro. It has the current assessment fee, how setup and the monthly retainer are scoped, a demo on sample data, and the assessment request form.",
+      "On the ResponseOS product site, responseos.pro. It has the current assessment fee, how setup and the monthly retainer are scoped, a demo on sample data, and how to request the assessment.",
   },
   {
     question: "Is there a self-service subscription?",
@@ -290,7 +290,7 @@ export default function ResponseOsPage() {
             </PricingCtaLink>
             <PricingCtaLink
               href="/founder-intelligence/diagnostic"
-              eventName="responseos_handoff_cta"
+              eventName="founder_intelligence_diagnostic_cta"
               offerId="founder-intelligence-diagnostic"
               placement="responseos-final-cta"
               variant="secondary"
