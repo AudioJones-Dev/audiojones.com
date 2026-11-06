@@ -64,7 +64,6 @@ export const APPLY_SOURCES = [
 // somewhere else (AI Readiness Score, Team AI Readiness Workshop) are absent
 // on purpose. ResponseOS is booked on responseos.pro, not here.
 export const APPLY_OFFERS = [
-  { id: "revenue-leak-assessment", label: "Revenue Leak Assessment" },
   { id: "rekonr-revenue-recovery-diagnostic", label: "ReKonr Revenue Recovery Diagnostic" },
   { id: "founder-intelligence-system", label: "Founder Intelligence System" },
   { id: "managed-intelligence", label: "Managed Intelligence" },

@@ -18,10 +18,10 @@ export type PresetConfig = {
 };
 
 const DIAGNOSTIC_HREF =
-  "/apply?source=diagnostic&offer=revenue-leak-assessment&utm_source=roi-calculator&utm_medium=website&utm_campaign=revenue-leak-scorecard";
+  "/founder-intelligence/diagnostic?utm_source=roi-calculator&utm_medium=website&utm_campaign=revenue-leak-scorecard";
 
 const DIAGNOSTIC_CTA = {
-  label: "Book a Revenue Leak Diagnostic",
+  label: "Request a Diagnostic",
   href: DIAGNOSTIC_HREF,
   support: "We'll validate the assumptions behind your scorecard and identify which workflow is most worth fixing first.",
 };

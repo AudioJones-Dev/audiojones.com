@@ -12,6 +12,8 @@
  * its exports from this file, so `test/pricing-offers.test.ts` passing unchanged
  * is the proof that the migration is behaviour-preserving.
  *
+ * The $1,997 Revenue Leak Assessment was retired on 2026-11-06: it overlapped
+ * the ResponseOS Readiness & Revenue Leak Assessment on responseos.pro.
  * ResponseOS Managed Pilot and Core were removed on 2026-11-06: ResponseOS is
  * priced and sold on responseos.pro, and audiojones.com links there instead.
  *
@@ -58,7 +60,7 @@ export type OfferStage =
 
 /**
  * How a price may be shown publicly. Derived mechanically from the live display
- * string — "Free"/"$1,997" are fixed, "From $X" is a floor, "Application only"
+ * string — "Free" is fixed, "From $X" is a floor, "Application only"
  * is scoped — so this describes current behaviour rather than setting policy.
  * `private-corridor` and `internal-allocation` are unused today and exist so the
  * public view can fail closed on them.
@@ -207,50 +209,6 @@ export const OFFERS: readonly Offer[] = [
     updatedAt: UPDATED,
   },
   {
-    id: "revenue-leak-assessment",
-    slug: "revenue-leak-assessment",
-    name: "Revenue Leak Assessment",
-    family: "diagnostics",
-    stage: "diagnostic",
-    pricingGroup: "diagnosis",
-    summary:
-      "Evaluate one critical revenue workflow to identify where qualified opportunities, follow-up, booking, estimates, or handoffs may be leaking value.",
-    scope: [
-      "One business location",
-      "One primary revenue workflow",
-      "Limited evidence sources",
-      "Revenue-leak findings",
-      "One priority recommendation",
-      "Executive readout",
-    ],
-    guardrails: [
-      "No complete system architecture",
-      "No implementation",
-      "No broad multi-workflow transformation plan",
-    ],
-    pricing: {
-      currency: "USD",
-      display: "$1,997",
-      visibility: "public-fixed",
-      evidenceStatus: "unratified",
-      schema: {
-        amount: "1997",
-        name: "Starting price for the defined Revenue Leak Assessment scope",
-      },
-    },
-    indexable: false,
-    cta: {
-      label: "Apply for the Assessment",
-      href: applyHref("revenue-leak-assessment"),
-      eventName: "pricing_assessment_cta",
-    },
-    featured: true,
-    prerequisiteOfferIds: [],
-    followOnOfferIds: [],
-    proofAssetPaths: [],
-    updatedAt: UPDATED,
-  },
-  {
     id: "rekonr-revenue-recovery-diagnostic",
     slug: "rekonr-revenue-recovery-diagnostic",
     name: "ReKonr Revenue Recovery Diagnostic",
@@ -292,6 +250,7 @@ export const OFFERS: readonly Offer[] = [
       href: applyHref("rekonr-revenue-recovery-diagnostic"),
       eventName: "pricing_rekonr_diagnostic_cta",
     },
+    featured: true,
     prerequisiteOfferIds: [],
     followOnOfferIds: [],
     proofAssetPaths: [],
