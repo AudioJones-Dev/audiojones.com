@@ -62,12 +62,10 @@ export const APPLY_SOURCES = [
 // `pricingOffers` in `src/content/pricing.ts`; the pairing is asserted in
 // `test/pricing-offers.test.ts` so the two cannot drift. Offers that convert
 // somewhere else (AI Readiness Score, Team AI Readiness Workshop) are absent
-// on purpose.
+// on purpose. ResponseOS is booked on responseos.pro, not here.
 export const APPLY_OFFERS = [
   { id: "revenue-leak-assessment", label: "Revenue Leak Assessment" },
   { id: "rekonr-revenue-recovery-diagnostic", label: "ReKonr Revenue Recovery Diagnostic" },
-  { id: "responseos-managed-pilot", label: "ResponseOS Managed Pilot" },
-  { id: "responseos-core", label: "ResponseOS Core" },
   { id: "founder-intelligence-system", label: "Founder Intelligence System" },
   { id: "managed-intelligence", label: "Managed Intelligence" },
   { id: "worksie-reference-pilot", label: "Worksie Reference Pilot" },

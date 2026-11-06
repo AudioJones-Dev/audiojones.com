@@ -8,6 +8,7 @@ import {
   SignalConsole,
 } from "@/components/marketing/DesignSystemSections";
 import PricingCtaLink from "@/components/pricing/PricingCtaLink";
+import { responseOsHref } from "@/config/links";
 import JsonLd from "@/components/seo/JsonLd";
 import {
   diagnosisOffers,
@@ -26,7 +27,7 @@ import { buildMetadata } from "@/lib/seo/metadata";
 import { breadcrumbJsonLd, faqJsonLd } from "@/lib/seo/schema";
 
 const DESCRIPTION =
-  "AJ Digital starts with evidence, installs only the intervention the evidence supports, and manages the system after implementation. Review diagnostic, ResponseOS, and Managed Intelligence starting prices.";
+  "AJ Digital starts with evidence, installs only the intervention the evidence supports, and manages the system after implementation. Review diagnostic, Founder Intelligence System, and Managed Intelligence starting prices.";
 
 export const metadata: Metadata = buildMetadata({
   title: "AJ Digital Pricing: Diagnose, Implement, Manage",
@@ -257,12 +258,43 @@ export default function PricingPage() {
         <SectionIntro
           label="2 · Implement the evidence-supported intervention"
           title="Managed systems, scoped after diagnosis."
-          description="ResponseOS is a Revenue Recovery System delivered as a managed implementation. Founder Intelligence Systems extend the governed operating layer only where the evidence supports it."
+          description="Founder Intelligence Systems extend the governed operating layer only where the evidence supports it. When the gap is missed calls and follow-up, ResponseOS is the product built for it."
         />
-        <div className="mt-10 grid items-stretch gap-6 xl:grid-cols-3">
+        <div className="mt-10 grid items-stretch gap-6 lg:grid-cols-2">
           {implementationOffers.map((offer) => (
             <OfferCard key={offer.id} offer={offer} />
           ))}
+          <article id="responseos" className="aj-product-card flex flex-col">
+            <p className="text-xs font-bold uppercase tracking-[0.16em] text-[var(--aj-orange)]">
+              Product · responseos.pro
+            </p>
+            <h3 className="mt-4 font-accent text-3xl font-bold text-fg-0">ResponseOS</h3>
+            <p className="mt-4 text-sm leading-7 text-fg-2">
+              Revenue recovery for missed calls and slow follow-up: capture, qualify,
+              book, and report. ResponseOS has its own site with current pricing, a
+              demo on sample data, and the paid Readiness Assessment that comes first.
+            </p>
+            <div className="mt-auto flex flex-col gap-3 pt-7 sm:flex-row">
+              <PricingCtaLink
+                href={responseOsHref("/pricing", "pricing-card")}
+                eventName="responseos_handoff_cta"
+                offerId="responseos-pricing"
+                placement="pricing-implementation"
+                variant="secondary"
+              >
+                See ResponseOS pricing
+              </PricingCtaLink>
+              <PricingCtaLink
+                href={responseOsHref("/demo", "pricing-card")}
+                eventName="responseos_handoff_cta"
+                offerId="responseos-demo"
+                placement="pricing-implementation"
+                variant="secondary"
+              >
+                See the demo
+              </PricingCtaLink>
+            </div>
+          </article>
         </div>
       </DarkSection>
 
@@ -326,7 +358,7 @@ export default function PricingPage() {
             <ul className="mt-5 space-y-4 text-sm leading-7 text-fg-2">
               <li>No unlimited voice, SMS, model, storage, or telephony usage.</li>
               <li>No self-service ResponseOS subscription is publicly offered.</li>
-              <li>No outcome fee, recovered-revenue percentage, or ROI guarantee is offered.</li>
+              <li>No outcome fee, recovered-revenue percentage, or ROI guarantee is offered on the engagements on this page.</li>
               <li>Final implementation scope follows diagnosis.</li>
             </ul>
           </div>
@@ -375,8 +407,8 @@ export default function PricingPage() {
             </PricingCtaLink>
           </div>
           <p className="mt-6 text-xs leading-6 text-fg-3">
-            ResponseOS implementation requires diagnosis. Managed-service fees do not
-            include provider usage.
+            Implementation requires diagnosis. Managed-service fees do not include
+            provider usage. ResponseOS terms are set on responseos.pro.
           </p>
         </div>
       </section>

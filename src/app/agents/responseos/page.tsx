@@ -9,7 +9,7 @@ import {
 } from "@/components/marketing/DesignSystemSections";
 import PricingCtaLink from "@/components/pricing/PricingCtaLink";
 import JsonLd from "@/components/seo/JsonLd";
-import { implementationOffers, providerUsagePolicy } from "@/content/pricing";
+import { RESPONSEOS_SITE, responseOsHref } from "@/config/links";
 import { proofSignals, responseOsFlow } from "@/data/audiojones-design";
 import { SITE_URL } from "@/lib/founder-intelligence/tokens";
 import { buildMetadata } from "@/lib/seo/metadata";
@@ -27,7 +27,12 @@ const RESPONSEOS_FAQS = [
   {
     question: "What comes before implementation?",
     answer:
-      "A diagnostic is required. AJ Digital maps the workflow, evidence, baseline, integrations, data quality, and operating constraints before finalizing the implementation scope.",
+      "A paid Readiness & Revenue Leak Assessment on responseos.pro. It maps the workflow, sizes the missed demand, and gives a fit or no-fit answer before any setup is scoped.",
+  },
+  {
+    question: "Where are ResponseOS pricing and the assessment?",
+    answer:
+      "On the ResponseOS product site, responseos.pro. It has the current assessment fee, how setup and the monthly retainer are scoped, a demo on sample data, and how to request the assessment.",
   },
   {
     question: "Is there a self-service subscription?",
@@ -51,10 +56,6 @@ const RESPONSEOS_FAQS = [
   },
 ];
 
-function responseOsApplyHref(offerId: string) {
-  return `/apply?source=other&utm_source=responseos&utm_medium=website&utm_campaign=responseos-managed-service&utm_content=${offerId}`;
-}
-
 export const metadata: Metadata = buildMetadata({
   title: "ResponseOS Revenue Recovery System",
   description: DESCRIPTION,
@@ -62,8 +63,6 @@ export const metadata: Metadata = buildMetadata({
 });
 
 export default function ResponseOsPage() {
-  const [managedPilot, core] = implementationOffers;
-
   return (
     <>
       <JsonLd
@@ -82,6 +81,7 @@ export default function ResponseOsPage() {
           serviceType: "Managed revenue recovery implementation",
           description: DESCRIPTION,
           url: `${SITE_URL}/agents/responseos`,
+          sameAs: [RESPONSEOS_SITE],
           provider: {
             "@type": "Organization",
             name: "AJ Digital LLC",
@@ -109,22 +109,22 @@ export default function ResponseOsPage() {
             </p>
             <div className="mt-10 flex flex-col gap-3 sm:flex-row">
               <PricingCtaLink
-                href={responseOsApplyHref(managedPilot.id)}
-                eventName="pricing_responseos_pilot_cta"
-                offerId={managedPilot.id}
+                href={responseOsHref("/audit", "agents-responseos-hero")}
+                eventName="responseos_handoff_cta"
+                offerId="responseos-readiness-assessment"
                 placement="responseos-hero"
                 variant="glow"
               >
-                Apply for a Managed Pilot
+                Book the Readiness Assessment
               </PricingCtaLink>
               <PricingCtaLink
-                href="/pricing#responseos-managed-pilot"
-                eventName="pricing_responseos_pilot_cta"
-                offerId={managedPilot.id}
+                href={responseOsHref("/demo", "agents-responseos-hero")}
+                eventName="responseos_handoff_cta"
+                offerId="responseos-demo"
                 placement="responseos-hero"
                 variant="secondary"
               >
-                Review ResponseOS Pricing
+                See the demo
               </PricingCtaLink>
             </div>
             <dl className="mt-12 grid gap-4 sm:grid-cols-3">
@@ -228,39 +228,33 @@ export default function ResponseOsPage() {
 
       <DarkSection>
         <SectionIntro
-          label="Current delivery model"
-          title="Managed Pilot and Core are implementation scopes, not subscription plans."
-          description="Both require diagnosis. The distinction is the breadth of channels, workflows, locations, integrations, volume, reporting, and managed-support responsibility."
+          label="Pricing and next step"
+          title="Pricing, the demo, and the assessment live on responseos.pro."
+          description="ResponseOS has its own product site. Start with the paid Readiness & Revenue Leak Assessment there; setup and the monthly retainer are scoped from what it finds."
         />
-        <div className="mt-10 grid gap-6 lg:grid-cols-2">
-          {[managedPilot, core].map((offer) => (
-            <article key={offer.id} className="aj-product-card">
-              <h3 className="font-accent text-3xl font-bold text-fg-0">{offer.name}</h3>
-              <p className="mt-4 font-headline text-2xl font-bold text-signal-yellow">
-                {offer.price}
-              </p>
-              <ul className="mt-2 space-y-1 text-sm font-semibold text-fg-1">
-                {offer.priceDetails?.map((detail) => <li key={detail}>{detail}</li>)}
-              </ul>
-              <p className="mt-5 text-sm leading-7 text-fg-2">{offer.description}</p>
+        <div className="mt-10 grid gap-6 lg:grid-cols-3">
+          {[
+            ["Readiness Assessment", "Sizes your missed demand and gives a fit or no-fit answer before any install.", "/audit", "Book the assessment"],
+            ["Pricing", "How the assessment, setup, and monthly retainer work.", "/pricing", "See ResponseOS pricing"],
+            ["Demo", "Walk a recovery record and the operator console on sample data.", "/demo", "See the demo"],
+          ].map(([title, copy, path, label]) => (
+            <article key={title} className="aj-product-card">
+              <h3 className="font-accent text-3xl font-bold text-fg-0">{title}</h3>
+              <p className="mt-4 text-sm leading-7 text-fg-2">{copy}</p>
               <div className="mt-7">
                 <PricingCtaLink
-                  href={responseOsApplyHref(offer.id)}
-                  eventName={offer.cta.eventName}
-                  offerId={offer.id}
-                  placement="responseos-delivery-model"
+                  href={responseOsHref(path as "/audit" | "/pricing" | "/demo", "agents-responseos-next-step")}
+                  eventName="responseos_handoff_cta"
+                  offerId={`responseos${path.replace("/", "-")}`}
+                  placement="responseos-next-step"
                   variant="secondary"
                 >
-                  {offer.cta.label}
+                  {label}
                 </PricingCtaLink>
               </div>
             </article>
           ))}
         </div>
-        <p className="mt-8 max-w-4xl text-sm leading-7 text-fg-2">
-          {providerUsagePolicy} The diagnostic is independently deliverable and is
-          not automatically credited toward implementation.
-        </p>
       </DarkSection>
 
       <DarkSection className="bg-bg-1">
@@ -281,27 +275,27 @@ export default function ResponseOsPage() {
             Diagnose the recovery path before installing the system.
           </h2>
           <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-fg-2">
-            Apply for a managed pilot when the business has a real response,
+            Book the Readiness Assessment when the business has a real response,
             routing, follow-up, booking, or attribution constraint to investigate.
           </p>
           <div className="mt-10 flex flex-col justify-center gap-3 sm:flex-row">
             <PricingCtaLink
-              href={responseOsApplyHref(managedPilot.id)}
-              eventName="pricing_responseos_pilot_cta"
-              offerId={managedPilot.id}
+              href={responseOsHref("/audit", "agents-responseos-final")}
+              eventName="responseos_handoff_cta"
+              offerId="responseos-readiness-assessment"
               placement="responseos-final-cta"
               variant="glow"
             >
-              Apply for a Managed Pilot
+              Book the Readiness Assessment
             </PricingCtaLink>
             <PricingCtaLink
-              href="/pricing#responseos-core"
-              eventName="pricing_responseos_core_cta"
-              offerId={core.id}
+              href="/founder-intelligence/diagnostic"
+              eventName="founder_intelligence_diagnostic_cta"
+              offerId="founder-intelligence-diagnostic"
               placement="responseos-final-cta"
               variant="secondary"
             >
-              Compare Pilot and Core
+              Not sure it is follow-up? Request a Diagnostic
             </PricingCtaLink>
           </div>
         </div>

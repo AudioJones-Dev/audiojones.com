@@ -1,0 +1,36 @@
+# Audio Jones
+
+> Audio Jones is the operating brand of AJ Digital LLC (Miami, FL). It provides business systems consulting for founder-led service businesses: finding where leads, jobs, and decisions get stuck, then building the agreed fix (workflows, shared business knowledge, reporting, and supervised AI tasks). Work starts with a diagnostic; scope and price are agreed before any build.
+
+Best fit: founder-led service businesses with regular leads or repeat work, such as home service, accessibility, and home modification companies. Audio Jones does not guarantee revenue, rankings, or other outcomes.
+
+## Start here
+
+- [Home](https://www.audiojones.com/): what Audio Jones does and who it is for
+- [Request a Diagnostic](https://www.audiojones.com/founder-intelligence/diagnostic): six-step request reviewed by a person; not an instant report
+- [Solutions](https://www.audiojones.com/solutions): workflow automation, business memory, marketing attribution, AI agent systems
+- [Pricing](https://www.audiojones.com/pricing): starting prices for diagnostics, implementation, and managed support
+- [About](https://www.audiojones.com/about): the people and approach behind Audio Jones
+- [ROI calculator](https://www.audiojones.com/roi-calculator): estimate sales at risk from missed or slow follow-up (a model, not a promise)
+
+## Products
+
+- [ResponseOS overview](https://www.audiojones.com/agents/responseos): revenue recovery system that captures inquiries, qualifies them, routes them to a person, and follows up
+- [ResponseOS product site](https://responseos.pro/): demo, industries, and readiness assessment for ResponseOS
+
+## Guides
+
+- [What is a Founder Intelligence System?](https://www.audiojones.com/insights/founder-intelligence-systems)
+- [What is a Revenue Leak Diagnostic?](https://www.audiojones.com/insights/revenue-leak-diagnostic)
+- [What is Follow-Up Intelligence?](https://www.audiojones.com/insights/follow-up-intelligence)
+- [What is Business Memory?](https://www.audiojones.com/insights/business-memory)
+- [Why AI fails most companies](https://www.audiojones.com/insights/why-ai-fails-most-companies)
+- [Marketing attribution and causal identification](https://www.audiojones.com/insights/marketing-attribution-causal-identification)
+- [Signal vs noise in business](https://www.audiojones.com/insights/signal-vs-noise-business)
+
+## Frameworks
+
+- [Founder Intelligence Systems](https://www.audiojones.com/frameworks/founder-intelligence-systems)
+- [M.A.P. Attribution](https://www.audiojones.com/frameworks/map-attribution)
+- [Signal vs Noise](https://www.audiojones.com/frameworks/signal-vs-noise)
+- [Niche Framework](https://www.audiojones.com/frameworks/niche-framework)

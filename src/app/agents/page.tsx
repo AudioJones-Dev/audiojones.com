@@ -29,7 +29,7 @@ export default function AgentsPage() {
         description={DESCRIPTION}
         primaryHref="/agents/responseos"
         primaryLabel="Explore ResponseOS"
-        secondaryHref="/ai-readiness-diagnostic"
+        secondaryHref="/founder-intelligence/diagnostic"
         secondaryLabel="Start the Diagnostic"
         stats={proofSignals}
       />
@@ -87,7 +87,7 @@ export default function AgentsPage() {
         <div className="grid gap-10 lg:grid-cols-[1fr_0.8fr] lg:items-center">
           <SectionIntro
             label="Featured System"
-            title="ResponseOS is the flagship wedge."
+            title="ResponseOS: start where leads go quiet."
             description="Most founder-led businesses do not lose revenue because demand is absent. They lose it because response, qualification, and follow-up are not a system."
           />
           <div className="aj-product-card">
@@ -113,7 +113,7 @@ export default function AgentsPage() {
         title="Find the system your business is missing."
         description="Start with the AI Operations Audit, then route the strongest opportunity into the right agent build."
         primaryLabel="Start the Diagnostic"
-        primaryHref="/ai-readiness-diagnostic"
+        primaryHref="/founder-intelligence/diagnostic"
         secondaryLabel="See all Solutions"
         secondaryHref="/solutions"
       />

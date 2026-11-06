@@ -143,7 +143,7 @@ export const pricingFaqs = [
   {
     question: "Is ResponseOS just an AI receptionist?",
     answer:
-      "No. ResponseOS is a managed Revenue Recovery System covering demand capture, qualification, routing, follow-up, booking, escalation, attribution, and reporting. Voice or AI receptionist functionality is included only when the diagnosed workflow requires it.",
+      "No. ResponseOS is a managed Revenue Recovery System covering demand capture, qualification, routing, follow-up, booking, escalation, attribution, and reporting. Voice or AI receptionist functionality is included only when the workflow requires it. ResponseOS pricing, its demo, and its Readiness Assessment are on responseos.pro.",
   },
   {
     question: "Are provider costs included?",
@@ -173,7 +173,7 @@ export const pricingFaqs = [
   {
     question: "Is there a self-service plan?",
     answer:
-      "No public self-service ResponseOS plan is available yet. Current ResponseOS engagements are diagnostic-led managed implementations, not instant-activation subscriptions.",
+      "No public self-service ResponseOS plan is available yet. ResponseOS starts with a paid Readiness Assessment on responseos.pro, then setup and a monthly retainer scoped from it.",
   },
   {
     question: "Does AJ Digital guarantee recovered revenue?",
@@ -201,9 +201,9 @@ export const pricingFaqs = [
       "No. Listed figures are modeled starting prices being tested for defined scopes. They are not market benchmarks or commercially validated prices; final scope and pricing follow diagnosis.",
   },
   {
-    question: "Is the diagnostic credited toward implementation?",
+    question: "Is the ReKonr diagnostic credited toward implementation?",
     answer:
-      "No. The diagnostic is independently deliverable and is not automatically credited toward implementation. Diagnosis remains required before implementation. AJ Digital will revisit this policy after three comparable paid ReKonr engagements.",
+      "No. The ReKonr diagnostic is independently deliverable and is not automatically credited toward implementation. Diagnosis remains required before implementation. AJ Digital will revisit this policy after three comparable paid ReKonr engagements. ResponseOS sets its own assessment credit terms on responseos.pro.",
   },
 ] as const;
 

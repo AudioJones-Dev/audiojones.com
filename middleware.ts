@@ -1,5 +1,8 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { responseOsHref } from "@/config/links";
+
+const RETIRED_RESPONSEOS_OFFERS = new Set(["responseos-managed-pilot", "responseos-core"]);
 
 export function middleware(request: NextRequest) {
   const url = request.nextUrl.clone();
@@ -31,6 +34,13 @@ export function middleware(request: NextRequest) {
       }
       return NextResponse.rewrite(url);
     }
+  }
+
+  // ResponseOS offers moved to responseos.pro. Old /apply links for them go
+  // to its assessment page instead of a generic application.
+  const offer = url.searchParams.get("offer");
+  if (pathname === "/apply" && RETIRED_RESPONSEOS_OFFERS.has(offer ?? "")) {
+    return NextResponse.redirect(responseOsHref("/audit", `legacy-apply-${offer}`), 308);
   }
 
   // Existing admin auth logic

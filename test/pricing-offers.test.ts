@@ -42,8 +42,9 @@ function readPublicSourceTree(relativeDir: string): string {
     .join("\n");
 }
 
-test("publishes the approved ten-offer ladder and starting prices", () => {
-  assert.equal(pricingOffers.length, 10);
+test("publishes the approved eight-offer ladder and starting prices", () => {
+  // ResponseOS Managed Pilot and Core moved to responseos.pro on 2026-11-06.
+  assert.equal(pricingOffers.length, 8);
   assert.deepEqual(
     pricingOffers.map(({ name, price, priceDetails }) => ({ name, price, priceDetails })),
     [
@@ -58,16 +59,6 @@ test("publishes the approved ten-offer ladder and starting prices", () => {
         name: "Team AI Readiness Workshop",
         price: "From $2,500",
         priceDetails: undefined,
-      },
-      {
-        name: "ResponseOS Managed Pilot",
-        price: "From $8,500 implementation",
-        priceDetails: ["From $1,500/month", "Provider usage separate"],
-      },
-      {
-        name: "ResponseOS Core",
-        price: "From $12,500 implementation",
-        priceDetails: ["From $2,500/month", "Provider usage separate"],
       },
       {
         name: "Founder Intelligence System",
@@ -136,8 +127,6 @@ test("keeps offer CTAs routable, contextual, and instrumented", () => {
     "pricing_assessment_cta",
     "pricing_rekonr_diagnostic_cta",
     "pricing_workshop_cta",
-    "pricing_responseos_pilot_cta",
-    "pricing_responseos_core_cta",
     "pricing_fis_cta",
     "pricing_managed_intelligence_cta",
     "pricing_worksie_pilot_cta",
@@ -185,10 +174,42 @@ test("keeps offer CTAs routable, contextual, and instrumented", () => {
     assert.equal(source.name, applyOffer.label, `label drift for ${applyOffer.id}`);
   }
 
+});
+
+test("hands ResponseOS off to responseos.pro instead of selling it here", () => {
+  // responseos.pro owns ResponseOS pricing and intake. This site must not
+  // publish its own ResponseOS prices or route ResponseOS buyers into /apply.
+  assert.equal(
+    OFFERS.some((offer) => offer.id.startsWith("responseos")),
+    false,
+    "ResponseOS offers belong on responseos.pro, not in this registry",
+  );
+  assert.equal(
+    APPLY_OFFERS.some((offer) => offer.id.startsWith("responseos")),
+    false,
+  );
+
   const responseOsPage = readSource("src/app/agents/responseos/page.tsx");
-  assert.match(responseOsPage, /utm_source=responseos/);
-  assert.match(responseOsPage, /utm_campaign=responseos-managed-service/);
-  assert.equal(responseOsPage.includes("href={offer.cta.href}"), false);
+  const pricingPage = readSource("src/app/pricing/page.tsx");
+  // Check each destination separately so one valid link cannot mask a stale one.
+  assert.match(responseOsPage, /responseOsHref\("\/audit", "agents-responseos-hero"\)/);
+  assert.match(responseOsPage, /responseOsHref\("\/demo", "agents-responseos-hero"\)/);
+  assert.match(responseOsPage, /responseOsHref\("\/audit", "agents-responseos-final"\)/);
+  assert.match(pricingPage, /responseOsHref\("\/pricing", "pricing-card"\)/);
+  assert.match(pricingPage, /responseOsHref\("\/demo", "pricing-card"\)/);
+  for (const source of [responseOsPage, pricingPage]) {
+    assert.equal(source.includes("/apply?source=other&utm_source=responseos"), false);
+  }
+
+  // Old /apply links for the retired offers redirect to the product site.
+  const middleware = readSource("middleware.ts");
+  for (const retiredId of ["responseos-managed-pilot", "responseos-core"]) {
+    assert.ok(middleware.includes(`"${retiredId}"`), `${retiredId} must redirect to responseos.pro`);
+  }
+  assert.match(middleware, /responseOsHref\("\/audit"/);
+  for (const stalePrice of ["$8,500", "$12,500"]) {
+    assert.equal(readPublicSourceTree("src/app").includes(stalePrice), false);
+  }
 });
 
 test("keeps structured prices aligned and omits fake application or mixed prices", () => {
@@ -215,7 +236,6 @@ test("keeps structured prices aligned and omits fake application or mixed prices
   const applicationOnly = pricingOffers.filter((offer) => offer.price === "Application only");
   assert.equal(applicationOnly.length, 2);
   assert.ok(applicationOnly.every((offer) => offer.schemaPrice === undefined));
-  assert.ok(implementationOffers.slice(0, 2).every((offer) => offer.schemaPrice === undefined));
 });
 
 test("publishes provider, diagnostic, FAQ, and modeled-price guardrails", () => {
@@ -225,18 +245,18 @@ test("publishes provider, diagnostic, FAQ, and modeled-price guardrails", () => 
 
   const faqText = pricingFaqs.map(({ question, answer }) => `${question} ${answer}`).join("\n");
   assert.match(faqText, /No public self-service ResponseOS plan/);
+  assert.match(faqText, /responseos\.pro/);
   assert.match(faqText, /does not guarantee recovered revenue, ROI, or revenue improvement/);
   assert.match(faqText, /independently deliverable/);
   assert.match(faqText, /not automatically credited/);
   assert.match(faqText, /three comparable paid ReKonr engagements/);
   assert.match(faqText, /modeled starting prices being tested/);
 
-  for (const responseOsOffer of implementationOffers.slice(0, 2)) {
+  for (const offer of implementationOffers) {
     assert.ok(
-      responseOsOffer.guardrails?.some((item) => item.includes("Diagnostic required")),
-      `${responseOsOffer.name} must require diagnosis`,
+      offer.guardrails && offer.guardrails.length > 0,
+      `${offer.name} must state its scope guardrails`,
     );
-    assert.ok(responseOsOffer.priceDetails?.includes("Provider usage separate"));
   }
 });
 

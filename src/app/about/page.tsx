@@ -39,7 +39,7 @@ export default function AboutPage() {
       <SignalHero
         title="Audio Jones builds signal systems for founder-led businesses."
         description="The brand combines personal authority, applied AI infrastructure, business diagnosis, and operating-system design for teams that need clarity before scale."
-        primaryHref="/ai-readiness-diagnostic"
+        primaryHref="/founder-intelligence/diagnostic"
         primaryLabel="Start the Diagnostic"
         secondaryHref="/services"
         secondaryLabel="See Services"
@@ -52,7 +52,7 @@ export default function AboutPage() {
           <SectionIntro
             label="Founder Authority"
             title="The work starts where strategy meets operations."
-            description="Audio Jones is not positioned as a generic AI agency. The operating thesis is simple: most businesses do not need more noise. They need a clearer signal path, a better follow-up system, and intelligence layers that support how work actually moves."
+            description="Audio Jones is not a generic AI agency. The idea is simple: most businesses do not need more noise. They need a clearer signal path, a better follow-up system, and intelligence layers that support how work actually moves."
           />
           <div className="grid gap-4">
             {[
@@ -82,23 +82,23 @@ export default function AboutPage() {
             </h2>
           </div>
           <p className="text-lg leading-8 text-[#4b5563]">
-            The design language, content architecture, and product routes all point back to the same question: where is the signal, where is the leak, and what system fixes it?
+            Every engagement starts with the same question: where is the signal, where is the leak, and what system fixes it?
           </p>
         </div>
       </LightProofSection>
 
       <DarkSection>
         <SectionIntro
-          label="Operating Principles"
-          title="What the site now has to communicate."
-          description="Audio Jones is a premium personal-brand and AI systems company website. It should feel like a systems platform, not a generic consultant portfolio."
+          label="How we help"
+          title="Diagnose first. Then build only what fixes the gap."
+          description="Audio Jones finds where leads, jobs, and decisions get stuck. AJ Digital builds the agreed fix and checks whether it worked."
         />
         <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
           {[
-            ["Agents", "Deployable business infrastructure."],
-            ["ResponseOS", "The flagship revenue recovery wedge."],
-            ["Services", "Human advisory and implementation."],
-            ["Education", "Insights, workshops, ROI, and diagnostic entry points."],
+            ["Diagnostic", "A close look at how a real lead or job moves through your business."],
+            ["ResponseOS", "Capture, route, and follow up on every inquiry so fewer leads go quiet."],
+            ["Systems builds", "Workflows, shared knowledge, and reporting scoped to the gap we found."],
+            ["Guides and tools", "Plain guides, workshops, and an ROI calculator to size the problem."],
           ].map(([title, copy]) => (
             <div key={title} className="aj-card-signal">
               <div className="aj-card-inner">
@@ -116,7 +116,7 @@ export default function AboutPage() {
         title="Start with the signal."
         description="Use the diagnostic, calculator, or service path to identify the operating constraint before building the next intelligence layer."
         primaryLabel="Start the Diagnostic"
-        primaryHref="/ai-readiness-diagnostic"
+        primaryHref="/founder-intelligence/diagnostic"
         secondaryLabel="Book a Call"
         secondaryHref="/book-a-call"
       />

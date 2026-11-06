@@ -28,18 +28,18 @@ test("carries the offer and its attribution onto the row", () => {
   const row = toApplyRow(
     {
       ...baseInput,
-      offer: "responseos-core",
+      offer: "founder-intelligence-system",
       source: "pricing",
       utmSource: "pricing",
       utmCampaign: "pricing-offers",
-      utmContent: "responseos-core",
+      utmContent: "founder-intelligence-system",
     },
     ctx,
   );
 
-  assert.equal(row.offer, "responseos-core");
+  assert.equal(row.offer, "founder-intelligence-system");
   assert.equal(row.applySource, "pricing");
-  assert.equal(row.utmContent, "responseos-core");
+  assert.equal(row.utmContent, "founder-intelligence-system");
   assert.equal(row.sourcePage, APPLY_SOURCE_PAGE);
 });
 
