@@ -81,7 +81,7 @@ export default function Page() {
       <InsightArticle
         eyebrow="Guide"
         title={TITLE}
-        intro="Ramp and lift companies lose quote requests because the people who answer the phone are the same people doing installs and site visits, so calls go unanswered and requests are never written down. The fix is to capture every call automatically, log it in a CRM, send a relevant follow-up right away, and remind someone until the quote goes out."
+        intro="Ramp and lift companies lose quote requests because the people who answer the phone are the same people doing installs and site visits, so calls go unanswered and requests are never written down. The fix is to capture every call automatically, log it in a CRM, send a relevant follow-up to callers who leave their details, put hang-ups on a callback list, and remind someone until the quote goes out."
       >
         <P>
           If you run a ramp, stairlift, vertical platform lift or grab bar
@@ -136,9 +136,9 @@ export default function Page() {
         </P>
         <UL
           items={[
-            "Capture every call. A business phone line with AI call transcription records and writes down each call, and voicemails when nobody can pick up. Callers who hang up without leaving a message still land on a callback list with their number, so someone calls them back.",
+            "Capture every call. A business phone line with AI call transcription records and writes down each call that connects, and each voicemail when nobody can pick up. Callers who hang up without leaving a message still land on a callback list with their number, so someone calls them back.",
             "Log it in the CRM. The caller, the product they asked about, the address and the next step land in one place, not in a voicemail box.",
-            "Send a relevant follow-up automatically. The caller gets an email that matches what they asked about, so they know they were heard and what happens next.",
+            "Send a relevant follow-up automatically. Callers who leave an email address get an email that matches what they asked about, so they know they were heard and what happens next.",
             "Remind until the quote goes out. Open requests stay visible, and someone gets a nudge if a site measure or quote is overdue.",
           ]}
         />
@@ -169,8 +169,8 @@ export default function Page() {
         </P>
         <P>
           We set up a new business phone line with AI call transcription. Every
-          call is captured and entered into the CRM, and customers get follow-up
-          emails relevant to their call automatically. Those 5 missed quotes a
+          call is captured and entered into the CRM, and callers who leave their
+          details get follow-up emails relevant to their call automatically. Those 5 missed quotes a
           month became 5 new sales a month.
         </P>
         <P>
