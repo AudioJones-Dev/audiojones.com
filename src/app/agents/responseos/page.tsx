@@ -5,7 +5,7 @@ import {
   DarkSection,
   LightProofSection,
   SectionIntro,
-  SignalConsole,
+  ClientProofCard,
 } from "@/components/marketing/DesignSystemSections";
 import PricingCtaLink from "@/components/pricing/PricingCtaLink";
 import JsonLd from "@/components/seo/JsonLd";
@@ -139,7 +139,7 @@ export default function ResponseOsPage() {
             </dl>
           </div>
           <div className="min-w-0">
-            <SignalConsole />
+            <ClientProofCard />
           </div>
         </div>
       </section>

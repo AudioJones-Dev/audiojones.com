@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type React from "react";
 import { ButtonLink } from "@/components/ui/Button";
+import { clientCaseStudies } from "@/data/audiojones-design";
 
 type Stat = {
   metric: string;
@@ -69,7 +70,7 @@ export function SignalHero({
             </dl>
           ) : null}
         </div>
-        <div className="min-w-0">{children ?? <SignalConsole />}</div>
+        <div className="min-w-0">{children ?? <ClientProofCard />}</div>
       </div>
     </section>
   );
@@ -91,46 +92,35 @@ export function SectionIntro({ label, title, description }: SectionIntroProps) {
   );
 }
 
-export function SignalConsole() {
-  const rows = [
-    ["SYSTEM STATUS", "ONLINE", "text-[var(--aj-success)]"],
-    ["REVENUE LEAK", "FOLLOW-UP GAP", "text-[var(--aj-orange)]"],
-    ["AGENT LAYER", "RESPONSEOS", "text-[var(--aj-blue)]"],
-    ["RECOVERY PATH", "BOOKING ROUTE", "text-[var(--aj-amber)]"],
-  ] as const;
-
+export function ClientProofCard() {
+  const study = clientCaseStudies[0];
   return (
-    <div className="aj-card-signal">
+    <figure className="aj-card-signal">
       <div className="aj-card-inner">
-        <div className="flex items-center justify-between border-b border-[var(--line-2)] pb-4">
-          <p className="text-xs font-bold uppercase tracking-[0.16em] text-fg-3">
-            Control Plane
-          </p>
-          <span className="h-2.5 w-2.5 rounded-full bg-[var(--aj-success)] shadow-[0_0_18px_rgba(0,204,102,0.45)]" />
-        </div>
+        <p className="text-xs font-bold uppercase tracking-[0.16em] text-fg-3">
+          Client result &middot; {study.client}
+        </p>
         <div className="mt-6 grid gap-3">
-          {rows.map(([label, value, color]) => (
-            <div
-              key={label}
-              className="grid grid-cols-[1fr_auto] gap-4 rounded-xl border border-[var(--line-1)] bg-[rgba(5,7,15,0.62)] p-4"
-            >
-              <span className="text-xs font-bold uppercase tracking-[0.14em] text-fg-3">
-                {label}
-              </span>
-              <span className={`text-sm font-bold ${color}`}>{value}</span>
-            </div>
-          ))}
+          <div className="rounded-xl border border-[var(--line-1)] bg-[rgba(5,7,15,0.62)] p-4">
+            <p className="text-xs font-bold uppercase tracking-[0.14em] text-fg-3">Before</p>
+            <p className="mt-1 font-accent text-2xl font-bold text-[var(--aj-orange)]">{study.before}</p>
+          </div>
+          <div className="rounded-xl border border-[var(--line-1)] bg-[rgba(5,7,15,0.62)] p-4">
+            <p className="text-xs font-bold uppercase tracking-[0.14em] text-fg-3">After</p>
+            <p className="mt-1 font-accent text-2xl font-bold text-[var(--aj-success)]">{study.after}</p>
+          </div>
         </div>
-        <div className="mt-6 rounded-xl border border-[rgba(0,164,255,0.22)] bg-[rgba(0,164,255,0.06)] p-5">
-          <p className="font-mono text-xs uppercase tracking-[0.12em] text-[var(--aj-blue)]">
-            Signal Output
-          </p>
-          <p className="mt-3 text-sm leading-6 text-fg-2">
-            Where is the signal, where is the leak, and what system fixes it?
-          </p>
-        </div>
+        <blockquote className="mt-6 text-lg leading-8 text-fg-0">
+          &ldquo;{study.quote}&rdquo;
+        </blockquote>
+        <figcaption className="mt-3 text-sm text-fg-2">
+          {study.quoteBy} &middot;{" "}
+          <Link href="/case-studies" className="underline underline-offset-4 hover:text-signal-yellow">
+            Read the case study
+          </Link>
+        </figcaption>
       </div>
-    </div>
+    </figure>
   );
 }
 

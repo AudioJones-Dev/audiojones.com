@@ -2,7 +2,7 @@ export type InsightSummary = {
   slug: string;
   title: string;
   excerpt: string;
-  pillar: "founder-intelligence" | "signal" | "ai-failure" | "attribution";
+  pillar: "founder-intelligence" | "signal" | "ai-failure" | "attribution" | "industry";
 };
 
 export const INSIGHTS: InsightSummary[] = [
@@ -55,5 +55,19 @@ export const INSIGHTS: InsightSummary[] = [
     excerpt:
       "The system that retains what your business knows, so knowledge doesn't live only in people's heads.",
     pillar: "founder-intelligence",
+  },
+  {
+    slug: "missed-quote-requests-ramp-lift-companies",
+    title: "Why ramp and lift companies lose quote requests (and how to stop it)",
+    excerpt:
+      "The owner is on installs when the phone rings. What missed quotes cost, and how to capture and follow up on every request.",
+    pillar: "industry",
+  },
+  {
+    slug: "ai-call-transcription-home-service-business",
+    title: "AI call transcription for home service businesses",
+    excerpt:
+      "What it captures, how it feeds your CRM and follow-up, where a person should stay involved, and when it pays off.",
+    pillar: "industry",
   },
 ];

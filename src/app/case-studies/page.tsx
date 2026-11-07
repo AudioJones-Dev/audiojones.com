@@ -11,10 +11,10 @@ import { caseStudies, clientCaseStudies, proofSignals } from "@/data/audiojones-
 import { buildMetadata } from "@/lib/seo/metadata";
 
 const DESCRIPTION =
-  "Operator proof for Audio Jones systems: lead capture, follow-up, content operations, attribution clarity, and business signal diagnosis.";
+  "How Florida Ramp & Lift turned 5 missed quotes a month into 5 new sales a month with an AI-transcribed business line that logs every call in the CRM and follows up automatically.";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Case Studies",
+  title: "Case Studies: Florida Ramp & Lift and More",
   description: DESCRIPTION,
   path: "/case-studies",
 });
@@ -23,7 +23,7 @@ export default function CaseStudiesPage() {
   return (
     <>
       <SignalHero
-        title="Proof should show the system, not just the result."
+        title="From 5 missed quotes a month to 5 new sales."
         description={DESCRIPTION}
         primaryHref="/founder-intelligence/diagnostic"
         primaryLabel="Start the Diagnostic"
@@ -46,10 +46,20 @@ export default function CaseStudiesPage() {
                   {study.client}
                 </h3>
                 <p className="mt-2 text-sm text-fg-2">{study.industry}</p>
-                <p className="mt-8 font-accent text-[clamp(2.5rem,5vw,4rem)] font-bold leading-none text-[var(--aj-blue)]">
-                  {study.metric}
-                </p>
-                <p className="mt-3 text-sm leading-6 text-fg-2">{study.metricLabel}</p>
+                <dl className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
+                  <div>
+                    <dt className="text-xs font-bold uppercase tracking-[0.14em] text-fg-3">Before</dt>
+                    <dd className="mt-1 font-accent text-3xl font-bold text-[var(--aj-orange)]">{study.before}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-xs font-bold uppercase tracking-[0.14em] text-fg-3">After</dt>
+                    <dd className="mt-1 font-accent text-3xl font-bold text-[var(--aj-success)]">{study.after}</dd>
+                  </div>
+                </dl>
+                <figure className="mt-8 border-l-2 border-[var(--aj-amber)] pl-5">
+                  <blockquote className="text-lg leading-8 text-fg-0">&ldquo;{study.quote}&rdquo;</blockquote>
+                  <figcaption className="mt-2 text-sm text-fg-2">{study.quoteBy}</figcaption>
+                </figure>
               </div>
               <dl className="grid gap-5">
                 {(

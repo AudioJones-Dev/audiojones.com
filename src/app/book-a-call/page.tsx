@@ -3,7 +3,7 @@ import {
   DarkSection,
   LightProofSection,
   SectionIntro,
-  SignalConsole,
+  ClientProofCard,
   SignalHero,
 } from "@/components/marketing/DesignSystemSections";
 import { ButtonLink } from "@/components/ui/Button";
@@ -29,7 +29,7 @@ export default function BookACallPage() {
         secondaryHref="/founder-intelligence/diagnostic"
         secondaryLabel="Start the Diagnostic"
       >
-        <SignalConsole />
+        <ClientProofCard />
       </SignalHero>
 
       <DarkSection>

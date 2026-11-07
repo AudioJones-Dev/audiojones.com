@@ -1,5 +1,8 @@
 import Link from "next/link";
 import { Eyebrow } from "@/components/ui/Eyebrow";
+import { clientCaseStudies } from "@/data/audiojones-design";
+
+const proof = clientCaseStudies[0];
 
 const problems = [
   ["Leads go quiet", "A call gets missed. A quote sits in an inbox. No one owns the next step, so a chance to win the job slips away."],
@@ -37,6 +40,21 @@ export default function HomepageSystems() {
             ))}
           </div>
           <p className="mt-8 max-w-3xl t-body text-fg-2">Built for founder-led service businesses with regular leads or repeat work. Home service, accessibility, and home modification teams are examples of this fit.</p>
+          <figure className="mt-10 grid gap-8 rounded-lg border border-border-subtle bg-surface-1 p-6 sm:p-8 lg:grid-cols-[1fr_1.2fr] lg:items-center">
+            <div>
+              <Eyebrow>Client result &middot; {proof.client}</Eyebrow>
+              <p className="mt-4 t-h3 text-fg-0">
+                {proof.before} <span aria-hidden className="text-fg-2">&rarr;</span>
+                <span className="sr-only"> became </span> {proof.after}
+              </p>
+              <p className="mt-4 t-body text-fg-2">{proof.system}</p>
+            </div>
+            <div>
+              <blockquote className="t-body-lg text-fg-0">&ldquo;{proof.quote}&rdquo;</blockquote>
+              <figcaption className="mt-3 t-small text-fg-2">{proof.quoteBy}</figcaption>
+              <Link href="/case-studies" className="mt-6 inline-block text-fg-0 underline underline-offset-4 hover:text-signal-yellow">Read the case study</Link>
+            </div>
+          </figure>
         </div>
       </section>
 
@@ -90,8 +108,8 @@ export default function HomepageSystems() {
             <h3 className="mt-4 t-h3 text-fg-0">What could missed leads cost you?</h3>
             <p className="mt-5 t-body text-fg-2">Use your own numbers to estimate the sales at risk. The ROI calculator shows a model, not a promise of what you will earn back.</p>
             <Link href="/roi-calculator" className="mt-6 inline-block text-fg-0 underline underline-offset-4 hover:text-signal-yellow">Estimate missed sales</Link>
-            <p className="mt-8 t-small text-fg-2">Want to see how a system could work?</p>
-            <Link href="/case-studies" className="mt-3 inline-block text-fg-0 underline underline-offset-4 hover:text-signal-yellow">View system examples</Link>
+            <p className="mt-8 t-small text-fg-2">Want to see it work for a real business?</p>
+            <Link href="/case-studies" className="mt-3 inline-block text-fg-0 underline underline-offset-4 hover:text-signal-yellow">See the Florida Ramp &amp; Lift result</Link>
           </aside>
         </div>
       </section>
