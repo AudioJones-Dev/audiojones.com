@@ -5,6 +5,7 @@ import {
   DiagnosticCTA,
 } from "@/components/home/landing";
 import HomepageSystems from "@/components/home/landing/HomepageSystems";
+import TrustedByStrip from "@/components/home/landing/TrustedByStrip";
 import JsonLd from "@/components/seo/JsonLd";
 import {
   organizationJsonLd,
@@ -33,6 +34,7 @@ export default function HomePage() {
       <JsonLd data={webSiteJsonLd()} />
 
       <HeroAllSignal />
+      <TrustedByStrip />
       <HomepageSystems />
 
       <HomeFaqSection />
