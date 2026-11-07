@@ -2,6 +2,8 @@
 
 > Audio Jones is the operating brand of AJ Digital LLC (Miami, FL). It provides business systems consulting for founder-led service businesses: finding where leads, jobs, and decisions get stuck, then building the agreed fix (workflows, shared business knowledge, reporting, and supervised AI tasks). Work starts with a diagnostic; scope and price are agreed before any build.
 
+Founder: Audio Jones is a forward deployed engineer, AI consultant, business strategist, digital marketer, and personal brand coach. He has more than 20 years in entertainment and more than 20 years in corporate work, and applies that business and operations experience to AI strategy.
+
 Best fit: founder-led service businesses with regular leads or repeat work, such as home service, accessibility, and home modification companies. Audio Jones does not guarantee revenue, rankings, or other outcomes.
 
 ## Start here
@@ -10,8 +12,12 @@ Best fit: founder-led service businesses with regular leads or repeat work, such
 - [Request a Diagnostic](https://www.audiojones.com/founder-intelligence/diagnostic): six-step request reviewed by a person; not an instant report
 - [Solutions](https://www.audiojones.com/solutions): workflow automation, business memory, marketing attribution, AI agent systems
 - [Pricing](https://www.audiojones.com/pricing): starting prices for diagnostics, implementation, and managed support
-- [About](https://www.audiojones.com/about): the people and approach behind Audio Jones
+- [About](https://www.audiojones.com/about): Audio Jones's background, roles, and approach
 - [ROI calculator](https://www.audiojones.com/roi-calculator): estimate sales at risk from missed or slow follow-up (a model, not a promise)
+
+## Client results
+
+- [Florida Ramp & Lift](https://www.audiojones.com/case-studies): an accessibility and home modification company was missing at least five quote requests a month because the owner was buried in operations. Audio Jones set up a new business phone line with AI call transcription: every call is captured and entered into the CRM, and customers get relevant follow-up emails automatically. The owner now has time to send quotes.
 
 ## Products
 

@@ -16,6 +16,14 @@ Entries are reverse chronological. Format follows
 ## Unreleased
 
 ### Added
+- /case-studies leads with the first real client result, Florida Ramp & Lift
+  (5+ quote requests a month going unanswered, fixed by a transcribed business
+  line that logs every call in the CRM and sends follow-up emails). The three example workflows stay below it, labeled as
+  examples. `llms.txt` lists the result.
+- /about now has Audio Jones's portrait, background (20+ years in
+  entertainment, 20+ years in corporate work), and roles. The fake console in
+  its hero is replaced by the photo. The Person JSON-LD lists every job title,
+  the portrait, and /about as its URL; `llms.txt` carries the same bio.
 - `public/llms.txt` summarizes the business, core pages, ResponseOS (with a
   link to responseos.pro), guides, and frameworks for AI search tools. It
   deliberately lists no prices.
