@@ -50,6 +50,21 @@ records that someone actually opened the source and checked.
 > warrants the same treatment. **Recommend amending §1 of the corrections
 > doc to carry the year.**
 
+### Florida Ramp & Lift: 5 missed quotes a month → 5 new sales a month
+
+| | |
+|---|---|
+| **Verdict** | ✅ VERIFIED — first-party client result, owner-attested |
+| **Primary source** | AJ Digital client engagement; figures and quote supplied by Audio Jones (AJ Digital) |
+| **Accessed** | 2026-11-07 |
+| **Published** | 2026-11-07 |
+| **Method** | Client's own count of quote requests that went unanswered per month before the engagement, and new sales per month after it |
+| **Figures confirmed** | Before: at least 5 quote requests a month never got a quote back. After: those became 5 new sales a month. Owner quote as published below. |
+| **Consent** | Audio Jones approved naming the client on 2026-11-07. Keep the client's written approval on file. |
+| **Required qualifier** | One client, self-reported; no claim that other businesses will see the same result |
+| **Published as** | "5 missed quotes a month" → "5 new sales a month"; "I went from working in my business to working on my business. I got my time back." — Owner, Florida Ramp & Lift |
+| **Used on** | `src/data/audiojones-design.ts` (`clientCaseStudies`), rendered on /, /case-studies, and the hero proof card; `public/llms.txt`; `src/app/insights/missed-quote-requests-ramp-lift-companies/page.tsx`; `src/app/insights/ai-call-transcription-home-service-business/page.tsx` |
+
 ---
 
 ## Failed verification — must not be published

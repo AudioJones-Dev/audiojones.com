@@ -17,7 +17,7 @@ Best fit: founder-led service businesses with regular leads or repeat work, such
 
 ## Client results
 
-- [Florida Ramp & Lift](https://www.audiojones.com/case-studies): an accessibility and home modification company was missing at least five quote requests a month because the owner was buried in operations. Audio Jones set up a new business phone line with AI call transcription: every call is captured and entered into the CRM, and customers get relevant follow-up emails automatically. The owner now has time to send quotes.
+- [Florida Ramp & Lift](https://www.audiojones.com/case-studies): an accessibility and home modification company was missing at least five quote requests a month because the owner was buried in operations. Audio Jones set up a new business phone line with AI call transcription: every call is captured and entered into the CRM, and customers get relevant follow-up emails automatically. Result: 5 missed quotes a month became 5 new sales a month. The owner: "I went from working in my business to working on my business. I got my time back."
 
 ## Products
 
@@ -32,6 +32,8 @@ Best fit: founder-led service businesses with regular leads or repeat work, such
 - [What is Business Memory?](https://www.audiojones.com/insights/business-memory)
 - [Why AI fails most companies](https://www.audiojones.com/insights/why-ai-fails-most-companies)
 - [Marketing attribution and causal identification](https://www.audiojones.com/insights/marketing-attribution-causal-identification)
+- [Why ramp and lift companies lose quote requests](https://www.audiojones.com/insights/missed-quote-requests-ramp-lift-companies)
+- [AI call transcription for home service businesses](https://www.audiojones.com/insights/ai-call-transcription-home-service-business)
 - [Signal vs noise in business](https://www.audiojones.com/insights/signal-vs-noise-business)
 
 ## Frameworks

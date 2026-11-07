@@ -105,14 +105,18 @@ export const proofSignals = [
 export const clientCaseStudies = [
   {
     client: "Florida Ramp & Lift",
+    slug: "florida-ramp-lift",
     industry: "Accessibility and home modification, Florida",
-    metric: "5+ a month",
-    metricLabel: "Quote requests that never got a quote back, before the fix.",
+    before: "5 missed quotes a month",
+    after: "5 new sales a month",
     signal: "Customers were asking for quotes.",
     leak: "The owner was buried in day-to-day operations. At least five quote requests a month never got a quote back.",
     system:
       "A new business phone line with AI call transcription. Every call is captured and entered into the CRM, and customers get follow-up emails relevant to their call, without the owner doing it by hand.",
-    result: "The owner has the time to send quotes again.",
+    result:
+      "The five quotes a month that used to go missing became five new sales a month, and the owner got that time back.",
+    quote: "I went from working in my business to working on my business. I got my time back.",
+    quoteBy: "Owner, Florida Ramp & Lift",
   },
 ] as const;
 

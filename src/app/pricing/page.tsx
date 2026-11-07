@@ -5,7 +5,7 @@ import {
   DarkSection,
   LightProofSection,
   SectionIntro,
-  SignalConsole,
+  ClientProofCard,
 } from "@/components/marketing/DesignSystemSections";
 import PricingCtaLink from "@/components/pricing/PricingCtaLink";
 import { responseOsHref } from "@/config/links";
@@ -201,7 +201,7 @@ export default function PricingPage() {
             </dl>
           </div>
           <div className="min-w-0">
-            <SignalConsole />
+            <ClientProofCard />
           </div>
         </div>
       </section>
