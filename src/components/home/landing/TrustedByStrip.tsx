@@ -1,52 +1,43 @@
 import Image from "next/image";
 
-const CLIENTS = [
-  { name: "ALMB Group",               src: "/assets/trusted-by/almbg logo.png" },
-  { name: "Bigg Zound",               src: "/assets/trusted-by/bigg zound logo.png" },
-  { name: "Circle House",             src: "/assets/trusted-by/circle house logo.png" },
-  { name: "Florida Ramp & Lift",      src: "/assets/trusted-by/florida ramp and lift logo.png" },
-  { name: "Inner Circle",             src: "/assets/trusted-by/inner circle logo.png" },
-  { name: "Potieri",                  src: "/assets/trusted-by/potieri logo.png" },
-  { name: "Troy Gramling",            src: "/assets/trusted-by/troy gramling logo.png" },
-  { name: "Youth Concept Gallery",    src: "/assets/trusted-by/youth concept gallery logo.png" },
+type Client = { name: string; src: string; width: number; height?: number; keepColors?: boolean };
+
+const CLIENTS: Client[] = [
+  { name: "ALMB Group", src: "/assets/clients/trusted/almbg.webp", width: 206 },
+  { name: "Bigg Zound", src: "/assets/clients/trusted/bigg-zound.webp", width: 147 },
+  { name: "Circle House", src: "/assets/clients/trusted/circle-house.webp", width: 120 },
+  { name: "Florida Ramp & Lift", src: "/assets/clients/florida-ramp-lift-logo.webp", width: 800, height: 271, keepColors: true },
+  { name: "Inner Circle", src: "/assets/clients/trusted/inner-circle.webp", width: 164 },
+  { name: "Potieri", src: "/assets/clients/trusted/potieri.webp", width: 463 },
+  { name: "Troy Gramling", src: "/assets/clients/trusted/troy-gramling.webp", width: 663 },
+  { name: "Youth Concept Gallery", src: "/assets/clients/trusted/youth-concept-gallery.webp", width: 196 },
 ];
 
 export default function TrustedByStrip() {
   return (
-    <div
+    <section
       className="border-t border-b border-[var(--line-1)] bg-bg-0"
       aria-label="Trusted by"
     >
-      <div className="mx-auto max-w-[1280px] px-5 sm:px-8 py-7 flex flex-col items-center gap-6">
-        <p
-          className="text-center text-fg-3 uppercase tracking-[0.2em] font-semibold"
-          style={{
-            fontFamily: "var(--font-body)",
-            fontSize: "10px",
-          }}
-        >
+      <div className="mx-auto flex max-w-[1280px] flex-col items-center gap-8 px-5 py-10 sm:px-8">
+        <p className="text-center text-xs font-semibold uppercase tracking-[0.2em] text-fg-3">
           Trusted by founder-led businesses
         </p>
-        <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-12">
+        <ul className="flex flex-wrap items-center justify-center gap-x-10 gap-y-8 sm:gap-x-14">
           {CLIENTS.map((c) => (
-            <div
-              key={c.name}
-              className="relative opacity-40 hover:opacity-70 transition-opacity duration-200"
-              style={{ height: "28px", width: "auto" }}
-              title={c.name}
-            >
+            <li key={c.name} title={c.name}>
               <Image
                 src={c.src}
                 alt={c.name}
-                height={28}
-                width={100}
-                className="h-7 w-auto object-contain"
-                style={{ filter: "brightness(0) invert(1)" }}
+                width={c.width}
+                height={c.height ?? 120}
+                className="h-10 w-auto max-w-[160px] object-contain opacity-70 transition-opacity duration-200 hover:opacity-100"
+                style={c.keepColors ? undefined : { filter: "brightness(0) invert(1)" }}
               />
-            </div>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
-    </div>
+    </section>
   );
 }
