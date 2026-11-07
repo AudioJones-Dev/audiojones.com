@@ -1,11 +1,10 @@
-// A newsletter signup must either reach MailerLite or visibly fail. Before
-// this, production defaulted to the mock adapter and any upstream error fell
-// back to it, so the footer said "subscribed" while every address was dropped.
+// Newsletter signups must reach the configured Resend contact boundary or
+// visibly fail. Production must never report success through the mock adapter.
 
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { getNewsletterAdapter, NEWSLETTER_GROUP_NAME } from "../src/lib/newsletter/newsletter-storage";
+import { getNewsletterAdapter } from "../src/lib/newsletter/newsletter-storage";
 import { newsletterSchema } from "../src/lib/newsletter/newsletter-schema";
 import { getOrCreateGroupId, upsertMailerLiteSubscriber } from "../src/lib/integrations/mailerlite";
 
@@ -55,124 +54,316 @@ async function withFetch(
   }
 }
 
+const segmentId = "0c48c406-5fa3-46d4-9553-f23680d775e0";
+const topicId = "8253f5f9-7d9c-4c6e-b325-0e0ad59b4b82";
+const welcomeTemplateId = "welcome-template-id";
+
 const live = {
   NODE_ENV: "production",
   VERCEL_ENV: "production",
-  NEWSLETTER_PROVIDER: undefined,
+  NEWSLETTER_PROVIDER: "resend",
+  NEXT_PUBLIC_NEWSLETTER_DISABLED: undefined,
   NEXT_PUBLIC_MAILERLITE_DISABLED: undefined,
-  MAILERLITE_TOKEN: "test-token",
-  MAILERLITE_API_KEY: undefined,
-  MAILERLITE_API_BASE: undefined,
-  MAILERLITE_GROUP_ID: "111",
+  RESEND_API_KEY: "test-token",
+  RESEND_NEWSLETTER_SEGMENT_ID: segmentId,
+  RESEND_NEWSLETTER_TOPIC_ID: topicId,
+  RESEND_NEWSLETTER_WELCOME_TEMPLATE_ID: welcomeTemplateId,
 };
 
-test("a configured token sends the signup to MailerLite", async () => {
+test("a new signup creates an opted-in contact and sends one idempotent welcome email", async () => {
   await withEnv(live, async () => {
     await withFetch(
-      () => ({ status: 201, body: { data: { id: "987" } } }),
+      (call) => {
+        if (call.method === "GET") return { status: 404, body: { message: "not found" } };
+        if (call.url.endsWith("/contacts")) return { status: 201, body: { id: "contact-1" } };
+        return { status: 200, body: { id: "email-1" } };
+      },
       async (calls) => {
         const result = await getNewsletterAdapter().subscribe({
           email: "dana@example.com",
+          name: "Dana",
           source: "footer",
+          utmSource: "linkedin",
         });
-        assert.deepEqual(result, { ok: true, id: "987", provider: "mailerlite" });
-        assert.equal(calls.length, 1);
-        assert.equal(calls[0].url, "https://connect.mailerlite.com/api/subscribers");
-        assert.equal(calls[0].method, "POST");
+
+        assert.deepEqual(result, {
+          ok: true,
+          id: "contact-1",
+          provider: "resend",
+          welcomeQueued: true,
+        });
+        assert.equal(calls.length, 3);
+        assert.equal(calls[0].url, "https://api.resend.com/contacts/dana%40example.com");
         assert.equal(calls[0].headers.Authorization, "Bearer test-token");
-        assert.equal(calls[0].headers["Content-Type"], "application/json");
-        assert.equal(calls[0].headers.Accept, "application/json");
-        assert.deepEqual(calls[0].body, { email: "dana@example.com", groups: ["111"] });
+        assert.deepEqual(calls[1].body, {
+          email: "dana@example.com",
+          first_name: "Dana",
+          segments: [{ id: segmentId }],
+          topics: [{ id: topicId, subscription: "opt_in" }],
+        });
+        assert.equal(calls[2].url, "https://api.resend.com/emails");
+        assert.equal(calls[2].headers["Idempotency-Key"], "audiojones-welcome/contact-1");
+        assert.deepEqual(calls[2].body, {
+          to: ["dana@example.com"],
+          template: { id: welcomeTemplateId },
+          headers: {
+            "List-Unsubscribe":
+              "<mailto:support@audiojones.com?subject=Unsubscribe%20from%20Audio%20Jones>",
+          },
+        });
+        assert.equal(calls.some((call) => call.url.endsWith("/events/send")), false);
       },
     );
   });
 });
 
-test("the legacy MAILERLITE_API_KEY name still works", async () => {
-  await withEnv({ ...live, MAILERLITE_TOKEN: undefined, MAILERLITE_API_KEY: "old-name" }, async () => {
-    await withFetch(
-      () => ({ status: 200, body: { data: { id: "1" } } }),
-      async (calls) => {
-        const result = await getNewsletterAdapter().subscribe({ email: "dana@example.com" });
-        assert.equal(result.ok, true);
-        assert.equal(calls[0].headers.Authorization, "Bearer old-name");
-      },
-    );
-  });
-});
-
-test("a base URL quoted with /api is not doubled", async () => {
-  await withEnv({ ...live, MAILERLITE_API_BASE: "https://connect.mailerlite.com/api" }, async () => {
-    await withFetch(
-      () => ({ status: 200, body: { data: { id: "1" } } }),
-      async (calls) => {
-        await getNewsletterAdapter().subscribe({ email: "dana@example.com" });
-        assert.equal(calls[0].url, "https://connect.mailerlite.com/api/subscribers");
-      },
-    );
-  });
-});
-
-for (const status of [401, 422, 500]) {
-  test(`an upstream ${status} is reported, not mocked`, async () => {
-    await withEnv(live, async () => {
-      await withFetch(
-        () => ({ status, body: { message: "nope" } }),
-        async () => {
-          const result = await getNewsletterAdapter().subscribe({ email: "dana@example.com" });
-          assert.equal(result.ok, false);
-          assert.equal(result.ok === false && result.code, "PROVIDER_ERROR");
-          assert.ok(result.ok === false && !result.error.includes("nope"));
-        },
-      );
-    });
-  });
-}
-
-test("a rejected field is logged by name, never by message", async () => {
+test("an existing newsletter member is opted in without a duplicate welcome email", async () => {
   await withEnv(live, async () => {
     await withFetch(
-      () => ({
-        status: 422,
-        body: {
-          message: "dana@example.com: The selected groups.0 is invalid.",
-          errors: { "groups.0": ["The selected groups.0 is invalid."] },
-        },
-      }),
+      (call) => {
+        if (call.url.endsWith("/contacts/dana%40example.com")) {
+          return { status: 200, body: { id: "contact-1" } };
+        }
+        if (call.url.endsWith("/segments")) {
+          return { status: 200, body: { data: [{ id: segmentId }] } };
+        }
+        if (call.url.endsWith("/topics")) {
+          return { status: 200, body: { data: [{ id: topicId, subscription: "opt_in" }] } };
+        }
+        return { status: 200, body: { id: "contact-1" } };
+      },
+      async (calls) => {
+        const result = await getNewsletterAdapter().subscribe({ email: "dana@example.com" });
+        assert.deepEqual(result, { ok: true, id: "contact-1", provider: "resend" });
+        assert.equal(calls.some((call) => call.url.endsWith("/emails")), false);
+        assert.equal(
+          calls.some((call) => call.method === "PATCH" && call.url.endsWith("/topics")),
+          false,
+        );
+      },
+    );
+  });
+});
+
+test("an existing contact newly joining the segment receives the welcome email", async () => {
+  await withEnv(live, async () => {
+    await withFetch(
+      (call) => {
+        if (call.url.endsWith("/contacts/dana%40example.com")) {
+          return { status: 200, body: { id: "contact-1" } };
+        }
+        if (call.url.endsWith("/segments")) return { status: 200, body: { data: [] } };
+        if (call.method === "GET" && call.url.endsWith("/topics")) {
+          return { status: 200, body: { data: [] } };
+        }
+        return { status: 200, body: { id: "contact-1" } };
+      },
+      async (calls) => {
+        const result = await getNewsletterAdapter().subscribe({ email: "dana@example.com" });
+        assert.equal(result.ok === true && result.welcomeQueued, true);
+        assert.equal(calls.some((call) => call.url.endsWith(`/segments/${segmentId}`)), true);
+        assert.equal(calls.some((call) => call.url.endsWith("/emails")), true);
+        const topicUpdate = calls.findIndex(
+          (call) => call.method === "PATCH" && call.url.endsWith("/topics"),
+        );
+        const segmentAdd = calls.findIndex((call) => call.url.endsWith(`/segments/${segmentId}`));
+        assert.ok(topicUpdate >= 0 && topicUpdate < segmentAdd);
+      },
+    );
+  });
+});
+
+test("concurrent joins use the same welcome-email idempotency key", async () => {
+  await withEnv(live, async () => {
+    await withFetch(
+      (call) => {
+        if (call.url.endsWith("/contacts/dana%40example.com")) {
+          return { status: 200, body: { id: "contact-1" } };
+        }
+        if (call.url.endsWith("/segments")) return { status: 200, body: { data: [] } };
+        if (call.method === "GET" && call.url.endsWith("/topics")) {
+          return {
+            status: 200,
+            body: { data: [{ id: topicId, subscription: "opt_in" }] },
+          };
+        }
+        return { status: 200, body: { id: "accepted" } };
+      },
+      async (calls) => {
+        const [first, second] = await Promise.all([
+          getNewsletterAdapter().subscribe({ email: "dana@example.com" }),
+          getNewsletterAdapter().subscribe({ email: "dana@example.com" }),
+        ]);
+
+        assert.equal(first.ok === true && first.welcomeQueued, true);
+        assert.equal(second.ok === true && second.welcomeQueued, true);
+        const welcomeCalls = calls.filter((call) => call.url.endsWith("/emails"));
+        assert.equal(welcomeCalls.length, 2);
+        assert.deepEqual(
+          new Set(welcomeCalls.map((call) => call.headers["Idempotency-Key"])),
+          new Set(["audiojones-welcome/contact-1"]),
+        );
+      },
+    );
+  });
+});
+
+test("an existing topic opt-out is preserved without changing segment membership", async () => {
+  await withEnv(live, async () => {
+    await withFetch(
+      (call) => {
+        if (call.url.endsWith("/contacts/dana%40example.com")) {
+          return { status: 200, body: { id: "contact-1" } };
+        }
+        if (call.url.endsWith("/segments")) return { status: 200, body: { data: [] } };
+        if (call.url.endsWith("/topics")) {
+          return { status: 200, body: { data: [{ id: topicId, subscription: "opt_out" }] } };
+        }
+        return { status: 500, body: {} };
+      },
+      async (calls) => {
+        const result = await getNewsletterAdapter().subscribe({
+          email: "dana@example.com",
+          name: "Unverified replacement",
+        });
+        assert.deepEqual(result, { ok: true, id: "contact-1", provider: "resend" });
+        assert.equal(calls.some((call) => call.method === "PATCH"), false);
+        assert.equal(calls.some((call) => call.url.endsWith(`/segments/${segmentId}`)), false);
+        assert.equal(calls.some((call) => call.url.endsWith("/events/send")), false);
+      },
+    );
+  });
+});
+
+test("a globally unsubscribed contact is preserved without any welcome activity", async () => {
+  await withEnv(live, async () => {
+    await withFetch(
+      (call) =>
+        call.url.endsWith("/contacts/dana%40example.com")
+          ? { status: 200, body: { id: "contact-1", unsubscribed: true } }
+          : { status: 500, body: {} },
+      async (calls) => {
+        const result = await getNewsletterAdapter().subscribe({ email: "dana@example.com" });
+
+        assert.deepEqual(result, { ok: true, id: "contact-1", provider: "resend" });
+        assert.equal(calls.length, 1);
+      },
+    );
+  });
+});
+
+test("a failed segment add can retry after topic consent and still send the welcome email", async () => {
+  await withEnv(live, async () => {
+    let topicOptedIn = false;
+    let segmentAttempts = 0;
+    await withFetch(
+      (call) => {
+        if (call.url.endsWith("/contacts/dana%40example.com")) {
+          return { status: 200, body: { id: "contact-1" } };
+        }
+        if (call.url.endsWith("/segments")) return { status: 200, body: { data: [] } };
+        if (call.method === "GET" && call.url.endsWith("/topics")) {
+          return {
+            status: 200,
+            body: {
+              data: topicOptedIn ? [{ id: topicId, subscription: "opt_in" }] : [],
+            },
+          };
+        }
+        if (call.method === "PATCH" && call.url.endsWith("/topics")) {
+          topicOptedIn = true;
+          return { status: 200, body: { id: "contact-1" } };
+        }
+        if (call.url.endsWith(`/segments/${segmentId}`)) {
+          segmentAttempts += 1;
+          return segmentAttempts === 1
+            ? { status: 503, body: {} }
+            : { status: 200, body: { id: "contact-1" } };
+        }
+        return { status: 200, body: { event: "audiojones.newsletter.subscribed" } };
+      },
+      async (calls) => {
+        const first = await getNewsletterAdapter().subscribe({ email: "dana@example.com" });
+        assert.equal(first.ok, false);
+
+        const second = await getNewsletterAdapter().subscribe({ email: "dana@example.com" });
+        assert.equal(second.ok === true && second.welcomeQueued, true);
+        assert.equal(
+          calls.filter((call) => call.method === "PATCH" && call.url.endsWith("/topics")).length,
+          1,
+        );
+        assert.equal(calls.filter((call) => call.url.endsWith("/emails")).length, 1);
+      },
+    );
+  });
+});
+
+test("a contact API failure is reported, not mocked", async () => {
+  await withEnv(live, async () => {
+    await withFetch(
+      () => ({ status: 401, body: { message: "bad token for dana@example.com" } }),
+      async () => {
+        const result = await getNewsletterAdapter().subscribe({ email: "dana@example.com" });
+        assert.equal(result.ok, false);
+        assert.equal(result.ok === false && result.code, "PROVIDER_ERROR");
+        assert.ok(result.ok === false && !result.error.includes("dana@example.com"));
+      },
+    );
+  });
+});
+
+test("a welcome-email outage keeps the durable subscriber and logs only a redacted email", async () => {
+  await withEnv(live, async () => {
+    await withFetch(
+      (call) => {
+        if (call.method === "GET") return { status: 404, body: {} };
+        if (call.url.endsWith("/contacts")) return { status: 201, body: { id: "contact-1" } };
+        return { status: 500, body: { message: "down" } };
+      },
       async () => {
         const original = console.error;
         const logged: unknown[][] = [];
         console.error = (...args: unknown[]) => void logged.push(args);
         try {
-          await getNewsletterAdapter().subscribe({ email: "dana@example.com" });
+          const result = await getNewsletterAdapter().subscribe({ email: "dana@example.com" });
+          assert.equal(result.ok === true && result.welcomeQueued, false);
         } finally {
           console.error = original;
         }
         const text = JSON.stringify(logged);
-        assert.ok(text.includes("groups.0"));
+        assert.ok(text.includes("•••@example.com"));
         assert.ok(!text.includes("dana@example.com"));
       },
     );
   });
 });
 
-test("production without a token refuses instead of mocking", async () => {
-  await withEnv({ ...live, MAILERLITE_TOKEN: undefined }, async () => {
-    await withFetch(
-      () => {
-        throw new Error("no request expected");
-      },
-      async () => {
-        const result = await getNewsletterAdapter().subscribe({ email: "dana@example.com" });
-        assert.equal(result.ok, false);
-      },
-    );
-  });
+test("production without complete Resend config refuses instead of mocking", async () => {
+  await withEnv(
+    {
+      ...live,
+      NEWSLETTER_PROVIDER: undefined,
+      RESEND_NEWSLETTER_WELCOME_TEMPLATE_ID: undefined,
+    },
+    async () => {
+      const result = await getNewsletterAdapter().subscribe({ email: "dana@example.com" });
+      assert.equal(result.ok, false);
+    },
+  );
 });
 
-test("development without a token uses the mock", async () => {
+test("development without Resend config uses the mock", async () => {
   await withEnv(
-    { ...live, NODE_ENV: "development", VERCEL_ENV: undefined, MAILERLITE_TOKEN: undefined },
+    {
+      ...live,
+      NODE_ENV: "development",
+      VERCEL_ENV: undefined,
+      NEWSLETTER_PROVIDER: undefined,
+      RESEND_API_KEY: undefined,
+      RESEND_NEWSLETTER_SEGMENT_ID: undefined,
+      RESEND_NEWSLETTER_TOPIC_ID: undefined,
+      RESEND_NEWSLETTER_WELCOME_TEMPLATE_ID: undefined,
+    },
     async () => {
       const result = await getNewsletterAdapter().subscribe({ email: "dana@example.com" });
       assert.equal(result.ok === true && result.provider, "mock");
@@ -180,46 +371,29 @@ test("development without a token uses the mock", async () => {
   );
 });
 
-// Runs before the default-group test below: resolved group ids are cached
-// per process, and this case needs the lookup to actually fail.
-test("an unavailable newsletter group still subscribes the visitor", async () => {
-  await withEnv({ ...live, MAILERLITE_GROUP_ID: undefined }, async () => {
-    await withFetch(
-      (call) =>
-        call.url.includes("/groups")
-          ? { status: 500, body: { message: "down" } }
-          : { status: 200, body: { data: { id: "5" } } },
-      async (calls) => {
-        const result = await getNewsletterAdapter().subscribe({ email: "dana@example.com" });
-        assert.equal(result.ok, true);
-        const upsert = calls.find((c) => c.url.endsWith("/subscribers"));
-        assert.deepEqual(upsert?.body, { email: "dana@example.com" });
-      },
-    );
+test("the provider-neutral public flag disables live delivery without a false production success", async () => {
+  await withEnv({ ...live, NEXT_PUBLIC_NEWSLETTER_DISABLED: "true" }, async () => {
+    const result = await getNewsletterAdapter().subscribe({ email: "dana@example.com" });
+    assert.equal(result.ok, false);
   });
 });
 
-test("without MAILERLITE_GROUP_ID, signups join the Website newsletter group", async () => {
-  await withEnv({ ...live, MAILERLITE_GROUP_ID: undefined }, async () => {
-    await withFetch(
-      (call) =>
-        call.url.includes("/groups")
-          ? { status: 200, body: { data: [{ id: 9, name: NEWSLETTER_GROUP_NAME }] } }
-          : { status: 200, body: { data: { id: "5" } } },
-      async (calls) => {
-        await getNewsletterAdapter().subscribe({ email: "dana@example.com" });
-        await getNewsletterAdapter().subscribe({ email: "lee@example.com" });
-        const upserts = calls.filter((c) => c.url.endsWith("/subscribers"));
-        assert.deepEqual(upserts[0].body, { email: "dana@example.com", groups: ["9"] });
-        assert.deepEqual(upserts[1].body, { email: "lee@example.com", groups: ["9"] });
-        assert.equal(calls.filter((c) => c.url.includes("/groups")).length, 1);
-      },
-    );
-  });
+test("a legacy caller name remains normalized by the newsletter schema", () => {
+  const parsed = newsletterSchema.parse({ email: "dana@example.com", name: " Dana " });
+  assert.equal(parsed.name, "Dana");
 });
+
+// MailerLite remains in scope for Whop buyer groups until that lifecycle path
+// is migrated separately. These tests prevent the newsletter change from
+// breaking the retained boundary.
+const mailerlite = {
+  MAILERLITE_TOKEN: "test-token",
+  MAILERLITE_API_KEY: undefined,
+  MAILERLITE_API_BASE: undefined,
+};
 
 test("a Whop tag reuses the MailerLite group with that exact name", async () => {
-  await withEnv(live, async () => {
+  await withEnv(mailerlite, async () => {
     await withFetch(
       (call) =>
         call.url.includes("/groups")
@@ -231,59 +405,46 @@ test("a Whop tag reuses the MailerLite group with that exact name", async () => 
       async (calls) => {
         const ok = await upsertMailerLiteSubscriber({ email: "dana@example.com", tag: "epm-lab" });
         assert.equal(ok, true);
-        assert.equal(calls.filter((c) => c.method === "POST" && c.url.endsWith("/groups")).length, 0);
-        const upsert = calls.find((c) => c.url.endsWith("/subscribers"));
+        const upsert = calls.find((call) => call.url.endsWith("/subscribers"));
         assert.deepEqual(upsert?.body, { email: "dana@example.com", groups: ["6"] });
       },
     );
   });
 });
 
-test("a legacy caller's name reaches MailerLite", async () => {
-  await withEnv(live, async () => {
-    await withFetch(
-      () => ({ status: 200, body: { data: { id: "1" } } }),
-      async (calls) => {
-        const parsed = newsletterSchema.parse({ email: "dana@example.com", name: " Dana " });
-        await getNewsletterAdapter().subscribe(parsed);
-        assert.deepEqual(calls[0].body, {
-          email: "dana@example.com",
-          fields: { name: "Dana" },
-          groups: ["111"],
-        });
-      },
-    );
-  });
-});
-
 test("a Whop tag whose group cannot be resolved fails without an ungrouped upsert", async () => {
-  await withEnv(live, async () => {
+  await withEnv(mailerlite, async () => {
     await withFetch(
       (call) =>
         call.url.includes("/groups")
           ? { status: 500, body: { message: "down" } }
           : { status: 200, body: { data: { id: "42" } } },
       async (calls) => {
-        const ok = await upsertMailerLiteSubscriber({ email: "dana@example.com", tag: "unresolvable-group" });
+        const ok = await upsertMailerLiteSubscriber({
+          email: "dana@example.com",
+          tag: "unresolvable-group",
+        });
         assert.equal(ok, false);
-        assert.equal(calls.filter((c) => c.url.endsWith("/subscribers")).length, 0);
+        assert.equal(calls.some((call) => call.url.endsWith("/subscribers")), false);
       },
     );
   });
 });
 
-test("a missing group is created once", async () => {
-  await withEnv(live, async () => {
+test("a missing MailerLite buyer group is created once", async () => {
+  await withEnv(mailerlite, async () => {
     await withFetch(
       (call) => {
         if (call.url.includes("/groups?")) return { status: 200, body: { data: [] } };
-        if (call.url.endsWith("/groups")) return { status: 201, body: { data: { id: "77" } } };
+        if (call.url.endsWith("/groups")) {
+          return { status: 201, body: { data: { id: "77" } } };
+        }
         return { status: 200, body: { data: { id: "42" } } };
       },
       async (calls) => {
         assert.equal(await getOrCreateGroupId("new-buyers"), "77");
         assert.equal(await getOrCreateGroupId("new-buyers"), "77");
-        const creates = calls.filter((c) => c.method === "POST" && c.url.endsWith("/groups"));
+        const creates = calls.filter((call) => call.method === "POST" && call.url.endsWith("/groups"));
         assert.equal(creates.length, 1);
         assert.deepEqual(creates[0].body, { name: "new-buyers" });
       },

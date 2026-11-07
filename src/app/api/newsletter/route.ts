@@ -1,7 +1,7 @@
 // POST /api/newsletter — canonical newsletter subscription endpoint.
 //
 // Routes through the adapter pattern in `src/lib/newsletter/newsletter-storage.ts`,
-// which picks MailerLite whenever MAILERLITE_TOKEN is set.
+// which selects the configured newsletter provider and fails closed in production.
 //
 // The legacy `/api/newsletter/subscribe` and `/api/integrations/mailerlite`
 // routes delegate here for any external callers; new in-product surfaces
