@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { clientCaseStudies } from "@/data/audiojones-design";
@@ -42,6 +43,13 @@ export default function HomepageSystems() {
           <p className="mt-8 max-w-3xl t-body text-fg-2">Built for founder-led service businesses with regular leads or repeat work. Home service, accessibility, and home modification teams are examples of this fit.</p>
           <div className="mt-10 grid gap-8 rounded-lg border border-border-subtle bg-surface-1 p-6 sm:p-8 lg:grid-cols-[1fr_1.2fr] lg:items-center">
             <div>
+              <Image
+                src={proof.logo.src}
+                alt=""
+                width={proof.logo.width}
+                height={proof.logo.height}
+                className="mb-5 h-12 w-auto"
+              />
               <Eyebrow>Client result &middot; {proof.client}</Eyebrow>
               <p className="mt-4 t-h3 text-fg-0">
                 {proof.before} <span aria-hidden className="text-fg-2">&rarr;</span>

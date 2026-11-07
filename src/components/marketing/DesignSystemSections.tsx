@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import type React from "react";
 import { ButtonLink } from "@/components/ui/Button";
@@ -97,9 +98,16 @@ export function ClientProofCard() {
   return (
     <div className="aj-card-signal">
       <div className="aj-card-inner">
-        <p className="text-xs font-bold uppercase tracking-[0.16em] text-fg-3">
-          Client result &middot; {study.client}
-        </p>
+        <div className="flex items-center justify-between gap-4">
+          <p className="text-xs font-bold uppercase tracking-[0.16em] text-fg-3">Client result</p>
+          <Image
+            src={study.logo.src}
+            alt={study.client}
+            width={study.logo.width}
+            height={study.logo.height}
+            className="h-9 w-auto"
+          />
+        </div>
         <div className="mt-6 grid gap-3">
           <div className="rounded-xl border border-[var(--line-1)] bg-[rgba(5,7,15,0.62)] p-4">
             <p className="text-xs font-bold uppercase tracking-[0.14em] text-fg-3">Before</p>

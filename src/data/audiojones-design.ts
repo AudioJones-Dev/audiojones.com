@@ -106,6 +106,7 @@ export const clientCaseStudies = [
   {
     client: "Florida Ramp & Lift",
     slug: "florida-ramp-lift",
+    logo: { src: "/assets/clients/florida-ramp-lift-logo.webp", width: 800, height: 271 },
     industry: "Accessibility and home modification, Florida",
     before: "5 missed quotes a month",
     after: "5 new sales a month",

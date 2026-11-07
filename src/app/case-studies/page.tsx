@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import {
   DarkSection,
   FinalCta,
@@ -42,6 +43,13 @@ export default function CaseStudiesPage() {
           {clientCaseStudies.map((study) => (
             <article key={study.client} id={study.slug} className="aj-product-card scroll-mt-28 grid gap-8 lg:grid-cols-[0.8fr_1.2fr]">
               <div>
+                <Image
+                  src={study.logo.src}
+                  alt=""
+                  width={study.logo.width}
+                  height={study.logo.height}
+                  className="mb-5 h-14 w-auto"
+                />
                 <h3 className="font-accent text-3xl font-bold tracking-[-0.02em] text-fg-0">
                   {study.client}
                 </h3>
