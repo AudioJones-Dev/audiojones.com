@@ -44,3 +44,11 @@ overrides:
   brace-expansion@5: ">=5.0.9 <6" # GHSA-3jxr-9vmj-r5cp, GHSA-mh99-v99m-4gvg, GHSA-rgw5-rvv9-x895 (1.x unaffected)
   js-yaml@3: ">=3.15.2 <4"        # GHSA-52cp-r559-cp3m, GHSA-5p4m-2wfm-xmqj, GHSA-2883-xcg3-v3hh (4.x unaffected)
   adm-zip: ">=0.6.0 <0.7"         # GHSA-xcpc-8h2w-3j85
+  # next-sanity@12.4.0 and its satellites (@sanity/preview-url-secret,
+  # @sanity/presentation-comlink, @sanity/visual-editing) all declare a
+  # `@sanity/client` peer of ^7.x, and sanity@5 resolves to 7.27.0 -- but the
+  # lockfile wired them all to 8.6.1, a major past every declared range.
+  # 8.6.1 also requires node >=22.12.0 while this repo permits >=22, so
+  # Node 22.0-22.11 receives an engine-incompatible client. Nothing in the
+  # graph asks for 8.x; pin to the 7.x line the packages actually support.
+  "@sanity/client": ">=7.27.0 <8"
