@@ -95,7 +95,7 @@ export function SectionIntro({ label, title, description }: SectionIntroProps) {
 export function ClientProofCard() {
   const study = clientCaseStudies[0];
   return (
-    <figure className="aj-card-signal">
+    <div className="aj-card-signal">
       <div className="aj-card-inner">
         <p className="text-xs font-bold uppercase tracking-[0.16em] text-fg-3">
           Client result &middot; {study.client}
@@ -110,17 +110,20 @@ export function ClientProofCard() {
             <p className="mt-1 font-accent text-2xl font-bold text-[var(--aj-success)]">{study.after}</p>
           </div>
         </div>
-        <blockquote className="mt-6 text-lg leading-8 text-fg-0">
-          &ldquo;{study.quote}&rdquo;
-        </blockquote>
-        <figcaption className="mt-3 text-sm text-fg-2">
-          {study.quoteBy} &middot;{" "}
-          <Link href="/case-studies" className="underline underline-offset-4 hover:text-signal-yellow">
-            Read the case study
-          </Link>
-        </figcaption>
+        <figure className="mt-6">
+          <blockquote className="text-lg leading-8 text-fg-0">
+            &ldquo;{study.quote}&rdquo;
+          </blockquote>
+          <figcaption className="mt-3 text-sm text-fg-2">{study.quoteBy}</figcaption>
+        </figure>
+        <Link
+          href={`/case-studies#${study.slug}`}
+          className="mt-4 inline-block text-sm text-fg-2 underline underline-offset-4 hover:text-signal-yellow"
+        >
+          Read the case study
+        </Link>
       </div>
-    </figure>
+    </div>
   );
 }
 

@@ -16,14 +16,6 @@ Entries are reverse chronological. Format follows
 ## Unreleased
 
 ### Added
-- Florida Ramp & Lift proof is now on the homepage, /case-studies, and in the
-  hero of every page that showed the placeholder "Control Plane" console
-  (ResponseOS, pricing, book-a-call, agents, workshops, founder intelligence,
-  AI readiness). The card shows 5 missed quotes a month becoming 5 new sales
-  a month and the owner's quote. The console component is removed.
-- Two trade guides under /insights: why ramp and lift companies lose quote
-  requests, and AI call transcription for home service businesses. Both are
-  in the insights index, sitemap, and `llms.txt`.
 - /case-studies leads with the first real client result, Florida Ramp & Lift
   (5+ quote requests a month going unanswered, fixed by a transcribed business
   line that logs every call in the CRM and sends follow-up emails). The three example workflows stay below it, labeled as

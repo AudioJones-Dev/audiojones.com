@@ -29,7 +29,7 @@ const FAQS = [
   {
     question: "Do I need to hire an office person to fix this?",
     answer:
-      "Not always. A business phone line that records and transcribes every call, logs it in the CRM and sends a relevant follow-up email covers most of the gap. A person still handles pricing, site visits and the quote itself.",
+      "Not always. A business phone line that records and transcribes every call that connects, logs it in the CRM and sends a relevant follow-up email covers most of the gap. Callers who hang up before leaving details still show up as missed calls on a callback list. A person still handles pricing, site visits and the quote itself.",
   },
   {
     question: "Will automatic follow-up feel impersonal to older customers or their families?",
@@ -136,7 +136,7 @@ export default function Page() {
         </P>
         <UL
           items={[
-            "Capture every call. A business phone line with AI call transcription records and writes down each call, even when nobody can pick up.",
+            "Capture every call. A business phone line with AI call transcription records and writes down each call, and voicemails when nobody can pick up. Callers who hang up without leaving a message still land on a callback list with their number, so someone calls them back.",
             "Log it in the CRM. The caller, the product they asked about, the address and the next step land in one place, not in a voicemail box.",
             "Send a relevant follow-up automatically. The caller gets an email that matches what they asked about, so they know they were heard and what happens next.",
             "Remind until the quote goes out. Open requests stay visible, and someone gets a nudge if a site measure or quote is overdue.",

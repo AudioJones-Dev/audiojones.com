@@ -14,7 +14,7 @@ const DESCRIPTION =
   "How Florida Ramp & Lift turned 5 missed quotes a month into 5 new sales a month with an AI-transcribed business line that logs every call in the CRM and follows up automatically.";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Case Studies: Florida Ramp & Lift and More",
+  title: "Case Study: Florida Ramp & Lift",
   description: DESCRIPTION,
   path: "/case-studies",
 });
@@ -40,7 +40,7 @@ export default function CaseStudiesPage() {
         />
         <div className="mt-10 grid gap-6">
           {clientCaseStudies.map((study) => (
-            <article key={study.client} className="aj-product-card grid gap-8 lg:grid-cols-[0.8fr_1.2fr]">
+            <article key={study.client} id={study.slug} className="aj-product-card scroll-mt-28 grid gap-8 lg:grid-cols-[0.8fr_1.2fr]">
               <div>
                 <h3 className="font-accent text-3xl font-bold tracking-[-0.02em] text-fg-0">
                   {study.client}

@@ -107,7 +107,7 @@ export default function Page() {
         <H2>What gets captured</H2>
         <UL
           items={[
-            "The caller's name, phone number and, if they give it, their address.",
+            "The caller's name, phone number and, if they give them, their email and address. If someone answers live, they ask for an email address for the follow-up.",
             "What they asked about. For a mobility company, that might be a wheelchair ramp, a stairlift, a vertical platform lift or grab bars.",
             "Details that shape the quote, such as number of steps, indoor or outdoor, and who the equipment is for.",
             "How urgent it is, for example a hospital discharge date.",
@@ -123,7 +123,7 @@ export default function Page() {
         </P>
         <UL
           items={[
-            "The caller gets a follow-up email that matches what they asked about, not a generic \"thanks for calling\".",
+            "The caller gets a follow-up that matches what they asked about, not a generic \"thanks for calling\". It goes by email when the caller gave an address, or by text to their phone number when they did not and have agreed to texts.",
             "Open quote requests stay on a list until a quote goes out.",
             "Someone gets a reminder when a callback, site measure or quote is overdue.",
             "You can see how many requests came in and how many turned into quotes and jobs.",
@@ -154,10 +154,13 @@ export default function Page() {
 
         <H2>Privacy and consent</H2>
         <P>
-          Tell callers the call is recorded. A short greeting at the start of
-          the call is the usual way to do it. Recording laws vary by state, so
-          check your state&rsquo;s rules before you turn it on. For example,
-          Florida requires all parties&rsquo; consent to record a call. Calls
+          Ask for consent before recording starts. A short greeting is the usual
+          way to do it, for example: &ldquo;This call is recorded so we can
+          follow up accurately. Press 1 to continue, or press 2 to talk without
+          recording.&rdquo; Callers who decline should reach a person, or leave
+          a callback request, without being recorded. Recording laws vary by
+          state, so check your state&rsquo;s rules before you turn it on. For
+          example, Florida requires all parties&rsquo; consent to record a call. Calls
           about mobility equipment can include health details, so limit who can
           see transcripts and do not keep recordings longer than you need them.
           This is general information, not legal advice.
