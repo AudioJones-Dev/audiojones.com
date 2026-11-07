@@ -127,8 +127,16 @@ export const aiEntity = {
   legalName: "Tyrone Alexander Nelms",
   brandName: "AJ Digital",
   title: "Founder Intelligence Systems Partner",
+  jobTitles: [
+    "Forward Deployed Engineer",
+    "AI Consultant",
+    "Business Strategist",
+    "Digital Marketer",
+    "Personal Brand Coach",
+  ],
+  image: "/assets/about/audio-jones-portrait.webp",
   description:
-    "Audio Jones helps founder-led businesses reduce noise, identify causal growth signals, and build Founder Intelligence Systems.",
+    "Audio Jones is a forward deployed engineer, AI consultant, and business strategist with more than 20 years in entertainment and more than 20 years in corporate work. He builds AI systems for founder-led businesses.",
   url: SITE_URL,
   sameAs: [
     "https://www.linkedin.com/in/audiojones",
@@ -138,6 +146,10 @@ export const aiEntity = {
   knowsAbout: [
     "Founder Intelligence Systems",
     "AI Consulting",
+    "AI Strategy",
+    "Business Operations",
+    "Digital Marketing",
+    "Personal Branding",
     "Marketing Attribution",
     "Signal vs Noise",
     "Business Systems",

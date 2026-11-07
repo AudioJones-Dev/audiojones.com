@@ -33,9 +33,10 @@ export function personJsonLd() {
     "@type": "Person",
     name: aiEntity.name,
     alternateName: aiEntity.legalName,
-    jobTitle: aiEntity.title,
+    jobTitle: aiEntity.jobTitles,
     description: aiEntity.description,
-    url: SITE_URL,
+    image: `${SITE_URL}${aiEntity.image}`,
+    url: `${SITE_URL}/about`,
     sameAs: aiEntity.sameAs,
     knowsAbout: aiEntity.knowsAbout,
     worksFor: {
