@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/Input";
 import { Select } from "@/components/ui/Select";
 import { Textarea } from "@/components/ui/Textarea";
 import { Checkbox } from "@/components/ui/Checkbox";
+import { trackLead } from "@/lib/gtag";
 import {
   applySchema,
   APPLY_OFFERS,
@@ -119,6 +120,7 @@ export default function ApplyForm() {
         setSubmitting(false);
         return;
       }
+      trackLead("apply");
       router.push("/apply/thank-you");
     } catch {
       setSubmitError("Network error. Please try again in a moment.");

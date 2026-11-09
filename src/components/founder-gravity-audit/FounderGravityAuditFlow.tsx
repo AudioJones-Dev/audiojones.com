@@ -12,6 +12,7 @@ import {
   SEGMENT_PREVIEW_COPY,
 } from "@/lib/founder-gravity-audit/content";
 import { scoreFounderGravityAudit } from "@/lib/founder-gravity-audit/scoring";
+import { trackEvent, trackLead } from "@/lib/gtag";
 import type {
   FounderGravityAttribution,
   FounderGravityResult,
@@ -87,6 +88,14 @@ function emitBrowserEvent(event: FunnelEvent) {
   if (typeof window === "undefined") return;
   const win = window as Window & { dataLayer?: Array<Record<string, unknown>> };
   win.dataLayer?.push({ event: `fga_${event.event}`, ...event.metadata });
+  // gtag.js ignores GTM-style dataLayer objects; forward primitives to GA4.
+  const params: Record<string, string | number | boolean> = {};
+  for (const [key, value] of Object.entries(event.metadata ?? {})) {
+    if (["string", "number", "boolean"].includes(typeof value)) {
+      params[key] = value as string | number | boolean;
+    }
+  }
+  trackEvent(`fga_${event.event}`, params);
   window.dispatchEvent(
     new CustomEvent("audiojones:fga_event", {
       detail: event,
@@ -230,6 +239,7 @@ export default function FounderGravityAuditFlow() {
       if (!res.ok || !data.ok || !data.result || !data.leadId) {
         throw new Error(data.message || data.error || "Report request failed.");
       }
+      trackLead("founder_gravity_audit");
 
       const stored: StoredReport = {
         leadId: data.leadId,
