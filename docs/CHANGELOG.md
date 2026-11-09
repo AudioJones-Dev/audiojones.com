@@ -35,6 +35,9 @@ Entries are reverse chronological. Format follows
   `lastModified`; only Sanity posts with a real date carry one.
 
 ### Removed
+- The /blog index redirects to /insights (307, temporary) while it is a
+  placeholder. It is out of the sitemap and the Resources page. Remove the
+  redirect in `next.config.ts` once Sanity has posts; /blog/:slug is untouched.
 - The $1,997 Revenue Leak Assessment is retired. It overlapped the $1,500
   ResponseOS Readiness & Revenue Leak Assessment on responseos.pro. The
   audiojones.com diagnostic ladder is now the free AI Readiness Score and the

@@ -48,6 +48,10 @@ const nextConfig: NextConfig = {
       { source: "/frameworks/applied-intelligence-systems", destination: "/frameworks/founder-intelligence-systems", permanent: true },
       { source: "/insights/applied-intelligence-systems", destination: "/insights/founder-intelligence-systems", permanent: true },
       { source: "/blog/topic/applied-intelligence-systems", destination: "/blog/topic/founder-intelligence-systems", permanent: true },
+      // /blog index is a placeholder until Sanity posts exist; send it to
+      // /insights. Temporary (307) so it can be removed once the blog has
+      // content. /blog/:slug and /blog/topic/* are not redirected.
+      { source: "/blog", destination: "/insights", permanent: false },
     ];
   },
   async headers() {
