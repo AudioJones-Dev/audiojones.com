@@ -7,6 +7,17 @@ import { mainNav } from "@/config/nav";
 // Primary nav imported from canonical source — same array Header consumes.
 const PRIMARY_NAV = mainNav;
 
+// Direct links to content pages that live under Resources in the header, so
+// every page (including home) links to them for crawl discovery.
+const EXPLORE_NAV = [
+  { label: "Services", href: "/services" },
+  { label: "Case Studies", href: "/case-studies" },
+  { label: "Insights", href: "/insights" },
+  { label: "Frameworks", href: "/frameworks" },
+  { label: "Workshops", href: "/workshops" },
+  { label: "Agents", href: "/agents" },
+];
+
 const LEGAL_NAV = [
   { label: "Privacy", href: "/privacy-policy" },
   { label: "Terms", href: "/terms-of-service" },
@@ -29,7 +40,7 @@ export default function Footer() {
       <div className="mx-auto max-w-[1280px] px-5 py-16 sm:px-8 sm:py-20">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
           {/* Brand block — V2 horizontal wordmark with tagline */}
-          <div className="lg:col-span-5">
+          <div className="lg:col-span-4">
             <Link
               href="/"
               className="inline-flex items-center"
@@ -55,7 +66,7 @@ export default function Footer() {
           </div>
 
           {/* Site nav */}
-          <div className="lg:col-span-3">
+          <div className="lg:col-span-2">
             <h3 className="t-label">Site</h3>
             <ul className="mt-5 space-y-3">
               {PRIMARY_NAV.map((item) => (
@@ -77,6 +88,22 @@ export default function Footer() {
                       {item.label}
                     </Link>
                   )}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="lg:col-span-2">
+            <h3 className="t-label">Explore</h3>
+            <ul className="mt-5 space-y-3">
+              {EXPLORE_NAV.map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    className="t-body text-fg-1 transition-colors hover:text-fg-0"
+                  >
+                    {item.label}
+                  </Link>
                 </li>
               ))}
             </ul>
