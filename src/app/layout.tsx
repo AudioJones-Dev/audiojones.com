@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Syne, DM_Sans, DM_Mono } from "next/font/google";
 import "./globals.css";
 import CookieBanner from "@/components/CookieBanner";
+import GoogleAnalytics from "@/components/GoogleAnalytics";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import JaviChatWidget from "@/components/javi/JaviChatWidget";
@@ -86,6 +87,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <main className="min-h-screen overflow-x-clip pt-20">{children}</main>
           <Footer />
           <CookieBanner />
+          <GoogleAnalytics />
           <JaviChatWidget />
         </ToastProvider>
       </body>

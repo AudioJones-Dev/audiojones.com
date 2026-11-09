@@ -4,6 +4,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
+import { COOKIE_CONSENT_EVENT } from "@/components/GoogleAnalytics";
 
 export default function CookieBanner() {
   const [showBanner, setShowBanner] = useState(false);
@@ -17,11 +18,13 @@ export default function CookieBanner() {
 
   const acceptCookies = () => {
     localStorage.setItem("cookie_consent", "true");
+    window.dispatchEvent(new Event(COOKIE_CONSENT_EVENT));
     setShowBanner(false);
   };
 
   const declineCookies = () => {
     localStorage.setItem("cookie_consent", "false");
+    window.dispatchEvent(new Event(COOKIE_CONSENT_EVENT));
     setShowBanner(false);
   };
 
