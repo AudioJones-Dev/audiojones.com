@@ -431,3 +431,35 @@ Three choices the spec left open were resolved as follows:
   client-computes-server-verifies mismatch check. V2 clients send inputs
   only and render what the API returns, so a future provider change cannot
   strand the browser on stale numbers.
+
+---
+
+## 2026-11-09 — Website leads hand off to HubSpot through a Neon outbox
+
+**Status:** accepted by owner ("Neon + HubSpot now"), after a read-only
+Phase 0 inventory of the AJ Digital Architecture Assessment (2026-11-09).
+
+**Decision:** Every lead insert (apply, Founder Intelligence diagnostic,
+Founder Gravity Audit, ROI calculator) also writes a `lead_outbox` row in the
+same SQL statement (`db/migrations/004_lead_outbox.sql`). A dispatcher
+(`src/lib/outbox/dispatcher.ts`) claims due rows with a lease, upserts the
+HubSpot contact by email, adds a note with the submission, and for apply adds
+a "Review application" task. It runs right after each submission and every
+5 minutes from Vercel Cron (`/api/cron/lead-outbox`). No HubSpot deals are
+created; per CRM Canonical Map v1.1 a deal waits for human qualification.
+
+**Rationale:** Phase 0 found no n8n deployment, and AJ Digital OS is not
+deployed (CRM not wired, file-backed store, no lead ingress), so neither can
+receive leads today. HubSpot account 246153462 already exists. The outbox
+closes the "lead saved, hand-off lost" gap the assessment identified,
+without adding a workflow engine or dependency.
+
+**Consequences:**
+- Neon stays the system of record; HubSpot is a projection for follow-up.
+- Delivery is at-least-once. Contacts never duplicate (email upsert); a crash
+  between creating a note/task and saving its id can duplicate that one item.
+- Without `HUBSPOT_ACCESS_TOKEN`, rows wait as `pending` and deliver when the
+  token is set. `LEAD_OUTBOX_DISPATCH=off` pauses sends. After 8 attempts or
+  a non-retryable 4xx, a row becomes `failed` with `last_error`.
+- When AJ Digital OS is production-ready, it can become a second consumer of
+  the same outbox; this does not supersede the CRM map's OS ownership goal.

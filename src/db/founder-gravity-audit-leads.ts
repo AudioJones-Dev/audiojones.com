@@ -1,6 +1,7 @@
 import "server-only";
 import type { FounderGravityAuditLeadSchemaInput } from "@/lib/founder-gravity-audit/schema";
 import type { FounderGravityResult } from "@/lib/founder-gravity-audit/types";
+import { founderGravityAuditHandoff } from "@/lib/outbox/handoff";
 import { getSql } from "./neon";
 
 export type FounderGravityLeadContext = {
@@ -23,8 +24,11 @@ export async function insertFounderGravityAuditLead(
   const resultJson = JSON.stringify(result);
   const attributionJson = JSON.stringify(input.attribution ?? {});
   const eventsJson = JSON.stringify(input.events ?? []);
+  const handoffJson = JSON.stringify(founderGravityAuditHandoff(input, result));
 
+  // One statement: the lead and its outbox hand-off commit together.
   const rows = (await sql`
+    WITH lead AS (
     INSERT INTO founder_gravity_audit_leads (
       email, display_name, entity_name, consent_to_contact, session_id,
       answers, result, segment, gravity_load, confidence_score,
@@ -48,7 +52,13 @@ export async function insertFounderGravityAuditLead(
       ${input.attribution?.utmTerm ?? null}, ${input.attribution?.utmContent ?? null},
       ${ctx.userAgent}, ${ctx.ipHash}
     )
-    RETURNING id::text AS id, created_at AS "createdAt"
+    RETURNING id, created_at
+    ), outbox AS (
+      INSERT INTO lead_outbox (event_key, source, lead_id, payload)
+      SELECT 'founder_gravity_audit:' || id::text, 'founder_gravity_audit', id::text, ${handoffJson}::jsonb
+        FROM lead
+    )
+    SELECT id::text AS id, created_at AS "createdAt" FROM lead
   `) as Array<{ id: string; createdAt: Date | string }>;
 
   const row = rows[0];

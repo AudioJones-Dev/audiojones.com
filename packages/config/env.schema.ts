@@ -26,6 +26,13 @@ export const EnvSchema = z.object({
     .or(z.literal(""))
     .optional(),
 
+  // Lead outbox → HubSpot (src/lib/outbox). Without the token, hand-offs stay
+  // pending and deliver once it is set. LEAD_OUTBOX_DISPATCH=off pauses sends.
+  HUBSPOT_ACCESS_TOKEN: z.string().min(1).optional(),
+  LEAD_OUTBOX_DISPATCH: z.enum(["on", "off"]).optional(),
+  // Vercel Cron bearer secret; /api/cron/lead-outbox refuses to run without it.
+  CRON_SECRET: z.string().min(16).optional(),
+
   // Sanity CMS
   NEXT_PUBLIC_SANITY_PROJECT_ID: z.string().min(1).optional(),
   NEXT_PUBLIC_SANITY_DATASET: z.string().min(1).optional(),

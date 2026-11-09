@@ -1,5 +1,11 @@
 {
   "git": {
     "submodules": true
-  }
+  },
+  "crons": [
+    {
+      "path": "/api/cron/lead-outbox",
+      "schedule": "*/5 * * * *"
+    }
+  ]
 }

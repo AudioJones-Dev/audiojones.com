@@ -17,6 +17,7 @@ import {
 } from "@/lib/roi-calculator/roi-calculator-storage";
 import { calculateRevenueLeakScorecard, resolveScorecardContext } from "@/lib/roi-calculator/scorecard";
 import type { RevenueLeakScorecardResult } from "@/lib/roi-calculator/types";
+import { kickLeadOutbox } from "@/lib/outbox/dispatcher";
 
 export const runtime = "nodejs";
 
@@ -128,6 +129,7 @@ export async function POST(req: NextRequest) {
 
   const submittedAt = new Date().toISOString();
   const leadId = persisted.leadId;
+  if (persisted.provider === "neon") after(kickLeadOutbox);
 
   if (lead.calculationVersion === "v2-geo-economic") {
     if (!scorecard) return errorResponse("PROVIDER_ERROR", "Scorecard calculation did not complete.", 503);

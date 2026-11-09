@@ -128,6 +128,8 @@ const neonAdapter: ApplyAdapter = {
         try {
           const { after } = await import("next/server");
           after(notify);
+          const { kickLeadOutbox } = await import("@/lib/outbox/dispatcher");
+          after(kickLeadOutbox);
         } catch {
           // No request scope — a script or a test calling the adapter
           // directly. Await instead: notifyApplySubmission resolves through

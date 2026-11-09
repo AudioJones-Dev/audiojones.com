@@ -3,6 +3,7 @@ import "server-only";
 import { createHash, randomUUID } from "node:crypto";
 import { neon } from "@neondatabase/serverless";
 import { redactEmail } from "@/lib/logging/redact-email";
+import { roiCalculatorHandoff } from "@/lib/outbox/handoff";
 import type { RoiCalculationVersion } from "./types";
 
 /**
@@ -72,7 +73,10 @@ export async function persistRoiCalculatorLead({ lead, ip, userAgent }: PersistL
   try {
     const sql = neon(databaseUrl);
     const leadId = randomUUID();
+    const handoffJson = JSON.stringify(roiCalculatorHandoff(lead.email, lead.input, lead.result));
+    // One statement: the lead and its outbox hand-off commit together.
     await sql`
+      with lead as (
       insert into roi_calculator_leads (
         id,
         email,
@@ -106,6 +110,11 @@ export async function persistRoiCalculatorLead({ lead, ip, userAgent }: PersistL
         'pending',
         'pending'
       )
+      returning id
+      )
+      insert into lead_outbox (event_key, source, lead_id, payload)
+      select 'roi_calculator:' || id::text, 'roi_calculator', id::text, ${handoffJson}::jsonb
+        from lead
     `;
     return { ok: true, leadId, provider: "neon" };
   } catch (error) {
