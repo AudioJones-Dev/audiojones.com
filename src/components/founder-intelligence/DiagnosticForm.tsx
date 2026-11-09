@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
+import { trackLead } from "@/lib/gtag";
 import {
   AI_USAGE_LEVELS,
   PRIMARY_CONSTRAINTS,
@@ -155,6 +156,7 @@ export default function DiagnosticForm() {
       if (!res.ok || !data.ok) {
         throw new Error(data?.message || data?.error || "Submission failed.");
       }
+      trackLead("founder_intelligence_diagnostic");
       router.push("/founder-intelligence/diagnostic/thank-you");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Submission failed.");

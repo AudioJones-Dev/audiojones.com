@@ -12,6 +12,7 @@ import {
 } from "@/lib/newsletter/newsletter-schema";
 import NewsletterPendingNotice from "./NewsletterPendingNotice";
 import NewsletterSuccess from "./NewsletterSuccess";
+import { trackEvent } from "@/lib/gtag";
 
 type Variant = "default" | "inline";
 
@@ -92,6 +93,7 @@ export default function NewsletterForm({
         setSubmitting(false);
         return;
       }
+      trackEvent("sign_up", { method: "newsletter", source: parsed.data.source });
       setSubmittedEmail(parsed.data.email);
     } catch {
       setError("Network error. Please try again in a moment.");

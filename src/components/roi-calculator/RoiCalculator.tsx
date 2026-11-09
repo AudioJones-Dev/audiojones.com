@@ -14,6 +14,7 @@ import {
 } from "@/lib/roi-calculator/assumptions";
 import { staticLaborBenchmarkProvider } from "@/lib/roi-calculator/labor/benchmark-provider";
 import { getPreset } from "@/lib/roi-calculator/presets";
+import { trackEvent, trackLead } from "@/lib/gtag";
 import { calculateRevenueLeakScorecard, resolveScorecardContextSync } from "@/lib/roi-calculator/scorecard";
 import type {
   LaborScopeEntry,
@@ -123,6 +124,8 @@ function track(event: string, metadata: Record<string, string | number> = {}) {
   if (typeof window === "undefined") return;
   const win = window as Window & { dataLayer?: Array<Record<string, unknown>> };
   win.dataLayer?.push({ event, ...metadata });
+  // gtag.js ignores GTM-style dataLayer objects; send to GA4 directly.
+  trackEvent(event, metadata);
 }
 
 function Field({ label, hint, error, children }: { label: string; hint?: string; error?: string; children: React.ReactNode }) {
@@ -461,6 +464,7 @@ export default function RoiCalculator() {
       // The server's result is authoritative; the preview only guided input.
       setLeadId(body.data.leadId ?? null);
       setResult(body.data.result);
+      trackLead("roi_calculator");
       track("roi_lead_submitted", { confidence: body.data.result.confidenceTier, primaryScenario: body.data.result.primaryLeakageScenario });
       track("roi_result_viewed", { confidence: body.data.result.confidenceTier, geographyTier: body.data.result.geography.tier });
     } catch (error) {
