@@ -15,15 +15,30 @@ export default function GoogleAnalytics() {
 
   useEffect(() => {
     const read = () => {
+      let granted = false;
       try {
-        setConsented(localStorage.getItem("cookie_consent") === "true");
+        granted = localStorage.getItem("cookie_consent") === "true";
       } catch {
-        setConsented(false);
+        granted = false;
       }
+      // Google's documented opt-out flag: stops an already-loaded tag from
+      // sending hits if consent is withdrawn (removing <Script> does not).
+      if (GA_ID) {
+        (window as unknown as Record<string, unknown>)[`ga-disable-${GA_ID}`] = !granted;
+      }
+      setConsented(granted);
+    };
+    // Consent can also change in another tab; same-tab changes use the event.
+    const onStorage = (e: StorageEvent) => {
+      if (e.key === null || e.key === "cookie_consent") read();
     };
     read();
     window.addEventListener(COOKIE_CONSENT_EVENT, read);
-    return () => window.removeEventListener(COOKIE_CONSENT_EVENT, read);
+    window.addEventListener("storage", onStorage);
+    return () => {
+      window.removeEventListener(COOKIE_CONSENT_EVENT, read);
+      window.removeEventListener("storage", onStorage);
+    };
   }, []);
 
   if (!GA_ID || !consented) return null;
