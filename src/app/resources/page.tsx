@@ -8,7 +8,7 @@ import { breadcrumbJsonLd } from "@/lib/seo/schema";
 
 const TITLE = "Resources";
 const DESCRIPTION =
-  "Diagnostics and calculators for founder-led service businesses, plus the Audio Jones library: insights, frameworks, the blog, workshops, and case studies.";
+  "Diagnostics and calculators for founder-led service businesses, plus the Audio Jones library: insights, frameworks, workshops, and case studies.";
 
 // The content library. The interactive tools live in the TOOLS registry
 // (`src/content/tools`) and are rendered above this — a diagnostic that
@@ -26,12 +26,6 @@ const RESOURCES = [
     href: "/frameworks",
     description:
       "The working IP: Founder Intelligence Systems, M.A.P. (Meaningful. Actionable. Profitable.), N.I.C.H.E, and Signal vs Noise.",
-  },
-  {
-    title: "Blog",
-    href: "/blog",
-    description:
-      "Founder Intelligence, signal systems, and AI-readiness, organized into topic clusters.",
   },
   {
     title: "Workshops",

@@ -32,7 +32,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${base}/apply`,                             changeFrequency: "monthly", priority: 0.85 },
     { url: `${base}/pricing`,                           changeFrequency: "monthly", priority: 0.85 },
     { url: `${base}/frameworks`,                        changeFrequency: "monthly", priority: 0.8  },
-    { url: `${base}/blog`,                              changeFrequency: "weekly",  priority: 0.8  },
     { url: `${base}/about`,                             changeFrequency: "monthly", priority: 0.6  },
   ];
 
@@ -54,7 +53,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // ── Dynamic Sanity blog post routes ──────────────────────────────────────
   // Only fetched when NEXT_PUBLIC_SANITY_PROJECT_ID is configured.
-  // If Sanity is not connected, /blog is still in staticRoutes above — no crash.
+  // If Sanity is not connected, no post URLs are emitted — no crash.
+  // The /blog index redirects to /insights (next.config.ts), so it is not listed.
   let blogPostRoutes: MetadataRoute.Sitemap = [];
   if (process.env.NEXT_PUBLIC_SANITY_PROJECT_ID) {
     try {
