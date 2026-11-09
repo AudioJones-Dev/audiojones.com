@@ -18,6 +18,10 @@ export const EnvSchema = z.object({
   LEAD_NOTIFICATION_EMAIL: z.string().min(1).optional(),
   FROM_EMAIL: z.string().optional(),
 
+  // Google Analytics 4 — public measurement ID (G-XXXXXXXXXX). Loads only
+  // after cookie consent; omit to disable analytics.
+  NEXT_PUBLIC_GA_MEASUREMENT_ID: z.string().regex(/^G-[A-Z0-9]+$/).optional(),
+
   // Sanity CMS
   NEXT_PUBLIC_SANITY_PROJECT_ID: z.string().min(1).optional(),
   NEXT_PUBLIC_SANITY_DATASET: z.string().min(1).optional(),
