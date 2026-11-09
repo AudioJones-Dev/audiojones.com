@@ -50,7 +50,7 @@ export default function GoogleAnalytics() {
         strategy="afterInteractive"
       />
       <Script id="ga4-init" strategy="afterInteractive">
-        {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}window.gtag=gtag;gtag('js',new Date());gtag('config','${GA_ID}');`}
+        {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}window.gtag=gtag;gtag('js',new Date());gtag('config','${GA_ID}');(window.__ajGaQueue||[]).forEach(function(a){gtag.apply(null,a);});window.__ajGaQueue=[];`}
       </Script>
     </>
   );
