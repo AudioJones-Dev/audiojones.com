@@ -1,14 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
+import { rejectUnauthorizedCron } from "@/lib/server/cronAuth";
 
 export async function POST(request: NextRequest) {
   try {
-    // Verify cron secret for security
-    const authHeader = request.headers.get("authorization");
-    const cronSecret = process.env.CRON_SECRET || "default-cron-secret";
-    
-    if (authHeader !== `Bearer ${cronSecret}`) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
+    const rejected = rejectUnauthorizedCron(request);
+    if (rejected) return rejected;
 
     console.log("Starting monitoring cron job...");
 
