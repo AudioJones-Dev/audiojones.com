@@ -263,7 +263,7 @@ Clean installs of every version tested build successfully. See #219.
 
 ## 2026-09-08 — audiojones.com DECISIONS.md is the register of record for commercial pricing
 
-**Status:** accepted
+**Status:** superseded by 2026-11-09 — The Airtable Offer Matrix is the commercial pricing authority
 
 **Decision:** This file is the register of record for commercial pricing and
 offer decisions across AJ Digital properties. The AJ Digital Master Pricing
@@ -463,3 +463,43 @@ without adding a workflow engine or dependency.
   a non-retryable 4xx, a row becomes `failed` with `last_error`.
 - When AJ Digital OS is production-ready, it can become a second consumer of
   the same outbox; this does not supersede the CRM map's OS ownership goal.
+
+## 2026-11-09 — The Airtable Offer Matrix is the commercial pricing authority
+
+**Status:** accepted by owner ("ok proceed", 2026-11-09), after a read-only
+commercial offer audit found three systems claiming pricing authority.
+Supersedes 2026-09-08 — audiojones.com DECISIONS.md is the register of record
+for commercial pricing.
+
+**Decision:** The Airtable base "AJ Digital Offer Matrix" is the single
+authority for offers, prices, evidence status and public visibility. This
+file records *why* commercial decisions were made, each entry citing the
+Airtable Commercial Change Log ID. The `aj-digital-revops` Master Pricing
+Matrix becomes a read-only snapshot. `src/content/offers.ts` is a downstream
+projection: it may show only offers whose Airtable Public Visibility is
+Public, at the Airtable public anchor.
+
+**Context:** Airtable designated itself canonical on 2026-09-19
+(CHG-2026-09-19-004) and has fed the HubSpot product library since
+2026-09-20 (CHG-2026-09-20-006), but this repository never recorded that.
+Meanwhile this file and the revops matrix still claimed the role, and
+`offers.ts` published prices for offers Airtable marks Sales-only or does not
+contain. Airtable already holds what a catalog needs (visibility, evidence
+strength, pricing status, setup and monthly ranges, offer relationships,
+approvals); this file and the matrix are prose.
+
+**Consequences:**
+- A price or visibility change is made in Airtable first, with a Change Log
+  entry, then projected here through a reviewed PR. Neither the site nor
+  HubSpot changes prices on its own.
+- The site reads a committed snapshot, never Airtable at request time, so
+  prices stay under PR review and the site keeps working if Airtable is down.
+  Building that snapshot is separate, approved work; until then `offers.ts`
+  is edited by hand to match Airtable.
+- Today `offers.ts` does not match: only the free AI Readiness Score maps to a
+  Public Airtable offer (R0). Each remaining offer needs an owner decision —
+  mark it Public in Airtable, or show it as scoped / application-only on the
+  site. Until decided, the current site copy stands; nothing is unpublished
+  by this entry.
+- The crosswalk (`docs/strategy/OFFER-CROSSWALK.md`) now maps `offers.ts` to
+  Airtable Offer IDs; open conflicts C-1 to C-3 are resolved in Airtable.

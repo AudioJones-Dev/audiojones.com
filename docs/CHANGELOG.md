@@ -86,6 +86,10 @@ Entries are reverse chronological. Format follows
   `BENCHMARK_VERSION` bump is validated before either generated file is written.
 
 ### Docs
+- The Airtable "AJ Digital Offer Matrix" is now recorded as the commercial
+  pricing authority (DECISIONS.md, 2026-11-09), superseding the 2026-09-08
+  entry. `docs/strategy/OFFER-CROSSWALK.md` now maps each `offers.ts` record
+  to its Airtable offer and lists the six still open. No price or page changed.
 - A fourth entry separates the data-lifecycle commitments — 30-day notice, export
   survival through termination for cause or nonpayment, and 30-day retention then
   deletion — from the 12-month term entry, so that accepting a billing commitment

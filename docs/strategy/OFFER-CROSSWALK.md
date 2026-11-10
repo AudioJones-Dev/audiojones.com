@@ -1,50 +1,52 @@
 ---
-title: AJ Digital — Offer Crosswalk (pointer)
-status: pointer — the crosswalk itself lives in aj-digital-revops
-date: 2026-09-09
-supersedes: the full crosswalk previously at this path (merged in #240)
+title: AJ Digital — Offer Crosswalk (website → Airtable)
+status: active — maps src/content/offers.ts to the Airtable Offer Matrix
+date: 2026-11-09
+supersedes: the 2026-09-09 pointer to aj-digital-revops (see DECISIONS.md, 2026-11-09)
 ---
 
-# Offer crosswalk — pointer
+# Offer crosswalk — website → Airtable
 
-The crosswalk mapping this repository's public offer registry to the AJ Digital
-Master Pricing Matrix is maintained in the RevOps repository:
+The commercial authority is the Airtable base **"AJ Digital Offer Matrix"**
+(DECISIONS.md, 2026-11-09). This file maps each record in
+`src/content/offers.ts` to its Airtable offer so the two can be compared. The
+earlier crosswalk in `aj-digital-revops/docs/commercial/offer-crosswalk-2026-09-08.md`
+is a historical snapshot.
 
-> `aj-digital-revops` → `docs/commercial/offer-crosswalk-2026-09-08.md`
+## Rules
 
-## Why it moved
+- Prices and visibility change in Airtable first, with a Commercial Change Log
+  entry, and reach `offers.ts` through a reviewed PR.
+- Adding, removing or repricing an offer in `offers.ts` updates this table in
+  the same change.
+- The site may show an offer's price only when its Airtable Public Visibility
+  is **Public**, and then only the Airtable public anchor.
+- A mismatch is recorded below as an open item, never fixed by a silent edit
+  on one side.
 
-A full crosswalk was merged at this path in #240. Work resolving the same
-problem was already underway in `aj-digital-revops`, unknown to that PR, and had
-gone further: it is built on **Master Pricing Matrix v1.3**, which propagates the
-2026-07-31 ResponseOS decision into the matrix and retires the three productized
-tiers. It also draws the distinction the website copy missed — the matrix has
-sellable engagements *and* delivery components (A, BM, AR and D series), and a
-component absent from the website is not a gap, because components are never
-sold individually.
+## Map (as of 2026-11-09)
 
-Keeping both would have produced exactly the drift the crosswalk exists to
-prevent, so the RevOps document is canonical and this file is the pointer. Three
-things from the website-side audit were folded into it: the mapping rule, a
-correction to conflict C-2, and a scope-limits section.
+| `offers.ts` id | Site price | Airtable offer | Airtable visibility | Status |
+| --- | --- | --- | --- | --- |
+| `ai-readiness-score` | Free | R0 Online AI Readiness Assessment | Public | Aligned |
+| `rekonr-revenue-recovery-diagnostic` | From $3,500 | R2 ReKonr Revenue Leak Diagnostic (pilot $2.5k–$3.5k, standard $4.5k–$6.5k) | Sales-only | **Open** — visibility and name |
+| `team-ai-readiness-workshop` | From $2,500 | none | — | **Open** — add to Airtable or retire |
+| `founder-intelligence-system` | From $15,000 | BM-C Core AI-Ready Business Knowledge System, or BM-RAG (conflict C-2) | Sales-only / Internal | **Open** — mapping and visibility |
+| `managed-intelligence` | From $2,500/month | M5 Managed Business Memory, M8 or M9 (conflict C-3) | Sales-only | **Open** — mapping and visibility |
+| `worksie-reference-pilot` | Application only | none | — | **Open** — add to Airtable or retire |
+| `strategic-partnership` | Application only | none (nearest M8 / M10) | — | **Open** — mapping |
 
-## What it means from this side
+ResponseOS is sold on responseos.pro and is not in `offers.ts`; its Airtable
+records are AR-PILOT, AR-CORE, AR-CUSTOM, M6 and R6.
 
-`src/content/offers.ts` is the website half of that map. Two rules follow:
+Delivery components (the A, BM, AR and D series) are never sold individually,
+so a component missing from the website is not a gap.
 
-- Adding, removing or repricing an offer in `offers.ts` requires the
-  corresponding row in the crosswalk **in the same change**.
-- A divergence between the two sides is recorded as a `C-` conflict entry in the
-  crosswalk, never resolved by a silent edit on one side.
+## Open conflicts carried over
 
-The ten records in `offers.ts` still carry `evidenceStatus: "unratified"`. The
-crosswalk's open conflicts — the ReKonr anchor, the Founder Intelligence mapping
-and floor, the Managed Intelligence mapping, the R1/R2 collapse, and the homeless
-`revenue-leak-assessment` — are commercial decisions, and populating the
-`family`, `evidenceStatus` and `displayConvention` fields is downstream of them.
+- **C-1** ReKonr: a diagnostic (R2) on the site, "ReKonr OS" in `/ecosystem`
+  and the SOP.
+- **C-2** Founder Intelligence System collapses two matrix offers.
+- **C-3** Managed Intelligence has no settled managed-service mapping.
 
-## Register of record
-
-For commercial pricing and offer decisions, the register of record is this
-repository's [`docs/DECISIONS.md`](../DECISIONS.md). The RevOps decision register
-covers HubSpot catalog provisioning only and claims no authority over pricing.
+These are decided in Airtable and then reflected here and in `offers.ts`.
