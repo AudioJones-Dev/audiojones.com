@@ -115,24 +115,33 @@ and is safe to commit.
    the same change.
 3. Remove from Vercel scopes after the deploy is live.
 
-### 3.5 MailerLite (newsletter + Whop buyer groups)
+### 3.5 Resend newsletter
 
-| Env var                | Purpose |
-| ---------------------- | ------- |
-| `MAILERLITE_TOKEN`     | API token (MailerLite → Integrations → MailerLite API). `MAILERLITE_API_KEY` is read as a fallback name. |
-| `MAILERLITE_GROUP_ID`  | Optional. Numeric id of an existing group for newsletter signups. Unset, they join **Website newsletter**, created on the first signup. |
+| Env var                         | Purpose |
+| ------------------------------- | ------- |
+| `RESEND_API_KEY`                | Server-only Resend API key shared with transactional email. |
+| `RESEND_NEWSLETTER_SEGMENT_ID`  | Audio Jones newsletter segment UUID. |
+| `RESEND_NEWSLETTER_TOPIC_ID`    | Explicit newsletter subscription-topic UUID. |
+| `RESEND_NEWSLETTER_WELCOME_TEMPLATE_ID` | Published Resend template for the immediate welcome email. |
+| `NEWSLETTER_PROVIDER`           | Set to `resend` on configured deployments or `mock` for deliberate local/Preview simulation. |
 
-With a token set, the footer form (`POST /api/newsletter`) subscribes
-live. The "Website newsletter" group is found by exact name, so if you
-rename it in MailerLite, set `MAILERLITE_GROUP_ID` to its id first or a new
-group with the old name will be created on the next signup. In production, a missing token or a MailerLite error returns an
-error to the visitor rather than a false "subscribed". Whop purchases
-join the MailerLite group named by `mailerliteTag` in
-`src/config/automation-mappings.json`; the group is created on first use.
+`POST /api/newsletter` creates or updates the Resend contact, ensures the
+segment membership, explicitly opts the contact into the newsletter topic,
+and sends the welcome template only when the contact newly joins the segment.
+Existing global unsubscribes and explicit topic opt-outs are preserved.
+The send uses `audiojones-welcome/<contact-id>` as its Resend idempotency key,
+so concurrent form submissions cannot deliver duplicate welcome emails during
+Resend's idempotency window.
+Production never falls back to mock. Contact failures are returned to the
+visitor; a downstream welcome-email failure is logged after the subscriber
+and consent state are durable.
 
-To confirm the token after setting it: `GET /api/integrations/mailerlite`
-returns `hasToken: true`, and `pnpm verify:integrations`
-authenticates against the API.
+### 3.6 MailerLite migration boundary
+
+MailerLite is no longer the canonical newsletter provider. Its token and group
+helpers remain temporarily for the legacy Whop buyer-group paths. Do not remove
+those credentials until the Whop lifecycle integration has been migrated and
+validated separately.
 
 ---
 
