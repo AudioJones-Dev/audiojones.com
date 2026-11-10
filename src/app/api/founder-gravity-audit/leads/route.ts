@@ -5,6 +5,7 @@ import { ZodError } from "zod";
 import { notifyFounderGravityAuditLead } from "@/lib/founder-gravity-audit/notifications";
 import { scoreFounderGravityAudit } from "@/lib/founder-gravity-audit/scoring";
 import { founderGravityAuditLeadSchema } from "@/lib/founder-gravity-audit/schema";
+import { kickLeadOutbox } from "@/lib/outbox/dispatcher";
 import {
   hashFounderGravityIp,
   persistFounderGravityAuditLead,
@@ -96,6 +97,7 @@ export async function POST(req: NextRequest) {
         result,
       }),
     );
+    after(kickLeadOutbox);
 
     return NextResponse.json({
       ok: true,

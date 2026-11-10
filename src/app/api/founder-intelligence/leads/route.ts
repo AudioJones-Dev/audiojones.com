@@ -9,6 +9,7 @@ import {
   persistFounderIntelligenceLead,
 } from "@/lib/leads/lead-storage";
 import { notifyFounderIntelligenceLead } from "@/lib/leads/lead-notifications";
+import { kickLeadOutbox } from "@/lib/outbox/dispatcher";
 
 // Crude in-memory rate limiter — sufficient to slow obvious abuse on a single
 // edge node. Cluster-wide protection should sit at the edge (Vercel WAF / CF).
@@ -92,6 +93,7 @@ export async function POST(req: NextRequest) {
         scores,
       }),
     );
+    after(kickLeadOutbox);
 
     return NextResponse.json({
       ok: true,

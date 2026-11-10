@@ -16,6 +16,9 @@ Entries are reverse chronological. Format follows
 ## Unreleased
 
 ### Added
+- Website leads now hand off to HubSpot through a Neon `lead_outbox`
+  (migration 004) with retries and a 5-minute Vercel Cron. See DECISIONS
+  2026-11-09.
 - /case-studies leads with the first real client result, Florida Ramp & Lift
   (5+ quote requests a month going unanswered, fixed by a transcribed business
   line that logs every call in the CRM and sends follow-up emails). The three example workflows stay below it, labeled as

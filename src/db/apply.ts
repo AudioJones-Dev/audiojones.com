@@ -12,6 +12,7 @@
 import "server-only";
 import type { ApplyInput } from "@/lib/apply/apply-schema";
 import { toApplyRow, type ApplyRowContext } from "@/lib/apply/apply-row";
+import { applyHandoff } from "@/lib/outbox/handoff";
 import { getSql } from "./neon";
 import type { StoredLead } from "./leads";
 
@@ -29,7 +30,11 @@ export async function insertApplySubmission(
   // application form does not collect, and inventing a second scoring model
   // here would put unearned numbers in the triage columns. They keep their
   // schema defaults until a scoring model for this shape is agreed.
+  const handoffJson = JSON.stringify(applyHandoff(row));
+
+  // One statement: the application and its outbox hand-off commit together.
   const rows = (await sql`
+    WITH lead AS (
     INSERT INTO applied_intelligence_leads (
       first_name, last_name, email, phone, company_name, website, role,
       annual_revenue_range, current_growth_stage, primary_constraint, team_size,
@@ -51,7 +56,13 @@ export async function insertApplySubmission(
       ${row.utmTerm}, ${row.utmContent},
       ${row.userAgent}, ${row.ipHash}
     )
-    RETURNING id::text AS id, created_at AS "createdAt"
+    RETURNING id, created_at
+    ), outbox AS (
+      INSERT INTO lead_outbox (event_key, source, lead_id, payload)
+      SELECT 'apply:' || id::text, 'apply', id::text, ${handoffJson}::jsonb
+        FROM lead
+    )
+    SELECT id::text AS id, created_at AS "createdAt" FROM lead
   `) as Array<{ id: string; createdAt: Date | string }>;
 
   const stored = rows[0];

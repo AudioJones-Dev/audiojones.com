@@ -6,6 +6,7 @@
 import "server-only";
 import type { FounderIntelligenceLeadInput } from "@/lib/leads/lead-schema";
 import type { LeadScores } from "@/lib/leads/lead-scoring";
+import { founderIntelligenceHandoff } from "@/lib/outbox/handoff";
 import { getSql } from "./neon";
 
 export type StoredLead = {
@@ -24,8 +25,11 @@ export async function insertFounderIntelligenceLead(
   ctx: LeadContext,
 ): Promise<StoredLead> {
   const sql = getSql();
+  const handoffJson = JSON.stringify(founderIntelligenceHandoff(input, scores));
 
+  // One statement: the lead and its outbox hand-off commit together.
   const rows = (await sql`
+    WITH lead AS (
     INSERT INTO applied_intelligence_leads (
       first_name, last_name, email, phone, company_name, website, role,
       annual_revenue_range, primary_constraint, current_growth_stage,
@@ -66,7 +70,13 @@ export async function insertFounderIntelligenceLead(
       ${input.utmTerm ?? null}, ${input.utmContent ?? null},
       ${ctx.userAgent}, ${ctx.ipHash}
     )
-    RETURNING id::text AS id, created_at AS "createdAt"
+    RETURNING id, created_at
+    ), outbox AS (
+      INSERT INTO lead_outbox (event_key, source, lead_id, payload)
+      SELECT 'founder_intelligence:' || id::text, 'founder_intelligence', id::text, ${handoffJson}::jsonb
+        FROM lead
+    )
+    SELECT id::text AS id, created_at AS "createdAt" FROM lead
   `) as Array<{ id: string; createdAt: Date | string }>;
 
   const row = rows[0];
