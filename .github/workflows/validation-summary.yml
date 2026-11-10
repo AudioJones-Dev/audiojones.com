@@ -255,7 +255,7 @@ jobs:
             }
 
             let nextAction = 'none';
-            let nextActionReason = 'All checks green; ready for review or merge.';
+            let nextActionReason = 'All checks green; ready for independent review. Human merge remains gated on current-head review and validation.';
 
             if (isPending) {
               nextAction = 'none';

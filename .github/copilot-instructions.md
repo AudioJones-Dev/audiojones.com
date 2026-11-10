@@ -153,3 +153,9 @@ no skipping the Firebase guard).
 Authoritative list: [`docs/archive/MARKETING-IA.md`](../docs/archive/MARKETING-IA.md) and
 `src/config/nav.ts`. Do not rename a route without a redirect plan and
 explicit approval.
+
+## Review and merge authority
+
+Follow the independent-review and human-only merge policy in root `AGENTS.md`.
+Declare actual authoring tools, retain current-SHA review evidence and leave all
+merge execution to the human. Copilot self-review does not establish independence.
