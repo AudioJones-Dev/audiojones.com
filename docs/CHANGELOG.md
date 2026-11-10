@@ -144,10 +144,10 @@ Entries are reverse chronological. Format follows
   `roi-calculator-assumptions` suite.
 
 ### Security
-- The `/api/cron/*` routes no longer accept the guessable
-  `default-cron-secret` fallback. All of them, the lead outbox included, share
+- The `/api/cron/*` routes no longer accept a guessable fallback credential
+  when `CRON_SECRET` is unset. All of them, the lead outbox included, share
   `rejectUnauthorizedCron` (`src/lib/server/cronAuth.ts`), which refuses every
-  request when `CRON_SECRET` is unset. The unauthenticated `/api/n8n/execute`
+  request when `CRON_SECRET` is unset and compares the bearer in constant time. The unauthenticated `/api/n8n/execute`
   route and its unused client helper are deleted; n8n runs nowhere today.
 - Closed the 11 remaining high-severity advisories in the production
   dependency tree with scoped `overrides` in `pnpm-workspace.yaml`.
