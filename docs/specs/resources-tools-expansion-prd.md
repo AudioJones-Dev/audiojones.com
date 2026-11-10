@@ -37,7 +37,7 @@ and assumption-disclosure pass on the existing ROI calculator, lead capture and
 result storage for each, and offer-routing rules.
 
 **Out of scope:** rebuilding the AI Readiness Diagnostic instrument; changing
-commercial pricing (DECISIONS.md is the register of record); any Firebase
+commercial pricing (the Airtable Offer Matrix is the authority; see DECISIONS.md); any Firebase
 reintroduction (`pnpm check:no-firebase` is the bright line).
 
 ---
